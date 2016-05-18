@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const realpathSync = require('fs').realpathSync;
+const help = () => {
+  console.log(
+    "Available commands:\n" +
+    "  run   - start Eri's\n" +
+    "  setup - run Eri's installer\n\n" +
+    "Usage:\n" +
+    "  eri <command>\n"
+  );
+};
+
+var argv = process.argv.slice(2)[0] || 'run';
+
+if (argv === '--version' || argv === '-v') argv = 'version';
+if (argv === '--help' || argv === '-h') argv = 'help';
+
+switch (argv) {
+  case 'run':
+    require(realpathSync(__dirname + '/../'));
+    break;
+  case 'setup':
+    require(realpathSync(__dirname + '/../setup'));
+    break;
+  case 'version':
+    console.log(
+      `It's Eri v${require('../package.json').version}!`
+    );
+    break;
+  case 'help':
+    help();
+    break;
+  default:
+    console.log("\nUnknown command.\n\n");
+    help();
+}

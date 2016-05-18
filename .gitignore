@@ -1,0 +1,17 @@
+controller
+core
+model
+node_modules
+configs/user.yaml
+configs/user.yml
+themes/**/public/assets
+frontend/gulp-runtime
+frontend/vendor
+npm-debug.log
+.DS_Store
+index.js
+*.rdb
+
+!src/controller
+!src/core
+!src/model

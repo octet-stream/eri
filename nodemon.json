@@ -1,0 +1,13 @@
+{
+  "ignore": [
+    "gulpfile.coffee",
+    ".gitignore",
+    ".npmignore",
+    "package.json",
+    ".git",
+    "src",
+    "node_modules",
+    "frontend",
+    "public"
+  ]
+}

@@ -1,0 +1,11 @@
+app:
+  name: Eri's Blog
+  credits: Eri
+  host: localhost
+  port: 3219
+  theme: eri
+  workers: 0
+session:
+  secret: null # This value is required!
+  prefix: eri.
+  sessidName: usess

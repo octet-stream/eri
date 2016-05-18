@@ -1,0 +1,9 @@
+{
+  "name": "eri",
+  "dependencies": {
+    "vue": "^1.0.24",
+    "codemirror": "^5.14.2",
+    "moment": "^2.13.0",
+    "normalize.styl": "^3.0.3"
+  }
+}
