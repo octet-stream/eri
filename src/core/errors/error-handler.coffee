@@ -4,7 +4,7 @@
 
 handle = (err) ->
   console.log err.status
-  @body = 'foo'
+  @body = 'Something\'s broke'
 
 errorHandler = (next) ->
   try

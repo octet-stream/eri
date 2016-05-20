@@ -26,8 +26,8 @@ rupture = require 'rupture' # Breakpoint system
 theme or= 'eri'
 
 # Dirs
-COFFEE_SRC = "#{__dirname}/frontend/#{theme}/coffee/*.iced"
-STYLUS_SRC_DIR = "#{__dirname}/frontend/#{theme}/stylus"
+COFFEE_SRC = "#{__dirname}/themes/#{theme}/src/coffee/*.iced"
+STYLUS_SRC_DIR = "#{__dirname}/themes/#{theme}/src/stylus"
 STYLUS_SRC = [
   "#{STYLUS_SRC_DIR}/common/common.styl"
   "#{STYLUS_SRC_DIR}/error/*.styl"
@@ -36,7 +36,7 @@ STYLUS_SRC = [
 ###
 # Destination dirs
 ###
-COFFEE_TMP = "#{__dirname}/frontend/gulp-tmp/#{theme}"
+COFFEE_TMP = "#{__dirname}/themes/#{theme}/src/gulp-tmp/#{theme}"
 COFFEE_DEST = "#{__dirname}/themes/#{theme}/public/assets/js"
 STYLUS_DEST = "#{__dirname}/themes/#{theme}/public/assets/css"
 

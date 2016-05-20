@@ -5,8 +5,8 @@ node_modules
 configs/user.yaml
 configs/user.yml
 themes/**/public/assets
-frontend/gulp-runtime
-frontend/vendor
+themes/**/src/vendor
+themes/**/src/gulp-runtime
 npm-debug.log
 .DS_Store
 index.js

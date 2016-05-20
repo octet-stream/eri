@@ -1,5 +1,8 @@
 {
   "name": "eri",
+  "description": "Default theme for Eri",
+  "version": "0.1.0",
+  "license": "MIT",
   "dependencies": {
     "vue": "^1.0.24",
     "codemirror": "^5.14.2",
