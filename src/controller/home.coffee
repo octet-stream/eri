@@ -1,19 +1,9 @@
-actionIndex = ->
-  @status = 200
+actionIndex = (next) ->
   @render 'home/index'
+  yield next
 
-actionAbout = ->
-  @status = 200
-  @body = 'About page'
-
-actionSignin = ->
-  @status = 200
-  @body = 'Login page'
-
-init = (router) ->
-  router
-    .get '/', actionIndex
-    .get '/about', actionAbout
-    .get '/eri', actionSignin
+init = (route) ->
+  route '/'
+    .get actionIndex
 
 module.exports = init

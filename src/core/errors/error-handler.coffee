@@ -3,7 +3,8 @@
 {warn, err} = require '../logger'
 
 handle = (err) ->
-  console.log err.status
+  console.log err.stack
+  @status = err.status
   @body = 'Something\'s broke'
 
 errorHandler = (next) ->

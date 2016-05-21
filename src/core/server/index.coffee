@@ -19,8 +19,7 @@ app.use serve realpathSync "#{__dirname}/../../themes/#{theme}/public"
 app.use logger
 
 # Controller
-app.use do controller.routes
-app.use do controller.allowedMethods
+controller app
 
 # View
 view app

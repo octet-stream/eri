@@ -1,41 +1,48 @@
-Router = require 'koa-router'
+# Router = require 'koa-router'
 requireHelper = require 'require-dir'
 
 {realpathSync} = require 'fs'
 {EventEmitter} = require 'events'
 {isFunction} = require 'lodash'
+{warn} = require '../logger'
+
+NotFoundException = require '../errors/NotFound'
+NotAllwedException = require '../errors/NotAllowed'
 
 CONTROLLERS = realpathSync "#{__dirname}/../../controller"
 
-router = new Router # Create Router instance
-ee = new EventEmitter # Create EventEmitter instance
+# router = new Router # Create Router instance
+router = require 'koa-routing'
 
-actionNotFound = ->
-  @status = 404
-  @body = 'This is not the web page you are looking for'
-  return
+actionNotFound = (next) ->
+  throw new NotFoundException "Page not found on route #{@url}"
+  yield next
 
-actionNotAllowed = ->
-  @status = 405
-  @body = 'Method not allowed'
-  return
+actionNotAllowed = (next) ->
+  throw new NotAllwedException "
+    Unknown method #{@method} on route #{@url}
+  "
+  yield next
 
-controller = ->
+controller = (app) ->
+  # Set router middleware
+  app.use router app
+
   # Require all controllers
   oControllers = requireHelper CONTROLLERS
 
   for __sName, __controller of oControllers
     unless isFunction __controller
-      console.log "Controller \"#{__sName}\" is not a function."
+      warn "Controller \"#{__sName}\" is not a function."
       continue
 
-    __controller router
+    __controller app.route
 
   # Error pages
-  router
-    .get '*', actionNotFound
-    .all '*', actionNotAllowed
+  app.route '*'
+    .get actionNotFound
+    .all actionNotAllowed
 
   return router
 
-module.exports = do controller
+module.exports = controller
