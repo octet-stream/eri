@@ -7,7 +7,7 @@
     ".git",
     "src",
     "node_modules",
-    "frontend",
+    "themes",
     "public"
   ]
 }

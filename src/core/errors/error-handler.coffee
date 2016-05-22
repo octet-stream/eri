@@ -5,7 +5,7 @@
 handle = (err) ->
   console.log err.stack
   @status = err.status
-  @body = 'Something\'s broke'
+  @body = 'Something\'s broke: ' + err.status
 
 errorHandler = (next) ->
   try
