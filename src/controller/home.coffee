@@ -1,3 +1,5 @@
+'use strict'
+
 actionIndex = (next) ->
   @render 'home/index'
   yield next

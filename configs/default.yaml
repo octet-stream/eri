@@ -8,3 +8,11 @@ session:
   secret: null # This value is required!
   prefix: eri.
   sessidName: sid
+database:
+  driver: mysql # mysql or pg
+  host: localhost
+  port: null
+  prefix: totscc_
+  name: eri
+  user: null
+  pass: null

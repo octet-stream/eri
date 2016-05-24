@@ -1,0 +1,26 @@
+button-colored(bc, fc)
+  background bc
+  color fc
+
+button
+  position relative
+  display inline-block
+  overflow hidden
+  user-select none
+  padding 0 2rem
+  cursor pointer
+  text-transform uppercase
+  line-height 36px
+
+.button
+  &-auth
+    width 100%
+    // button-colored((repeating-linear-gradient(
+    //   -45deg,
+    //   eriBgColor,
+    //   eriBgColor 1px,
+    //   eriFontColor 2px,
+    //   eriFontColor 3px
+    // )), white)
+    button-colored(eriFontColor, white)
+    border solid eriFontColor 1px

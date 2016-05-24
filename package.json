@@ -1,9 +1,12 @@
 {
   "name": "eri",
   "codename": "Sherwood Whisper",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Simplest blogging platform",
   "main": "index.js",
+  "bin": {
+    "eri": "bin/eri"
+  },
   "scripts": {
     "eri": "bin/eri",
     "setup": "bin/eri setup",
@@ -42,13 +45,15 @@
     "koa-static": "^2.0.0",
     "lodash": "^4.12.0",
     "moment": "^2.13.0",
-    "mongorito": "^2.0.0",
+    "mysql": "^2.10.2",
     "node-yaml": "^2.0.1",
     "nodemailer": "^2.4.1",
     "passport-local": "^1.0.0",
     "readline-sync": "^1.4.2",
     "redis": "^2.6.0-2",
-    "require-dir": "^0.3.0"
+    "require-dir": "^0.3.0",
+    "sequelize": "^3.23.2",
+    "thunkify": "^2.1.2"
   },
   "devDependencies": {
     "babel-core": "^6.8.0",
@@ -78,5 +83,9 @@
     "vue-hot-reload-api": "^1.3.2",
     "vueify": "^8.4.1",
     "vueify-insert-css": "^1.0.0"
+  },
+  "optionalDependencies": {
+    "pg": "^4.5.5",
+    "sqlite3": "^3.1.4"
   }
 }

@@ -25,20 +25,25 @@ rupture = require 'rupture' # Breakpoint system
 {app: {theme}} = require './core/helpers/configure-helper'
 theme or= 'eri'
 
-# Dirs
-COFFEE_SRC = "#{__dirname}/themes/#{theme}/src/coffee/*.iced"
-STYLUS_SRC_DIR = "#{__dirname}/themes/#{theme}/src/stylus"
+# Theme path
+THEME_PATH = "#{__dirname}/themes/#{theme}"
+
+# Src dirs
+JADE_SRC = "#{THEME_PATH}/views/**/*.jade"
+COFFEE_SRC = "#{THEME_PATH}/src/coffee/*.iced"
+STYLUS_SRC_DIR = "#{THEME_PATH}/src/stylus"
 STYLUS_SRC = [
   "#{STYLUS_SRC_DIR}/common/common.styl"
   "#{STYLUS_SRC_DIR}/error/*.styl"
 ]
 
+
 ###
 # Destination dirs
 ###
-COFFEE_TMP = "#{__dirname}/themes/#{theme}/src/gulp-tmp/#{theme}"
-COFFEE_DEST = "#{__dirname}/themes/#{theme}/public/assets/js"
-STYLUS_DEST = "#{__dirname}/themes/#{theme}/public/assets/css"
+COFFEE_TMP = "#{THEME_PATH}/src/gulp-tmp/"
+COFFEE_DEST = "#{THEME_PATH}/public/assets/js"
+STYLUS_DEST = "#{THEME_PATH}/public/assets/css"
 
 # Is devel task running?
 bIsDevel = no
@@ -66,7 +71,7 @@ errorHandler = (err) ->
 gulp.task 'stylus', ->
   gulp.src STYLUS_SRC
     .pipe plumber errorHandler
-    # .pipe gulpif bIsDevel, newer STYLUS_SRC
+    .pipe gulpif bIsDevel, newer "#{STYLUS_SRC_DIR}/**/*.styl"
     .pipe stylus use: [
       do jeet
       do rupture
@@ -94,18 +99,23 @@ gulp.task 'iced', ['compile:iced'], ->
     insertGlobals: yes
     debug: bIsDevel
   .bundle()
-  .pipe plumber errorHandler
-  .pipe source 'common.js'
+  .on 'error', errorHandler
+  .pipe vinylSource 'common.js'
   .pipe do vinylBuffer
   .pipe gulpif not bIsDevel, do uglify # Optimize JS for production
   .pipe gulp.dest COFFEE_DEST
   .pipe gulpif bIsDevel, do livereload
 
+gulp.task 'refresh', ->
+  gulp.src JADE_SRC, read: no
+    .pipe do livereload
+
 gulp.task 'devel', ->
   bIsDevel = yes
   do livereload.listen
-  gulp.watch STYLUS_SRC, ['stylus']
+  gulp.watch "#{STYLUS_SRC_DIR}/**/*.styl", ['stylus']
   gulp.watch COFFEE_SRC, ['iced']
+  gulp.watch JADE_SRC, ['refresh']
 
 gulp.task 'build', ['stylus', 'iced']
 

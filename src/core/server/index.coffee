@@ -1,5 +1,6 @@
 koa = require 'koa'
 serve = require 'koa-static'
+bodyParser = require 'koa-bodyparser'
 sess = require 'koa-generic-session'
 redisStore = require 'koa-redis'
 csrf = require 'koa-csrf'
@@ -18,6 +19,9 @@ app.keys = [session.secret]
 # Set error handler
 app.use errorHandler
 
+# Bodyparser
+app.use do bodyParser
+
 # Session
 app.use sess
   store: do redisStore
@@ -26,6 +30,11 @@ app.use sess
 
 csrf app
 app.use csrf.middleware
+
+# Passport
+app
+  .use do passport.initialize
+  .use do passport.session
 
 # Serve static files
 app.use serve realpathSync "#{__dirname}/../../themes/#{theme}/public"

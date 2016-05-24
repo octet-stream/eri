@@ -1,0 +1,15 @@
+extends ../layout/layout
+
+block nav
+block content
+  .auth-main-container
+    .auth-form-container
+      .auth-header
+        h3.auth-header-title Registration
+      .auth-form-content
+        form(action="/eri/invite" method="post")
+          input.auth-form-space(type="text" name="invcode" placeholder="Your invitation code…" required)
+          input.auth-form-space(type="text" name="pass" placeholder="Your password…" required)
+          input.auth-form-space(type="text" name="repass" placeholder="Repeat password…" required)
+          input(type="hidden", name="_csrf", value="" + __csrf)
+          button.button-auth Sign up
