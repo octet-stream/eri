@@ -12,6 +12,7 @@ npm-debug.log
 index.js
 *.rdb
 
+!setup/index.js
 !src/controller
 !src/core
 !src/model
