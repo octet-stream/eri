@@ -85,7 +85,7 @@ module.exports = oDatabaseConfig => {
 
     if (bIsForce === false) {
       bCreateSuperUser = question(
-        'Создать аккаунт администратора? (Y/n): '
+        'Create owner account? (Y/n): '
       ) || 'y';
     }
 
