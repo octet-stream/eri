@@ -1,16 +1,18 @@
 'use strict'
 
-{warn, err} = require '../logger'
+{warn, err} = logger = require '../logger'
 
 handle = (err) ->
-  console.log err.stack
-  @status = err.status
+  logger.err err.stack
+  @status = err.status or 500
   @body = 'Something\'s broke: ' + err.status
 
 errorHandler = (next) ->
   try
     yield next
   catch err
-    handle.call @, err
+    handle.call this, err
+
+  return
 
 module.exports = errorHandler
