@@ -23,7 +23,7 @@ module.exports = (oTypes) ->
   lastname:
     type: oTypes.STRING 40
     allowNull: yes
-  about:
+  bio:
     type: oTypes.TEXT
     allowNull: yes
   registeredAt:

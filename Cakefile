@@ -5,22 +5,18 @@
 # @license MIT
 ###
 vfs = require "vinyl-fs"
+ora = do require "ora"
 glob = require "glob"
 pify = require "pify"
 coffee = require "coffee-script"
 rimraf = require "rimraf"
 through = require "through2"
-{dirname} = path = require "path"
+sourcemaps = require "gulp-sourcemaps"
+applySourceMap = require "vinyl-sourcemaps-apply"
+{dirname, extname} = require "path"
+{red, yellow, green, cyan} = require "chalk"
+{cross, tick, pointer, warning, info} = require "figures"
 {realpathSync, statSync, mkdirSync, watch} = require "fs"
-
-COLOR_DEF = "\x1b[0m"
-COLOR_BOLD = "\x1B[0;1m"
-COLOR_RED = "\x1B[0;31m"
-COLOR_GREEN = "\x1B[0;32m"
-COLOR_RESET = "\x1B[0m"
-COLOR_YELLOW = "\x1b[33;01m"
-COLOR_BLUE = "\x1b[34;01m"
-COLOR_CYAN = "\x1b[36;01m"
 
 LOG_NORMAL = 0
 LOG_OK = 1
@@ -29,11 +25,11 @@ LOG_WARN = 3
 LOG_ERR = 4
 
 LOG_MESSAGES = [
-  "#{COLOR_DEF}cake#{COLOR_DEF}"
-  "#{COLOR_GREEN}ok#{COLOR_DEF}"
-  "#{COLOR_CYAN}info#{COLOR_DEF}"
-  "#{COLOR_YELLOW}warn#{COLOR_DEF}"
-  "#{COLOR_RED}err#{COLOR_DEF}"
+  pointer
+  green tick
+  cyan info
+  yellow warning
+  red cross
 ]
 
 # Src dirname
@@ -62,9 +58,9 @@ writeErr = (string) -> process.stderr.write string
 ###
 log = (string, level = 0) ->
   if level in [LOG_NORMAL, LOG_OK, LOG_INFO]
-    write "[#{LOG_MESSAGES[level]}] #{string}\n"
+    write "#{LOG_MESSAGES[level]} #{string}\n"
   else
-    writeErr "[#{LOG_MESSAGES[level]}] #{string}\n"
+    writeErr "#{LOG_MESSAGES[level]} #{string}\n"
 
 ###
 # Handler for errors and SIGINT event
@@ -76,11 +72,17 @@ onProcessExitOrError = (err) ->
     log "Compilation error:", LOG_ERR
     console.error err.stack
     log "Watching for changes...", LOG_ERR if isDevel
-
     process.exit 1 unless isDevel
+    return
+  
+  if isDevel
+    write "\n"
+    log "Done.", LOG_OK
   else
-    log "Done without errors.", LOG_OK
-    process.exit 0
+    ora.text = "Done without errors."
+    do ora.succeed
+
+  process.exit 0
 
 ###
 # Replace .coffee extname to .js
@@ -106,18 +108,27 @@ getDestFilename = (filename) -> replaceExtname filename.replace "src/", ""
 # @param function cb
 ###
 transform = (file, enc, cb) ->
-  log "Compile #{file.path}", LOG_INFO
+  if isDevel
+    log "Compile: #{file.path}"
+  else
+    ora.text = "Compile: #{file.path}"
 
   try
     contents = coffee.compile "#{file.contents}",
       bare: on
       header: off
-      filename: file.path
+      sourceMap: !!isDevel
       sourceRoot: no
+      filename: file.path
       sourceFiles: [file.relative]
       generatedFile: replaceExtname file.relative
 
-    file.contents = Buffer contents
+    if contents and contents.v3SourceMap and isDevel
+      applySourceMap file, contents.v3SourceMap
+      file.contents = new Buffer contents.js
+    else
+      file.contents = Buffer contents
+
     file.path = replaceExtname file.path
 
     cb null, file
@@ -132,8 +143,10 @@ transform = (file, enc, cb) ->
 make = (files) ->
   vfs.src files
     .on "error", onProcessExitOrError
+    .pipe do sourcemaps.init
     .pipe through objectMode: on, transform
     .on "error", onProcessExitOrError
+    .pipe do sourcemaps.write
     .pipe vfs.dest (filename) -> dirname getDestFilename filename.path
     .on "error", onProcessExitOrError
     .on "end",
@@ -167,6 +180,8 @@ watcher = (e, filename) ->
       .then onFulfilled, onProcessExitOrError
 
 task "make", "Build app from the source", ->
+  do ora.start
+
   glob "#{SRC_DIR}/**/*.coffee"
     .then make, onProcessExitOrError
 

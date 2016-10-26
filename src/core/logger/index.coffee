@@ -1,13 +1,12 @@
-'use strict'
+"use strict"
 
-colors = require 'colors'
-moment = require 'moment'
+figures = require "figures"
+chalk = require "chalk"
+moment = require "moment"
 
-{app: {env}} = require '../helpers/configure-helper'
+write = (message) -> process.stdout.write "#{message}\n"
 
-write = (sMessage) -> process.stdout.write "#{sMessage}\n"
-
-writeErr = (sMessage) -> process.stderr.write "#{sMessage}\n"
+writeErr = (message) -> process.stderr.write "#{message}\n"
 
 ###
 # Logging levels
@@ -22,32 +21,29 @@ LOG_ERR = 4
 # Labels
 ###
 LOG_LABELS = [
-  "log"
-  "ok".green
-  "info".cyan
-  "warn".yellow
-  "err".red
+  chalk.white figures.pointer
+  chalk.green figures.tick
+  chalk.cyan figures.info
+  chalk.yellow figures.warning
+  chalk.red figures.cross
 ]
 
-log = (sMessage, iLevel = 0) ->
+log = (message, iLevel = 0) ->
+  mark = chalk.grey (do moment).format "hh:mm:ss"
   if iLevel in [LOG_NORMAL, LOG_OK, LOG_INFO]
-    write "[#{LOG_LABELS[[iLevel]]}] #{sMessage}"
+    write  "[#{mark}] #{LOG_LABELS[[iLevel]]} #{message}"
   else
-    writeErr "[#{LOG_LABELS[[iLevel]]}] #{sMessage}"
+    writeErr "[#{mark}] #{LOG_LABELS[[iLevel]]} #{message}"
 
-normal = (sMessage) -> log sMessage, LOG_NORMAL
+normal = (message) -> log message, LOG_NORMAL
 
-ok = (sMessage) -> log sMessage, LOG_OK
+ok = (message) -> log message, LOG_OK
 
-info = (sMessage) -> log sMessage, LOG_INFO
+info = (message) -> log message, LOG_INFO
 
-warn = (sMessage) -> log sMessage, LOG_WARN
+warn = (message) -> log message, LOG_WARN
 
-err = (sMessage) -> log sMessage, LOG_ERR
-
-logger = (next) ->
-  normal "#{@method} #{@url}"
-  yield next
+err = (message) -> log message, LOG_ERR
 
 module.exports = log
 module.exports.log = log
@@ -56,4 +52,3 @@ module.exports.ok = ok
 module.exports.info = info
 module.exports.warn = warn
 module.exports.err = err
-module.exports.logger = logger

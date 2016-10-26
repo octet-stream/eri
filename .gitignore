@@ -2,6 +2,7 @@ controller
 core
 model
 node_modules
+setup
 configs/user.yaml
 configs/user.yml
 themes/**/public/assets
@@ -12,7 +13,7 @@ npm-debug.log
 index.js
 *.rdb
 
-!setup/index.js
+!src/setup
 !src/controller
 !src/core
 !src/model

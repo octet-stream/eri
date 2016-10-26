@@ -1,10 +1,10 @@
-module.exports = (oTypes) ->
+module.exports = (types) ->
   tagId:
-    type: oTypes.INTEGER
+    type: types.INTEGER
     primaryKey: yes
     autoIncrement: on
     allowNull: no
   name:
-    type: oTypes.STRING
+    type: types.STRING
     allowNull: no
     unique: yes
