@@ -33,6 +33,8 @@ try {
 const commander = require("commander");
 const pify = require("pify");
 const ora = require("ora")();
+const {cross} = require("figures");
+const {red} = require("chalk");
 
 exec = pify(exec);
 
@@ -42,10 +44,14 @@ function onFulfilled() {
   process.exit(0);
 }
 
-function onRejected(err) {
-  ora.text = String(err);
-  ora.fail();
-  console.log(err.stack);
+function onRejected(err, stackTrace = false) {
+  if (stackTrace) {
+    console.log(red(cross), err.stack);
+  } else {
+    ora.text = String(err);
+    ora.fail();
+  }
+
   process.exit(1);
 }
 
@@ -59,7 +65,7 @@ function actionSetup(cmd) {
       ora.stop();
       return require(`${ERI_ROOT}/setup/setup`)(cmd);
     })
-    .then(onFulfilled, onRejected);
+    .then(onFulfilled, err => onRejected(err, cmd.parent.T));
 }
 
 function actionRun() {
@@ -78,14 +84,17 @@ commander
   .command("setup")
   .alias("s")
   .description("Run installer script")
-  .option("--silent, -s", "Run setup script in silent mode")
+  .option("--silent, -s", "run setup script in silent mode")
   .action(actionSetup);
 
 commander
   .command("run")
   .alias("r")
-  .description("Run your Eri app instance")
+  .description("run your Eri app instance")
   .action(actionRun);
+
+commander
+  .option("--stack-trace, -t", "show stack trace on errors");
 
 commander.parse(process.argv);
 
