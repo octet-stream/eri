@@ -1,24 +1,53 @@
-Jade = require 'koa-jade'
+"use strict"
 
-{realpathSync} = require 'fs'
-{app: {name, credits, theme}} = require '../helpers/configure-helper'
-{version, codename} = require '../../package.json'
+{compile} = require "jade"
+{assign, merge} = require "lodash"
 
-theme or= 'eri'
-VIEWS = realpathSync "#{__dirname}/../../themes/#{do theme.toLowerCase}/views"
+{realpathSync, readFileSync} = require "fs"
+{app: {name, credits, theme}, IS_DEVEL} = require "../helper/configure"
+{version, codename} = require "../../package.json"
+
+theme or= "eri"
+VIEWS = realpathSync "#{__dirname}/../../themes/#{theme}/views"
 {NODE_ENV} = process.env
-bIsDevel = unless NODE_ENV is 'production' then yes else no
 
-jade = new Jade
-  viewPath: VIEWS
-  debug: bIsDevel
-  pretty: bIsDevel
-  noCache: bIsDevel
-  locals:
-    name: name
-    credits: credits
-    version: version
-    codename: codename
-    theme: theme
+config = null
 
-module.exports = (app) -> jade.use app
+# Tiny-tiny cache for templates :D
+cache = {}
+
+defaults =
+  views: VIEWS
+  debug: IS_DEVEL
+  cache: not IS_DEVEL
+
+locals =
+  name: name
+  version: version
+  codename: codename
+  theme: theme
+
+compiler = (filename) ->
+  sContent = readFileSync filename
+  compile sContent, assign config, filename: filename
+
+renderer = (filename, opts) ->
+  fn = unless filename of cache
+    __ref = compiler "#{defaults.views}/#{filename}.jade"
+    if config.cache
+      cache[filename] = __ref
+    else
+      __ref
+  else
+    cache[filename]
+
+  @body = fn assign merge({
+    user: @req.user
+    __return: @url
+  }, opts), locals
+
+init = (app, custom = {}) ->
+  config = merge defaults, custom, pretty: no
+  app.context.render = renderer
+
+module.exports = init

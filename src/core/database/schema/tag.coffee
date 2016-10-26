@@ -4,6 +4,7 @@ module.exports = (types) ->
     primaryKey: yes
     autoIncrement: on
     allowNull: no
+    field: "tag_id"
   name:
     type: types.STRING
     allowNull: no

@@ -62,17 +62,22 @@ function actionSetup(cmd) {
 
   exec(`${ERI_ROOT}/node_modules/.bin/cake make`)
     .then(() => {
+      ora.color = "yellow";
+      ora.text = "Build frontend app...";
+      return exec(`${ERI_ROOT}/node_modules/.bin/gulp make`);
+    })
+    .then(() => {
       ora.stop();
       return require(`${ERI_ROOT}/setup/setup`)(cmd);
     })
     .then(onFulfilled, err => onRejected(err, cmd.parent.T));
 }
 
-function actionRun() {
+function actionRun({parent: {T}}) {
   try {
     require(`${ERI_ROOT}/core/server`);
   } catch (err) {
-    onRejected(err);
+    onRejected(err, T);
   }
 }
 

@@ -21,6 +21,15 @@ configure = ->
   defaultConfig = readSync "#{CONFIGS_ROOT}/default"
   config = merge {}, defaultConfig, userConfig
 
+  # Set read-only property IS_DEVEL
+  # Object.defineProperty config, "IS_DEVEL",
+  #   value: do ->
+  #     NODE_ENV = process.env.NODE_ENV or= setEnv config.app.env
+  #     unless NODE_ENV is "production" then yes else no
+  #   writable: no
+  #   enumerable: yes
+  #   configurable: no
+
   config.IS_DEVEL = do ->
       NODE_ENV = process.env.NODE_ENV or= setEnv config.app.env
       unless NODE_ENV is "production" then yes else no

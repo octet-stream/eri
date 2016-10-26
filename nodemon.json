@@ -7,7 +7,9 @@
     ".git",
     "src",
     "node_modules",
-    "themes",
+    "frontend",
     "public"
-  ]
+  ],
+  "ext": "js json yml yaml key cert",
+  "exec": "./bin/eri run --stack-trace"
 }
