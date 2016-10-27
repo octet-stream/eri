@@ -127,7 +127,7 @@ transform = (file, enc, cb) ->
       applySourceMap file, contents.v3SourceMap
       file.contents = new Buffer contents.js
     else
-      file.contents = Buffer contents
+      file.contents = new Buffer contents
 
     file.path = replaceExtname file.path
 

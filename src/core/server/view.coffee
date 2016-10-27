@@ -1,6 +1,6 @@
 "use strict"
 
-{compile} = require "jade"
+{compile} = require "pug"
 {assign, merge} = require "lodash"
 
 {realpathSync, readFileSync} = require "fs"
@@ -33,7 +33,7 @@ compiler = (filename) ->
 
 renderer = (filename, opts) ->
   fn = unless filename of cache
-    __ref = compiler "#{defaults.views}/#{filename}.jade"
+    __ref = compiler "#{defaults.views}/#{filename}.pug"
     if config.cache
       cache[filename] = __ref
     else

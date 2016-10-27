@@ -1,7 +1,7 @@
 "use strict"
 
 actionIndex = (ctx) ->
-  ctx.body = "Hello, I'm Eri!"
+  ctx.render "home/home" 
   await return
 
 init = (r) ->

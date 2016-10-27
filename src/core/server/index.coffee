@@ -22,7 +22,6 @@ logger = require "../middleware/logger"
 {readFileSync, realpathSync} = require "fs"
 {app: {name, port, theme, lang}, session, IS_DEVEL} = config
 PUBLIC_DIR = realpathSync "#{__dirname}/../../themes/#{theme}/public"
-# UPLOADS_DIR = realpathSync "#{__dirname}/../../uploads"
 koa = new Koa
 koa.keys = [session.secret]
 
@@ -41,9 +40,6 @@ koa
   # Serve favicon and static files
   .use favicon "#{PUBLIC_DIR}/img/icns/favicons/ponyfiction-js.ico"
   .use serve PUBLIC_DIR
-
-  # Serve uploads
-  # .use serve UPLOADS_DIR
 
   # Logger middleware for any requests
   .use logger
@@ -81,8 +77,8 @@ normal "
 # Run server
 do ->
   try
-    CERTS = realpathSync "#{__dirname}/../../configs/cert"
     # TODO: Test this code with "Let's encrypt!" certificates.
+    CERTS = realpathSync "#{__dirname}/../../configs/cert"
     options =
       key: readFileSync "#{CERTS}/eri.key"
       cert: readFileSync "#{CERTS}/eri.crt"
