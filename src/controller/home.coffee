@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
-actionIndex = (next) ->
-  @render 'home/index'
-  yield next
+actionIndex = (ctx) ->
+  ctx.render "home/home" 
+  await return
 
-init = (route) ->
-  route '/'
+init = (r) ->
+  r "/"
     .get actionIndex
 
 module.exports = init

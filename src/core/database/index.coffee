@@ -1,14 +1,17 @@
-'use strict'
+"use strict"
 
-{database} = require '../helpers/configure-helper'
+snakecase = require "snake-case"
+{database, IS_DEVEL} = require "../helper/configure"
+{info} = require "../logger"
 
-Sequelize = require 'sequelize'
+Sequelize = require "sequelize"
 sequelize = new Sequelize database.name, database.user, database.pass,
   dialect: database.driver
   host: database.host
   port: database.port
+  logging: if IS_DEVEL then info else off
 
-oTypes =
+types =
   STRING: Sequelize.STRING
   CHAR: Sequelize.CHAR
   TEXT: Sequelize.TEXT
@@ -18,7 +21,7 @@ oTypes =
   REAL: Sequelize.REAL
   DOUBLE: Sequelize.DOUBLE
   DECIMAL: Sequelize.DECIMAL
-  BOOLEAN: Sequelize.BOOLEAN # implemented as tinyint (mysql)? Huh? o_O
+  BOOLEAN: Sequelize.BOOLEAN
   TIME: Sequelize.TIME
   DATE: Sequelize.DATE
   DATEONLY: Sequelize.DATEONLY
@@ -37,11 +40,12 @@ oTypes =
   GEOMETRY: Sequelize.GEOMETRY
   GEOGRAPHY: Sequelize.GEOGRAPHY
 
-init = (sName, schema, oOptions = {}) ->
-  oOptions.timestamps or= off
+main = (name, schema, options = {}) ->
+  options.timestamps or= off
+  options.underscored = yes
 
-  return sequelize.define "#{database.prefix}#{sName}",
-    schema(oTypes),
-    oOptions
+  return sequelize.define snakecase("#{name}"),
+    schema(types),
+    options
 
-module.exports = init
+module.exports = main

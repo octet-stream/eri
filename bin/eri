@@ -1,39 +1,106 @@
 #!/usr/bin/env node
 
-'use strict';
+"use strict";
 
-const realpathSync = require('fs').realpathSync;
-const help = () => {
-  console.log(
-    "Available commands:\n" +
-    "  run   - start Eri's\n" +
-    "  setup - run Eri's installer\n\n" +
-    "Usage:\n" +
-    "  eri <command>\n"
-  );
-};
+const {realpathSync, statSync} = require("fs");
+const ERI_ROOT = realpathSync(`${__dirname}/../`);
 
-var argv = process.argv.slice(2)[0] || 'run';
+var {exec, execSync} = require("child_process");
 
-if (argv === '--version' || argv === '-v') argv = 'version';
-if (argv === '--help' || argv === '-h') argv = 'help';
+const IS_YARN_EXISTS = (function() {
+  try {
+    execSync("which yarn");
+    return true;
+  } catch (err) {
+    return false;
+  }
+})();
 
-switch (argv) {
-  case 'run':
-    require(realpathSync(__dirname + '/../'));
-    break;
-  case 'setup':
-    require(realpathSync(__dirname + '/../setup'));
-    break;
-  case 'version':
-    console.log(
-      `It's Eri v${require('../package.json').version}!`
-    );
-    break;
-  case 'help':
-    help();
-    break;
-  default:
-    console.log("\nUnknown command.\n\n");
-    help();
+process.title = "eri";
+process.chdir(ERI_ROOT);
+
+// Install dependencies if not exists
+try {
+  statSync(`${ERI_ROOT}/node_modules`);
+} catch (err) {
+  if (err.code !== "ENOENT") {
+    throw err;
+  }
+
+  execSync(IS_YARN_EXISTS === true ? "yarn" : "npm i");
 }
+
+const commander = require("commander");
+const pify = require("pify");
+const ora = require("ora")();
+const {cross} = require("figures");
+const {red} = require("chalk");
+
+exec = pify(exec);
+
+function onFulfilled() {
+  ora.text = "Done without errors.";
+  ora.succeed();
+  process.exit(0);
+}
+
+function onRejected(err, stackTrace = false) {
+  if (stackTrace) {
+    console.log(red(cross), err.stack);
+  } else {
+    ora.text = String(err);
+    ora.fail();
+  }
+
+  process.exit(1);
+}
+
+function actionSetup(cmd) {
+  ora.color = "cyan";
+  ora.text = "Build backend app...";
+  ora.start();
+
+  exec(`${ERI_ROOT}/node_modules/.bin/cake make`)
+    .then(() => {
+      ora.color = "yellow";
+      ora.text = "Build frontend app...";
+      return exec(`${ERI_ROOT}/node_modules/.bin/gulp make`);
+    })
+    .then(() => {
+      ora.stop();
+      return require(`${ERI_ROOT}/setup/setup`)(cmd);
+    })
+    .then(onFulfilled, err => onRejected(err, cmd.parent.T));
+}
+
+function actionRun({parent: {T}}) {
+  try {
+    require(`${ERI_ROOT}/core/server`);
+  } catch (err) {
+    onRejected(err, T);
+  }
+}
+
+commander
+  .version(require(`${ERI_ROOT}/package.json`).version)
+  .usage("<command> [options]");
+
+commander
+  .command("setup")
+  .alias("s")
+  .description("Run installer script")
+  .option("--silent, -s", "run setup script in silent mode")
+  .action(actionSetup);
+
+commander
+  .command("run")
+  .alias("r")
+  .description("run your Eri app instance")
+  .action(actionRun);
+
+commander
+  .option("--stack-trace, -t", "show stack trace on errors");
+
+commander.parse(process.argv);
+
+process.on("SIGINT", () => process.exit(0));
