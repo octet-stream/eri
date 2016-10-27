@@ -8,7 +8,7 @@
 {version, codename} = require "../../package.json"
 
 theme or= "eri"
-VIEWS = realpathSync "#{__dirname}/../../themes/#{theme}/views"
+VIEWS = realpathSync "#{__dirname}/../../themes/#{theme}/view"
 {NODE_ENV} = process.env
 
 config = null

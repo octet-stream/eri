@@ -12,8 +12,8 @@ errorHandler = (ctx, next) ->
     ctx.status = status
 
     unless ctx.isXhr
-      ctx.render "errors/http/#{status}",
-        code: status, props: properties or null
+      ctx.render "error/http/#{status}",
+        {status, props: properties or null}
     else
       ctx.body = properties or {message: "Something\"s broke"}
 

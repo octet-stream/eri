@@ -73,11 +73,11 @@ function actionSetup(cmd) {
     .then(onFulfilled, err => onRejected(err, cmd.parent.T));
 }
 
-function actionRun({parent: {T}}) {
+function actionRun(cmd) {
   try {
     require(`${ERI_ROOT}/core/server`);
   } catch (err) {
-    onRejected(err, T);
+    onRejected(err, cmd.parent.T);
   }
 }
 

@@ -1,7 +1,7 @@
 "use strict"
 
 actionIndex = (ctx) ->
-  ctx.render "home/home" 
+  ctx.render "home/home"
   await return
 
 init = (r) ->

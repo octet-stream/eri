@@ -1,0 +1,28 @@
+@import "jeet"
+@import "rupture"
+
+@import "_normalize"
+@import "../common/variables"
+
+body
+  background eriBgColor
+  -webkit-font-smoothing antialiased
+
+.err
+  &-container
+    align(center)
+    width 100%
+    max-width 512px
+    text-align center
+    color #353535
+
+  &-status
+    font-size 390%
+    font-weight 700
+
+  &-message
+    padding 0 0 10px
+
+  &-link a
+    color eriFontColor
+    text-decoration none

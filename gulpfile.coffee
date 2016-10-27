@@ -48,8 +48,6 @@ theme or= "eri"
 THEME_PATH = "#{__dirname}/themes/#{theme}"
 
 # Src dirs
-JADE_SRC = "#{THEME_PATH}/views/**/*.jade"
-
 COFFEE_SRC_DIR = "#{THEME_PATH}/src/coffee"
 COFFEE_SRC = "#{COFFEE_SRC_DIR}/main.coffee"
 CJSX_SRC = "#{COFFEE_SRC_DIR}/**/*.cjsx"
@@ -59,7 +57,7 @@ SVG_SRC = "#{THEME_PATH}/src/svg/**/*.svg"
 STYLUS_SRC_DIR = "#{THEME_PATH}/src/stylus"
 STYLUS_SRC = [
   "#{STYLUS_SRC_DIR}/common/common.styl"
-  "#{STYLUS_SRC_DIR}/errors/*.styl"
+  "#{STYLUS_SRC_DIR}/error/*.styl"
 ]
 
 ###
@@ -189,11 +187,11 @@ gulp.task "svg", ->
 ###
 gulp.task "refresh", ->
   refresh ->
-    gulp.src "#{THEME_PATH}/views/**/*.jade", read: no
-      .pipe newer "#{THEME_PATH}/views/**/*.jade"
+    gulp.src "#{THEME_PATH}/view/**/*.pug", read: no
+      .pipe newer "#{THEME_PATH}/view/**/*.pug"
       .pipe do livereload
 
-  watch "#{THEME_PATH}/views/**/*.jade", refresh if isDevel
+  watch "#{THEME_PATH}/view/**/*.pug", refresh if isDevel
 
 ###
 # Devel task with gulp-watch and livereload
