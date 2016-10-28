@@ -3,12 +3,14 @@ core
 model
 node_modules
 setup
+test
 configs/user.yaml
 configs/user.yml
 themes/**/public/assets
 themes/**/src/vendor
 themes/**/src/gulp-tmp
 npm-debug.log
+yarn-error.log
 .DS_Store
 index.js
 *.rdb
@@ -17,3 +19,4 @@ index.js
 !src/controller
 !src/core
 !src/model
+!src/test

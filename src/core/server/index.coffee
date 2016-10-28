@@ -38,7 +38,7 @@ koa
   .use do compress
 
   # Serve favicon and static files
-  .use favicon "#{PUBLIC_DIR}/img/icns/favicons/ponyfiction-js.ico"
+  # .use favicon "#{PUBLIC_DIR}/img/icns/favicons/ponyfiction-js.ico"
   .use serve PUBLIC_DIR
 
   # Logger middleware for any requests
