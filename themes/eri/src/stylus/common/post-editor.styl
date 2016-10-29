@@ -1,7 +1,33 @@
 .post-editor
+  &-head
+    box-sizing border-box
+    height 46px
+    line-height 46px
+    border-bottom eriFontColor solid 1px
+
+    input
+      border none
+      padding 13px 16px
+      background transparent
+      margin-left 46px
+
   &-area
     cf()
+    border-bottom eriFontColor solid 1px
 
   &-field, &-preview
     width 50%
+    height 100%
+    word-wrap break-word
     box-sizing border-box
+    padding 13px 16px
+
+    img
+      max-width 100%
+
+    .CodeMirror
+      background transparent
+
+  &-field
+    cursor text
+    border-right eriFontColor solid 1px

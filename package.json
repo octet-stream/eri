@@ -107,6 +107,7 @@
     "gulp-watch": "4.3.8",
     "jeet": "6.1.2",
     "jsdom": "9.5.0",
+    "nock": "^9.0.2",
     "normalize.styl": "3.0.3",
     "react": "15.3.2",
     "react-codemirror": "0.2.6",

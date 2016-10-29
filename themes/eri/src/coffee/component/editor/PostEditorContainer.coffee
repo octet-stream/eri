@@ -33,6 +33,9 @@ class PostEditor extends Component
 
   _renderPreview: -> __html: md.render @state.content
 
+  ###
+  # Resize editor on window "resize" event
+  ###
   _resizeEditor: =>
     {width, height} = do winsize
     @setState {width, height}
@@ -59,9 +62,10 @@ class PostEditor extends Component
           className="post-editor-title"
           type="text" name="" value={@state.title}
           placeholder="Title" onChange={@_updateTitle}
+          style={{width: @state.width - 78}}
         />
       </div>
-      <div className="post-editor-area">
+      <div className="post-editor-area" style={{height: @state.height - 92}>
         <div className="post-editor-field fl">
           <Codemirror
             name="content"
