@@ -73,7 +73,7 @@ createSu = (cmd) ->
 
   user = db "user", schemas.user
 
-  {login} = await prompt login: "Type your login for Twi app:"
+  {login} = await prompt login: "Type your login:"
   {email} = await prompt email: "Type your email:"
 
   loop
