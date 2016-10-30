@@ -38,14 +38,11 @@ jeet = require "jeet"
 # Breakpoint system
 rupture = require "rupture"
 
-# Normalize
-# console.log normalize = require "normalize.styl"
-
 {app: {theme}} = require "./core/helper/configure"
 theme or= "eri"
 
 # Theme path
-THEME_PATH = "#{__dirname}/themes/#{theme}"
+THEME_PATH = "#{__dirname}/theme/#{theme}"
 
 # Src dirs
 COFFEE_SRC_DIR = "#{THEME_PATH}/src/coffee"

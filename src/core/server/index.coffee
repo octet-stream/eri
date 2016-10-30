@@ -21,7 +21,7 @@ logger = require "../middleware/logger"
 {ok, info, normal}  = require "../logger"
 {readFileSync, realpathSync} = require "fs"
 {app: {name, port, theme, lang}, session, IS_DEVEL} = config
-PUBLIC_DIR = realpathSync "#{__dirname}/../../themes/#{theme}/public"
+PUBLIC_DIR = realpathSync "#{__dirname}/../../theme/#{theme}/public"
 koa = new Koa
 koa.keys = [session.secret]
 

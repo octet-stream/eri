@@ -11,7 +11,7 @@ junk = require 'junk'
 {t} = i18n = require "../i18n"
 
 PUG_EXT = [".jade", ".pug"]
-EMAIL_TEMPLATES = realpathSync "#{__dirname}/../../themes/#{theme}/views/mail"
+EMAIL_TEMPLATES = realpathSync "#{__dirname}/../../theme/#{theme}/view/mail"
 
 oLocals = {name, host, t}
 
