@@ -1,6 +1,5 @@
 pify = require "pify"
 prompt = require "./helper/prompt"
-# migrate = require "./migrate"
 
 ora = do require "ora"
 {exec} = pify require "child_process"

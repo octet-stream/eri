@@ -60,12 +60,12 @@ class PostEditor extends Component
       <div className="post-editor-head">
         <input
           className="post-editor-title"
-          type="text" name="" value={@state.title}
+          type="text" value={@state.title}
           placeholder="Title" onChange={@_updateTitle}
           style={{width: @state.width - 78}}
         />
       </div>
-      <div className="post-editor-area" style={{height: @state.height - 92}>
+      <div className="post-editor-area" style={height: @state.height - 92}>
         <div className="post-editor-field fl">
           <Codemirror
             name="content"
