@@ -61,11 +61,11 @@ function actionSetup(cmd) {
   ora.start();
 
   exec(`${ERI_ROOT}/node_modules/.bin/cake make`)
-    // .then(() => {
-    //   ora.color = "yellow";
-    //   ora.text = "Build frontend app...";
-    //   return exec(`${ERI_ROOT}/node_modules/.bin/gulp make`);
-    // })
+    .then(() => {
+      ora.color = "yellow";
+      ora.text = "Build frontend app...";
+      return exec(`${ERI_ROOT}/node_modules/.bin/gulp make`);
+    })
     .then(() => {
       ora.stop();
       return require(`${ERI_ROOT}/setup/setup`)(cmd);

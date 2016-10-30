@@ -32,7 +32,7 @@ koa.use (ctx, next) ->
 koa.listen port, ->
   write """
     Registration server started.
-    Please, wisit on of the following links to complete the registration:
+    Please, wisit one of the following links to complete the registration:
     From remote client: #{host}/#{code}
     From localhost: http://localhost:#{port}/#{code}
   """

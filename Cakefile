@@ -7,6 +7,7 @@
 vfs = require "vinyl-fs"
 ora = do require "ora"
 glob = require "glob"
+junk = require "junk"
 pify = require "pify"
 coffee = require "coffee-script"
 rimraf = require "rimraf"
@@ -31,6 +32,8 @@ LOG_MESSAGES = [
   yellow warning
   red cross
 ]
+
+COFFEE_EXTNAMES = [".coffee", ".litcoffee", ".coffee.md"]
 
 # Src dirname
 SRC_DIR = realpathSync "#{__dirname}/src"
@@ -90,7 +93,8 @@ onProcessExitOrError = (err) ->
 # @param string filename
 # @return string
 ###
-replaceExtname = (filename) -> filename.replace /\.(coffee)$/, ".js"
+replaceExtname = (filename) ->
+  filename.replace /\.(coffee|litcoffee|coffee\.md)$/, ".js"
 
 ###
 # Get destination path
@@ -101,13 +105,23 @@ replaceExtname = (filename) -> filename.replace /\.(coffee)$/, ".js"
 getDestFilename = (filename) -> replaceExtname filename.replace "src/", ""
 
 ###
-# Transform source file using modified CoffeeScript compiler
+# Transform source file using modified CoffeeScript compiler,
+# or just copy file to %DEST_DIR% when it isn't CoffeeScript source
 #
 # @param File file
 # @param string enc
 # @param function cb
 ###
 transform = (file, enc, cb) ->
+  return cb null if junk.is file.path
+
+  unless extname(file.path) in COFFEE_EXTNAMES
+    if isDevel then log "Copy: #{file.path}" else ora.text = "
+      Copy: #{file.path}
+    "
+
+    return cb null, file
+
   if isDevel
     log "Compile: #{file.path}"
   else
@@ -117,7 +131,7 @@ transform = (file, enc, cb) ->
     contents = coffee.compile "#{file.contents}",
       bare: on
       header: off
-      sourceMap: !!isDevel
+      sourceMap: isDevel
       sourceRoot: no
       filename: file.path
       sourceFiles: [file.relative]
@@ -143,10 +157,8 @@ transform = (file, enc, cb) ->
 make = (files) ->
   vfs.src files
     .on "error", onProcessExitOrError
-    .pipe do sourcemaps.init
     .pipe through objectMode: on, transform
     .on "error", onProcessExitOrError
-    .pipe do sourcemaps.write
     .pipe vfs.dest (filename) -> dirname getDestFilename filename.path
     .on "error", onProcessExitOrError
     .on "end",
@@ -168,8 +180,7 @@ watcher = (e, filename) ->
 
     return mkdirSync getDestFilename filename if do stat.isDirectory
 
-    __ext = extname filename
-    return make [filename] if __ext in [".coffee", ".litcoffee", ".coffee.md"]
+    return make [filename]
   catch err
     unless err? and err.code is "ENOENT"
       return process.emit "error", err
@@ -182,7 +193,7 @@ watcher = (e, filename) ->
 task "make", "Build app from the source", ->
   do ora.start
 
-  glob "#{SRC_DIR}/**/*.coffee"
+  glob "#{SRC_DIR}/**"
     .then make, onProcessExitOrError
 
 task "watch", "Run Cakefile with watcher", ->

@@ -2,7 +2,7 @@
   "name": "eri",
   "codename": "Sherwood Whisper",
   "version": "0.2.1",
-  "description": "Simplest blogging platform",
+  "description": "Yet another blogging platform",
   "main": "bin/eri",
   "bin": {
     "eri": "bin/eri"
