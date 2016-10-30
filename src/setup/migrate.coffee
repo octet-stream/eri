@@ -47,6 +47,7 @@ spawnMockServer = (stackTrace = no) -> new Promise (resolve, reject) ->
 
   onClose = (code) ->
     if code is 0
+      do ora.stop
       do resolve
     else
       reject new ReferenceError "Process was exit with non-zero code."
