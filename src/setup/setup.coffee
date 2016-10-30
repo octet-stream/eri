@@ -8,7 +8,7 @@ ora = do require "ora"
 QUESTIONS =
   app:
     name: "Your blog name:"
-    host: "Blogt hostname (like http://example.com):"
+    host: "Blog hostname (like http://example.com):"
 
 ###
 # Create user.yaml config
