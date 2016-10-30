@@ -7,15 +7,14 @@ ora = do require "ora"
 
 QUESTIONS =
   app:
-    name: "Your project name:"
-    host: "Project hostname (like http://example.com):"
+    name: "Your blog name:"
+    host: "Blogt hostname (like http://example.com):"
 
 ###
 # Create user.yaml config
 ###
 configure = ->
-  userConfig = await prompt QUESTIONS
-  await write "../configs/user.yaml", userConfig
+  return await write "../configs/user.yaml", await prompt QUESTIONS
 
 ###
 # Create symbolic link if not exists
@@ -28,8 +27,7 @@ link = ->
     process.stdout.write String await exec "npm link"
 
 setup = (cmd) ->
-  unless cmd.S
-    await do configure
+  await do configure if cmd.C
 
   migrate = require "./migrate"
 

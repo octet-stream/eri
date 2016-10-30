@@ -89,7 +89,14 @@ commander
   .command("setup")
   .alias("s")
   .description("Run installer script")
-  .option("--silent, -s", "run setup script in silent mode")
+  .option(
+    "--skip-register, -s",
+    "Skip owner account registration (use it ONLY for CI)"
+  )
+  .option(
+    "--register, -r", "create owner account while installation using console"
+  )
+  .option("--configure, -c", "configure app while installation using console")
   .action(actionSetup);
 
 commander

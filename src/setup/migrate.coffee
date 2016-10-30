@@ -35,7 +35,7 @@ loadSchemas = (notErase = off) ->
 ###
 # Make server for owner registration
 ###
-spawnMockServer = -> new Promise (resolve, reject) ->
+spawnMockServer = (stackTrace = no) -> new Promise (resolve, reject) ->
   onStdout = (message) ->
     log String message
     ora.text = "Waiting..."
@@ -53,7 +53,10 @@ spawnMockServer = -> new Promise (resolve, reject) ->
 
   onError = (err) -> reject err
 
-  spawnedProcess = spawn "node", ["#{__dirname}/server"]
+  args = ["#{__dirname}/server"]
+  args.push "--stack-strace" if stackTrace
+
+  spawnedProcess = spawn "node", args
     .on "close", onClose
     .on "errror", onError
 
@@ -64,8 +67,8 @@ spawnMockServer = -> new Promise (resolve, reject) ->
 ###
 # Create account of owner
 ###
-createSu = (silent = no) ->
-  return await do spawnMockServer if silent
+createSu = (cmd) ->
+  return await spawnMockServer cmd.T unless cmd.R
 
   user = db "user", schemas.user
 
@@ -85,7 +88,7 @@ createSu = (silent = no) ->
     break if password is repass
 
   if (__user = await user.findOne raw: on, logging: no, where: role: 3)?
-    return log "#{cyan info}Owner account is already exists: #{__user.login}"
+    return log "#{cyan info} Owner account is already exists: #{__user.login}"
 
   ora.text = "Creating your account..."
   do ora.start
@@ -104,8 +107,7 @@ migrate = (cmd) ->
   await loadSchemas cmd.E
   do ora.stop
 
-  await createSu cmd.S
-
+  await createSu cmd unless cmd.S
   await return
 
 module.exports = migrate
