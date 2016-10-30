@@ -88,7 +88,7 @@ createSu = (cmd) ->
 
     break if password is repass
 
-  if (__user = await user.findOne raw: on, logging: no, where: role: 3)?
+  if (__user = await user.findOne raw: on, logging: no, where: role: 0)?
     return log "#{cyan info} Owner account is already exists: #{__user.login}"
 
   ora.text = "Creating your account..."
@@ -96,7 +96,7 @@ createSu = (cmd) ->
 
   await user.create {
     login, email, password: await bcrypt.hash password, 10
-    registeredAt: (do moment().format), role: 3, status: 1
+    registeredAt: (do moment().format), role: 0, status: 1
   }, logging: no
 
   await return

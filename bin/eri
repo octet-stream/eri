@@ -27,7 +27,11 @@ try {
     throw err;
   }
 
-  execSync(IS_YARN_EXISTS === true ? "yarn" : "npm i");
+  console.log("Install dependencies before you begin.");
+  console.log("Please, be patient.");
+  execSync((IS_YARN_EXISTS === true ? "yarn" : "npm i"), {
+    stdio: "inherit"
+  });
 }
 
 const commander = require("commander");
