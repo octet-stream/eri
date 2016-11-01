@@ -1,7 +1,19 @@
 .auth
-  &-main-container
+  &-container
     width 100%
+    max-width 512px
     align(center)
+
+  &-header
+    text-align center
+
+  &-restore-link
+    text-align center
+    margin 8px 0
+
+    a
+      color eriFontColor
+      text-decoration none
 
   &-form
     &-container
@@ -18,6 +30,3 @@
       border solid eriFontColor 1px
       &::placeholder
         color eriFontColor
-
-  &-header
-    text-align center

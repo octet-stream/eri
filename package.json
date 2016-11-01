@@ -119,6 +119,7 @@
     "vinyl-buffer": "1.0.0",
     "vinyl-fs": "2.4.4",
     "vinyl-source-stream": "1.1.0",
+    "whatwg-fetch": "1.0.0",
     "yamlify": "0.1.3"
   },
   "optionalDependencies": {

@@ -48,7 +48,7 @@ function onFulfilled() {
   process.exit(0);
 }
 
-function onRejected(err, stackTrace = false) {
+function onError(err, stackTrace = false) {
   if (stackTrace) {
     console.log(red(cross), err.stack);
   } else {
@@ -74,14 +74,14 @@ function actionSetup(cmd) {
       ora.stop();
       return require(`${ERI_ROOT}/setup/setup`)(cmd);
     })
-    .then(onFulfilled, err => onRejected(err, cmd.parent.T));
+    .then(onFulfilled, err => onError(err, cmd.parent.T));
 }
 
 function actionRun(cmd) {
   try {
     require(`${ERI_ROOT}/core/server`);
   } catch (err) {
-    onRejected(err, cmd.parent.T);
+    onError(err, cmd.parent.T);
   }
 }
 

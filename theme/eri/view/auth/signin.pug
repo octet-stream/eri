@@ -1,0 +1,18 @@
+extends ../layout/layout
+
+block content
+  .auth-container
+    .auth-header
+      h2 I know you?
+    .auth-form-container
+      form#auth-signin(method="post")
+        input(type="hidden", name="_csrf", value="" + __csrf)
+        input.auth-form-space(
+          type="text", name="email", placeholder="Enter email here..."
+        )
+        input.auth-form-space(
+          type="password", name="pass", placeholder="Enter your password here..."
+        )
+        button.button-auth Log in
+        .auth-restore-link
+          a(href="/auth/restore") Forgot you password?
