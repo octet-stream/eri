@@ -8,9 +8,9 @@ require "codemirror/addon/edit/closetag"
 Codemirror = require "react-codemirror"
 {Component, PropTypes} = React = require "react"
 
-md = require "helper/md"
-axios = require "helper/axios"
-winsize = require "helper/winsize"
+md = require "helper/wrapper/md"
+axios = require "helper/wrapper/axios"
+winsize = require "helper/dom/winsize"
 
 class PostEditor extends Component
   constructor: ->

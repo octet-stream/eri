@@ -3,6 +3,8 @@
 #
 # @return object
 ###
-module.exports = ->
+docsize = ->
   {documentElement: {offsetWidth, offsetHeight}} = document
   return {width: offsetWidth, height: offsetHeight}
+
+module.exports = docsize
