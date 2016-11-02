@@ -14,7 +14,7 @@ view = require "./view"
 config = require "../helper/configure"
 isXhr = require "../middleware/xhr"
 multipart = require "../middleware/multipart"
-errorHandler = require "../middleware/error-handler"
+errorHandler = require "../middleware/errorHandler"
 logger = require "../middleware/logger"
 
 {default: CSRF} = require "koa-csrf"

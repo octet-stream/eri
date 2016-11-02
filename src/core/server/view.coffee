@@ -1,9 +1,10 @@
 "use strict"
 
 {compile} = require "pug"
-{assign, merge} = require "lodash"
+{merge, isPlainObject} = require "lodash"
 
-{realpathSync, readFileSync} = require "fs"
+{realpathSync} = require "fs"
+{readFile} = require "promise-fs"
 {app: {name, credits, theme}, IS_DEVEL} = require "../helper/configure"
 {version, codename} = require "../../package.json"
 
@@ -13,7 +14,7 @@ VIEWS = realpathSync "#{__dirname}/../../theme/#{theme}/view"
 
 config = null
 
-# Tiny-tiny cache for templates :D
+# Tiny cache for rendered templates :D
 cache = {}
 
 defaults =
@@ -21,19 +22,19 @@ defaults =
   debug: IS_DEVEL
   cache: not IS_DEVEL
 
-locals =
+eri =
   name: name
   version: version
   codename: codename
   theme: theme
 
 compiler = (filename) ->
-  sContent = readFileSync filename
-  compile sContent, assign config, filename: filename
+  content = await readFile filename
+  await return compile content, merge {}, config, filename: filename
 
-renderer = (filename, opts) ->
+render = (filename, values) ->
   fn = unless filename of cache
-    __ref = compiler "#{defaults.views}/#{filename}.pug"
+    __ref = await compiler "#{defaults.views}/#{filename}.pug"
     if config.cache
       cache[filename] = __ref
     else
@@ -41,13 +42,18 @@ renderer = (filename, opts) ->
   else
     cache[filename]
 
-  @body = fn assign merge({
+  values = merge {}, values, {
     user: @req.user
-    __return: @url
-  }, opts), locals
+    eri,
+    sys: {
+      @csrf, @url, @path, rd: @query.rd or "/"
+    }
+  }
+
+  @body = fn values
 
 init = (app, custom = {}) ->
-  config = merge defaults, custom, pretty: no
-  app.context.render = renderer
+  config = merge {}, defaults, custom, pretty: no
+  app.context.render = render
 
 module.exports = init

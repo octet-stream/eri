@@ -1,10 +1,7 @@
 NotFoundException = require "../core/error/NotFound"
 NotAllowedException = require "../core/error/NotAllowed"
 
-actionSignin = (ctx) ->
-  ctx.render "auth/signin", title: "Signin"
-
-  await return
+actionSignin = (ctx) -> await ctx.render "auth/signin", title: "Signin"
 
 actionLogin = (ctx) -> await return
 

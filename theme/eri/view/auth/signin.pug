@@ -5,8 +5,8 @@ block content
     .auth-header
       h2 I know you?
     .auth-form-container
-      form#auth-signin(method="post")
-        input(type="hidden", name="_csrf", value="" + __csrf)
+      form#auth-signin(method="post", url="/signin?rd=" + sys.rd)
+        input(type="hidden", name="_csrf", value="" + sys.csrf)
         input.auth-form-space(
           type="text", name="email", placeholder="Enter email here..."
         )
@@ -15,4 +15,4 @@ block content
         )
         button.button-auth Log in
         .auth-restore-link
-          a(href="/auth/restore") Forgot you password?
+          a(href="/auth/restore") Forgot your password?
