@@ -1,8 +1,4 @@
-actionNew = (ctx) ->
-  ctx.render "post/new",
-    title: "Add new post"
-
-  await return
+actionNew = (ctx) -> await ctx.render "post/new", title: "Add new post"
 
 actionAdd = (ctx) ->
 

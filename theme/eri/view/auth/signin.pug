@@ -8,7 +8,7 @@ block content
       form#auth-signin(method="post", url="/signin?rd=" + sys.rd)
         input(type="hidden", name="_csrf", value="" + sys.csrf)
         input.auth-form-space(
-          type="text", name="email", placeholder="Enter email here..."
+          type="text", name="username", placeholder="Enter email here..."
         )
         input.auth-form-space(
           type="password", name="pass", placeholder="Enter your password here..."

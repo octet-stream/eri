@@ -1,9 +1,23 @@
+user = require "../model/user"
+passport = require "koa-passport"
+{Strategy} = require "passport-local"
+
 NotFoundException = require "../core/error/NotFound"
 NotAllowedException = require "../core/error/NotAllowed"
 
-actionSignin = (ctx) -> await ctx.render "auth/signin", title: "Signin"
+passport.serializeUser (userId, cb) -> cb null, userId
+passport.deserializeUser user.getAuthenticated
 
-actionLogin = (ctx) -> await return
+passport.use new Strategy
+  usernameField: "username"
+  passwordField: "pass",
+  user.signin
+
+actionSignin = (ctx) ->
+  return ctx.redirect "/" if ctx.req.user?
+  await ctx.render "auth/signin", title: "Signin"
+
+actionLogin = (ctx) -> await return ctx.redirect ctx.query.rd or "/"
 
 actionSignup = (ctx) ->
   unless ctx.params.token
@@ -24,7 +38,7 @@ actionRegister = (ctx) ->
 module.exports = (r) ->
   r "/auth/signin"
     .get actionSignin
-    .post actionLogin
+    .post passport.authenticate("local"), actionLogin
 
   r "/auth/signup/:token"
     .get actionSignup
