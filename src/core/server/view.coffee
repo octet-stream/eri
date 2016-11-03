@@ -52,8 +52,8 @@ render = (filename, values) ->
 
   @body = fn values
 
-init = (app, custom = {}) ->
+init = (koa, custom = {}) ->
   config = merge {}, defaults, custom, pretty: no
-  app.context.render = render
+  koa.context.render = render
 
 module.exports = init

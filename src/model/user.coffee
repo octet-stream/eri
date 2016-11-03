@@ -1,8 +1,11 @@
 db = require "../core/database"
 user = db "user", require "../core/database/schema/user"
-
 {isEmail} = require "../core/helper/validation"
 {compare} = require "../core/helper/bcrypt"
+{createClient} = require "then-redis"
+
+# TODO: Don't forget to add configs for redis client
+redis = do createClient
 
 _authenticate = (username, pass) ->
   opts =
@@ -16,6 +19,11 @@ _authenticate = (username, pass) ->
   return null unless compare userData.password, pass
   return userData.userId
 
+signin = (username, pass, cb) ->
+  _authenticate username, pass
+    .then (userId) -> if userId? then cb null, userId else cb null, no
+    .catch (err) -> cb err
+
 getAuthenticated = (userId, cb) ->
   opts =
     raw: yes
@@ -26,11 +34,6 @@ getAuthenticated = (userId, cb) ->
     .asCallback cb
 
   return
-
-signin = (username, pass, cb) ->
-  _authenticate username, pass
-    .then (userId) -> if userId? then cb null, userId else cb null, no
-    .catch (err) -> cb err
 
 module.exports = {
   getAuthenticated

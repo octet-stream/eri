@@ -1,12 +1,12 @@
 actionNew = (ctx) -> await ctx.render "post/new", title: "Add new post"
 
-actionAdd = (ctx) ->
+actionAdd = (ctx) -> await return
 
-actionEdit = (ctx) ->
+actionEdit = (ctx) -> await return
 
-actionUpdate = (ctx) ->
+actionUpdate = (ctx) -> await return
 
-actionRemove = (ctx) ->
+actionRemove = (ctx) -> await return
 
 module.exports = (r) ->
   r "/post/new"
