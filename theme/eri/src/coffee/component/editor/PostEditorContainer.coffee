@@ -5,8 +5,12 @@ require "codemirror/addon/edit/matchbrackets"
 require "codemirror/addon/edit/closebrackets"
 require "codemirror/addon/edit/closetag"
 
-Codemirror = require "react-codemirror"
 {Component, PropTypes} = React = require "react"
+Codemirror = require "react-codemirror"
+Tag = require "component/tag/Tag"
+
+Tabs = require "component/tab/Tabs"
+Tab = require "component/tab/Tab"
 
 md = require "helper/wrapper/md"
 axios = require "helper/wrapper/axios"
@@ -31,8 +35,6 @@ class PostEditor extends Component
 
   _submit: -> # noop?
 
-  _renderPreview: -> __html: md.render @state.content
-
   ###
   # Resize editor on window "resize" event
   ###
@@ -55,6 +57,26 @@ class PostEditor extends Component
 
   _updateContent: (content) => @setState {content}
 
+  _renderPreview: -> __html: md.render @state.content
+
+  _renderEditorField: ->
+    <div className="post-editor-field">
+      <Codemirror
+        name="content"
+        value={@state.content}
+        onChange={@_updateContent}
+        options={
+          mode: "markdown"
+          tabSize: 2
+          lineWrapping: on
+          autoCloseTags: on
+          matchBrackets: on
+          cursorBlinkRate: 0
+          autoCloseBrackets: on
+        }
+      />
+    </div>
+
   render: ->
     <div className="post-editor">
       <div className="post-editor-head">
@@ -66,26 +88,15 @@ class PostEditor extends Component
         />
       </div>
       <div className="post-editor-area" style={height: @state.height - 92}>
-        <div className="post-editor-field fl">
-          <Codemirror
-            name="content"
-            value={@state.content}
-            onChange={@_updateContent}
-            options={
-              mode: "markdown"
-              tabSize: 2
-              lineWrapping: on
-              autoCloseTags: on
-              matchBrackets: on
-              cursorBlinkRate: 0
-              autoCloseBrackets: on
-            }
-          />
-        </div>
-        <div
-          className="post-editor-preview fl"
-          dangerouslySetInnerHTML={do @_renderPreview}
-        ></div>
+        <Tabs height={@state.height - 92}>
+          <Tab title="Editor">{do @_renderEditorField}</Tab>
+          <Tab title="Preview">
+            <div
+              className="post-editor-preview"
+              dangerouslySetInnerHTML={do @_renderPreview}
+            ></div>
+          </Tab>
+        </Tabs>
       </div>
       <div className="post-editor-controls"></div>
     </div>

@@ -1,4 +1,7 @@
 extends ../layout/layout
 
 block content
-  | Hello, I'm Eri!
+  if post
+    div Posts will be here...
+  else
+    include ../layout/no-content
