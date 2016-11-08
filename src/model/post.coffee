@@ -1,7 +1,4 @@
-db = require "../core/database"
-tag = db "tag", require "../core/database/schema/tag"
-post = db "post", require "../core/database/schema/post"
-user = db "user", require "../core/database/schema/user"
+{user, tag, post} = require "../core/server/model"
 
 getMatchedTagsByName = (name) -> (
   await tag.findAll

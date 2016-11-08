@@ -6,9 +6,8 @@ yaml = require "node-yaml"
 junk = require "junk"
 {isEmpty, isBoolean, isFunction} = require "lodash"
 
-{parent} = module
-sParentFile = parent.filename
-sParentDir = path.dirname sParentFile
+PARENT_DIRNAME = path.dirname module.parent.filename
+delete require.cache[__filename]
 
 ###
 # Object of require functions
@@ -28,7 +27,7 @@ normalizePath = (sPath) ->
   aExtensions = Object.keys oExtensions
   sBasename = path.basename sPath
   sDirname = unless path.isAbsolute sPath
-    fs.realpathSync "#{sParentDir}#{path.sep}#{path.dirname sPath}"
+    fs.realpathSync "#{PARENT_DIRNAME}#{path.sep}#{path.dirname sPath}"
   else
     "#{path.dirname sPath}"
   aFilename = fs.readdirSync sDirname

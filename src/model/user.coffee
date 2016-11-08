@@ -1,8 +1,8 @@
-db = require "../core/database"
-user = db "user", require "../core/database/schema/user"
 {isEmail} = require "../core/helper/validation"
 {compare} = require "../core/helper/bcrypt"
 {createClient} = require "then-redis"
+
+{user} = require "../core/server/model"
 
 # TODO: Don't forget to add configs for redis client
 redis = do createClient

@@ -1,5 +1,4 @@
 fs = require "promise-fs"
-db = require "../core/database"
 pify = require "pify"
 redis = require "then-redis"
 moment = require "moment"
@@ -17,7 +16,7 @@ ora = do require "ora"
 {log} = console
 
 ERI_ROOT = realpathSync "#{__dirname}/../"
-schemas = requireHelper "#{ERI_ROOT}/core/database/schema"
+models = require "#{ERI_ROOT}/core/server/model"
 
 ###
 # Load all schemas to database
@@ -27,10 +26,10 @@ schemas = requireHelper "#{ERI_ROOT}/core/database/schema"
 loadSchemas = (notErase = off) ->
   ora.text = "Loading schemas..."
 
-  for own __k, __sch of schemas when isFunction __sch
-    await db(__k, __sch).sync force: not notErase, logging: off
+  for own _, __m of models
+    await __m.sync force: not notErase, logging: off
 
-  await return
+  return
 
 ###
 # Make server for owner registration
@@ -71,7 +70,8 @@ spawnMockServer = (stackTrace = no) -> new Promise (resolve, reject) ->
 createSu = (cmd) ->
   return await spawnMockServer cmd.T unless cmd.R
 
-  user = db "user", schemas.user
+  # user = db "user", schemas.user
+  {user} = models
 
   {login} = await prompt login: "Type your login:"
   {email} = await prompt email: "Type your email:"

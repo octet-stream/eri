@@ -95,7 +95,7 @@ commander
   .description("Run installer script")
   .option(
     "--skip-register, -s",
-    "Skip owner account registration (use it ONLY for CI)"
+    "skip owner account registration (use it ONLY for CI)"
   )
   .option(
     "--register, -r", "create owner account while installation using console"
