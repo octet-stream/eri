@@ -19,4 +19,6 @@ highlight = (string, lang) ->
     console.error err
     return
 
-module.exports = md = new Markdown {breaks: on, linkify: on, highlight}
+module.exports = md = new Markdown {
+  breaks: on, linkify: on, html: off, highlight
+}
