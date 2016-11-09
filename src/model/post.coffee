@@ -1,4 +1,4 @@
-{isEmpty} = require "lodash"
+{isEmpty, isArray} = require "lodash"
 {user, tag, post, postTags} = require "../core/server/model"
 
 NotFoundException = require "../core/error/NotFound"
@@ -44,6 +44,8 @@ getMatchedTagsByName = (name) -> (
 # @param int page
 #
 # @return array
+#
+# @throws NotFoundException
 ###
 getPostsByTagName = (name, page = 1) ->
   unless /^[0-9]+$/.test page
@@ -83,6 +85,17 @@ getPostsByTagName = (name, page = 1) ->
     __post.tags = (__tag["tags.name"] for __tag in postTagsData)
 
   return postsData
+
+###
+# Create new post
+#
+# @param string title
+# @param string content
+# @param string tags
+#
+# @throws BadRequestException
+###
+createPost = (title, content, tags, userId) ->
 
 module.exports = {
   getMatchedTagsByName

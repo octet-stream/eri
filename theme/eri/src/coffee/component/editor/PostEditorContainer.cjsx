@@ -88,7 +88,7 @@ class PostEditor extends Component
         />
       </div>
       <div className="post-editor-area" style={height: @state.height - 92}>
-        <Tabs height={@state.height - 92}>
+        <Tabs width={@state.width} height={@state.height - 92}>
           <Tab title="Editor">{do @_renderEditorField}</Tab>
           <Tab title="Preview">
             <div
