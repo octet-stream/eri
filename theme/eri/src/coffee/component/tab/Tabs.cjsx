@@ -1,7 +1,10 @@
 {Component, PropTypes, cloneElement} = React = require "react"
 
 class Tabs extends Component
-  @propTypes = children: PropTypes.array.isRequired
+  @propTypes =
+    width: PropTypes.number.isRequired
+    height: PropTypes.number.isRequired
+    children: PropTypes.array.isRequired
 
   constructor: -> @state = show: no, active: 0
 
@@ -14,6 +17,9 @@ class Tabs extends Component
   _onClick: ({target: {dataset: {idx}}}) => @setState active: Number idx
 
   _calculateTitleWidth: (len) -> @props.width / len
+
+  _getTabsHeadHeight: ->
+    document.querySelector(".tab-container>.tab-head").offsetHeight
 
   _renderTitles: ->
     width = @_calculateTitleWidth @props.children.length
@@ -34,7 +40,10 @@ class Tabs extends Component
       }
 
   render: ->
-    <div className="tab-container cf" style={height: @props.height or "100%"}>
+    <div
+      className="tab-container cf"
+      style={height: @props.height - do @_getTabsHeadHeight}
+    >
       <div
         className="tab-head cf#{
           if @state.show is on then ' active' else ''
