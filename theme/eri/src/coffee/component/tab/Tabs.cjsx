@@ -1,27 +1,47 @@
-{Component, PropTypes} = React = require "react"
+{Component, PropTypes, cloneElement} = React = require "react"
 
 class Tabs extends Component
   @propTypes = children: PropTypes.array.isRequired
 
-  constructor: ->
-    @state = showTitles: yes
+  constructor: -> @state = show: no, active: 0
+
+  componentWillMount: ->
+    @setState show: if @props.width < 720 then yes else no
 
   componentWillReceiveProps: ({width}) ->
-    @setState showTitles: if width >= 720 then yes else no
+    @setState show: if width < 720 then yes else no
+
+  _onClick: ({target: {dataset: {idx}}}) => @setState active: Number idx
+
+  _calculateTitleWidth: (len) -> @props.width / len
 
   _renderTitles: ->
+    width = @_calculateTitleWidth @props.children.length
     for __tab, __k in @props.children
-      <div key={__k} className="tabs-title">{__tab.props.title}</div>
+      <div
+        key={__k}
+        style={{width}}
+        onClick={@_onClick} data-idx={__k}
+        className="tab-title fl#{if __k is @state.active then ' active' else ''}"
+      >{__tab.props.title}</div>
+
+  _renderTabs: ->
+    width = @_calculateTitleWidth @props.children.length
+    for __tab, __k in @props.children
+      cloneElement __tab, {
+        key: __k, isShowingTitles: @state.show, width
+        isActive: if __k is @state.active then yes else no
+      }
 
   render: ->
-    <div className="tabs-container cf" style={height: @props.height or "100%"}>
+    <div className="tab-container cf" style={height: @props.height or "100%"}>
       <div
-        className="tabs-header#{
-          if @state.showTitles is on then ' active' else ''
+        className="tab-head cf#{
+          if @state.show is on then ' active' else ''
         }"
       >{do @_renderTitles}</div>
-      <div className="tabs-content">
-        {@props.children}
+      <div className="tab-body cf">
+        {do @_renderTabs}
       </div>
     </div>
 
