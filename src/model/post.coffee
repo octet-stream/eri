@@ -28,6 +28,8 @@ userPost = user.belongsTo post, foreignKey: "user_id"
 # @return array
 ###
 getMatchedTagsByName = (name) ->
+  return [] unless name
+
   tagsData = await tag.findAll
     raw: on
     limit: 5
