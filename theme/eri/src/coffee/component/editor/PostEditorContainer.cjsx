@@ -26,6 +26,7 @@ class PostEditor extends Component
       pageInitialTitle: document.title
       title: ""
       content: ""
+      isDraft: no
       tags: []
     }
 
@@ -56,6 +57,8 @@ class PostEditor extends Component
     @setState title: value
 
   _updateContent: (content) => @setState {content}
+
+  _updateTags: (tags) =>
 
   _renderPreview: -> __html: md.render @state.content
 
@@ -98,7 +101,14 @@ class PostEditor extends Component
           </Tab>
         </Tabs>
       </div>
-      <div className="post-editor-controls"></div>
+      <div className="post-editor-controls cf">
+        <div className="fl">
+          <Tag allowCreate selected={@state.tags} onUpdate={@updateTags} />
+        </div>
+        <div className="fl">
+          Buttons will be here.
+        </div>
+      </div>
     </div>
 
 module.exports = PostEditor

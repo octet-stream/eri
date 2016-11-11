@@ -19,7 +19,7 @@ class Tabs extends Component
   _calculateTitleWidth: (len) -> @props.width / len
 
   _getTabsHeadHeight: ->
-    document.querySelector(".tab-container>.tab-head").offsetHeight
+    document.querySelector(".tab-head")?.offsetHeight
 
   _renderTitles: ->
     width = @_calculateTitleWidth @props.children.length
@@ -42,7 +42,7 @@ class Tabs extends Component
   render: ->
     <div
       className="tab-container cf"
-      style={height: @props.height - do @_getTabsHeadHeight}
+      style={height: (@props.height - do @_getTabsHeadHeight) or "100%"}
     >
       <div
         className="tab-head cf#{

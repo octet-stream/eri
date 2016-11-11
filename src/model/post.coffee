@@ -27,15 +27,16 @@ userPost = user.belongsTo post, foreignKey: "user_id"
 #
 # @return array
 ###
-getMatchedTagsByName = (name) -> (
-  await tag.findAll
+getMatchedTagsByName = (name) ->
+  tagsData = await tag.findAll
     raw: on
     limit: 5
     attributes: ["name"]
     where:
       name:
         $like: "%#{decodeURI name}%"
-) ? []
+
+  return if isEmpty tagsData then [] else __tag.name for __tag in tagsData
 
 ###
 # Get posts by tag name
