@@ -4,6 +4,7 @@
 
 const {realpathSync, statSync} = require("fs");
 const ERI_ROOT = realpathSync(`${__dirname}/../`);
+const VERSION = require(`${ERI_ROOT}/package.json`).version;
 
 var {exec, execSync} = require("child_process");
 
@@ -86,7 +87,7 @@ function actionRun(cmd) {
 }
 
 commander
-  .version(require(`${ERI_ROOT}/package.json`).version)
+  .version(VERSION)
   .usage("<command> [options]");
 
 commander

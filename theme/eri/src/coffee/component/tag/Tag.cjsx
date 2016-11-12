@@ -12,11 +12,13 @@ class Tag extends Component
       suggested: []
 
   _getTags: ({target: {value}}) =>
-    return @setState current: "", suggested: [] unless value
+    return @setState showPanel: no, current: "", suggested: [] unless value
 
     onResponsed = (res) -> do res.json
 
-    onFullfiled = (suggested) => @setState {current: value, suggested}
+    onFullfiled = (suggested) =>
+      console.log suggested
+      @setState {current: value, suggested, showPanel: yes}
 
     onRejected = (err) -> console.error err
 

@@ -9,7 +9,7 @@ methods = [
 
 # Wrapper
 wrapMethod = (method) ->
-  unless bcrypt[method]
+  unless method in bcrypt
     return
   exports[method] = pify bcrypt[method]
 
