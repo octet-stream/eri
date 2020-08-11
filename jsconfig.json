@@ -1,0 +1,20 @@
+{
+  "include": [
+    "*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "moduleResolution": "Node",
+    "experimentalDecorators": true,
+    "checkJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "*"
+      ]
+    }
+  }
+}
