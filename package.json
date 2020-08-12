@@ -33,7 +33,8 @@
     "eslint-plugin-jsx-a11y": "6.3.1",
     "eslint-plugin-react": "7.20.5",
     "eslint-plugin-react-hooks": "4.0.8",
-    "postcss-font-magician": "2.3.1",
-    "postcss-use": "3.0.0"
+    "postcss-font-magician": "^2.3.1",
+    "postcss-normalize": "^9.0.0",
+    "postcss-use": "^3.0.0"
   }
 }
