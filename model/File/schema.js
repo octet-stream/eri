@@ -18,8 +18,12 @@ const schema = {
     allowNull: false
   },
   hash: {
-    type: t.STRING(128),
+    type: t.CHAR(128),
     allowNull: false,
+  },
+  basename: {
+    type: t.STRING,
+    allowNull: false
   },
   mime: {
     type: t.STRING,
