@@ -17,13 +17,13 @@ const schema = {
     type: t.STRING,
     allowNull: false
   },
-  hash: {
-    type: t.CHAR(128),
-    allowNull: false,
-  },
   basename: {
     type: t.STRING,
     allowNull: false
+  },
+  hash: {
+    type: t.CHAR(128),
+    allowNull: false,
   },
   mime: {
     type: t.STRING,

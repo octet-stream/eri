@@ -1,5 +1,9 @@
 import {DataTypes as t} from "sequelize"
 
+import format from "date-fns/format"
+
+import createSlug from "lib/helper/util/createSlug"
+
 /**
  * @const schema
  *
@@ -16,6 +20,22 @@ const schema = {
     allowNull: false
   },
   title: {
+    type: t.STRING,
+    allowNull: false,
+
+    /**
+     * @param {string} value
+     */
+    set(value) {
+      this.setDataValue("title", value)
+      this.setDataValue(
+        "slug",
+
+        `${createSlug(value)}-${format(Date.now(), "YYYY-MM-dd")}`
+      )
+    }
+  },
+  slug: {
     type: t.STRING,
     allowNull: false
   },
