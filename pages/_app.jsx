@@ -1,7 +1,14 @@
+import t from "prop-types"
+
 import "styles/globals.css"
 
-function MyApp({ Component, pageProps }) {
+function App({Component, pageProps}) {
   return <Component {...pageProps} />
 }
 
-export default MyApp
+App.propTypes = {
+  Component: t.node.isRequired,
+  pageProps: t.shape().isRequired
+}
+
+export default App

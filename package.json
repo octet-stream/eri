@@ -49,6 +49,7 @@
     "lint-staged": "10.2.11",
     "postcss-font-magician": "2.3.1",
     "postcss-normalize": "9.0.0",
-    "postcss-use": "3.0.0"
+    "postcss-use": "3.0.0",
+    "prop-types": "^15.7.2"
   }
 }
