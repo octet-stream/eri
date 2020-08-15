@@ -7,6 +7,7 @@ import {
 } from "graphql"
 
 import TDates from "api/schema/type/common/TDates"
+import TUser from "api/schema/type/user/TUser"
 
 const TPost = new Output({
   name: "Post",
@@ -14,10 +15,13 @@ const TPost = new Output({
     id: {
       type: new Required(TInt)
     },
-    title: {
-      type: new Required(TString)
+    creator: {
+      type: new Required(TUser)
     },
     slug: {
+      type: new Required(TString)
+    },
+    title: {
       type: new Required(TString)
     },
     text: {
@@ -28,7 +32,7 @@ const TPost = new Output({
     },
     dates: {
       type: new Required(TDates)
-    }
+    },
   }
 })
 
