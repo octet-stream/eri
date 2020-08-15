@@ -1,8 +1,8 @@
 import normalize from "lib/helper/graphql/normalizeParams"
 import db from "lib/db/connection"
 
-import Post from "model/Post"
-import User from "model/User"
+import Post from "server/model/Post"
+import User from "server/model/User"
 
 const include = [User]
 

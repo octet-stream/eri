@@ -1,8 +1,8 @@
 import normalize from "lib/helper/graphql/normalizeParams"
 import db from "lib/db/connection"
 
-import User from "model/User"
-import Post from "model/Post"
+import User from "server/model/User"
+import Post from "server/model/Post"
 
 const postAdd = ({args, ctx}) => db.transaction(async transaction => {
   const {user: viewer} = ctx.state

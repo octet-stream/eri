@@ -27,9 +27,11 @@
     "next": "9.5.1",
     "next-auth": "3.1.0",
     "next-compose-plugins": "2.2.0",
+    "next-connect": "^0.8.1",
     "next-plugin-graphql": "0.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-hook-form": "^6.4.0",
     "require-dir": "1.2.0",
     "sequelize": "6.3.4",
     "threads": "1.6.3"
