@@ -1,36 +1,31 @@
 import {
   GraphQLObjectType as Output,
   GraphQLNonNull as Required,
-  GraphQLBoolean as TBoolean,
   GraphQLString as TString,
   GraphQLInt as TInt,
 } from "graphql"
 
 import TDates from "api/schema/type/common/TDates"
-import TUser from "api/schema/type/user/TUser"
+import TUserName from "api/schema/type/user/TUserName"
 
 import dates from "api/schema/resolve/query/common/dates"
+import name from "api/schema/resolve/query/user/name"
 
-const TPost = new Output({
-  name: "Post",
+const TViewer = new Output({
+  name: "Viewer",
   fields: {
     id: {
       type: new Required(TInt)
     },
-    creator: {
-      type: new Required(TUser)
-    },
-    slug: {
+    email: {
       type: new Required(TString)
     },
-    title: {
+    login: {
       type: new Required(TString)
     },
-    text: {
-      type: new Required(TString)
-    },
-    isDraft: {
-      type: new Required(TBoolean)
+    name: {
+      type: new Required(TUserName),
+      resolve: name
     },
     dates: {
       type: new Required(TDates),
@@ -39,4 +34,4 @@ const TPost = new Output({
   }
 })
 
-export default TPost
+export default TViewer

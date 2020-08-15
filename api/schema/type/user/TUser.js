@@ -8,6 +8,9 @@ import {
 import TDates from "api/schema/type/common/TDates"
 import TUserName from "api/schema/type/user/TUserName"
 
+import dates from "api/schema/resolve/query/common/dates"
+import name from "api/schema/resolve/query/user/name"
+
 const TUser = new Output({
   name: "User",
   fields: {
@@ -18,10 +21,12 @@ const TUser = new Output({
       type: new Required(TString)
     },
     name: {
-      type: new Required(TUserName)
+      type: new Required(TUserName),
+      resolve: name
     },
     dates: {
-      type: new Required(TDates)
+      type: new Required(TDates),
+      resolve: dates
     }
   }
 })
