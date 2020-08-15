@@ -1,7 +1,5 @@
 const {DataTypes: t} = require("sequelize")
 
-const snake = require("snakecase-keys")
-
 const tableName = "files"
 
 module.exports = {
@@ -12,40 +10,48 @@ module.exports = {
     await q.createTable(
       tableName,
 
-      snake(
-        {
-          id: {
-            type: t.INTEGER.UNSIGNED,
-            primaryKey: true,
-            autoIncrement: true
-          },
-          path: {
-            type: t.STRING,
-            allowNull: false
-          },
-          basename: {
-            type: t.STRING,
-            allowNull: false
-          },
-          hash: {
-            type: t.CHAR(128),
-            allowNull: false,
-          },
-          mime: {
-            type: t.STRING,
-            allowNull: false,
-          },
-          size: {
-            type: t.INTEGER,
-            allowNull: false,
-            comment: "File size in bytes",
-          }
+      {
+        id: {
+          type: t.INTEGER.UNSIGNED,
+          primaryKey: true,
+          autoIncrement: true
         },
-
-        {
-          deep: false
+        path: {
+          type: t.STRING,
+          allowNull: false
+        },
+        basename: {
+          type: t.STRING,
+          allowNull: false
+        },
+        hash: {
+          type: t.CHAR(128),
+          allowNull: false,
+        },
+        mime: {
+          type: t.STRING,
+          allowNull: false,
+        },
+        size: {
+          type: t.INTEGER,
+          allowNull: false,
+          comment: "File size in bytes",
+        },
+        created_at: {
+          type: t.DATE,
+          allowNull: false,
+          defaultValue: t.NOW
+        },
+        updated_at: {
+          type: t.DATE,
+          allowNull: false,
+          defaultValue: t.NOW
+        },
+        deleted_at: {
+          type: t.DATE,
+          defaultValue: null
         }
-      ),
+      },
 
       {
         transaction

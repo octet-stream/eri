@@ -1,7 +1,5 @@
 const {DataTypes: t} = require("sequelize")
 
-const snake = require("snakecase-keys")
-
 const tableName = "posts"
 const constraintName = "post_creator_fk"
 
@@ -13,40 +11,48 @@ module.exports = {
     await q.createTable(
       tableName,
 
-      snake(
-        {
-          id: {
-            type: t.INTEGER.UNSIGNED,
-            primaryKey: true,
-            autoIncrement: true
-          },
-          userId: {
-            type: t.INTEGER.UNSIGNED,
-            allowNull: false
-          },
-          title: {
-            type: t.STRING,
-            allowNull: false
-          },
-          slug: {
-            type: t.STRING,
-            allowNull: false
-          },
-          text: {
-            type: t.TEXT({length: "medium"}),
-            allowNull: false
-          },
-          isDraft: {
-            type: t.BOOLEAN,
-            allowNull: false,
-            defaultValue: true
-          }
+      {
+        id: {
+          type: t.INTEGER.UNSIGNED,
+          primaryKey: true,
+          autoIncrement: true
         },
-
-        {
-          deep: false
+        user_id: {
+          type: t.INTEGER.UNSIGNED,
+          allowNull: false
+        },
+        title: {
+          type: t.STRING,
+          allowNull: false
+        },
+        slug: {
+          type: t.STRING,
+          allowNull: false
+        },
+        text: {
+          type: t.TEXT({length: "medium"}),
+          allowNull: false
+        },
+        is_draft: {
+          type: t.BOOLEAN,
+          allowNull: false,
+          defaultValue: true
+        },
+        created_at: {
+          type: t.DATE,
+          allowNull: false,
+          defaultValue: t.NOW
+        },
+        updated_at: {
+          type: t.DATE,
+          allowNull: false,
+          defaultValue: t.NOW
+        },
+        deleted_at: {
+          type: t.DATE,
+          defaultValue: null
         }
-      ),
+      },
 
       {
         transaction
