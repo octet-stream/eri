@@ -4,4 +4,10 @@ import schema from "lib/graphql/schema"
 
 const server = new ApolloServer({schema})
 
-export default server.createHandler()
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
+
+export default server.createHandler({path: "/api/graphql"})
