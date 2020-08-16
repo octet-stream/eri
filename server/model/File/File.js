@@ -9,7 +9,7 @@ import format from "date-fns/format"
 import calcFileHash from "lib/helper/util/calcFileHash"
 import waterfall from "lib/helper/array/runWaterfall"
 import readOnly from "lib/helper/decorator/readOnly"
-import createModel from "lib/db/createModel"
+import createModel from "server/lib/db/createModel"
 
 import schema from "./schema"
 

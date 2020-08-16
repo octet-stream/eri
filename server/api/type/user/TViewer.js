@@ -5,11 +5,11 @@ import {
   GraphQLInt as TInt,
 } from "graphql"
 
-import TDates from "api/schema/type/common/TDates"
-import TUserName from "api/schema/type/user/TUserName"
+import TDates from "server/api/type/common/TDates"
+import TUserName from "server/api/type/user/TUserName"
 
-import dates from "api/schema/resolve/query/common/dates"
-import name from "api/schema/resolve/query/user/name"
+import dates from "server/api/resolve/query/common/dates"
+import name from "server/api/resolve/query/user/name"
 
 const TViewer = new Output({
   name: "Viewer",

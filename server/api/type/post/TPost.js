@@ -6,10 +6,10 @@ import {
   GraphQLInt as TInt,
 } from "graphql"
 
-import TDates from "api/schema/type/common/TDates"
-import TUser from "api/schema/type/user/TUser"
+import TDates from "server/api/type/common/TDates"
+import TUser from "server/api/type/user/TUser"
 
-import dates from "api/schema/resolve/query/common/dates"
+import dates from "server/api/resolve/query/common/dates"
 
 const TPost = new Output({
   name: "Post",

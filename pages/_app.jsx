@@ -7,7 +7,7 @@ function App({Component, pageProps}) {
 }
 
 App.propTypes = {
-  Component: t.node.isRequired,
+  Component: t.func.isRequired,
   pageProps: t.shape().isRequired
 }
 

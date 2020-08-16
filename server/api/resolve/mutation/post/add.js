@@ -1,5 +1,5 @@
 import normalize from "lib/helper/graphql/normalizeParams"
-import db from "lib/db/connection"
+import db from "server/lib/db/connection"
 
 import User from "server/model/User"
 import Post from "server/model/Post"

@@ -1,6 +1,6 @@
 import {Model} from "sequelize"
 
-import createModel from "lib/db/createModel"
+import createModel from "server/lib/db/createModel"
 
 import schema from "./schema"
 

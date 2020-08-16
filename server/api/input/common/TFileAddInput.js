@@ -4,7 +4,7 @@ import {
   GraphQLInt as TInt
 } from "graphql"
 
-import TFileInput from "api/schema/input/common/TFileInput"
+import TFileInput from "server/api/input/common/TFileInput"
 
 const TFileAddInput = new Input({
   name: "FileAddInput",

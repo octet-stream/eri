@@ -13,25 +13,25 @@
   },
   "dependencies": {
     "@sindresorhus/slugify": "1.1.0",
-    "apollo-server-micro": "^2.16.1",
+    "apollo-server-micro": "2.16.1",
     "date-fns": "2.15.0",
     "dotenv": "8.2.0",
     "fs-extra": "9.0.1",
     "graphql": "15.3.0",
     "graphql-iso-date": "3.6.1",
     "lodash": "4.17.19",
-    "micro-cors": "^0.1.1",
+    "micro-cors": "0.1.1",
     "mime-types": "2.1.27",
     "mysql2": "2.1.0",
     "nanoid": "3.1.12",
     "next": "9.5.1",
     "next-auth": "3.1.0",
     "next-compose-plugins": "2.2.0",
-    "next-connect": "^0.8.1",
+    "next-connect": "0.8.1",
     "next-plugin-graphql": "0.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-hook-form": "^6.4.0",
+    "react-hook-form": "6.4.0",
     "require-dir": "1.2.0",
     "sequelize": "6.3.4",
     "threads": "1.6.3"
@@ -39,6 +39,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "7.10.5",
     "@babel/plugin-proposal-do-expressions": "7.10.4",
+    "@babel/plugin-proposal-pipeline-operator": "^7.10.5",
     "@octetstream/eslint-config": "4.0.0",
     "babel-plugin-module-resolver": "4.0.0",
     "eslint": "7.6.0",
@@ -52,6 +53,6 @@
     "postcss-font-magician": "2.3.1",
     "postcss-normalize": "9.0.0",
     "postcss-use": "3.0.0",
-    "prop-types": "^15.7.2"
+    "prop-types": "15.7.2"
   }
 }
