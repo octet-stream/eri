@@ -1,0 +1,4 @@
+# This module will be removed in a future
+query {
+  hello
+}
