@@ -11,6 +11,10 @@ const schema = {
     primaryKey: true,
     autoIncrement: true
   },
+  fileId: {
+    type: t.INTEGER.UNSIGNED,
+    allowNull: true
+  },
   email: {
     type: t.STRING,
     allowNull: false,

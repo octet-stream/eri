@@ -6,7 +6,7 @@ import Helmet from "react-helmet"
 import useMount from "react-use/lib/useMount"
 import useUnmount from "react-use/lib/useUnmount"
 
-import {light, dark} from "./colors.module.css"
+import {light, dark} from "style/colors.module.css"
 
 import Context from "./Context"
 
