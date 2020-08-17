@@ -18,7 +18,7 @@ function Login() {
         <h1 className={title}>Login</h1>
         <form className={fields} onSubmit={handleSubmit(submit)}>
           <Input
-            ref={register}
+            ref={register({required: true})}
             type="email"
             name="email"
             placeholder="Your email…"
@@ -27,7 +27,7 @@ function Login() {
           />
 
           <Input
-            ref={register}
+            ref={register({required: true})}
             type="password"
             name="password"
             placeholder="Your password…"
