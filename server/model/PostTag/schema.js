@@ -7,12 +7,10 @@ import {DataTypes as t} from "sequelize"
  */
 const schema = {
   postId: {
-    type: t.INTEGER.UNSIGNED,
-    primaryKey: true
+    type: t.INTEGER.UNSIGNED
   },
   tagId: {
-    type: t.INTEGER.UNSIGNED,
-    primaryKey: true
+    type: t.INTEGER.UNSIGNED
   }
 }
 
