@@ -1,0 +1,23 @@
+@use postcss-nested;
+
+.container {
+  padding: var(--spacing-xs);
+  border: 1px solid;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.primary {
+  color: white;
+  background: black;
+  border-color: black;
+}
+
+.secondary {
+  color: black;
+  background: white;
+  border-color: black;
+}

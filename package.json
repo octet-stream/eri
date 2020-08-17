@@ -14,6 +14,8 @@
   "dependencies": {
     "@sindresorhus/slugify": "1.1.0",
     "apollo-server-micro": "2.16.1",
+    "bcrypt": "^5.0.0",
+    "classnames": "^2.2.6",
     "date-fns": "2.15.0",
     "dotenv": "8.2.0",
     "fs-extra": "9.0.1",
@@ -32,7 +34,9 @@
     "next-plugin-graphql": "0.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "6.4.0",
+    "react-use": "^15.3.3",
     "require-dir": "1.2.0",
     "sequelize": "6.3.4",
     "threads": "1.6.3"
@@ -52,7 +56,9 @@
     "husky": "4.2.5",
     "lint-staged": "10.2.11",
     "postcss-font-magician": "2.3.1",
-    "postcss-normalize": "9.0.0",
+    "postcss-nested": "^4.2.3",
+    "postcss-normalize": "^9.0.0",
+    "postcss-preset-env": "^6.7.0",
     "postcss-use": "3.0.0",
     "prop-types": "15.7.2"
   }

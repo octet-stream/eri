@@ -1,6 +1,7 @@
 import t from "prop-types"
 
 import "styles/globals.css"
+import "styles/spacing.css"
 
 function App({Component, pageProps}) {
   return <Component {...pageProps} />
