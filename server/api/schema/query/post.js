@@ -1,6 +1,7 @@
 import {
   GraphQLNonNull as Required,
-  GraphQLString as TString
+  GraphQLString as TString,
+  GraphQLInt as TInt
 } from "graphql"
 
 import TPost from "server/api/type/post/TPost"
@@ -16,7 +17,10 @@ const field = {
   resolve: post,
   args: {
     slug: {
-      type: new Required(TString)
+      type: TString
+    },
+    id: {
+      type: TInt
     }
   }
 }
