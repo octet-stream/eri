@@ -1,11 +1,11 @@
 import {GraphQLObjectType as Output} from "graphql"
 
-import hello from "./hello"
+import post from "./post"
 
 const TQuery = new Output({
   name: "Query",
   fields: {
-    hello
+    post
   }
 })
 
