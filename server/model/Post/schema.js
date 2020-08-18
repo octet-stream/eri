@@ -37,7 +37,8 @@ const schema = {
   },
   slug: {
     type: t.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   text: {
     type: t.TEXT({length: "medium"}),
