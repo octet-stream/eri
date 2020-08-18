@@ -1,5 +1,3 @@
-import {Op as op} from "sequelize"
-
 import omit from "lodash/omitBy"
 import isNil from "lodash/isNil"
 import isEmpty from "lodash/isEmpty"
