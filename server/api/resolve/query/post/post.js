@@ -13,8 +13,8 @@ const getPost = ({args}) => db.transaction(async transaction => {
 
   const post = await Post.findOne({
     where: {[op.or]: [{id}, {slug}]},
-
     include: [User, {model: Tag, through: PostsTags}],
+
     transaction,
   })
 
