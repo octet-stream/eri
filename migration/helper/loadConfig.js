@@ -5,6 +5,11 @@ const dotenv = require("dotenv")
 const omit = require("lodash/omit")
 const isEmpty = require("lodash/isEmpty")
 
+/**
+ * @param {string} name
+ *
+ * @return {Object.<string, string>}
+ */
 function loadConfig(name) {
   const filename = resolve(name)
 
