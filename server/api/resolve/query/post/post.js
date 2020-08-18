@@ -1,20 +1,27 @@
 import {Op as op} from "sequelize"
 
+import omit from "lodash/omitBy"
+import isNil from "lodash/isNil"
+import isEmpty from "lodash/isEmpty"
+
 import normalize from "lib/helper/graphql/normalizeParams"
 import db from "server/lib/db/connection"
 
 import Post from "server/model/Post"
-import User from "server/model/User"
 import Tag from "server/model/Tag"
 import PostsTags from "server/model/PostsTags"
 
 const getPost = ({args}) => db.transaction(async transaction => {
-  const {id, slug} = args
+  const where = omit(args, isNil)
+
+  if (isEmpty(where)) {
+    throw new Error("The ID or slug param must be present to find a post")
+  }
 
   const post = await Post.findOne({
-    where: {[op.or]: [{id}, {slug}]},
-    include: [User, {model: Tag, through: PostsTags}],
+    include: ["creator", {model: Tag, through: PostsTags}],
 
+    where,
     transaction,
   })
 

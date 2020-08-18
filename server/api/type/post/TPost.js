@@ -10,6 +10,7 @@ import TDates from "server/api/type/common/TDates"
 import TUser from "server/api/type/user/TUser"
 
 import dates from "server/api/resolve/query/common/dates"
+import creator from "server/api/resolve/query/post/creator"
 
 const TPost = new Output({
   name: "Post",
@@ -18,7 +19,8 @@ const TPost = new Output({
       type: new Required(TInt)
     },
     creator: {
-      type: new Required(TUser)
+      type: new Required(TUser),
+      resolve: creator
     },
     slug: {
       type: new Required(TString)

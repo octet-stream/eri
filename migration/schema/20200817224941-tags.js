@@ -35,6 +35,11 @@ module.exports = {
           allowNull: false,
           defaultValue: t.NOW
         },
+        deleted_at: {
+          type: t.DATE,
+          allowNull: true,
+          defaultValue: null
+        }
       },
 
       {

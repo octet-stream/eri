@@ -50,6 +50,7 @@ module.exports = {
         },
         deleted_at: {
           type: t.DATE,
+          allowNull: true,
           defaultValue: null
         }
       },

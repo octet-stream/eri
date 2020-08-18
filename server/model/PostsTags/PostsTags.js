@@ -4,7 +4,7 @@ import createModel from "server/lib/db/createModel"
 
 import schema from "./schema"
 
-@createModel(schema)
-class PostTag extends Model {}
+@createModel(schema, {timestamps: false})
+class PostsTags extends Model {}
 
-export default PostTag
+export default PostsTags
