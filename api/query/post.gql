@@ -1,0 +1,17 @@
+query GetPost($slug: String!) {
+  post(slug: $slug) {
+    id
+    title
+    slug
+    text
+    isDraft
+    creator {
+      id
+      login
+      name {
+        first
+        last
+      }
+    }
+  }
+}
