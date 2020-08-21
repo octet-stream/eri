@@ -1,8 +1,12 @@
+import {Helmet} from "react-helmet"
+import {Fragment} from "react"
+
 import t from "prop-types"
 
 import exec from "lib/graphql/exec"
-
 import getPost from "api/query/post.gql"
+
+import Title from "component/Title"
 
 export async function getServerSideProps(ctx) {
   const {params} = ctx
@@ -24,11 +28,15 @@ export async function getServerSideProps(ctx) {
 
 function Post({post}) {
   return (
-    <div>
-      <h1>{post.title}</h1>
+    <Fragment>
+      <Title title={post.title} />
 
-      <article>{post.text}</article>
-    </div>
+      <div>
+        <h1>{post.title}</h1>
+
+        <article>{post.text}</article>
+      </div>
+    </Fragment>
   )
 }
 
