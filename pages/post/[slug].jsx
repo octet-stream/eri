@@ -1,3 +1,5 @@
+import t from "prop-types"
+
 import exec from "lib/graphql/exec"
 
 import getPost from "api/query/post.gql"
@@ -22,12 +24,19 @@ export async function getServerSideProps(ctx) {
 
 function Post({post}) {
   return (
-    <dic>
+    <div>
       <h1>{post.title}</h1>
 
       <article>{post.text}</article>
-    </dic>
+    </div>
   )
+}
+
+Post.propTypes = {
+  post: t.shape({
+    title: t.string,
+    text: t.string
+  }).isRequired,
 }
 
 export default Post
