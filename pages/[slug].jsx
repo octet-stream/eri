@@ -10,7 +10,7 @@ import Title from "component/Title"
 export async function getServerSideProps(ctx) {
   const {params} = ctx
 
-  const {data} = await exec({
+  const {data, errors} = await exec({
     ctx,
     query: getPost,
     variables: {
@@ -20,6 +20,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
+      errors,
       post: data.post
     }
   }
