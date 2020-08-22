@@ -1,9 +1,5 @@
-import Login from "component/Login"
-
 function Home() {
-  // return <div>Hello, world</div>
-
-  return <Login />
+  return <div>Hello, world</div>
 }
 
 export default Home

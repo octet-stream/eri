@@ -25,7 +25,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      errors: errors || {},
+      errors: errors ?? [],
       post: data.post
     }
   }
