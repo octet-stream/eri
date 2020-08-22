@@ -9,6 +9,9 @@ import getPost from "api/query/post.gql"
 import Title from "component/Title"
 import BlogLayout from "layout/Blog"
 
+/**
+ * @param {import("next").GetServerSidePropsContext} ctx
+ */
 export async function getServerSideProps(ctx) {
   const {params} = ctx
 
