@@ -4,7 +4,7 @@
    *
    * @param {boolean} isEnabled
    */
-  function setClassesForMode(isEnabled) {
+  function updateClassName(isEnabled) {
     document.body.classList.add(isEnabled ? "dark" : "light")
     document.body.classList.remove(isEnabled ? "light" : "dark")
   }
@@ -15,7 +15,7 @@
    * @param {MediaQueryList} event
    */
   function onModeChange({matches}) {
-    setClassesForMode(matches)
+    updateClassName(matches)
     sessionStorage.setItem("@@ERI_DARK_MODE_ENABLED", matches)
   }
 
