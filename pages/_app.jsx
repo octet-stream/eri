@@ -5,6 +5,7 @@ import t from "prop-types"
 
 import "style/globals.css"
 import "style/spacing.css"
+import "style/colors.css"
 
 const baseTitle = "Eri's Blog"
 

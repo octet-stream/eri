@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.content {
+  width: 800px;
+  padding: var(--spacing-s);
+}

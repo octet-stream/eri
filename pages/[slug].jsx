@@ -2,10 +2,12 @@ import {Fragment} from "react"
 
 import t from "prop-types"
 
+import layout from "lib/hoc/layout"
 import exec from "lib/graphql/exec"
 import getPost from "api/query/post.gql"
 
 import Title from "component/Title"
+import BlogLayout from "layout/Blog"
 
 export async function getServerSideProps(ctx) {
   const {params} = ctx
@@ -20,7 +22,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      errors,
+      errors: errors || {},
       post: data.post
     }
   }
@@ -47,4 +49,4 @@ Post.propTypes = {
   }).isRequired,
 }
 
-export default Post
+export default Post |> layout(BlogLayout)

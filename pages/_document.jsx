@@ -25,6 +25,8 @@ class Document extends Base {
         </Head>
 
         <body {...helmet.bodyAttributes.toComponent()}>
+          <script src="/dark-mode.js" />
+
           <Main />
 
           <NextScript />
