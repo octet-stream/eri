@@ -16,7 +16,7 @@ export async function getServerSideProps(ctx) {
     ctx,
     query: getPost,
     variables: {
-      slug: params.slug
+      slug: [params.date, params.name].join("/")
     }
   })
 
