@@ -8,7 +8,7 @@ import {container, box, fields, title} from "./login.module.css"
 function Login() {
   const {register, handleSubmit} = useForm()
 
-  function submit(data) {
+  async function submit(data) {
     console.log(data)
   }
 
