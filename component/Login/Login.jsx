@@ -1,5 +1,7 @@
 import {useForm} from "react-hook-form"
+import {Fragment} from "react"
 
+import Title from "component/Title"
 import Input from "component/Input"
 import Button from "component/Button"
 
@@ -8,38 +10,40 @@ import {container, box, fields, title} from "./login.module.css"
 function Login() {
   const {register, handleSubmit} = useForm()
 
-  async function submit(data) {
-    console.log(data)
-  }
+  const submit = credentials => console.log(credentials)
 
   return (
-    <div className={container}>
-      <div className={box}>
-        <h1 className={title}>Login</h1>
-        <form className={fields} onSubmit={handleSubmit(submit)}>
-          <Input
-            ref={register({required: true})}
-            type="email"
-            name="email"
-            placeholder="Your email…"
-            autoComplete="off"
-            autoFocus
-          />
+    <Fragment>
+      <Title title="Login" />
 
-          <Input
-            ref={register({required: true})}
-            type="password"
-            name="password"
-            placeholder="Your password…"
-            autoComplete="off"
-          />
+      <div className={container}>
+        <div className={box}>
+          <h1 className={title}>Login</h1>
+          <form className={fields} onSubmit={handleSubmit(submit)}>
+            <Input
+              ref={register({required: true})}
+              type="email"
+              name="username"
+              placeholder="Your email…"
+              autoComplete="off"
+              autoFocus
+            />
 
-          <Button type="submit">
-            Log in
-          </Button>
-        </form>
+            <Input
+              ref={register({required: true})}
+              type="password"
+              name="password"
+              placeholder="Your password…"
+              autoComplete="off"
+            />
+
+            <Button type="submit">
+              Log in
+            </Button>
+          </form>
+        </div>
       </div>
-    </div>
+    </Fragment>
   )
 }
 

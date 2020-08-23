@@ -28,7 +28,6 @@
     "mysql2": "2.1.0",
     "nanoid": "3.1.12",
     "next": "9.5.2",
-    "next-auth": "3.1.0",
     "next-compose-plugins": "2.2.0",
     "next-connect": "0.8.1",
     "next-plugin-graphql": "0.0.2",
