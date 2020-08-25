@@ -34,7 +34,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "6.1.0",
-    "react-hook-form": "6.4.1",
+    "react-hook-form": "6.5.1",
     "react-use": "15.3.3",
     "require-dir": "1.2.0",
     "sequelize": "6.3.4",
