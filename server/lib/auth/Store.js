@@ -15,7 +15,7 @@ class SequlizeStore extends Store {
   }
 
   get = id => db.transaction(transaction => this._session.findByPk(id, {
-    transaction
+    transaction, raw: true
   }))
 
   set = (id, data) => db.transaction(async transaction => {

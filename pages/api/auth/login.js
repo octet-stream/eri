@@ -18,7 +18,7 @@ const handler = nc()
     }
   }))
   .use((req, res) => {
-    console.log(req.session)
+    // console.log(req.session)
     res.send(JSON.stringify({message: "OK"}))
   })
 
