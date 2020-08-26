@@ -4,6 +4,9 @@ import {session} from "next-session"
 
 import nc from "next-connect"
 
+import Session from "server/model/Session"
+import Store from "server/lib/auth/Store"
+
 export const config = {
   api: {
     externalResolver: true
@@ -17,7 +20,8 @@ const handler = nc()
     cookie: {
       maxAge: 60000,
       sameSite: "lax",
-      domain: parse(process.env.NEXT_PUBLIC_SERVER).hostname
+      domain: parse(process.env.NEXT_PUBLIC_SERVER).hostname,
+      // store: new Store(Session)
     }
   }))
   .use((req, res) => {
