@@ -1,3 +1,5 @@
+import {parse} from "url"
+
 import {session} from "next-session"
 
 import nc from "next-connect"
@@ -14,11 +16,12 @@ const handler = nc()
     secret: process.env.AUTH_SESSION_SECRET,
     cookie: {
       maxAge: 60000,
-      sameSite: "lax"
+      sameSite: "lax",
+      domain: parse(process.env.NEXT_PUBLIC_SERVER).hostname
     }
   }))
   .use((req, res) => {
-    // console.log(req.session)
+    console.log(req.session)
     res.send(JSON.stringify({message: "OK"}))
   })
 
