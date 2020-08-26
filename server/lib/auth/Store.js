@@ -1,8 +1,13 @@
 import {Store} from "next-session"
 
+import omit from "lodash/omit"
+
 import db from "server/lib/db/connection"
 
 class SequlizeStore extends Store {
+  /**
+   * @param {import("server/model/Session").default} model
+   */
   constructor(model) {
     super()
 
@@ -13,13 +18,21 @@ class SequlizeStore extends Store {
     transaction
   }))
 
-  set = (id, data) => db.transaction(transaction => {
+  set = (id, data) => db.transaction(async transaction => {
     data.id = id
 
-    return this._session.upsert(data, {transaction})
+    await this._session.upsert(data, {transaction})
   })
 
-  // touch = (id, data) => {}
+  touch = (id, data) => db.transaction(async transaction => {
+    const session = await this._session.findByPk(id, {transaction})
+
+    if (!session) {
+      return undefined
+    }
+
+    await session.update(omit(data, "id"), {transaction})
+  })
 
   destroy = id => db.transaction(async transaction => {
     await this._session.destroy({transaction, where: {id}})
