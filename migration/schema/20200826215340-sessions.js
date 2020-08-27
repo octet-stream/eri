@@ -21,6 +21,10 @@ module.exports = {
           allowNull: true,
           comment: "An ID of a user associated with the session"
         },
+        cookie: {
+          type: t.JSON,
+          allowNull: false
+        },
         client_browser_name: {
           type: t.STRING,
           allowNull: false,
@@ -40,6 +44,21 @@ module.exports = {
         client_ip: {
           type: t.STRING,
           allowNull: false,
+        },
+        created_at: {
+          type: t.DATE,
+          allowNull: false,
+          defaultValue: t.NOW
+        },
+        updated_at: {
+          type: t.DATE,
+          allowNull: false,
+          defaultValue: t.NOW
+        },
+        expires_at: {
+          type: t.DATE,
+          allowNull: true,
+          defaultValue: null
         }
       },
 

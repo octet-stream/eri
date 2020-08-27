@@ -17,15 +17,15 @@ const handler = nc()
   .use(session({
     name: "eri.sid",
     secret: process.env.AUTH_SESSION_SECRET,
+    store: new Store(Session),
     cookie: {
       maxAge: 60000,
       sameSite: "lax",
-      domain: parse(process.env.NEXT_PUBLIC_SERVER).hostname,
-      // store: new Store(Session)
+      domain: parse(process.env.NEXT_PUBLIC_SERVER).hostname
     }
   }))
   .use((req, res) => {
-    console.log(req.session)
+    // console.log(req.session)
     res.send(JSON.stringify({message: "OK"}))
   })
 

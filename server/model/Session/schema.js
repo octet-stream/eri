@@ -1,5 +1,10 @@
 import {DataTypes as t} from "sequelize"
 
+import parseISO from "date-fns/parseISO"
+import isString from "lodash/isString"
+import toDate from "date-fns/toDate"
+
+
 /**
  * @const schema
  *
@@ -14,6 +19,35 @@ const schema = {
     type: t.INTEGER.UNSIGNED,
     allowNull: true,
     comment: "An ID of a user associated with the session"
+  },
+  cookie: {
+    type: t.JSON,
+    allowNull: false,
+
+    /**
+     * @param {Object} cookie
+     * @param {string} [cookie.path]
+     * @param {string} [cookie.domain]
+     * @param {string} [cookie.sameSite]
+     * @param {boolean} [cookie.secure]
+     * @param {boolean} [cookie.httpOnly]
+     * @param {Date} [cookie.expires = null]
+     */
+    set(cookie) {
+      this.setDataValue("cookie", cookie)
+
+      const {expires} = cookie
+
+      if (!expires) {
+        return undefined
+      }
+
+      this.setDataValue(
+        "expiresAt",
+
+        toDate(isString(expires) ? parseISO(expires) : expires)
+      )
+    }
   },
   clientBrowserName: {
     type: t.STRING,
@@ -34,6 +68,11 @@ const schema = {
   clientIp: {
     type: t.STRING,
     allowNull: false,
+  },
+  expiresAt: {
+    type: t.DATE,
+    allowNull: true,
+    defaultValue: null,
   }
 }
 
