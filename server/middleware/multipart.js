@@ -1,5 +1,7 @@
 import {parse} from "then-busboy"
 
+import is from "type-is"
+
 const methods = ["post"]
 
 /**
@@ -17,7 +19,7 @@ async function multipart(req, res, next) {
     return next()
   }
 
-  if (req.headers["content-type"] !== "multipart/form-data") {
+  if (!is(req, "multipart/form-data")) {
     return next()
   }
 

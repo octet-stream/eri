@@ -42,6 +42,7 @@
     "require-dir": "1.2.0",
     "sequelize": "6.3.4",
     "then-busboy": "5.0.0-beta.2",
+    "type-is": "^1.6.18",
     "use-dark-mode": "2.3.1"
   },
   "devDependencies": {
