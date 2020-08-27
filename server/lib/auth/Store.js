@@ -19,9 +19,14 @@ class SequlizeStore extends Store {
   }))
 
   set = (id, {cookie, ...data}) => db.transaction(async transaction => {
-    await this._session.upsert({
-      ...data, id, cookie: cookie.cookieOptions
-    }, {transaction})
+    await this._session.upsert(
+      {
+        ...data, id, cookie: cookie.cookieOptions
+      },
+      {
+        transaction
+      }
+    )
   })
 
   touch = (id, data) => db.transaction(async transaction => {
