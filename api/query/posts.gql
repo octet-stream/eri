@@ -1,5 +1,12 @@
 query GetPosts($page: Int) {
   posts(page: $page) {
+    hasNext
+    last
+    count
+    limit
+    current
+    offset
+
     list {
       id
       title
