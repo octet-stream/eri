@@ -5,6 +5,7 @@ mutation PostAdd($post: PostAddInput!) {
     slug
     text
     isDraft
+
     creator {
       id
       login
@@ -12,6 +13,12 @@ mutation PostAdd($post: PostAddInput!) {
         first
         last
       }
+    }
+
+    dates {
+      createdAt
+      updatedAt
+      deletedAt
     }
   }
 }
