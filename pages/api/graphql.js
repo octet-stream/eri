@@ -17,8 +17,8 @@ export const config = {
 }
 
 const handler = nc()
-  .use(multipart)
   .use(session)
+  .use(multipart)
   .use(server.createHandler({path: "/api/graphql"}))
 
 export default handler
