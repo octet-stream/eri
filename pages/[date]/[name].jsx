@@ -13,13 +13,13 @@ import BlogLayout from "layout/Blog"
  * @param {import("next").GetServerSidePropsContext} ctx
  */
 export async function getServerSideProps(ctx) {
-  const {params} = ctx
+  const {date, name} = ctx.params
 
   const {data, errors} = await exec({
     ctx,
     query: getPost,
     variables: {
-      slug: [params.date, params.name].join("/")
+      slug: [date, name].join("/")
     }
   })
 
