@@ -5,6 +5,7 @@ query GetPost($slug: String!) {
     slug
     text
     isDraft
+
     creator {
       id
       login
@@ -12,6 +13,12 @@ query GetPost($slug: String!) {
         first
         last
       }
+    }
+
+    dates {
+      createdAt
+      updatedAt
+      deletedAt
     }
   }
 }

@@ -1,5 +1,3 @@
-#import "api/fragment/post/base.gql"
-
 mutation PostAdd($post: PostAddInput!) {
   postAdd(post: $post) {
     id
