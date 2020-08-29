@@ -12,7 +12,7 @@ import toDate from "date-fns/toDate"
  */
 const schema = {
   id: {
-    type: t.STRING(21),
+    type: t.STRING,
     primaryKey: true
   },
   userId: {
@@ -36,7 +36,8 @@ const schema = {
     set(cookie) {
       this.setDataValue("cookie", cookie)
 
-      const {expires} = cookie
+      // eslint-disable-next-line no-underscore-dangle
+      const expires = cookie.expires || cookie._expires
 
       if (!expires) {
         return undefined

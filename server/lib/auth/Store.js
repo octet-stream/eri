@@ -1,4 +1,6 @@
-import {Store} from "next-session"
+import {callbackify as cb} from "util"
+
+import {Store} from "express-session"
 
 import omit from "lodash/omit"
 
@@ -8,28 +10,29 @@ class SequlizeStore extends Store {
   /**
    * @param {import("server/model/Session").default} model
    */
-  constructor(model) {
+  constructor(model, includes = []) {
     super()
 
     this._session = model
+    this._includes = includes
   }
 
-  get = id => db.transaction(transaction => this._session.findByPk(id, {
-    transaction, raw: true
-  }))
+  get = cb(id => db.transaction(transaction => this._session.findByPk(id, {
+    transaction, raw: true, includes: this._includes
+  })))
 
-  set = (id, {cookie, ...data}) => db.transaction(async transaction => {
+  set = cb((id, data) => db.transaction(async transaction => {
     await this._session.upsert(
       {
-        ...data, id, cookie: cookie.cookieOptions
+        ...data, id
       },
       {
         transaction
       }
     )
-  })
+  }))
 
-  touch = (id, data) => db.transaction(async transaction => {
+  touch = cb((id, data) => db.transaction(async transaction => {
     const session = await this._session.findByPk(id, {transaction})
 
     if (!session) {
@@ -37,11 +40,11 @@ class SequlizeStore extends Store {
     }
 
     await session.update(omit(data, "id"), {transaction})
-  })
+  }))
 
-  destroy = id => db.transaction(async transaction => {
+  destroy = cb(id => db.transaction(async transaction => {
     await this._session.destroy({transaction, where: {id}})
-  })
+  }))
 }
 
 export default SequlizeStore

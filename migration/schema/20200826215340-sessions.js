@@ -13,7 +13,7 @@ module.exports = {
 
       {
         id: {
-          type: t.STRING(21),
+          type: t.STRING,
           primaryKey: true
         },
         user_id: {
