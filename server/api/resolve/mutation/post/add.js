@@ -1,4 +1,4 @@
-import normalize from "lib/helper/graphql/normalizeParams"
+import normalize from "server/lib/helper/graphql/normalizeParams"
 import db from "server/lib/db/connection"
 
 import User from "server/model/User"

@@ -2,7 +2,7 @@ import omit from "lodash/omitBy"
 import isNil from "lodash/isNil"
 import isEmpty from "lodash/isEmpty"
 
-import normalize from "lib/helper/graphql/normalizeParams"
+import normalize from "server/lib/helper/graphql/normalizeParams"
 import db from "server/lib/db/connection"
 
 import Post from "server/model/Post"

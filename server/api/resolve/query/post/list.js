@@ -1,6 +1,6 @@
-import normalize from "lib/helper/graphql/normalizeParams"
-import getPageInfo from "lib/helper/graphql/getPageInfo"
-import toPage from "lib/helper/graphql/toPage"
+import normalize from "server/lib/helper/graphql/normalizeParams"
+import getPageInfo from "server/lib/helper/graphql/getPageInfo"
+import toPage from "server/lib/helper/graphql/toPage"
 import db from "server/lib/db/connection"
 
 import Post from "server/model/Post"

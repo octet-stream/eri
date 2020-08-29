@@ -1,4 +1,4 @@
-import createPageType from "lib/helper/graphql/createPageType"
+import createPageType from "server/lib/helper/graphql/createPageType"
 import TPost from "server/api/type/post/TPost"
 
 const TPostPage = createPageType({

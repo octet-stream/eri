@@ -5,7 +5,7 @@ import {
 
 import {GraphQLDateTime as TDateTime} from "graphql-iso-date"
 
-import serialize from "lib/helper/graphql/serializeDate"
+import serialize from "server/lib/helper/graphql/serializeDate"
 
 const TDates = new Output({
   name: "Dates",
