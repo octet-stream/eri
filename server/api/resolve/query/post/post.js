@@ -6,8 +6,6 @@ import normalize from "server/lib/helper/graphql/normalizeParams"
 import db from "server/lib/db/connection"
 
 import Post from "server/model/Post"
-import Tag from "server/model/Tag"
-import PostsTags from "server/model/PostsTags"
 
 const getPost = ({args}) => db.transaction(async transaction => {
   const where = omit(args, isNil)
@@ -17,7 +15,7 @@ const getPost = ({args}) => db.transaction(async transaction => {
   }
 
   const post = await Post.findOne({
-    include: ["creator", {model: Tag, through: PostsTags}],
+    include: ["creator", "tags"],
 
     where,
     transaction,

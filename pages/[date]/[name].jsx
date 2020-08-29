@@ -26,7 +26,7 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       errors: errors ?? [],
-      post: data.post
+      post: data?.post
     }
   }
 }
@@ -36,11 +36,11 @@ function Post({post}) {
     <Fragment>
       <Title title={post.title} />
 
-      <div>
+      <main>
         <h1>{post.title}</h1>
 
         <article>{post.text}</article>
-      </div>
+      </main>
     </Fragment>
   )
 }

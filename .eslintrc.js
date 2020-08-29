@@ -49,6 +49,10 @@ module.exports = {
     "react/destructuring-assignment": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-one-expression-per-line": 0,
-    "react/jsx-fragments": ["error", "element"]
+    "react/jsx-fragments": ["error", "element"],
+
+    // ! Disable this rule because Next.js <Link> component can't deal with it
+    // ! See: https://github.com/vercel/next.js/issues/5533
+    "jsx-a11y/anchor-is-valid": 0
   }
 }

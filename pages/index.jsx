@@ -1,4 +1,7 @@
+import {Fragment} from "react"
+
 import t from "prop-types"
+import Link from "next/link"
 
 import layout from "lib/hoc/layout"
 import exec from "lib/graphql/exec"
@@ -20,25 +23,27 @@ export async function getServerSideProps(ctx) {
 
 function Home({posts}) {
   return (
-    <div>
+    <main>
       {
         do {
           if (posts.list.length) {
-            <ul>
+            <Fragment>
               {
                 posts.list.map(post => (
-                  <li key={post.id}>
-                    {post.title}
-                  </li>
+                  <article key={post.id}>
+                    <Link href={post.slug}>
+                      <a>{post.title}</a>
+                    </Link>
+                  </article>
                 ))
               }
-            </ul>
+            </Fragment>
           } else {
             <div>There is no posts</div>
           }
         }
       }
-    </div>
+    </main>
   )
 }
 
