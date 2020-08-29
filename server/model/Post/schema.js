@@ -2,7 +2,7 @@ import {DataTypes as t} from "sequelize"
 
 import format from "date-fns/format"
 
-import createSlug from "lib/helper/util/createSlug"
+import createSlug from "server/lib/helper/util/createSlug"
 
 /**
  * @const schema

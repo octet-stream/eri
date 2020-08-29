@@ -6,7 +6,7 @@ import {outputFile, readFile, unlink, stat} from "fs-extra"
 
 import format from "date-fns/format"
 
-import calcFileHash from "lib/helper/util/calcFileHash"
+import calcFileHash from "server/lib/helper/util/calcFileHash"
 import waterfall from "lib/helper/array/runWaterfall"
 import readOnly from "lib/helper/decorator/readOnly"
 import createModel from "server/lib/db/createModel"
