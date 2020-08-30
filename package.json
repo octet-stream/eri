@@ -28,6 +28,8 @@
     "http-errors": "1.8.0",
     "isomorphic-fetch": "2.2.1",
     "jsonwebtoken": "8.5.1",
+    "ky": "^0.23.0",
+    "ky-universal": "^0.8.1",
     "lodash": "4.17.20",
     "micro-cors": "0.1.1",
     "mime-types": "2.1.27",
@@ -48,6 +50,7 @@
     "sequelize": "6.3.4",
     "then-busboy": "5.0.0-beta.2",
     "type-is": "1.6.18",
+    "ua-parser-js": "^0.7.21",
     "use-dark-mode": "2.3.1"
   },
   "devDependencies": {
