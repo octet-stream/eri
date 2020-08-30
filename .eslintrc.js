@@ -27,7 +27,7 @@ module.exports = {
       code: 80
     }],
     indent: ["error", 2, {
-      MemberExpression: "off"
+      SwitchCase: 1
     }],
     // TODO: Don't forget to move this rule to my personal shared config.
     "prefer-const": ["error", {

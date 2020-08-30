@@ -1,12 +1,12 @@
 import {Fragment} from "react"
 
 import t from "prop-types"
-import Link from "next/link"
 
 import layout from "lib/hoc/layout"
 import exec from "lib/graphql/exec"
 
 import BlogLayout from "layout/Blog"
+import Preview from "component/Post/Preview"
 
 import getPosts from "api/query/posts.gql"
 
@@ -29,13 +29,7 @@ function Home({posts}) {
           if (posts.list.length) {
             <Fragment>
               {
-                posts.list.map(post => (
-                  <article key={post.id}>
-                    <Link href={post.slug}>
-                      <a>{post.title}</a>
-                    </Link>
-                  </article>
-                ))
+                posts.list.map(post => <Preview key={post.id} post={post} />)
               }
             </Fragment>
           } else {
