@@ -1,17 +1,31 @@
 import {Fragment} from "react"
 
-import Title from "component/Title"
+import auth from "lib/auth/isAuthenticated"
+import layout from "lib/hoc/layout"
 
-import Login from "component/Login"
+import BlogLayout from "layout/Blog"
+
+import Title from "component/Title"
+import withLogin from "component/Login/withLogin"
+
+export async function getServerSideProps(ctx) {
+  return {
+    props: {
+      isAuthenticated: await auth(ctx)
+    }
+  }
+}
 
 function NewPost() {
   return (
     <Fragment>
       <Title title="New post" />
 
-      <Login />
+      <div>
+        Text editor will be here
+      </div>
     </Fragment>
   )
 }
 
-export default NewPost
+export default NewPost |> layout(BlogLayout) |> withLogin

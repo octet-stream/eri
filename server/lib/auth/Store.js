@@ -10,16 +10,20 @@ class SequlizeStore extends Store {
   /**
    * @param {import("server/model/Session").default} model
    */
-  constructor(model, includes = []) {
+  constructor(model, include = []) {
     super()
 
     this._session = model
-    this._includes = includes
+    this._include = include
   }
 
-  get = cb(id => db.transaction(transaction => this._session.findByPk(id, {
-    transaction, raw: true, includes: this._includes
-  })))
+  get = cb(id => db.transaction(async transaction => {
+    const session = await this._session.findByPk(id, {
+      transaction, include: this._include
+    })
+
+    return session.toJSON()
+  }))
 
   set = cb((id, data) => db.transaction(async transaction => {
     await this._session.upsert(
