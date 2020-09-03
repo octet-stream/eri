@@ -1,5 +1,14 @@
 .container {
+  display: grid;
   width: 100%;
-  border: 1px solid grey;
+  height: 100%;
   border-radius: 2px;
+  grid-template-rows: 1fr auto;
+  row-gap: var(--spacing-xs);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
 }

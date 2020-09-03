@@ -1,14 +1,16 @@
 import {Fragment, useState} from "react"
 
 import Title from "component/Title"
+import Button from "component/Button"
 
 import Name from "./Name"
 import Text from "./Text"
+import Actions from "./Actions"
 
-import {container} from "./editor.module.css"
+import {container, content} from "./editor.module.css"
 
 function Editor() {
-  const [name, setName] = useState("")
+  const [title, setTitle] = useState("")
   const [text, setText] = useState([{
     type: "paragraph",
     children: [{
@@ -19,16 +21,30 @@ function Editor() {
   /**
    * @param {import("react").SyntheticEvent} event
    */
-  const onChangeName = ({target}) => setName(target.value)
+  const onChangeTitle = ({target}) => setTitle(target.value)
+
+  const onPublish = () => console.log({title, text})
 
   return (
     <Fragment>
-      <Title title={name || "Untitled"} />
+      <Title title={title || "Untitled"} />
 
       <div className={container}>
-        <Name value={name} onChange={onChangeName} />
+        <div className={content}>
+          <Name value={title} onChange={onChangeTitle} />
 
-        <Text value={text} onChange={setText} />
+          <Text value={text} onChange={setText} />
+        </div>
+
+        <Actions>
+          <Button variant="secondary">
+            Save
+          </Button>
+
+          <Button onClick={onPublish}>
+            Publish
+          </Button>
+        </Actions>
       </div>
     </Fragment>
   )

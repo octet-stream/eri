@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  flex: 1;
+}
+
+.content {
+  width: 800px;
+  padding: var(--spacing-m);
+}

@@ -10,6 +10,9 @@ import Preview from "component/Post/Preview"
 
 import getPosts from "api/query/posts.gql"
 
+/**
+ * @param {import("next").GetServerSidePropsContext} ctx
+ */
 export async function getServerSideProps(ctx) {
   const {data, errors} = await exec({ctx, query: getPosts})
 
