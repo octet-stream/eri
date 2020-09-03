@@ -6,6 +6,7 @@ import layout from "lib/hoc/layout"
 import BlogLayout from "layout/Blog"
 
 import Title from "component/Title"
+import Editor from "component/Post/Editor"
 import withLogin from "component/Login/withLogin"
 
 export async function getServerSideProps(ctx) {
@@ -19,11 +20,9 @@ export async function getServerSideProps(ctx) {
 function NewPost() {
   return (
     <Fragment>
-      <Title title="New post" />
+      <Title titleTemplate="%s - New post" />
 
-      <div>
-        Text editor will be here
-      </div>
+      <Editor />
     </Fragment>
   )
 }

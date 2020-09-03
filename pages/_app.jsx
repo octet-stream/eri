@@ -38,7 +38,6 @@ function App({Component, pageProps}) {
       <Helmet
         htmlAttributes={{lang: "en"}}
         defaultTitle={baseTitle}
-        title={baseTitle}
         meta={[
           {
             name: "viewport",
