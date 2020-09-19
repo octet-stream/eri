@@ -1,5 +1,8 @@
 import {defineAbility} from "@casl/ability"
 
+/**
+ * @param {import("server/model/User").default} user
+ */
 const createPostAbilities = user => defineAbility(can => {
   can("read")
 
