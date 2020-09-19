@@ -3,6 +3,9 @@ import db from "server/lib/db/connection"
 
 import Post from "server/model/Post"
 
+import forbidden from "server/error/post/forbidden"
+import createPostAbilities from "server/acl/post"
+
 /**
  * @typedef {import("next").NextApiRequest} NextApiRequest
  * @typedef {import("next").NextApiResponse} NextApiResponse
@@ -29,6 +32,12 @@ import Post from "server/model/Post"
 const postAdd = ({args, ctx}) => db.transaction(async transaction => {
   const {user} = ctx.req.session
   const {post} = args
+
+  const acl = createPostAbilities(user)
+
+  if (acl.cannot("create", Post)) {
+    throw forbidden()
+  }
 
   return Post.create({...post, userId: user.id}, {transaction})
 })
