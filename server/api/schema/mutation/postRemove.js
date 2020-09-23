@@ -11,7 +11,7 @@ const field = {
   type: new Required(TInt),
   resolve: update,
   args: {
-    postId: {
+    id: {
       type: new Required(TInt)
     }
   }

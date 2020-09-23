@@ -1,0 +1,24 @@
+mutation PostUpdate($post: PostUpdateInput!) {
+  postUpdate(post: $post) {
+    id
+    title
+    slug
+    text
+    isDraft
+
+    creator {
+      id
+      login
+      name {
+        first
+        last
+      }
+    }
+
+    dates {
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+}

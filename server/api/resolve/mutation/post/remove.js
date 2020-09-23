@@ -16,18 +16,18 @@ import createPostAbilities from "server/acl/post"
  * Removes a Post with given ID
  *
  * @param {Object} params
- * @param {{postId: number}} params.args
+ * @param {{id: number}} params.args
  * @param {{req: NextApiRequest, res: NextApiResponse}} params.ctx
  *
  * @return {Promise<number>}
  */
 const removePost = ({args, ctx}) => db.transaction(async transaction => {
   const {user} = ctx.req.session
-  const {postId} = args
+  const {id} = args
 
   const acl = createPostAbilities(user)
 
-  const post = await Post.findByPk(postId, {transaction})
+  const post = await Post.findByPk(id, {transaction})
 
   if (!post) {
     throw notFound()
