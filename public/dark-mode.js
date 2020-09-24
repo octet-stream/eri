@@ -1,4 +1,6 @@
 (() => {
+  const DARK_MODE_STORAGE_KEY = "@@ERI_DARK_MODE_ENABLED"
+
   /**
    * Overrides classes on document.body depending on the dark mode status
    *
@@ -16,12 +18,11 @@
    */
   function onModeChange({matches}) {
     updateClassName(matches)
-    sessionStorage.setItem("@@ERI_DARK_MODE_ENABLED", matches)
+
+    if (sessionStorage.getItem(DARK_MODE_STORAGE_KEY) === null) {
+      sessionStorage.setItem(DARK_MODE_STORAGE_KEY, matches)
+    }
   }
 
-  const mq = matchMedia("(prefers-color-scheme: dark)")
-
-  mq.addListener(onModeChange)
-
-  onModeChange(mq)
+  onModeChange(matchMedia("(prefers-color-scheme: dark)"))
 })()

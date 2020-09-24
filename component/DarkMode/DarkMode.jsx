@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react"
+import {Helmet} from "react-helmet"
 import {node} from "prop-types"
 
 import Context from "./Context"
@@ -57,6 +58,10 @@ const DarkMode = ({children}) => {
 
   return (
     <Context.Provider value={{isEnabled, toggle}}>
+      <Helmet>
+        <body className={isEnabled ? "dark" : "light"} />
+      </Helmet>
+
       {children}
     </Context.Provider>
   )

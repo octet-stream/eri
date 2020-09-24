@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 import {useRouter} from "next/router"
 import {Helmet} from "react-helmet"
 
@@ -9,9 +9,13 @@ import "style/spacing.css"
 import "style/colors.css"
 
 import Progress from "component/Progress"
+import DarkMode from "component/DarkMode"
 
 const baseTitle = "Eri's Blog"
 
+/**
+ * @type {React.FunctionComponent<{}>}
+ */
 function App({Component, pageProps}) {
   const [isAnimatingProgress, setIsAnimatingProgress] = useState(false)
   const {events} = useRouter()
@@ -34,7 +38,7 @@ function App({Component, pageProps}) {
   }, [])
 
   return (
-    <Fragment>
+    <DarkMode>
       <Helmet
         htmlAttributes={{lang: "en"}}
         defaultTitle={baseTitle}
@@ -53,7 +57,7 @@ function App({Component, pageProps}) {
       <Component {...pageProps} />
 
       <Progress isAnimating={isAnimatingProgress} />
-    </Fragment>
+    </DarkMode>
   )
 }
 

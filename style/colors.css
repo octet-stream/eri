@@ -1,3 +1,9 @@
-.dark {}
+.light {
+  --colors-text: black;
+  --colors-background: white;
+}
 
-.light {}
+.dark {
+  --colors-text: white;
+  --colors-background: black;
+}
