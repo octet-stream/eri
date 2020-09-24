@@ -36,7 +36,7 @@ Progress.defaultProps = {
   animationDuration: 200,
   incrementDuration: 800,
   isAnimating: false,
-  minimum: 0.08
+  minimum: 0 // was 0.08
 }
 
 export default Progress
