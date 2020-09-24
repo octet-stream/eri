@@ -31,19 +31,20 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-function Post({post}) {
-  return (
-    <Fragment>
-      <Title title={post.title} />
+/**
+ * @type {React.FunctionComponent<{}>}
+ */
+const Post = ({post}) => (
+  <Fragment>
+    <Title title={post.title} />
 
-      <main>
-        <h1>{post.title}</h1>
+    <main>
+      <h1>{post.title}</h1>
 
-        <article>{post.text}</article>
-      </main>
-    </Fragment>
-  )
-}
+      <article>{post.text}</article>
+    </main>
+  </Fragment>
+)
 
 Post.propTypes = {
   post: t.shape({

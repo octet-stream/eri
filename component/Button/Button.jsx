@@ -7,12 +7,29 @@ import {container, primary, secondary} from "./button.module.css"
 
 const variants = {primary, secondary}
 
+/**
+ * @typedef {"primary" | "secondary"} ButtonVariants
+ */
+
+/**
+ * @param {ButtonVariants} name
+ */
 const getVariant = name => variants[name] || primary
 
+/**
+ * @typedef {Object} ButtonProps
+
+ * @prop {string} [props.className = null]
+ * @prop {ButtonVariants} [props.variant = "primary"]
+ * @prop {any} [props.forwardedRef = null]
+ */
+
+/**
+ * @type {React.FunctionComponent<ButtonProps>}
+ */
 const Button = ({className, variant, forwardedRef, ...props}) => (
   <button
     {...props}
-
     className={cn(container, getVariant(variant), className)}
     ref={forwardedRef}
   />

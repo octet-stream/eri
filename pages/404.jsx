@@ -6,6 +6,9 @@ import Title from "component/Title"
 
 import {container, content, item, status} from "style/404.module.css"
 
+/**
+ * @type {React.FunctionComponent<{}>}
+ */
 const NotFound = () => (
   <Fragment>
     <Title title="Page not found" />

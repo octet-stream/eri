@@ -1,6 +1,17 @@
 import Helmet from "react-helmet"
 import t from "prop-types"
 
+/**
+ * @typedef {Object} HelmetPageTitleProps
+ *
+ * @prop {string} [title]
+ * @prop {string} [titleTemplate]
+ * @prop {Object.<string, any>} [titleAttributes]
+ */
+
+/**
+ * @type {React.FunctionComponent<HelmetPageTitleProps>}
+ */
 const Title = ({title, titleTemplate, titleAttributes}) => (
   <Helmet
     title={title}
@@ -13,7 +24,7 @@ const Title = ({title, titleTemplate, titleAttributes}) => (
 Title.propTypes = {
   title: t.string,
   titleTemplate: t.string,
-  titleAttributes: t.string
+  titleAttributes: t.shape()
 }
 
 Title.defaultProps = {

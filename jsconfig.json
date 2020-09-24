@@ -4,6 +4,9 @@
     "moduleResolution": "Node",
     "experimentalDecorators": true,
     "checkJs": true,
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+    "jsx": "preserve"
+  },
+  "exclude": ["node_modules", "**/node_modules/**"],
+  "include": ["type/*.d.ts"]
 }

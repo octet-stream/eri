@@ -1,5 +1,3 @@
-@use postcss-nested;
-
 .container {
   padding: var(--spacing-xs);
   border: 1px solid;

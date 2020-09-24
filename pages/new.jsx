@@ -20,14 +20,15 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-function NewPost() {
-  return (
-    <Fragment>
-      <Title titleTemplate="%s - New post" />
+/**
+ * @type {React.FunctionComponent<{}>}
+ */
+const NewPost = () => (
+  <Fragment>
+    <Title titleTemplate="%s - New post" />
 
-      <Editor />
-    </Fragment>
-  )
-}
+    <Editor />
+  </Fragment>
+)
 
 export default NewPost |> layout(EditorLayout) |> withLogin

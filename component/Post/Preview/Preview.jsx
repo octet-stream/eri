@@ -5,6 +5,9 @@ import format from "lib/helper/util/formatDateProximity"
 
 import {title} from "./preview.module.css"
 
+/**
+ * @type {React.FunctionComponent<{}>}
+ */
 const Preview = ({post}) => (
   <article>
     <header>

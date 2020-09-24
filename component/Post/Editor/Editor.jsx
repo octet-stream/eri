@@ -1,4 +1,5 @@
 import {Fragment, useState} from "react"
+import {serialize} from "remark-slate"
 
 import Title from "component/Title"
 import Button from "component/Button"
@@ -9,21 +10,32 @@ import Actions from "./Actions"
 
 import {container, content} from "./editor.module.css"
 
+const toMarkdown = nodes => nodes.map(node => serialize(node)).join("")
+
+// ! Set this as defaut state because slate falls for some reason when state is empty
+const defaultNode = {
+  type: "paragraph",
+  children: [{
+    text: ""
+  }]
+}
+
 function Editor() {
   const [title, setTitle] = useState("")
-  const [text, setText] = useState([{
-    type: "paragraph",
-    children: [{
-      text: ""
-    }]
-  }])
+  const [nodes, updateNodes] = useState([defaultNode])
 
   /**
    * @param {import("react").SyntheticEvent} event
    */
   const onChangeTitle = ({target}) => setTitle(target.value)
 
-  const onPublish = () => console.log({title, text})
+  const onSave = () => console.log({
+    title, isDraft: true, text: toMarkdown(nodes)
+  })
+
+  const onPublish = () => console.log({
+    title, isDraft: false, text: toMarkdown(nodes)
+  })
 
   return (
     <Fragment>
@@ -33,11 +45,11 @@ function Editor() {
         <div className={content}>
           <Name value={title} onChange={onChangeTitle} />
 
-          <Text value={text} onChange={setText} />
+          <Text value={nodes} onChange={updateNodes} />
         </div>
 
         <Actions>
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={onSave}>
             Save
           </Button>
 
