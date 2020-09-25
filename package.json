@@ -57,6 +57,7 @@
     "react-hook-form": "6.8.4",
     "react-use": "15.3.4",
     "remark": "^12.0.1",
+    "remark-html": "^12.0.0",
     "remark-react": "^7.0.1",
     "remark-slate": "^1.2.1",
     "require-dir": "1.2.0",
