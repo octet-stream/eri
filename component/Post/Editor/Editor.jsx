@@ -12,9 +12,19 @@ import Actions from "./Actions"
 
 import {container, content} from "./editor.module.css"
 
+/**
+ * @typedef {import("slate").Node} Node
+ */
+
+/**
+ * @param {Node[]} nodes
+ */
 const toMarkdown = nodes => nodes.map(node => serialize(node)).join("")
 
 // ! Set this as defaut state because slate falls for some reason when state is empty
+/**
+ * @type {Node}
+ */
 const defaultNode = {
   type: "paragraph",
   children: [{
