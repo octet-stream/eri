@@ -31,7 +31,7 @@ const schema = {
       this.setDataValue(
         "slug",
 
-        `${format(Date.now(), "YYYY-MM-dd")}/${createSlug(value)}}`
+        `${format(Date.now(), "yyyy-MM-dd")}/${createSlug(value)}`
       )
     }
   },
