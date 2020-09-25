@@ -31,6 +31,7 @@ function Editor() {
   const [title, setTitle] = useState("")
   const [nodes, updateNodes] = useState([defaultNode])
 
+  // TODO: Move this action to a specific page
   const submit = post => client
     .mutate({mutation: addPost, variables: {post}})
     .then(({data}) => router.push(data.postAdd.slug))
