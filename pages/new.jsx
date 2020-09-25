@@ -1,7 +1,11 @@
+import {useApolloClient} from "@apollo/client"
+import {useRouter} from "next/router"
 import {Fragment} from "react"
 
 import auth from "lib/auth/isAuthenticated"
 import layout from "lib/hoc/layout"
+
+import add from "api/mutation/post/add.gql"
 
 import EditorLayout from "layout/Editor"
 
@@ -23,12 +27,22 @@ export async function getServerSideProps(ctx) {
 /**
  * @type {React.FC<{}>}
  */
-const NewPost = () => (
-  <Fragment>
-    <Title titleTemplate="%s - New post" />
+const NewPost = () => {
+  const router = useRouter()
+  const client = useApolloClient()
 
-    <Editor />
-  </Fragment>
-)
+  const submit = post => client
+    .mutate({mutation: add, variables: {post}})
+    .then(({data}) => router.push(data.postAdd.slug))
+    .catch(console.error)
+
+  return (
+    <Fragment>
+      <Title titleTemplate="%s - New post" />
+
+      <Editor onSubmit={submit} />
+    </Fragment>
+  )
+}
 
 export default NewPost |> layout(EditorLayout) |> withLogin

@@ -1,12 +1,10 @@
-import {useApolloClient} from "@apollo/client"
 import {Fragment, useState} from "react"
 import {serialize} from "remark-slate"
-import {useRouter} from "next/router"
+
+import t from "prop-types"
 
 import Title from "component/Title"
 import Button from "component/Button"
-
-import addPost from "api/mutation/post/add.gql"
 
 import Name from "./Name"
 import Text from "./Text"
@@ -33,7 +31,7 @@ const defaultNode = {
  */
 
 /**
- * @callback editorSubmitCallback
+ * @callback EditorSubmitCallback
  *
  * @param {PostData} data
  *
@@ -43,36 +41,26 @@ const defaultNode = {
 /**
  * @typedef {Object} PostEditorProps
  *
- * @prop {editorSubmitCallback} onSave
- * @prop {editorSubmitCallback} onPublish
+ * @prop {EditorSubmitCallback} onSubmit
  */
 
 /**
  * @type {React.FC<PostEditorProps>}
  */
-const Editor = () => {
-  const router = useRouter()
-  const client = useApolloClient()
-
+const Editor = ({onSubmit}) => {
   const [title, setTitle] = useState("")
   const [nodes, updateNodes] = useState([defaultNode])
-
-  // TODO: Move this action to a specific page
-  const submit = post => client
-    .mutate({mutation: addPost, variables: {post}})
-    .then(({data}) => router.push(data.postAdd.slug))
-    .catch(console.error)
 
   /**
    * @param {React.SyntheticEvent} event
    */
   const onChangeTitle = ({target}) => setTitle(target.value)
 
-  const onSave = () => submit({
+  const onSave = () => onSubmit({
     title, isDraft: true, text: toMarkdown(nodes)
   })
 
-  const onPublish = () => submit({
+  const onPublish = () => onSubmit({
     title, isDraft: false, text: toMarkdown(nodes)
   })
 
@@ -99,6 +87,10 @@ const Editor = () => {
       </div>
     </Fragment>
   )
+}
+
+Editor.propTypes = {
+  onSubmit: t.func.isRequired
 }
 
 export default Editor
