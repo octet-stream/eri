@@ -44,7 +44,7 @@ const DarkMode = ({children}) => {
      */
     const listener = ({matches}) => {
       set(matches)
-      sessionStorage.setItem("@@ERI_DARK_MODE_ENABLED", matches)
+      sessionStorage.setItem(DARK_MODE_STORAGE_KEY, matches)
     }
 
     const query = matchMedia("(prefers-color-scheme: dark)")
