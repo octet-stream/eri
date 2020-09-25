@@ -6,7 +6,7 @@ import {
   GraphQLInt as TInt,
 } from "graphql"
 
-import TPostTextEnumInput from "server/api/input/post/TPostTextEnumInput"
+import TPostTextEnumInput from "server/api/input/post/TPostTextFormatsInput"
 
 import TDates from "server/api/type/common/TDates"
 import TUser from "server/api/type/user/TUser"

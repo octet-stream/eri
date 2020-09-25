@@ -1,7 +1,7 @@
 import {GraphQLEnumType as Enum} from "graphql"
 
-const TPostTextEnumInput = new Enum({
-  name: "PostTextEnumInput",
+const TPostTextFormatsInput = new Enum({
+  name: "PostTextFormatsInput",
   values: {
     html: {
       value: "html"
@@ -12,4 +12,4 @@ const TPostTextEnumInput = new Enum({
   }
 })
 
-export default TPostTextEnumInput
+export default TPostTextFormatsInput
