@@ -12,6 +12,9 @@
     "migration:exec:undo": "sequelize --options-path .sequelizerc.js db:migrate:undo"
   },
   "dependencies": {
+    "@apollo/client": "^3.2.1",
+    "@apollo/react-hooks": "^4.0.0",
+    "@apollo/react-ssr": "^4.0.0",
     "@casl/ability": "4.1.6",
     "@casl/react": "2.1.1",
     "@sindresorhus/slugify": "1.1.0",

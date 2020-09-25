@@ -21,7 +21,7 @@ export async function getServerSideProps(ctx) {
 }
 
 /**
- * @type {React.FunctionComponent<{}>}
+ * @type {React.FC<{}>}
  */
 const NewPost = () => (
   <Fragment>

@@ -1,4 +1,4 @@
-import Base, {Head, Main, NextScript} from "next/document"
+import Base, {Html, Head, Main, NextScript} from "next/document"
 import {Helmet} from "react-helmet"
 
 class Document extends Base {
@@ -15,7 +15,7 @@ class Document extends Base {
 
     /* eslint-disable jsx-a11y/html-has-lang */
     return (
-      <html {...helmet.htmlAttributes.toComponent()}>
+      <Html {...helmet.htmlAttributes.toComponent()}>
         <Head>
           {
             Object.keys(helmet)
@@ -31,7 +31,7 @@ class Document extends Base {
 
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
     /* eslint-enable jsx-a11y/html-has-lang */
   }

@@ -24,25 +24,26 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-function Home({posts}) {
-  return (
-    <main>
-      {
-        do {
-          if (posts.list.length) {
-            <Fragment>
-              {
-                posts.list.map(post => <Preview key={post.id} post={post} />)
-              }
-            </Fragment>
-          } else {
-            <div>There is no posts</div>
-          }
+/**
+ * @type {React.FC<{}>}
+ */
+const Home = ({posts}) => (
+  <main>
+    {
+      do {
+        if (posts.list.length) {
+          <Fragment>
+            {
+              posts.list.map(post => <Preview key={post.id} post={post} />)
+            }
+          </Fragment>
+        } else {
+          <div>There is no posts</div>
         }
       }
-    </main>
-  )
-}
+    }
+  </main>
+)
 
 Home.propTypes = {
   posts: t.shape().isRequired

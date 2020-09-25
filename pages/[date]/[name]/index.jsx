@@ -32,7 +32,7 @@ export async function getServerSideProps(ctx) {
 }
 
 /**
- * @type {React.FunctionComponent<{}>}
+ * @type {React.FC<{}>}
  */
 const Post = ({post}) => (
   <Fragment>

@@ -1,3 +1,4 @@
+import {ApolloProvider} from "@apollo/client"
 import {useEffect, useState} from "react"
 import {useRouter} from "next/router"
 import {Helmet} from "react-helmet"
@@ -8,17 +9,27 @@ import "style/globals.css"
 import "style/spacing.css"
 import "style/colors.css"
 
+import useApollo from "lib/graphql/client/useApollo"
+
 import Progress from "component/Progress"
 import DarkMode from "component/DarkMode"
 
 const baseTitle = "Eri's Blog"
 
 /**
- * @type {React.FunctionComponent<{}>}
+ * @typedef {import("next/app").AppProps} AppProps
+ */
+
+/**
+ * @param {AppProps} props
  */
 function App({Component, pageProps}) {
+  const {initialApolloState, ...renderProps} = pageProps
+
   const [isAnimatingProgress, setIsAnimatingProgress] = useState(false)
   const {events} = useRouter()
+
+  const client = useApollo(initialApolloState)
 
   useEffect(() => {
     const start = () => setIsAnimatingProgress(true)
@@ -54,7 +65,9 @@ function App({Component, pageProps}) {
         ]}
       />
 
-      <Component {...pageProps} />
+      <ApolloProvider client={client}>
+        <Component {...renderProps} />
+      </ApolloProvider>
 
       <Progress isAnimating={isAnimatingProgress} />
     </DarkMode>
