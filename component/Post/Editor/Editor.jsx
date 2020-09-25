@@ -56,13 +56,14 @@ const Editor = ({onSubmit}) => {
    */
   const onChangeTitle = ({target}) => setTitle(target.value)
 
-  const onSave = () => onSubmit({
-    title, isDraft: true, text: toMarkdown(nodes)
-  })
+  /**
+   * @param {boolean} isDraft
+   */
+  const save = isDraft => onSubmit({title, isDraft, text: toMarkdown(nodes)})
 
-  const onPublish = () => onSubmit({
-    title, isDraft: false, text: toMarkdown(nodes)
-  })
+  const onSave = () => save(true)
+
+  const onPublish = () => save(false)
 
   return (
     <Fragment>
