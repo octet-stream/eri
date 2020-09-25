@@ -6,7 +6,7 @@ import forwardRef from "lib/hoc/forwardRef"
 import {container} from "./input.module.css"
 
 /**
- * @type {React.FunctionComponent<{className?: string}>}
+ * @type {React.FC<{className?: string}>}
  */
 const Input = ({className, forwardedRef, ...props}) => (
   <input

@@ -27,7 +27,7 @@ function getDedaultState() {
  * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme prefers-color-scheme},
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia matchMedia}
  *
- * @type {React.FunctionComponent<{children: React.ReactNode}>}
+ * @type {React.FC<{children: React.ReactNode}>}
  */
 const DarkMode = ({children}) => {
   const [isEnabled, set] = useState(getDedaultState())

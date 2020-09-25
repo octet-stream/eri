@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
     "noImplicitAny": false,
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "experimentalDecorators": true,
     "checkJs": true,
     "baseUrl": ".",
     "jsx": "preserve"
-  },
-  "exclude": ["node_modules", "**/node_modules/**"],
-  "include": ["type/*.d.ts"]
+  }
 }

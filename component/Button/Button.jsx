@@ -25,7 +25,7 @@ const getVariant = name => variants[name] || primary
  */
 
 /**
- * @type {React.FunctionComponent<ButtonProps>}
+ * @type {React.FC<ButtonProps>}
  */
 const Button = ({className, variant, forwardedRef, ...props}) => (
   <button

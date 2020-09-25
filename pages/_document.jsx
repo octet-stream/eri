@@ -13,7 +13,6 @@ class Document extends Base {
   render() {
     const {helmet} = this.props
 
-    /* eslint-disable jsx-a11y/html-has-lang */
     return (
       <Html {...helmet.htmlAttributes.toComponent()}>
         <Head>
@@ -33,7 +32,6 @@ class Document extends Base {
         </body>
       </Html>
     )
-    /* eslint-enable jsx-a11y/html-has-lang */
   }
 }
 

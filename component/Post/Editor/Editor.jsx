@@ -24,7 +24,33 @@ const defaultNode = {
   }]
 }
 
-function Editor() {
+/**
+ * @typedef {Object} PostData
+ *
+ * @prop {string} title
+ * @prop {string} text
+ * @prop {boolean} isDraft
+ */
+
+/**
+ * @callback editorSubmitCallback
+ *
+ * @param {PostData} data
+ *
+ * @return {Promise<PostData & {id: number, slug: string}>}
+ */
+
+/**
+ * @typedef {Object} PostEditorProps
+ *
+ * @prop {editorSubmitCallback} onSave
+ * @prop {editorSubmitCallback} onPublish
+ */
+
+/**
+ * @type {React.FC<PostEditorProps>}
+ */
+const Editor = () => {
   const router = useRouter()
   const client = useApolloClient()
 
@@ -38,7 +64,7 @@ function Editor() {
     .catch(console.error)
 
   /**
-   * @param {import("react").SyntheticEvent} event
+   * @param {React.SyntheticEvent} event
    */
   const onChangeTitle = ({target}) => setTitle(target.value)
 

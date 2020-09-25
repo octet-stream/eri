@@ -6,7 +6,21 @@ import t from "prop-types"
 
 import {container} from "./text.module.css"
 
-function Text({onChange, value}) {
+/**
+ * @typedef {import("slate").Node} Node
+ */
+
+/**
+ * @typedef {Object} TextEditorProps
+ *
+ * @prop {(value: Node[]) => void} onChange
+ * @prop {Node[]} value
+ */
+
+/**
+ * @type {React.FC<TextEditorProps>}
+ */
+const Text = ({onChange, value}) => {
   const editor = useMemo(() => withReact(createEditor()), [])
 
   return (

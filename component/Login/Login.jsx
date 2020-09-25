@@ -10,7 +10,10 @@ import Button from "component/Button"
 
 import {container, box, fields, title} from "./login.module.css"
 
-function Login() {
+/**
+ * @type {React.FC<{}>}
+ */
+const Login = () => {
   const {register, handleSubmit} = useForm()
 
   const submit = async credentials => callAPI
