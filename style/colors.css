@@ -1,9 +1,11 @@
 .light {
-  --colors-text: black;
+  --colors-text: #070916;
   --colors-background: white;
+  --colors-primary: #5e77c7;
 }
 
 .dark {
-  --colors-text: white;
-  --colors-background: black;
+  --colors-text: #e4e7fa;
+  --colors-background: #070916;
+  --colors-primary: #5e77c7;
 }

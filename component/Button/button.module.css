@@ -1,8 +1,9 @@
 .container {
-  padding: var(--spacing-xs);
-  border: 1px solid;
+  padding: var(--spacing-xs) var(--spacing-s);
+  border: none;
   cursor: pointer;
   font-size: 1em;
+  border-radius: 2px;
 
   &:disabled {
     cursor: not-allowed;
@@ -10,13 +11,11 @@
 }
 
 .primary {
-  color: white;
-  background: black;
-  border-color: black;
+  color: var(--colors-background);
+  background: var(--colors-primary);
 }
 
 .secondary {
-  color: black;
-  background: white;
-  border-color: black;
+  color: var(--colors-text);
+  background: var(--colors-background);
 }
