@@ -1,6 +1,7 @@
 import create from "http-errors"
 
 /**
+ * @param {string} [subject]
  * @param {Object.<string, any>} [options]
  */
 const notFound = (subject, options) => {
