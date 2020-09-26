@@ -6,8 +6,12 @@ import create from "http-errors"
  * @param {string} [params.operation]
  * @param {Object.<string, any>} options
  */
-const forbidden = ({subject, operation}, options) => create(
-  403, `You can't perform "${operation}" operation on "${subject}"`, options
-)
+const forbidden = ({subject, operation}, options) => {
+  const message = subject && operation
+    ? `You can't perform "${operation}" operation on "${subject}"`
+    : "Access denied."
+
+  return create(403, message, options)
+}
 
 export default forbidden

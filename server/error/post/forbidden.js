@@ -1,10 +1,15 @@
-import create from "http-errors"
+import create from "server/error/common/forbidden"
 
 /**
  * @param {Object.<string, any>} [options]
  */
-const forbidden = options => create(
-  403, "You can't perform this operation", options
+const forbidden = (operation, options) => create(
+  {
+    subject: "Post",
+    operation
+  },
+
+  options
 )
 
 export default forbidden

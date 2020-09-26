@@ -1,8 +1,8 @@
-import create from "http-errors"
+import create from "server/error/common/notFound"
 
 /**
  * @param {Object.<string, any>} [options]
  */
-const notFound = options => create(404, "Can't find requested post", options)
+const notFound = options => create("post", options)
 
 export default notFound
