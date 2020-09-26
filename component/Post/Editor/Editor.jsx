@@ -1,5 +1,8 @@
-import {Fragment, useState} from "react"
-import {serialize} from "remark-slate"
+import {Fragment, useState, useMemo} from "react"
+import slate, {serialize} from "remark-slate"
+
+import mdast from "remark-parse"
+import unified from "unified"
 
 import t from "prop-types"
 
@@ -20,6 +23,8 @@ import {container, content} from "./editor.module.css"
  * @param {Node[]} nodes
  */
 const toMarkdown = nodes => nodes.map(node => serialize(node)).join("")
+
+const toSlate = unified().use(mdast).use(slate)
 
 // ! Set this as defaut state because slate falls for some reason when state is empty
 /**
@@ -51,15 +56,22 @@ const defaultNode = {
 /**
  * @typedef {Object} PostEditorProps
  *
+ * @prop {string} [title]
+ * @prop {string} [text]
  * @prop {EditorSubmitCallback} onSubmit
  */
 
 /**
  * @type {React.FC<PostEditorProps>}
  */
-const Editor = ({onSubmit}) => {
-  const [title, setTitle] = useState("")
-  const [nodes, updateNodes] = useState([defaultNode])
+const Editor = ({onSubmit, text, ...props}) => {
+  /**
+   * @type {{result: Node[]}}
+   */
+  const {result} = useMemo(() => toSlate.processSync(text), [text])
+
+  const [title, setTitle] = useState(props.title)
+  const [nodes, updateNodes] = useState(result.length ? result : [defaultNode])
 
   /**
    * @param {React.SyntheticEvent} event
@@ -101,7 +113,14 @@ const Editor = ({onSubmit}) => {
 }
 
 Editor.propTypes = {
-  onSubmit: t.func.isRequired
+  title: t.string,
+  text: t.string,
+  onSubmit: t.func.isRequired,
+}
+
+Editor.defaultProps = {
+  title: "",
+  text: ""
 }
 
 export default Editor

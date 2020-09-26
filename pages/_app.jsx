@@ -14,7 +14,7 @@ import useApollo from "lib/graphql/client/useApollo"
 import Progress from "component/Progress"
 import DarkMode from "component/DarkMode"
 
-const baseTitle = "Eri's Blog"
+const baseTitle = process.env.NEXT_PUBLIC_BLOG_NAME
 
 /**
  * @typedef {import("next/app").AppProps} AppProps

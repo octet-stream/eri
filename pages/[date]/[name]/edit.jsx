@@ -1,8 +1,11 @@
+import t from "prop-types"
+
 import auth from "lib/auth/isAuthenticated"
 import exec from "lib/graphql/exec"
 import layout from "lib/hoc/layout"
 
 import EditorLayout from "layout/Editor"
+import Editor from "component/Post/Editor"
 import withLogin from "component/Login/withLogin"
 
 import getPost from "api/query/post.gql"
@@ -33,8 +36,17 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-function Edit() {
-  return <div>Post editor will be here</div>
+function Edit({post}) {
+  const submit = data => console.log(data)
+
+  return <Editor title={post.title} text={post.text} onSubmit={submit} />
+}
+
+Edit.propTypes = {
+  post: t.shape({
+    title: t.string,
+    text: t.string
+  }).isRequired,
 }
 
 export default Edit |> layout(EditorLayout) |> withLogin

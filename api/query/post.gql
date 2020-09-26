@@ -1,9 +1,9 @@
-query GetPost($slug: String!) {
+query GetPost($slug: String!, $format: PostTextFormatsInput) {
   post(slug: $slug) {
     id
     title
     slug
-    text
+    text(format: $format)
     isDraft
 
     creator {
