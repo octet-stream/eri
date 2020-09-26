@@ -42,7 +42,7 @@ const updatePost = ({args, ctx}) => db.transaction(async transaction => {
   }
 
   if (acl.cannot("update", post)) {
-    throw forbidden()
+    throw forbidden("update")
   }
 
   return post.update(fields, {transaction})

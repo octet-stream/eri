@@ -34,7 +34,7 @@ const removePost = ({args, ctx}) => db.transaction(async transaction => {
   }
 
   if (acl.cannot("delete", post)) {
-    throw forbidden()
+    throw forbidden("delete")
   }
 
   return post.destroy({transaction}).then(() => post.id)

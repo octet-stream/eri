@@ -36,7 +36,7 @@ const postAdd = ({args, ctx}) => db.transaction(async transaction => {
   const acl = createPostAbilities(user)
 
   if (acl.cannot("create", Post)) {
-    throw forbidden()
+    throw forbidden("create")
   }
 
   return Post.create({...post, userId: user.id}, {transaction})

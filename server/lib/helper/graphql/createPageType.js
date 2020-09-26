@@ -9,10 +9,6 @@ import {
   isListType,
 } from "graphql"
 
-/**
- * @typedef {import("graphql").GraphQLObjectType} GraphQLObjectType
- */
-
 const {isArray} = Array
 
 const rowsToList = ({rows}) => rows
@@ -45,7 +41,7 @@ function getTypeInfo(t) {
 
 /**
  * @param {Object} config
- * @param {GraphQLObjectType | [GraphQLObjectType, boolean]} config.type
+ * @param {Output | [Output, boolean]} config.type
  * @param {boolean} [config.required = false]
  */
 function createPageType({type: target, required = false, ...field}) {
