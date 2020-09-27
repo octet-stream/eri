@@ -2,12 +2,16 @@ import {
   GraphQLInputObjectType as Input,
   GraphQLNonNull as Required,
   GraphQLString as TString,
-  GraphQLBoolean as TBoolean
+  GraphQLBoolean as TBoolean,
+  GraphQLInt as TInt
 } from "graphql"
 
 const TPostUpdateInput = new Input({
   name: "PostUpdateInput",
   fields: {
+    id: {
+      type: new Required(TInt)
+    },
     title: {
       type: new Required(TString)
     },

@@ -1,3 +1,6 @@
+import {useApolloClient} from "@apollo/client"
+import {useRouter} from "next/router"
+
 import t from "prop-types"
 
 import auth from "lib/auth/isAuthenticated"
@@ -9,6 +12,7 @@ import Editor from "component/Post/Editor"
 import withLogin from "component/Login/withLogin"
 
 import getPost from "api/query/post.gql"
+import update from "api/mutation/post/update.gql"
 
 /**
  * @typedef {Object} Post
@@ -45,19 +49,26 @@ export const getServerSideProps = async ctx => {
 }
 
 /**
- * @type {React.FC<{post: Post}>}
+ * @type {React.FC<{post: Post & {id: number}}>}
  */
 const Edit = ({post}) => {
+  const client = useApolloClient()
+  const router = useRouter()
+
   /**
-   * @param {Post} data
+   * @param {Post} updated
    */
-  const submit = data => console.log(data)
+  const submit = updated => client
+    .mutate({mutation: update, variables: {post: {...updated, id: post.id}}})
+    .then(({data}) => router.push(data.postUpdate.slug))
+    .catch(console.error)
 
   return <Editor title={post.title} text={post.text} onSubmit={submit} />
 }
 
 Edit.propTypes = {
   post: t.shape({
+    id: t.number,
     title: t.string,
     text: t.string
   }).isRequired,
