@@ -14,15 +14,13 @@ import Editor from "component/Post/Editor"
 import withLogin from "component/Login/withLogin"
 
 /**
- * @param {import("next").GetServerSidePropsContext} ctx
+ * @type {import("next").GetServerSideProps<{isAuthenticated: boolean}>}
  */
-export async function getServerSideProps(ctx) {
-  return {
-    props: {
-      isAuthenticated: await auth(ctx)
-    }
+export const getServerSideProps = async ctx => ({
+  props: {
+    isAuthenticated: await auth(ctx)
   }
-}
+})
 
 /**
  * @type {React.FC<{}>}

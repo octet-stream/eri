@@ -11,9 +11,17 @@ import withLogin from "component/Login/withLogin"
 import getPost from "api/query/post.gql"
 
 /**
- * @param {import("next").GetServerSidePropsContext} ctx
+ * @typedef {Object} Post
+ *
+ * @prop {string} title
+ * @prop {string} text
+ * @prop {boolean} isDraft
  */
-export async function getServerSideProps(ctx) {
+
+/**
+ * @type {import("next").GetServerSideProps<{post: Post, isAuthenticated: boolean}>} ctx
+ */
+export const getServerSideProps = async ctx => {
   const {date, name} = ctx.params
 
   const [isAuthenticated, {data, errors}] = await Promise.all([
@@ -36,7 +44,13 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-function Edit({post}) {
+/**
+ * @type {React.FC<{post: Post}>}
+ */
+const Edit = ({post}) => {
+  /**
+   * @param {Post} data
+   */
   const submit = data => console.log(data)
 
   return <Editor title={post.title} text={post.text} onSubmit={submit} />

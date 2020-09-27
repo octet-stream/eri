@@ -9,9 +9,9 @@ import t from "prop-types"
 import Title from "component/Title"
 import Button from "component/Button"
 
-import Name from "./Name"
-import Text from "./Text"
-import Actions from "./Actions"
+import Name from "component/Post/Editor/Name"
+import Text from "component/Post/Editor/Text"
+import Actions from "component/Post/Editor/Actions"
 
 import {container, content} from "./editor.module.css"
 
@@ -64,13 +64,13 @@ const defaultNode = {
 /**
  * @type {React.FC<PostEditorProps>}
  */
-const Editor = ({onSubmit, text, ...props}) => {
+const Editor = ({onSubmit, text, title: initialTitle}) => {
   /**
    * @type {{result: Node[]}}
    */
   const {result} = useMemo(() => toSlate.processSync(text), [text])
 
-  const [title, setTitle] = useState(props.title)
+  const [title, setTitle] = useState(initialTitle)
   const [nodes, updateNodes] = useState(result.length ? result : [defaultNode])
 
   /**

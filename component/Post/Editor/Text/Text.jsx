@@ -25,14 +25,14 @@ const Text = ({onChange, value}) => {
 
   return (
     <Slate editor={editor} value={value} onChange={onChange}>
-      <Editable className={container} />
+      <Editable className={container} placeholder="Post text" />
     </Slate>
   )
 }
 
 Text.propTypes = {
   onChange: t.func.isRequired,
-  value: t.arrayOf(t.shape({})).isRequired
+  value: t.arrayOf(t.shape()).isRequired
 }
 
 export default Text
