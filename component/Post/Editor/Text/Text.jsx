@@ -4,6 +4,8 @@ import {useMemo} from "react"
 
 import t from "prop-types"
 
+import renderLeaf from "./renderLeaf"
+
 import {container} from "./text.module.css"
 
 /**
@@ -25,7 +27,11 @@ const Text = ({onChange, value}) => {
 
   return (
     <Slate editor={editor} value={value} onChange={onChange}>
-      <Editable className={container} placeholder="Post text" />
+      <Editable
+        className={container}
+        placeholder="Post text"
+        renderLeaf={renderLeaf}
+      />
     </Slate>
   )
 }
