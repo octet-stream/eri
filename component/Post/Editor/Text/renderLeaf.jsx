@@ -1,6 +1,11 @@
 import {createElement} from "react"
 
 /**
+ * @typedef {import("slate-react").RenderLeafProps} RenderLeafProps
+ * @typedef {import("slate").Text} Text
+ */
+
+/**
  * @type {Array<[name: string, componnet: React.ReactNode]>}
  */
 const leaves = [
@@ -10,16 +15,20 @@ const leaves = [
   ["strikeThrough", "strike"]
 ]
 
-const pick = (leaf, children) => leaves
+/**
+ * @param {Text} leaf
+ * @param {React.ReactNode} children
+ */
+const compose = (leaf, children) => leaves
   .filter(([name]) => leaf[name] === true)
   .map(([, component]) => component)
   .reduce((prev, curr) => createElement(curr, null, prev), children)
 
 /**
- * @param {import("slate-react").RenderLeafProps} props
+ * @param {RenderLeafProps} props
  */
 const renderLeaf = ({leaf, attributes, children}) => (
-  <span {...attributes}>{pick(leaf, children)}</span>
+  <span {...attributes}>{compose(leaf, children)}</span>
 )
 
 export default renderLeaf
