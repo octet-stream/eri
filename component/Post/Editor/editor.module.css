@@ -12,3 +12,12 @@
   flex-direction: column;
   border: 1px solid grey;
 }
+
+.editable {
+  flex: 1;
+  padding: var(--spacing-xs);
+  background: var(--colors-background);
+  color: var(--colors-text);
+  font-size: 1em;
+  user-select: none;
+}

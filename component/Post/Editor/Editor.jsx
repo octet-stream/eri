@@ -1,5 +1,8 @@
+// @refresh reset
+import {withReact, Slate, Editable} from "slate-react"
 import {Fragment, useState, useMemo} from "react"
 import slate, {serialize} from "remark-slate"
+import {createEditor} from "slate"
 
 import mdast from "remark-parse"
 import unified from "unified"
@@ -10,10 +13,11 @@ import Title from "component/Title"
 import Button from "component/Button"
 
 import Name from "component/Post/Editor/Name"
-import Text from "component/Post/Editor/Text"
 import Actions from "component/Post/Editor/Actions"
 
-import {container, content} from "./editor.module.css"
+import renderLeaf from "./renderLeaf"
+
+import {container, content, editable} from "./editor.module.css"
 
 /**
  * @typedef {import("slate").Node} Node
@@ -73,6 +77,8 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
   const [title, setTitle] = useState(initialTitle)
   const [nodes, updateNodes] = useState(result.length ? result : [defaultNode])
 
+  const editor = useMemo(() => withReact(createEditor()), [])
+
   /**
    * @param {React.SyntheticEvent} event
    */
@@ -95,7 +101,13 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
         <div className={content}>
           <Name value={title} onChange={onChangeTitle} />
 
-          <Text value={nodes} onChange={updateNodes} />
+          <Slate editor={editor} value={nodes} onChange={updateNodes}>
+            <Editable
+              className={editable}
+              placeholder="Post text"
+              renderLeaf={renderLeaf}
+            />
+          </Slate>
         </div>
 
         <Actions>
