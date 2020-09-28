@@ -24,7 +24,7 @@ import {container, content} from "./editor.module.css"
  */
 const toMarkdown = nodes => nodes.map(node => serialize(node)).join("")
 
-const toSlate = unified().use(mdast).use(slate)
+const toSlate = unified().use(mdast, {commonmark: true}).use(slate)
 
 // ! Set this as defaut state because slate falls for some reason when state is empty
 /**
@@ -79,7 +79,7 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
   const onChangeTitle = ({target}) => setTitle(target.value)
 
   /**
-   * @param {boolean} isDraft
+   * @param {boolean} isDraft Indicated whether the post must be saved as draf or published
    */
   const save = isDraft => onSubmit({title, isDraft, text: toMarkdown(nodes)})
 

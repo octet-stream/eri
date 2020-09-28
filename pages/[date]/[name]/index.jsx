@@ -1,8 +1,9 @@
 import {Fragment} from "react"
 
 import t from "prop-types"
-import remark from "remark"
 import toReact from "remark-react"
+import mdast from "remark-parse"
+import unified from "unified"
 
 import layout from "lib/hoc/layout"
 import exec from "lib/graphql/exec"
@@ -11,12 +12,12 @@ import getPost from "api/query/post.gql"
 import Title from "component/Title"
 import BlogLayout from "layout/Blog"
 
-const parser = remark().use(toReact)
+const parser = unified().use(mdast, {commonmark: true}).use(toReact)
 
 /**
- * @param {import("next").GetServerSidePropsContext} ctx
+ * @type {import("next").GetServerSideProps}
  */
-export async function getServerSideProps(ctx) {
+export const getServerSideProps = async ctx => {
   const {date, name} = ctx.params
 
   const {data, errors} = await exec({
