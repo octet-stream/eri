@@ -60,7 +60,7 @@ const Edit = ({post}) => {
    */
   const submit = updated => client
     .mutate({mutation: update, variables: {post: {...updated, id: post.id}}})
-    .then(({data}) => router.push(data.postUpdate.slug))
+    .then(({data}) => router.push(`/${data.postUpdate.slug}`))
     .catch(console.error)
 
   return <Editor title={post.title} text={post.text} onSubmit={submit} />

@@ -1,9 +1,10 @@
 import {Fragment} from "react"
 
 import t from "prop-types"
-import toReact from "remark-react"
 import mdast from "remark-parse"
+import toReact from "remark-react"
 import unified from "unified"
+import Link from "next/link"
 
 import layout from "lib/hoc/layout"
 import exec from "lib/graphql/exec"
@@ -44,7 +45,15 @@ const Post = ({post}) => (
     <Title title={post.title} />
 
     <main>
-      <h1>{post.title}</h1>
+      <h1>
+        <span>{post.title} </span>
+
+        (
+        <Link href="/[date]/[name]/edit" as={`/${post.slug}/edit`}>
+          <a>edit</a>
+        </Link>
+        )
+      </h1>
 
       <article>{parser.processSync(post.text).result}</article>
     </main>
@@ -54,7 +63,8 @@ const Post = ({post}) => (
 Post.propTypes = {
   post: t.shape({
     title: t.string,
-    text: t.string
+    text: t.string,
+    slug: t.string,
   }).isRequired,
 }
 

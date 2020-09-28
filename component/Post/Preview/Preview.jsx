@@ -12,7 +12,7 @@ const Preview = ({post}) => (
   <article>
     <header>
       <h3 className={title}>
-        <Link href="/[date]/[name]" as={post.slug}>
+        <Link href="/[date]/[name]" as={`/${post.slug}`}>
           <a>{post.title}</a>
         </Link>
       </h3>
