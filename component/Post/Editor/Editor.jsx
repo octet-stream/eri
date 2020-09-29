@@ -72,10 +72,14 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
   /**
    * @type {{result: Node[]}}
    */
-  const {result} = useMemo(() => toSlate.processSync(text), [text])
+  const initialNodes = useMemo(() => {
+    const {result} = toSlate.processSync(text)
+
+    return result.length ? result : [defaultNode]
+  }, [text])
 
   const [title, setTitle] = useState(initialTitle)
-  const [nodes, updateNodes] = useState(result.length ? result : [defaultNode])
+  const [nodes, updateNodes] = useState(initialNodes)
 
   const editor = useMemo(() => withReact(createEditor()), [])
 
