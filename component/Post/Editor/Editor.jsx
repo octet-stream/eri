@@ -70,7 +70,7 @@ const defaultNode = {
  */
 const Editor = ({onSubmit, text, title: initialTitle}) => {
   /**
-   * @type {{result: Node[]}}
+   * @type {Node[]}
    */
   const initialNodes = useMemo(() => {
     const {result} = toSlate.processSync(text)
