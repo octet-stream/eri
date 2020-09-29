@@ -89,7 +89,7 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
   const onChangeTitle = ({target}) => setTitle(target.value)
 
   /**
-   * @param {boolean} isDraft Indicated whether the post must be saved as draf or published
+   * @param {boolean} isDraft Indicates whether the post must be saved as draf or published
    */
   const save = isDraft => onSubmit({title, isDraft, text: toMarkdown(nodes)})
 
