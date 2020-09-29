@@ -18,14 +18,13 @@ const getVariant = name => variants[name] || primary
 
 /**
  * @typedef {Object} ButtonProps
-
- * @prop {string} [className = null]
+ *
  * @prop {ButtonVariants} [variant = "primary"]
  * @prop {any} [forwardedRef = null]
  */
 
 /**
- * @type {React.FC<ButtonProps>}
+ * @type {React.FC<React.HTMLAttributes<HTMLButtonElement> & ButtonProps>}
  */
 const Button = ({className, variant, forwardedRef, ...props}) => (
   <button
