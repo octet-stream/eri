@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form"
 import {Fragment} from "react"
 
 import getCsrfToken from "lib/auth/getCsrfToken"
-import callAPI from "lib/rest/api"
+import api from "lib/rest/api"
 
 import Title from "component/Title"
 import Input from "component/Input"
@@ -16,7 +16,7 @@ import {container, box, fields, title} from "./login.module.css"
 const Login = () => {
   const {register, handleSubmit} = useForm()
 
-  const submit = async credentials => callAPI
+  const submit = async credentials => api
     .post("auth/login", {
       json: {
         ...credentials, _csrf: await getCsrfToken()
