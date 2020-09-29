@@ -19,9 +19,9 @@ const getVariant = name => variants[name] || primary
 /**
  * @typedef {Object} ButtonProps
 
- * @prop {string} [props.className = null]
- * @prop {ButtonVariants} [props.variant = "primary"]
- * @prop {any} [props.forwardedRef = null]
+ * @prop {string} [className = null]
+ * @prop {ButtonVariants} [variant = "primary"]
+ * @prop {any} [forwardedRef = null]
  */
 
 /**
