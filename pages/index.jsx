@@ -14,13 +14,10 @@ import getPosts from "api/query/posts.gql"
  * @param {import("next").GetServerSidePropsContext} ctx
  */
 export async function getServerSideProps(ctx) {
-  const {data, errors} = await exec({ctx, query: getPosts})
+  const props = await exec({ctx, query: getPosts})
 
   return {
-    props: {
-      errors: errors ?? [],
-      posts: data?.posts
-    }
+    props
   }
 }
 
