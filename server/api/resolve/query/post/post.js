@@ -7,6 +7,8 @@ import db from "server/lib/db/connection"
 
 import Post from "server/model/Post"
 
+import notFound from "server/error/post/notFound"
+
 const getPost = ({args}) => db.transaction(async transaction => {
   const where = omit(args, isNil)
 
@@ -22,7 +24,7 @@ const getPost = ({args}) => db.transaction(async transaction => {
   })
 
   if (!post) {
-    throw new Error("Can't find a post")
+    throw notFound()
   }
 
   return post

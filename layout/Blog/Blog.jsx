@@ -1,4 +1,3 @@
-import ErrorBoundary from "react-error-boundary"
 import t from "prop-types"
 
 import {container, content} from "./blog.module.css"

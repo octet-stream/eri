@@ -24,7 +24,9 @@ const baseTitle = process.env.NEXT_PUBLIC_BLOG_NAME
  * @param {AppProps} props
  */
 function App({Component, pageProps}) {
-  const {initialApolloState, ...renderProps} = pageProps
+  const {initialApolloState, error, ...renderProps} = pageProps
+
+  // console.log(error, renderProps)
 
   const [isAnimatingProgress, setIsAnimatingProgress] = useState(false)
   const {events} = useRouter()
