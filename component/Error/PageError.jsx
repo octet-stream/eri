@@ -30,7 +30,7 @@ const PageError = ({error, children}) => {
     return children
   }
 
-  if (error.status) {
+  if (error.status === 404) {
     return <NotFound />
   }
 
