@@ -21,7 +21,7 @@ const parser = unified().use(mdast, {commonmark: true}).use(toReact)
 export const getServerSideProps = async ctx => {
   const {date, name} = ctx.params
 
-  const {data, errors} = await exec({
+  const props = await exec({
     ctx,
     query: getPost,
     variables: {
@@ -30,17 +30,14 @@ export const getServerSideProps = async ctx => {
   })
 
   return {
-    props: {
-      errors: errors ?? [],
-      post: data?.post
-    }
+    props
   }
 }
 
 /**
  * @type {React.FC<{}>}
  */
-const Post = ({post}) => (
+const Post = ({data: {post}}) => (
   <Fragment>
     <Title title={post.title} />
 
@@ -61,11 +58,14 @@ const Post = ({post}) => (
 )
 
 Post.propTypes = {
-  post: t.shape({
-    title: t.string,
-    text: t.string,
-    slug: t.string,
-  }).isRequired,
+  data: t.shape({
+    post: t.shape({
+      id: t.number,
+      title: t.string,
+      text: t.string,
+      slug: t.string
+    }),
+  }).isRequired
 }
 
 export default Post |> layout(BlogLayout)

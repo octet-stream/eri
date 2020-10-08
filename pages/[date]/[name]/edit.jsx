@@ -28,7 +28,7 @@ import update from "api/mutation/post/update.gql"
 export const getServerSideProps = async ctx => {
   const {date, name} = ctx.params
 
-  const [isAuthenticated, {data, errors}] = await Promise.all([
+  const [isAuthenticated, response] = await Promise.all([
     auth(ctx),
     exec({
       ctx,
@@ -41,17 +41,15 @@ export const getServerSideProps = async ctx => {
 
   return {
     props: {
-      isAuthenticated,
-      errors: errors ?? [],
-      post: data?.post
+      ...response, isAuthenticated,
     }
   }
 }
 
 /**
- * @type {React.FC<{post: Post & {id: number}}>}
+ * @type {React.FC<{data: {post: Post & {id: number}}}>}
  */
-const Edit = ({post}) => {
+const Edit = ({data: {post}}) => {
   const client = useApolloClient()
   const router = useRouter()
 
@@ -67,11 +65,13 @@ const Edit = ({post}) => {
 }
 
 Edit.propTypes = {
-  post: t.shape({
-    id: t.number,
-    title: t.string,
-    text: t.string
-  }).isRequired,
+  data: t.shape({
+    post: t.shape({
+      id: t.number,
+      title: t.string,
+      text: t.string
+    }),
+  }).isRequired
 }
 
 export default Edit |> layout(EditorLayout) |> withLogin
