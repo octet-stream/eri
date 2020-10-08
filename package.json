@@ -47,7 +47,7 @@
     "mst-middlewares": "3.17.2",
     "mysql2": "2.2.5",
     "nanoid": "3.1.12",
-    "next": "9.5.3",
+    "next": "9.5.4",
     "next-compose-plugins": "2.2.0",
     "next-connect": "0.9.0",
     "next-plugin-graphql": "0.0.2",
