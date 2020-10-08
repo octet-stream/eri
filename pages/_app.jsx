@@ -4,7 +4,6 @@ import {useRouter} from "next/router"
 import {Helmet} from "react-helmet"
 
 import t from "prop-types"
-import NextError from "next/error"
 
 import "style/globals.css"
 import "style/spacing.css"
