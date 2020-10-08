@@ -4,6 +4,7 @@ import {useRouter} from "next/router"
 import {Helmet} from "react-helmet"
 
 import t from "prop-types"
+import NextError from "next/error"
 
 import "style/globals.css"
 import "style/spacing.css"
@@ -13,6 +14,7 @@ import useApollo from "lib/graphql/client/useApollo"
 
 import Progress from "component/Progress"
 import DarkMode from "component/DarkMode"
+import PageError from "component/Error/PageError"
 
 const baseTitle = process.env.NEXT_PUBLIC_BLOG_NAME
 
@@ -25,8 +27,6 @@ const baseTitle = process.env.NEXT_PUBLIC_BLOG_NAME
  */
 function App({Component, pageProps}) {
   const {initialApolloState, error, ...renderProps} = pageProps
-
-  // console.log(error, renderProps)
 
   const [isAnimatingProgress, setIsAnimatingProgress] = useState(false)
   const {events} = useRouter()
@@ -68,7 +68,9 @@ function App({Component, pageProps}) {
       />
 
       <ApolloProvider client={client}>
-        <Component {...renderProps} />
+        <PageError error={error}>
+          <Component {...renderProps} />
+        </PageError>
       </ApolloProvider>
 
       <Progress isAnimating={isAnimatingProgress} />

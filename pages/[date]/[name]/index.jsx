@@ -8,6 +8,8 @@ import Link from "next/link"
 
 import layout from "lib/hoc/layout"
 import exec from "lib/graphql/exec"
+import serializeError from "lib/graphql/exec/serializeErrorDecorator"
+
 import getPost from "api/query/post.gql"
 
 import Title from "component/Title"
@@ -18,7 +20,7 @@ const parser = unified().use(mdast, {commonmark: true}).use(toReact)
 /**
  * @type {import("next").GetServerSideProps}
  */
-export const getServerSideProps = async ctx => {
+export const getServerSideProps = serializeError(async ctx => {
   const {date, name} = ctx.params
 
   const props = await exec({
@@ -32,7 +34,7 @@ export const getServerSideProps = async ctx => {
   return {
     props
   }
-}
+})
 
 /**
  * @type {React.FC<{}>}
