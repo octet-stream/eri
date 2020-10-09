@@ -3,6 +3,7 @@ import {useRouter} from "next/router"
 
 import t from "prop-types"
 
+import serializeError from "lib/graphql/exec/serializeErrorDecorator"
 import auth from "lib/auth/isAuthenticated"
 import exec from "lib/graphql/exec"
 import layout from "lib/hoc/layout"
@@ -25,7 +26,7 @@ import update from "api/mutation/post/update.gql"
 /**
  * @type {import("next").GetServerSideProps<{post: Post, isAuthenticated: boolean}>} ctx
  */
-export const getServerSideProps = async ctx => {
+export const getServerSideProps = serializeError(async ctx => {
   const {date, name} = ctx.params
 
   const [isAuthenticated, response] = await Promise.all([
@@ -44,7 +45,7 @@ export const getServerSideProps = async ctx => {
       ...response, isAuthenticated,
     }
   }
-}
+})
 
 /**
  * @type {React.FC<{data: {post: Post & {id: number}}}>}

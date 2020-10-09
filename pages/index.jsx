@@ -2,6 +2,7 @@ import {Fragment} from "react"
 
 import t from "prop-types"
 
+import serializeError from "lib/graphql/exec/serializeErrorDecorator"
 import layout from "lib/hoc/layout"
 import exec from "lib/graphql/exec"
 
@@ -11,15 +12,15 @@ import Preview from "component/Post/Preview"
 import getPosts from "api/query/posts.gql"
 
 /**
- * @param {import("next").GetServerSidePropsContext} ctx
+ * @type {import("next").GetServerSideProps}
  */
-export async function getServerSideProps(ctx) {
+export const getServerSideProps = serializeError(async ctx => {
   const props = await exec({ctx, query: getPosts})
 
   return {
     props
   }
-}
+})
 
 /**
  * @type {React.FC<{}>}
