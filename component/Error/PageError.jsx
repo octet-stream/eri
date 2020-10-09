@@ -22,6 +22,8 @@ import NotFound from "component/Error/NotFound"
  */
 
 /**
+ * Will render next/error component if an error prop is taken. Otherwise its own child component will be rendered.
+ *
  * @type {React.FC<PageErrorProps>}
  */
 const PageError = ({error, children}) => {
