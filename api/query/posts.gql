@@ -11,7 +11,6 @@ query GetPosts($page: Int) {
       id
       title
       slug
-      text
       isDraft
 
       creator {
