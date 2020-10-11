@@ -2,6 +2,7 @@
 import {withReact, Slate, Editable} from "slate-react"
 import {Fragment, useState, useMemo} from "react"
 import slate, {serialize} from "remark-slate"
+import {withHistory} from "slate-history"
 import {createEditor} from "slate"
 
 import mdast from "remark-parse"
@@ -81,7 +82,7 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
   const [title, setTitle] = useState(initialTitle)
   const [nodes, updateNodes] = useState(initialNodes)
 
-  const editor = useMemo(() => withReact(createEditor()), [])
+  const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
   /**
    * @param {React.SyntheticEvent} event
