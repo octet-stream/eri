@@ -1,17 +1,17 @@
 import {Fragment} from "react"
 
-import cn from "classnames"
+import Link from "next/link"
 
 import Title from "component/Title"
 
 import {
   container,
-  delimiter,
   content,
-  item,
+  message,
   status
 } from "./not-found.module.css"
 
+// TODO: Improve page design
 /**
  * @type {React.FC}
  */
@@ -21,14 +21,35 @@ const NotFound = () => (
 
     <div className={container}>
       <div className={content}>
-        <h1 className={item}>
-          404
-        </h1>
+        <div className={message}>
+          <h1 className={status}>
+            404
+          </h1>
 
-        <div className={delimiter} />
+          <div>
+            This page could not be found.
+          </div>
+        </div>
 
-        <div className={cn(item, status)}>
-          Page not found
+        <div>
+          <div>
+            These suggestions may help you:
+          </div>
+          <ul>
+            <li>
+              Return to the <Link href="/"><a>home page</a></Link>
+            </li>
+
+            <li>
+              Check if the URL countains typos
+            </li>
+
+            {/* <li>
+              <span>Open a </span>
+              <Link href="/search"><a>search index</a></Link>
+              <span> to find a post</span>
+            </li> */}
+          </ul>
         </div>
       </div>
     </div>

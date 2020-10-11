@@ -8,24 +8,26 @@
 
 .content {
   display: grid;
-  grid-auto-flow: column;
+  grid-auto-flow: row;
   column-gap: var(--spacing-s);
 }
 
-.item {
+.message {
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
   margin: 0;
-}
-
-.delimiter {
-  display: flex;
-  width: 1px;
-  background: var(--colors-text);
+  flex-direction: column;
+  margin-bottom: var(--spacing-s);
+  /* padding-bottom: var(--spacing-s); */
 }
 
 .status {
-  /* text-transform: capitalize; */
+  font-size: 5em;
+  margin: 0;
+}
+
+.list {
+  margin: 0;
 }
