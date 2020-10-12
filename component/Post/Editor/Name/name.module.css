@@ -1,6 +1,7 @@
 .container {
   width: 100%;
-  border: none;
-  border-bottom: 1px solid grey;
+  margin-bottom: var(--spacing-xs);
   outline: none;
+  font-size: 1.3em;
+  font-weight: bold;
 }

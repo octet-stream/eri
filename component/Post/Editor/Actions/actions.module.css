@@ -1,5 +1,5 @@
 .container {
-  display: inline-flex;
+  display: flex;
   column-gap: var(--spacing-xs);
   justify-content: flex-end;
 }

@@ -1,18 +1,14 @@
-import t from "prop-types"
+import cn from "classnames"
 
 import {container} from "./actions.module.css"
 
 /**
- * @type {React.FC<{children: React.ReactNode}>}
+ * @type {React.FC<{children: React.ReactNode, className?: string}>}
  */
-const Actions = ({children}) => (
-  <div className={container}>
+const Actions = (({children, className}) => (
+  <div className={cn(container, className)}>
     {children}
   </div>
-)
-
-Actions.propTypes = {
-  children: t.node.isRequired
-}
+))
 
 export default Actions

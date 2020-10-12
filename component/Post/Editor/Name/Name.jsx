@@ -1,5 +1,7 @@
 import {forwardRef} from "react"
 
+import cn from "classnames"
+
 import Input from "component/Input"
 
 import {container} from "./name.module.css"
@@ -23,8 +25,13 @@ import {container} from "./name.module.css"
 /**
  * @type {React.FC<NameEditorProps>}
  */
-const NameEditor = forwardRef((props, ref) => (
-  <Input {...props} ref={ref} className={container} placeholder="Post title" />
+const NameEditor = forwardRef(({className, ...props}, ref) => (
+  <Input
+    {...props}
+    ref={ref}
+    className={cn(container, className)}
+    placeholder="Post title"
+  />
 ))
 
 export default NameEditor

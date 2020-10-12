@@ -10,13 +10,17 @@
 .content {
   display: flex;
   flex-direction: column;
-  border: 1px solid grey;
+}
+
+.field {
+  padding: var(--spacing-s);
+  border: 1px solid var(--colors-text);
+  background: #e4e7fa14;
+  color: var(--colors-text);
 }
 
 .editable {
   flex: 1;
-  padding: var(--spacing-xs);
-  background: var(--colors-background);
   color: var(--colors-text);
   font-size: 1em;
   user-select: none;

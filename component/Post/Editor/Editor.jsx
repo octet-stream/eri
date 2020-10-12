@@ -9,6 +9,7 @@ import mdast from "remark-parse"
 import unified from "unified"
 
 import t from "prop-types"
+import cn from "classnames"
 
 import Title from "component/Title"
 import Button from "component/Button"
@@ -18,7 +19,7 @@ import Actions from "component/Post/Editor/Actions"
 
 import renderLeaf from "./renderLeaf"
 
-import {container, content, editable} from "./editor.module.css"
+import {container, content, field, editable} from "./editor.module.css"
 
 /**
  * @typedef {import("slate").Node} Node
@@ -104,11 +105,11 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
 
       <div className={container}>
         <div className={content}>
-          <Name value={title} onChange={onChangeTitle} />
+          <Name value={title} onChange={onChangeTitle} className={field} />
 
           <Slate editor={editor} value={nodes} onChange={updateNodes}>
             <Editable
-              className={editable}
+              className={cn(editable, field)}
               placeholder="Post text"
               renderLeaf={renderLeaf}
             />
@@ -117,7 +118,7 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
 
         <Actions>
           <Button variant="secondary" onClick={onSave}>
-            Save
+            Save as draft
           </Button>
 
           <Button onClick={onPublish}>

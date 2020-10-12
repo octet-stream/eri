@@ -50,6 +50,7 @@ module.exports = {
     "react/jsx-props-no-spreading": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-fragments": ["error", "element"],
+    "react/prop-types": ["error", {skipUndeclared: true}],
 
     // ! Disable this rule because Next.js <Link> component can't deal with it
     // ! See: https://github.com/vercel/next.js/issues/5533
