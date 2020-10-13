@@ -8,7 +8,7 @@ body {
   color: var(--colors-text);
   transition: background-color 0s ease-out, color 200ms ease-out 0ms;
   /* font-size: 20px; */
-  font-size: 16px;
+  font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 

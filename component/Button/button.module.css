@@ -4,8 +4,8 @@
   cursor: pointer;
   font-size: 1em;
   border-radius: 2px;
-  border: 1px solid;
-  /* text-transform: uppercase; */
+  font-weight: bold;
+  text-transform: uppercase;
 
   &:disabled {
     cursor: not-allowed;
@@ -13,13 +13,12 @@
 }
 
 .primary {
-  color: var(--colors-text);
-  background: var(--colors-background);
-  border-color: var(--colors-text);
+  color: var(--colors-interactive-text);
+  background: var(--colors-interactive);
 }
 
 .secondary {
   color: var(--colors-text);
-  background: var(--colors-background);
+  background: var(--colors-grey);
   border-color: transparent;
 }
