@@ -15,7 +15,7 @@
 .field {
   padding: var(--spacing-s);
   border: 1px solid var(--colors-text);
-  background: #e4e7fa14; /* todo: replace this alpha channel hex color with actual grey */
+  background: var(--colors-input-field); /* todo: replace this alpha channel hex color with actual grey */
   color: var(--colors-text);
 }
 

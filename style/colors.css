@@ -1,21 +1,23 @@
 .light {
   --colors-white: white;
   --colors-black: #070916;
-  --colors-grey: #e4e7fa14; /* todo: replace this alpha channel hex color with actual grey */
+  --colors-grey: #eeeeee;
   --colors-text: var(--colors-black);
   --colors-background: white;
   --colors-primary: #5e77c7;
   --colors-interactive: #ef5092;
   --colors-interactive-text: var(--colors-white);
+  --colors-input-field: var(--colors-white);
 }
 
 .dark {
   --colors-white: #e4e7fa;
   --colors-black: #070916;
-  --colors-grey: #e4e7fa14; /* todo: replace this alpha channel hex color with actual grey */
+  --colors-grey: #181a26;
   --colors-text: var(--colors-white);
   --colors-background: var(--colors-black);
   --colors-primary: #5e77c7;
   --colors-interactive: #a56fba;
   --colors-interactive-text: var(--colors-white);
+  --colors-input-field: var(--colors-grey);
 }
