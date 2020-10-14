@@ -7,8 +7,6 @@ import {createEditor} from "slate"
 
 import mdast from "remark-parse"
 import unified from "unified"
-
-import t from "prop-types"
 import cn from "classnames"
 
 import Title from "component/Title"
@@ -65,12 +63,16 @@ const defaultNode = {
  * @prop {string} [title]
  * @prop {string} [text]
  * @prop {EditorSubmitCallback} onSubmit
+ * @prop {React.SyntheticEvent} onRemove
  */
 
 /**
  * @type {React.FC<PostEditorProps>}
  */
 const Editor = ({onSubmit, text, title: initialTitle}) => {
+  // TODO: Add a delete button
+  // const isNew = useMemo(() => !(text || initialTitle), [text, initialTitle])
+
   /**
    * @type {Node[]}
    */
@@ -128,12 +130,6 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
       </div>
     </Fragment>
   )
-}
-
-Editor.propTypes = {
-  title: t.string,
-  text: t.string,
-  onSubmit: t.func.isRequired,
 }
 
 Editor.defaultProps = {
