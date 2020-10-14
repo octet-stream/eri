@@ -1,31 +1,18 @@
-import t from "prop-types"
-import cn from "classnames"
+import {forwardRef} from "react"
 
-import forwardRef from "lib/hoc/forwardRef"
+import cn from "classnames"
 
 import {container} from "./input.module.css"
 
 /**
- * @type {React.FC<{className?: string}>}
+ * @type {React.FC<React.HTMLAttributes<HTMLInputElement>>}
  */
-const Input = ({className, forwardedRef, ...props}) => (
+const Input = forwardRef(({className, ...props}, ref) => (
   <input
     {...props}
     className={cn(container, className)}
-    ref={forwardedRef}
+    ref={ref}
   />
-)
+))
 
-Input.propTypes = {
-  ...forwardRef.propTypes,
-
-  className: t.string
-}
-
-Input.defaultProps = {
-  ...forwardRef.defaultProps,
-
-  className: null
-}
-
-export default Input |> forwardRef
+export default Input

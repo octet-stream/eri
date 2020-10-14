@@ -1,7 +1,6 @@
-import t from "prop-types"
-import cn from "classnames"
+import {forwardRef} from "react"
 
-import forwardRef from "lib/hoc/forwardRef"
+import cn from "classnames"
 
 import {container, primary, secondary} from "./button.module.css"
 
@@ -20,32 +19,22 @@ const getVariant = name => variants[name] || primary
  * @typedef {Object} ButtonProps
  *
  * @prop {ButtonVariants} [variant = "primary"]
- * @prop {any} [forwardedRef = null]
  */
 
 /**
  * @type {React.FC<React.HTMLAttributes<HTMLButtonElement> & ButtonProps>}
  */
-const Button = ({className, variant, forwardedRef, ...props}) => (
+const Button = forwardRef(({className, variant, ...props}, ref) => (
   <button
     {...props}
     className={cn(container, getVariant(variant), className)}
-    ref={forwardedRef}
+    ref={ref}
   />
-)
-
-Button.propTypes = {
-  ...forwardRef.propTypes,
-
-  className: t.string,
-  variant: t.oneOf(["primary", "secondary"])
-}
+))
 
 Button.defaultProps = {
-  ...forwardRef.defaultProps,
-
   className: null,
   variant: "primary"
 }
 
-export default Button |> forwardRef
+export default Button
