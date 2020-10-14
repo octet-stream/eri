@@ -1,6 +1,6 @@
 import {GraphQLNonNull as Required, GraphQLInt as TInt} from "graphql"
 
-import update from "server/api/resolve/mutation/post/update"
+import remove from "server/api/resolve/mutation/post/remove"
 
 /**
  * @const field
@@ -9,7 +9,7 @@ import update from "server/api/resolve/mutation/post/update"
  */
 const field = {
   type: new Required(TInt),
-  resolve: update,
+  resolve: remove,
   args: {
     id: {
       type: new Required(TInt)
