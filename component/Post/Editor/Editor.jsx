@@ -60,6 +60,7 @@ const defaultNode = {
 /**
  * @typedef {Object} PostEditorProps
  *
+ * @prop {boolean} [isNew]
  * @prop {string} [title]
  * @prop {string} [text]
  * @prop {EditorSubmitCallback} onSubmit
@@ -70,13 +71,9 @@ const defaultNode = {
  * @type {React.FC<PostEditorProps>}
  */
 const Editor = ({onSubmit, text, title: initialTitle}) => {
-  // TODO: Add a delete button
-  // const isNew = useMemo(() => !(text || initialTitle), [text, initialTitle])
-
-  /**
-   * @type {Node[]}
-   */
+  /** @type {Node[]} */
   const initialNodes = useMemo(() => {
+    /** @type {{result: Node[]}} */
     const {result} = toSlate.processSync(text)
 
     return result.length ? result : [defaultNode]
@@ -133,6 +130,7 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
 }
 
 Editor.defaultProps = {
+  isNew: true,
   title: "",
   text: ""
 }

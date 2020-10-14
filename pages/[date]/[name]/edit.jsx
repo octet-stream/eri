@@ -62,7 +62,14 @@ const Edit = ({data: {post}}) => {
     .then(({data}) => router.push(`/${data.postUpdate.slug}`))
     .catch(console.error)
 
-  return <Editor title={post.title} text={post.text} onSubmit={submit} />
+  return (
+    <Editor
+      isNew={false}
+      title={post.title}
+      text={post.text}
+      onSubmit={submit}
+    />
+  )
 }
 
 Edit.propTypes = {

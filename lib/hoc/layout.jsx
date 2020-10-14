@@ -1,6 +1,12 @@
-const layout = Layout => Target => props => (
+/**
+ * Applies given Layout to the Target component
+ *
+ * @param {Function} Layout
+ * @param {Object.<string, any>} [layoutProps]
+ */
+const layout = (Layout, layoutProps) => Target => props => (
   <Layout>
-    <Target {...props} />
+    <Target {...{...props, ...layoutProps}} />
   </Layout>
 )
 
