@@ -1,5 +1,4 @@
 import Helmet from "react-helmet"
-import t from "prop-types"
 
 /**
  * @typedef {Object} HelmetPageTitleProps
@@ -20,17 +19,5 @@ const Title = ({title, titleTemplate, titleAttributes}) => (
     meta={[{name: "og:title", content: title}]}
   />
 )
-
-Title.propTypes = {
-  title: t.string,
-  titleTemplate: t.string,
-  titleAttributes: t.shape()
-}
-
-Title.defaultProps = {
-  title: undefined,
-  titleTemplate: undefined,
-  titleAttributes: undefined
-}
 
 export default Title
