@@ -14,6 +14,7 @@ import withLogin from "component/Login/withLogin"
 
 import getPost from "api/query/post.gql"
 import update from "api/mutation/post/update.gql"
+import remove from "api/mutation/post/remove.gql"
 
 /**
  * @typedef {Object} Post
@@ -57,9 +58,14 @@ const Edit = ({data: {post}}) => {
   /**
    * @param {Post} updated
    */
-  const submit = updated => client
+  const onSubmit = updated => client
     .mutate({mutation: update, variables: {post: {...updated, id: post.id}}})
     .then(({data}) => router.push(`/${data.postUpdate.slug}`))
+    .catch(console.error)
+
+  const onRemove = () => client
+    .mutate({mutation: remove, variables: {id: post.id}})
+    .then(() => router.push("/"))
     .catch(console.error)
 
   return (
@@ -67,7 +73,8 @@ const Edit = ({data: {post}}) => {
       isNew={false}
       title={post.title}
       text={post.text}
-      onSubmit={submit}
+      onSubmit={onSubmit}
+      onRemove={onRemove}
     />
   )
 }
