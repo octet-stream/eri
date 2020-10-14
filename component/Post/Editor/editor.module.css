@@ -25,3 +25,7 @@
   font-size: 1em;
   user-select: none;
 }
+
+.buttons {
+  display: flex;
+}

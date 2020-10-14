@@ -1,4 +1,6 @@
 // @refresh reset
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faTrashAlt} from "@fortawesome/free-solid-svg-icons"
 import {withReact, Slate, Editable} from "slate-react"
 import {Fragment, useState, useMemo} from "react"
 import slate, {serialize} from "remark-slate"
@@ -6,6 +8,7 @@ import {withHistory} from "slate-history"
 import {createEditor} from "slate"
 
 import mdast from "remark-parse"
+import noop from "lodash/noop"
 import unified from "unified"
 import cn from "classnames"
 
@@ -17,7 +20,7 @@ import Actions from "component/Post/Editor/Actions"
 
 import renderLeaf from "./renderLeaf"
 
-import {container, content, field, editable} from "./editor.module.css"
+import {container, content, field, editable, buttons} from "./editor.module.css"
 
 /**
  * @typedef {import("slate").Node} Node
@@ -63,14 +66,14 @@ const defaultNode = {
  * @prop {boolean} [isNew]
  * @prop {string} [title]
  * @prop {string} [text]
+ * @prop {React.SyntheticEvent} [onRemove]
  * @prop {EditorSubmitCallback} onSubmit
- * @prop {React.SyntheticEvent} onRemove
  */
 
 /**
  * @type {React.FC<PostEditorProps>}
  */
-const Editor = ({onSubmit, text, title: initialTitle}) => {
+const Editor = ({isNew, onRemove, onSubmit, text, title: initialTitle}) => {
   /** @type {Node[]} */
   const initialNodes = useMemo(() => {
     /** @type {{result: Node[]}} */
@@ -116,9 +119,22 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
         </div>
 
         <Actions>
-          <Button variant="secondary" onClick={onSave}>
-            Save as draft
-          </Button>
+          <div className={buttons}>
+            {
+              do {
+                if (!isNew) {
+                  <Fragment>
+                    <Button variant="secondary" onClick={onRemove}>
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </Button>
+                  </Fragment>
+                }
+              }
+            }
+            <Button variant="secondary" onClick={onSave}>
+              Save as draft
+            </Button>
+          </div>
 
           <Button onClick={onPublish}>
             Publish
@@ -132,7 +148,8 @@ const Editor = ({onSubmit, text, title: initialTitle}) => {
 Editor.defaultProps = {
   isNew: true,
   title: "",
-  text: ""
+  text: "",
+  onRemove: noop
 }
 
 export default Editor
