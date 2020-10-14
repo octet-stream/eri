@@ -19,6 +19,7 @@ import Name from "component/Post/Editor/Name"
 import Actions from "component/Post/Editor/Actions"
 
 import renderLeaf from "./renderLeaf"
+import renderElement from "./renderElement"
 
 import {container, content, field, editable, buttons} from "./editor.module.css"
 
@@ -114,6 +115,7 @@ const Editor = ({isNew, onRemove, onSubmit, text, title: initialTitle}) => {
               className={cn(editable, field)}
               placeholder="Post text"
               renderLeaf={renderLeaf}
+              renderElement={renderElement}
             />
           </Slate>
         </div>
