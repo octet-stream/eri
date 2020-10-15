@@ -125,11 +125,9 @@ const Editor = ({isNew, onRemove, onSubmit, text, title: initialTitle}) => {
             {
               do {
                 if (!isNew) {
-                  <Fragment>
-                    <Button variant="secondary" onClick={onRemove}>
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </Button>
-                  </Fragment>
+                  <Button variant="secondary" onClick={onRemove}>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </Button>
                 }
               }
             }
