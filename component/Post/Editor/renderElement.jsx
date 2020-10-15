@@ -23,6 +23,8 @@ const elements = {
 
 /**
  * @param {RenderElementProps} props
+ *
+ * @return {JSX.Element}
  */
 function renderElement({element: el, children, attributes}) {
   /** @type {React.ReactNode} */

@@ -26,6 +26,8 @@ const compose = (leaf, children) => leaves
 
 /**
  * @param {RenderLeafProps} props
+ *
+ * @return {JSX.Element}
  */
 const renderLeaf = ({leaf, attributes, children}) => (
   <span {...attributes}>{compose(leaf, children)}</span>
