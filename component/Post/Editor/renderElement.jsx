@@ -1,5 +1,7 @@
 import {createElement} from "react"
 
+import AnchorSlate from "component/Anchor/AnhorSlate"
+
 /** @type {Object.<string, React.ReactNode>} */
 const elements = {
   paragraph: "p",
@@ -13,8 +15,8 @@ const elements = {
   ul_list: "ul",
   list_item: "li",
   block_quote: "blockquote",
-  code: "code"
-  // TODO: Add a component for links
+  code: "code",
+  link: AnchorSlate
 }
 
 /**
