@@ -49,9 +49,9 @@ const DarkMode = ({children}) => {
 
     const query = matchMedia("(prefers-color-scheme: dark)")
 
-    query.addListener(listener)
+    query.addEventListener("change", listener, true)
 
-    return () => query.removeListener(listener)
+    return () => query.removeEventListener("change", listener, true)
   }, [])
 
   const toggle = () => set(!isEnabled)
