@@ -5,8 +5,8 @@
  * @param {Object.<string, any>} [layoutProps]
  */
 const layout = (Layout, layoutProps) => Target => props => (
-  <Layout>
-    <Target {...{...props, ...layoutProps}} />
+  <Layout {...layoutProps}>
+    <Target {...props} />
   </Layout>
 )
 
