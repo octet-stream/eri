@@ -12,13 +12,14 @@ import Preview from "component/Post/Preview"
 import getPosts from "api/query/posts.gql"
 
 /**
- * @type {import("next").GetServerSideProps}
+ * @type {import("next").GetStaticProps}
  */
-export const getServerSideProps = serializeError(async ctx => {
+export const getStaticProps = serializeError(async ctx => {
   const props = await exec({ctx, query: getPosts})
 
   return {
-    props
+    props,
+    revalidate: 60
   }
 })
 
