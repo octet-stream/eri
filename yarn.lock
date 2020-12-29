@@ -7178,10 +7178,18 @@ remark-react@^8.0.0:
     hast-util-sanitize "^3.0.0"
     mdast-util-to-hast "^10.0.0"
 
-remark-slate@^1.1.1, remark-slate@^1.2.2:
+remark-slate@^1.1.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/remark-slate/-/remark-slate-1.2.2.tgz#86b2487fe5ffdcf2c39072ed29727daa94e8358d"
   integrity sha512-2m8BVNUypma1PZ5H/XBrh160hndBEXgRSqTTG/DUKEeaZBwBWiYcCCjkDse7PDjIwiRYVALQxhABWA2nbhVXYw==
+  dependencies:
+    "@types/escape-html" "^1.0.0"
+    escape-html "^1.0.3"
+
+remark-slate@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/remark-slate/-/remark-slate-1.3.0.tgz#fab7528047dc1009e32603d56aca203ef9c19c9c"
+  integrity sha512-sRYuru9l3QG0ezFd5bzd17K3qGy1lAeVQdoN4+g8o+9ntZnpw7UxqcK8fEz6s2uv8os8/vmM3KS3/LoGqhDjdg==
   dependencies:
     "@types/escape-html" "^1.0.0"
     escape-html "^1.0.3"

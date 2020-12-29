@@ -12,7 +12,7 @@
 
 .dark {
   --colors-white: #e4e7fa;
-  --colors-black: #070916;
+  --colors-black: #1c1f26;
   --colors-grey: #181a26;
   --colors-text: var(--colors-white);
   --colors-background: var(--colors-black);
