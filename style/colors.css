@@ -19,5 +19,5 @@
   --colors-primary: #5e77c7;
   --colors-interactive: #a56fba;
   --colors-interactive-text: var(--colors-white);
-  --colors-input-field: var(--colors-grey);
+  --colors-input-field: var(--colors-background);
 }
