@@ -8,7 +8,6 @@ import add from "server/lib/auth/addSessionData"
 import onError from "server/middleware/errorHandler"
 import session from "server/middleware/session"
 import client from "server/middleware/client"
-import csrf from "server/middleware/csrf"
 import cors from "server/middleware/cors"
 
 import User from "server/model/User"
@@ -67,7 +66,6 @@ async function authenticate(req, res) {
 const handler = nc({onError})
   .use(cors)
   .use(session)
-  .use(csrf)
   .use(client)
   .use(authenticate)
 

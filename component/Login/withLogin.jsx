@@ -3,7 +3,8 @@ import t from "prop-types"
 import Login from "./Login"
 
 function withLogin(Target) {
-  function WithLogin(props) {
+  /** @type {React.FC<{isAuthenticated: boolean}>} */
+  const WithLogin = props => {
     const {isAuthenticated} = props
 
     return isAuthenticated ? <Target {...props} /> : <Login {...props} />

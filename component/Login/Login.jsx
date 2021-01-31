@@ -10,14 +10,12 @@ import Button from "component/Button"
 import {container, box, fields, title} from "./login.module.css"
 
 /**
- * @type {React.FC<{}>}
+ * @type {React.FC}
  */
 const Login = () => {
   const {register, handleSubmit} = useForm()
 
-  const submit = async credentials => api
-    .post("auth/login", {json: JSON.stringify(credentials)})
-    .json()
+  const submit = async credentials => api.post("/api/auth/login", credentials)
     .catch(console.error)
 
   return (
