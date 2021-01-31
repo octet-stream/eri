@@ -1,7 +1,6 @@
 import {useForm} from "react-hook-form"
 import {Fragment} from "react"
 
-import getCsrfToken from "lib/auth/getCsrfToken"
 import api from "lib/rest/api"
 
 import Title from "component/Title"
@@ -17,11 +16,7 @@ const Login = () => {
   const {register, handleSubmit} = useForm()
 
   const submit = async credentials => api
-    .post("auth/login", {
-      json: {
-        ...credentials, _csrf: await getCsrfToken()
-      }
-    })
+    .post("auth/login", {json: JSON.stringify(credentials)})
     .json()
     .catch(console.error)
 

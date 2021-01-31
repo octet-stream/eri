@@ -1,21 +1,17 @@
 import Link from "next/link"
 
+import Nav from "component/Nav"
+
 import {container, gap} from "./header.module.css"
 
 /**
  * @type {React.FC}
  */
-const Header = () => (
+const Header = ({nav}) => (
   <header className={container}>
-    <Link href="/">
-      <a>Home</a>
-    </Link>
+    <Nav />
 
     <div className={gap} />
-
-    {/* <nav>
-      Logout
-    </nav> */}
   </header>
 )
 

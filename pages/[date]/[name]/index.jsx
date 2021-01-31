@@ -37,7 +37,7 @@ export const getServerSideProps = serializeError(async ctx => {
 })
 
 /**
- * @type {React.FC<{}>}
+ * @type {React.FC}
  */
 const Post = ({data: {post}}) => (
   <Fragment>
@@ -48,7 +48,7 @@ const Post = ({data: {post}}) => (
         <span>{post.title} </span>
 
         (
-        <Link href="/[date]/[name]/edit" as={`/${post.slug}/edit`}>
+        <Link href={`/${post.slug}/edit`}>
           <a>edit</a>
         </Link>
         )
