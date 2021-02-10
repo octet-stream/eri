@@ -1,17 +1,15 @@
-import {ApolloClient, HttpLink, InMemoryCache} from "@apollo/client"
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  NormalizedCacheObject
+} from "@apollo/client"
 
 import fetch from "isomorphic-fetch"
 
-/**
- * @typedef {import("@apollo/client").NormalizedCacheObject} NormalizedCacheObject
- */
+let cachedClient: ApolloClient<NormalizedCacheObject>
 
-/**
- * @type {ApolloClient<NormalizedCacheObject>}
- */
-let cachedClient = null
-
-const createApollo = () => new ApolloClient({
+const createApollo = () => new ApolloClient<NormalizedCacheObject>({
   ssrMode: process.browser === false,
   link: new HttpLink({
     uri: process.env.NEXT_PUBLIC_GRAPHQL,
@@ -22,14 +20,9 @@ const createApollo = () => new ApolloClient({
 })
 
 /**
- * @param {NormalizedCacheObject} initialState
- *
- * @return {ApolloClient<NormalizedCacheObject>}
+ * Creates and returns a new ApolloClient instance
  */
-function initializeApollo(initialState = null) {
-  /**
-   * @type {ApolloClient<NormalizedCacheObject>}
-   */
+function initializeApollo(initialState: NormalizedCacheObject = null) {
   const client = cachedClient ?? createApollo()
 
   if (initialState) {
