@@ -1,3 +1,5 @@
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faPen} from "@fortawesome/free-solid-svg-icons"
 import {Fragment} from "react"
 
 import t from "prop-types"
@@ -47,11 +49,11 @@ const Post = ({data: {post}}) => (
       <h1>
         <span>{post.title} </span>
 
-        (
         <Link href={`/${post.slug}/edit`}>
-          <a>edit</a>
+          <a>
+            <FontAwesomeIcon icon={faPen} />
+          </a>
         </Link>
-        )
       </h1>
 
       <article>{parser.processSync(post.text).result}</article>
