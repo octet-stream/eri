@@ -13,7 +13,7 @@ import TUser from "server/api/type/user/TUser"
 
 import text from "server/api/resolve/query/post/text"
 import dates from "server/api/resolve/query/common/dates"
-import creator from "server/api/resolve/query/post/creator"
+import author from "server/api/resolve/query/post/author"
 
 const TPost = new Output({
   name: "Post",
@@ -21,9 +21,9 @@ const TPost = new Output({
     id: {
       type: new Required(TInt)
     },
-    creator: {
+    author: {
       type: new Required(TUser),
-      resolve: creator
+      resolve: author
     },
     slug: {
       type: new Required(TString)

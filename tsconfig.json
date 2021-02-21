@@ -24,6 +24,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "type/graphql.d.ts",
     "**/*.ts",
     "**/*.tsx"
   ],

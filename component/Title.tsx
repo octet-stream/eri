@@ -1,3 +1,5 @@
+import {FC} from "react"
+
 import Helmet from "react-helmet"
 
 interface HelmetPageTitleProps {
@@ -6,7 +8,9 @@ interface HelmetPageTitleProps {
   titleAttributes?: Object
 }
 
-const Title: React.FC<HelmetPageTitleProps> = ({title, titleTemplate, titleAttributes}) => (
+const Title: FC<HelmetPageTitleProps> = ({
+  title, titleTemplate, titleAttributes
+}) => (
   <Helmet
     title={title}
     titleTemplate={titleTemplate}

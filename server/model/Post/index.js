@@ -3,7 +3,7 @@ import User from "server/model/User/User"
 import Tag from "server/model/Tag/Tag"
 import PostsTags from "server/model/PostsTags"
 
-Post.belongsTo(User, {as: "creator", foreignKey: "userId"})
+Post.belongsTo(User, {as: "author", foreignKey: "userId"})
 
 Post.belongsToMany(Tag, {
   through: PostsTags,
