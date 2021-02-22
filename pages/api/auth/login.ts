@@ -1,3 +1,4 @@
+import {NextApiHandler, PageConfig} from "next"
 import {Op as op} from "sequelize"
 
 import createError from "http-errors"
@@ -12,19 +13,13 @@ import cors from "server/middleware/cors"
 
 import User from "server/model/User"
 
-export const config = {
+export const config: PageConfig = {
   api: {
     externalResolver: true
   }
 }
 
-/**
- * @param {import("http").IncomingMessage} req
- * @param {import("http").OutgoingMessage} res
- *
- * @return {Promise<void>}
- */
-async function authenticate(req, res) {
+const authenticate: NextApiHandler = async (req, res) => {
   const {username, password} = req.body
 
   const user = await User.findOne({
@@ -48,10 +43,13 @@ async function authenticate(req, res) {
     throw createError(401)
   }
 
+  // @ts-ignore
   const {ip, browser, os} = req.client
 
   // Set session data
+  // @ts-ignore
   add(req, {
+    // @ts-ignore
     userId: user.id,
     clientIp: ip,
     clientBrowserName: browser.name,
@@ -60,7 +58,7 @@ async function authenticate(req, res) {
     clientOsVersion: os.version
   })
 
-  res.send(JSON.stringify({message: "OK", error: null}))
+  res.json({success: true, error: null})
 }
 
 const handler = nc({onError})

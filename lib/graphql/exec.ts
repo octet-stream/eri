@@ -1,5 +1,5 @@
 import {GetServerSidePropsContext, GetStaticPropsContext} from "next"
-import {graphql, print, DocumentNode} from "graphql"
+import {graphql, print, DocumentNode, GraphQLError} from "graphql"
 import {ParsedUrlQuery} from "querystring"
 import {ApolloError} from "@apollo/client"
 
@@ -47,7 +47,7 @@ export const exec = async <
 
   const {data, errors} = await graphql(
     schema, query, root, context || ctx, variables, operationName
-  )
+  ) as {data?: D, errors?: GraphQLError[]}
 
   /** @type {ApolloError} */
   let error: ApolloError = null
@@ -55,7 +55,7 @@ export const exec = async <
     error = new ApolloError({graphQLErrors: errors})
   }
 
-  return {data: data as D, error}
+  return {data, error}
 }
 
 export default exec

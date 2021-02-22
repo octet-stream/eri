@@ -1,12 +1,13 @@
 import {useApolloClient} from "@apollo/client"
+import {GetServerSidePropsContext} from "next"
 import {useRouter} from "next/router"
+import {FC} from "react"
 
-import t from "prop-types"
-
-import serializeError from "lib/graphql/exec/serializeErrorDecorator"
+import withError from "lib/error/withError"
 import auth from "lib/auth/isAuthenticated"
-import exec from "lib/graphql/exec"
 import layout from "lib/hoc/layout"
+
+import {exec, ExecOperationResult} from "lib/graphql/exec"
 
 import EditorLayout from "layout/Editor"
 import Editor from "component/Post/Editor"
@@ -16,23 +17,16 @@ import getPost from "api/query/post.gql"
 import update from "api/mutation/post/update.gql"
 import remove from "api/mutation/post/remove.gql"
 
-/**
- * @typedef {Object} Post
- *
- * @prop {string} title
- * @prop {string} text
- * @prop {boolean} isDraft
- */
+import PostPayload from "type/api/PostPayload"
 
-/**
- * @type {import("next").GetServerSideProps<{post: Post, isAuthenticated: boolean}>} ctx
- */
-export const getServerSideProps = serializeError(async ctx => {
+type PagePayload = ExecOperationResult<PostPayload>
+
+export const getServerSideProps = withError(async (ctx: GetServerSidePropsContext) => {
   const {date, name} = ctx.params
 
   const [isAuthenticated, response] = await Promise.all([
     auth(ctx),
-    exec({
+    exec<PostPayload>({
       ctx,
       query: getPost,
       variables: {
@@ -48,16 +42,10 @@ export const getServerSideProps = serializeError(async ctx => {
   }
 })
 
-/**
- * @type {React.FC<{data: {post: Post & {id: number}}}>}
- */
-const Edit = ({data: {post}}) => {
+const Edit: FC<PagePayload> = ({data: {post}}) => {
   const client = useApolloClient()
   const router = useRouter()
 
-  /**
-   * @param {Post} updated
-   */
   const onSubmit = updated => client
     .mutate({mutation: update, variables: {post: {...updated, id: post.id}}})
     .then(({data}) => router.push(`/${data.postUpdate.slug}`))
@@ -79,14 +67,4 @@ const Edit = ({data: {post}}) => {
   )
 }
 
-Edit.propTypes = {
-  data: t.shape({
-    post: t.shape({
-      id: t.number,
-      title: t.string,
-      text: t.string
-    }),
-  }).isRequired
-}
-
-export default Edit |> layout(EditorLayout) |> withLogin
+export default withLogin(layout(EditorLayout))(Edit)

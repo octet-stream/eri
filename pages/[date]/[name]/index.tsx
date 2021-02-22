@@ -21,12 +21,12 @@ import PostPayload from "type/api/PostPayload"
 
 type PageProps = ExecOperationResult<PostPayload>
 
-const parser = unified().use(mdast, {commonmark: true}).use(toReact)
+const parser = unified().use(mdast).use(toReact)
 
 export const getServerSideProps = withError(async (ctx: any) => {
   const {date, name} = ctx.params
 
-  const props = await exec<PageProps>({
+  const props = await exec<PostPayload>({
     ctx,
     query: getPost,
     variables: {

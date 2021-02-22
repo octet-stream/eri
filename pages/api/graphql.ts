@@ -1,4 +1,5 @@
 import {ApolloServer} from "apollo-server-micro"
+import {PageConfig} from "next"
 
 import nc from "next-connect"
 
@@ -10,7 +11,7 @@ import schema from "server/api/schema"
 
 const server = new ApolloServer({schema, uploads: false, context: ctx => ctx})
 
-export const config = {
+export const config: PageConfig = {
   api: {
     bodyParser: false,
     externalResolver: true
