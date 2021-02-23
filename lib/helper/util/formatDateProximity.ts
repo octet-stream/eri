@@ -8,14 +8,14 @@ import isString from "lodash/isString"
 
 const pattern = "HH:mm"
 
+type DateLike = string | number | Date
+
 /**
  * Returns human-readable distance between the Date.now() and given date
  *
- * @param {string | number | Date} date
- *
- * @return {string}
+ * @param date The Date object, string or number
  */
-function formatDateProximity(date) {
+function formatDateProximity(date: DateLike): String {
   const now = Date.now()
 
   if (isString(date)) {
