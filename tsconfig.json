@@ -2,11 +2,12 @@
   "compilerOptions": {
     "noImplicitAny": false,
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "checkJs": true,
     "baseUrl": ".",
     "jsx": "preserve",
-    "target": "es5",
+    "target": "es2015",
     "lib": [
       "dom",
       "dom.iterable",

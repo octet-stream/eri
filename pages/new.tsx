@@ -1,7 +1,7 @@
 import {GetServerSideProps} from "next"
 import {useApolloClient} from "@apollo/client"
 import {useRouter} from "next/router"
-import {Fragment} from "react"
+import {Fragment, FC} from "react"
 
 import auth from "lib/auth/isAuthenticated"
 import layout from "lib/hoc/layout"
@@ -22,14 +22,11 @@ export const getServerSideProps: PageProps = async ctx => ({
   }
 })
 
-/**
- * @type {React.FC<{}>}
- */
-const NewPost = () => {
+const NewPost: FC = () => {
   const router = useRouter()
   const client = useApolloClient()
 
-  const submit = post => client
+  const submit = (post: any) => client
     .mutate({mutation: add, variables: {post}})
     .then(({data}) => router.push(data.postAdd.slug))
     .catch(console.error)
