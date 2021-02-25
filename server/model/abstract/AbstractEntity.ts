@@ -24,10 +24,7 @@ abstract class AbstractEntity extends BaseEntity {
   get dates(): Dates {
     return {
       createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
-
-      // @ts-ignore
-      deletedAt: this.deletedAt
+      updatedAt: this.updatedAt
     }
   }
 }
