@@ -2,7 +2,7 @@ import {Entity, Column, OneToOne, JoinColumn} from "typeorm"
 import {Field, ObjectType} from "type-graphql"
 import {compare} from "bcrypt"
 
-import SoftRemovableEntity from "server/lib/db/AbstractSoftRemovableEntity"
+import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
 
 import File from "server/model/File"
 
@@ -26,7 +26,6 @@ export class User extends SoftRemovableEntity {
   @Column({unique: true})
   login!: string
 
-  @Field()
   @Column({unique: true})
   email!: string
 
@@ -41,7 +40,7 @@ export class User extends SoftRemovableEntity {
   @Column()
   lastName: string
 
-  @Field()
+  @Field(() => String)
   get name(): string {
     return [this.firstName, this.lastName].filter(Boolean).join(" ")
   }

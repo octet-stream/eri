@@ -1,16 +1,23 @@
-import {Resolver, Query, Mutation, Arg} from "type-graphql"
+import {Resolver, Query, Arg, Ctx, Authorized} from "type-graphql"
+
+import ApiContext from "type/api/Context"
 
 import User from "server/model/User"
 
+import Viewer from "server/api/type/user/Viewer"
+
 @Resolver(() => User)
 class UserResolver {
-  @Query(() => User, {nullable: false})
-  user(@Arg("username", {nullable: false}) username: string) {
+  @Query(() => User)
+  user(@Arg("username") username: string) {
     return User.findOne({where: [{login: username}, {email: username}]})
   }
 
-  @Mutation(() => Boolean, {nullable: false})
-  userAdd() {}
+  @Authorized()
+  @Query(() => Viewer, {description: "Returns information for current user"})
+  viewer(@Ctx() ctx: ApiContext): Promise<Viewer> {
+    return User.findOne(ctx.req.session.userId)
+  }
 }
 
 export default UserResolver

@@ -1,4 +1,4 @@
-import {Field, ID} from "type-graphql"
+import {ObjectType, Field, ID} from "type-graphql"
 import {
   BaseEntity,
   CreateDateColumn,
@@ -6,6 +6,9 @@ import {
   PrimaryGeneratedColumn
 } from "typeorm"
 
+import Dates from "server/api/type/common/Dates"
+
+@ObjectType({isAbstract: true})
 abstract class AbstractEntity extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({unsigned: true})
@@ -16,6 +19,17 @@ abstract class AbstractEntity extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date
+
+  @Field(() => Dates)
+  get dates(): Dates {
+    return {
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+
+      // @ts-ignore
+      deletedAt: this.deletedAt
+    }
+  }
 }
 
 export default AbstractEntity

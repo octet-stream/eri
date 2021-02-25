@@ -1,10 +1,14 @@
-import {buildSchemaSync} from "type-graphql"
+import "reflect-metadata"
 
-import Post from "server/api/resolve/Post"
-import User from "server/api/resolve/User"
+import {buildSchemaSync, NonEmptyArray} from "type-graphql"
+
+import authChecker from "server/lib/auth/authChecker"
+
+const r = require.context("./resolve", false, /\.ts$/)
 
 const schema = buildSchemaSync({
-  resolvers: [User, Post] as const
+  authChecker,
+  resolvers: r.keys().map(id => r(id).default) as NonEmptyArray<Function>
 })
 
 export default schema

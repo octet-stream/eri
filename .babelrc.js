@@ -8,8 +8,13 @@ module.exports = {
     ["@babel/proposal-pipeline-operator", {
       proposal: "minimal"
     }],
+    "babel-plugin-transform-typescript-metadata",
     ["@babel/proposal-decorators", {
       legacy: true
-    }]
+    }],
+    ["@babel/plugin-proposal-class-properties", {
+      loose: true
+    }],
+    "parameter-decorator"
   ]
 }

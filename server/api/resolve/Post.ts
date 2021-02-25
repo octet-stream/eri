@@ -7,23 +7,23 @@ import UpdateInput from "server/api/input/post/UpdateInput"
 
 @Resolver(() => Post)
 class PostResolver {
-  @Query(() => Post, {nullable: false})
-  async post(@Arg("slug", {nullable: false}) slug: string): Promise<Post> {
+  @Query(() => Post)
+  async post(@Arg("slug") slug: string): Promise<Post> {
     return Post.findOne({where: {slug}})
   }
 
   @Authorized()
-  @Mutation(() => Post, {nullable: false})
+  @Mutation(() => Post)
   postAdd(
-    @Arg("post", () => AddInput, {nullable: false}) post: AddInput
+    @Arg("post", () => AddInput) post: AddInput
   ): Promise<Post> {
     return Post.create(post).save()
   }
 
   @Authorized()
-  @Mutation(() => Post, {nullable: false})
+  @Mutation(() => Post)
   postUpdate(
-    @Arg("post", () => UpdateInput, {nullable: true}) post: UpdateInput
+    @Arg("post", () => UpdateInput) post: UpdateInput
   ): Promise<Post> {
     const {id, ...fields} = post
 

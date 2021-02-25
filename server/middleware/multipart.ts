@@ -1,20 +1,12 @@
+import {IncomingMessage, ServerResponse} from "http"
+
 import {parse} from "then-busboy"
 
 import is from "type-is"
 
 const methods = ["post"]
 
-/**
- * @typedef {import("http").IncomingMessage} IncomingMessage
- * @typedef {import("http").OutgoingMessage} OutgoingMessage
- */
-
-/**
- * @param {IncomingMessage} req
- * @param {OutgoingMessage} res
- * @param {(error?: Error) => Promise<void> | void} next
- */
-async function multipart(req, res, next) {
+async function multipart(req: IncomingMessage, res: ServerResponse, next: (error?: Error) => Promise<void> | void) {
   if (!methods.includes(req.method.toLocaleLowerCase())) {
     return next()
   }
@@ -23,6 +15,7 @@ async function multipart(req, res, next) {
     return next()
   }
 
+  // @ts-ignore
   req.body = await parse(req)
 
   return next()
