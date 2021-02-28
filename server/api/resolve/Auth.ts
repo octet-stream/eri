@@ -49,7 +49,7 @@ class AuthResolver {
   @Authorized()
   @Mutation(() => ID)
   authLogOut(@Ctx() ctx: ApiContext): Promise<string> {
-    return new Promise((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       const id = ctx.req.sessionId
 
       ctx.req.session.destroy(error => error ? reject(error) : resolve(id))

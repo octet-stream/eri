@@ -13,7 +13,8 @@ async function getOrCreateConnection(): Promise<Connection> {
       username: process.env.DB_USER || null,
       password: process.env.DB_PASSWORD || null,
       database: process.env.DB_NAME,
-      entities: r.keys().map(id => r(id).default)
+      entities: r.keys().map(id => r(id).default) as Function[],
+      logging: true
     })
 
     console.log("Connected to the database")
