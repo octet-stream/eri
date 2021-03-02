@@ -38,6 +38,8 @@ app.prepare()
     // These two request handlers basicly the same, but TS doesn't approve this operation
     // So, I'll just cast `compose` to unknown and then to `RequestHandler`
     server = createServer(compose as unknown as RequestListener).listen(port)
+
+    console.log(`Server started on http://localhost:${port}`)
   })
   .catch(error => {
     console.error(error)

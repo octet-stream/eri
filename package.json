@@ -8,7 +8,7 @@
     "build": "next build",
     "build:server": "babel server --extensions .ts -d .eri",
     "watch": "babel server -w --extensions .ts -d .eri",
-    "cleanup": "rimraf server/index.js server/**/*.js",
+    "cleanup": "rimraf .eri",
     "start": "NODE_ENV=production node server"
   },
   "dependencies": {

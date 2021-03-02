@@ -1,6 +1,3 @@
-// This is necessary for TypeGraphQL and TypeORM
-import "reflect-metadata"
-
 import {ApolloProvider} from "@apollo/client"
 import {useEffect, useState, FC} from "react"
 import {useRouter} from "next/router"

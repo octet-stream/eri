@@ -15,33 +15,35 @@ import getPosts from "api/query/posts.gql"
 
 type PageProps = ExecOperationResult<PostsPayload>
 
-export const getStaticProps = withError(
-  async (ctx: GetStaticPropsContext) => {
-    const props = await exec<PageProps>({ctx, query: getPosts})
+// export const getStaticProps = withError(
+//   async (ctx: GetStaticPropsContext) => {
+//     const props = await exec<PageProps>({ctx, query: getPosts})
 
-    return {
-      props,
-      revalidate: 60
-    }
-  }
-)
+//     return {
+//       props,
+//       revalidate: 60
+//     }
+//   }
+// )
 
-const Home: FC<PageProps> = ({data}) => {
-  const {posts} = data
+// const Home: FC<PageProps> = ({data}) => {
+//   const {posts} = data
 
-  return (
-    <main>
-      {
-        posts.list.length
-          ? (
-            <Fragment>
-              {posts.list.map(post => <Preview key={post.id} post={post} />)}
-            </Fragment>
-          )
-          : <div>There's no posts</div>
-      }
-    </main>
-  )
-}
+//   return (
+//     <main>
+//       {
+//         posts.list.length
+//           ? (
+//             <Fragment>
+//               {posts.list.map(post => <Preview key={post.id} post={post} />)}
+//             </Fragment>
+//           )
+//           : <div>There's no posts</div>
+//       }
+//     </main>
+//   )
+// }
+
+const Home: FC = () => <div>Home</div>
 
 export default layout(BlogLayout)(Home)
