@@ -1,4 +1,4 @@
-import {Column, Entity, OneToOne, ManyToMany, JoinColumn} from "typeorm"
+import {Column, Entity, OneToOne, ManyToMany, JoinColumn, JoinTable} from "typeorm"
 import {Field, ObjectType} from "type-graphql"
 
 import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
@@ -16,7 +16,7 @@ class Post extends SoftRemovableEntity {
 
   @Field(() => [Tag], {nullable: "items"})
   @ManyToMany(() => Tag, {eager: true})
-  @JoinColumn()
+  @JoinTable()
   tags: Tag[]
 
   @Field()
@@ -24,7 +24,7 @@ class Post extends SoftRemovableEntity {
   title!: string
 
   @Field()
-  @Column()
+  @Column({update: false})
   readonly slug!: string
 
   @Field()
