@@ -107,6 +107,7 @@
     "@types/cors": "2.8.10",
     "@types/dotenv": "8.2.0",
     "@types/express-session": "1.17.3",
+    "@types/fs-extra": "^9.0.8",
     "@types/graphql": "14.5.0",
     "@types/http-errors": "1.8.0",
     "@types/ioredis": "4.22.0",
