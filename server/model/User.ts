@@ -1,5 +1,5 @@
-import {Entity, Column, OneToOne, JoinColumn} from "typeorm"
 import {Field, ObjectType, registerEnumType} from "type-graphql"
+import {Entity, Column, OneToOne, JoinColumn} from "typeorm"
 import {compare} from "bcrypt"
 
 import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
