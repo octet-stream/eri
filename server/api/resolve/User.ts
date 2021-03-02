@@ -1,6 +1,6 @@
 import {Resolver, Query, Arg, Ctx, Authorized} from "type-graphql"
 
-import ApiContext from "type/api/Context"
+import ApiContext from "server/type/Context"
 
 import User from "server/model/User"
 

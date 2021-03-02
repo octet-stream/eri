@@ -1,12 +1,12 @@
-import {IncomingMessage, ServerResponse} from "http"
-
 import {parse} from "then-busboy"
 
 import is from "type-is"
 
+import Middleware from "../type/Middleware"
+
 const methods = ["post"]
 
-async function multipart(req: IncomingMessage, res: ServerResponse, next: (error?: Error) => Promise<void> | void) {
+const multipart: Middleware = async (req, _, next) => {
   if (!methods.includes(req.method.toLocaleLowerCase())) {
     return next()
   }

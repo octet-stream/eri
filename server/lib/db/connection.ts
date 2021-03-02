@@ -1,19 +1,28 @@
-import {createConnection, getConnection, Connection} from "typeorm"
+import {createConnection, Connection} from "typeorm"
 
-const r = require.context("../../model", false, /\.ts$/)
+import Tag from "server/model/Tag"
+import File from "server/model/File"
+import User from "server/model/User"
+import Post from "server/model/Post"
 
-async function getOrCreateConnection(): Promise<Connection> {
-  try {
-    return getConnection()
-  } catch {
-    const connection = await createConnection({
+let connection: Connection = null
+
+export async function connect(): Promise<Connection> {
+  if (connection) {
+    return connection
+  } else {
+    // ! Ignore TS checks here because it fails for some reason
+    // @ts-ignore
+    connection = await createConnection({
+      name: "default",
       type: process.env.DB_DIALECT,
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT, 10) || null,
       username: process.env.DB_USER || null,
       password: process.env.DB_PASSWORD || null,
       database: process.env.DB_NAME,
-      entities: r.keys().map(id => r(id).default) as Function[],
+      entities: [Tag, File, User, Post],
+      synchronize: process.env.NODE_ENV !== "production",
       logging: true
     })
 
@@ -23,8 +32,10 @@ async function getOrCreateConnection(): Promise<Connection> {
   }
 }
 
-// ! Next.js calls process.exit() method in their binary, which ignores gracefull shutdown of the app
-// ! On the next line I'll try to tell the ORM to close the connection anyway, now sure if this will be enough
-// process.on("exit", () => getConnection().close())
+export function disconnect(): Promise<void> {
+  if (connection && connection.isConnected) {
+    return connection.close()
+  }
+}
 
-export default getOrCreateConnection
+export default connect

@@ -28,7 +28,7 @@ class Post extends SoftRemovableEntity {
   readonly slug!: string
 
   @Field()
-  @Column({length: "medium"})
+  @Column({type: "mediumtext"})
   text!: string
 
   @Field()

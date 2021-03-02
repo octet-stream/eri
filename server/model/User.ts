@@ -1,5 +1,5 @@
 import {Entity, Column, OneToOne, JoinColumn} from "typeorm"
-import {Field, ObjectType} from "type-graphql"
+import {Field, ObjectType, registerEnumType} from "type-graphql"
 import {compare} from "bcrypt"
 
 import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
@@ -19,6 +19,9 @@ export enum UserStatuses {
   SUSPENDED = "suspended"
 }
 
+registerEnumType(UserRoles, {name: "UserRoles"})
+registerEnumType(UserStatuses, {name: "UserStatuses"})
+
 @ObjectType()
 @Entity()
 export class User extends SoftRemovableEntity {
@@ -33,17 +36,25 @@ export class User extends SoftRemovableEntity {
   password!: string
 
   @Field()
-  @Column()
-  firstName: string
+  @Column({default: null})
+  firstName?: string
 
   @Field()
-  @Column()
-  lastName: string
+  @Column({default: null})
+  lastName?: string
+
+  @Field(() => String, {nullable: true})
+  get name(): string {
+    return [this.firstName, this.lastName].filter(Boolean).join(" ") || null
+  }
 
   @Field(() => String)
-  get name(): string {
-    return [this.firstName, this.lastName].filter(Boolean).join(" ")
-  }
+  @Column({type: "enum", enum: UserRoles, default: UserRoles.REGULAR})
+  role!: UserRoles
+
+  @Field(() => String)
+  @Column({type: "enum", enum: UserStatuses, default: UserStatuses.INACTIVE})
+  status!: UserStatuses
 
   @Field(() => File, {nullable: true})
   @OneToOne(() => File, {eager: true})

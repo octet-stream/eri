@@ -1,6 +1,18 @@
 module.exports = {
-  presets: ["next/babel"],
+  presets: [
+    ["next/babel", {
+      "preset-env": {
+        targets: {
+          node: "current"
+        }
+      }
+    }]
+  ],
   plugins: [
+    ["babel-plugin-module-resolver", {
+      root: ["."],
+      extensions: [".ts"]
+    }],
     "@babel/proposal-do-expressions",
     "@babel/proposal-nullish-coalescing-operator",
     "@babel/proposal-optional-chaining",

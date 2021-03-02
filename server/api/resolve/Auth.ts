@@ -3,7 +3,7 @@ import {hash} from "bcrypt"
 
 import createError from "http-errors"
 
-import ApiContext from "type/api/Context"
+import ApiContext from "server/type/Context"
 
 import SignUpInput from "server/api/input/auth/SignUpInput"
 import LogInInput from "server/api/input/auth/LogInInput"
