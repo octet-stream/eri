@@ -1,5 +1,12 @@
-import {Column, Entity, OneToOne, ManyToMany, JoinColumn, JoinTable} from "typeorm"
 import {Field, ObjectType} from "type-graphql"
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  ManyToMany,
+  JoinColumn,
+  JoinTable,
+} from "typeorm"
 
 import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
 
@@ -9,15 +16,17 @@ import Tag from "server/model/Tag"
 @ObjectType()
 @Entity()
 class Post extends SoftRemovableEntity {
-  @Field(() => User)
-  @OneToOne(() => User, {eager: true})
-  @JoinColumn()
+  @Column({unsigned: true, update: false})
+  authorId: number
+
+  @ManyToOne(() => User, {onDelete: "CASCADE", eager: true})
   readonly author!: User
 
+  // TODO: Add tags resolver
   @Field(() => [Tag], {nullable: "items"})
   @ManyToMany(() => Tag, {eager: true})
   @JoinTable()
-  tags: Tag[]
+  tags?: Tag[]
 
   @Field()
   @Column()
@@ -25,7 +34,7 @@ class Post extends SoftRemovableEntity {
 
   @Field()
   @Column({update: false})
-  readonly slug!: string
+  slug!: string
 
   @Field()
   @Column({type: "mediumtext"})

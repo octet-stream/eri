@@ -40,6 +40,7 @@ app.prepare()
     server = createServer(compose as unknown as RequestListener).listen(port)
 
     console.log(`Server started on http://localhost:${port}`)
+    console.log(`GraphQL Playground http://localhost:${port}/api/graphql`)
   })
   .catch(error => {
     console.error(error)

@@ -1,12 +1,38 @@
-import {Resolver, Query, Mutation, Arg, Authorized} from "type-graphql"
+import {format} from "date-fns"
+import {
+  Ctx,
+  Arg,
+  Root,
+  Query,
+  Mutation,
+  Resolver,
+  Authorized,
+  FieldResolver
+} from "type-graphql"
 
+import createSlug from "server/lib/helper/util/createSlug"
+
+import Context from "server/type/Context"
+
+import User from "server/model/User"
 import Post from "server/model/Post"
+import Tag from "server/model/Tag"
 
 import AddInput from "server/api/input/post/AddInput"
 import UpdateInput from "server/api/input/post/UpdateInput"
 
+// TODO: Add further optimizations w/ DataLoader
 @Resolver(() => Post)
 class PostResolver {
+  @FieldResolver(() => User)
+  author(@Root() {author, authorId}: Post) {
+    if (author) {
+      return author
+    }
+
+    return User.findOne(authorId)
+  }
+
   @Query(() => Post)
   async post(@Arg("slug") slug: string): Promise<Post> {
     return Post.findOne({where: {slug}})
@@ -15,9 +41,18 @@ class PostResolver {
   @Authorized()
   @Mutation(() => Post)
   postAdd(
+    @Ctx() ctx: Context,
     @Arg("post", () => AddInput) post: AddInput
   ): Promise<Post> {
-    return Post.create(post).save()
+    const created = Post.create(post)
+    const now = new Date()
+
+    created.slug = `${format(now, "yyyy/MM/dd")}/${createSlug(post.title)}`
+    created.authorId =  ctx.req.session.userId
+    created.createdAt = now
+    created.updatedAt = now
+
+    return created.save()
   }
 
   @Authorized()
