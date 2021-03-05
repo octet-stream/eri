@@ -2,12 +2,14 @@ import {format} from "date-fns"
 import {
   Ctx,
   Arg,
+  Args,
   Root,
   Query,
   Mutation,
   Resolver,
   Authorized,
-  FieldResolver
+  FieldResolver,
+  Int
 } from "type-graphql"
 
 import createSlug from "server/lib/helper/util/createSlug"
@@ -17,8 +19,11 @@ import Context from "server/type/Context"
 import User from "server/model/User"
 import Post from "server/model/Post"
 
+import PageArgs from "server/api/args/PageArgs"
 import AddInput from "server/api/input/post/AddInput"
 import UpdateInput from "server/api/input/post/UpdateInput"
+
+import {PostPage, PostParams} from "server/api/type/post/PostPage"
 
 // TODO: Add further optimizations w/ DataLoader
 @Resolver(() => Post)
@@ -35,6 +40,15 @@ class PostResolver {
   @Query(() => Post)
   async post(@Arg("slug") slug: string): Promise<Post> {
     return Post.findOne({where: {slug}})
+  }
+
+  @Query(() => PostPage)
+  async posts(
+    @Args(() => PageArgs) {limit, page, offset}: PageArgs
+  ): Promise<PostParams> {
+    const [rows, count] = await Post.findAndCount({skip: offset, take: limit})
+
+    return {rows, count, page, limit, offset}
   }
 
   @Authorized()

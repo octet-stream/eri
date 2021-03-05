@@ -84,6 +84,7 @@
     "type-is": "1.6.18",
     "typedi": "^0.10.0",
     "typeorm": "0.2.31",
+    "typeorm-typedi-extensions": "^0.4.1",
     "ua-parser-js": "0.7.23",
     "unified": "9.2.0",
     "use-dark-mode": "2.3.1"
