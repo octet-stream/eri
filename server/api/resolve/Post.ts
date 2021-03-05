@@ -23,7 +23,7 @@ import PageArgs from "server/api/args/PageArgs"
 import AddInput from "server/api/input/post/AddInput"
 import UpdateInput from "server/api/input/post/UpdateInput"
 
-import {PostPage, PostParams} from "server/api/type/post/PostPage"
+import {PostPage, PostPageParams} from "server/api/type/post/PostPage"
 
 // TODO: Add further optimizations w/ DataLoader
 @Resolver(() => Post)
@@ -45,7 +45,7 @@ class PostResolver {
   @Query(() => PostPage)
   async posts(
     @Args(() => PageArgs) {limit, page, offset}: PageArgs
-  ): Promise<PostParams> {
+  ): Promise<PostPageParams> {
     const [rows, count] = await Post.findAndCount({skip: offset, take: limit})
 
     return {rows, count, page, limit, offset}
