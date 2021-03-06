@@ -1,7 +1,7 @@
-import {Entity, Column, OneToOne, JoinColumn, BeforeInsert, BeforeUpdate} from "typeorm"
+import {Entity, Column, OneToOne, JoinColumn, DeepPartial, SaveOptions} from "typeorm"
 import {Field, ObjectType, registerEnumType} from "type-graphql"
 import {IsEmail, Matches} from "class-validator"
-import {compare} from "bcrypt"
+import {hash, compare} from "bcrypt"
 
 import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
 
@@ -24,6 +24,8 @@ export const LOGIN_PATTERN = /^[a-z0-9_-]+$/i
 
 registerEnumType(UserRoles, {name: "UserRoles"})
 registerEnumType(UserStatuses, {name: "UserStatuses"})
+
+const hashPassword = (password: string): Promise<string> => hash(password, 15)
 
 @ObjectType()
 @Entity()
@@ -61,10 +63,37 @@ export class User extends SoftRemovableEntity {
   @Column({type: "enum", enum: UserStatuses, default: UserStatuses.INACTIVE})
   status!: UserStatuses
 
+  @Column({unsigned: true, nullable: true})
+  avatarId?: number
+
   @Field(() => File, {nullable: true})
   @OneToOne(() => File, {eager: true})
   @JoinColumn()
-  avatar: File
+  avatar?: File
+
+  /**
+   * Creates a new user and persists in database
+   *
+   * @param user
+   * @param options
+   */
+  static async createAndSave(user: DeepPartial<User>, options?: SaveOptions) {
+    user.password = await hashPassword(user.password)
+
+    return User.create(user).save(options)
+  }
+
+  static async update(
+    id: number,
+    fields: DeepPartial<User>,
+    options?: SaveOptions
+  ) {
+    if (fields.password) {
+      fields.password = await hashPassword(fields.password)
+    }
+
+    return super.update(id, fields, options)
+  }
 
   /**
    * Finds a user by their login or email

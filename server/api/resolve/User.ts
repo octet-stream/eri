@@ -1,8 +1,10 @@
 import {Resolver, Query, Arg, Args, Ctx, Authorized} from "type-graphql"
+// import {InjectRepository} from "typeorm-typedi-extensions";
 
 import ApiContext from "server/type/Context"
 
 import User from "server/model/User"
+// import UserRepo from "server/repo/UserRepo"
 
 import PageArgs from "server/api/args/PageArgs"
 import Viewer from "server/api/type/user/Viewer"
@@ -15,14 +17,16 @@ class UserResolver {
   async users(
     @Args(() => PageArgs) {limit, offset, page}: PageArgs
   ): Promise<UserPageParams> {
-    const [rows, count] = await User.findAndCount({skip: offset, take: limit})
+    const [rows, count] = await User.findAndCount({
+      skip: offset, take: limit
+    })
 
     return {rows, count, limit, offset, page}
   }
 
   @Query(() => User)
   user(@Arg("username") username: string) {
-    return User.findOne({where: [{login: username}, {email: username}]})
+    return User.findByUsername(username)
   }
 
   @Authorized()

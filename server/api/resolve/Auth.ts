@@ -1,5 +1,4 @@
 import {Resolver, Mutation, Arg, Ctx, ID, Authorized} from "type-graphql"
-import {hash} from "bcrypt"
 
 import createError from "http-errors"
 
@@ -19,9 +18,7 @@ class AuthResolver {
     @Ctx() ctx: ApiContext,
     @Arg("user", () => SignUpInput) user: SignUpInput
   ): Promise<Viewer> {
-    user.password = await hash(user.password, 15)
-
-    const created = await User.create(user).save()
+    const created = await User.createAndSave(user)
 
     ctx.req.session.userId = created.id
 

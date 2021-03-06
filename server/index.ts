@@ -26,14 +26,14 @@ let server: Server = null
 
 app.prepare()
   .then(async () => {
-    await connect() // Connect to the db
-
     const port = Number(process.env.SERVER_PORT)
     const compose = nc()
 
     compose.use(graphql)
 
     compose.use((req, res) => handle(req, res))
+
+    await connect() // Connect to the db
 
     // These two request handlers basicly the same, but TS doesn't approve this operation
     // So, I'll just cast `compose` to unknown and then to `RequestHandler`

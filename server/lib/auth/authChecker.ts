@@ -1,6 +1,6 @@
 import {AuthChecker} from "type-graphql"
 
-import ApiContext from "type/api/Context"
+import ApiContext from "server/type/Context"
 
 const authChecker: AuthChecker<ApiContext> = ({context}) => {
   if (!context.req.session.userId) {

@@ -1,4 +1,5 @@
-import {createConnection, Connection} from "typeorm"
+import {createConnection, Connection, useContainer} from "typeorm"
+import {Container} from "typeorm-typedi-extensions"
 
 import Tag from "server/model/Tag"
 import File from "server/model/File"
@@ -6,6 +7,8 @@ import User from "server/model/User"
 import Post from "server/model/Post"
 
 let connection: Connection = null
+
+useContainer(Container)
 
 export async function connect(): Promise<Connection> {
   if (connection) {
