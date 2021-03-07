@@ -1,8 +1,8 @@
 import {Resolver, Mutation, Arg, Ctx, ID, Authorized} from "type-graphql"
 
-import createError from "http-errors"
-
 import ApiContext from "server/type/Context"
+
+import unauthorized from "server/error/common/unauthorized"
 
 import SignUpInput from "server/api/input/auth/SignUpInput"
 import LogInInput from "server/api/input/auth/LogInInput"
@@ -35,7 +35,7 @@ class AuthResolver {
     })
 
     if (!(user || await user.comparePassword(password))) {
-      createError(401, "Auth failed: Check your credentials")
+      unauthorized("Auth failed: Check your credentials")
     }
 
     ctx.req.session.userId = user.id
@@ -45,9 +45,9 @@ class AuthResolver {
 
   @Authorized()
   @Mutation(() => ID)
-  authLogOut(@Ctx() ctx: ApiContext): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      const id = ctx.req.sessionId
+  authLogOut(@Ctx() ctx: ApiContext): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      const id = ctx.req.session.userId
 
       ctx.req.session.destroy(error => error ? reject(error) : resolve(id))
     })
