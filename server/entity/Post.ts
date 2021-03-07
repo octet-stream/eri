@@ -7,10 +7,10 @@ import {
   JoinTable,
 } from "typeorm"
 
-import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
+import SoftRemovableEntity from "server/entity/abstract/AbstractSoftRemovableEntity"
 
-import User from "server/model/User"
-import Tag from "server/model/Tag"
+import User from "server/entity/User"
+import Tag from "server/entity/Tag"
 
 @ObjectType()
 @Entity()

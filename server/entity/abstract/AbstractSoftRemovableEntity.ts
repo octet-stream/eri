@@ -1,7 +1,7 @@
 import {DeleteDateColumn} from "typeorm"
 import {ObjectType, Field} from "type-graphql"
 
-import AbstractEntity from "server/model/abstract/AbstractEntity"
+import AbstractEntity from "server/entity/abstract/AbstractEntity"
 
 import Dates from "server/api/type/common/Dates"
 

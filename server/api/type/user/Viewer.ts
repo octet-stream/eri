@@ -1,6 +1,6 @@
 import {ObjectType, Field} from "type-graphql"
 
-import User from "server/model/User"
+import User from "server/entity/User"
 
 @ObjectType()
 class Viewer extends User {

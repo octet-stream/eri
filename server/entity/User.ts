@@ -3,9 +3,9 @@ import {Field, ObjectType, registerEnumType} from "type-graphql"
 import {IsEmail, Matches} from "class-validator"
 import {hash, compare} from "bcrypt"
 
-import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
+import SoftRemovableEntity from "server/entity/abstract/AbstractSoftRemovableEntity"
 
-import File from "server/model/File"
+import File from "server/entity/File"
 
 export enum UserRoles {
   ROOT = "root",
@@ -24,8 +24,6 @@ export const LOGIN_PATTERN = /^[a-z0-9_-]+$/i
 
 registerEnumType(UserRoles, {name: "UserRoles"})
 registerEnumType(UserStatuses, {name: "UserStatuses"})
-
-const hashPassword = (password: string): Promise<string> => hash(password, 15)
 
 @ObjectType()
 @Entity()
@@ -70,39 +68,6 @@ export class User extends SoftRemovableEntity {
   @OneToOne(() => File, {eager: true})
   @JoinColumn()
   avatar?: File
-
-  /**
-   * Creates a new user and persists in database
-   *
-   * @param user
-   * @param options
-   */
-  static async createAndSave(user: DeepPartial<User>, options?: SaveOptions) {
-    user.password = await hashPassword(user.password)
-
-    return User.create(user).save(options)
-  }
-
-  static async update(
-    id: number,
-    fields: DeepPartial<User>,
-    options?: SaveOptions
-  ) {
-    if (fields.password) {
-      fields.password = await hashPassword(fields.password)
-    }
-
-    return super.update(id, fields, options)
-  }
-
-  /**
-   * Finds a user by their login or email
-   *
-   * @param username login or email
-   */
-  static findByUsername(username: string): Promise<User> {
-    return this.findOne({where: [{login: username}, {email: username}]})
-  }
 
   /**
    * Checks if given password is valid for the user

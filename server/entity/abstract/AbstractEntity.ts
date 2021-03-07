@@ -1,6 +1,5 @@
 import {ObjectType, Field, ID} from "type-graphql"
 import {
-  BaseEntity,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn
@@ -9,7 +8,7 @@ import {
 import Dates from "server/api/type/common/Dates"
 
 @ObjectType({isAbstract: true})
-abstract class AbstractEntity extends BaseEntity {
+abstract class AbstractEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({unsigned: true})
   readonly id!: number

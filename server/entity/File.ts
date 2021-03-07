@@ -1,7 +1,7 @@
 import {Field, ObjectType, Int} from "type-graphql"
 import {Entity, Column} from "typeorm"
 
-import SoftRemovableEntity from "server/model/abstract/AbstractSoftRemovableEntity"
+import SoftRemovableEntity from "server/entity/abstract/AbstractSoftRemovableEntity"
 
 @ObjectType({simpleResolvers: true})
 @Entity()

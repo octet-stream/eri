@@ -1,10 +1,10 @@
 import {createConnection, Connection, useContainer} from "typeorm"
 import {Container} from "typeorm-typedi-extensions"
 
-import Tag from "server/model/Tag"
-import File from "server/model/File"
-import User from "server/model/User"
-import Post from "server/model/Post"
+import Tag from "server/entity/Tag"
+import File from "server/entity/File"
+import User from "server/entity/User"
+import Post from "server/entity/Post"
 
 let connection: Connection = null
 

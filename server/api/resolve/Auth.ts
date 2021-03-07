@@ -1,4 +1,5 @@
 import {Resolver, Mutation, Arg, Ctx, ID, Authorized} from "type-graphql"
+import {InjectRepository} from "typeorm-typedi-extensions"
 
 import ApiContext from "server/type/Context"
 
@@ -9,16 +10,19 @@ import LogInInput from "server/api/input/auth/LogInInput"
 
 import Viewer from "server/api/type/user/Viewer"
 
-import User from "server/model/User"
+import UserRepo from "server/repo/User"
 
 @Resolver()
 class AuthResolver {
+  @InjectRepository()
+  private readonly userRepo: UserRepo
+
   @Mutation(() => Viewer)
   async authSignUp(
     @Ctx() ctx: ApiContext,
     @Arg("user", () => SignUpInput) user: SignUpInput
   ): Promise<Viewer> {
-    const created = await User.createAndSave(user)
+    const created = await this.userRepo.createAndSave(user)
 
     ctx.req.session.userId = created.id
 
@@ -30,12 +34,12 @@ class AuthResolver {
     @Ctx() ctx: ApiContext,
     @Arg("credentials", () => LogInInput) {username, password}: LogInInput
   ): Promise<Viewer> {
-    const user = await User.findOne({
+    const user = await this.userRepo.findOne({
       where: [{email: username}, {login: username}]
     })
 
     if (!(user || await user.comparePassword(password))) {
-      unauthorized("Auth failed: Check your credentials")
+      throw unauthorized("Auth failed: Check your credentials")
     }
 
     ctx.req.session.userId = user.id

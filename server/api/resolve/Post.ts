@@ -1,4 +1,3 @@
-import {format} from "date-fns"
 import {
   Ctx,
   Arg,
@@ -8,16 +7,17 @@ import {
   Mutation,
   Resolver,
   Authorized,
-  FieldResolver,
-  Int
+  FieldResolver
 } from "type-graphql"
-
-import createSlug from "server/lib/helper/util/createSlug"
+import {InjectRepository} from "typeorm-typedi-extensions";
 
 import Context from "server/type/Context"
 
-import User from "server/model/User"
-import Post from "server/model/Post"
+import User from "server/entity/User"
+import Post from "server/entity/Post"
+
+import UserRepo from "server/repo/User"
+import PostRepo from "server/repo/Post"
 
 import PageArgs from "server/api/args/PageArgs"
 import AddInput from "server/api/input/post/AddInput"
@@ -28,25 +28,33 @@ import {PostPage, PostPageParams} from "server/api/type/post/PostPage"
 // TODO: Add further optimizations w/ DataLoader
 @Resolver(() => Post)
 class PostResolver {
+  @InjectRepository()
+  private readonly userRepo: UserRepo
+
+  @InjectRepository()
+  private readonly postRepo: PostRepo
+
   @FieldResolver(() => User)
   author(@Root() {author, authorId}: Post) {
     if (author) {
       return author
     }
 
-    return User.findOne(authorId)
+    return this.userRepo.findOne(authorId)
   }
 
   @Query(() => Post)
   async post(@Arg("slug") slug: string): Promise<Post> {
-    return Post.findOne({where: {slug}})
+    return this.postRepo.findOne({where: {slug}})
   }
 
   @Query(() => PostPage)
   async posts(
     @Args(() => PageArgs) {limit, page, offset}: PageArgs
   ): Promise<PostPageParams> {
-    const [rows, count] = await Post.findAndCount({skip: offset, take: limit})
+    const [rows, count] = await this.postRepo.findAndCount({
+      skip: offset, take: limit
+    })
 
     return {rows, count, page, limit, offset}
   }
@@ -57,15 +65,9 @@ class PostResolver {
     @Ctx() ctx: Context,
     @Arg("post", () => AddInput) post: AddInput
   ): Promise<Post> {
-    const created = Post.create(post)
-    const now = new Date()
+    const {userId} = ctx.req.session
 
-    created.slug = `${format(now, "yyyy/MM/dd")}/${createSlug(post.title)}`
-    created.authorId =  ctx.req.session.userId
-    created.createdAt = now
-    created.updatedAt = now
-
-    return created.save()
+    return this.postRepo.createAndSave(userId, post)
   }
 
   @Authorized()
@@ -75,7 +77,8 @@ class PostResolver {
   ): Promise<Post> {
     const {id, ...fields} = post
 
-    return Post.update(id, fields).then(() => Post.findOne(id))
+    return this.postRepo.update(id, fields)
+      .then(() => this.postRepo.findOne(id))
   }
 }
 

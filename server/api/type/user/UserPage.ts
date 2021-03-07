@@ -2,7 +2,7 @@ import {ObjectType, Root, Field} from "type-graphql"
 
 import {Page, PageParams} from "server/api/type/abstract/Page"
 
-import User from "server/model/User"
+import User from "server/entity/User"
 
 export type UserPageParams = PageParams<User>
 
