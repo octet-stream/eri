@@ -3,10 +3,6 @@ module.exports = {
     "next/babel"
   ],
   plugins: [
-    ["babel-plugin-module-resolver", {
-      root: ["."],
-      extensions: [".ts"]
-    }],
     "@babel/proposal-do-expressions",
     "@babel/proposal-nullish-coalescing-operator",
     "@babel/proposal-optional-chaining",
@@ -14,13 +10,11 @@ module.exports = {
     ["@babel/proposal-pipeline-operator", {
       proposal: "minimal"
     }],
-    "babel-plugin-transform-typescript-metadata",
     ["@babel/proposal-decorators", {
       legacy: true
     }],
-    ["@babel/plugin-proposal-class-properties", {
+    ["@babel/proposal-class-properties", {
       loose: true
-    }],
-    "parameter-decorator"
+    }]
   ]
 }

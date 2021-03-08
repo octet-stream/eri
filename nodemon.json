@@ -1,8 +1,0 @@
-{
-  "watch": [
-    ".eri",
-    ".babelrc.js",
-    ".env.*",
-    ".env"
-  ]
-}
