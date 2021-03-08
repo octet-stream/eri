@@ -52,7 +52,7 @@
     "lodash": "^4.17.21",
     "mysql2": "2.2.5",
     "reflect-metadata": "0.1.13",
-    "then-busboy": "5.0.0-beta.2",
+    "then-busboy": "^5.0.0-beta.3",
     "type-graphql": "1.1.1",
     "typedi": "0.10.0",
     "typeorm": "0.2.31",
