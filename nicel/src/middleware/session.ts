@@ -14,7 +14,7 @@ const middleware = session({
     maxAge: ms("1y"),
     sameSite: "lax",
     domain: new URL(process.env.SERVER_ADDRESS).hostname,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
   }
 })
 

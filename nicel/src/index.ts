@@ -8,6 +8,9 @@ import Router from "@koa/router"
 
 import {connect, disconnect} from "lib/db/connection"
 
+import errorHandler from "middleware/errorHandler"
+import session from "middleware/session"
+
 import graphql from "route/graphql"
 
 let server: Server = null
@@ -34,12 +37,14 @@ async function main() {
   await connect() // Connect to the database
 
   router
-    .use(graphql.routes())
     .use(graphql.allowedMethods())
+    .use(graphql.routes())
 
   server = koa
-    .use(router.routes())
+    .use(errorHandler)
+    .use(session)
     .use(router.allowedMethods())
+    .use(router.routes())
     .listen(port)
 
   console.log(`Server started on http://localhost:${port}`)

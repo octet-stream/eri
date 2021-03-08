@@ -3,21 +3,24 @@ import {ApolloServer} from "apollo-server-koa"
 import Router from "@koa/router"
 
 import cors from "middleware/cors"
-import session from "middleware/session"
+import body from "middleware/body"
 import multipart from "middleware/multipart"
 
 import schema from "api/schema"
 
-const server = new ApolloServer({schema, uploads: false, context: ctx => ctx})
+const server = new ApolloServer({schema, uploads: false, context: ({ctx}) => ctx})
 
 const path = "/api/graphql"
 
-const router = new Router({prefix: path})
+const router = new Router()
+
+const middleware = server.getMiddleware({path, cors: false, bodyParserConfig: false})
 
 router
   .use(cors)
-  .use(session)
+  .use(body)
   .use(multipart)
-  .use(server.getMiddleware({path, cors: false}))
+  .get(path, middleware)
+  .post(path, middleware)
 
 export default router

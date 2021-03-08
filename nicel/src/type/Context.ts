@@ -1,16 +1,5 @@
-import {IncomingMessage, ServerResponse} from "http"
-import {Session} from "express-session"
+import Koa from "koa"
 
-export interface ApiContextRequest extends IncomingMessage {
-  sessionId: string
-  session: Session & {
-    userId: number
-  }
-}
+interface Context extends Koa.Context {}
 
-export interface ApiContext {
-  req: ApiContextRequest
-  res: ServerResponse
-}
-
-export default ApiContext
+export default Context

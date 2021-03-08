@@ -1,7 +1,7 @@
 import {Resolver, Mutation, Arg, Ctx, ID, Authorized} from "type-graphql"
 import {InjectRepository} from "typeorm-typedi-extensions"
 
-import ApiContext from "type/Context"
+import Context from "type/Context"
 
 import unauthorized from "error/common/unauthorized"
 
@@ -19,19 +19,19 @@ class AuthResolver {
 
   @Mutation(() => Viewer)
   async authSignUp(
-    @Ctx() ctx: ApiContext,
+    @Ctx() ctx: Context,
     @Arg("user", () => SignUpInput) user: SignUpInput
   ): Promise<Viewer> {
     const created = await this.userRepo.createAndSave(user)
 
-    ctx.req.session.userId = created.id
+    ctx.session.userId = created.id
 
     return created
   }
 
   @Mutation(() => Viewer)
   async authLogIn(
-    @Ctx() ctx: ApiContext,
+    @Ctx() ctx: Context,
     @Arg("credentials", () => LogInInput) {username, password}: LogInInput
   ): Promise<Viewer> {
     const user = await this.userRepo.findOne({
@@ -42,19 +42,19 @@ class AuthResolver {
       throw unauthorized("Auth failed: Check your credentials")
     }
 
-    ctx.req.session.userId = user.id
+    ctx.session.userId = user.id
 
     return user
   }
 
   @Authorized()
   @Mutation(() => ID)
-  authLogOut(@Ctx() ctx: ApiContext): Promise<number> {
-    return new Promise<number>((resolve, reject) => {
-      const id = ctx.req.session.userId
+  authLogOut(@Ctx() ctx: Context): number {
+    const {userId} = ctx.session
 
-      ctx.req.session.destroy(error => error ? reject(error) : resolve(id))
-    })
+    ctx.session = null
+
+    return userId
   }
 }
 

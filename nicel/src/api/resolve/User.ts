@@ -35,7 +35,7 @@ class UserResolver {
   @Authorized()
   @Query(() => Viewer, {description: "Returns information for current user"})
   viewer(@Ctx() ctx: ApiContext): Promise<Viewer> {
-    return this.userRepo.findOne(ctx.req.session.userId)
+    return this.userRepo.findOne(ctx.session.userId)
   }
 }
 
