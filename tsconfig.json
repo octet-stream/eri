@@ -5,12 +5,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "checkJs": false,
-    "allowJs": false,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
