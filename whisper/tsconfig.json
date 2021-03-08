@@ -4,19 +4,31 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "checkJs": false,
-    "allowJs": false,
+    "checkJs": true,
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "target": "es2015",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
     "resolveJsonModule": true,
     "isolatedModules": true
   },
+  "include": [
+    "next-env.d.ts",
+    "type/graphql.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
   "exclude": [
     "node_modules"
   ]
