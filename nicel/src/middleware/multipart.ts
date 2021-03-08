@@ -1,9 +1,11 @@
 import {parse} from "then-busboy"
-import {Middleware} from "koa"
+import {Middleware, DefaultState} from "koa"
+
+import Context from "type/Context"
 
 const methods = ["post"]
 
-const multipart: Middleware = async (ctx, next) => {
+const multipart: Middleware<DefaultState, Context> = async (ctx, next) => {
   if (!methods.includes(ctx.method.toLocaleLowerCase())) {
     return next()
   }
