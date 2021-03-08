@@ -21,7 +21,6 @@ class Post extends SoftRemovableEntity {
   @ManyToOne(() => User, {onDelete: "CASCADE", eager: true})
   readonly author!: User
 
-  // TODO: Add tags resolver
   @Field(() => [Tag], {nullable: "items"})
   @ManyToMany(() => Tag, {eager: true})
   @JoinTable()

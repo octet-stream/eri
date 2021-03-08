@@ -65,7 +65,7 @@ class PostResolver {
     @Ctx() ctx: Context,
     @Arg("post", () => AddInput) post: AddInput
   ): Promise<Post> {
-    const {userId} = ctx.req.session
+    const {userId} = ctx.session
 
     return this.postRepo.createAndSave(userId, post)
   }
