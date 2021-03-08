@@ -55,6 +55,7 @@
     "unified": "^9.2.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.10",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/plugin-proposal-decorators": "^7.13.5",
     "@babel/plugin-proposal-do-expressions": "^7.12.13",
@@ -82,6 +83,7 @@
     "postcss-nested": "^5.0.5",
     "postcss-normalize": "^9.0.0",
     "postcss-preset-env": "^6.7.0",
-    "postcss-use": "^3.0.0"
+    "postcss-use": "^3.0.0",
+    "typescript": "^4.2.3"
   }
 }

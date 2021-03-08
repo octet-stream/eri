@@ -12,6 +12,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "allowJs": true
   },
   "include": [
     "next-env.d.ts",
