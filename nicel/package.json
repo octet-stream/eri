@@ -8,7 +8,9 @@
   "private": false,
   "scripts": {
     "build": "ttsc",
-    "watch": "ts-node-dev -C ttypescript --rs src"
+    "dev": "ts-node-dev -C ttypescript --rs src",
+    "start": "NODE_ENV=production node .eri",
+    "cleanup": "rm -rf .eri"
   },
   "devDependencies": {
     "@types/bcrypt": "3.0.0",
@@ -34,9 +36,11 @@
     "@koa/cors": "3.1.0",
     "@koa/router": "10.0.0",
     "@next/env": "10.0.8",
+    "@sindresorhus/slugify": "^1.1.0",
     "apollo-server-koa": "2.21.0",
     "bcrypt": "5.0.1",
     "class-validator": "0.13.1",
+    "date-fns": "^2.19.0",
     "fs-extra": "9.1.0",
     "graphql": "15.5.0",
     "http-errors": "1.8.0",
@@ -44,6 +48,7 @@
     "koa": "2.13.1",
     "koa-redis": "4.0.1",
     "koa-session-minimal": "4.0.1",
+    "lodash": "^4.17.21",
     "mysql2": "2.2.5",
     "reflect-metadata": "0.1.13",
     "then-busboy": "5.0.0-beta.2",
