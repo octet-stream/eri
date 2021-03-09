@@ -14,12 +14,6 @@ const variants = {primary: s.pimary, secondary: s.secondary}
 
 const getVariant = (name: ButtonVariants) => variants[name] || s.primary
 
-/**
- * @typedef {Object} ButtonProps
- *
- * @prop {ButtonVariants} [variant = "primary"]
- */
-
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({className, variant, ...props}, ref) => (
     <button
