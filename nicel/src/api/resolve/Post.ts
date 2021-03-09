@@ -13,6 +13,8 @@ import {InjectRepository} from "typeorm-typedi-extensions";
 
 import Context from "type/Context"
 
+import notFound from "error/common/notFound"
+
 import User from "entity/User"
 import Post from "entity/Post"
 
@@ -45,7 +47,13 @@ class PostResolver {
 
   @Query(() => Post)
   async post(@Arg("slug") slug: string): Promise<Post> {
-    return this.postRepo.findOne({where: {slug}})
+    const post = await this.postRepo.findOne({where: {slug, isDraft: false}})
+
+    if (!post) {
+      throw notFound("post")
+    }
+
+    return post
   }
 
   @Query(() => PostPage)
@@ -53,7 +61,7 @@ class PostResolver {
     @Args(() => PageArgs) {limit, page, offset}: PageArgs
   ): Promise<PostPageParams> {
     const [rows, count] = await this.postRepo.findAndCount({
-      skip: offset, take: limit
+      skip: offset, take: limit, where: {isDraft: false}
     })
 
     return {rows, count, page, limit, offset}
@@ -72,7 +80,7 @@ class PostResolver {
 
   @Authorized()
   @Mutation(() => Post)
-  postUpdate(
+  async postUpdate(
     @Arg("post", () => UpdateInput) post: UpdateInput
   ): Promise<Post> {
     const {id, ...fields} = post

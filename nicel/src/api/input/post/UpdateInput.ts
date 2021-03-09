@@ -5,13 +5,13 @@ class PostUpdateInput {
   @Field(() => ID, {nullable: false})
   id!: number
 
-  @Field()
+  @Field({nullable: true})
   title?: string
 
-  @Field()
+  @Field({nullable: true})
   text?: string
 
-  @Field()
+  @Field({nullable: true})
   isDraft?: boolean
 }
 
