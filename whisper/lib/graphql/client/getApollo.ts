@@ -12,9 +12,9 @@ let cachedClient: ApolloClient<NormalizedCacheObject>
 const createApollo = () => new ApolloClient<NormalizedCacheObject>({
   ssrMode: process.browser === false,
   link: new HttpLink({
-    uri: process.env.NEXT_PUBLIC_GRAPHQL,
+    fetch,
     credentials: "same-origin",
-    fetch
+    uri: process.env.NEXT_PUBLIC_GRAPHQL,
   }),
   cache: new InMemoryCache()
 })
