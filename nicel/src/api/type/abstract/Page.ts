@@ -1,6 +1,8 @@
 import {ObjectType, Field, Root, Int} from "type-graphql"
 
-export interface PageParams<T extends object> {
+import AnyObject from "type/AnyObject"
+
+export interface PageParams<T extends AnyObject> {
   limit: number
 
   offset: number
@@ -13,7 +15,7 @@ export interface PageParams<T extends object> {
 }
 
 @ObjectType({isAbstract: true})
-export abstract class Page<T extends object> {
+export abstract class Page<T extends AnyObject> {
   @Field(() => Int)
   count: number
 
