@@ -22,7 +22,7 @@ const createApollo = () => new ApolloClient<NormalizedCacheObject>({
 /**
  * Creates and returns a new ApolloClient instance
  */
-function initializeApollo(initialState: NormalizedCacheObject = null) {
+function getApollo(initialState?: NormalizedCacheObject) {
   const client = cachedClient ?? createApollo()
 
   if (initialState) {
@@ -32,7 +32,7 @@ function initializeApollo(initialState: NormalizedCacheObject = null) {
   }
 
   // Always return a new client for SSR
-  if (process.browser === false) {
+  if (!process.browser) {
     return client
   }
 
@@ -44,4 +44,4 @@ function initializeApollo(initialState: NormalizedCacheObject = null) {
   return client
 }
 
-export default initializeApollo
+export default getApollo

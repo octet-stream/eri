@@ -2,10 +2,10 @@ import type {NormalizedCacheObject} from "@apollo/client"
 
 import {useMemo} from "react"
 
-import initializeApollo from "./initializeApollo"
+import getApollo from "./getApollo"
 
-const useApollo = (initialState: NormalizedCacheObject = null) => useMemo(
-  () => initializeApollo(initialState),
+const useApollo = (initialState?: NormalizedCacheObject) => useMemo(
+  () => getApollo(initialState),
 
   [initialState]
 )
