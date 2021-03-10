@@ -1,7 +1,7 @@
-import {Entity, Column, OneToOne, JoinColumn, DeepPartial, SaveOptions} from "typeorm"
 import {Field, ObjectType, registerEnumType} from "type-graphql"
+import {Entity, Column, OneToOne, JoinColumn} from "typeorm"
 import {IsEmail, Matches} from "class-validator"
-import {hash, compare} from "bcrypt"
+import {compare} from "bcrypt"
 
 import SoftRemovableEntity from "entity/abstract/AbstractSoftRemovableEntity"
 

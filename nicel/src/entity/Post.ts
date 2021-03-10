@@ -1,4 +1,4 @@
-import {Field, ObjectType} from "type-graphql"
+import {Field, ObjectType, registerEnumType} from "type-graphql"
 import {
   Column,
   Entity,
@@ -12,9 +12,20 @@ import SoftRemovableEntity from "entity/abstract/AbstractSoftRemovableEntity"
 import User from "entity/User"
 import Tag from "entity/Tag"
 
+export enum PostTextFormats {
+  TEXT = "text",
+  TXT = "txt",
+  HTML = "html",
+  HTM = "htm",
+  MD = "md",
+  MARKDOWN = "markdown"
+}
+
+registerEnumType(PostTextFormats, {name: "PostTextFormats"})
+
 @ObjectType()
 @Entity()
-class Post extends SoftRemovableEntity {
+export class Post extends SoftRemovableEntity {
   @Column({unsigned: true, update: false})
   authorId: number
 

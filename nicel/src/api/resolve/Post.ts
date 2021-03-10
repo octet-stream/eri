@@ -16,10 +16,14 @@ import Context from "type/Context"
 import notFound from "error/common/notFound"
 
 import User from "entity/User"
-import Post from "entity/Post"
+
+import {Post, PostTextFormats} from "entity/Post"
 
 import UserRepo from "repo/User"
 import PostRepo from "repo/Post"
+
+import toHtml from "lib/md/toHtml"
+import toText from "lib/md/toText"
 
 import PageArgs from "api/args/PageArgs"
 import AddInput from "api/input/post/AddInput"
@@ -43,6 +47,29 @@ class PostResolver {
     }
 
     return this.userRepo.findOne(authorId)
+  }
+
+  @FieldResolver(() => String)
+  async text(
+    @Root()
+    {text}: Post,
+
+    @Arg("format", () => PostTextFormats, {
+      defaultValue: PostTextFormats.MARKDOWN
+    })
+    format: PostTextFormats
+  ): Promise<string> {
+    // ! Markdown compeilation takes too long (about 600ms), figure out the reason and fix the problem
+    switch (format) {
+      case "html":
+      case "htm":
+        return toHtml(text)
+      case "text":
+      case "txt":
+        return toText(text)
+      default:
+        return text
+    }
   }
 
   @Query(() => Post)
