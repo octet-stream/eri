@@ -19,7 +19,11 @@ const path = "/api/graphql"
 
 const router = new Router()
 
-const middleware = server.getMiddleware({path, cors: false, bodyParserConfig: false})
+const middleware = server.getMiddleware({
+  bodyParserConfig: false,
+  cors: false,
+  path
+})
 
 router
   .use(cors)
