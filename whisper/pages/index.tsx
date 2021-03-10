@@ -23,6 +23,7 @@ export const getStaticProps = withError(
 
     return {
       props,
+      revalidate: 60
     }
   }
 )
