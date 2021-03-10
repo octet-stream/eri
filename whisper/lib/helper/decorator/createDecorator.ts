@@ -4,11 +4,9 @@ import isFunction from "lodash/isFunction"
  * Creates decorator for a function, class or method
  * using given function as implementation
  *
- * @param {Function} decorator A decorator implementation
- *
- * @return {Function}
+ * @param decorator A decorator implementation
  */
-const createDecorator = decorator => (...args) => {
+const createDecorator = (decorator: Function) => (...args: any[]) => {
   const [target, , descriptor] = args
 
   if (isFunction(target) && args.length === 1) {
