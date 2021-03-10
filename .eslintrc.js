@@ -22,22 +22,10 @@ module.exports = {
     }
   },
   rules: {
-    "max-len": ["error", {
-      ignoreComments: true,
-      code: 80
-    }],
-    indent: ["error", 2, {
-      SwitchCase: 1
-    }],
-    // TODO: Don't forget to move this rule to my personal shared config.
-    "prefer-const": ["error", {
-      destructuring: "all"
-    }],
     "no-constant-condition": ["error", {
       checkLoops: false
     }],
 
-    "operator-linebreak": ["error", "before"],
     "func-names": ["error", "always", {
       generators: "never"
     }],
