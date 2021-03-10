@@ -8,7 +8,12 @@ import multipart from "middleware/multipart"
 
 import schema from "api/schema"
 
-const server = new ApolloServer({schema, uploads: false, context: ({ctx}) => ctx})
+const server = new ApolloServer({
+  schema,
+  uploads: false,
+
+  context: ({ctx}) => ctx
+})
 
 const path = "/api/graphql"
 

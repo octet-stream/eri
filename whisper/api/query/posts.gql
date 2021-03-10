@@ -13,13 +13,10 @@ query GetPosts($page: Int) {
       slug
       isDraft
 
-      creator {
+      author {
         id
         login
-        name {
-          first
-          last
-        }
+        name
       }
 
       dates {

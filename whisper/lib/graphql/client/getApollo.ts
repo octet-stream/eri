@@ -1,3 +1,4 @@
+import {IncomingMessage} from "http"
 import {
   ApolloClient,
   HttpLink,
@@ -5,14 +6,16 @@ import {
   NormalizedCacheObject
 } from "@apollo/client"
 
-import fetch from "isomorphic-fetch"
+import fetch from "lib/helper/util/createFetch"
 
 let cachedClient: ApolloClient<NormalizedCacheObject>
 
-const createApollo = () => new ApolloClient<NormalizedCacheObject>({
+const createApollo = (
+  req?: IncomingMessage
+) => new ApolloClient<NormalizedCacheObject>({
   ssrMode: process.browser === false,
   link: new HttpLink({
-    fetch,
+    fetch: fetch(req),
     credentials: "same-origin",
     uri: process.env.NEXT_PUBLIC_GRAPHQL,
   }),
@@ -22,8 +25,11 @@ const createApollo = () => new ApolloClient<NormalizedCacheObject>({
 /**
  * Creates and returns a new ApolloClient instance
  */
-function getApollo(initialState?: NormalizedCacheObject) {
-  const client = cachedClient ?? createApollo()
+function getApollo(
+  initialState?: NormalizedCacheObject,
+  req?: IncomingMessage
+) {
+  const client = cachedClient ?? createApollo(req)
 
   if (initialState) {
     const oldCache = client.extract()

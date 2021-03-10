@@ -3,7 +3,7 @@ import isEmpty from "lodash/isEmpty"
 import serialize from "./serializeError"
 
 // TODO: Figure out proper type declaration for this
-const withError = (fn: any) => async (ctx: any) => {
+const withError = (fn: Function) => async (ctx: unknown): Promise<unknown> => {
   let error = null
   let result = null
   try {

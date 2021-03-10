@@ -11,9 +11,12 @@ const serializeError = (error: any): PageError => {
   }
 
   if (isApolloError(error)) {
-    error = error.graphQLErrors[0].originalError
+    error = error.networkError
+      ? error.networkError
+      : error.graphQLErrors[0].originalError
   }
 
+  // TODO: Improve errors serialization
   return {
     name: error.name,
     message: error.message,
@@ -21,7 +24,7 @@ const serializeError = (error: any): PageError => {
     status: error.status ?? 500,
     code: error.code ?? null,
     statusCode: error.status ?? 500,
-    statusText: error.statusText
+    statusText: error.statusText || "Internal Server Error"
   }
 }
 

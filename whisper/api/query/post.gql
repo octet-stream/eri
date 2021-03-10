@@ -1,18 +1,15 @@
-query GetPost($slug: String!, $format: PostTextFormatsInput) {
+query GetPost($slug: String!) {
   post(slug: $slug) {
     id
     title
     slug
-    text(format: $format)
+    text
     isDraft
 
-    creator {
+    author {
       id
       login
-      name {
-        first
-        last
-      }
+      name
     }
 
     dates {
