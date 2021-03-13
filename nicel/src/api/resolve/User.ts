@@ -1,7 +1,7 @@
 import {Resolver, Query, Arg, Args, Ctx, Authorized} from "type-graphql"
 import {InjectRepository} from "typeorm-typedi-extensions";
 
-import ApiContext from "type/Context"
+import Context from "type/Context"
 
 import User from "entity/User"
 import UserRepo from "repo/User"
@@ -33,9 +33,16 @@ class UserResolver {
   }
 
   @Authorized()
-  @Query(() => Viewer, {description: "Returns information for current user"})
-  viewer(@Ctx() ctx: ApiContext): Promise<Viewer> {
-    return this.userRepo.findOne(ctx.session.userId)
+  @Query(() => Viewer, {
+    description: "Returns information for current user",
+    nullable: true
+  })
+  viewer(@Ctx() ctx: Context): Promise<Viewer> {
+    if (ctx.session.userId) {
+      return this.userRepo.findOne(ctx.session.userId)
+    }
+
+    return null
   }
 }
 
