@@ -1,13 +1,11 @@
-import {useApolloClient} from "@apollo/client"
+import {useApolloClient, QueryResult} from "@apollo/client"
 import {GetServerSidePropsContext} from "next"
 import {useRouter} from "next/router"
 import {FC} from "react"
 
+import getApollo from "lib/graphql/client/getApollo"
 import withError from "lib/error/withError"
-import auth from "lib/auth/isAuthenticated"
 import layout from "lib/hoc/layout"
-
-import {exec, ExecOperationResult} from "lib/graphql/exec"
 
 import EditorLayout from "layout/Editor"
 import Editor from "component/Post/Editor"
@@ -19,26 +17,22 @@ import remove from "api/mutation/post/remove.gql"
 
 import PostPayload from "type/api/PostPayload"
 
-type PagePayload = ExecOperationResult<PostPayload>
+type PagePayload = QueryResult<PostPayload>
 
 export const getServerSideProps = withError(async (ctx: GetServerSidePropsContext) => {
-  const {date, name} = ctx.params
+  const {year, month, day, name} = ctx.params
 
-  const [isAuthenticated, response] = await Promise.all([
-    auth(ctx),
-    exec<PostPayload>({
-      ctx,
-      query: getPost,
-      variables: {
-        slug: [date, name].join("/")
-      }
-    })
-  ])
+  const client = getApollo(undefined, ctx.req)
+
+  const props = await client.query<PostPayload>({
+    query: getPost,
+    variables: {
+      slug: [year, month, day, name].join("/")
+    }
+  })
 
   return {
-    props: {
-      ...response, isAuthenticated,
-    }
+    props
   }
 })
 
