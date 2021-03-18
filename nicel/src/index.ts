@@ -9,7 +9,9 @@ import Router from "@koa/router"
 import {connect, disconnect} from "lib/db/connection"
 
 import errorHandler from "middleware/errorHandler"
+import multipart from "middleware/multipart"
 import session from "middleware/session"
+import cors from "middleware/cors"
 
 import graphql from "route/graphql"
 
@@ -42,7 +44,9 @@ async function main() {
 
   server = koa
     .use(errorHandler)
+    .use(cors)
     .use(session)
+    .use(multipart)
     .use(router.allowedMethods())
     .use(router.routes())
     .listen(port)

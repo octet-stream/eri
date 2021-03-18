@@ -7,12 +7,12 @@ import Viewer from "context/Viewer"
 
 type Url = UrlObject | string
 
-function useViewer(url: Url = "/") {
+function useViewer(url?: Url) {
   const viewer = useContext(Viewer)
   const router = useRouter()
 
   useEffect(() => {
-    if (!viewer) {
+    if (!viewer && url) {
       router.push(url)
     }
   }, [])

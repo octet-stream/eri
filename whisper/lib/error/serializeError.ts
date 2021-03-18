@@ -10,6 +10,10 @@ const serializeError = (error: any): PageError => {
     return null
   }
 
+  if (process.env.NODE_ENV !== "production") {
+    console.error(error)
+  }
+
   if (isApolloError(error)) {
     error = error.networkError
       ? error.networkError

@@ -1,11 +1,13 @@
-import {GetServerSideProps} from "next"
+import {GetServerSidePropsContext, GetServerSidePropsResult} from "next"
 import {useApolloClient} from "@apollo/client"
 import {useRouter} from "next/router"
 import {Fragment, FC} from "react"
 
-import auth from "lib/auth/isAuthenticated"
 import layout from "lib/hoc/layout"
+import withError from "lib/error/withError"
+import getApollo from "lib/graphql/client/getApollo"
 
+import getViewer from "api/query/viewer.gql"
 import add from "api/mutation/post/add.gql"
 
 import EditorLayout from "layout/Editor"
@@ -14,13 +16,17 @@ import Title from "component/Title"
 import Editor from "component/Post/Editor"
 import withLogin from "component/Login/withLogin"
 
-type PageProps = GetServerSideProps<{isAuthenticated: boolean}>
+export const getServerSideProps = withError(
+  async ({req}: GetServerSidePropsContext) => {
+    const client = getApollo(undefined, req)
 
-export const getServerSideProps: PageProps = async ctx => ({
-  props: {
-    isAuthenticated: await auth(ctx)
+    const props = await client.query({query: getViewer})
+
+    return {
+      props
+    }
   }
-})
+)
 
 const NewPost: FC = () => {
   const router = useRouter()
@@ -40,4 +46,4 @@ const NewPost: FC = () => {
   )
 }
 
-export default NewPost |> layout(EditorLayout) |> withLogin
+export default layout(EditorLayout)(withLogin(NewPost))

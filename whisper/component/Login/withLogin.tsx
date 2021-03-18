@@ -1,10 +1,14 @@
+import {FC, ComponentType} from "react"
+
+import useViewer from "hook/useViewer"
+
 import Login from "./Login"
 
-function withLogin(Target: any) {
-  const WithLogin: React.FC<{isAuthenticated: boolean}> = props => {
-    const {isAuthenticated} = props
+function withLogin(Target: ComponentType) {
+  const WithLogin: FC = props => {
+    const viewer = useViewer()
 
-    return isAuthenticated ? <Target {...props} /> : <Login {...props} />
+    return viewer ? <Target {...props} /> : <Login />
   }
 
   WithLogin.defaultProps = {

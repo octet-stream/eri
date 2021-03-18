@@ -1,7 +1,10 @@
 import {useForm, SubmitHandler} from "react-hook-form"
+import {useApolloClient} from "@apollo/client"
+import {toast} from "react-hot-toast"
+import {useRouter} from "next/router"
 import {Fragment, FC} from "react"
 
-import api from "lib/rest/api"
+import logIn from "api/mutation/auth/logIn.gql"
 
 import Title from "component/Title"
 import Input from "component/Input"
@@ -15,10 +18,19 @@ interface Credentials {
 }
 
 const Login: FC = () => {
+  const client = useApolloClient()
+  const router = useRouter()
+
   const {register, handleSubmit} = useForm<Credentials>()
 
   const submit: SubmitHandler<Credentials> = credentials => (
-    api.post("/api/auth/login", credentials).catch(console.error)
+    client.mutate({mutation: logIn, variables: {credentials}})
+      .then(() => router.reload())
+      .catch(error => {
+        console.error(error)
+
+        toast.error("Unable to log in.")
+      })
   )
 
   return (

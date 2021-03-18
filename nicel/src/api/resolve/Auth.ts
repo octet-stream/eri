@@ -38,7 +38,7 @@ class AuthResolver {
       where: [{email: username}, {login: username}]
     })
 
-    if (!(user || await user.comparePassword(password))) {
+    if (!user || await user.comparePassword(password) === false) {
       throw unauthorized("Auth failed: Check your credentials")
     }
 

@@ -1,5 +1,6 @@
 import {ApolloProvider} from "@apollo/client"
 import {useEffect, useState, FC} from "react"
+import {Toaster} from "react-hot-toast"
 import {useRouter} from "next/router"
 import {Helmet} from "react-helmet"
 import {AppProps} from "next/app"
@@ -9,6 +10,8 @@ import "style/spacing.css"
 import "style/colors.css"
 
 import useApollo from "lib/graphql/client/useApollo"
+
+import Viewer from "context/Viewer"
 
 import Progress from "component/Progress"
 import DarkMode from "component/DarkMode"
@@ -61,11 +64,15 @@ const App: FC<AppProps> = ({Component, pageProps}) => {
 
       <ApolloProvider client={client}>
         <PageError error={error}>
-          <Component {...renderProps} />
+          <Viewer.Provider value={pageProps?.data?.viewer}>
+            <Component {...renderProps} />
+          </Viewer.Provider>
         </PageError>
       </ApolloProvider>
 
       <Progress isAnimating={isAnimatingProgress} />
+
+      <Toaster position="bottom-left" />
     </DarkMode>
   )
 }
