@@ -14,8 +14,8 @@ import {InjectRepository} from "typeorm-typedi-extensions";
 
 import Context from "type/Context"
 
-import notFound from "error/common/notFound"
-import forbidden from "error/common/forbidden"
+import notFound from "error/post/notFound"
+import forbidden from "error/post/forbidden"
 
 import User from "entity/User"
 
@@ -43,7 +43,7 @@ class PostResolver {
   private readonly postRepo: PostRepo
 
   @FieldResolver(() => User)
-  author(@Root() {author, authorId}: Post) {
+  async author(@Root() {author, authorId}: Post): Promise<User> {
     if (author) {
       return author
     }
@@ -79,7 +79,7 @@ class PostResolver {
     const post = await this.postRepo.findOne({where: {slug, isDraft: false}})
 
     if (!post) {
-      throw notFound("post")
+      throw notFound()
     }
 
     return post
@@ -127,7 +127,7 @@ class PostResolver {
     const post = await this.postRepo.findOne(postId)
 
     if (!post || post.hasAuthor(ctx.session.userId)) {
-      throw forbidden({subject: "Post", operation: "remove"})
+      throw forbidden("remove")
     }
 
     return this.postRepo.softRemove(post).then(() => post.id)
