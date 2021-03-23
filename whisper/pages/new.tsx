@@ -34,7 +34,11 @@ const NewPost: FC = () => {
 
   const submit = (post: any) => client
     .mutate({mutation: add, variables: {post}})
-    .then(({data}) => router.push(data.postAdd.slug))
+    .then(({data}) => {
+      if (data.postAdd.isDraft === false) {
+        router.push(data.postAdd.slug)
+      }
+    })
     .catch(console.error)
 
   return (
