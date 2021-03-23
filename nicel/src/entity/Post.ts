@@ -52,6 +52,10 @@ export class Post extends SoftRemovableEntity {
   @Field()
   @Column({default: true})
   isDraft!: boolean
+
+  hasAuthor(id: number) {
+    return this.authorId === id
+  }
 }
 
 export default Post

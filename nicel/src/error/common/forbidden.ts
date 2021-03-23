@@ -8,7 +8,7 @@ interface ForbiddenErrorParams {
 }
 
 const forbidden = (
-  {subject, operation}: ForbiddenErrorParams, options: AnyObject
+  {subject, operation}: ForbiddenErrorParams, options?: AnyObject
 ) => {
   const message = subject && operation
     ? `You can't perform "${operation}" operation on "${subject}"`

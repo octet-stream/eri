@@ -1,4 +1,5 @@
 import {
+  ID,
   Ctx,
   Arg,
   Args,
@@ -14,6 +15,7 @@ import {InjectRepository} from "typeorm-typedi-extensions";
 import Context from "type/Context"
 
 import notFound from "error/common/notFound"
+import forbidden from "error/common/forbidden"
 
 import User from "entity/User"
 
@@ -114,6 +116,20 @@ class PostResolver {
 
     return this.postRepo.update(id, fields)
       .then(() => this.postRepo.findOne(id))
+  }
+
+  @Authorized()
+  @Mutation(() => ID)
+  async postRemove(
+    @Ctx() ctx: Context, @Arg("postId", () => ID) postId: number
+  ): Promise<number> {
+    const post = await this.postRepo.findOne(postId)
+
+    if (!post || post.hasAuthor(ctx.session.userId)) {
+      throw forbidden({subject: "Post", operation: "remove"})
+    }
+
+    return this.postRepo.softRemove(post).then(() => post.id)
   }
 }
 
