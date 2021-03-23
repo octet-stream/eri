@@ -121,7 +121,8 @@ class PostResolver {
   @Authorized()
   @Mutation(() => ID)
   async postRemove(
-    @Ctx() ctx: Context, @Arg("postId", () => ID) postId: number
+    @Ctx() ctx: Context,
+    @Arg("postId", () => ID) postId: number
   ): Promise<number> {
     const post = await this.postRepo.findOne(postId)
 
