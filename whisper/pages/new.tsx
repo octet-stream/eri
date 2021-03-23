@@ -1,6 +1,7 @@
-import {GetServerSidePropsContext, GetServerSidePropsResult} from "next"
+import {GetServerSidePropsContext} from "next"
 import {useApolloClient} from "@apollo/client"
 import {useRouter} from "next/router"
+import {toast} from "react-hot-toast"
 import {Fragment, FC} from "react"
 
 import layout from "lib/hoc/layout"
@@ -39,7 +40,11 @@ const NewPost: FC = () => {
         router.push(data.postAdd.slug)
       }
     })
-    .catch(console.error)
+    .catch(error => {
+      toast.error("Can't save the post.")
+
+      console.error(error)
+    })
 
   return (
     <Fragment>
