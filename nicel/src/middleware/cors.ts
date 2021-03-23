@@ -1,9 +1,19 @@
 import cors from "@koa/cors"
 
-const {NEXT_PUBLIC_SERVER, NODE_ENV} = process.env
+const {SERVER_ADRESS, CLIENT_ADDRESS} = process.env
+
+const allowed = [SERVER_ADRESS, CLIENT_ADDRESS]
 
 const handler = cors({
-  origin: NODE_ENV === "production" ? NEXT_PUBLIC_SERVER : "*"
+  credentials: true,
+  origin(ctx) {
+    const origin = ctx.get("origin")
+    if (allowed.includes(origin)) {
+      return origin
+    }
+
+    return allowed[0]
+  }
 })
 
 export default handler

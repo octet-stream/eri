@@ -6,13 +6,12 @@ mutation PostAdd($post: PostAddInput!) {
     text
     isDraft
 
-    creator {
+    author {
       id
       login
-      name {
-        first
-        last
-      }
+      name
+      firstName
+      lastName
     }
 
     dates {

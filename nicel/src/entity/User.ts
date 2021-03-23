@@ -40,11 +40,11 @@ export class User extends SoftRemovableEntity {
   @Column()
   password!: string
 
-  @Field()
+  @Field({nullable: true})
   @Column({default: null})
   firstName?: string
 
-  @Field()
+  @Field({nullable: true})
   @Column({default: null})
   lastName?: string
 

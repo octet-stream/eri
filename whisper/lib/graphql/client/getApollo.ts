@@ -16,8 +16,8 @@ const createApollo = (
   ssrMode: process.browser === false,
   link: new HttpLink({
     fetch: fetch(req),
-    credentials: "same-origin",
     uri: process.env.NEXT_PUBLIC_GRAPHQL,
+    credentials: "include"
   }),
   cache: new InMemoryCache()
 })
