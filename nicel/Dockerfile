@@ -10,7 +10,7 @@ COPY yarn.lock /usr/src/eri/nicel
 
 RUN yarn install
 
-COPY . /usr/src/octetstream.me
+COPY . /usr/src/eri/nicel
 
 RUN yarn build
 
