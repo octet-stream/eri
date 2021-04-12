@@ -21,6 +21,8 @@ class PostRepo extends Repository<Post> {
 
     created.slug = `${format(now, MASK)}/${createSlug(post.title)}`
     created.authorId =  userId
+
+    // Set dates for Post manually because we need the creating date in slug
     created.createdAt = now
     created.updatedAt = now
 
