@@ -49,7 +49,7 @@
     "remark-parse": "9.0.0",
     "remark-react": "8.0.0",
     "remark-slate": "1.5.1",
-    "sharp": "0.27.2",
+    "sharp": "0.30.5",
     "slate": "0.59.0",
     "slate-history": "0.59.0",
     "slate-react": "0.59.0",
