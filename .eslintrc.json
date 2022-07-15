@@ -1,0 +1,29 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "airbnb",
+    "plugin:react/jsx-runtime",
+    "@octetstream/eslint-config/typescript"
+  ],
+  "rules": {
+    "import/extensions": 0,
+
+    // TODO: Add these to my eslint config
+    "react/function-component-definition": ["error", {
+      "namedComponents": "arrow-function",
+      "unnamedComponents": "arrow-function"
+    }],
+    "react/jsx-props-no-multi-spaces": 0,
+    "react/jsx-fragments": ["error", "element"],
+    "react/jsx-props-no-spreading": 0,
+    "max-len": ["error", 80, {
+      "ignoreComments": true,
+      "ignoreUrls": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true,
+      "ignoreRegExpLiterals": true
+    }]
+  }
+}

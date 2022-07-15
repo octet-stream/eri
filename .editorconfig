@@ -4,7 +4,7 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 
-[*.{ts,tsx,json,md,gql,yaml,yml}]
+[*.{ts,tsx,json,md,gitignore,npmignore,lintstagedrc}]
 charset = utf-8
 indent_style = space
 indent_size = 2
