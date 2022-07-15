@@ -37,7 +37,7 @@ const PageContainer: FC<Props> = ({Component, pageProps}) => {
           <SessionProvider session={session}>
             <Component {...props} />
 
-            <Toaster position="bottom-left" />
+            <Toaster position="top-center" />
           </SessionProvider>
         </QueryClientProvider>
       </TRPCProvider>

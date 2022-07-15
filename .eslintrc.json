@@ -24,6 +24,19 @@
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true,
       "ignoreRegExpLiterals": true
-    }]
+    }],
+
+    "indent": ["error", 2, {
+      "ignoredNodes": [
+        "PropertyDefinition[decorators]"
+      ]
+    }],
+    "@typescript-eslint/indent": ["error", 2, {
+      "ignoredNodes": [
+        "PropertyDefinition[decorators]"
+      ]
+    }],
+    "semi-style": ["error", "first"],
+    "no-shadow": 0
   }
 }

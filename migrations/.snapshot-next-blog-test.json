@@ -67,6 +67,20 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "role": {
+          "name": "role",
+          "type": "enum('super', 'regular')",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'regular'",
+          "enumItems": [
+            "super",
+            "regular"
+          ],
+          "mappedType": "enum"
         }
       },
       "name": "user",

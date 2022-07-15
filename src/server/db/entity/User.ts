@@ -3,19 +3,25 @@ import {randomUUID} from "node:crypto"
 import {
   Entity,
   Property,
-  Collection,
-  OneToMany,
-  Cascade,
   PrimaryKey,
+  Enum,
   OptionalProps
 } from "@mikro-orm/core"
 
 import {compare} from "bcrypt"
 
 import {BaseDates} from "./BaseDates"
+import type {OptionalDates} from "./BaseDates"
+
+export enum UserRoles {
+  SUPER = "super",
+  REGULAR = "regular"
+}
 
 @Entity()
 export class User extends BaseDates {
+  [OptionalProps]?: OptionalDates | "role"
+
   @PrimaryKey()
   id: string = randomUUID()
 
@@ -31,12 +37,13 @@ export class User extends BaseDates {
   @Property({hidden: true})
   password!: string
 
+  @Enum({items: () => UserRoles, default: UserRoles.REGULAR})
+  role: UserRoles = UserRoles.REGULAR
+
   /**
    * Checks is given string matches user's current password
    */
   async isPasswordValid(password: string): Promise<boolean> {
     return compare(password, this.password)
   }
-
-  [OptionalProps]?: "createdAt" | "updatedAt"
 }
