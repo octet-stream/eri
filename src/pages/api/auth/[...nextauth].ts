@@ -1,4 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from "next"
+import type {NextAuthOptions} from "next-auth"
 import {createRouter} from "next-connect"
 
 import NextAuth from "next-auth"
@@ -9,7 +10,7 @@ import withORMContext from "server/middleware/withORMContext"
 import {getORM} from "server/lib/db"
 import {User} from "server/db/entity/User"
 
-const authHandler = NextAuth({
+export const options: NextAuthOptions = {
   debug: process.env.NODE_ENV !== "production",
   pages: {
     signIn: "/auth/login"
@@ -48,11 +49,20 @@ const authHandler = NextAuth({
           throw new Error("Invalid password.")
         }
 
-        return {userId: user.id}
+        // TODO: Improve session serialization
+        return {
+          id: user.id,
+          login: user.login,
+          email: null,
+          image: null,
+          name: null
+        }
       }
     })
   ]
-})
+}
+
+const authHandler = NextAuth(options)
 
 const chain = createRouter<NextApiRequest, NextApiResponse>()
 
