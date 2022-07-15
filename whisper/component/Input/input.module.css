@@ -1,7 +1,0 @@
-.container {
-  padding: var(--spacing-xs);
-  background: var(--colors-background);
-  color: var(--colors-text);
-  font-size: 1em;
-  border: 1px solid var(--colors-grey);
-}

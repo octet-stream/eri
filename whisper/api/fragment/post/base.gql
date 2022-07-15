@@ -1,7 +1,0 @@
-fragment PostBase on Post {
-  id
-  title
-  slug
-  text
-  isDraft
-}

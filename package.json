@@ -1,0 +1,72 @@
+{
+  "name": "next-blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/server/mikro-orm.config.ts"
+    ]
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^2.9.5",
+    "@mikro-orm/core": "^5.2.3",
+    "@mikro-orm/mysql": "^5.2.3",
+    "@sindresorhus/slugify": "1.1.2",
+    "@trpc/client": "^9.25.3",
+    "@trpc/next": "^9.25.3",
+    "@trpc/react": "^9.25.3",
+    "@trpc/server": "^9.25.3",
+    "bcrypt": "^5.0.1",
+    "classnames": "^2.3.1",
+    "date-fns": "^2.28.0",
+    "lodash": "^4.17.21",
+    "mysql2": "^2.3.3",
+    "nanoid": "3.3.4",
+    "next": "12.2.1",
+    "next-auth": "^4.9.0",
+    "next-connect": "1.0.0-next.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.33.1",
+    "react-hot-toast": "2.3.0-beta.1",
+    "react-query": "^3.39.1",
+    "reflect-metadata": "^0.1.13",
+    "zod": "^3.17.3"
+  },
+  "devDependencies": {
+    "@mikro-orm/cli": "^5.2.3",
+    "@mikro-orm/migrations": "^5.2.3",
+    "@mikro-orm/seeder": "^5.2.3",
+    "@next/env": "^12.2.2",
+    "@octetstream/eslint-config": "^6.2.2",
+    "@types/bcrypt": "^5.0.0",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "18.0.3",
+    "@types/react": "18.0.15",
+    "@types/react-dom": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "autoprefixer": "^10.4.7",
+    "eslint": "8.19.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-next": "12.2.1",
+    "eslint-import-resolver-typescript": "^3.2.5",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.5",
+    "ts-node": "^10.8.2",
+    "tsconfig-paths": "^4.0.0",
+    "typescript": "4.7.4"
+  }
+}

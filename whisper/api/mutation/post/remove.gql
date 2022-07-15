@@ -1,3 +1,0 @@
-mutation PostRemove($id: Int!) {
-  postRemove(id: $id)
-}
