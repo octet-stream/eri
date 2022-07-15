@@ -10,7 +10,7 @@ import {getORM} from "server/lib/db"
 
 // NOTE: Do not prefix this router.
 export default router<Context>()
-  .query("posts", {
+  .query("all", {
     input: PageInput,
 
     output: createPageOutput(Post),

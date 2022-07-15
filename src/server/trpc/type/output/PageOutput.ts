@@ -14,7 +14,7 @@ export interface IPageOutput<T> {
  */
 export const createPageOutput = <T extends Constructable>(cls: T) => z.object({
   items: z.array(z.instanceof(cls)),
-  nextCursor: z.number().int().positive().nullable(),
-  prevCursor: z.number().int().positive().nullable(),
-  total: z.number().int().positive()
+  nextCursor: z.number().int().nonnegative().nullable(),
+  prevCursor: z.number().int().nonnegative().nullable(),
+  total: z.number().int().nonnegative()
 })

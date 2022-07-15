@@ -1,10 +1,10 @@
 import {router} from "@trpc/server"
 
-import type {Context} from "server/trpc/context"
+import type {GlobalContext} from "server/trpc/context"
 
 import post from "./post"
 import user from "./user"
 
-export default router<Context>()
+export default router<GlobalContext>()
   .merge("post.", post)
   .merge("user.", user)

@@ -3,22 +3,20 @@ import {isEmpty} from "lodash"
 import type {FC} from "react"
 
 import type {IPageOutput} from "server/trpc/type/output/PageOutput"
-import {PageArgs} from "server/trpc/helper/PageArgs"
-import {Page} from "server/trpc/helper/Page"
-import {runIsolatied} from "server/lib/db"
 import {Post} from "server/db/entity"
+
+import {router} from "server/trpc/route"
 
 interface Props {
   posts: IPageOutput<Post>
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const [items, total] = await runIsolatied(em => em.findAndCount(Post, {}))
-  const args = new PageArgs()
+  const posts = await router.createCaller({}).query("posts.all")
 
   return {
     props: {
-      posts: new Page({items, total, args}).toJSON()
+      posts
     }
   }
 }

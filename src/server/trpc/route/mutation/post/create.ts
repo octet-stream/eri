@@ -3,12 +3,12 @@ import {z} from "zod"
 
 import {Post} from "server/db/entity/Post"
 import {PostCreateInput} from "server/trpc/type/input/PostCreateInput"
-import type {Context} from "server/trpc/context"
+import type {GlobalContext} from "server/trpc/context"
 import {getORM} from "server/lib/db"
 
 import auth from "server/trpc/middleware/auth"
 
-export default router<Context>()
+export default router<GlobalContext>()
   .middleware(auth)
   .mutation("create", {
     input: PostCreateInput,
