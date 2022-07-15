@@ -18,10 +18,12 @@ import {Input} from "component/Input"
 import {client} from "lib/trpc"
 
 export const getStaticProps: GetStaticProps = async () => {
+  // Check of super user already exists
   const user = await runIsolatied(em => em.findOne(User, {
     role: UserRoles.SUPER
   }))
 
+  // If there's super user, then block access to the page.
   return user ? {notFound: true} : {props: {}}
 }
 
