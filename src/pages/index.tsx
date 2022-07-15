@@ -29,7 +29,9 @@ const Home: FC<Props> = ({posts}) => {
   }
 
   return (
-    <div>Posts will appear here</div>
+    <ul className="list-none">
+      {posts.items.map(post => <li>{post.title}</li>)}
+    </ul>
   )
 }
 
