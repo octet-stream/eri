@@ -1,5 +1,4 @@
-import {Entity, Property, ManyToOne} from "@mikro-orm/core"
-import {OptionalProps} from "@mikro-orm/core"
+import {Entity, Property, ManyToOne, OptionalProps} from "@mikro-orm/core"
 
 import type {IPostCreateInput} from "server/trpc/type/input/PostCreateInput"
 
