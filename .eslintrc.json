@@ -37,6 +37,7 @@
       ]
     }],
     "semi-style": ["error", "first"],
-    "no-shadow": 0
+    "no-shadow": 0,
+    "react/require-default-props": 0
   }
 }

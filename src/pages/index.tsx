@@ -24,7 +24,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 const Home: FC<Props> = ({posts}) => {
   if (isEmpty(posts.items)) {
     return (
-      <div>There&apos;s nothing to see here yet</div>
+      <div>
+        <div>There&apos;s nothing to see here yet</div>
+      </div>
     )
   }
 

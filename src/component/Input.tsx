@@ -1,3 +1,4 @@
+/* eslint-disable react/default-props-match-prop-types */
 /* eslint-disable react/display-name */
 import type {ComponentPropsWithoutRef, FocusEventHandler} from "react"
 import type {FieldError} from "react-hook-form"
