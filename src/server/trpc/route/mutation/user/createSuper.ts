@@ -2,7 +2,6 @@ import {router, TRPCError} from "@trpc/server"
 import {z} from "zod"
 
 import type {GlobalContext} from "server/trpc/context"
-import {isSSRContext} from "server/trpc/context"
 
 import {
   UserCreateSuperInput
@@ -10,20 +9,20 @@ import {
 import {User, UserRoles} from "server/db/entity/User"
 import {getORM} from "server/lib/db"
 
+import ssrContextCheck from "server/trpc/middleware/ssrContextCheck"
+
+/**
+ * Creates a super user account.
+ * This middleware will be available only once, when there's no super user exists yet
+ */
 export default router<GlobalContext>()
+  .middleware(ssrContextCheck)
   .mutation("createSuper", {
     input: UserCreateSuperInput,
 
     output: z.instanceof(User),
 
     async resolve({ctx, input}) {
-      if (!isSSRContext(ctx)) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "SSRContext required for this operation"
-        })
-      }
-
       const orm = await getORM()
       const existent = await orm.em.findOne(User, {role: UserRoles.SUPER})
 

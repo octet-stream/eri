@@ -7,8 +7,10 @@ import type {GlobalContext} from "server/trpc/context"
 import {getORM} from "server/lib/db"
 
 import auth from "server/trpc/middleware/auth"
+import ssrContextCheck from "server/trpc/middleware/ssrContextCheck"
 
 export default router<GlobalContext>()
+  .middleware(ssrContextCheck)
   .middleware(auth)
   .mutation("create", {
     input: PostCreateInput,
