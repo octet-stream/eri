@@ -1,5 +1,7 @@
 /node_modules
+/migrations
 
 *.js
 *.mjs
 *.cjs
+*.d.ts
