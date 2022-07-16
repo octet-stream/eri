@@ -23,7 +23,7 @@ export default router<GlobalContext>()
 
       // Save a new post, then revalidate homepage
       await orm.em.persistAndFlush(post)
-      await ctx.res.revalidate("/") // TODO: This might need to be changed, as the more pages is created
+      await ctx.res.revalidate("/")
 
       return post
     }
