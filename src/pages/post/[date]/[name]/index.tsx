@@ -1,5 +1,6 @@
 import type {GetStaticProps} from "next"
 import {TRPCError} from "@trpc/server"
+import {useRouter} from "next/router"
 import type {FC} from "react"
 
 import {router} from "server/trpc/route"
@@ -42,8 +43,17 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
   }
 }
 
-const PostPage: FC<Props> = () => (
-  <div>Post will be here</div>
-)
+const PostPage: FC<Props> = () => {
+  const router = useRouter()
+
+  // TODO: DO NOT forget to add support for the fallback version of the page: https://nextjs.org/docs/api-reference/data-fetching/get-static-paths#fallback-pages
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+
+  return (
+    <div>Post will be here</div>
+  )
+}
 
 export default PostPage
