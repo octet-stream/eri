@@ -1,13 +1,15 @@
 import {unstable_getServerSession as getServerSession} from "next-auth/next"
-import type {FC, ChangeEventHandler} from "react"
 import type {GetServerSideProps} from "next"
 import type {Session} from "next-auth"
-import {useState} from "react"
+import type {FC} from "react"
+import {useRef} from "react"
 
 import {options} from "pages/api/auth/[...nextauth]"
 
-import {Input} from "component/Input"
 import {EditorLayout} from "layout/Editor"
+
+import type {EditorRef} from "component/Editor"
+import {Editor} from "component/Editor"
 
 interface Props { }
 
@@ -28,21 +30,21 @@ export const getServerSideProps: GetServerSidePropsHandler = async ctx => {
 }
 
 const NewPostPage: FC<Props> = () => {
-  const [title, setTitle] = useState("")
+  const ref = useRef<EditorRef>()
 
-  const updateTitle: ChangeEventHandler<HTMLInputElement> = ({target}) => {
-    setTitle(target.value)
-  }
+  const onSubmit = () => ref.current?.save().then(console.log)
 
   return (
-    <EditorLayout title={title || "Untitled"}>
+    <EditorLayout>
       <div className="w-full h-full flex flex-col">
-        <Input className="w-full mb-4" onChange={updateTitle} />
-
-        <textarea className="w-full mb-4 border-black border rounded-md flex-1" />
+        <Editor ref={ref} />
 
         <div className="flex justify-end">
-          <button type="button" className="rounded-md bg-black text-white py-2 px-5 disabled:bg-gray-100 disabled:text-black disabled:cursor-not-allowed">
+          <button
+            type="button"
+            className="rounded-md bg-black text-white py-2 px-5 disabled:bg-gray-100 disabled:text-black disabled:cursor-not-allowed"
+            onClick={onSubmit}
+          >
             Publish
           </button>
         </div>

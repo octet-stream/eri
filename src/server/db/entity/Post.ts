@@ -1,4 +1,11 @@
-import {Entity, Property, ManyToOne, OptionalProps} from "@mikro-orm/core"
+import {
+  Entity,
+  Property,
+  ManyToOne,
+  OptionalProps,
+  JsonType
+} from "@mikro-orm/core"
+import type {OutputData} from "@editorjs/editorjs"
 
 import type {IPostCreateInput} from "server/trpc/type/input/PostCreateInput"
 
@@ -14,8 +21,8 @@ export class Post extends BaseDates implements PostInput {
   @Property()
   title: string
 
-  @Property({type: "mediumtext"})
-  text: string
+  @Property({type: JsonType})
+  content!: OutputData
 
   @Property({unique: true})
   slug!: string
@@ -23,11 +30,11 @@ export class Post extends BaseDates implements PostInput {
   @ManyToOne()
   author!: User
 
-  constructor({title, text, author}: PostInput) {
+  constructor({title, content, author}: PostInput) {
     super()
 
     this.title = title
-    this.text = text
+    this.content = content
     this.author = author
   }
 

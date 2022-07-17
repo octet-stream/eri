@@ -156,14 +156,14 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "text": {
-          "name": "text",
-          "type": "varchar(255)",
+        "content": {
+          "name": "content",
+          "type": "json",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "string"
+          "mappedType": "json"
         },
         "slug": {
           "name": "slug",

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const config = {
-  reactStrictMode: true,
+  reactStrictMode: false, // disable strict mode to avoid useEffect being called twice
   swcMinify: true
 }
 
