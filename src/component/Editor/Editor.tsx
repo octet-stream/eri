@@ -41,7 +41,6 @@ interface Props {
   title?: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 export const Editor = forwardRef<Ref, Props>((p, ref) => {
   const [title, setTitle] = useState(p.title || "")
   const [instance, setInstance] = useState<EditorJS>()
