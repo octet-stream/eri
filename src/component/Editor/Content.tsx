@@ -41,7 +41,10 @@ export const ContentEditor = memo<Props>(({onReady}) => {
   })
 
   return (
-    <article id="editor" className="prose flex-1 mb-4" />
+    <article
+      id="editor"
+      className="prose flex-1 mb-4"
+    />
   )
 })
 

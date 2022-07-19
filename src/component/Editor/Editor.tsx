@@ -17,7 +17,6 @@ import type {ContentProps, OnContentEditorReadyHandler} from "./Content"
 import type {TitleEditorOnChangeHandler} from "./Title"
 
 const ContentEditor = dynamic<ContentProps>(
-
   () => import("component/Editor/Content").then(mod => mod.ContentEditor),
 
   {

@@ -1,10 +1,13 @@
 import {unstable_getServerSession as getServerSession} from "next-auth/next"
 import type {GetServerSideProps} from "next"
 import type {Session} from "next-auth"
+import {toast} from "react-hot-toast"
 import type {FC} from "react"
 import {useRef} from "react"
 
 import {options} from "pages/api/auth/[...nextauth]"
+
+import {client} from "lib/trpc"
 
 import {EditorLayout} from "layout/Editor"
 
@@ -32,7 +35,19 @@ export const getServerSideProps: GetServerSidePropsHandler = async ctx => {
 const NewPostPage: FC<Props> = () => {
   const ref = useRef<EditorRef>()
 
-  const onSubmit = () => ref.current?.save().then(console.log)
+  const onSubmit = async () => {
+    if (!ref.current) {
+      return
+    }
+
+    try {
+      const data = await ref.current.save()
+
+      await client.mutation("post.create", data)
+    } catch (error) {
+      toast.error("Can't create post")
+    }
+  }
 
   return (
     <EditorLayout>
