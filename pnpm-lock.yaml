@@ -55,7 +55,6 @@ specifiers:
   postcss: ^8.4.14
   react: 18.2.0
   react-dom: 18.2.0
-  react-editor-js: ^2.1.0
   react-hook-form: ^7.33.1
   react-hot-toast: 2.3.0-beta.1
   react-query: ^3.39.1
@@ -98,7 +97,6 @@ dependencies:
   next-connect: 1.0.0-next.2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-editor-js: 2.1.0_7okcjq62evq4fbvmnqzi2lzcjm
   react-hook-form: 7.33.1_react@18.2.0
   react-hot-toast: 2.3.0-beta.1_biqbaboplfbrettd7655fr4n2y
   react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
@@ -680,42 +678,6 @@ packages:
       tiny-glob: 0.2.9
       tslib: 2.4.0
     dev: true
-
-  /@react-editor-js/client/2.1.0_7okcjq62evq4fbvmnqzi2lzcjm:
-    resolution: {integrity: sha512-X/OwqY2KKUUVIy24zvubHTI4qhiVIWMxGlU/Bc6tkf9gcsWgQjPvn75DwrQ5SIGBOYpSBcHY01JX0RRtJHRumw==}
-    peerDependencies:
-      '@editorjs/editorjs': '*'
-      '@editorjs/paragraph': '*'
-      react: '*'
-    dependencies:
-      '@editorjs/editorjs': 2.25.0
-      '@editorjs/paragraph': 2.8.0
-      '@react-editor-js/core': 2.1.0_exjedugkkv7w6t7ed7buw67o4a
-      react: 18.2.0
-    dev: false
-
-  /@react-editor-js/core/2.1.0_exjedugkkv7w6t7ed7buw67o4a:
-    resolution: {integrity: sha512-6h98D5g2RatdCDQRW/+N+eiMtjoq0n1n02m8oA7FrlEzEaOUyV+J+rmtmRS8OexLVOiNeWaSPDpVJ3MNiVLq8Q==}
-    peerDependencies:
-      '@editorjs/editorjs': '*'
-      react: '*'
-    dependencies:
-      '@editorjs/editorjs': 2.25.0
-      react: 18.2.0
-    dev: false
-
-  /@react-editor-js/server/2.1.0_7okcjq62evq4fbvmnqzi2lzcjm:
-    resolution: {integrity: sha512-RnTbCmzCHbjcjPNKhr9FaehItHgAZyd47Lq+iIGynFqWSsrwGy46LgOXSvb50DYbwDyT0GtxaXBIk6aiFki1Dg==}
-    peerDependencies:
-      '@editorjs/editorjs': '*'
-      '@editorjs/paragraph': '*'
-      react: '*'
-    dependencies:
-      '@editorjs/editorjs': 2.25.0
-      '@editorjs/paragraph': 2.8.0
-      '@react-editor-js/core': 2.1.0_exjedugkkv7w6t7ed7buw67o4a
-      react: 18.2.0
-    dev: false
 
   /@rushstack/eslint-patch/1.1.4:
     resolution: {integrity: sha512-LwzQKA4vzIct1zNZzBmRKI9QuNpLgTQMEjsQLf3BXuGYb3QPTP4Yjf6mkdX+X1mYttZ808QpOwAzZjv28kq7DA==}
@@ -3387,18 +3349,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
-
-  /react-editor-js/2.1.0_7okcjq62evq4fbvmnqzi2lzcjm:
-    resolution: {integrity: sha512-unI9D2pTH/2gBenc6LgCXJm8iqnrzB71CHgfjQmaB+lGR0Njx+ZXydgUQm1VofMmvF6vcCNVDE1Eb47zQbm14g==}
-    dependencies:
-      '@react-editor-js/client': 2.1.0_7okcjq62evq4fbvmnqzi2lzcjm
-      '@react-editor-js/core': 2.1.0_exjedugkkv7w6t7ed7buw67o4a
-      '@react-editor-js/server': 2.1.0_7okcjq62evq4fbvmnqzi2lzcjm
-    transitivePeerDependencies:
-      - '@editorjs/editorjs'
-      - '@editorjs/paragraph'
-      - react
     dev: false
 
   /react-hook-form/7.33.1_react@18.2.0:
