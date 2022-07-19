@@ -24,10 +24,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((
 
   const showErrorToast: InputFocusHandler = event => {
     if (error?.message) {
-      const id = toast.error(error.message, {
-        duration: Infinity,
-        position: "top-center"
-      })
+      const id = toast.error(error.message, {duration: Infinity})
 
       setToastId(id)
     }
