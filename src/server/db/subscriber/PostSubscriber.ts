@@ -6,8 +6,8 @@ import {createSlug} from "server/lib/util/createSlug"
 
 const DATE_FORMAT = "yyyy-MM-dd"
 
-const formatSlug = (title: string, date: Date) => createSlug(
-  `${format(date, DATE_FORMAT)}/${title}`
+const formatSlug = (title: string, date: Date) => (
+  `${format(date, DATE_FORMAT)}/${createSlug(title)}`
 )
 
 export class PostSubscriber implements EventSubscriber<Post> {

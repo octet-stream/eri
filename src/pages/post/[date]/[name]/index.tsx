@@ -1,3 +1,4 @@
+import {stringify, parse} from "superjson"
 import type {GetStaticProps} from "next"
 import {TRPCError} from "@trpc/server"
 import {useRouter} from "next/router"
@@ -9,7 +10,7 @@ import {Post} from "server/db/entity/Post"
 import getEmptyPaths from "lib/util/getEmptyPaths"
 
 interface Props {
-  post: Post
+  data: string
 }
 
 interface Query {
@@ -29,7 +30,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 
     return {
       props: {
-        post
+        data: stringify(post)
       }
     }
   } catch (error) {
@@ -43,7 +44,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
   }
 }
 
-const PostPage: FC<Props> = () => {
+const PostPage: FC<Props> = ({data}) => {
   const router = useRouter()
 
   // TODO: DO NOT forget to add support for the fallback version of the page: https://nextjs.org/docs/api-reference/data-fetching/get-static-paths#fallback-pages
@@ -51,8 +52,10 @@ const PostPage: FC<Props> = () => {
     return <div>Loading...</div>
   }
 
+  const post = parse<Post>(data)
+
   return (
-    <div>Post will be here</div>
+    <div>{post.title}</div>
   )
 }
 

@@ -9,7 +9,7 @@ import type {OutputData} from "@editorjs/editorjs"
 
 import type {IPostCreateInput} from "server/trpc/type/input/PostCreateInput"
 
-import {BaseDates} from "./BaseDates"
+import {BaseDates, OptionalDates} from "./BaseDates"
 import {User} from "./User"
 
 export interface PostInput extends IPostCreateInput {
@@ -27,7 +27,7 @@ export class Post extends BaseDates implements PostInput {
   @Property({unique: true})
   slug!: string
 
-  @ManyToOne()
+  @ManyToOne({eager: true})
   author!: User
 
   constructor({title, content, author}: PostInput) {
@@ -38,5 +38,5 @@ export class Post extends BaseDates implements PostInput {
     this.author = author
   }
 
-  [OptionalProps]?: "slug"
+  [OptionalProps]?: OptionalDates | "slug"
 }

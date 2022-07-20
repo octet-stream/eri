@@ -44,7 +44,7 @@ export class Page<T> implements IPageOutput<T> {
     return {
       prevCursor: this.prevCursor,
       nextCursor: this.nextCursor,
-      items: this.items,
+      items: this.#items,
       total: this.total
     }
   }

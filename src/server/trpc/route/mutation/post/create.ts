@@ -1,8 +1,8 @@
 import {router} from "@trpc/server"
-import {z} from "zod"
 
 import {Post} from "server/db/entity/Post"
 import {PostCreateInput} from "server/trpc/type/input/PostCreateInput"
+import {PostOutput} from "server/trpc/type/output/PostOutput"
 import type {GlobalContext} from "server/trpc/context"
 import {getORM} from "server/lib/db"
 
@@ -15,7 +15,7 @@ export default router<GlobalContext>()
   .mutation("create", {
     input: PostCreateInput,
 
-    output: z.instanceof(Post),
+    output: PostOutput,
 
     async resolve({ctx, input}) {
       const orm = await getORM()

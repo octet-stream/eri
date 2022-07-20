@@ -10,7 +10,8 @@ import {
 } from "server/db/entity"
 
 import {
-  UserSubscriber
+  UserSubscriber,
+  PostSubscriber
 } from "server/db/subscriber"
 
 interface RunIsolatedCallback<T> {
@@ -33,7 +34,8 @@ export const getConfig = (): Options => ({
     InvitationCode
   ],
   subscribers: [
-    new UserSubscriber()
+    new UserSubscriber(),
+    new PostSubscriber()
   ],
   dbName: process.env.MIKRO_ORM_DB_NAME || undefined,
   host: process.env.MIKRO_ORM_HOST || undefined,
