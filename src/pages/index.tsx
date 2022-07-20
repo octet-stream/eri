@@ -16,8 +16,6 @@ interface Props {
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const posts = await router.createCaller({}).query("posts.all")
 
-  console.log(posts)
-
   return {
     props: {
       data: stringify(posts)
