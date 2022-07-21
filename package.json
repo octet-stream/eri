@@ -53,6 +53,7 @@
     "react-use": "^17.4.0",
     "reflect-metadata": "^0.1.13",
     "superjson": "^1.9.1",
+    "validator": "^13.7.0",
     "zod": "^3.17.3"
   },
   "devDependencies": {
@@ -67,6 +68,7 @@
     "@types/node": "18.0.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
+    "@types/validator": "^13.7.4",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "autoprefixer": "^10.4.7",

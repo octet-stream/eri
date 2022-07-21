@@ -31,6 +31,7 @@ specifiers:
   '@types/node': 18.0.3
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
+  '@types/validator': ^13.7.4
   '@typescript-eslint/eslint-plugin': ^5.30.6
   '@typescript-eslint/parser': ^5.30.6
   autoprefixer: ^10.4.7
@@ -65,6 +66,7 @@ specifiers:
   ts-node: ^10.8.2
   tsconfig-paths: ^4.0.0
   typescript: 4.7.4
+  validator: ^13.7.0
   zod: ^3.17.3
 
 dependencies:
@@ -104,6 +106,7 @@ dependencies:
   react-use: 17.4.0_biqbaboplfbrettd7655fr4n2y
   reflect-metadata: 0.1.13
   superjson: 1.9.1
+  validator: 13.7.0
   zod: 3.17.3
 
 devDependencies:
@@ -118,6 +121,7 @@ devDependencies:
   '@types/node': 18.0.3
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
+  '@types/validator': 13.7.4
   '@typescript-eslint/eslint-plugin': 5.30.6_2vt5mtrqleafs33qg2bhpmbaqm
   '@typescript-eslint/parser': 5.30.6_4x5o4skxv6sl53vpwefgt23khm
   autoprefixer: 10.4.7_postcss@8.4.14
@@ -843,6 +847,10 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: true
+
+  /@types/validator/13.7.4:
+    resolution: {integrity: sha512-uAaSWegu2lymY18l+s5nmcXu3sFeeTOl1zhSGoYzcr6T3wz1M+3OcW4UjfPhIhHGd13tIMRDsEpR+d8w/MexwQ==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.30.6_2vt5mtrqleafs33qg2bhpmbaqm:
@@ -4075,6 +4083,11 @@ packages:
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
     dev: true
+
+  /validator/13.7.0:
+    resolution: {integrity: sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==}
+    engines: {node: '>= 0.10'}
+    dev: false
 
   /webidl-conversions/3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}

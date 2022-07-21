@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 
   try {
     const post = await router.createCaller({}).query("post.getBySlug", {
-      slug: [date, name].join("/")
+      slug: [date, name]
     })
 
     return {

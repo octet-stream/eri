@@ -18,6 +18,8 @@ export enum UserRoles {
   REGULAR = "regular"
 }
 
+export const LOGIN_PATTERN = /^[a-z0-9_]+$/i
+
 @Entity()
 export class User extends BaseDates {
   [OptionalProps]?: OptionalDates | "role"

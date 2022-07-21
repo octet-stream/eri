@@ -9,8 +9,10 @@ import {Page} from "server/trpc/helper/Page"
 import {Post} from "server/db/entity/Post"
 import {getORM} from "server/lib/db"
 
-// NOTE: Do not prefix this router.
-export default router<Context>()
+/**
+ * Returns a page of posts, 50 per each page.
+ */
+const postsAll = router<Context>()
   .query("all", {
     input: PageInput,
 
@@ -20,12 +22,14 @@ export default router<Context>()
       const args = new PageArgs(input)
       const orm = await getORM()
 
-      const [items, total] = await orm.em.findAndCount(Post, {}, {
+      const [items, rows] = await orm.em.findAndCount(Post, {}, {
         limit: args.limit,
         offset: args.offset,
         orderBy: {createdAt: "ASC"}
       })
 
-      return new Page({items, total, args})
+      return new Page({items, rows, args})
     }
   })
+
+export default postsAll
