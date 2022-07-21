@@ -18,6 +18,8 @@ export interface PostInput extends IPostCreateInput {
 
 @Entity()
 export class Post extends BaseDates implements PostInput {
+  [OptionalProps]?: OptionalDates | "slug"
+
   @Property()
   title: string
 
@@ -37,6 +39,4 @@ export class Post extends BaseDates implements PostInput {
     this.content = content
     this.author = author
   }
-
-  [OptionalProps]?: OptionalDates | "slug"
 }
