@@ -24,6 +24,7 @@ export const ContentEditor = memo<Props>(({onReady}) => {
       holder: "editor",
       placeholder: "Write your thoughts here",
       defaultBlock: "paragraph",
+      inlineToolbar: ["bold", "italic", "underline", "link", "inlineCode"],
       onReady() {
         editorRef.current = editor
 

@@ -10,12 +10,26 @@ import Header from "@editorjs/header"
 import InlineCode from "@editorjs/inline-code"
 
 // @ts-expect-error
+import Underline from "@editorjs/underline"
+
+// @ts-expect-error
 import Code from "@editorjs/code"
+
+// @ts-expect-error
+import Embed from "@editorjs/embed"
+
+// @ts-expect-error
+import Checklist from "@editorjs/checklist"
+
+// @ts-expect-error
+import List from "@editorjs/list"
+
+// @ts-expect-error
+import Quote from "@editorjs/quote"
 
 export const tools: Record<string, ToolConstructable | ToolSettings> = {
   paragraph: {
-    class: Paragraph,
-    inlineToolbar: true
+    class: Paragraph
   },
   header: {
     class: Header,
@@ -26,7 +40,22 @@ export const tools: Record<string, ToolConstructable | ToolSettings> = {
   inlineCode: {
     class: InlineCode
   },
+  underline: Underline,
+  list: List,
+  checklist: Checklist,
+  quote: Quote,
   code: {
     class: Code
+  },
+  embed: {
+    class: Embed,
+    config: {
+      services: {
+        youtube: true,
+        vimeo: true,
+        imgur: true,
+        twitter: true
+      }
+    }
   }
 }
