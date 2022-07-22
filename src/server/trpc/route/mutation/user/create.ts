@@ -7,7 +7,7 @@ import {UserCreateInput} from "server/trpc/type/input/UserCreateInput"
 import {User, InvitationCode} from "server/db/entity"
 import {getORM} from "server/lib/db"
 
-export default router<Context>()
+const userCreate = router<Context>()
   .mutation("create", {
     input: UserCreateInput,
 
@@ -54,3 +54,5 @@ export default router<Context>()
       return user
     }
   })
+
+export default userCreate

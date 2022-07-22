@@ -9,7 +9,7 @@ import {getORM} from "server/lib/db"
 import auth from "server/trpc/middleware/auth"
 import ssrContextCheck from "server/trpc/middleware/ssrContextCheck"
 
-export default router<GlobalContext>()
+const postCreate = router<GlobalContext>()
   .middleware(ssrContextCheck)
   .middleware(auth)
   .mutation("create", {
@@ -28,3 +28,5 @@ export default router<GlobalContext>()
       return post
     }
   })
+
+export default postCreate
