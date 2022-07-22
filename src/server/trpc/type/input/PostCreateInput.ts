@@ -3,7 +3,7 @@ import {z, infer as Infer} from "zod"
 import {EditorData} from "server/trpc/type/common/EditorData"
 
 export const PostCreateInput = z.object({
-  title: z.string(),
+  title: z.string().min(1),
   content: EditorData
 })
 

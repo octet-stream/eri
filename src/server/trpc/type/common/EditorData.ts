@@ -12,7 +12,7 @@ export const EditorBlock: ZodType<OutputBlockData> = z.lazy(() => z.object({
 export const EditorData: ZodType<OutputData> = z.lazy(() => z.object({
   version: z.string().optional(),
   time: z.number().optional(),
-  blocks: z.array(EditorBlock)
+  blocks: z.array(EditorBlock).min(1)
 }))
 
 export interface IEditorData extends Infer<typeof EditorData> { }
