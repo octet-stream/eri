@@ -5,5 +5,5 @@ import {Entity, PrimaryKey} from "@mikro-orm/core"
 @Entity({abstract: true})
 export abstract class Base {
   @PrimaryKey()
-  id: string = randomUUID()
+  readonly id: string = randomUUID()
 }

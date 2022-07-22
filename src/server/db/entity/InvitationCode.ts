@@ -9,20 +9,20 @@ export class InvitationCode {
    * Invitation code payload. Should be included in invitation email
    */
   @PrimaryKey()
-  code: string = nanoid(16)
+  readonly code: string = nanoid(16)
 
   /**
    * User who created the code
    */
   @ManyToOne()
-  issuer!: User
+  readonly issuer!: User
 
   /**
    * Email that will receive the code
    */
   @Property()
-  email!: string
+  readonly email!: string
 
   @Property()
-  createdAt: Date = new Date()
+  readonly createdAt: Date = new Date()
 }

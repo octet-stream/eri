@@ -1,9 +1,6 @@
-import {randomUUID} from "node:crypto"
-
 import {
   Entity,
   Property,
-  PrimaryKey,
   Enum,
   OptionalProps
 } from "@mikro-orm/core"
@@ -21,9 +18,6 @@ export enum UserRoles {
 @Entity()
 export class User extends BaseDates {
   [OptionalProps]?: OptionalDates | "role"
-
-  @PrimaryKey()
-  id: string = randomUUID()
 
   @Property({unique: true})
   login!: string
