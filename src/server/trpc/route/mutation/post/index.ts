@@ -4,5 +4,7 @@ import type {Context} from "server/trpc/context"
 
 import create from "./create"
 
-export default router<Context>()
+const post = router<Context>()
   .merge(create)
+
+export default post

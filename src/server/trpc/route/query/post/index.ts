@@ -4,5 +4,7 @@ import type {Context} from "server/trpc/context"
 
 import getBySlug from "./getBySlug"
 
-export default router<Context>()
+const post = router<Context>()
   .merge(getBySlug)
+
+export default post
