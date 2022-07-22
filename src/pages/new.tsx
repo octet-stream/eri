@@ -13,6 +13,7 @@ import {client} from "lib/trpc"
 import {EditorLayout} from "layout/Editor"
 
 import type {EditorRef} from "component/Editor"
+import {Button} from "component/Button"
 import {Editor} from "component/Editor"
 
 interface Props { }
@@ -59,13 +60,9 @@ const NewPostPage: FC<Props> = () => {
         <Editor ref={ref} />
 
         <div className="flex justify-end">
-          <button
-            type="button"
-            className="rounded-md bg-black text-white py-2 px-5 disabled:bg-gray-100 disabled:text-black disabled:cursor-not-allowed"
-            onClick={onSubmit}
-          >
+          <Button type="button" onClick={onSubmit}>
             Publish
-          </button>
+          </Button>
         </div>
       </div>
     </EditorLayout>

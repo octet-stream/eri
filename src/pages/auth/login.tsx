@@ -12,6 +12,7 @@ import {
   IUserLoginInput,
   UserLoginInput
 } from "server/trpc/type/input/UserLoginInput"
+import {Button} from "component/Button"
 import {Input} from "component/Input"
 
 const LoginPage: FC = () => {
@@ -47,12 +48,9 @@ const LoginPage: FC = () => {
           error={formState.errors.password}
         />
 
-        <button
-          type="submit"
-          className="w-full rounded-md bg-black text-white p-2 disabled:bg-gray-100 disabled:text-black disabled:cursor-not-allowed"
-        >
+        <Button wide type="submit">
           Log in
-        </button>
+        </Button>
       </form>
     </AuthLayout>
   )

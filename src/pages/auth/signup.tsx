@@ -13,6 +13,7 @@ import {
   UserCreateInput
 } from "server/trpc/type/input/UserCreateInput"
 
+import {Button} from "component/Button"
 import {Input} from "component/Input"
 import {client} from "lib/trpc"
 
@@ -80,12 +81,9 @@ const SignupPage: FC = () => {
           error={formState.errors.code}
         />
 
-        <button
-          type="submit"
-          className="w-full rounded-md bg-black text-white p-2 disabled:bg-gray-100 disabled:text-black disabled:cursor-not-allowed"
-        >
+        <Button wide type="submit">
           Sign up
-        </button>
+        </Button>
       </form>
     </AuthLayout>
   )

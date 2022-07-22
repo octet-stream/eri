@@ -12,6 +12,7 @@ import {
 } from "server/trpc/type/input/UserCreateSuperInput"
 import {User, UserRoles} from "server/db/entity/User"
 import {runIsolatied} from "server/lib/db"
+import {Button} from "component/Button"
 import {AuthLayout} from "layout/Auth"
 import {Input} from "component/Input"
 
@@ -68,12 +69,9 @@ const AuthSuperPage: FC = () => {
           error={formState.errors.password}
         />
 
-        <button
-          type="submit"
-          className="w-full rounded-md bg-black text-white p-2 disabled:bg-gray-100 disabled:text-black disabled:cursor-not-allowed"
-        >
+        <Button wide type="submit">
           Sign up
-        </button>
+        </Button>
       </form>
     </AuthLayout>
   )
