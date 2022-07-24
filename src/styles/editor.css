@@ -1,0 +1,18 @@
+.codex-editor {
+  @apply h-full;
+}
+
+.codex-editor__redactor {
+  @apply h-full;
+  padding-bottom: 0px !important;
+}
+
+.ce-block__content {
+  max-width: 100%;
+}
+
+.cdx-checklist__item-checkbox {
+  margin: 9px !important;
+  margin-left: 0 !important;
+  margin-right: 8px !important;
+}
