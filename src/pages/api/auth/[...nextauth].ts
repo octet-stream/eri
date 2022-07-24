@@ -10,6 +10,17 @@ import withORMContext from "server/middleware/withORMContext"
 import {getORM} from "server/lib/db"
 import {User} from "server/db/entity/User"
 
+const COOKIE_PREFIX = "eri"
+
+const getCookieName = (name: string) => `${COOKIE_PREFIX}.${name}`
+
+const getCookieOptions = () => ({
+  httpOnly: true,
+  sameSite: "lax",
+  path: "/",
+  secure: process.env.NODE_ENV === "production"
+})
+
 export const options: NextAuthOptions = {
   debug: process.env.NODE_ENV !== "production",
   pages: {
@@ -17,6 +28,28 @@ export const options: NextAuthOptions = {
   },
   session: {
     strategy: "jwt"
+  },
+  cookies: {
+    sessionToken: {
+      name: getCookieName("sid"),
+      options: getCookieOptions()
+    },
+    callbackUrl: {
+      name: getCookieName("callback"),
+      options: getCookieOptions()
+    },
+    csrfToken: {
+      name: getCookieName("csrf"),
+      options: getCookieOptions()
+    },
+    pkceCodeVerifier: {
+      name: getCookieName("pkce.code_verifier"),
+      options: getCookieOptions()
+    },
+    state: {
+      name: getCookieName("state"),
+      options: getCookieOptions()
+    }
   },
   providers: [
     CredentialsProvider({
