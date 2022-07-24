@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-underscore-dangle */
 import "reflect-metadata"
 
 import {MikroORM} from "@mikro-orm/core"
@@ -18,7 +20,11 @@ interface RunIsolatedCallback<T> {
   (em: EntityManager): T
 }
 
-let orm: MikroORM | null = null
+type GlobalThis = typeof globalThis
+
+interface GlobalThisWithORM extends GlobalThis {
+  __CACHED_ORM__: MikroORM
+}
 
 /**
  * Returns config for MikroORM with parameters taken from .env.* files.
@@ -48,13 +54,13 @@ export const getConfig = (): Options => ({
  * Creates the new if one does not exists, then caches it.
  */
 export async function getORM() {
-  if (orm) {
-    return orm
+  if (!(globalThis as GlobalThisWithORM).__CACHED_ORM__) {
+    (globalThis as GlobalThisWithORM).__CACHED_ORM__ = await MikroORM.init(
+      getConfig()
+    )
   }
 
-  orm = await MikroORM.init(getConfig())
-
-  return orm
+  return (globalThis as GlobalThisWithORM).__CACHED_ORM__
 }
 
 export async function forkEntityManager(): Promise<EntityManager> {

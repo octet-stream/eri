@@ -10,9 +10,9 @@ import Head from "next/head"
 
 import {trpcClient, TRPCProvider} from "lib/trpc"
 
-import "styles/globals.css"
-import "styles/tailwind.css"
-import "styles/editor.css"
+import "style/globals.css"
+import "style/tailwind.css"
+import "style/editor.css"
 
 interface PageProps {
   session?: Session | null
