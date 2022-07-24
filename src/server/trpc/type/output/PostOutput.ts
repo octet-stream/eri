@@ -8,7 +8,10 @@ export const PostOutput = Node.extend({
   title: z.string().min(1),
   slug: z.string().min(1),
   content: EditorData,
-  author: UserOutput
+  author: UserOutput.omit({
+    createdAt: true,
+    updatedAt: true
+  })
 })
 
 export interface IPostOutput extends Infer<typeof PostOutput> { }
