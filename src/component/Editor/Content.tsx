@@ -1,6 +1,13 @@
+/* eslint-disable no-new */
 import {useEffect, useRef, memo, ComponentProps} from "react"
 
 import EditorJS from "@editorjs/editorjs"
+
+// @ts-expect-error
+import DragAndDrop from "editorjs-drag-drop"
+
+// @ts-expect-error
+import Undo from "editorjs-undo"
 
 import {tools} from "./tools"
 
@@ -26,6 +33,9 @@ export const ContentEditor = memo<Props>(({onReady}) => {
       defaultBlock: "paragraph",
       inlineToolbar: ["bold", "italic", "underline", "link", "inlineCode"],
       onReady() {
+        new Undo({editor})
+        new DragAndDrop(editor)
+
         editorRef.current = editor
 
         if (onReady) {
