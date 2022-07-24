@@ -11,6 +11,10 @@
   max-width: 100%;
 }
 
+.cdx-block {
+  @apply py-2;
+}
+
 .cdx-checklist__item-checkbox {
   margin: 9px !important;
   margin-left: 0 !important;

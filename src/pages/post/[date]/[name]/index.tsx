@@ -6,6 +6,8 @@ import type {FC} from "react"
 import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
 
+import {PostLayout} from "layout/Post"
+
 import getEmptyPaths from "lib/util/getEmptyPaths"
 
 interface Props {
@@ -47,7 +49,11 @@ const PostPage: FC<Props> = ({data}) => {
   const post = parse<Post>(data)
 
   return (
-    <div>{post.title}</div>
+    <PostLayout title={post.title}>
+      <h1 className="mb-0">{post.title}</h1>
+
+      <div className="pt-2">Content will be here</div>
+    </PostLayout>
   )
 }
 
