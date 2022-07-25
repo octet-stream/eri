@@ -6,10 +6,10 @@ import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
 import type {FC} from "react"
 
-import {
-  UserCreateSuperInput,
+import type {
   IUserCreateSuperInput
 } from "server/trpc/type/input/UserCreateSuperInput"
+import {UserCreateSuperInput} from "server/trpc/type/input/UserCreateSuperInput"
 import {User, UserRoles} from "server/db/entity/User"
 import {runIsolatied} from "server/lib/db"
 import {Button} from "component/Button"

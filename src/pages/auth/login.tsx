@@ -10,10 +10,8 @@ import getServerSideSession from "lib/util/getServerSideSession"
 
 import {AuthLayout} from "layout/Auth"
 
-import {
-  IUserLoginInput,
-  UserLoginInput
-} from "server/trpc/type/input/UserLoginInput"
+import {UserLoginInput} from "server/trpc/type/input/UserLoginInput"
+import type {IUserLoginInput} from "server/trpc/type/input/UserLoginInput"
 import {Button} from "component/Button"
 import {Input} from "component/Input"
 

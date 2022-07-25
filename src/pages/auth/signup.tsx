@@ -12,10 +12,8 @@ import {client} from "lib/trpc"
 
 import {AuthLayout} from "layout/Auth"
 
-import {
-  IUserCreateInput,
-  UserCreateInput
-} from "server/trpc/type/input/UserCreateInput"
+import type {IUserCreateInput} from "server/trpc/type/input/UserCreateInput"
+import {UserCreateInput} from "server/trpc/type/input/UserCreateInput"
 
 import {Button} from "component/Button"
 import {Input} from "component/Input"
