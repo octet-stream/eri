@@ -6,6 +6,8 @@ import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
 import type {FC} from "react"
 
+import getServerSideSession from "lib/util/getServerSideSession"
+
 import {AuthLayout} from "layout/Auth"
 
 import {
@@ -15,7 +17,11 @@ import {
 import {Button} from "component/Button"
 import {Input} from "component/Input"
 
-const LoginPage: FC = () => {
+interface Props { }
+
+export const getServerSideProps = getServerSideSession
+
+const LoginPage: FC<Props> = () => {
   const router = useRouter()
   const {handleSubmit, register, formState} = useForm<IUserLoginInput>({
     resolver: zodResolver(UserLoginInput)

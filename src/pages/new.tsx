@@ -1,12 +1,9 @@
-import {unstable_getServerSession as getServerSession} from "next-auth/next"
-import type {GetServerSideProps} from "next"
-import type {Session} from "next-auth"
 import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
 import type {FC} from "react"
 import {useRef} from "react"
 
-import {options} from "pages/api/auth/[...nextauth]"
+import getServerSideSession from "lib/util/getServerSideSession"
 
 import {client} from "lib/trpc"
 
@@ -18,21 +15,7 @@ import {Editor} from "component/Editor"
 
 interface Props { }
 
-interface ServerSideProps extends Props {
-  session: Session | null
-}
-
-type GetServerSidePropsHandler = GetServerSideProps<ServerSideProps>
-
-export const getServerSideProps: GetServerSidePropsHandler = async ctx => {
-  const session = await getServerSession(ctx.req, ctx.res, options)
-
-  return {
-    props: {
-      session
-    }
-  }
-}
+export const getServerSideProps = getServerSideSession
 
 const NewPostPage: FC<Props> = () => {
   const ref = useRef<EditorRef>()

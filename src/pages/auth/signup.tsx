@@ -6,6 +6,10 @@ import {useRouter} from "next/router"
 import {useMemo} from "react"
 import type {FC} from "react"
 
+import getServerSideSession from "lib/util/getServerSideSession"
+
+import {client} from "lib/trpc"
+
 import {AuthLayout} from "layout/Auth"
 
 import {
@@ -15,7 +19,6 @@ import {
 
 import {Button} from "component/Button"
 import {Input} from "component/Input"
-import {client} from "lib/trpc"
 
 const getCode = (path: string): string => (
   new URL(
@@ -23,6 +26,8 @@ const getCode = (path: string): string => (
     process.env.NEXT_PUBLIC_SERVER_URL
   ).searchParams.get("code") ?? ""
 )
+
+export const getServerSideProps = getServerSideSession
 
 const SignupPage: FC = () => {
   const router = useRouter()
