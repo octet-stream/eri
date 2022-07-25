@@ -2,12 +2,16 @@ import {GetStaticProps} from "next"
 import {isEmpty} from "lodash"
 import type {FC} from "react"
 
+import Link from "next/link"
+
 import {stringify, parse} from "superjson"
 
 import type {IPageOutput} from "server/trpc/type/output/PageOutput"
 import {Post} from "server/db/entity"
 
 import {router} from "server/trpc/route"
+
+import {BaseLayout} from "layout/Base"
 
 interface Props {
   data: string
@@ -35,9 +39,19 @@ const Home: FC<Props> = ({data}) => {
   }
 
   return (
-    <ul className="list-none">
-      {posts.items.map(post => <li key={post.id}>{post.title}</li>)}
-    </ul>
+    <BaseLayout>
+      <ul className="list-none p-0">
+        {posts.items.map(post => (
+          <li key={post.id} className="p-0">
+            <Link href={`/post/${post.slug}`}>
+              <a>
+                {post.title}
+              </a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </BaseLayout>
   )
 }
 
