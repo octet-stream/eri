@@ -18,7 +18,7 @@ const getCookieOptions = () => ({
   httpOnly: true,
   sameSite: "lax",
   path: "/",
-  secure: process.env.NODE_ENV === "production"
+  secure: new URL(process.env.NEXTAUTH_URL).protocol === "https:"
 })
 
 export const options: NextAuthOptions = {

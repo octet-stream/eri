@@ -1,12 +1,13 @@
 import {stringify, parse} from "superjson"
 import type {GetStaticProps} from "next"
 import {TRPCError} from "@trpc/server"
+import {formatRelative} from "date-fns"
 import type {FC} from "react"
 
 import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
 
-import {PostLayout} from "layout/Post"
+import {BaseLayout} from "layout/Base"
 
 import getEmptyPaths from "lib/util/getEmptyPaths"
 
@@ -49,11 +50,20 @@ const PostPage: FC<Props> = ({data}) => {
   const post = parse<Post>(data)
 
   return (
-    <PostLayout title={post.title}>
+    <BaseLayout title={post.title}>
       <h1 className="mb-0">{post.title}</h1>
 
+      <small className="text-gray-500">
+        <span>
+          {formatRelative(post.createdAt, Date.now())}
+        </span>
+        <span>
+          {` by @${post.author.login}`}
+        </span>
+      </small>
+
       <div className="pt-2">Content will be here</div>
-    </PostLayout>
+    </BaseLayout>
   )
 }
 
