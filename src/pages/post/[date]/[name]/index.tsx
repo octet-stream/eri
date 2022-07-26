@@ -1,8 +1,10 @@
 import {stringify, parse} from "superjson"
 import type {GetStaticProps} from "next"
-import {TRPCError} from "@trpc/server"
 import {formatRelative} from "date-fns"
+import {TRPCError} from "@trpc/server"
 import type {FC} from "react"
+
+import Link from "next/link"
 
 import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
@@ -51,6 +53,14 @@ const PostPage: FC<Props> = ({data}) => {
 
   return (
     <BaseLayout title={post.title}>
+      <nav className="pb-5">
+        <Link href="/">
+          <a className="no-underline">
+            ← Back to posts
+          </a>
+        </Link>
+      </nav>
+
       <h1 className="mb-0">{post.title}</h1>
 
       <small className="text-gray-500">
