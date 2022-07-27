@@ -11,6 +11,7 @@ specifiers:
   '@editorjs/paragraph': ^2.8.0
   '@editorjs/quote': ^2.4.0
   '@editorjs/underline': ^1.0.0
+  '@headlessui/react': ^1.6.6
   '@heroicons/react': ^1.0.6
   '@hookform/resolvers': ^2.9.7
   '@mikro-orm/cli': ^5.2.4
@@ -82,6 +83,7 @@ dependencies:
   '@editorjs/paragraph': 2.8.0
   '@editorjs/quote': 2.4.0
   '@editorjs/underline': 1.0.0
+  '@headlessui/react': 1.6.6_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 1.0.6_react@18.2.0
   '@hookform/resolvers': 2.9.7_react-hook-form@7.33.1
   '@mikro-orm/core': 5.2.4_bbq4553ywfm3xbouthdrdhgvne
@@ -238,6 +240,17 @@ packages:
   /@faker-js/faker/7.3.0:
     resolution: {integrity: sha512-1W0PZezq2rxlAssoWemi9gFRD8IQxvf0FPL5Km3TOmGHFG7ib0TbFBJ0yC7D/1NsxunjNTK6WjUXV8ao/mKZ5w==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+
+  /@headlessui/react/1.6.6_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-MFJtmj9Xh/hhBMhLccGbBoSk+sk61BlP6sJe4uQcVMtXZhCgGqd2GyIQzzmsdPdTEWGSF434CBi8mnhR6um46Q==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /@heroicons/react/1.0.6_react@18.2.0:
     resolution: {integrity: sha512-JJCXydOFWMDpCP4q13iEplA503MQO3xLoZiKum+955ZCtHINWnx26CUxVxxFQu/uLb4LW3ge15ZpzIkXKkJ8oQ==}
