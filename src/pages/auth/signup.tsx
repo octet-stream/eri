@@ -10,7 +10,7 @@ import getServerSideSession from "lib/util/getServerSideSession"
 
 import {client} from "lib/trpc"
 
-import {AuthLayout} from "layout/Auth"
+import {AuthLayout} from "layout/AuthLayout"
 
 import type {IUserCreateInput} from "server/trpc/type/input/UserCreateInput"
 import {UserCreateInput} from "server/trpc/type/input/UserCreateInput"

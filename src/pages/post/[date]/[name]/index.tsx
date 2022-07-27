@@ -4,12 +4,10 @@ import {formatRelative} from "date-fns"
 import {TRPCError} from "@trpc/server"
 import type {FC} from "react"
 
-import Link from "next/link"
-
 import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
 
-import {BaseLayout} from "layout/Base"
+import {PostLayout} from "layout/PostLayout"
 
 import getEmptyPaths from "lib/util/getEmptyPaths"
 
@@ -52,15 +50,7 @@ const PostPage: FC<Props> = ({data}) => {
   const post = parse<Post>(data)
 
   return (
-    <BaseLayout title={post.title}>
-      <nav className="pb-5">
-        <Link href="/">
-          <a className="no-underline">
-            ← Back to posts
-          </a>
-        </Link>
-      </nav>
-
+    <PostLayout title={post.title}>
       <h1 className="mb-0">{post.title}</h1>
 
       <small className="text-gray-500">
@@ -73,7 +63,7 @@ const PostPage: FC<Props> = ({data}) => {
       </small>
 
       <div className="pt-2">Content will be here</div>
-    </BaseLayout>
+    </PostLayout>
   )
 }
 

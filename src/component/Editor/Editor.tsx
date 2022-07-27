@@ -12,12 +12,12 @@ import type EditorJS from "@editorjs/editorjs"
 import dynamic from "next/dynamic"
 import Head from "next/head"
 
-import {TitleEditor} from "./Title"
-import type {ContentProps, OnContentEditorReadyHandler} from "./Content"
-import type {TitleEditorOnChangeHandler} from "./Title"
+import {TitleEditor} from "./TitleEditor"
+import type {ContentProps, OnContentEditorReadyHandler} from "./ContentEditor"
+import type {TitleEditorOnChangeHandler} from "./TitleEditor"
 
 const ContentEditor = dynamic<ContentProps>(
-  () => import("component/Editor/Content").then(mod => mod.ContentEditor),
+  () => import("component/Editor/ContentEditor").then(m => m.ContentEditor),
 
   {
     ssr: false

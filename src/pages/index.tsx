@@ -11,7 +11,7 @@ import {Post} from "server/db/entity"
 
 import {router} from "server/trpc/route"
 
-import {BaseLayout} from "layout/Base"
+import {HomeLayout} from "layout/HomeLayout"
 
 interface Props {
   data: string
@@ -39,7 +39,7 @@ const Home: FC<Props> = ({data}) => {
   }
 
   return (
-    <BaseLayout>
+    <HomeLayout>
       <ul className="list-none p-0">
         {posts.items.map(post => (
           <li key={post.id} className="p-0">
@@ -51,7 +51,7 @@ const Home: FC<Props> = ({data}) => {
           </li>
         ))}
       </ul>
-    </BaseLayout>
+    </HomeLayout>
   )
 }
 

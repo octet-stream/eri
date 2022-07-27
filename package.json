@@ -27,6 +27,7 @@
     "@editorjs/paragraph": "^2.8.0",
     "@editorjs/quote": "^2.4.0",
     "@editorjs/underline": "^1.0.0",
+    "@heroicons/react": "^1.0.6",
     "@hookform/resolvers": "^2.9.7",
     "@mikro-orm/core": "^5.2.4",
     "@mikro-orm/mysql": "^5.2.4",

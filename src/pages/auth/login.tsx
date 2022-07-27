@@ -8,7 +8,7 @@ import type {FC} from "react"
 
 import getServerSideSession from "lib/util/getServerSideSession"
 
-import {AuthLayout} from "layout/Auth"
+import {AuthLayout} from "layout/AuthLayout"
 
 import {UserLoginInput} from "server/trpc/type/input/UserLoginInput"
 import type {IUserLoginInput} from "server/trpc/type/input/UserLoginInput"

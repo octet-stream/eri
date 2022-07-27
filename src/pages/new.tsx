@@ -7,7 +7,7 @@ import getServerSideSession from "lib/util/getServerSideSession"
 
 import {client} from "lib/trpc"
 
-import {EditorLayout} from "layout/Editor"
+import {EditorLayout} from "layout/EditorLayout"
 
 import type {EditorRef} from "component/Editor"
 import {Button} from "component/Button"

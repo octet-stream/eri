@@ -30,7 +30,7 @@ export const AuthLayout: FC<Props> = ({
         <title>{title}</title>
       </Head>
 
-      <div className="w-screen h-screen flex justify-center items-center mobile:p-5">
+      <main className="w-screen h-screen flex justify-center items-center mobile:p-5">
         <div className="w-72">
           <div className="mb-6 text-2xl font-semibold text-center">
             {title}
@@ -38,7 +38,7 @@ export const AuthLayout: FC<Props> = ({
 
           {children}
         </div>
-      </div>
+      </main>
     </Fragment>
   )
 }
