@@ -11,7 +11,7 @@ specifiers:
   '@editorjs/paragraph': ^2.8.0
   '@editorjs/quote': ^2.4.0
   '@editorjs/underline': ^1.0.0
-  '@hookform/resolvers': ^2.9.6
+  '@hookform/resolvers': ^2.9.7
   '@mikro-orm/cli': ^5.2.4
   '@mikro-orm/core': ^5.2.4
   '@mikro-orm/migrations': ^5.2.4
@@ -81,7 +81,7 @@ dependencies:
   '@editorjs/paragraph': 2.8.0
   '@editorjs/quote': 2.4.0
   '@editorjs/underline': 1.0.0
-  '@hookform/resolvers': 2.9.6_react-hook-form@7.33.1
+  '@hookform/resolvers': 2.9.7_react-hook-form@7.33.1
   '@mikro-orm/core': 5.2.4_bbq4553ywfm3xbouthdrdhgvne
   '@mikro-orm/mysql': 5.2.4_yfsy5wrz54orsqkcse7qqekshe
   '@sindresorhus/slugify': 1.1.2
@@ -237,8 +237,8 @@ packages:
     resolution: {integrity: sha512-1W0PZezq2rxlAssoWemi9gFRD8IQxvf0FPL5Km3TOmGHFG7ib0TbFBJ0yC7D/1NsxunjNTK6WjUXV8ao/mKZ5w==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
 
-  /@hookform/resolvers/2.9.6_react-hook-form@7.33.1:
-    resolution: {integrity: sha512-f4VxF8w9rdX0WsDCk3FW1dGPj/Sj8+1Ulcgtm5ymgWEpbA/fjY+NUDh+L9hftmxDgP8+EJFtF+qFK4gPEXVrVQ==}
+  /@hookform/resolvers/2.9.7_react-hook-form@7.33.1:
+    resolution: {integrity: sha512-BloehX3MOLwuFEwT4yZnmolPjVmqyn8VsSuodLfazbCIqxBHsQ4qUZsi+bvNNCduRli1AGWFrkDLGD5QoNzsoA==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
