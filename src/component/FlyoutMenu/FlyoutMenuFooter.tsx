@@ -1,6 +1,5 @@
 import {useSession} from "next-auth/react"
 import {Menu} from "@headlessui/react"
-import {Fragment} from "react"
 import type {FC} from "react"
 
 import Link from "next/link"
@@ -14,8 +13,8 @@ export const FlyoutMenuFooter: FC<Props> = () => {
 
   return (
     <div className="bg-slate-100 flex flex-row">
-      {status === "authenticated" ? (
-        <Menu.Item>
+      <Menu.Item>
+        {status === "authenticated" ? (
           <div className="px-6 py-2 flex-1">
             <Link href="/">
               <a className="no-underline">
@@ -23,30 +22,16 @@ export const FlyoutMenuFooter: FC<Props> = () => {
               </a>
             </Link>
           </div>
-        </Menu.Item>
-      ) : (
-        <Fragment>
-          <Menu.Item>
-            <div className="px-6 py-2 flex-1">
-              <Link href="/auth/login">
-                <a className="no-underline">
-                  Log in
-                </a>
-              </Link>
-            </div>
-          </Menu.Item>
-
-          <Menu.Item>
-            <div className="px-6 py-2 flex-1">
-              <Link href="/auth/signup">
-                <a className="no-underline">
-                  Sign up
-                </a>
-              </Link>
-            </div>
-          </Menu.Item>
-        </Fragment>
-      )}
+        ) : (
+          <div className="px-6 py-2 flex-1">
+            <Link href="/auth/login">
+              <a className="no-underline">
+                Log in
+              </a>
+            </Link>
+          </div>
+        )}
+      </Menu.Item>
     </div>
   )
 }
