@@ -1,6 +1,6 @@
-import {DotsVerticalIcon} from "@heroicons/react/solid"
-
 import type {FC, ReactNode} from "react"
+
+import {FlyoutMenu} from "component/FlyoutMenu"
 
 interface Props {
   children?: ReactNode
@@ -12,8 +12,6 @@ export const Header: FC<Props> = ({children}) => (
 
     <div className="flex-1" />
 
-    <div className="flex flex-row justify-center items-center">
-      <DotsVerticalIcon className="w-5 h-5 cursor-pointer" />
-    </div>
+    <FlyoutMenu />
   </header>
 )
