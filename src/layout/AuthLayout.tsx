@@ -19,7 +19,6 @@ export const AuthLayout: FC<Props> = ({
 }) => {
   const session = useSession()
 
-  // TODO: Maybe find a way to avoid flickering on initial rendering, without use of getServerSideProps
   if (session.status === "authenticated" && !disableRedirect) {
     return <Redirect url="/" />
   }
