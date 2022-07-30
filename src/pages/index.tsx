@@ -1,10 +1,9 @@
+import {stringify, parse} from "superjson"
 import {GetStaticProps} from "next"
 import {isEmpty} from "lodash"
 import type {FC} from "react"
 
 import Link from "next/link"
-
-import {stringify, parse} from "superjson"
 
 import type {IPageOutput} from "server/trpc/type/output/PageOutput"
 import {Post} from "server/db/entity"
