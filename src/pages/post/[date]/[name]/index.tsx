@@ -3,6 +3,7 @@ import type {GetStaticProps} from "next"
 import {formatRelative} from "date-fns"
 import {TRPCError} from "@trpc/server"
 import type {FC} from "react"
+import {useMemo} from "react"
 
 import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
@@ -47,7 +48,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 }
 
 const PostPage: FC<Props> = ({data}) => {
-  const post = parse<Post>(data)
+  const post = useMemo(() => parse<Post>(data), [data])
 
   return (
     <PostLayout title={post.title}>

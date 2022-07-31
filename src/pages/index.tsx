@@ -2,6 +2,7 @@ import {stringify, parse} from "superjson"
 import {GetStaticProps} from "next"
 import {isEmpty} from "lodash"
 import type {FC} from "react"
+import {useMemo} from "react"
 
 import Link from "next/link"
 
@@ -27,7 +28,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 }
 
 const Home: FC<Props> = ({data}) => {
-  const posts = parse<IPageOutput<Post>>(data)
+  const posts = useMemo(() => parse<IPageOutput<Post>>(data), [data])
 
   if (isEmpty(posts.items)) {
     return (
