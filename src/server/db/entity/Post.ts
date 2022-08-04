@@ -33,7 +33,7 @@ export class Post extends BaseDates implements PostInput {
   content!: OutputData
 
   /**
-   * Post unique, human-readable identifier.
+   * Unique, human-readable Post identifier.
    */
   @Property({unique: true})
   slug!: string
