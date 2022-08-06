@@ -19,7 +19,7 @@ const auth: AuthMiddleware = async ({ctx, next}) => {
     req: ctx.req,
     secret: process.env.NEXTAUTH_SECRET,
     cookieName: sessionOptions?.name,
-    secureCookie: sessionOptions?.options.secure
+    secureCookie: sessionOptions?.options?.secure
   })
 
   if (!session) {
