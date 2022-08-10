@@ -9,6 +9,9 @@ import {getORM} from "server/lib/db"
 import auth from "server/trpc/middleware/auth"
 import ssrContextCheck from "server/trpc/middleware/ssrContextCheck"
 
+/**
+ * Creates a new post
+ */
 const postCreate = router<GlobalContext>()
   .middleware(ssrContextCheck)
   .middleware(auth)

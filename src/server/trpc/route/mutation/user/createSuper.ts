@@ -13,7 +13,7 @@ import ssrContextCheck from "server/trpc/middleware/ssrContextCheck"
 
 /**
  * Creates a super user account.
- * This middleware will be available only once, when there's no super user exists yet
+ * This mutation will be available only once, when there's no super user exists yet
  */
 const userCreateSuper = router<GlobalContext>()
   .middleware(ssrContextCheck)

@@ -7,6 +7,9 @@ import {UserCreateInput} from "server/trpc/type/input/UserCreateInput"
 import {User, InvitationCode} from "server/db/entity"
 import {getORM} from "server/lib/db"
 
+/**
+ * Creates a new regular user account
+ */
 const userCreate = router<Context>()
   .mutation("create", {
     input: UserCreateInput,
