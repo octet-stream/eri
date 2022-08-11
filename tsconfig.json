@@ -16,8 +16,7 @@
     "incremental": true,
     "baseUrl": "src",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "importHelpers": true
+    "emitDecoratorMetadata": true
   },
   "include": ["next-env.d.ts", "env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
