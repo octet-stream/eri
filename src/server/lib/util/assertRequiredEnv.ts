@@ -3,7 +3,7 @@ import {AssertionError} from "assert"
 import type {PickRequiredKeys} from "server/lib/type/PickRequiredKeys"
 
 interface EnvVariable {
-  name: PickRequiredKeys<typeof process.env>
+  name: PickRequiredKeys<typeof process.env> | "NEXTAUTH_URL"
   value: string
 }
 

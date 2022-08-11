@@ -7,8 +7,21 @@ import CredentialsProvider from "next-auth/providers/credentials"
 
 import withORMContext from "server/middleware/withORMContext"
 
+import {assertRequiredEnv} from "server/lib/util/assertRequiredEnv"
 import {getORM} from "server/lib/db"
+
 import {User} from "server/db/entity/User"
+
+assertRequiredEnv([
+  {
+    name: "NEXTAUTH_SECRET",
+    value: process.env.NEXTAUTH_SECRET
+  },
+  {
+    name: "NEXTAUTH_URL",
+    value: process.env.NEXTAUTH_URL
+  }
+])
 
 const COOKIE_PREFIX = "eri"
 
