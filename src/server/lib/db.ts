@@ -5,6 +5,8 @@ import "reflect-metadata"
 import {MikroORM} from "@mikro-orm/core"
 import type {Options, EntityManager} from "@mikro-orm/core"
 
+import {assertRequiredEnv} from "server/lib/util/assertRequiredEnv"
+
 import {
   User,
   Post,
@@ -25,6 +27,21 @@ type GlobalThis = typeof globalThis
 interface GlobalThisWithORM extends GlobalThis {
   __CACHED_ORM__: MikroORM
 }
+
+assertRequiredEnv([
+  {
+    name: "MIKRO_ORM_DB_NAME",
+    value: process.env.MIKRO_ORM_DB_NAME
+  },
+  {
+    name: "MIKRO_ORM_USER",
+    value: process.env.MIKRO_ORM_USER,
+  },
+  {
+    name: "MIKRO_ORM_PASSWORD",
+    value: process.env.MIKRO_ORM_PASSWORD
+  }
+])
 
 /**
  * Returns config for MikroORM with parameters taken from .env.* files.
