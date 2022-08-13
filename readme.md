@@ -3,7 +3,7 @@
 Yet another blogging engine.
 Built with Next.js, NextAuth, tRPC, MikroORM and Tailwind.
 
-# Development setup
+## Development setup
 
 1. First of all, you'll need to install MySQL.
 2. Then clone this repository `git clone git@github.com:octet-stream/eri.git`
