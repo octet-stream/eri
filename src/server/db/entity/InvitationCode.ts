@@ -8,7 +8,7 @@ export class InvitationCode {
   /**
    * Invitation code payload. Should be included in invitation email
    */
-  @PrimaryKey({type: "char"})
+  @PrimaryKey()
   readonly code: string = nanoid(16)
 
   /**
