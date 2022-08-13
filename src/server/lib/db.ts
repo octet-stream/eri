@@ -66,6 +66,9 @@ export const getConfig = (): Options => ({
   debug: process.env.NODE_ENV === "development",
   migrations: {
     path: "migration"
+  },
+  seeder: {
+    path: "seed"
   }
 })
 
