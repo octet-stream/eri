@@ -28,6 +28,8 @@ interface GlobalThisWithORM extends GlobalThis {
   __CACHED_ORM__: MikroORM
 }
 
+const globalObject = globalThis as GlobalThisWithORM
+
 assertRequiredEnv([
   {
     name: "MIKRO_ORM_DB_NAME",
@@ -77,13 +79,11 @@ export const getConfig = (): Options => ({
  * Creates the new if one does not exists, then caches it.
  */
 export async function getORM() {
-  if (!(globalThis as GlobalThisWithORM).__CACHED_ORM__) {
-    (globalThis as GlobalThisWithORM).__CACHED_ORM__ = await MikroORM.init(
-      getConfig()
-    )
+  if (!globalObject.__CACHED_ORM__) {
+    globalObject.__CACHED_ORM__ = await MikroORM.init(getConfig())
   }
 
-  return (globalThis as GlobalThisWithORM).__CACHED_ORM__
+  return globalObject.__CACHED_ORM__
 }
 
 export async function forkEntityManager(): Promise<EntityManager> {
