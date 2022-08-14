@@ -11,7 +11,5 @@ type Implementation = ImplementationFn<[orm: MikroORM], unknown>
 export const withORM = test.macro(async (t, fn: Implementation) => {
   const orm = await getORM()
 
-  return RequestContext.createAsync(orm.em, async () => {
-    await fn(t, orm)
-  })
+  return RequestContext.createAsync(orm.em, async () => fn(t, orm))
 })
