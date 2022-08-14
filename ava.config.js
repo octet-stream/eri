@@ -4,6 +4,7 @@ module.exports = {
   files: ["src/**/*.test.{ts,tsx}"],
   require: [
     "ts-node/register/transpile-only",
-    "reflect-metadata"
+    "reflect-metadata",
+    "./src/server/env.ts"
   ]
 }

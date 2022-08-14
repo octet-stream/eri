@@ -14,6 +14,11 @@ interface EnvVariable {
  * @param list A list of required environment variable values and their names.
  */
 export const assertRequiredEnv = (list: EnvVariable[]): void => {
+  // bypass assertion in test environment
+  if (process.env.NODE_ENV === "test") {
+    return
+  }
+
   for (const {name, value} of list) {
     if (!value) {
       throw new AssertionError({
