@@ -43,7 +43,12 @@
     "jsx-a11y/anchor-is-valid": 0,
 
     "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": ["**/*.test.ts", "**/*.test.tsx"]
+      "devDependencies": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/__macro__/**/*.ts",
+        "**/__helper__/**/*.ts"
+      ]
     }]
   }
 }

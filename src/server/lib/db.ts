@@ -2,8 +2,8 @@
 /* eslint-disable no-underscore-dangle */
 import "reflect-metadata"
 
-import {MikroORM} from "@mikro-orm/core"
-import type {Options, EntityManager} from "@mikro-orm/core"
+import {MikroORM, Configuration} from "@mikro-orm/core"
+import type {EntityManager} from "@mikro-orm/core"
 
 import {assertRequiredEnv} from "server/lib/util/assertRequiredEnv"
 
@@ -17,6 +17,8 @@ import {
   UserSubscriber,
   PostSubscriber
 } from "server/db/subscriber"
+
+const isTestEnv = process.env.NODE_ENV === "test"
 
 interface RunIsolatedCallback<T> {
   (em: EntityManager): T
@@ -50,29 +52,34 @@ assertRequiredEnv([
  *
  * Note to read and inject these parameters onto `process.env` when running outside Next.js
  */
-export const getConfig = (): Options => ({
-  type: "mysql",
-  implicitTransactions: true,
-  entities: [
-    User,
-    Post,
-    InvitationCode
-  ],
-  subscribers: [
-    new UserSubscriber(),
-    new PostSubscriber()
-  ],
-  dbName: process.env.MIKRO_ORM_DB_NAME || undefined,
-  host: process.env.MIKRO_ORM_HOST || undefined,
-  port: parseInt(process.env.MIKRO_ORM_PORT || "", 10) || undefined,
-  debug: process.env.NODE_ENV === "development",
-  migrations: {
-    path: "migration"
+export const getConfig = () => new Configuration(
+  {
+    type: "mysql",
+    implicitTransactions: true,
+    entities: [
+      User,
+      Post,
+      InvitationCode
+    ],
+    subscribers: [
+      new UserSubscriber(),
+      new PostSubscriber()
+    ],
+    dbName: process.env.MIKRO_ORM_DB_NAME || undefined,
+    host: process.env.MIKRO_ORM_HOST || undefined,
+    port: parseInt(process.env.MIKRO_ORM_PORT || "", 10) || undefined,
+    debug: process.env.NODE_ENV === "development",
+    migrations: {
+      path: "migration"
+    },
+    seeder: {
+      path: "seed"
+    },
+    connect: !isTestEnv
   },
-  seeder: {
-    path: "seed"
-  }
-})
+
+  !isTestEnv
+)
 
 /**
  * Returns MikroORM instance.
