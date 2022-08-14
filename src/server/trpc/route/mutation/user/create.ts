@@ -1,9 +1,9 @@
 import {router, TRPCError} from "@trpc/server"
-import {z} from "zod"
 
 import type {Context} from "server/trpc/context"
 
 import {UserCreateInput} from "server/trpc/type/input/UserCreateInput"
+import {UserOutput} from "server/trpc/type/output/UserOutput"
 import {User, InvitationCode} from "server/db/entity"
 import {getORM} from "server/lib/db"
 
@@ -14,7 +14,7 @@ const userCreate = router<Context>()
   .mutation("create", {
     input: UserCreateInput,
 
-    output: z.instanceof(User),
+    output: UserOutput,
 
     async resolve({input}) {
       const {code, ...fields} = input

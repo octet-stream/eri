@@ -52,12 +52,13 @@
         },
         "email_verified": {
           "name": "email_verified",
-          "type": "json",
+          "type": "datetime",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "mappedType": "json"
+          "length": 0,
+          "mappedType": "datetime"
         },
         "password": {
           "name": "password",

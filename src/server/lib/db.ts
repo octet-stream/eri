@@ -79,7 +79,7 @@ export const getConfig = () => new Configuration(
   },
 
   !isTestEnv
-)
+).getAll()
 
 /**
  * Returns MikroORM instance.

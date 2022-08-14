@@ -34,7 +34,7 @@ export class User extends BaseDates {
   /**
    * The date and time user's email was verified
    */
-  @Property({nullable: true, hidden: true})
+  @Property({type: Date, nullable: true, hidden: true})
   emailVerified: Date | null = null
 
   /**

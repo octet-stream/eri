@@ -1,11 +1,11 @@
 import {router, TRPCError} from "@trpc/server"
-import {z} from "zod"
 
 import type {GlobalContext} from "server/trpc/context"
 
 import {
   UserCreateSuperInput
 } from "server/trpc/type/input/UserCreateSuperInput"
+import {UserOutput} from "server/trpc/type/output/UserOutput"
 import {User, UserRoles} from "server/db/entity/User"
 import {getORM} from "server/lib/db"
 
@@ -20,7 +20,7 @@ const userCreateSuper = router<GlobalContext>()
   .mutation("createSuper", {
     input: UserCreateSuperInput,
 
-    output: z.instanceof(User),
+    output: UserOutput,
 
     async resolve({ctx, input}) {
       const orm = await getORM()
