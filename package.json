@@ -9,9 +9,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:db-up": "docker compose -f docker-compose.test.yml up -d",
+    "test:db-up": "docker compose -f docker-compose.test.yml up --wait",
     "test:db-down": "docker compose -f docker-compose.test.yml down",
-    "test": "pnpm test:db-up && ava && pnpm test:db-down"
+    "test": "pnpm test:db-up && sleep 5 && ava && pnpm test:db-down"
   },
   "mikro-orm": {
     "useTsNode": true,
