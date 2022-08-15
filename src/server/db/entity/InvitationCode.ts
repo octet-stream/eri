@@ -1,10 +1,19 @@
-import {Entity, Property, PrimaryKey, ManyToOne} from "@mikro-orm/core"
+import {
+  Entity,
+  Property,
+  PrimaryKey,
+  ManyToOne,
+  OptionalProps
+} from "@mikro-orm/core"
 import {nanoid} from "nanoid"
 
+import type {OptionalDates} from "./BaseDates"
 import {User} from "./User"
 
 @Entity()
 export class InvitationCode {
+  [OptionalProps]?: OptionalDates | "code"
+
   /**
    * Invitation code payload. Should be included in invitation email
    */
