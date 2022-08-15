@@ -6,7 +6,7 @@ import type {ImplementationFn} from "ava"
 
 import {getORM} from "server/lib/db"
 
-type Implementation = ImplementationFn<[orm: MikroORM], unknown>
+type Implementation = ImplementationFn<[orm: MikroORM]>
 
 export const withORM = test.macro(async (t, fn: Implementation) => {
   const orm = await getORM()
