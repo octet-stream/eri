@@ -1,5 +1,7 @@
 import test from "ava"
 
+import type {TRPCError} from "@trpc/server"
+
 import {withORM} from "server/__macro__/withORM"
 import {setup, cleanup} from "server/__helper__/database"
 
@@ -11,7 +13,9 @@ const caller = router.createCaller({})
 
 test.before(setup)
 
-test("Creates a new user", withORM, async (t, orm) => {
+test.after.always(cleanup)
+
+test("Creates a user", withORM, async (t, orm) => {
   const issuer = orm.em.create(User, {
     login: "noop",
     email: "noop@example.com",
@@ -38,4 +42,16 @@ test("Creates a new user", withORM, async (t, orm) => {
   await orm.em.removeAndFlush([issuer, actual])
 })
 
-test.after.always(cleanup)
+test("Fails to create a user with incorrect code", async t => {
+  const trap = () => caller.mutation("user.create", {
+    code: "aaaaaaaaaaaaaaaa",
+    login: "johndoe",
+    email: "john.doe@example.com",
+    password: "somepasswordphrase"
+  })
+
+  const error = await t.throwsAsync(trap) as TRPCError
+
+  t.is(error.code, "BAD_REQUEST")
+  t.is(error.message, "Invalid invitation code")
+})
