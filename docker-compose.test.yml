@@ -4,6 +4,12 @@ services:
   mysql:
     image: mysql:8-oracle
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     ports:
       - "3308:3306"
     environment:
