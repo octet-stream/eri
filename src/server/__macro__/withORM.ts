@@ -8,6 +8,9 @@ import {getORM} from "server/lib/db"
 
 type Implementation = ImplementationFn<[orm: MikroORM]>
 
+/**
+ * Creates a MikroORM connection and runs implementation function within that context.
+ */
 export const withORM = test.macro(async (t, fn: Implementation) => {
   const orm = await getORM()
 
