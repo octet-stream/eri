@@ -1,6 +1,7 @@
 import test from "ava"
 
 import type {TRPCError} from "@trpc/server"
+import type {ZodError} from "zod"
 
 import {withTRPC} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
@@ -39,7 +40,7 @@ test("Creates a user", withTRPC, async (t, trpc, orm) => {
   await orm.em.removeAndFlush([issuer, actual])
 })
 
-test("Fails to create a user with incorrect code", withTRPC, async (t, trpc) => {
+test("Fails with incorrect code", withTRPC, async (t, trpc) => {
   const trap = () => trpc.mutation("user.create", {
     code: "aaaaaaaaaaaaaaaa",
     login: "johndoe",
@@ -47,8 +48,72 @@ test("Fails to create a user with incorrect code", withTRPC, async (t, trpc) => 
     password: "somepasswordphrase"
   })
 
-  const error = await t.throwsAsync(trap) as TRPCError
+  const actual = await t.throwsAsync(trap) as TRPCError
 
-  t.is(error.code, "BAD_REQUEST")
-  t.is(error.message, "Invalid invitation code")
+  t.is(actual.code, "BAD_REQUEST")
+  t.is(actual.message, "Invalid invitation code")
+})
+
+test("Fails without code", withTRPC, async (t, trpc) => {
+  // @ts-ignore-error
+  const trap = () => trpc.mutation("user.create", {
+    login: "johndoe",
+    email: "john.doe@example.com",
+    password: "somepasswordphrase"
+  })
+
+  const error = await t.throwsAsync(trap) as TRPCError
+  const {errors} = error.cause as ZodError
+  const [actual] = errors
+
+  t.is(actual.code, "invalid_type")
+  t.is(actual.message, "Required")
+})
+
+test("Fails if code length is less then 16", withTRPC, async (t, trpc) => {
+  const trap = () => trpc.mutation("user.create", {
+    code: "a",
+    login: "johndoe",
+    email: "john.doe@example.com",
+    password: "somepasswordphrase"
+  })
+
+  const error = await t.throwsAsync(trap) as TRPCError
+  const {errors} = error.cause as ZodError
+  const [actual] = errors
+
+  t.is(actual.code, "too_small")
+  t.is(actual.message, "Verification code must contain 16 characters")
+})
+
+test("Fails if code length is longer then 16", withTRPC, async (t, trpc) => {
+  const trap = () => trpc.mutation("user.create", {
+    code: "aaaaaaaaaaaaaaaaa",
+    login: "johndoe",
+    email: "john.doe@example.com",
+    password: "somepasswordphrase"
+  })
+
+  const error = await t.throwsAsync(trap) as TRPCError
+  const {errors} = error.cause as ZodError
+  const [actual] = errors
+
+  t.is(actual.code, "too_big")
+  t.is(actual.message, "Verification code must contain 16 characters")
+})
+
+test("Fails if password is less than 8", withTRPC, async (t, trpc) => {
+  const trap = () => trpc.mutation("user.create", {
+    code: "aaaaaaaaaaaaaaaa",
+    login: "johndoe",
+    email: "john.doe@example.com",
+    password: "a"
+  })
+
+  const error = await t.throwsAsync(trap) as TRPCError
+  const {errors} = error.cause as ZodError
+  const [actual] = errors
+
+  t.is(actual.code, "too_small")
+  t.is(actual.message, "Password must contain at least 8 characters")
 })
