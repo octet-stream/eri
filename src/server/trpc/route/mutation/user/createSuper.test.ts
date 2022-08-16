@@ -9,7 +9,7 @@ test.before(setup)
 
 test.after.always(cleanup)
 
-test("Creates a user with admin privilegies", withTRPC, async (t, trpc, orm) => {
+test("Creates a user with admin role", withTRPC, async (t, trpc, orm) => {
   const created = await trpc.mutation("user.createSuper", {
     login: "admin",
     email: "admin@example.com",
