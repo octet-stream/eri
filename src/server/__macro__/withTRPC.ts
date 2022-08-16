@@ -6,9 +6,8 @@ import type {ImplementationFn} from "ava"
 import {noop} from "lodash"
 
 import {getORM} from "server/lib/db"
+import type {Caller} from "server/trpc/route"
 import {router} from "server/trpc/route"
-
-type Caller = ReturnType<typeof router.createCaller>
 
 type Implementation = ImplementationFn<[trpc: Caller, orm: MikroORM]>
 

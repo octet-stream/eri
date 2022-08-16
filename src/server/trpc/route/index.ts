@@ -16,3 +16,5 @@ export const router = r<GlobalContext>()
   .merge(mutation)
 
 export type Router = typeof router
+
+export type Caller = ReturnType<typeof router.createCaller>
