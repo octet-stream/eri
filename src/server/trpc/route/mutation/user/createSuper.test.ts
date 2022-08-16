@@ -1,21 +1,16 @@
 import test from "ava"
 
-import {noop} from "lodash"
-
 import {setup, cleanup} from "server/__helper__/database"
-import {withORM} from "server/__macro__/withORM"
+import {withTRPC} from "server/__macro__/withTRPC"
 
-import {router} from "server/trpc/route"
 import {UserRoles, User} from "server/db/entity/User"
-
-const caller = router.createCaller({req: {}, res: {revalidate: noop}})
 
 test.before(setup)
 
 test.after.always(cleanup)
 
-test("Creates a user with admin privilegies", withORM, async (t, orm) => {
-  const created = await caller.mutation("user.createSuper", {
+test("Creates a user with admin privilegies", withTRPC, async (t, trpc, orm) => {
+  const created = await trpc.mutation("user.createSuper", {
     login: "admin",
     email: "admin@example.com",
     password: "adminadminadmin"
