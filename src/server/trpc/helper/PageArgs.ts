@@ -34,10 +34,10 @@ export class PageArgs implements IPageInput {
    * Returns the number of the next page.
    * Will return `null` once you reach the last page.
    *
-   * @param rows An amount of rows in a table
+   * @param pages An amount of rows in a table
    */
-  getNextCursor(rows: number): number | null {
-    return this.offset != null && this.offset < rows ? this.cursor + 1 : null
+  getNextCursor(pages: number): number | null {
+    return pages > 1 && this.cursor < pages ? this.cursor + 1 : null
   }
 
   /**
