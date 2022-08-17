@@ -88,8 +88,6 @@ test.only(
       cursor: 5
     })
 
-    console.log(page)
-
     t.is(page.nextCursor, null)
   }
 )
