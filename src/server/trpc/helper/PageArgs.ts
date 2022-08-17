@@ -37,7 +37,7 @@ export class PageArgs implements IPageInput {
    * @param rows An amount of rows in a table
    */
   getNextCursor(rows: number): number | null {
-    return this.offset && this.offset < rows ? this.cursor + 1 : null
+    return this.offset != null && this.offset < rows ? this.cursor + 1 : null
   }
 
   /**
