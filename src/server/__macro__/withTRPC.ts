@@ -9,7 +9,9 @@ import {getORM} from "server/lib/db"
 import type {Caller} from "server/trpc/route"
 import {router} from "server/trpc/route"
 
-type Implementation = ImplementationFn<[trpc: Caller, orm: MikroORM]>
+type Args = [trpc: Caller, orm: MikroORM]
+
+type Implementation = ImplementationFn<Args>
 
 /**
  * Creates a MikroORM connection and runs implementation function within that context.

@@ -29,7 +29,7 @@ export class User extends BaseDates {
    * User private email address
    */
   @Property({unique: true})
-  email?: string
+  email!: string
 
   /**
    * The date and time user's email was verified
