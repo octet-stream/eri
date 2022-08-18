@@ -8,10 +8,8 @@ import {Nav} from "./Nav"
 export const PostHeader: FC = () => (
   <Header>
     <Nav>
-      <Link href="/">
-        <a className="no-underline">
-          ← Back to posts
-        </a>
+      <Link href="/" className="no-underline">
+        ← Back to posts
       </Link>
     </Nav>
   </Header>

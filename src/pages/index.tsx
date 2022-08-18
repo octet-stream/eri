@@ -46,9 +46,7 @@ const Home: FC<Props> = ({data}) => {
         {posts.items.map(post => (
           <li key={post.id} className="p-0">
             <Link href={`/post/${post.slug}`}>
-              <a>
-                {post.title}
-              </a>
+              {post.title}
             </Link>
           </li>
         ))}

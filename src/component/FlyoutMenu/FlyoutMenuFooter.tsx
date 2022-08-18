@@ -17,10 +17,11 @@ export const FlyoutMenuFooter: FC<Props> = () => {
         {status === "authenticated" ? (
           <FlyoutMenuLogout />
         ) : (
-          <Link href="/auth/login">
-            <a className="no-underline px-6 py-2 flex-1 font-normal text-inherit">
-              Log in
-            </a>
+          <Link
+            href="/auth/login"
+            className="no-underline px-6 py-2 flex-1 font-normal text-inherit"
+          >
+            Log in
           </Link>
         )}
       </Menu.Item>
