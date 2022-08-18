@@ -32,9 +32,11 @@ const Home: FC<Props> = ({data}) => {
 
   if (isEmpty(posts.items)) {
     return (
-      <div>
-        <div>There&apos;s nothing to see here yet</div>
-      </div>
+      <HomeLayout>
+        <div>
+          <div>There&apos;s nothing to see here yet</div>
+        </div>
+      </HomeLayout>
     )
   }
 
