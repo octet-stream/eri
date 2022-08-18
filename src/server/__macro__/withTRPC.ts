@@ -14,7 +14,7 @@ type Args = [trpc: Caller, orm: MikroORM]
 type Implementation = ImplementationFn<Args>
 
 /**
- * Creates a MikroORM connection and runs implementation function within that context.
+ * Creates a MikroORM RequestContet and runs implementation function within that context.
  * Also creates trpc caller for testing.
  *
  * The implementation will be called with three arguments: test context, trpc caller and orm
