@@ -36,7 +36,9 @@ test("Returns requested post", withTRPC, async (t, trpc, orm) => {
       blocks: [
         {
           type: "paragraph",
-          data: {}
+          data: {
+            text: "This is the test post"
+          }
         }
       ]
     }
@@ -45,7 +47,6 @@ test("Returns requested post", withTRPC, async (t, trpc, orm) => {
   await orm.em.persistAndFlush([user, post])
 
   const [date, name] = post.slug.split("/")
-
   const actual = await trpc.query("post.getBySlug", {
     slug: [date, name]
   })
