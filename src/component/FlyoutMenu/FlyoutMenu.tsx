@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const FlyoutMenu: FC<Props> = ({children}) => (
-  <nav className="relative">
+  <nav className="relative select-none">
     <Menu>
       <Menu.Button className="w-full h-full flex flex-row justify-center items-center">
         <DotsVerticalIcon className="w-5 h-5 cursor-pointer" />

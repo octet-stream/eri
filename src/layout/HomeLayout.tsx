@@ -10,7 +10,7 @@ interface Props extends BaseLayoutProps { }
 export const HomeLayout: FC<Props> = ({title, children}) => (
   <BaseLayout title={title}>
     <Header>
-      Blog
+      <div className="select-none">Blog</div>
     </Header>
 
     <section className="flex flex-col flex-1">
