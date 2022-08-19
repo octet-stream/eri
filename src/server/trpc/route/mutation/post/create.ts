@@ -22,7 +22,7 @@ const postCreate = router<GlobalContext>()
 
     async resolve({ctx, input}) {
       const orm = await getORM()
-      const post = new Post({...input, author: ctx.user})
+      const post = orm.em.create(Post, {...input, author: ctx.user})
 
       // Save a new post, then revalidate homepage
       await orm.em.persistAndFlush(post)
