@@ -15,6 +15,7 @@ interface EnvVariable {
  */
 export const assertRequiredEnv = (list: EnvVariable[]): void => {
   // bypass assertion in test environment
+  /* c8 ignore next 3 */
   if (process.env.NODE_ENV === "test") {
     return
   }
