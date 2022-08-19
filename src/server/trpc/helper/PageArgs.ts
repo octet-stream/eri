@@ -1,6 +1,6 @@
 import type {IPageInput} from "server/trpc/type/input/PageInput"
 
-export const DEFAULT_PAGE_INPUT: IPageInput = {
+export const DEFAULT_PAGE_INPUT: Required<IPageInput> = {
   cursor: 1,
   limit: 50
 }
@@ -12,7 +12,9 @@ export class PageArgs implements IPageInput {
 
   readonly #offset: number | undefined
 
-  constructor({cursor, limit}: IPageInput = DEFAULT_PAGE_INPUT) {
+  constructor(input: IPageInput) {
+    const {cursor, limit} = {...DEFAULT_PAGE_INPUT, ...input}
+
     this.#cursor = cursor
     this.#limit = limit
     this.#offset = limit ? limit * (cursor - 1) : undefined

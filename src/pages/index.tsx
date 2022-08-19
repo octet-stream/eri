@@ -1,5 +1,5 @@
+import type {GetServerSideProps} from "next"
 import {stringify, parse} from "superjson"
-import {GetStaticProps} from "next"
 import {isEmpty} from "lodash"
 import type {FC} from "react"
 import {useMemo} from "react"
@@ -17,8 +17,30 @@ interface Props {
   data: string
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const posts = await router.createCaller({}).query("posts.all")
+interface Query {
+  page?: string
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
+  const query = ctx.query as Query
+  const page = query.page ? parseInt(query.page, 10) : undefined
+
+  if (page && page < 1) {
+    return {
+      notFound: true
+    }
+  }
+
+  const posts = await router.createCaller({}).query("posts.all", {
+    cursor: page
+  })
+
+  // Check if user is not on the 1st page and if the items list is empty. If so, render 404 page.
+  if (isEmpty(posts.items) && page && page !== 1) {
+    return {
+      notFound: true
+    }
+  }
 
   return {
     props: {
