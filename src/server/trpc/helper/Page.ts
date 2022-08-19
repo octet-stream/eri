@@ -33,7 +33,7 @@ export class Page<T> implements IPageOutput<T> {
   constructor({items, rows, args}: PageOutputInput<T>) {
     this.#items = items
     this.#rows = rows
-    this.#total = args.limit ? Math.ceil(rows / args.limit) : 1
+    this.#total = (args.limit && Math.ceil(rows / args.limit)) || 1 // If `args.limit` is present, calculate total pages. Otherwise, return `1`.
     this.#nextCursor = args.getNextCursor(this.total)
     this.#prevCursor = args.getPrevCursor()
   }
