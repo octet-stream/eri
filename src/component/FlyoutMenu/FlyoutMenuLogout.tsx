@@ -1,10 +1,10 @@
 import {signOut} from "next-auth/react"
 import {toast} from "react-hot-toast"
-import type {FC} from "react"
+import {forwardRef} from "react"
 
 interface Props { }
 
-export const FlyoutMenuLogout: FC<Props> = () => {
+export const FlyoutMenuLogout = forwardRef<unknown, Props>(() => {
   const onClickLogOut = () => signOut().catch(() => {
     toast.error("Can't perform this operation")
   })
@@ -18,4 +18,4 @@ export const FlyoutMenuLogout: FC<Props> = () => {
       Log out
     </button>
   )
-}
+})

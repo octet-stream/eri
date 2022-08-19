@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {useSession} from "next-auth/react"
 import {Menu} from "@headlessui/react"
-import type {FC} from "react"
+import {forwardRef} from "react"
 
 import Link from "next/link"
 
@@ -8,11 +10,11 @@ import {FlyoutMenuLogout} from "./FlyoutMenuLogout"
 
 interface Props { }
 
-export const FlyoutMenuFooter: FC<Props> = () => {
+export const FlyoutMenuFooter = forwardRef<HTMLDivElement, Props>((_, ref) => {
   const {status} = useSession()
 
   return (
-    <div className="bg-slate-100 flex flex-row">
+    <div ref={ref} className="bg-slate-100 flex flex-row">
       <Menu.Item>
         {status === "authenticated" ? (
           <FlyoutMenuLogout />
@@ -27,4 +29,4 @@ export const FlyoutMenuFooter: FC<Props> = () => {
       </Menu.Item>
     </div>
   )
-}
+})
