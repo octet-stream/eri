@@ -23,30 +23,36 @@ interface Props {
 
 // eslint-disable-next-line react/prop-types
 export const ContentEditor = memo<Props>(({onReady}) => {
+  const mounted = useRef(false)
   const editorRef = useRef<Ref>()
 
   useEffect(() => {
-    const editor = new EditorJS({
-      tools,
-      holder: "editor",
-      placeholder: "Write your thoughts here",
-      defaultBlock: "paragraph",
-      inlineToolbar: ["bold", "italic", "underline", "link", "inlineCode"],
-      onReady() {
-        new Undo({editor})
-        new DragAndDrop(editor)
+    if (!mounted.current) {
+      const editor = new EditorJS({
+        tools,
+        holder: "editor",
+        placeholder: "Write your thoughts here",
+        defaultBlock: "paragraph",
+        inlineToolbar: ["bold", "italic", "underline", "link", "inlineCode"],
+        onReady() {
+          new Undo({editor})
+          new DragAndDrop(editor)
 
-        editorRef.current = editor
+          editorRef.current = editor
 
-        if (onReady) {
-          onReady(editorRef.current)
+          if (onReady) {
+            onReady(editorRef.current)
+          }
         }
-      }
-    })
+      })
+    }
+
+    mounted.current = true
 
     return () => {
-      if (editorRef.current) {
+      if (editorRef.current?.destroy) {
         editorRef.current.destroy()
+        mounted.current = false
       }
     }
   })
