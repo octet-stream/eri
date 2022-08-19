@@ -17,7 +17,7 @@ export const BaseLayout: FC<BaseLayoutProps> = ({title, children}) => (
     )}
 
     <div className="w-screen h-screen">
-      <main className="prose h-full py-5 laptop:p-5 mx-auto">
+      <main className="prose h-full py-5 laptop:p-5 mx-auto flex flex-col">
         {children}
       </main>
     </div>

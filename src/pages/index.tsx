@@ -33,8 +33,10 @@ const Home: FC<Props> = ({data}) => {
   if (isEmpty(posts.items)) {
     return (
       <HomeLayout>
-        <div>
-          <div>There&apos;s nothing to see here yet</div>
+        <div className="flex flex-1 justify-center items-center">
+          <div className="py-2 px-5 text-slate-400 rounded-md">
+            There&apos;s nothing to read here yet
+          </div>
         </div>
       </HomeLayout>
     )

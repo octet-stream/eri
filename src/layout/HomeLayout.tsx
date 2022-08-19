@@ -13,8 +13,8 @@ export const HomeLayout: FC<Props> = ({title, children}) => (
       Blog
     </Header>
 
-    <article>
+    <section className="flex flex-col flex-1">
       {children}
-    </article>
+    </section>
   </BaseLayout>
 )
