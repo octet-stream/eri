@@ -22,7 +22,7 @@ export interface PageOutputInput<T> {
 export class Page<T> implements IPageOutput<T> {
   readonly #items: T[]
 
-  readonly #total!: number
+  readonly #total: number
 
   readonly #rows: number
 
