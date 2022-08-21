@@ -1,6 +1,7 @@
 import type {FC, ReactNode} from "react"
 
 import {FlyoutMenu} from "component/FlyoutMenu"
+import {UserMenu} from "component/UserMenu"
 
 interface Props {
   children?: ReactNode
@@ -12,6 +13,8 @@ export const Header: FC<Props> = ({children}) => (
 
     <div className="flex-1" />
 
-    <FlyoutMenu />
+    <FlyoutMenu>
+      <UserMenu />
+    </FlyoutMenu>
   </header>
 )

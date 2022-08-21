@@ -1,19 +1,29 @@
 import type {FC} from "react"
 
-import {FlyoutMenu, FlyoutMenuItem} from "component/FlyoutMenu"
+import {FlyoutMenuItem} from "component/FlyoutMenu"
 
+/**
+ * User menu items fragment.
+ *
+ * @example
+ *
+ * ```tsx
+ * import {FlyoutMenu, FlyoutMenuItem} from "component/FlyoutMenu"
+ * import {UserMenu} from "component/UserMenu"
+ *
+ * const MyMenu = () => (
+ *   <FlyoutMenu>
+ *     <UserMenu />
+ *
+ *     <FlyoutMenuItem>
+ *       My custom menu item
+ *     </FlyoutMenuItem>
+ *   </FlyoutMenu>
+ * )
+ * ```
+ */
 export const UserMenu: FC = () => (
-  <FlyoutMenu>
-    <FlyoutMenuItem>
-      Foo
-    </FlyoutMenuItem>
-
-    <FlyoutMenuItem>
-      Bar
-    </FlyoutMenuItem>
-
-    <FlyoutMenuItem>
-      Boo
-    </FlyoutMenuItem>
-  </FlyoutMenu>
+  <FlyoutMenuItem href="/new">
+    New post
+  </FlyoutMenuItem>
 )

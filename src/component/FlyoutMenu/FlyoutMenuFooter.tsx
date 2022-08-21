@@ -10,16 +10,17 @@ import {FlyoutMenuLogout} from "./FlyoutMenuLogout"
 
 interface Props { }
 
-export const FlyoutMenuFooter = forwardRef<HTMLDivElement, Props>((_, ref) => {
+export const FlyoutMenuFooter = forwardRef<HTMLElement, Props>((_, ref) => {
   const {status} = useSession()
 
   return (
-    <div ref={ref} className="bg-slate-100 flex flex-row">
+    <div className="bg-slate-100 flex flex-row">
       <Menu.Item>
         {status === "authenticated" ? (
-          <FlyoutMenuLogout />
+          <FlyoutMenuLogout ref={ref as any} />
         ) : (
           <Link
+            ref={ref as any}
             href="/auth/login"
             className="no-underline px-6 py-2 flex-1 font-normal text-inherit"
           >
