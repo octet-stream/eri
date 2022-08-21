@@ -36,7 +36,7 @@ export class PageArgs implements IPageInput {
    * Returns the number of the next page.
    * Will return `null` once you reach the last page.
    *
-   * @param pages An amount of rows in a table
+   * @param pages Total amount of pages
    */
   getNextCursor(pages: number): number | null {
     return pages > 1 && this.cursor < pages ? this.cursor + 1 : null
