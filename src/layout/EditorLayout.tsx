@@ -15,8 +15,8 @@ export const EditorLayout: FC<Props> = ({children}) => {
   }
 
   return (
-    <div className="w-screen h-screen py-5 desktop:p-5 flex justify-center">
-      <div className="w-full prose">
+    <div className="w-screen h-screen py-5 desktop:p-5">
+      <div className="h-full prose mx-auto">
         {children}
       </div>
     </div>
