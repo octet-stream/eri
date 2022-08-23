@@ -1,0 +1,9 @@
+{
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": [
+    "**/__helper__/**",
+    "**/__macro__/**",
+    "**/__fixture__/**",
+    "src/**/*.test.ts"
+  ]
+}
