@@ -73,7 +73,7 @@ jobs:
         run: docker compose -f docker-compose.test.yml up --wait
 
       - name: Run tests
-        run: pnpm ci
+        run: pnpm run ci
 
       - name: Teardown docker compose
         run: docker compose -f docker-compose.test.yml down
