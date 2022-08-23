@@ -9,7 +9,6 @@ services:
       interval: 10s
       timeout: 30s
       retries: 5
-      start_period: 30s
     ports:
       - "3308:3306"
     environment:
