@@ -73,7 +73,15 @@ jobs:
         run: docker compose -f docker-compose.test.yml up --wait
 
       - name: Run tests
-        run: pnpm exec ava
+        run: pnpm ci
 
       - name: Teardown docker compose
         run: docker compose -f docker-compose.test.yml down
+
+      - name: Upload codecov report
+        uses: codecov/codecov-action@v3
+        if: matrix.node == '16.x' && matrix.os == 'ubuntu-latest'
+        with:
+          file: ./coverage/coverage-final.json
+          flags: unittests
+          fail_ci_if_error: false

@@ -11,7 +11,9 @@
     "lint": "next lint",
     "test:compose-up": "docker compose -f docker-compose.test.yml up --wait",
     "test:compose-down": "docker compose -f docker-compose.test.yml down",
-    "test": "pnpm test:compose-up && (ava ; pnpm test:compose-down)"
+    "test": "pnpm test:compose-up && (ava ; pnpm test:compose-down)",
+    "coverage": "pnpm test:compose-up && c8 ava && pnpm test:compose-down",
+    "ci": "c8 ava && c8 report --reporter=json"
   },
   "mikro-orm": {
     "useTsNode": true,
@@ -81,6 +83,7 @@
     "@typescript-eslint/parser": "5.33.1",
     "autoprefixer": "10.4.8",
     "ava": "4.3.1",
+    "c8": "^7.12.0",
     "eslint": "8.22.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
