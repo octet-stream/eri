@@ -15,6 +15,7 @@ on:
       - "pnpm-lock.yaml"
       - "docker-compose.test.yml"
       - ".github/workflows/ci.yml"
+      - ".c8rc.json"
   pull_request:
     branches: [master]
     paths:
@@ -29,6 +30,7 @@ on:
       - "pnpm-lock.yaml"
       - "docker-compose.test.yml"
       - ".github/workflows/ci.yml"
+      - ".c8rc.json"
 
 jobs:
   test:
