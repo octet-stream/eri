@@ -3,8 +3,32 @@ name: CI
 on:
   push:
     branches: [master]
+    paths:
+      - "**.ts"
+      - "**.tsx"
+      - "tsconfig.json"
+      - "ava.config.js"
+      - "next.config.js"
+      - "postcss.config.js"
+      - "tailwind.config.js"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "docker-compose.test.yml"
+      - ".github/workflows/ci.yml"
   pull_request:
     branches: [master]
+    paths:
+      - "**.ts"
+      - "**.tsx"
+      - "tsconfig.json"
+      - "ava.config.js"
+      - "next.config.js"
+      - "postcss.config.js"
+      - "tailwind.config.js"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "docker-compose.test.yml"
+      - ".github/workflows/ci.yml"
 
 jobs:
   test:
@@ -49,7 +73,7 @@ jobs:
         run: docker compose -f docker-compose.test.yml up --wait
 
       - name: Run tests
-        run: pnpm run ci
+        run: pnpm exec ava
 
       - name: Teardown docker compose
         run: docker compose -f docker-compose.test.yml down
