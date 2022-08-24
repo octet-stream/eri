@@ -3,12 +3,17 @@ import anyTest from "ava"
 import {RequestContext} from "@mikro-orm/core"
 import type {ImplementationFn, TestFn} from "ava"
 import type {MikroORM} from "@mikro-orm/core"
+import {encode} from "next-auth/jwt"
 import {noop} from "lodash"
 
 import {getORM} from "server/lib/db"
 import type {Caller} from "server/trpc/route"
 import {router} from "server/trpc/route"
 import {User} from "server/db/entity"
+
+import {options} from "pages/api/auth/[...nextauth]"
+
+const sessionOptions = options.cookies?.sessionToken
 
 export interface WithTRPCContext {
   /**
@@ -35,8 +40,33 @@ const test = anyTest as TestFn<WithTRPCContext>
 export const withTRPC = test.macro(async (t, fn: Implementation) => {
   const orm = await getORM()
 
+  // TODO: Improve session mocking
+  const cookies: Partial<Record<string, string>> = {}
+  if (t.context.auth) {
+    const {auth: user} = t.context
+
+    const token = await encode({
+      token: {
+        sub: user.id,
+        session: {
+          user: {
+            email: null,
+            name: null,
+            image: null
+          }
+        }
+      },
+      secret: process.env.NEXTAUTH_SECRET
+    })
+
+    cookies[sessionOptions!.name] = token
+  }
+
   const caller = router.createCaller({
-    req: {},
+    req: {
+      cookies,
+      headers: {}
+    },
     res: {
       revalidate: noop
     }

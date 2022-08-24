@@ -6,7 +6,7 @@ import {createSlug} from "server/lib/util/createSlug"
 
 const DATE_FORMAT = "yyyy-MM-dd"
 
-const formatSlug = (title: string, date: Date) => (
+export const formatSlug = (title: string, date: Date) => (
   `${format(date, DATE_FORMAT)}/${createSlug(title)}`
 )
 
