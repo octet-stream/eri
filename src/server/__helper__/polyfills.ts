@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
-import {Headers} from "undici"
 
 if (typeof Headers !== "function") {
-  globalThis.Headers = Headers
+  // @ts-expect-error Add this just to fix next-auth errors
+  globalThis.Headers = class Headers { }
 }
+
+export {}
