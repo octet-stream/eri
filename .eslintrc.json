@@ -10,6 +10,11 @@
   "rules": {
     "import/extensions": 0,
 
+    "no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "argsIgnorePattern": "^_"
+    }],
+
     // TODO: Add these to my eslint config
     "react/function-component-definition": ["error", {
       "namedComponents": "arrow-function",
