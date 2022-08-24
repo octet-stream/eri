@@ -1,11 +1,15 @@
-import test from "ava"
+import anyTest from "ava"
 
+import type {TestFn} from "ava"
 import type {TRPCError} from "@trpc/server"
 
 import {setup, cleanup} from "server/__helper__/database"
+import type {WithTRPCContext} from "server/__macro__/withTRPC"
 import {withTRPC} from "server/__macro__/withTRPC"
 
 import {User, Post} from "server/db/entity"
+
+const test = anyTest as TestFn<WithTRPCContext>
 
 test.before(setup)
 

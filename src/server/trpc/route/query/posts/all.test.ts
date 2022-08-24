@@ -1,12 +1,16 @@
-import test from "ava"
+import anyTest from "ava"
 
 import {isEmpty} from "lodash"
+import type {TestFn} from "ava"
 
+import type {WithTRPCContext} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
 import {withTRPC} from "server/__macro__/withTRPC"
 import {withORM} from "server/__macro__/withORM"
 
 import {Post, User} from "server/db/entity"
+
+const test = anyTest as TestFn<WithTRPCContext>
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 test.before(withORM, async (_, orm) => {

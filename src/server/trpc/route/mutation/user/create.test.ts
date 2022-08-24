@@ -1,13 +1,17 @@
-import test from "ava"
+import anyTest from "ava"
 
 import type {TRPCError} from "@trpc/server"
 import type {ZodError} from "zod"
+import type {TestFn} from "ava"
 
 import {withTRPC} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
+import type {WithTRPCContext} from "server/__macro__/withTRPC"
 
 import {InvitationCode} from "server/db/entity/InvitationCode"
 import {User} from "server/db/entity"
+
+const test = anyTest as TestFn<WithTRPCContext>
 
 test.before(setup)
 
