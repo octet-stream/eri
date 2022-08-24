@@ -117,3 +117,67 @@ test("Fails if password is less than 8", withTRPC, async (t, trpc) => {
   t.is(actual.code, "too_small")
   t.is(actual.message, "Password must contain at least 8 characters")
 })
+
+test("Fails if invited user already exists", withTRPC, async (t, trpc, orm) => {
+  const issuer = orm.em.create(User, {
+    login: "noop1",
+    email: "noop1@example.com",
+    password: "noopnoopnoop"
+  })
+
+  const user = orm.em.create(User, {
+    login: "maxdoe",
+    email: "max.doe@example.com",
+    password: "userpassword"
+  })
+
+  const invitation = orm.em.create(InvitationCode, {
+    issuer, email: "max.doe@example.com"
+  })
+
+  await orm.em.persistAndFlush([issuer, user, invitation])
+
+  const trap = () => trpc.mutation("user.create", {
+    login: "maxdoe",
+    email: "max.doe@example.com",
+    password: "userpassword",
+    code: invitation.code
+  })
+
+  const error = await t.throwsAsync(trap) as TRPCError
+
+  t.is(error.code, "BAD_REQUEST")
+  t.is(error.message, "User already exists")
+})
+
+test(
+  "Fails if given email mismatches one from the invitation",
+
+  withTRPC,
+
+  async (t, trpc, orm) => {
+    const issuer = orm.em.create(User, {
+      login: "noop42",
+      email: "noop42@example.com",
+      password: "noopnoopnoop"
+    })
+
+    const invitation = orm.em.create(InvitationCode, {
+      issuer, email: "max.doe42@example.com"
+    })
+
+    await orm.em.persistAndFlush([issuer, invitation])
+
+    const trap = () => trpc.mutation("user.create", {
+      login: "maxdoe3",
+      email: "max.doe3@example.com",
+      password: "userpassword",
+      code: invitation.code
+    })
+
+    const error = await t.throwsAsync(trap) as TRPCError
+
+    t.is(error.code, "BAD_REQUEST")
+    t.is(error.message, "Email mismatch")
+  }
+)
