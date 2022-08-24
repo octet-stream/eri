@@ -5,6 +5,7 @@ module.exports = {
   require: [
     "ts-node/register/transpile-only",
     "reflect-metadata",
-    "./src/server/env.ts"
+    "./src/server/env.ts",
+    "./src/server/__helper__/polyfills.ts"
   ]
 }
