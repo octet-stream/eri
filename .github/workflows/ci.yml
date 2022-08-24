@@ -74,6 +74,10 @@ jobs:
       - name: Setup docker compose
         run: docker compose -f docker-compose.test.yml up --wait
 
+      - name: Create .env.test.local
+        run: |
+          echo NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}} > .env.test.local
+
       - name: Run tests
         run: pnpm run ci
 
