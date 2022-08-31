@@ -1,7 +1,7 @@
 import type {FC, ReactNode} from "react"
 
 import {FlyoutMenu} from "component/FlyoutMenu"
-import {UserMenu} from "component/UserMenu"
+import {UserMenu} from "component/MenuFragments/UserMenu"
 
 interface Props {
   children?: ReactNode
