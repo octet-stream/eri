@@ -1,7 +1,8 @@
 import anyTest from "ava"
 
 import type {TestFn} from "ava"
-import type {OutputData} from "@editorjs/editorjs"
+
+import type {Value} from "lib/type/Editor"
 
 import {withTRPC} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
@@ -33,16 +34,16 @@ test.after.always(cleanup)
 
 test("Createas a post", withTRPC, async (t, trpc, orm) => {
   const expectedTitle = "Test post"
-  const expectedContent: OutputData = {
-    blocks: [
-      {
-        type: "paragraph",
-        data: {
-          text: "Some content for test post"
+  const expectedContent: Value = [
+    {
+      type: "p",
+      children: [
+        {
+          text: "Test content"
         }
-      }
-    ]
-  }
+      ]
+    }
+  ]
 
   const actual = await trpc.mutation("post.create", {
     title: expectedTitle,

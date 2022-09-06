@@ -26,14 +26,16 @@ test.before(withORM, async (_, orm) => {
   const posts = Array.from({length: 50}, (_, key) => orm.em.create(Post, {
     title: `Test post #${key + 1}`,
     author: user,
-    content: {
-      blocks: [
-        {
-          type: "paragraph",
-          data: {}
-        }
-      ]
-    }
+    content: [
+      {
+        type: "p",
+        children: [
+          {
+            text: "This is the test post"
+          }
+        ]
+      }
+    ]
   }))
 
   await orm.em.persistAndFlush(posts)

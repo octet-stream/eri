@@ -36,16 +36,16 @@ test("Returns requested post", withTRPC, async (t, trpc, orm) => {
   const post = orm.em.create(Post, {
     title: "Test post",
     author: user,
-    content: {
-      blocks: [
-        {
-          type: "paragraph",
-          data: {
+    content: [
+      {
+        type: "p",
+        children: [
+          {
             text: "This is the test post"
           }
-        }
-      ]
-    }
+        ]
+      }
+    ]
   })
 
   await orm.em.persistAndFlush([user, post])
