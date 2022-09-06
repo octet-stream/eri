@@ -28,7 +28,6 @@ export const ContentEditor = memo<Props>(({value}) => (
     }}
     plugins={plugins}
     value={value}
-    onChange={v => console.log(v)}
   />
 ))
 
