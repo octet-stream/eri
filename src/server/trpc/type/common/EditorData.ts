@@ -1,8 +1,8 @@
 import type {TDescendant, TElement, TText} from "@udecode/plate"
 import type {ZodType, infer as Infer} from "zod"
-import {ELEMENT_PARAGRAPH} from "@udecode/plate"
-import {isEmpty} from "lodash"
 import {z} from "zod"
+
+import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
 
 export const Text: ZodType<TText> = z.lazy(() => z.object({
   text: z.string()
@@ -22,22 +22,7 @@ export const Descendant: ZodType<TDescendant> = z.lazy(() => z.union([
 export const EditorData = z
   .array(Element)
   .refine(
-    value => {
-      if (isEmpty(value)) {
-        return false
-      }
-
-      if (
-        value.length === 1
-          && value[0].type === ELEMENT_PARAGRAPH
-          && value[0].children.length === 1
-          && value[0].children[0].text === ""
-      ) {
-        return false
-      }
-
-      return true
-    },
+    value => isEditorContentEmpty(value) === false,
 
     {
       message: "Post content must be of at least one Node element"
