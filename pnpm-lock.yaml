@@ -33,10 +33,13 @@ specifiers:
   '@types/react': 18.0.18
   '@types/react-dom': 18.0.6
   '@types/sinon': ^10.0.13
+  '@types/styled-components': ^5.1.26
   '@types/validator': 13.7.6
   '@typescript-eslint/eslint-plugin': 5.36.1
   '@typescript-eslint/parser': 5.36.1
   '@udecode/plate': ^16.6.1
+  '@udecode/plate-core': ^16.5.0
+  '@udecode/plate-headless': ^16.7.0
   autoprefixer: 10.4.8
   ava: 4.3.3
   bcrypt: 5.0.1
@@ -106,6 +109,8 @@ dependencies:
   '@trpc/react': 9.27.2_e7pohnznr4qdgpqc5x4q3pmfcu
   '@trpc/server': 9.27.2
   '@udecode/plate': 16.6.1_ym2vlqvzgr7nmlthw7zetcz5pq
+  '@udecode/plate-core': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+  '@udecode/plate-headless': 16.7.0_qlhzylylkjelikij7vz36rb2xa
   bcrypt: 5.0.1
   classnames: 2.3.1
   date-fns: 2.29.2
@@ -148,6 +153,7 @@ devDependencies:
   '@types/react': 18.0.18
   '@types/react-dom': 18.0.6
   '@types/sinon': 10.0.13
+  '@types/styled-components': 5.1.26
   '@types/validator': 13.7.6
   '@typescript-eslint/eslint-plugin': 5.36.1_uoznksvaqimddkvahx6c3yyzku
   '@typescript-eslint/parser': 5.36.1_sorwav4hsh5vncerguqybud76i
@@ -1146,6 +1152,13 @@ packages:
     resolution: {integrity: sha512-gaBLT8pdcexFztLSPRtriHeXY/Kn4907uOCZ4Q3lncFBkheAWOuNt53ypsF8szgxbEJ513UeBzcf4utN0EzEwA==}
     dev: false
 
+  /@types/hoist-non-react-statics/3.3.1:
+    resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
+    dependencies:
+      '@types/react': 18.0.18
+      hoist-non-react-statics: 3.3.2
+    dev: true
+
   /@types/is-hotkey/0.1.7:
     resolution: {integrity: sha512-yB5C7zcOM7idwYZZ1wKQ3pTfjA9BbvFqRWvKB46GFddxnJtHwi/b9y84ykQtxQPg5qhdpg4Q/kWU3EGoCTmLzQ==}
     dev: false
@@ -1205,6 +1218,14 @@ packages:
 
   /@types/sinonjs__fake-timers/8.1.2:
     resolution: {integrity: sha512-9GcLXF0/v3t80caGs5p2rRfkB+a8VBGLJZVih6CNFkx8IZ994wiKKLSRs9nuFwk1HevWs/1mnUmkApGrSGsShA==}
+    dev: true
+
+  /@types/styled-components/5.1.26:
+    resolution: {integrity: sha512-KuKJ9Z6xb93uJiIyxo/+ksS7yLjS1KzG6iv5i78dhVg/X3u5t1H7juRWqVmodIdz6wGVaIApo1u01kmFRdJHVw==}
+    dependencies:
+      '@types/hoist-non-react-statics': 3.3.1
+      '@types/react': 18.0.18
+      csstype: 3.1.0
     dev: true
 
   /@types/unist/2.0.6:
@@ -1831,6 +1852,72 @@ packages:
       - xstate
     dev: false
 
+  /@udecode/plate-headless/16.7.0_qlhzylylkjelikij7vz36rb2xa:
+    resolution: {integrity: sha512-KFV89dz4MnKWTH8TocHRwUe14aqF4F4FFXAtApz8FvglHtfA+gj9A4SQCUhHfLtF0UaTQdGHOwsCEZLinv72fA==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      slate: '>=0.78.0'
+      slate-history: '>=0.66.0'
+      slate-hyperscript: '>=0.66.0'
+      slate-react: '>=0.79.0'
+    dependencies:
+      '@udecode/plate-alignment': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-autoformat': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-basic-elements': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-basic-marks': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-block-quote': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-break': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-button': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-code-block': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-combobox': 16.5.0_qlhzylylkjelikij7vz36rb2xa
+      '@udecode/plate-core': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-find-replace': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-floating': 16.5.0_qlhzylylkjelikij7vz36rb2xa
+      '@udecode/plate-font': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-heading': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-highlight': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-horizontal-rule': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-indent': 16.7.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-indent-list': 16.7.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-kbd': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-line-height': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-link': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-list': 16.6.1_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-media': 16.5.0_qlhzylylkjelikij7vz36rb2xa
+      '@udecode/plate-mention': 16.5.0_qlhzylylkjelikij7vz36rb2xa
+      '@udecode/plate-node-id': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-normalizers': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-paragraph': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-reset-node': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-select': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-serializer-csv': 16.6.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-serializer-docx': 16.7.0_qlhzylylkjelikij7vz36rb2xa
+      '@udecode/plate-serializer-html': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-serializer-md': 16.6.1_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-table': 16.6.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-trailing-block': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      slate: 0.82.1
+      slate-history: 0.66.0_slate@0.82.1
+      slate-react: 0.82.1_lryiyh7uo2ykhysveiorwwrgwa
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@babel/template'
+      - '@tanstack/query-core'
+      - '@types/react'
+      - '@urql/core'
+      - immer
+      - optics-ts
+      - react-native
+      - scheduler
+      - supports-color
+      - valtio
+      - wonka
+      - xstate
+    dev: false
+
   /@udecode/plate-highlight/16.5.0_hidgguja4cmrlfb4ht7l2ozp4a:
     resolution: {integrity: sha512-apIJqG4o7RMMWU5QxoBzlS6ezhRrBwBjRPpPTXXg8BJF7B5RjNgP5KU65KkGmqXeFhww8TBSW2HA7K7ShAIs5g==}
     peerDependencies:
@@ -1920,8 +2007,68 @@ packages:
       - xstate
     dev: false
 
+  /@udecode/plate-indent-list/16.7.0_hidgguja4cmrlfb4ht7l2ozp4a:
+    resolution: {integrity: sha512-hXLcbmOvLAVZG7MVUJvwc+V5c3h2tuU+9fPGYoWdP1xEHFpYivlFvZHo22B0Wzo/MbmVe3j8dJRtn663rX6Ymg==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      slate: '>=0.78.0'
+      slate-history: '>=0.66.0'
+      slate-react: '>=0.79.0'
+    dependencies:
+      '@udecode/plate-core': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-indent': 16.7.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-list': 16.6.1_hidgguja4cmrlfb4ht7l2ozp4a
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      slate: 0.82.1
+      slate-history: 0.66.0_slate@0.82.1
+      slate-react: 0.82.1_lryiyh7uo2ykhysveiorwwrgwa
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@babel/template'
+      - '@tanstack/query-core'
+      - '@urql/core'
+      - immer
+      - optics-ts
+      - react-native
+      - scheduler
+      - valtio
+      - wonka
+      - xstate
+    dev: false
+
   /@udecode/plate-indent/16.5.0_hidgguja4cmrlfb4ht7l2ozp4a:
     resolution: {integrity: sha512-IDloIRXYkx3lAks5FzoIsRGMtVMe0mAuNu8STokrc6EXgA57BkXhd2WWqiFg3eoCSStEYBk2dwuQ5Z9M0Wsv5g==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      slate: '>=0.78.0'
+      slate-history: '>=0.66.0'
+      slate-react: '>=0.79.0'
+    dependencies:
+      '@udecode/plate-core': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      slate: 0.82.1
+      slate-history: 0.66.0_slate@0.82.1
+      slate-react: 0.82.1_lryiyh7uo2ykhysveiorwwrgwa
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@babel/template'
+      - '@tanstack/query-core'
+      - '@urql/core'
+      - immer
+      - optics-ts
+      - react-native
+      - scheduler
+      - valtio
+      - wonka
+      - xstate
+    dev: false
+
+  /@udecode/plate-indent/16.7.0_hidgguja4cmrlfb4ht7l2ozp4a:
+    resolution: {integrity: sha512-tlynG5xp+vt84Va/lGEsXliUvz6HvTeXlShUpcZjQO7Gdd4LbjiAMTX+D6RiROMgn8SKBgYwL1YhNK2XuKj8dw==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
@@ -2323,6 +2470,44 @@ packages:
       '@udecode/plate-heading': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
       '@udecode/plate-indent': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
       '@udecode/plate-indent-list': 16.6.1_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-media': 16.5.0_qlhzylylkjelikij7vz36rb2xa
+      '@udecode/plate-paragraph': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-table': 16.6.0_hidgguja4cmrlfb4ht7l2ozp4a
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      slate: 0.82.1
+      slate-history: 0.66.0_slate@0.82.1
+      slate-react: 0.82.1_lryiyh7uo2ykhysveiorwwrgwa
+      validator: 13.7.0
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@babel/template'
+      - '@tanstack/query-core'
+      - '@types/react'
+      - '@urql/core'
+      - immer
+      - optics-ts
+      - react-native
+      - scheduler
+      - valtio
+      - wonka
+      - xstate
+    dev: false
+
+  /@udecode/plate-serializer-docx/16.7.0_qlhzylylkjelikij7vz36rb2xa:
+    resolution: {integrity: sha512-8GBcy/Zh1rWGTH2zLgPLY97wAA+b4DuvO7mOTWMDyrsugKY9lf3izWV3sf3n7bDAkua5rU2A+3376aRrRz/v0w==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      slate: '>=0.78.0'
+      slate-history: '>=0.66.0'
+      slate-hyperscript: '>=0.66.0'
+      slate-react: '>=0.79.0'
+    dependencies:
+      '@udecode/plate-core': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-heading': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-indent': 16.7.0_hidgguja4cmrlfb4ht7l2ozp4a
+      '@udecode/plate-indent-list': 16.7.0_hidgguja4cmrlfb4ht7l2ozp4a
       '@udecode/plate-media': 16.5.0_qlhzylylkjelikij7vz36rb2xa
       '@udecode/plate-paragraph': 16.5.0_hidgguja4cmrlfb4ht7l2ozp4a
       '@udecode/plate-table': 16.6.0_hidgguja4cmrlfb4ht7l2ozp4a
@@ -5137,7 +5322,6 @@ packages:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
     dependencies:
       react-is: 16.13.1
-    dev: false
 
   /hotkeys-js/3.9.4:
     resolution: {integrity: sha512-2zuLt85Ta+gIyvs4N88pCYskNrxf1TFv3LR9t5mdAZIX8BcgQQ48F2opUptvHa6m8zsy5v/a0i9mWzTrlNWU0Q==}
