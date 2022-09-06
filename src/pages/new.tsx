@@ -1,15 +1,13 @@
 import {toast} from "react-hot-toast"
-import {useRouter} from "next/router"
+// import {useRouter} from "next/router"
 import type {FC} from "react"
-import {useRef} from "react"
 
 import getServerSideSession from "lib/util/getServerSideSession"
 
-import {client} from "lib/trpc"
+// import {client} from "lib/trpc"
 
 import {EditorLayout} from "layout/EditorLayout"
 
-import type {EditorRef} from "component/Editor"
 import {Button} from "component/Button"
 import {Editor} from "component/Editor"
 
@@ -18,21 +16,16 @@ interface Props { }
 export const getServerSideProps = getServerSideSession
 
 const NewPostPage: FC<Props> = () => {
-  const ref = useRef<EditorRef>()
-  const router = useRouter()
+  // const router = useRouter()
 
   const onSubmit = async () => {
-    if (!ref.current) {
-      return
-    }
-
     try {
-      const data = await ref.current.save()
+      // const {slug} = await client.mutation("post.create", data)
 
-      const {slug} = await client.mutation("post.create", data)
+      // router.replace(`/post/${slug}`)
 
-      router.replace(`/post/${slug}`)
-    } catch (error) {
+      console.log("Not implemented")
+    } catch {
       toast.error("Can't create post")
     }
   }
@@ -40,7 +33,7 @@ const NewPostPage: FC<Props> = () => {
   return (
     <EditorLayout>
       <div className="w-full h-full flex flex-col">
-        <Editor ref={ref} />
+        <Editor />
 
         <div className="flex justify-end">
           <Button type="button" onClick={onSubmit}>

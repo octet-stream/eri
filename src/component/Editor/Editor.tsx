@@ -1,19 +1,12 @@
-/* eslint-disable react/no-unused-prop-types */
-import {
-  useImperativeHandle,
-  forwardRef,
-  useState,
-  Fragment,
-  useCallback
-} from "react"
 import {OutputData} from "@editorjs/editorjs"
+import {useState, Fragment} from "react"
+import type {FC} from "react"
 
-import type EditorJS from "@editorjs/editorjs"
 import dynamic from "next/dynamic"
 import Head from "next/head"
 
 import {TitleEditor} from "./TitleEditor"
-import type {ContentProps, OnContentEditorReadyHandler} from "./ContentEditor"
+import type {ContentProps} from "./ContentEditor"
 import type {TitleEditorOnChangeHandler} from "./TitleEditor"
 
 const ContentEditor = dynamic<ContentProps>(
@@ -34,30 +27,14 @@ export interface EditorRef {
   clear(): void
 }
 
-type Ref = EditorRef | undefined
-
 interface Props {
   title?: string
 }
 
-export const Editor = forwardRef<Ref, Props>((p, ref) => {
-  const [title, setTitle] = useState(p.title || "")
-  const [instance, setInstance] = useState<EditorJS>()
-
-  useImperativeHandle(ref, () => ({
-    save: () => instance!.save().then(content => ({title, content})),
-
-    clear: () => instance!.clear()
-  }))
+export const Editor: FC<Props> = ({title: initialTitle}) => {
+  const [title, setTitle] = useState(initialTitle || "")
 
   const onTitleChange: TitleEditorOnChangeHandler = text => setTitle(text)
-
-  // Wrap this function into the useCallback to stop memo() from endlessly re-rendering component
-  const onReady = useCallback<OnContentEditorReadyHandler>(
-    editor => setInstance(editor),
-
-    []
-  )
 
   return (
     <Fragment>
@@ -68,8 +45,8 @@ export const Editor = forwardRef<Ref, Props>((p, ref) => {
       <div className="w-full h-full flex flex-col">
         <TitleEditor onTitleChange={onTitleChange} />
 
-        <ContentEditor onReady={onReady} />
+        <ContentEditor />
       </div>
     </Fragment>
   )
-})
+}
