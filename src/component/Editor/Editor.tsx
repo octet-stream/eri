@@ -1,52 +1,37 @@
-import {OutputData} from "@editorjs/editorjs"
-import {useState, Fragment} from "react"
+import {Fragment} from "react"
 import type {FC} from "react"
 
-import dynamic from "next/dynamic"
 import Head from "next/head"
 
+import type {Value} from "lib/type/Editor"
+
 import {TitleEditor} from "./TitleEditor"
-import type {ContentProps} from "./ContentEditor"
+import {ContentEditor} from "./ContentEditor"
+import type {ContentEditorOnChangeHandler} from "./ContentEditor"
 import type {TitleEditorOnChangeHandler} from "./TitleEditor"
-
-const ContentEditor = dynamic<ContentProps>(
-  () => import("component/Editor/ContentEditor").then(m => m.ContentEditor),
-
-  {
-    ssr: false
-  }
-)
-
-interface EditorData {
-  title: string
-  content: OutputData
-}
-
-export interface EditorRef {
-  save(): Promise<EditorData>
-  clear(): void
-}
 
 interface Props {
   title?: string
+  content?: Value
+  onContentChange?: ContentEditorOnChangeHandler
+  onTitleChange?: TitleEditorOnChangeHandler
 }
 
-export const Editor: FC<Props> = ({title: initialTitle}) => {
-  const [title, setTitle] = useState(initialTitle || "")
+export const Editor: FC<Props> = ({
+  title,
+  content,
+  onContentChange,
+  onTitleChange
+}) => (
+  <Fragment>
+    <Head>
+      <title>{title || "Untitled"}</title>
+    </Head>
 
-  const onTitleChange: TitleEditorOnChangeHandler = text => setTitle(text)
+    <div className="w-full h-full flex flex-col">
+      <TitleEditor onTitleChange={onTitleChange} />
 
-  return (
-    <Fragment>
-      <Head>
-        <title>{title || "Untitled"}</title>
-      </Head>
-
-      <div className="w-full h-full flex flex-col">
-        <TitleEditor onTitleChange={onTitleChange} />
-
-        <ContentEditor />
-      </div>
-    </Fragment>
-  )
-}
+      <ContentEditor value={content} onChange={onContentChange} />
+    </div>
+  </Fragment>
+)

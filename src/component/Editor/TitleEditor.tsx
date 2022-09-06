@@ -5,12 +5,14 @@ export interface TitleEditorOnChangeHandler {
 }
 
 interface Props {
-  onTitleChange: TitleEditorOnChangeHandler
+  onTitleChange?: TitleEditorOnChangeHandler
 }
 
 export const TitleEditor: FC<Props> = ({onTitleChange}) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = event => {
-    onTitleChange(event.target.value, event)
+    if (onTitleChange) {
+      onTitleChange(event.target.value, event)
+    }
   }
 
   return (

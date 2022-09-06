@@ -15,6 +15,14 @@ import type {
 } from "@udecode/plate"
 import type {CSSProperties} from "react"
 
+export interface PlainText {
+  text: string
+}
+
+export interface EmptyText extends PlainText {
+  text: ""
+}
+
 export interface RichText extends TText {
   bold?: boolean
   italic?: boolean
@@ -28,14 +36,6 @@ export interface RichText extends TText {
   color?: CSSProperties["color"]
   fontSize?: CSSProperties["fontSize"]
   fontWeight?: CSSProperties["fontWeight"]
-}
-
-export interface PlainText {
-  text: string
-}
-
-export interface EmptyText extends PlainText {
-  text: ""
 }
 
 export interface Link extends TLinkElement {
