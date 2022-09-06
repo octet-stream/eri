@@ -53,9 +53,11 @@ export const Editor: FC<Props> = ({
       )}
 
       <div className="w-full h-full flex flex-col">
-        <TitleEditor onTitleChange={onTitleChange} />
+        <div className="flex flex-1 flex-col">
+          <TitleEditor onTitleChange={onTitleChange} />
 
-        <ContentEditor value={content} onChange={onContentChange} />
+          <ContentEditor value={content} onChange={onContentChange} />
+        </div>
 
         <div className="flex justify-end mt-5">
           <Button type="button" onClick={onSubmitClick}>
