@@ -25,7 +25,7 @@ const postsAll = router<Context>()
       const [items, rows] = await orm.em.findAndCount(Post, {}, {
         limit: args.limit,
         offset: args.offset,
-        orderBy: {createdAt: "ASC"}
+        orderBy: {createdAt: "desc"}
       })
 
       return new Page({items, rows, args})
