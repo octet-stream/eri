@@ -1,7 +1,9 @@
-import {Fragment, useState} from "react"
+import {Fragment, useState, useMemo} from "react"
 import type {FC} from "react"
 
 import Head from "next/head"
+
+import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
 
 import type {Value} from "lib/type/Editor"
 
@@ -38,6 +40,12 @@ export const Editor: FC<Props> = ({
   const [title, setTitle] = useState(initialTitle)
   const [content, setContent] = useState<Value>(initialContent)
 
+  const isSubmittingDisabled = useMemo<boolean>(
+    () => !title || isEditorContentEmpty(content),
+
+    [title, content]
+  )
+
   const onTitleChange: TitleEditorOnChangeHandler = val => setTitle(val)
 
   const onContentChange: ContentEditorOnChangeHandler = val => setContent(val)
@@ -60,7 +68,7 @@ export const Editor: FC<Props> = ({
         </div>
 
         <div className="flex justify-end mt-5">
-          <Button type="button" onClick={onSubmitClick}>
+          <Button disabled={isSubmittingDisabled} type="button" onClick={onSubmitClick}>
             Publish
           </Button>
         </div>
