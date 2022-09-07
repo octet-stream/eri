@@ -12,16 +12,11 @@ const isEditorContentEmpty = (value: Value): boolean => {
     return true
   }
 
-  if (
-    value.length === 1
-      && value[0].type === ELEMENT_PARAGRAPH
-      && value[0].children.length === 1
-      && value[0].children[0].text === ""
-  ) {
-    return true
-  }
-
-  return false
+  return value.every(
+    node => node.type === ELEMENT_PARAGRAPH
+      && node.children.length === 1
+      && node.children[0].text === ""
+  )
 }
 
 export default isEditorContentEmpty
