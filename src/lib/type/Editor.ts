@@ -15,15 +15,13 @@ import type {
 } from "@udecode/plate"
 import type {CSSProperties} from "react"
 
-export interface PlainText {
-  text: string
-}
+export interface PlainText extends TText { }
 
 export interface EmptyText extends PlainText {
   text: ""
 }
 
-export interface RichText extends TText {
+export interface RichText extends PlainText {
   bold?: boolean
   italic?: boolean
   underline?: boolean
