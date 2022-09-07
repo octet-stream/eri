@@ -9,8 +9,8 @@ import {client} from "lib/trpc"
 
 import {EditorLayout} from "layout/EditorLayout"
 
-import type {EditorOnSaveHandler} from "component/Editor"
-import {Editor} from "component/Editor"
+import type {EditorOnSaveHandler} from "component/PostEditor"
+import {PostEditor} from "component/PostEditor"
 
 interface Props { }
 
@@ -32,7 +32,7 @@ const NewPostPage: FC<Props> = () => {
   return (
     <EditorLayout>
       <div className="w-full h-full flex flex-col">
-        <Editor onSave={onSubmit} />
+        <PostEditor onSave={onSubmit} />
       </div>
     </EditorLayout>
   )

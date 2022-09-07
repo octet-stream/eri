@@ -16,8 +16,7 @@ import type {TitleEditorOnChangeHandler} from "./TitleEditor"
 
 interface EditorData {
   title: string
-  content: Value,
-  isDraft: false
+  content: Value
 }
 
 export interface EditorOnSaveHandler {
@@ -31,7 +30,7 @@ interface Props {
   onSave: EditorOnSaveHandler
 }
 
-export const Editor: FC<Props> = ({
+export const PostEditor: FC<Props> = ({
   title: initialTitle = "",
   content: initialContent = [],
   interactivePageTitle = true,
@@ -50,7 +49,7 @@ export const Editor: FC<Props> = ({
 
   const onContentChange: ContentEditorOnChangeHandler = val => setContent(val)
 
-  const onSubmitClick = () => onSave({title, content, isDraft: false})
+  const onSubmitClick = () => onSave({title, content})
 
   return (
     <Fragment>
