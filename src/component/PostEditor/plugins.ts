@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import {
   createPlugins,
   createParagraphPlugin,
@@ -12,12 +13,13 @@ import {
   createLinkPlugin,
 
   createPlateUI,
-  PlateFloatingLink,
+  PlateFloatingLink
 } from "@udecode/plate"
 
 import type {Plugin, Value, Editor} from "lib/type/Editor"
 
-import {createAutoformatPlugin} from "./autoformat"
+import {autoformat} from "./autoformat"
+import {reset} from "./reset"
 
 export const plugins: Plugin[] = createPlugins<Value, Editor>(
   [
@@ -37,7 +39,8 @@ export const plugins: Plugin[] = createPlugins<Value, Editor>(
     createLinkPlugin({
       renderAfterEditable: PlateFloatingLink
     }),
-    createAutoformatPlugin() as any // TODO: Fix types mismatch
+    autoformat() as any, // TODO: Fix types mismatch
+    reset()
   ],
 
   {

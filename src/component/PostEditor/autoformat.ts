@@ -1,5 +1,6 @@
 import {
-  createAutoformatPlugin as createAutoformat,
+  createAutoformatPlugin,
+  unwrapList,
 
   // Marks
   MARK_BOLD,
@@ -7,15 +8,23 @@ import {
   MARK_STRIKETHROUGH,
   MARK_SUBSCRIPT,
   MARK_SUPERSCRIPT,
-  MARK_UNDERLINE
+  MARK_UNDERLINE,
+
+  ELEMENT_H2,
+  ELEMENT_H3,
+  ELEMENT_H4,
 } from "@udecode/plate"
-import type {AutoformatPlugin} from "@udecode/plate"
+import type {AutoformatPlugin, AutoformatBlockRule} from "@udecode/plate"
 
 import {Value, Editor} from "lib/type/Editor"
 
 type Plugin = AutoformatPlugin<Value, Editor>
 
-export const createAutoformatPlugin = () => createAutoformat<Plugin>({
+type PreFormat = AutoformatBlockRule<Value, Editor>["preFormat"]
+
+export const preFormat: PreFormat = editor => unwrapList(editor)
+
+export const autoformat = () => createAutoformatPlugin<Plugin>({
   options: {
     enableUndoOnDelete: true,
     rules: [
@@ -58,6 +67,27 @@ export const createAutoformatPlugin = () => createAutoformat<Plugin>({
         mode: "mark",
         type: [MARK_ITALIC, MARK_BOLD],
         match: ["_**", "***"]
+      },
+
+      {
+        mode: "block",
+        type: ELEMENT_H2,
+        match: "## ",
+        preFormat
+      },
+
+      {
+        mode: "block",
+        type: ELEMENT_H3,
+        match: "### ",
+        preFormat
+      },
+
+      {
+        mode: "block",
+        type: ELEMENT_H4,
+        match: "#### ",
+        preFormat
       }
     ]
   }

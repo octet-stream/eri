@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const config = {
-  reactStrictMode: true, // disable strict mode to avoid useEffect being called twice
+  reactStrictMode: true,
   swcMinify: true,
   experimental: {
     newNextLinkBehavior: true
