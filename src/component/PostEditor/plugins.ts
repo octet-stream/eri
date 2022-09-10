@@ -11,19 +11,14 @@ import {
   createSuperscriptPlugin,
   createCodePlugin,
   createLinkPlugin,
-  createAlignPlugin,
 
   createPlateUI,
-  PlateFloatingLink,
-  ELEMENT_H2,
-  ELEMENT_H3,
-  ELEMENT_H4,
-  ELEMENT_PARAGRAPH,
-  setAlign
+  PlateFloatingLink
 } from "@udecode/plate"
 
 import type {Plugin, Value, Editor} from "lib/type/Editor"
 
+import {alignment} from "./alignment"
 import {autoformat} from "./autoformat"
 import {reset} from "./reset"
 
@@ -43,41 +38,8 @@ export const plugins: Plugin[] = createPlugins<Value, Editor>(
       }
     }),
     createLinkPlugin({renderAfterEditable: PlateFloatingLink}),
-    createAlignPlugin({
-      inject: {
-        props: {
-          validTypes: [ELEMENT_H2, ELEMENT_H3, ELEMENT_H4, ELEMENT_PARAGRAPH]
-        }
-      },
-      handlers: {
-        onKeyDown: editor => e => {
-          if (!(e.metaKey && e.shiftKey)) {
-            return undefined
-          }
 
-          const key = e.key.toLowerCase()
-
-          switch (key) {
-          case "l":
-            setAlign(editor, {value: "left"})
-            break
-          case "e":
-            setAlign(editor, {value: "center"})
-            break
-          case "r":
-            e.preventDefault()
-            setAlign(editor, {value: "right"})
-            break
-          case "j":
-            setAlign(editor, {value: "justify"})
-            break
-          default:
-            return undefined
-          }
-        }
-      }
-    }),
-
+    alignment(),
     autoformat() as any, // TODO: Fix types mismatch
     reset()
   ],

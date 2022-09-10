@@ -6,20 +6,20 @@ import {
   ELEMENT_H3,
   ELEMENT_H4,
   ELEMENT_PARAGRAPH,
+  KEY_ALIGN
 } from "@udecode/plate"
-import type {AnyObject, Alignment} from "@udecode/plate"
+import type {AnyObject, Alignment, KeyboardHandler} from "@udecode/plate"
+import {isHotkey} from "is-hotkey"
 
 import type {Value, Editor} from "lib/type/Editor"
 
 const setAlignSafe = (
-  event: unknown,
+  event: Parameters<ReturnType<KeyboardHandler>>[0],
   editor: Editor,
   value: Alignment
 ): void => {
-  const e = event as KeyboardEvent
-  e.preventDefault()
-  e.stopPropagation()
-  setAlign(editor, {value})
+  event.preventDefault()
+  setAlign(editor, {value, key: KEY_ALIGN})
 }
 
 export const alignment = () => createAlignPlugin<AnyObject, Value, Editor>({
@@ -29,26 +29,19 @@ export const alignment = () => createAlignPlugin<AnyObject, Value, Editor>({
     }
   },
   handlers: {
-    onKeyDown: editor => e => {
-      // TODO: Crossplatform shortcuts support
-      if (!(e.metaKey && e.shiftKey)) {
-        return undefined
-      }
-
-      const key = e.key.toLowerCase()
-
-      switch (key) {
-      case "l":
-        setAlignSafe(e, editor, "left")
+    onKeyDown: editor => event => {
+      switch (true) {
+      case isHotkey("mod+shift+f", event):
+        setAlignSafe(event, editor, "left")
         break
-      case "e":
-        setAlignSafe(e, editor, "center")
+      case isHotkey("mod+shift+e", event):
+        setAlignSafe(event, editor, "center")
         break
-      case "r":
-        setAlignSafe(e, editor, "right")
+      case isHotkey("mod+shift+r", event):
+        setAlignSafe(event, editor, "right")
         break
-      case "u":
-        setAlignSafe(e, editor, "justify")
+      case isHotkey("mod+shift+j", event):
+        setAlignSafe(event, editor, "justify")
         break
       default:
         return undefined

@@ -18,6 +18,7 @@ specifiers:
   '@trpc/react': 9.27.2
   '@trpc/server': 9.27.2
   '@types/bcrypt': 5.0.0
+  '@types/is-hotkey': ^0.1.7
   '@types/lodash': 4.14.184
   '@types/node': 18.7.16
   '@types/react': 18.0.18
@@ -48,6 +49,7 @@ specifiers:
   eslint-plugin-react: 7.31.7
   eslint-plugin-react-hooks: 4.6.0
   is-absolute-url: 3.0.3
+  is-hotkey: ^0.2.0
   lodash: 4.17.21
   mysql2: 2.3.3
   nanoid: 3.3.4
@@ -97,6 +99,7 @@ dependencies:
   editorjs-drag-drop: 1.1.6
   editorjs-undo: 2.0.8
   is-absolute-url: 3.0.3
+  is-hotkey: 0.2.0
   lodash: 4.17.21
   mysql2: 2.3.3
   nanoid: 3.3.4
@@ -128,6 +131,7 @@ devDependencies:
   '@octetstream/eslint-config': 6.2.2_y4tqhypf3mokn4cnus4dzober4
   '@tailwindcss/typography': 0.5.7_tailwindcss@3.1.8
   '@types/bcrypt': 5.0.0
+  '@types/is-hotkey': 0.1.7
   '@types/lodash': 4.14.184
   '@types/node': 18.7.16
   '@types/react': 18.0.18
@@ -1099,7 +1103,6 @@ packages:
 
   /@types/is-hotkey/0.1.7:
     resolution: {integrity: sha512-yB5C7zcOM7idwYZZ1wKQ3pTfjA9BbvFqRWvKB46GFddxnJtHwi/b9y84ykQtxQPg5qhdpg4Q/kWU3EGoCTmLzQ==}
-    dev: false
 
   /@types/istanbul-lib-coverage/2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
@@ -5343,6 +5346,10 @@ packages:
 
   /is-hotkey/0.1.8:
     resolution: {integrity: sha512-qs3NZ1INIS+H+yeo7cD9pDfwYV/jqRh1JG9S9zYrNudkoUQg7OL7ziXqRKu+InFjUIDoP2o6HIkLYMh1pcWgyQ==}
+    dev: false
+
+  /is-hotkey/0.2.0:
+    resolution: {integrity: sha512-UknnZK4RakDmTgz4PI1wIph5yxSs/mvChWs9ifnlXsKuXgWmOkY/hAE0H/k2MIqH0RlRye0i1oC07MCRSD28Mw==}
     dev: false
 
   /is-negative-zero/2.0.2:
