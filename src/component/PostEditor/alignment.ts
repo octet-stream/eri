@@ -22,13 +22,13 @@ const setAlignSafe = (
   setAlign(editor, {value, key: KEY_ALIGN})
 }
 
-export const ALIGN_SHORTCUT_LEFT = "mod+shift+l"
+export const ALIGN_LEFT_HOTKEY = "mod+shift+l"
 
-export const ALIGN_SHORTCUT_CENTER = "mod+shift+e"
+export const ALIGN_CENTER_HOTKEY = "mod+shift+e"
 
-export const ALIGN_SHORTCUT_RIGHT = "mod+shift+r"
+export const ALIGN_RIGHT_HOTKEY = "mod+shift+r"
 
-export const ALIGN_SHORTCUT_JUSTIFY = "mod+shift+j"
+export const ALIGN_JUSTIFY_HOTKEY = "mod+shift+j"
 
 export const alignment = () => createAlignPlugin<AnyObject, Value, Editor>({
   inject: {
@@ -39,16 +39,16 @@ export const alignment = () => createAlignPlugin<AnyObject, Value, Editor>({
   handlers: {
     onKeyDown: editor => event => {
       switch (true) {
-      case isHotkey(ALIGN_SHORTCUT_LEFT, event):
+      case isHotkey(ALIGN_LEFT_HOTKEY, event):
         setAlignSafe(event, editor, "left")
         break
-      case isHotkey(ALIGN_SHORTCUT_CENTER, event):
+      case isHotkey(ALIGN_CENTER_HOTKEY, event):
         setAlignSafe(event, editor, "center")
         break
-      case isHotkey(ALIGN_SHORTCUT_RIGHT, event):
+      case isHotkey(ALIGN_RIGHT_HOTKEY, event):
         setAlignSafe(event, editor, "right")
         break
-      case isHotkey(ALIGN_SHORTCUT_JUSTIFY, event):
+      case isHotkey(ALIGN_JUSTIFY_HOTKEY, event):
         setAlignSafe(event, editor, "justify")
         break
       default:
