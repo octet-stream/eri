@@ -12,7 +12,6 @@ import {trpcClient, TRPCProvider} from "lib/trpc"
 
 import "style/globals.css"
 import "style/tailwind.css"
-import "style/editor.css"
 
 interface PageProps {
   session?: Session | null
