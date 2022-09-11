@@ -26,10 +26,7 @@ const postCreate = router<GlobalContext>()
 
       // Save a new post, then revalidate homepage
       await orm.em.persistAndFlush(post)
-      await Promise.allSettled([
-        ctx.res.revalidate("/"),
-        ctx.res.revalidate(`/post/${post.slug}`, {unstable_onlyGenerated: true})
-      ])
+      await ctx.res.revalidate(`/post/${post.slug}`, {unstable_onlyGenerated: true})
 
       return post
     }

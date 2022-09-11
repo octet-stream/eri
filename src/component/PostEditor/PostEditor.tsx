@@ -1,4 +1,4 @@
-import {Fragment, useState} from "react"
+import {Fragment, useState, useMemo} from "react"
 import type {FC} from "react"
 
 import Head from "next/head"
@@ -40,6 +40,8 @@ export const PostEditor: FC<Props> = ({
   const [title, setTitle] = useState(initialTitle)
   const [content, setContent] = useState<Value>(initialContent)
 
+  const pageTitle = useMemo<string>(() => title.trim() || "Untitled", [title])
+
   const isSubmittingDisabled = !title || isEditorContentEmpty(content)
 
   const onTitleChange = useEvent<TitleEditorOnChangeHandler>(
@@ -56,7 +58,7 @@ export const PostEditor: FC<Props> = ({
     <Fragment>
       {interactivePageTitle && (
         <Head>
-          <title>{title.trim() || "Untitled"}</title>
+          <title>{pageTitle}</title>
         </Head>
       )}
 
