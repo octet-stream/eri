@@ -55,13 +55,13 @@ export const PostEditor: FC<Props> = ({
     <Fragment>
       {interactivePageTitle && (
         <Head>
-          <title>{title || "Untitled"}</title>
+          <title>{title.trim() || "Untitled"}</title>
         </Head>
       )}
 
       <div className="w-full h-full flex flex-col">
         <div className="flex flex-1 flex-col">
-          <TitleEditor onTitleChange={onTitleChange} />
+          <TitleEditor value={title} onTitleChange={onTitleChange} />
 
           <ContentEditor value={content} onChange={onContentChange} />
         </div>

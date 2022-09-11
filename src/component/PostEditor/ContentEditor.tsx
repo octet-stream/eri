@@ -17,15 +17,17 @@ interface Props {
 }
 
 export const ContentEditor: FC<Props> = ({value, onChange}) => (
-  <Plate<Value>
-    editableProps={{
-      placeholder: "Write your thoughts here",
-      className: "h-full"
-    }}
-    plugins={plugins}
-    value={isEmpty(value) ? undefined : value}
-    onChange={onChange}
-  />
+  <div className="flex-1">
+    <Plate<Value>
+      editableProps={{
+        placeholder: "Write your thoughts here",
+        className: "h-full"
+      }}
+      plugins={plugins}
+      value={isEmpty(value) ? undefined : value}
+      onChange={onChange}
+    />
+  </div>
 )
 
 export type ContentProps = ComponentProps<typeof ContentEditor>

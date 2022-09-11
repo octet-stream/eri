@@ -1,25 +1,37 @@
-import type {FC, ChangeEvent, ChangeEventHandler} from "react"
+import type {FC, ChangeEventHandler, KeyboardEventHandler} from "react"
+
+import Textarea from "react-textarea-autosize"
 
 export interface TitleEditorOnChangeHandler {
-  (title: string, event: ChangeEvent<HTMLInputElement>): void
+  (title: string): void
 }
 
 interface Props {
+  value: string
   onTitleChange?: TitleEditorOnChangeHandler
 }
 
-export const TitleEditor: FC<Props> = ({onTitleChange}) => {
-  const onChange: ChangeEventHandler<HTMLInputElement> = event => {
+export const TitleEditor: FC<Props> = ({value, onTitleChange}) => {
+  const blockReturn: KeyboardEventHandler<HTMLTextAreaElement> = event => {
+    if (event.key.toLowerCase() === "enter") {
+      event.preventDefault()
+    }
+  }
+
+  const onChange: ChangeEventHandler<HTMLTextAreaElement> = ({target}) => {
     if (onTitleChange) {
-      onTitleChange(event.target.value, event)
+      onTitleChange(target.value)
     }
   }
 
   return (
-    <input
-      className="prose text-4xl font-extrabold w-full p-0 border-none outline-none"
+    <Textarea
+      className="prose text-4xl font-extrabold w-full p-0 border-none outline-none resize-none overflow-hidden"
       placeholder="Title"
+      value={value}
       onChange={onChange}
+      maxLength={140}
+      onKeyDown={blockReturn}
     />
   )
 }
