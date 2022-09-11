@@ -57,6 +57,7 @@
     "react-query": "3.39.2",
     "react-textarea-autosize": "^8.3.4",
     "react-use": "17.4.0",
+    "react-use-event-hook": "^0.9.2",
     "reflect-metadata": "0.1.13",
     "slate": "^0.82.1",
     "slate-history": "^0.66.0",

@@ -1,7 +1,8 @@
-import {Fragment, useState, useMemo} from "react"
+import {Fragment, useState} from "react"
 import type {FC} from "react"
 
 import Head from "next/head"
+import useEvent from "react-use-event-hook"
 
 import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
 
@@ -39,17 +40,17 @@ export const PostEditor: FC<Props> = ({
   const [title, setTitle] = useState(initialTitle)
   const [content, setContent] = useState<Value>(initialContent)
 
-  const isSubmittingDisabled = useMemo<boolean>(
-    () => !title || isEditorContentEmpty(content),
+  const isSubmittingDisabled = !title || isEditorContentEmpty(content)
 
-    [title, content]
+  const onTitleChange = useEvent<TitleEditorOnChangeHandler>(
+    val => setTitle(val)
   )
 
-  const onTitleChange: TitleEditorOnChangeHandler = val => setTitle(val)
+  const onContentChange = useEvent<ContentEditorOnChangeHandler>(
+    val => setContent(val)
+  )
 
-  const onContentChange: ContentEditorOnChangeHandler = val => setContent(val)
-
-  const onSubmitClick = () => onSave({title, content})
+  const onSubmitClick = useEvent(() => onSave({title, content}))
 
   return (
     <Fragment>

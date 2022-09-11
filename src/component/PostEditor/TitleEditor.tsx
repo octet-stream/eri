@@ -1,6 +1,7 @@
 import type {FC, ChangeEventHandler, KeyboardEventHandler} from "react"
 
 import Textarea from "react-textarea-autosize"
+import useEvent from "react-use-event-hook"
 
 export interface TitleEditorOnChangeHandler {
   (title: string): void
@@ -11,18 +12,22 @@ interface Props {
   onTitleChange?: TitleEditorOnChangeHandler
 }
 
+type BlockReturnHandler = KeyboardEventHandler<HTMLTextAreaElement>
+
+type TitleUpdateHandler = ChangeEventHandler<HTMLTextAreaElement>
+
 export const TitleEditor: FC<Props> = ({value, onTitleChange}) => {
-  const blockReturn: KeyboardEventHandler<HTMLTextAreaElement> = event => {
+  const blockReturn = useEvent<BlockReturnHandler>(event => {
     if (event.key.toLowerCase() === "enter") {
       event.preventDefault()
     }
-  }
+  })
 
-  const onChange: ChangeEventHandler<HTMLTextAreaElement> = ({target}) => {
+  const onChange = useEvent<TitleUpdateHandler>(({target}) => {
     if (onTitleChange) {
       onTitleChange(target.value)
     }
-  }
+  })
 
   return (
     <Textarea

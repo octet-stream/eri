@@ -1,7 +1,8 @@
 import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
 import type {FC} from "react"
-import {useCallback} from "react"
+
+import useEvent from "react-use-event-hook"
 
 import getServerSideSession from "lib/util/getServerSideSession"
 
@@ -19,7 +20,7 @@ export const getServerSideProps = getServerSideSession
 const NewPostPage: FC<Props> = () => {
   const router = useRouter()
 
-  const onSubmit = useCallback<EditorOnSaveHandler>(async data => {
+  const onSubmit = useEvent<EditorOnSaveHandler>(async data => {
     try {
       const {slug} = await client.mutation("post.create", data)
 
@@ -27,7 +28,7 @@ const NewPostPage: FC<Props> = () => {
     } catch {
       toast.error("Can't create post")
     }
-  }, [])
+  })
 
   return (
     <EditorLayout>
