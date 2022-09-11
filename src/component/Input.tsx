@@ -6,6 +6,7 @@ import {forwardRef, useState} from "react"
 import {toast} from "react-hot-toast"
 
 import cn from "classnames"
+import useEvent from "react-use-event-hook"
 
 interface Props extends ComponentPropsWithoutRef<"input"> {
   error?: FieldError
@@ -22,7 +23,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((
 ) => {
   const [toastId, setToastId] = useState<string | null>(null)
 
-  const showErrorToast: InputFocusHandler = event => {
+  const showErrorToast = useEvent<InputFocusHandler>(event => {
     if (error?.message) {
       const id = toast.error(error.message, {duration: Infinity})
 
@@ -32,9 +33,9 @@ export const Input = forwardRef<HTMLInputElement, Props>((
     if (onFocus) {
       return onFocus(event)
     }
-  }
+  })
 
-  const hideErrorToast: InputFocusHandler = event => {
+  const hideErrorToast = useEvent<InputFocusHandler>(event => {
     if (toastId) {
       toast.dismiss(toastId)
 
@@ -44,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((
     if (onBlur) {
       return onBlur(event)
     }
-  }
+  })
 
   return (
     <input
