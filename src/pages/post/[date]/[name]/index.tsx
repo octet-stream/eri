@@ -1,16 +1,17 @@
+import type {GetStaticProps, GetStaticPaths} from "next"
 import {stringify, parse} from "superjson"
-import type {GetStaticProps} from "next"
 import {formatRelative} from "date-fns"
 import {TRPCError} from "@trpc/server"
 import type {FC} from "react"
 import {useMemo} from "react"
 
+import {runIsolatied} from "server/lib/db"
 import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
 
 import {PostLayout} from "layout/PostLayout"
 
-import getEmptyPaths from "lib/util/getEmptyPaths"
+// import getEmptyPaths from "lib/util/getEmptyPaths"
 
 interface Props {
   data: string
@@ -21,7 +22,28 @@ interface Query {
   name: string
 }
 
-export const getStaticPaths = getEmptyPaths
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await runIsolatied(async em => em.find(
+    Post,
+
+    {},
+
+    {
+      limit: 100,
+      orderBy: {
+        createdAt: "desc"
+      }
+    }
+  ))
+
+  const paths = posts.map(({slug}) => {
+    const [date, name] = slug.split("/")
+
+    return {params: {date, name}}
+  })
+
+  return {paths, fallback: "blocking"}
+}
 
 export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
   const {date, name} = params as unknown as Query
