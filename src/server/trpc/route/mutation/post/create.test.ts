@@ -39,7 +39,7 @@ test("Createas a post", withTRPC, async (t, trpc, orm) => {
   const expectedTitle = "Test post"
   const expectedContent: Value = [
     {
-      type: "p",
+      type: ELEMENT_PARAGRAPH,
       children: [
         {
           text: "Test content"
