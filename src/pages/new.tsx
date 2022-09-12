@@ -32,9 +32,7 @@ const NewPostPage: FC<Props> = () => {
 
   return (
     <EditorLayout>
-      <div className="w-full h-full flex flex-col">
-        <PostEditor onSave={onSubmit} />
-      </div>
+      <PostEditor onSave={onSubmit} />
     </EditorLayout>
   )
 }
