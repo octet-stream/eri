@@ -11,8 +11,6 @@ import {Post} from "server/db/entity/Post"
 
 import {PostLayout} from "layout/PostLayout"
 
-// import getEmptyPaths from "lib/util/getEmptyPaths"
-
 interface Props {
   data: string
 }
