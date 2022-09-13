@@ -20,6 +20,8 @@ interface Query {
   name: string
 }
 
+type Paths = Awaited<ReturnType<GetStaticPaths>>["paths"]
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await runIsolatied(async em => em.find(
     Post,
@@ -34,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
   ))
 
-  const paths = posts.map(({slug}) => {
+  const paths: Paths = posts.map(({slug}) => {
     const [date, name] = slug.split("/")
 
     return {params: {date, name}}
