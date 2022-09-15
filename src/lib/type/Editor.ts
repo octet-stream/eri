@@ -29,11 +29,7 @@ export interface RichText extends PlainText {
   code?: boolean
   kbd?: boolean
   subscript?: boolean
-  backgroundColor?: CSSProperties["backgroundColor"]
-  fontFamily?: CSSProperties["fontFamily"]
-  color?: CSSProperties["color"]
-  fontSize?: CSSProperties["fontSize"]
-  fontWeight?: CSSProperties["fontWeight"]
+  superscript?: boolean
 }
 
 export interface Link extends TLinkElement {

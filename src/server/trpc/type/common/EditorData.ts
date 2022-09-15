@@ -2,10 +2,19 @@ import type {TDescendant, TElement, TText} from "@udecode/plate"
 import type {ZodType, infer as Infer} from "zod"
 import {z} from "zod"
 
+import type {RichText} from "lib/type/Editor"
+
 import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
 
-export const Text: ZodType<TText> = z.lazy(() => z.object({
-  text: z.string()
+export const Text: ZodType<RichText> = z.lazy(() => z.object({
+  text: z.string(),
+  bold: z.boolean().optional(),
+  italic: z.boolean().optional(),
+  underline: z.boolean().optional(),
+  strikethrough: z.boolean().optional(),
+  kbd: z.boolean().optional(),
+  superscript: z.boolean().optional(),
+  subscript: z.boolean().optional()
 }))
 
 export const Element: ZodType<TElement> = z.lazy(() => z.object({
