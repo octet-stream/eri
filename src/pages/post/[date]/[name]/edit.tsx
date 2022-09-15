@@ -13,7 +13,6 @@ import useEvent from "react-use-event-hook"
 import {client} from "lib/trpc"
 import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
-import {Value} from "lib/type/Editor"
 
 import {options} from "pages/api/auth/[...nextauth]"
 
@@ -70,7 +69,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
 
 const PostEditPage: FC<Props> = ({data}) => {
   const router = useRouter()
-  const post = useMemo(() => parse<Post & {content: Value}>(data), [data])
+  const post = useMemo(() => parse<Post>(data), [data])
 
   const onSave = useEvent<EditorOnSaveHandler>(async fields => {
     try {
