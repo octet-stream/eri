@@ -1,13 +1,15 @@
-import type {TDescendant, TElement} from "@udecode/plate"
-import type {ZodType, infer as Infer} from "zod"
+import type {infer as Infer} from "zod"
 import {z} from "zod"
 
-import type {RichText} from "lib/type/Editor"
+import {ELEMENT_LINK, ELEMENT_PARAGRAPH} from "@udecode/plate"
 
 import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
 
-export const Text: ZodType<RichText> = z.lazy(() => z.object({
-  text: z.string(),
+export const PlainText = z.object({
+  text: z.string()
+})
+
+export const RichText = PlainText.extend({
   bold: z.boolean().optional(),
   italic: z.boolean().optional(),
   underline: z.boolean().optional(),
@@ -15,21 +17,47 @@ export const Text: ZodType<RichText> = z.lazy(() => z.object({
   kbd: z.boolean().optional(),
   superscript: z.boolean().optional(),
   subscript: z.boolean().optional()
-}))
+})
 
-export const Element: ZodType<TElement> = z.lazy(() => z.object({
+const AbstractElement = z.object({
   type: z.string(),
+  children: z.array(z.unknown())
+})
 
-  // eslint-disable-next-line no-use-before-define, @typescript-eslint/no-use-before-define
-  children: z.array(Descendant)
-}))
+export const Link = AbstractElement.extend({
+  type: z.literal(ELEMENT_LINK),
+  url: z.string(),
+  children: z.array(RichText)
+})
 
-export const Descendant: ZodType<TDescendant> = z.lazy(() => z.union([
-  Text, Element
-]))
+export const InlineDescendant = z.union([Link, RichText])
+
+export const InlineChildren = z.array(InlineDescendant)
+
+export const BlockElement = AbstractElement.extend({
+  id: z.string().optional()
+})
+
+export const Paragraph = BlockElement.extend({
+  type: z.literal(ELEMENT_PARAGRAPH),
+  children: InlineChildren
+})
+
+export const HeadingTypes = z.union([
+  z.literal("h2"),
+  z.literal("h3"),
+  z.literal("h4")
+])
+
+export const HeadingElement = AbstractElement.extend({
+  type: HeadingTypes,
+  children: InlineChildren
+})
+
+export const RootElement = z.union([Paragraph, HeadingElement])
 
 export const EditorData = z
-  .array(Element)
+  .array(RootElement)
   .refine(
     value => isEditorContentEmpty(value) === false,
 
