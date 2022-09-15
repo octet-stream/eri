@@ -1,4 +1,4 @@
-import type {TDescendant, TElement, TText} from "@udecode/plate"
+import type {TDescendant, TElement} from "@udecode/plate"
 import type {ZodType, infer as Infer} from "zod"
 import {z} from "zod"
 
