@@ -5,7 +5,7 @@ import type {FC} from "react"
 
 import type {Value} from "lib/type/Editor"
 
-import {plugins} from "./plugins"
+import {plugins} from "./plugin/plugins"
 
 export interface ContentEditorOnChangeHandler {
   (value: Value): void
