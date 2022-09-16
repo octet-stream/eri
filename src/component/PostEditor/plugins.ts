@@ -18,9 +18,9 @@ import {
 
 import type {Plugin, Value, Editor} from "lib/type/Editor"
 
-import {alignment} from "./alignment"
-import {autoformat} from "./autoformat"
-import {reset} from "./reset"
+import {alignment} from "./plugin/alignment"
+import {autoformat} from "./plugin/autoformat"
+import {reset} from "./plugin/reset"
 
 export const plugins: Plugin[] = createPlugins<Value, Editor>(
   [
