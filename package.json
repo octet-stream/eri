@@ -30,7 +30,6 @@
     "@mikro-orm/mysql": "5.4.2",
     "@sindresorhus/slugify": "1.1.2",
     "@trpc/client": "9.27.2",
-    "@trpc/next": "9.27.2",
     "@trpc/react": "9.27.2",
     "@trpc/server": "9.27.2",
     "@udecode/plate": "^17.0.1",

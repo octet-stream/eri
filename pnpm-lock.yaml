@@ -14,7 +14,6 @@ specifiers:
   '@sindresorhus/slugify': 1.1.2
   '@tailwindcss/typography': 0.5.7
   '@trpc/client': 9.27.2
-  '@trpc/next': 9.27.2
   '@trpc/react': 9.27.2
   '@trpc/server': 9.27.2
   '@types/bcrypt': 5.0.0
@@ -88,7 +87,6 @@ dependencies:
   '@mikro-orm/mysql': 5.4.2_kdfmmkkd46hr2266p3exwsatv4
   '@sindresorhus/slugify': 1.1.2
   '@trpc/client': 9.27.2_@trpc+server@9.27.2
-  '@trpc/next': 9.27.2_uxi3fykuxaglbetcrbfd4dokya
   '@trpc/react': 9.27.2_e7pohnznr4qdgpqc5x4q3pmfcu
   '@trpc/server': 9.27.2
   '@udecode/plate': 17.0.1_6low5sa3ytrupagakmdsbb63de
@@ -1022,28 +1020,6 @@ packages:
     dependencies:
       '@babel/runtime': 7.19.0
       '@trpc/server': 9.27.2
-    dev: false
-
-  /@trpc/next/9.27.2_uxi3fykuxaglbetcrbfd4dokya:
-    resolution: {integrity: sha512-5Xy13sH2c7usWyQtVQ7g7gjv7i1/3shGrtVJJEbdEXq8i0A7BUAg1Q1DjCL92d9otD2jXpnaqRAktrXLZRGCgQ==}
-    peerDependencies:
-      '@trpc/client': 9.27.2
-      '@trpc/react': 9.27.2
-      '@trpc/server': 9.27.2
-      next: '*'
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-      react-query: ^3.37.0
-    dependencies:
-      '@babel/runtime': 7.19.0
-      '@trpc/client': 9.27.2_@trpc+server@9.27.2
-      '@trpc/react': 9.27.2_e7pohnznr4qdgpqc5x4q3pmfcu
-      '@trpc/server': 9.27.2
-      next: 12.3.0_biqbaboplfbrettd7655fr4n2y
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
-      react-ssr-prepass: 1.5.0_react@18.2.0
     dev: false
 
   /@trpc/react/9.27.2_e7pohnznr4qdgpqc5x4q3pmfcu:
@@ -6642,14 +6618,6 @@ packages:
       match-sorter: 6.3.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /react-ssr-prepass/1.5.0_react@18.2.0:
-    resolution: {integrity: sha512-yFNHrlVEReVYKsLI5lF05tZoHveA5pGzjFbFJY/3pOqqjGOmMmqx83N4hIjN2n6E1AOa+eQEUxs3CgRnPmT0RQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /react-textarea-autosize/8.3.4_w5j4k42lgipnm43s3brx6h3c34:
