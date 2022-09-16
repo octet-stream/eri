@@ -23,8 +23,6 @@ import {PostEditor} from "component/PostEditor"
 
 interface Props {
   data: string
-
-  // eslint-disable-next-line react/no-unused-prop-types
   session: Session | null
 }
 
