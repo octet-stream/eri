@@ -14,7 +14,6 @@ export const RichText = PlainText.extend({
   italic: z.boolean().optional(),
   underline: z.boolean().optional(),
   strikethrough: z.boolean().optional(),
-  kbd: z.boolean().optional(),
   superscript: z.boolean().optional(),
   subscript: z.boolean().optional()
 })
