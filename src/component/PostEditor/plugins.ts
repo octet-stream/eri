@@ -13,11 +13,16 @@ import {
   createCodeBlockPlugin,
   createCodePlugin,
   createLinkPlugin,
+  createSoftBreakPlugin,
+  createExitBreakPlugin,
 
   createPlateUI,
   PlateFloatingLink,
   CodeBlockElement,
-  ELEMENT_CODE_BLOCK
+
+  ELEMENT_CODE_BLOCK,
+  ELEMENT_BLOCKQUOTE,
+  KEYS_HEADING
 } from "@udecode/plate"
 
 import type {Value, Editor} from "lib/type/Editor"
@@ -40,6 +45,44 @@ export const plugins = createPlugins<Value, Editor>(
     createBlockquotePlugin(),
     createHeadingPlugin({options: {levels: 4}}),
     createLinkPlugin({renderAfterEditable: PlateFloatingLink}),
+
+    createSoftBreakPlugin({
+      options: {
+        rules: [
+          {
+            hotkey: "shift+enter"
+          },
+          {
+            hotkey: "enter",
+            query: {
+              allow: [ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE]
+            }
+          }
+        ]
+      }
+    }),
+
+    createExitBreakPlugin({
+      options: {
+        rules: [
+          {
+            hotkey: "mod+enter",
+          },
+          {
+            hotkey: "mod+shift+enter",
+            before: true,
+          },
+          {
+            hotkey: "enter",
+            query: {
+              start: true,
+              end: true,
+              allow: KEYS_HEADING,
+            },
+          },
+        ],
+      },
+    }),
 
     alignment(),
     autoformat(),

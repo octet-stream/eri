@@ -1,12 +1,14 @@
 import {
   createResetNodePlugin,
-  isBlockAboveEmpty,
   isSelectionAtBlockStart,
+  isBlockAboveEmpty,
 
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_CODE_BLOCK,
   ELEMENT_PARAGRAPH,
   ELEMENT_H2,
   ELEMENT_H3,
-  ELEMENT_H4
+  ELEMENT_H4,
 } from "@udecode/plate"
 import type {ResetNodePluginRule, ResetNodePlugin} from "@udecode/plate"
 
@@ -17,8 +19,14 @@ type Plugin = ResetNodePlugin<Value, Editor>
 type ResetRule = ResetNodePluginRule<Value, Editor>
 
 const commonResetRule: Pick<ResetRule, "defaultType" | "types"> = {
-  types: [ELEMENT_H2, ELEMENT_H3, ELEMENT_H4],
-  defaultType: ELEMENT_PARAGRAPH
+  defaultType: ELEMENT_PARAGRAPH,
+  types: [
+    ELEMENT_H2,
+    ELEMENT_H3,
+    ELEMENT_H4,
+    ELEMENT_BLOCKQUOTE,
+    ELEMENT_CODE_BLOCK
+  ]
 }
 
 export const reset = () => createResetNodePlugin<Plugin, Value, Editor>({
@@ -34,7 +42,7 @@ export const reset = () => createResetNodePlugin<Plugin, Value, Editor>({
         ...commonResetRule,
 
         hotkey: "Backspace",
-        predicate: isSelectionAtBlockStart,
+        predicate: isSelectionAtBlockStart
       }
     ]
   }

@@ -31,7 +31,8 @@ export const TitleEditor: FC<Props> = ({value, onTitleChange}) => {
 
   return (
     <Textarea
-      className="prose text-4xl font-extrabold w-full p-0 border-none outline-none resize-none overflow-hidden"
+      autoFocus
+      className="text-4xl font-extrabold w-full p-0 border-none outline-none resize-none overflow-hidden"
       placeholder="Title"
       value={value}
       onChange={onChange}
