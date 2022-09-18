@@ -26,10 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>((
 
       className,
 
-      {
-        "w-full": wide,
-        "px-5": !wide
-      }
+      wide ? "w-full" : "px-5"
     )}
   >
     {children}
