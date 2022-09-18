@@ -44,7 +44,7 @@ test.before(withORM, async (_, orm) => {
 test.after.always(cleanup)
 
 test(
-  "Returns empty list with 50 posts",
+  "Returns list with 50 posts",
 
   withTRPC,
 
