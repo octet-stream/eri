@@ -1,7 +1,14 @@
 import type {infer as Infer} from "zod"
 import {z} from "zod"
 
-import {ELEMENT_LINK, ELEMENT_PARAGRAPH} from "@udecode/plate"
+import {
+  ELEMENT_H2,
+  ELEMENT_H3,
+  ELEMENT_H4,
+  ELEMENT_LINK,
+  ELEMENT_PARAGRAPH,
+  ELEMENT_BLOCKQUOTE
+} from "@udecode/plate"
 
 import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
 
@@ -42,10 +49,15 @@ export const Paragraph = BlockElement.extend({
   children: InlineChildren
 })
 
+export const Blockquote = BlockElement.extend({
+  type: z.literal(ELEMENT_BLOCKQUOTE),
+  children: InlineChildren
+})
+
 export const HeadingTypes = z.union([
-  z.literal("h2"),
-  z.literal("h3"),
-  z.literal("h4")
+  z.literal(ELEMENT_H2),
+  z.literal(ELEMENT_H3),
+  z.literal(ELEMENT_H4)
 ])
 
 export const HeadingElement = AbstractElement.extend({

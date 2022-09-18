@@ -13,6 +13,7 @@ import {
   ELEMENT_H2,
   ELEMENT_H3,
   ELEMENT_H4,
+  ELEMENT_BLOCKQUOTE
 } from "@udecode/plate"
 import type {AutoformatPlugin, AutoformatBlockRule} from "@udecode/plate"
 
@@ -28,6 +29,7 @@ export const autoformat = () => createAutoformatPlugin<Plugin, Value, Editor>({
   options: {
     enableUndoOnDelete: true,
     rules: [
+      // Marks
       {
         mode: "mark",
         type: MARK_BOLD,
@@ -69,24 +71,29 @@ export const autoformat = () => createAutoformatPlugin<Plugin, Value, Editor>({
         match: ["_**", "***"]
       },
 
+      // Blocks
       {
         mode: "block",
         type: ELEMENT_H2,
         match: "## ",
         preFormat
       },
-
       {
         mode: "block",
         type: ELEMENT_H3,
         match: "### ",
         preFormat
       },
-
       {
         mode: "block",
         type: ELEMENT_H4,
         match: "#### ",
+        preFormat
+      },
+      {
+        mode: "block",
+        type: ELEMENT_BLOCKQUOTE,
+        match: "> ",
         preFormat
       }
     ]
