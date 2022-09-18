@@ -12,4 +12,4 @@ export interface Editor extends PlateEditor<Value> {
   isDragging?: boolean
 }
 
-export type Plugin<P = PluginOptions> = PlatePlugin<P, Value>
+export type Plugin<P = PluginOptions> = PlatePlugin<P, Value, Editor>

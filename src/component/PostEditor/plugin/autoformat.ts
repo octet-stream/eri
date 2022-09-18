@@ -24,7 +24,7 @@ type PreFormat = AutoformatBlockRule<Value, Editor>["preFormat"]
 
 export const preFormat: PreFormat = editor => unwrapList(editor)
 
-export const autoformat = () => createAutoformatPlugin<Plugin>({
+export const autoformat = () => createAutoformatPlugin<Plugin, Value, Editor>({
   options: {
     enableUndoOnDelete: true,
     rules: [

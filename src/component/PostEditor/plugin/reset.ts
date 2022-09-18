@@ -8,9 +8,11 @@ import {
   ELEMENT_H3,
   ELEMENT_H4
 } from "@udecode/plate"
-import type {ResetNodePluginRule} from "@udecode/plate"
+import type {ResetNodePluginRule, ResetNodePlugin} from "@udecode/plate"
 
 import type {Value, Editor} from "lib/type/Editor"
+
+type Plugin = ResetNodePlugin<Value, Editor>
 
 type ResetRule = ResetNodePluginRule<Value, Editor>
 
@@ -19,7 +21,7 @@ const commonResetRule: Pick<ResetRule, "defaultType" | "types"> = {
   defaultType: ELEMENT_PARAGRAPH
 }
 
-export const reset = () => createResetNodePlugin({
+export const reset = () => createResetNodePlugin<Plugin, Value, Editor>({
   options: {
     rules: [
       {

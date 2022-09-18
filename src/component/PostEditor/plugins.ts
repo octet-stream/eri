@@ -16,13 +16,13 @@ import {
   PlateFloatingLink
 } from "@udecode/plate"
 
-import type {Plugin, Value, Editor} from "lib/type/Editor"
+import type {Value, Editor} from "lib/type/Editor"
 
 import {alignment} from "./plugin/alignment"
 import {autoformat} from "./plugin/autoformat"
 import {reset} from "./plugin/reset"
 
-export const plugins: Plugin[] = createPlugins<Value, Editor>(
+export const plugins = createPlugins<Value, Editor>(
   [
     createParagraphPlugin(),
     createBoldPlugin(),
@@ -40,7 +40,7 @@ export const plugins: Plugin[] = createPlugins<Value, Editor>(
     createLinkPlugin({renderAfterEditable: PlateFloatingLink}),
 
     alignment(),
-    autoformat() as any, // TODO: Fix types mismatch
+    autoformat(),
     reset()
   ],
 
