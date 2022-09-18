@@ -1,6 +1,7 @@
 import {
   createAutoformatPlugin,
   unwrapList,
+  insertEmptyCodeBlock,
 
   // Marks
   MARK_BOLD,
@@ -13,7 +14,10 @@ import {
   ELEMENT_H2,
   ELEMENT_H3,
   ELEMENT_H4,
-  ELEMENT_BLOCKQUOTE
+  ELEMENT_PARAGRAPH,
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_CODE_BLOCK,
+  getPluginType
 } from "@udecode/plate"
 import type {AutoformatPlugin, AutoformatBlockRule} from "@udecode/plate"
 
@@ -95,6 +99,21 @@ export const autoformat = () => createAutoformatPlugin<Plugin, Value, Editor>({
         type: ELEMENT_BLOCKQUOTE,
         match: "> ",
         preFormat
+      },
+      {
+        mode: "block",
+        type: ELEMENT_CODE_BLOCK,
+        match: "```",
+        triggerAtBlockStart: true,
+        preFormat,
+        format(editor) {
+          insertEmptyCodeBlock(editor, {
+            defaultType: getPluginType(editor, ELEMENT_PARAGRAPH),
+            insertNodesOptions: {
+              select: true
+            }
+          })
+        }
       }
     ]
   }

@@ -10,11 +10,14 @@ import {
   createSubscriptPlugin,
   createSuperscriptPlugin,
   createBlockquotePlugin,
+  createCodeBlockPlugin,
   createCodePlugin,
   createLinkPlugin,
 
   createPlateUI,
   PlateFloatingLink,
+  CodeBlockElement,
+  ELEMENT_CODE_BLOCK
 } from "@udecode/plate"
 
 import type {Value, Editor} from "lib/type/Editor"
@@ -33,6 +36,7 @@ export const plugins = createPlugins<Value, Editor>(
     createSubscriptPlugin(),
     createSuperscriptPlugin(),
     createCodePlugin(),
+    createCodeBlockPlugin(),
     createBlockquotePlugin(),
     createHeadingPlugin({options: {levels: 4}}),
     createLinkPlugin({renderAfterEditable: PlateFloatingLink}),
@@ -43,6 +47,8 @@ export const plugins = createPlugins<Value, Editor>(
   ],
 
   {
-    components: createPlateUI()
+    components: createPlateUI({
+      [ELEMENT_CODE_BLOCK]: CodeBlockElement
+    })
   }
 )
