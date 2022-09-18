@@ -66,7 +66,7 @@ const Home: FC<Props> = ({data}) => {
 
   return (
     <HomeLayout>
-      <ul className="list-none p-0">
+      <ul className="list-none p-0 m-0">
         {posts.items.map(post => (
           <li key={post.id} className="p-0">
             <Link href={`/post/${post.slug}`}>
