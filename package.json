@@ -23,7 +23,7 @@
     ]
   },
   "dependencies": {
-    "@headlessui/react": "1.7.1",
+    "@headlessui/react": "1.7.2",
     "@heroicons/react": "2.0.11",
     "@hookform/resolvers": "2.9.8",
     "@mikro-orm/core": "5.4.2",
@@ -32,9 +32,9 @@
     "@trpc/client": "9.27.2",
     "@trpc/react": "9.27.2",
     "@trpc/server": "9.27.2",
-    "@udecode/plate": "17.0.1",
-    "@udecode/plate-core": "17.0.1",
-    "@udecode/plate-headless": "17.0.1",
+    "@udecode/plate": "17.0.3",
+    "@udecode/plate-core": "17.0.3",
+    "@udecode/plate-headless": "17.0.3",
     "bcrypt": "5.0.1",
     "classnames": "2.3.2",
     "date-fns": "2.29.3",
@@ -60,11 +60,11 @@
     "reflect-metadata": "0.1.13",
     "slate": "0.82.1",
     "slate-history": "0.66.0",
-    "slate-react": "0.82.1",
+    "slate-react": "0.82.2",
     "styled-components": "5.3.5",
-    "superjson": "1.9.1",
+    "superjson": "1.10.0",
     "validator": "13.7.0",
-    "zod": "3.19.0"
+    "zod": "3.19.1"
   },
   "devDependencies": {
     "@mikro-orm/cli": "5.4.2",
