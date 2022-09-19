@@ -9,8 +9,8 @@ import {setup, cleanup} from "server/__helper__/database"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
 
 import {formatSlug} from "server/db/subscriber/PostSubscriber"
-import {forkEntityManager} from "server/lib/db"
 import {User, Post} from "server/db/entity"
+import {runIsolatied} from "server/lib/db"
 import type {Value} from "lib/type/Editor"
 
 const test = anyTest as TestFn<WithTRPCContext>
@@ -18,17 +18,19 @@ const test = anyTest as TestFn<WithTRPCContext>
 test.before(async t => {
   await setup()
 
-  const em = await forkEntityManager()
+  const auth = await runIsolatied(async em => {
+    const user = em.create(User, {
+      login: "admin",
+      email: "admin@example.com",
+      password: "adminadminadmin"
+    })
 
-  const user = em.create(User, {
-    login: "admin",
-    email: "admin@example.com",
-    password: "adminadminadmin"
+    await em.persistAndFlush(user)
+
+    return user
   })
 
-  await em.persistAndFlush(user)
-
-  t.context.auth = user
+  t.context.auth = auth
 })
 
 test.after.always(cleanup)
