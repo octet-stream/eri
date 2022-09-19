@@ -14,7 +14,19 @@ interface Props {
  * You **must** expose this helper as `getServerSideProps` function from page module.
  *
  * @param ctx GetServerSideProps context
- * @returns
+ *
+ * @example
+ *
+ * ```tsx
+ * // page.tsx
+ * import {FC} from "react"
+ *
+ * import getServerSideSessionRedirect from "lib/util/getServerSideSessionRedirect"
+ *
+ * export const getServerSideProps = getServerSideSessionRedirect
+ *
+ * const PrivatePage: FC = () => <div>Very private information</div>
+ * ```
  */
 const getServerSideSession: GetServerSideProps<Props> = async ({req, res}) => {
   const session = await getServerSession(req, res, options)

@@ -5,19 +5,31 @@ import type {Session} from "next-auth"
 import {options} from "pages/api/auth/[...nextauth]"
 
 interface Props {
-  session: Session | null
+  session: Session
 }
 
 /**
  * Returns `session` property using `getServerSideProps` context.
- * Unlike getServerSideSession helper, this will redirect to `/auth/login` if there's no session for current viewer.
+ *
+ * Unlike `getServerSideSession` helper, this will redirect to `/auth/login` if there's no session for current viewer.
+ *
+ * Viewer will be redirected using server-side redirection. The server will respond with 307 HTTP status code.
  *
  * You **must** expose this helper as `getServerSideProps` function from page module.
  *
  * @param ctx ServerSideProps context.
  *
- * ```ts
+ * @example
+ *
+ * ```tsx
+ * // page.tsx
+ * import {FC} from "react"
+ *
  * import getServerSideSessionRedirect from "lib/util/getServerSideSessionRedirect"
+ *
+ * export const getServerSideProps = getServerSideSessionRedirect
+ *
+ * const PrivatePage: FC = () => <div>Very private information</div>
  * ```
  */
 const getServerSideSessionRedirect: GetServerSideProps<Props> = async ctx => {
