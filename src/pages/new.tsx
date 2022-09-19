@@ -4,7 +4,7 @@ import type {FC} from "react"
 
 import useEvent from "react-use-event-hook"
 
-import getServerSideSession from "lib/util/getServerSideSession"
+import getServerSideSessionRedirect from "lib/util/getServerSideSessionRedirect"
 
 import {client} from "lib/trpc"
 
@@ -15,7 +15,7 @@ import {PostEditor} from "component/PostEditor"
 
 interface Props { }
 
-export const getServerSideProps = getServerSideSession
+export const getServerSideProps = getServerSideSessionRedirect
 
 const NewPostPage: FC<Props> = () => {
   const router = useRouter()

@@ -8,14 +8,18 @@ interface Props {
   session: Session | null
 }
 
+/**
+ * Returns `session` property using `getServerSideProps` context.
+ *
+ * You **must** expose this helper as `getServerSideProps` function from page module.
+ *
+ * @param ctx GetServerSideProps context
+ * @returns
+ */
 const getServerSideSession: GetServerSideProps<Props> = async ({req, res}) => {
   const session = await getServerSession(req, res, options)
 
-  return {
-    props: {
-      session
-    }
-  }
+  return {props: {session}}
 }
 
 export default getServerSideSession

@@ -38,7 +38,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
 
   // Return empty session to redirect user to /auth/login
   if (!session) {
-    return {props: {session: null, data: stringify({})}}
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/auth/login"
+      }
+    }
   }
 
   const {date, name} = params as unknown as Query
