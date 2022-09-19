@@ -2,6 +2,7 @@ import anyTest from "ava"
 
 import type {TestFn} from "ava"
 import type {TRPCError} from "@trpc/server"
+import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
 import {setup, cleanup} from "server/__helper__/database"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
@@ -38,7 +39,7 @@ test("Returns requested post", withTRPC, async (t, trpc, orm) => {
     author: user,
     content: [
       {
-        type: "p",
+        type: ELEMENT_PARAGRAPH,
         children: [
           {
             text: "This is the test post"

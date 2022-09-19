@@ -2,6 +2,7 @@ import anyTest from "ava"
 
 import {isEmpty} from "lodash"
 import type {TestFn} from "ava"
+import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
@@ -28,7 +29,7 @@ test.before(withORM, async (_, orm) => {
     author: user,
     content: [
       {
-        type: "p",
+        type: ELEMENT_PARAGRAPH,
         children: [
           {
             text: "This is the test post"

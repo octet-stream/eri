@@ -1,7 +1,6 @@
 import anyTest from "ava"
 
 import type {TestFn} from "ava"
-import type {Value} from "@udecode/plate"
 import type {TRPCError} from "@trpc/server"
 import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
@@ -12,6 +11,7 @@ import type {WithTRPCContext} from "server/__macro__/withTRPC"
 import {formatSlug} from "server/db/subscriber/PostSubscriber"
 import {forkEntityManager} from "server/lib/db"
 import {User, Post} from "server/db/entity"
+import type {Value} from "lib/type/Editor"
 
 const test = anyTest as TestFn<WithTRPCContext>
 
