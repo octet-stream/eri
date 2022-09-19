@@ -5,9 +5,6 @@ import mysql from "mysql2/promise"
 
 import {getORM} from "server/lib/db"
 
-// Stores a database name for this AVA test process.
-let name: string
-
 const alphanum = urlAlphabet.replace(/[^a-z0-9]/gi, "")
 const createDatabaseNameSuffix = customAlphabet(alphanum, 21)
 
@@ -23,7 +20,7 @@ const createNativeConnection = () => mysql.createConnection({
 })
 
 export const setup = async () => {
-  name = `eri-test__${await createDatabaseNameSuffix()}`
+  const name = `eri-test__${await createDatabaseNameSuffix()}`
 
   const connection = await createNativeConnection()
 
@@ -46,7 +43,7 @@ export const cleanup = async () => {
   const generator = orm.getSchemaGenerator()
 
   if (await orm.isConnected()) {
-    await generator.dropDatabase(name)
+    await generator.dropDatabase(orm.config.get("dbName"))
     await orm.close()
   }
 }
