@@ -1,6 +1,5 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
-// import {createElement} from "react"
 import {Element} from "slate"
 import {nanoid} from "nanoid"
 
@@ -18,6 +17,9 @@ const defaultTransforms: Record<string, NodeTransform> = Object.fromEntries([
   text, link, paragraph, h2, h3, h4
 ])
 
+/**
+ * Iterates over given Slate nodes and applies transforms from the list
+ */
 function iterateNodes<R extends Node[]>(
   root: R,
   transforms: Map<string, NodeTransform>
@@ -26,6 +28,7 @@ function iterateNodes<R extends Node[]>(
 
   for (const node of root) {
     // * This whole function is intended to be used in static pages, so I probably can just use nanoid for keys.
+    // ? Maybe keys should be preserved in datanase from `createNodeIdPlugin`. But it does seem to work for initial state and for first paragraph
     const key = nanoid()
 
     if (Element.isElement(node)) { // element node
@@ -65,7 +68,7 @@ function iterateNodes<R extends Node[]>(
 }
 
 function normalizeTransforms(
-  transforms: Transform[]
+  transforms: Transform[] = []
 ): Map<string, NodeTransform> {
   const result = new Map<string, NodeTransform>()
 
@@ -83,5 +86,5 @@ function normalizeTransforms(
  */
 export const transformNodes = <R extends Node[], T extends Transform[]>(
   root: R,
-  transforms: T
+  transforms?: T
 ) => iterateNodes(root, normalizeTransforms(transforms))

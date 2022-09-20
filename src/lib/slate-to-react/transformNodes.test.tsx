@@ -15,7 +15,7 @@ test("Transforms simple paragraph with text", async t => {
         }
       ]
     }
-  ], [])
+  ])
 
   const {container} = render(paragraph)
 
