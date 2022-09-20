@@ -19,5 +19,5 @@ test("Transforms simple paragraph with text", async t => {
 
   const {container} = render(paragraph)
 
-  t.is(container.innerHTML, "<p><span>Hello, World!</span></p>")
+  t.is(container.innerHTML, "<p class=\"m-0 py-1\"><span>Hello, World!</span></p>")
 })
