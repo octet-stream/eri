@@ -8,18 +8,20 @@ import useEvent from "react-use-event-hook"
 import getServerSideSessionRedirect from "lib/util/getServerSideSessionRedirect"
 
 import {client} from "lib/trpc"
+import type {Session} from "next-auth"
 
 import {EditorLayout} from "layout/EditorLayout"
 
 import type {EditorOnSaveHandler} from "component/PostEditor"
 import {PostEditor} from "component/PostEditor"
 
-interface Props { }
+interface Props {
+  session: Session
+}
 
 export const getServerSideProps = getServerSideSessionRedirect
 
 const NewPostPage: FC<Props> = () => {
-  // const {data} = useSession()
   const router = useRouter()
 
   const onSubmit = useEvent<EditorOnSaveHandler>(async data => {

@@ -23,7 +23,7 @@ import {PostEditor} from "component/PostEditor"
 
 interface Props {
   data: string
-  session: Session | null
+  session: Session
 }
 
 interface Query {
