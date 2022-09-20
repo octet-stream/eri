@@ -6,15 +6,41 @@ import {
   ELEMENT_H4
 } from "@udecode/plate"
 import {infer as Infer} from "zod"
+import type {ReactNode} from "react"
 
-import {Link} from "server/trpc/type/common/EditorData"
+import {Link, RichText} from "server/trpc/type/common/EditorData"
 import {Anchor} from "component/Anchor"
 
 import {createNodeTransform} from "./createNodeTransform"
 
-export const text = createNodeTransform("text", ({key, children}) => (
-  <span key={key}>{children}</span>
-))
+export const text = createNodeTransform("text", ({key, node, children}) => {
+  const n = (node as Infer<typeof RichText>)
+  let element: ReactNode = children
+
+  if (n.bold) {
+    element = <b>{element}</b>
+  }
+
+  if (n.italic) {
+    element = <i>{element}</i>
+  }
+
+  if (n.underline) {
+    element = <u>{element}</u>
+  }
+
+  if (n.strikethrough) {
+    element = <s>{element}</s>
+  }
+
+  if (n.superscript) {
+    element = <sup>{element}</sup>
+  } else if (n.subscript) {
+    element = <sub>{element}</sub>
+  }
+
+  return <span key={key}>{element}</span>
+})
 
 export const paragraph = createNodeTransform(
   ELEMENT_PARAGRAPH,
