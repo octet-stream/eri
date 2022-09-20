@@ -13,7 +13,7 @@ export const PostLayout: FC<Props> = ({title, children}) => (
   <BaseLayout title={title}>
     <PostHeader />
 
-    <article>
+    <article className="flex flex-1 flex-col">
       {children}
     </article>
   </BaseLayout>

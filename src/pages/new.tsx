@@ -1,3 +1,4 @@
+// import {useSession} from "next-auth/react"
 import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
 import type {FC} from "react"
@@ -18,6 +19,7 @@ interface Props { }
 export const getServerSideProps = getServerSideSessionRedirect
 
 const NewPostPage: FC<Props> = () => {
+  // const {data} = useSession()
   const router = useRouter()
 
   const onSubmit = useEvent<EditorOnSaveHandler>(async data => {

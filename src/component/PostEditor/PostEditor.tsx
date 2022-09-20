@@ -7,6 +7,7 @@ import useEvent from "react-use-event-hook"
 import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
 
 import type {Value} from "lib/type/Editor"
+import type {IUserOutput} from "server/trpc/type/output/UserOutput"
 
 import {Button} from "component/Button"
 
@@ -27,6 +28,7 @@ export interface EditorOnSaveHandler {
 interface Props {
   title?: string
   content?: Value
+  author?: Omit<IUserOutput, "id">
   interactivePageTitle?: boolean
   onSave: EditorOnSaveHandler
 }
@@ -35,6 +37,7 @@ export const PostEditor: FC<Props> = ({
   title: initialTitle = "",
   content: initialContent = [],
   interactivePageTitle = true,
+  author,
   onSave
 }) => {
   const [title, setTitle] = useState(initialTitle)
@@ -65,6 +68,14 @@ export const PostEditor: FC<Props> = ({
       <div className="w-full h-full flex flex-col">
         <div className="flex flex-1 flex-col">
           <TitleEditor value={title} onTitleChange={onTitleChange} />
+
+          <div>
+            <small className="text-gray-500">
+              <span>
+                {` by @${author ? author.login : "you"}`}
+              </span>
+            </small>
+          </div>
 
           <ContentEditor value={content} onChange={onContentChange} />
         </div>

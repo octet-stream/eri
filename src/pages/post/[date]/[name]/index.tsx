@@ -78,16 +78,19 @@ const PostPage: FC<Props> = ({data}) => {
     <PostLayout title={post.title}>
       <h1 className="mb-0">{post.title}</h1>
 
-      <small className="text-gray-500">
-        <span>
-          {formatRelative(post.createdAt, Date.now())}
-        </span>
-        <span>
-          {` by @${post.author.login}`}
-        </span>
-      </small>
+      <div>
+        <small className="text-gray-500">
+          <span>
+            {formatRelative(post.createdAt, Date.now())}
+          </span>
 
-      <div className="pt-2">
+          <span>
+            {` by @${post.author.login}`}
+          </span>
+        </small>
+      </div>
+
+      <div className="flex-1">
         {content}
       </div>
     </PostLayout>
