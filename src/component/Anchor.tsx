@@ -35,5 +35,9 @@ interface Props extends ComponentPropsWithoutRef<"a"> {
 export const Anchor = forwardRef<HTMLAnchorElement, Props>((props, ref) => {
   const isInternal = useMemo(() => isInternalUrl(props.href), [props.href])
 
-  return createElement(isInternal ? Link : "a", {...props, ref})
+  const renderProps: Props = isInternal
+    ? props
+    : {...props, target: "_blank", rel: "noopener noreferrer"}
+
+  return createElement(isInternal ? Link : "a", {...renderProps, ref})
 })

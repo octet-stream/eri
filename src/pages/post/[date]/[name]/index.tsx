@@ -10,6 +10,7 @@ import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
 
 import {PostLayout} from "layout/PostLayout"
+import {transformNodes} from "lib/slate-to-react"
 
 interface Props {
   data: string
@@ -71,6 +72,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 
 const PostPage: FC<Props> = ({data}) => {
   const post = useMemo(() => parse<Post>(data), [data])
+  const content = useMemo(() => transformNodes(post.content), [post.content])
 
   return (
     <PostLayout title={post.title}>
@@ -85,7 +87,9 @@ const PostPage: FC<Props> = ({data}) => {
         </span>
       </small>
 
-      <div className="pt-2">Content will be here</div>
+      <div className="pt-2">
+        {content}
+      </div>
     </PostLayout>
   )
 }

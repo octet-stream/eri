@@ -1,7 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
 import type {ReactNode} from "react"
-// import {createElement} from "react"
 import {Text, Element} from "slate"
 
 export interface ElementNode extends Element {
