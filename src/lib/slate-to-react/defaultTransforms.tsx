@@ -8,7 +8,12 @@ import {
 import {infer as Infer} from "zod"
 import type {ReactNode} from "react"
 
-import {Link, RichText} from "server/trpc/type/common/EditorData"
+import {
+  Link,
+  Paragraph,
+  HeadingElement,
+  RichText
+} from "server/trpc/type/common/EditorData"
 import {Anchor} from "component/Anchor"
 
 import {createNodeTransform} from "./createNodeTransform"
@@ -45,37 +50,69 @@ export const text = createNodeTransform("text", ({key, node, children}) => {
 export const paragraph = createNodeTransform(
   ELEMENT_PARAGRAPH,
 
-  ({key, children}) => <p key={key} className="m-0 py-1">{children}</p>
+  ({key, node, children}) => {
+    const n = (node as Infer<typeof Paragraph>)
+
+    return (
+      <p key={key} className="m-0 py-1" style={{textAlign: n.align}}>
+        {children}
+      </p>
+    )
+  }
 )
 
 export const h2 = createNodeTransform(
   ELEMENT_H2,
 
-  ({key, children}) => (
-    <h2 key={key} className="mx-0 mt-[1.4em] mb-0 text-2xl font-medium">
-      {children}
-    </h2>
-  )
+  ({key, node, children}) => {
+    const n = (node as Infer<typeof HeadingElement>)
+
+    return (
+      <h2
+        key={key}
+        className="mx-0 mt-[1.4em] mb-0 text-2xl font-medium"
+        style={{textAlign: n.align}}
+      >
+        {children}
+      </h2>
+    )
+  }
 )
 
 export const h3 = createNodeTransform(
   ELEMENT_H3,
 
-  ({key, children}) => (
-    <h3 key={key} className="mx-0 mt-[1.4em] mb-0 text-xl font-medium">
-      {children}
-    </h3>
-  )
+  ({key, node, children}) => {
+    const n = (node as Infer<typeof HeadingElement>)
+
+    return (
+      <h3
+        key={key}
+        className="mx-0 mt-[1.4em] mb-0 text-xl font-medium"
+        style={{textAlign: n.align}}
+      >
+        {children}
+      </h3>
+    )
+  }
 )
 
 export const h4 = createNodeTransform(
   ELEMENT_H4,
 
-  ({key, children}) => (
-    <h4 key={key} className="mx-0 mt-3 mb-0 text-lg font-medium">
-      {children}
-    </h4>
-  )
+  ({key, node, children}) => {
+    const n = (node as Infer<typeof HeadingElement>)
+
+    return (
+      <h4
+        key={key}
+        className="mx-0 mt-3 mb-0 text-lg font-medium"
+        style={{textAlign: n.align}}
+      >
+        {children}
+      </h4>
+    )
+  }
 )
 
 export const link = createNodeTransform(
