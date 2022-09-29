@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
-import type {ReactNode} from "react"
+import type {ReactNode, ReactElement} from "react"
 import {Text, Element} from "slate"
 
 export interface ElementNode<T extends string = string> extends Element {
@@ -25,7 +25,7 @@ interface Context<N extends Node> {
 }
 
 export interface NodeTransform<N extends Node = ElementNode> {
-  (ctx: Context<N>): JSX.Element
+  (ctx: Context<N>): ReactElement<any, any>
 }
 
 export type Transform<N extends Node = ElementNode> = [
