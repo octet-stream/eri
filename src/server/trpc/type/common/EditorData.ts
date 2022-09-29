@@ -12,6 +12,15 @@ import {
 
 import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
 
+export const Align = z.object({
+  align: z.union([
+    z.literal("left"),
+    z.literal("center"),
+    z.literal("right"),
+    z.literal("justify")
+  ]).optional()
+})
+
 export const PlainText = z.object({
   text: z.string()
 })
@@ -44,7 +53,7 @@ export const BlockElement = AbstractElement.extend({
   id: z.string().optional()
 })
 
-export const Paragraph = BlockElement.extend({
+export const Paragraph = BlockElement.extend(Align.shape).extend({
   type: z.literal(ELEMENT_PARAGRAPH),
   children: InlineChildren
 })
@@ -60,7 +69,7 @@ export const HeadingTypes = z.union([
   z.literal(ELEMENT_H4)
 ])
 
-export const HeadingElement = AbstractElement.extend({
+export const HeadingElement = AbstractElement.extend(Align.shape).extend({
   type: HeadingTypes,
   children: InlineChildren
 })
