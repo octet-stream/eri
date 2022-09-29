@@ -13,9 +13,11 @@ import {isHotkey} from "is-hotkey"
 
 import type {Value, Editor} from "lib/type/Editor"
 
-const setAlignSafe = (
-  event: Parameters<ReturnType<KeyboardHandler>>[0],
+type EventParam = Parameters<ReturnType<KeyboardHandler>>[0]
+
+const align = (
   editor: Editor,
+  event: EventParam,
   value: Alignment
 ): void => {
   event.preventDefault()
@@ -40,16 +42,16 @@ export const alignment = () => createAlignPlugin<AnyObject, Value, Editor>({
     onKeyDown: editor => event => {
       switch (true) {
       case isHotkey(ALIGN_LEFT_HOTKEY, event):
-        setAlignSafe(event, editor, "left")
+        align(editor, event, "left")
         break
       case isHotkey(ALIGN_CENTER_HOTKEY, event):
-        setAlignSafe(event, editor, "center")
+        align(editor, event, "center")
         break
       case isHotkey(ALIGN_RIGHT_HOTKEY, event):
-        setAlignSafe(event, editor, "right")
+        align(editor, event, "right")
         break
       case isHotkey(ALIGN_JUSTIFY_HOTKEY, event):
-        setAlignSafe(event, editor, "justify")
+        align(editor, event, "justify")
         break
       default:
         return undefined
