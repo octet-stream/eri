@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
 import {Element} from "slate"
+import type {Text} from "slate"
 import {nanoid} from "nanoid"
 
 import type {Transform, NodeTransform, Node} from "./types"
@@ -22,7 +23,7 @@ const defaultTransforms: Record<string, NodeTransform> = Object.fromEntries([
  */
 function iterateNodes<R extends Node[]>(
   root: R,
-  transforms: Map<string, NodeTransform>
+  transforms: Map<string, Transform>
 ): JSX.Element[] {
   const res = []
 
@@ -32,8 +33,9 @@ function iterateNodes<R extends Node[]>(
     const key = nanoid()
 
     if (Element.isElement(node)) { // element node
-      const transform = transforms.get(node.type)
-        || defaultTransforms[node.type]
+      const transform = (
+        transforms.get(node.type) || defaultTransforms[node.type]
+      ) as unknown as NodeTransform
 
       // TODO: Add default transforms
       if (!transform) {
@@ -52,7 +54,9 @@ function iterateNodes<R extends Node[]>(
 
       res.push(element)
     } else { // text node
-      const transform = transforms.get("text") || defaultTransforms.text
+      const transform = (
+        transforms.get("text") || defaultTransforms.text
+      ) as unknown as NodeTransform<Text>
 
       if (!transform) {
         throw new Error("Can't find transform for text node")
@@ -69,12 +73,12 @@ function iterateNodes<R extends Node[]>(
 
 function normalizeTransforms(
   transforms: Transform[] = []
-): Map<string, NodeTransform> {
-  const result = new Map<string, NodeTransform>()
+): Map<string, Transform> {
+  const result = new Map<string, Transform>()
 
   for (const [type, transform] of transforms) {
     if (!result.has(type)) {
-      result.set(type, transform)
+      result.set(type, transform as any)
     }
   }
 

@@ -1,4 +1,9 @@
-import type {Transform, TextTransform, NodeTransform} from "./types"
+import type {
+  Transform,
+  Node,
+  GetNodeType,
+  NodeTransform
+} from "./types"
 
 /**
  * Create transform function for given Slate Node type.
@@ -7,7 +12,7 @@ import type {Transform, TextTransform, NodeTransform} from "./types"
  * @param transform
  * @returns
  */
-export const createNodeTransform = <T extends string>(
-  type: T,
-  transform: T extends "text" ? TextTransform : NodeTransform<T>
-): Transform<T> => [type, transform]
+export const createNodeTransform = <N extends Node>(
+  type: GetNodeType<N>,
+  transform: NodeTransform<N>
+): Transform<N> => [type, transform]

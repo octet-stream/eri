@@ -5,121 +5,107 @@ import {
   ELEMENT_H3,
   ELEMENT_H4
 } from "@udecode/plate"
-import {infer as Infer} from "zod"
 import type {ReactNode} from "react"
 
-import {
-  Link,
-  Paragraph,
-  HeadingElement,
-  RichText
+import type {
+  ILink,
+  IRichText,
+  IParagraph,
+  IHeadingElement
 } from "server/trpc/type/common/EditorData"
 import {Anchor} from "component/Anchor"
 
 import {createNodeTransform} from "./createNodeTransform"
 
-export const text = createNodeTransform("text", ({key, node, children}) => {
-  const n = (node as Infer<typeof RichText>)
-  let element: ReactNode = children
+export const text = createNodeTransform<IRichText>(
+  "text",
 
-  if (n.bold) {
-    element = <strong>{element}</strong>
+  ({key, node, children}) => {
+    let element: ReactNode = children
+
+    if (node.bold) {
+      element = <strong>{element}</strong>
+    }
+
+    if (node.italic) {
+      element = <i>{element}</i>
+    }
+
+    if (node.underline) {
+      element = <u>{element}</u>
+    }
+
+    if (node.strikethrough) {
+      element = <s>{element}</s>
+    }
+
+    if (node.superscript) {
+      element = <sup>{element}</sup>
+    } else if (node.subscript) {
+      element = <sub>{element}</sub>
+    }
+
+    return <span key={key}>{element}</span>
   }
+)
 
-  if (n.italic) {
-    element = <i>{element}</i>
-  }
-
-  if (n.underline) {
-    element = <u>{element}</u>
-  }
-
-  if (n.strikethrough) {
-    element = <s>{element}</s>
-  }
-
-  if (n.superscript) {
-    element = <sup>{element}</sup>
-  } else if (n.subscript) {
-    element = <sub>{element}</sub>
-  }
-
-  return <span key={key}>{element}</span>
-})
-
-export const paragraph = createNodeTransform(
+export const paragraph = createNodeTransform<IParagraph>(
   ELEMENT_PARAGRAPH,
 
-  ({key, node, children}) => {
-    const n = (node as Infer<typeof Paragraph>)
-
-    return (
-      <p key={key} className="m-0 py-1" style={{textAlign: n.align}}>
-        {children}
-      </p>
-    )
-  }
+  ({key, node, children}) => (
+    <p key={key} className="m-0 py-1" style={{textAlign: node.align}}>
+      {children}
+    </p>
+  )
 )
 
-export const h2 = createNodeTransform(
+export const h2 = createNodeTransform<IHeadingElement>(
   ELEMENT_H2,
 
-  ({key, node, children}) => {
-    const n = (node as Infer<typeof HeadingElement>)
-
-    return (
-      <h2
-        key={key}
-        className="mx-0 mt-[1.4em] mb-0 text-2xl font-medium"
-        style={{textAlign: n.align}}
-      >
-        {children}
-      </h2>
-    )
-  }
+  ({key, node, children}) => (
+    <h2
+      key={key}
+      className="mx-0 mt-[1.4em] mb-0 text-2xl font-medium"
+      style={{textAlign: node.align}}
+    >
+      {children}
+    </h2>
+  )
 )
 
-export const h3 = createNodeTransform(
+export const h3 = createNodeTransform<IHeadingElement>(
   ELEMENT_H3,
 
-  ({key, node, children}) => {
-    const n = (node as Infer<typeof HeadingElement>)
-
-    return (
-      <h3
-        key={key}
-        className="mx-0 mt-[1.4em] mb-0 text-xl font-medium"
-        style={{textAlign: n.align}}
-      >
-        {children}
-      </h3>
-    )
-  }
+  ({key, node, children}) => (
+    <h3
+      key={key}
+      className="mx-0 mt-[1.4em] mb-0 text-xl font-medium"
+      style={{textAlign: node.align}}
+    >
+      {children}
+    </h3>
+  )
 )
 
-export const h4 = createNodeTransform(
+export const h4 = createNodeTransform<IHeadingElement>(
   ELEMENT_H4,
 
-  ({key, node, children}) => {
-    const n = (node as Infer<typeof HeadingElement>)
-
-    return (
-      <h4
-        key={key}
-        className="mx-0 mt-3 mb-0 text-lg font-medium"
-        style={{textAlign: n.align}}
-      >
-        {children}
-      </h4>
-    )
-  }
+  ({key, node, children}) => (
+    <h4
+      key={key}
+      className="mx-0 mt-3 mb-0 text-lg font-medium"
+      style={{textAlign: node.align}}
+    >
+      {children}
+    </h4>
+  )
 )
 
-export const link = createNodeTransform(
+export const link = createNodeTransform<ILink>(
   ELEMENT_LINK,
 
   ({key, node, children}) => (
-    <Anchor key={key} href={(node as Infer<typeof Link>).url} className="text-[#0078d4] no-underline hover:underline">
+    <Anchor key={key} href={node.url} className="text-[#0078d4] no-underline hover:underline">
       {children}
     </Anchor>
   )

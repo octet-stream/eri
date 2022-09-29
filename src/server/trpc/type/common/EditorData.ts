@@ -34,6 +34,8 @@ export const RichText = PlainText.extend({
   subscript: z.boolean().optional()
 })
 
+export interface IRichText extends Infer<typeof RichText> { }
+
 const AbstractElement = z.object({
   type: z.string(),
   children: z.array(z.unknown())
@@ -44,6 +46,8 @@ export const Link = AbstractElement.extend({
   url: z.string(),
   children: z.array(RichText)
 })
+
+export interface ILink extends Infer<typeof Link> { }
 
 export const InlineDescendant = z.union([Link, RichText])
 
@@ -58,10 +62,14 @@ export const Paragraph = BlockElement.extend(Align.shape).extend({
   children: InlineChildren
 })
 
+export interface IParagraph extends Infer<typeof Paragraph> { }
+
 export const Blockquote = BlockElement.extend({
   type: z.literal(ELEMENT_BLOCKQUOTE),
   children: InlineChildren
 })
+
+export interface IBlockquote extends Infer<typeof Blockquote> { }
 
 export const HeadingTypes = z.union([
   z.literal(ELEMENT_H2),
@@ -73,6 +81,8 @@ export const HeadingElement = AbstractElement.extend(Align.shape).extend({
   type: HeadingTypes,
   children: InlineChildren
 })
+
+export interface IHeadingElement extends Infer<typeof HeadingElement> { }
 
 export const RootElement = z.union([Paragraph, HeadingElement])
 
