@@ -37,7 +37,6 @@ function iterateNodes<R extends Node[]>(
         transforms.get(node.type) || defaultTransforms[node.type]
       ) as unknown as NodeTransform
 
-      // TODO: Add default transforms
       if (!transform) {
         throw new Error(`Can't find transform for node type: ${node.type}`)
       }
@@ -87,6 +86,9 @@ function normalizeTransforms(
 
 /**
  * Transforms Slate nodes to React elements
+ *
+ * @param root Slate root element
+ * @param transforms Transformation functions
  */
 export const transformNodes = <R extends Node[], T extends Transform[]>(
   root: R,

@@ -8,9 +8,8 @@ import type {
 /**
  * Create transform function for given Slate Node type.
  *
- * @param type
- * @param transform
- * @returns
+ * @param type Node transform type
+ * @param transform A function that transfroms node to React Element
  */
 export const createNodeTransform = <N extends Node>(
   type: GetNodeType<N>,
