@@ -24,7 +24,7 @@ const defaultTransforms: Record<string, NodeTransform> = Object.fromEntries([
  */
 function iterateNodes<R extends Node[]>(
   root: R,
-  transforms: Map<string, Transform>
+  transforms: Map<string, NodeTransform>
 ): ReactElement<any, any>[] {
   const res = []
 
@@ -73,12 +73,12 @@ function iterateNodes<R extends Node[]>(
 
 function normalizeTransforms(
   transforms: Transform[] = []
-): Map<string, Transform> {
-  const result = new Map<string, Transform>()
+): Map<string, NodeTransform> {
+  const result = new Map<string, NodeTransform>()
 
   for (const [type, transform] of transforms) {
     if (!result.has(type)) {
-      result.set(type, transform as any)
+      result.set(type, transform)
     }
   }
 
