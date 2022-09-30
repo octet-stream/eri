@@ -260,3 +260,155 @@ test("Default text transform applies subscript text mark", t => {
   t.true(span instanceof HTMLSpanElement)
   t.is(actual.nodeName, "SUB")
 })
+
+test("Default transform applies alignment to paragraph (left)", t => {
+  const [node] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      align: "left",
+      children: [
+        {
+          text: "Some text",
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(node)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+
+  t.is(p.style.textAlign, "left")
+})
+
+test("Default transform applies alignment to paragraph (right)", t => {
+  const [node] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      align: "right",
+      children: [
+        {
+          text: "Some text",
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(node)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+
+  t.is(p.style.textAlign, "right")
+})
+
+test("Default transform applies alignment to paragraph (center)", t => {
+  const [node] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      align: "center",
+      children: [
+        {
+          text: "Some text",
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(node)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+
+  t.is(p.style.textAlign, "center")
+})
+
+test("Default transform applies alignment to paragraph (justify)", t => {
+  const [node] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      align: "justify",
+      children: [
+        {
+          text: "Some text",
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(node)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+
+  t.is(p.style.textAlign, "justify")
+})
+
+test("Default transform applies alignment to heading (left)", t => {
+  const [node] = transformNodes([
+    {
+      type: ELEMENT_H2,
+      align: "left",
+      children: [
+        {
+          text: "Some text",
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(node)
+  const [h2] = container.childNodes as NodeListOf<HTMLHeadingElement>
+
+  t.is(h2.style.textAlign, "left")
+})
+
+test("Default transform applies alignment to heading (right)", t => {
+  const [node] = transformNodes([
+    {
+      type: ELEMENT_H2,
+      align: "right",
+      children: [
+        {
+          text: "Some text",
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(node)
+  const [h2] = container.childNodes as NodeListOf<HTMLHeadingElement>
+
+  t.is(h2.style.textAlign, "right")
+})
+
+test("Default transform applies alignment to heading (center)", t => {
+  const [node] = transformNodes([
+    {
+      type: ELEMENT_H2,
+      align: "center",
+      children: [
+        {
+          text: "Some text",
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(node)
+  const [h2] = container.childNodes as NodeListOf<HTMLHeadingElement>
+
+  t.is(h2.style.textAlign, "center")
+})
+
+test("Default transform applies alignment to heading (justify)", t => {
+  const [node] = transformNodes([
+    {
+      type: ELEMENT_H2,
+      align: "justify",
+      children: [
+        {
+          text: "Some text",
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(node)
+  const [h2] = container.childNodes as NodeListOf<HTMLHeadingElement>
+
+  t.is(h2.style.textAlign, "justify")
+})

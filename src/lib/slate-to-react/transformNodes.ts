@@ -1,8 +1,9 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
-import {Element} from "slate"
+import type {ReactElement} from "react"
 import type {Text} from "slate"
 import {nanoid} from "nanoid"
+import {Element} from "slate"
 
 import type {Transform, NodeTransform, Node} from "./types"
 import {
@@ -24,7 +25,7 @@ const defaultTransforms: Record<string, NodeTransform> = Object.fromEntries([
 function iterateNodes<R extends Node[]>(
   root: R,
   transforms: Map<string, Transform>
-): JSX.Element[] {
+): ReactElement<any, any>[] {
   const res = []
 
   for (const node of root) {
