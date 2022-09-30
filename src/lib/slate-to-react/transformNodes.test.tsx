@@ -9,6 +9,8 @@ import {
   ELEMENT_LINK
 } from "@udecode/plate"
 
+import {IEditorData} from "server/trpc/type/common/EditorData"
+
 import {transformNodes} from "./transformNodes"
 
 test("Transforms simple paragraph with text (w/ default transform)", t => {
@@ -21,7 +23,7 @@ test("Transforms simple paragraph with text (w/ default transform)", t => {
         }
       ]
     }
-  ])
+  ] as IEditorData)
 
   const {container} = render(paragraph)
   const [actual] = container.childNodes
@@ -41,7 +43,7 @@ test("Transforms h2 heading (w/ default transform)", t => {
         }
       ]
     }
-  ])
+  ] as IEditorData)
 
   const {container} = render(h2)
   const [actual] = container.childNodes
@@ -63,7 +65,7 @@ test("Transforms h3 heading (w/ default transform)", t => {
         }
       ]
     }
-  ])
+  ] as IEditorData)
 
   const {container} = render(h3)
   const [actual] = container.childNodes
@@ -85,7 +87,7 @@ test("Transforms h4 heading (w/ default transform)", t => {
         }
       ]
     }
-  ])
+  ] as IEditorData)
 
   const {container} = render(h4)
   const [actual] = container.childNodes as NodeListOf<HTMLHeadingElement>
@@ -119,4 +121,136 @@ test("Transforms link (w/ default transform)", t => {
   t.is(actual.href, "https://example.com/")
   t.is(actual.rel, "noopener noreferrer")
   t.is(actual.target, "_blank")
+})
+
+test("Default text transform applies bold text mark", t => {
+  const [paragraph] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Bold text",
+          bold: true
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(paragraph)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+  const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
+  const [actual] = span.childNodes as NodeListOf<HTMLElement>
+
+  t.true(span instanceof HTMLSpanElement)
+  t.is(actual.nodeName, "STRONG")
+})
+
+test("Default text transform applies italic text mark", t => {
+  const [paragraph] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Bold text",
+          italic: true
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(paragraph)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+  const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
+  const [actual] = span.childNodes as NodeListOf<HTMLElement>
+
+  t.true(span instanceof HTMLSpanElement)
+  t.is(actual.nodeName, "I")
+})
+
+test("Default text transform applies underlined text mark", t => {
+  const [paragraph] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Bold text",
+          underline: true
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(paragraph)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+  const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
+  const [actual] = span.childNodes as NodeListOf<HTMLElement>
+
+  t.true(span instanceof HTMLSpanElement)
+  t.is(actual.nodeName, "U")
+})
+
+test("Default text transform applies strikethrough text mark", t => {
+  const [paragraph] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Bold text",
+          strikethrough: true
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(paragraph)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+  const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
+  const [actual] = span.childNodes as NodeListOf<HTMLElement>
+
+  t.true(span instanceof HTMLSpanElement)
+  t.is(actual.nodeName, "S")
+})
+
+test("Default text transform applies superscript text mark", t => {
+  const [paragraph] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Bold text",
+          superscript: true
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(paragraph)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+  const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
+  const [actual] = span.childNodes as NodeListOf<HTMLElement>
+
+  t.true(span instanceof HTMLSpanElement)
+  t.is(actual.nodeName, "SUP")
+})
+
+test("Default text transform applies subscript text mark", t => {
+  const [paragraph] = transformNodes([
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Bold text",
+          subscript: true
+        }
+      ]
+    }
+  ] as IEditorData)
+
+  const {container} = render(paragraph)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+  const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
+  const [actual] = span.childNodes as NodeListOf<HTMLElement>
+
+  t.true(span instanceof HTMLSpanElement)
+  t.is(actual.nodeName, "SUB")
 })
