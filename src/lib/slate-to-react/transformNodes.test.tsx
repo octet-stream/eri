@@ -14,7 +14,7 @@ import {IEditorData} from "server/trpc/type/common/EditorData"
 import {transformNodes} from "./transformNodes"
 
 test("Transforms simple paragraph with text (w/ default transform)", t => {
-  const [paragraph] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_PARAGRAPH,
       children: [
@@ -25,7 +25,7 @@ test("Transforms simple paragraph with text (w/ default transform)", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(paragraph)
+  const {container} = render(node)
   const [actual] = container.childNodes
 
   t.true(actual instanceof HTMLParagraphElement)
@@ -34,7 +34,7 @@ test("Transforms simple paragraph with text (w/ default transform)", t => {
 })
 
 test("Transforms h2 heading (w/ default transform)", t => {
-  const [h2] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_H2,
       children: [
@@ -45,7 +45,7 @@ test("Transforms h2 heading (w/ default transform)", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(h2)
+  const {container} = render(node)
   const [actual] = container.childNodes
 
   t.true(actual instanceof HTMLHeadingElement)
@@ -56,7 +56,7 @@ test("Transforms h2 heading (w/ default transform)", t => {
 })
 
 test("Transforms h3 heading (w/ default transform)", t => {
-  const [h3] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_H3,
       children: [
@@ -67,7 +67,7 @@ test("Transforms h3 heading (w/ default transform)", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(h3)
+  const {container} = render(node)
   const [actual] = container.childNodes
 
   t.true(actual instanceof HTMLHeadingElement)
@@ -78,7 +78,7 @@ test("Transforms h3 heading (w/ default transform)", t => {
 })
 
 test("Transforms h4 heading (w/ default transform)", t => {
-  const [h4] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_H4,
       children: [
@@ -89,7 +89,7 @@ test("Transforms h4 heading (w/ default transform)", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(h4)
+  const {container} = render(node)
   const [actual] = container.childNodes as NodeListOf<HTMLHeadingElement>
 
   t.true(actual instanceof HTMLHeadingElement)
@@ -100,20 +100,26 @@ test("Transforms h4 heading (w/ default transform)", t => {
 })
 
 test("Transforms link (w/ default transform)", t => {
-  const [link] = transformNodes([
+  const [node] = transformNodes([
     {
-      type: ELEMENT_LINK,
-      url: "https://example.com",
+      type: ELEMENT_PARAGRAPH,
       children: [
         {
-          text: "Some link"
+          type: ELEMENT_LINK,
+          url: "https://example.com",
+          children: [
+            {
+              text: "Some link"
+            }
+          ]
         }
       ]
     }
-  ])
+  ] as IEditorData)
 
-  const {container} = render(link)
-  const [actual] = container.childNodes as NodeListOf<HTMLAnchorElement>
+  const {container} = render(node)
+  const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
+  const [actual] = p.childNodes as NodeListOf<HTMLAnchorElement>
 
   t.true(actual instanceof HTMLAnchorElement)
   t.true(actual.firstChild instanceof HTMLSpanElement)
@@ -124,7 +130,7 @@ test("Transforms link (w/ default transform)", t => {
 })
 
 test("Default text transform applies bold text mark", t => {
-  const [paragraph] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_PARAGRAPH,
       children: [
@@ -136,7 +142,7 @@ test("Default text transform applies bold text mark", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(paragraph)
+  const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
   const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
   const [actual] = span.childNodes as NodeListOf<HTMLElement>
@@ -146,7 +152,7 @@ test("Default text transform applies bold text mark", t => {
 })
 
 test("Default text transform applies italic text mark", t => {
-  const [paragraph] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_PARAGRAPH,
       children: [
@@ -158,7 +164,7 @@ test("Default text transform applies italic text mark", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(paragraph)
+  const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
   const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
   const [actual] = span.childNodes as NodeListOf<HTMLElement>
@@ -168,7 +174,7 @@ test("Default text transform applies italic text mark", t => {
 })
 
 test("Default text transform applies underlined text mark", t => {
-  const [paragraph] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_PARAGRAPH,
       children: [
@@ -180,7 +186,7 @@ test("Default text transform applies underlined text mark", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(paragraph)
+  const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
   const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
   const [actual] = span.childNodes as NodeListOf<HTMLElement>
@@ -190,7 +196,7 @@ test("Default text transform applies underlined text mark", t => {
 })
 
 test("Default text transform applies strikethrough text mark", t => {
-  const [paragraph] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_PARAGRAPH,
       children: [
@@ -202,7 +208,7 @@ test("Default text transform applies strikethrough text mark", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(paragraph)
+  const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
   const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
   const [actual] = span.childNodes as NodeListOf<HTMLElement>
@@ -212,7 +218,7 @@ test("Default text transform applies strikethrough text mark", t => {
 })
 
 test("Default text transform applies superscript text mark", t => {
-  const [paragraph] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_PARAGRAPH,
       children: [
@@ -224,7 +230,7 @@ test("Default text transform applies superscript text mark", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(paragraph)
+  const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
   const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
   const [actual] = span.childNodes as NodeListOf<HTMLElement>
@@ -234,7 +240,7 @@ test("Default text transform applies superscript text mark", t => {
 })
 
 test("Default text transform applies subscript text mark", t => {
-  const [paragraph] = transformNodes([
+  const [node] = transformNodes([
     {
       type: ELEMENT_PARAGRAPH,
       children: [
@@ -246,7 +252,7 @@ test("Default text transform applies subscript text mark", t => {
     }
   ] as IEditorData)
 
-  const {container} = render(paragraph)
+  const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
   const [span] = p.childNodes as NodeListOf<HTMLSpanElement>
   const [actual] = span.childNodes as NodeListOf<HTMLElement>
