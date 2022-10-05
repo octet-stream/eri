@@ -84,7 +84,7 @@ test(
   }
 )
 
-test.only(
+test(
   "Has nextCursor param being null if the last page is reached",
 
   withTRPC,
