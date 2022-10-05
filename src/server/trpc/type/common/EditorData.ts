@@ -7,7 +7,9 @@ import {
   ELEMENT_H4,
   ELEMENT_LINK,
   ELEMENT_PARAGRAPH,
-  ELEMENT_BLOCKQUOTE
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_CODE_BLOCK,
+  ELEMENT_CODE_LINE
 } from "@udecode/plate"
 
 import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
@@ -71,6 +73,20 @@ export const Blockquote = BlockElement.extend({
 
 export interface IBlockquote extends Infer<typeof Blockquote> { }
 
+export const CodeLine = BlockElement.extend({
+  type: z.literal(ELEMENT_CODE_LINE),
+  children: z.array(PlainText)
+})
+
+export interface ICodeLine extends Infer<typeof CodeLine> { }
+
+export const CodeBlock = BlockElement.extend({
+  type: z.literal(ELEMENT_CODE_BLOCK),
+  children: z.array(CodeLine)
+})
+
+export interface ICodeBlock extends Infer<typeof CodeBlock> { }
+
 export const HeadingTypes = z.union([
   z.literal(ELEMENT_H2),
   z.literal(ELEMENT_H3),
@@ -84,7 +100,12 @@ export const HeadingElement = AbstractElement.extend(Align.shape).extend({
 
 export interface IHeadingElement extends Infer<typeof HeadingElement> { }
 
-export const RootElement = z.union([Paragraph, HeadingElement, Blockquote])
+export const RootElement = z.union([
+  Paragraph,
+  HeadingElement,
+  Blockquote,
+  CodeBlock
+])
 
 export const EditorData = z
   .array(RootElement)
