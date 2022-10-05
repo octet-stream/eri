@@ -1,6 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from "next"
 import type {NextAuthOptions} from "next-auth"
 import {createRouter} from "next-connect"
+import {pickBy} from "lodash"
 
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
@@ -97,15 +98,33 @@ export const options: NextAuthOptions = {
 
         // TODO: Improve session serialization
         return {
-          id: user.id,
-          login: user.login,
           email: null,
           image: null,
           name: null
         }
       }
     })
-  ]
+  ],
+  callbacks: {
+    async session({session, token}) {
+      const orm = await getORM()
+      const userRepo = orm.em.getRepository(User)
+
+      const user = await userRepo.findOneOrFail({id: token.sub}, {
+        fields: ["login", "role", "id"]
+      })
+
+      // Expose additional props
+      session.user = pickBy({
+        ...session.user,
+
+        login: user.login,
+        role: user.role
+      }, Boolean) as any
+
+      return session
+    }
+  }
 }
 
 const authHandler = NextAuth(options)

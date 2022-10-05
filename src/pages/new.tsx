@@ -1,4 +1,5 @@
-// import {useSession} from "next-auth/react"
+import {useSession} from "next-auth/react"
+import type {Session} from "next-auth"
 import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
 import type {FC} from "react"
@@ -7,8 +8,9 @@ import useEvent from "react-use-event-hook"
 
 import getServerSideSessionRedirect from "lib/util/getServerSideSessionRedirect"
 
+import type {IUserOutput} from "server/trpc/type/output/UserOutput"
+
 import {client} from "lib/trpc"
-import type {Session} from "next-auth"
 
 import {EditorLayout} from "layout/EditorLayout"
 
@@ -22,6 +24,7 @@ interface Props {
 export const getServerSideProps = getServerSideSessionRedirect
 
 const NewPostPage: FC<Props> = () => {
+  const session = useSession()
   const router = useRouter()
 
   const onSubmit = useEvent<EditorOnSaveHandler>(async data => {
@@ -36,7 +39,11 @@ const NewPostPage: FC<Props> = () => {
 
   return (
     <EditorLayout>
-      <PostEditor onSave={onSubmit} />
+      <PostEditor
+        isNew
+        onSave={onSubmit}
+        author={session.data?.user as Pick<IUserOutput, "login">}
+      />
     </EditorLayout>
   )
 }

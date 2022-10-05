@@ -26,9 +26,10 @@ export interface EditorOnSaveHandler {
 }
 
 interface Props {
+  isNew?: boolean
   title?: string
   content?: Value
-  author?: Omit<IUserOutput, "id">
+  author: Pick<IUserOutput, "login">
   interactivePageTitle?: boolean
   onSave: EditorOnSaveHandler
 }
@@ -37,6 +38,7 @@ export const PostEditor: FC<Props> = ({
   title: initialTitle = "",
   content: initialContent = [],
   interactivePageTitle = true,
+  isNew = false,
   author,
   onSave
 }) => {
@@ -71,8 +73,12 @@ export const PostEditor: FC<Props> = ({
 
           <div>
             <small className="text-gray-500">
+              <span>{isNew ? "A new post" : "Published"}</span>
+
+              <span> by </span>
+
               <span>
-                {` by @${author ? author.login : "you"}`}
+                @{author.login}
               </span>
             </small>
           </div>
