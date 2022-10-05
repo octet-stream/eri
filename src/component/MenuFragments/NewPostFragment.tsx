@@ -22,7 +22,7 @@ import {FlyoutMenuItem} from "component/FlyoutMenu"
  * )
  * ```
  */
-export const UserMenu: FC = () => (
+export const NewPostFragment: FC = () => (
   <FlyoutMenuItem href="/new">
     New post
   </FlyoutMenuItem>

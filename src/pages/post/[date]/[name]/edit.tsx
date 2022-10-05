@@ -1,18 +1,18 @@
 import {unstable_getServerSession as getServerSession} from "next-auth/next"
 import type {GetServerSideProps} from "next"
-import {stringify, parse} from "superjson"
 import type {Session} from "next-auth"
 import {TRPCError} from "@trpc/server"
 import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
+import {stringify} from "superjson"
 import type {FC} from "react"
-import {useMemo} from "react"
 
 import useEvent from "react-use-event-hook"
 
 import {client} from "lib/trpc"
 import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
+import {usePageData} from "lib/hook/usePageData"
 
 import {options} from "pages/api/auth/[...nextauth]"
 
@@ -70,9 +70,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   }
 }
 
-const PostEditPage: FC<Props> = ({data}) => {
+const PostEditPage: FC<Props> = () => {
+  const post = usePageData<Post>()
   const router = useRouter()
-  const post = useMemo(() => parse<Post>(data), [data])
 
   const onSave = useEvent<EditorOnSaveHandler>(async fields => {
     try {

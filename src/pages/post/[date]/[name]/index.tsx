@@ -1,5 +1,5 @@
 import type {GetStaticProps, GetStaticPaths} from "next"
-import {stringify, parse} from "superjson"
+import {stringify} from "superjson"
 import {formatRelative} from "date-fns"
 import {TRPCError} from "@trpc/server"
 import type {FC} from "react"
@@ -10,6 +10,7 @@ import {router} from "server/trpc/route"
 import {Post} from "server/db/entity/Post"
 
 import {PostLayout} from "layout/PostLayout"
+import {usePageData} from "lib/hook/usePageData"
 import {transformNodes} from "lib/slate-to-react"
 
 interface Props {
@@ -70,8 +71,9 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
   }
 }
 
-const PostPage: FC<Props> = ({data}) => {
-  const post = useMemo(() => parse<Post>(data), [data])
+const PostPage: FC<Props> = () => {
+  const post = usePageData<Post>()
+
   const content = useMemo(() => transformNodes(post.content), [post.content])
 
   return (

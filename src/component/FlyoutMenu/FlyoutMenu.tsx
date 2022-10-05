@@ -12,8 +12,10 @@ type MenuItemType = typeof FlyoutMenuItem
 
 type MenuItemProps = ComponentPropsWithoutRef<MenuItemType>
 
+type MenuElement = MaybeArray<ReactElement<MenuItemProps, MenuItemType>>
+
 interface Props {
-  children?: MaybeArray<ReactElement<MenuItemProps, MenuItemType>>
+  children?: MaybeArray<MenuElement | false | null>
 }
 
 export const FlyoutMenu: FC<Props> = ({children}) => (

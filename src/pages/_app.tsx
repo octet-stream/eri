@@ -1,6 +1,6 @@
 import {QueryClient, QueryClientProvider} from "react-query"
-import {SessionProvider} from "next-auth/react"
 import {useState, Fragment} from "react"
+import {SessionProvider} from "next-auth/react"
 import {Toaster} from "react-hot-toast"
 import type {Session} from "next-auth"
 import type {AppProps} from "next/app"
@@ -9,12 +9,14 @@ import type {FC} from "react"
 import Head from "next/head"
 
 import {trpcClient, TRPCProvider} from "lib/trpc"
+import {PageDataProvider} from "lib/context/PageDataContext"
 
 import "style/globals.css"
 import "style/tailwind.css"
 
 interface PageProps {
   session?: Session | null
+  data?: string
 }
 
 interface Props extends AppProps {
@@ -22,9 +24,9 @@ interface Props extends AppProps {
 }
 
 const PageContainer: FC<Props> = ({Component, pageProps}) => {
-  const [queryClient] = useState(() => new QueryClient())
-
   const {session, ...props} = pageProps
+
+  const [queryClient] = useState(() => new QueryClient())
 
   return (
     <Fragment>
@@ -35,7 +37,9 @@ const PageContainer: FC<Props> = ({Component, pageProps}) => {
       <TRPCProvider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <SessionProvider session={session}>
-            <Component {...props} />
+            <PageDataProvider data={props.data}>
+              <Component {...props} />
+            </PageDataProvider>
 
             <Toaster position="top-center" />
           </SessionProvider>
