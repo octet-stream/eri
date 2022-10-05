@@ -10,13 +10,14 @@ import {
   text,
   link,
   paragraph,
+  blockquote,
   h2,
   h3,
   h4
 } from "./defaultTransforms"
 
 const defaultTransforms: Record<string, NodeTransform> = Object.fromEntries([
-  text, link, paragraph, h2, h3, h4
+  text, link, paragraph, blockquote, h2, h3, h4
 ])
 
 /**

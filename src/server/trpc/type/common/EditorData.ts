@@ -84,7 +84,7 @@ export const HeadingElement = AbstractElement.extend(Align.shape).extend({
 
 export interface IHeadingElement extends Infer<typeof HeadingElement> { }
 
-export const RootElement = z.union([Paragraph, HeadingElement])
+export const RootElement = z.union([Paragraph, HeadingElement, Blockquote])
 
 export const EditorData = z
   .array(RootElement)

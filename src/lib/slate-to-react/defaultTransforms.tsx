@@ -3,7 +3,8 @@ import {
   ELEMENT_LINK,
   ELEMENT_H2,
   ELEMENT_H3,
-  ELEMENT_H4
+  ELEMENT_H4,
+  ELEMENT_BLOCKQUOTE
 } from "@udecode/plate"
 import type {ReactNode} from "react"
 
@@ -11,7 +12,8 @@ import type {
   ILink,
   IRichText,
   IParagraph,
-  IHeadingElement
+  IHeadingElement,
+  IBlockquote
 } from "server/trpc/type/common/EditorData"
 import {Anchor} from "component/Anchor"
 
@@ -108,5 +110,15 @@ export const link = createNodeTransform<ILink>(
     <Anchor key={key} href={node.url} className="text-[#0078d4] no-underline hover:underline">
       {children}
     </Anchor>
+  )
+)
+
+export const blockquote = createNodeTransform<IBlockquote>(
+  ELEMENT_BLOCKQUOTE,
+
+  ({key, children}) => (
+    <blockquote key={key}>
+      {children}
+    </blockquote>
   )
 )
