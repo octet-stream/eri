@@ -42,7 +42,7 @@ const NewPostPage: FC<Props> = () => {
       <PostEditor
         isNew
         onSave={onSubmit}
-        author={session.data?.user as Pick<IUserOutput, "login">}
+        author={session.data!.user as Pick<IUserOutput, "login">}
       />
     </EditorLayout>
   )
