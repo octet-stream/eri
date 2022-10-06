@@ -96,11 +96,9 @@ export const options: NextAuthOptions = {
           throw new Error("Invalid password.")
         }
 
-        // TODO: Improve session serialization
         return {
-          email: null,
-          image: null,
-          name: null
+          id: user.id,
+          email: user.email
         }
       }
     })
@@ -111,7 +109,7 @@ export const options: NextAuthOptions = {
       const userRepo = orm.em.getRepository(User)
 
       const user = await userRepo.findOneOrFail({id: token.sub}, {
-        fields: ["login", "role", "id"]
+        fields: ["id", "login", "role"]
       })
 
       // Expose additional props
