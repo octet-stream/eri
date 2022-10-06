@@ -1,13 +1,14 @@
 import type {GetStaticProps, GetStaticPaths} from "next"
-import {stringify} from "superjson"
 import {formatRelative} from "date-fns"
 import {TRPCError} from "@trpc/server"
+import {stringify} from "superjson"
 import type {FC} from "react"
 import {useMemo} from "react"
 
 import {runIsolatied} from "server/lib/db"
+import {IPostOutput} from "server/trpc/type/output/PostOutput"
 import {router} from "server/trpc/route"
-import {Post} from "server/db/entity/Post"
+import {Post} from "server/db/entity"
 
 import {PostLayout} from "layout/PostLayout"
 import {usePageData} from "lib/hook/usePageData"
@@ -31,6 +32,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     {},
 
     {
+      fields: ["slug"],
       limit: 100,
       orderBy: {
         createdAt: "desc"
@@ -72,7 +74,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 }
 
 const PostPage: FC<Props> = () => {
-  const post = usePageData<Post>()
+  const post = usePageData<IPostOutput>()
 
   const content = useMemo(() => transformNodes(post.content), [post.content])
 
