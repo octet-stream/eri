@@ -80,7 +80,7 @@ const PostEditPage: FC<Props> = () => {
         id: post.id, ...fields
       })
 
-      router.replace(`/post/${slug}`)
+      await router.replace(`/post/${slug}`)
     } catch {
       toast.error("Can't update this post")
     }
