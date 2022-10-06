@@ -9,7 +9,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import withORMContext from "server/middleware/withORMContext"
 
 import {assertRequiredEnv} from "server/lib/util/assertRequiredEnv"
-import {getORM} from "server/lib/db"
+import {runIsolatied} from "server/lib/db"
 
 import {User} from "server/db/entity/User"
 
@@ -83,10 +83,9 @@ export const options: NextAuthOptions = {
           return null
         }
 
-        const orm = await getORM()
-        const userRepo = orm.em.getRepository(User)
-
-        const user = await userRepo.findOne({email: credentials.email})
+        const user = await runIsolatied(
+          em => em.findOne(User, {email: credentials.email})
+        )
 
         if (!user) {
           throw new Error("Can't find a user.")
@@ -105,12 +104,11 @@ export const options: NextAuthOptions = {
   ],
   callbacks: {
     async session({session, token}) {
-      const orm = await getORM()
-      const userRepo = orm.em.getRepository(User)
-
-      const user = await userRepo.findOneOrFail({id: token.sub}, {
-        fields: ["id", "login", "role"]
-      })
+      const user = await runIsolatied(em => (
+        em.findOneOrFail(User, {id: token.sub}, {
+          fields: ["id", "login", "role"]
+        })
+      ))
 
       // Expose additional props
       session.user = pickBy({

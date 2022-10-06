@@ -22,7 +22,7 @@ const postUpdate = router<GlobalContext>()
 
     async resolve({input, ctx}) {
       const {id, ...fields} = input
-      const {user} = ctx
+      const {user, res} = ctx
 
       const orm = await getORM()
       const post = await orm.em.findOne(Post, {id})
@@ -38,6 +38,9 @@ const postUpdate = router<GlobalContext>()
       wrap(post).assign(fields)
 
       await orm.em.persistAndFlush(post)
+      await res.revalidate(`/post/${post.slug}`, {
+        unstable_onlyGenerated: true
+      })
 
       return post
     }

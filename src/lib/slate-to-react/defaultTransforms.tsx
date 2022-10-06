@@ -23,7 +23,8 @@ export const text = createNodeTransform<IRichText>(
   "text",
 
   ({key, node, children}) => {
-    let element: ReactNode = children
+    // Render <br /> for empty text blocks as it's probably just an empty line
+    let element: ReactNode = children || <br />
 
     if (node.bold) {
       element = <strong>{element}</strong>
