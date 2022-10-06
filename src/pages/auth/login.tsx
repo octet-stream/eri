@@ -37,6 +37,7 @@ const LoginPage: FC<Props> = () => {
         <Input
           {...register("email")}
 
+          autoFocus
           className="w-full mb-2"
           type="email"
           placeholder="Email"

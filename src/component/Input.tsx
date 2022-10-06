@@ -1,12 +1,14 @@
 /* eslint-disable react/default-props-match-prop-types */
 /* eslint-disable react/display-name */
 import type {ComponentPropsWithoutRef, FocusEventHandler} from "react"
+import {forwardRef, useState, useImperativeHandle} from "react"
 import type {FieldError} from "react-hook-form"
-import {forwardRef, useState} from "react"
 import {toast} from "react-hot-toast"
 
 import cn from "classnames"
 import useEvent from "react-use-event-hook"
+
+import {useAutoFocus} from "lib/hook/useAutoFocus"
 
 interface Props extends ComponentPropsWithoutRef<"input"> {
   error?: FieldError
@@ -16,12 +18,16 @@ type InputFocusHandler = FocusEventHandler<HTMLInputElement>
 
 export const Input = forwardRef<HTMLInputElement, Props>((
   {
-    className, error, onFocus, onBlur, ...props
+    className, error, onFocus, onBlur, autoFocus, ...props
   },
 
   ref
 ) => {
   const [toastId, setToastId] = useState<string | null>(null)
+
+  const innferRef = useAutoFocus<HTMLInputElement>(autoFocus)
+
+  useImperativeHandle(ref, () => innferRef.current!)
 
   const showErrorToast = useEvent<InputFocusHandler>(event => {
     if (error?.message) {
@@ -51,7 +57,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((
     <input
       {...props}
 
-      ref={ref}
+      ref={innferRef}
       className={cn(
         "border-black border border-solid rounded-md p-2",
 

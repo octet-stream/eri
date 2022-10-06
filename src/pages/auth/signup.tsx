@@ -50,6 +50,7 @@ const SignupPage: FC = () => {
         <Input
           {...register("email")}
 
+          autoFocus
           className="w-full mb-2"
           type="email"
           placeholder="Email"

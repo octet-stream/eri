@@ -1,7 +1,8 @@
 import type {FC, ChangeEventHandler, KeyboardEventHandler} from "react"
 
-import Textarea from "react-textarea-autosize"
 import useEvent from "react-use-event-hook"
+
+import {TextArea} from "component/TextArea"
 
 export interface TitleEditorOnChangeHandler {
   (title: string): void
@@ -30,7 +31,7 @@ export const TitleEditor: FC<Props> = ({value, onTitleChange}) => {
   })
 
   return (
-    <Textarea
+    <TextArea
       autoFocus
       className="text-4xl font-extrabold w-full p-0 border-none outline-none resize-none overflow-hidden"
       placeholder="Title"
