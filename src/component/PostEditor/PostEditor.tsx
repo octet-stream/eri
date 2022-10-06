@@ -67,7 +67,7 @@ export const PostEditor: FC<Props> = ({
         </Head>
       )}
 
-      <div className="w-full h-full flex flex-col">
+      <div className="w-full h-full flex flex-col relative">
         <div className="flex flex-1 flex-col">
           <TitleEditor value={title} onTitleChange={onTitleChange} />
 

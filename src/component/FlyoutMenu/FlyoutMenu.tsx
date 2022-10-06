@@ -25,7 +25,7 @@ export const FlyoutMenu: FC<Props> = ({children}) => (
         <EllipsisVerticalIcon className="w-5 h-5 cursor-pointer" />
       </Menu.Button>
 
-      <Menu.Items className="absolute bg-white right-0 rounded-md drop-shadow-md overflow-hidden mt-2 w-[220px]">
+      <Menu.Items className="absolute bg-white right-0 rounded-md drop-shadow-md overflow-hidden mt-2 w-[220px] z-10">
         {children}
 
         <FlyoutMenuFooter />
