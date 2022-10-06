@@ -16,14 +16,14 @@ export const EditorLayout: FC<Props> = ({children}) => {
   }
 
   return (
-    <div className="w-screen min-h-screen py-5 desktop:p-5">
-      <div className="h-full flex flex-col prose mx-auto">
+    <div className="w-screen min-h-screen flex py-5 desktop:p-5">
+      <main className="flex flex-1 flex-col prose mx-auto">
         <NewPostHeader />
 
         <div className="flex-1">
           {children}
         </div>
-      </div>
+      </main>
     </div>
   )
 }
