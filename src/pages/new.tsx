@@ -6,7 +6,9 @@ import type {FC} from "react"
 
 import useEvent from "react-use-event-hook"
 
-import getServerSideSessionRedirect from "lib/util/getServerSideSessionRedirect"
+import {
+  getServerSideSessionRedirect
+} from "lib/util/getServerSideSessionRedirect"
 
 import type {IUserOutput} from "server/trpc/type/output/UserOutput"
 

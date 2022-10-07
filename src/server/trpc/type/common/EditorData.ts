@@ -12,7 +12,7 @@ import {
   ELEMENT_CODE_LINE
 } from "@udecode/plate"
 
-import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
+import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
 export const Align = z.object({
   align: z.union([

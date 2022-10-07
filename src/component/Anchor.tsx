@@ -3,7 +3,7 @@ import type {ComponentPropsWithoutRef} from "react"
 
 import Link from "next/link"
 
-import isInternalUrl from "lib/util/isInternalUrl"
+import {isInternalUrl} from "lib/util/isInternalUrl"
 
 interface Props extends ComponentPropsWithoutRef<"a"> {
   href: string

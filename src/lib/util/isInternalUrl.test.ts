@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import test from "ava"
 
-import isInternalUrl from "./isInternalUrl"
+import {isInternalUrl} from "./isInternalUrl"
 
 test.before(() => {
   process.env.NEXTAUTH_URL = "https://example.com"

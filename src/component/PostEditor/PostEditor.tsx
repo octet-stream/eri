@@ -4,7 +4,7 @@ import type {FC} from "react"
 import Head from "next/head"
 import useEvent from "react-use-event-hook"
 
-import isEditorContentEmpty from "lib/util/isEditorContentEmpty"
+import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
 import type {Value} from "lib/type/Editor"
 import type {IUserOutput} from "server/trpc/type/output/UserOutput"

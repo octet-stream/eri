@@ -10,8 +10,6 @@ const base = typeof window === "undefined"
  *
  * @param url
  */
-const isUrlExternal = (url: string): boolean => (
+export const isInternalUrl = (url: string): boolean => (
   isAbsolute(url) ? url.startsWith(new URL(base).origin) : true
 )
-
-export default isUrlExternal

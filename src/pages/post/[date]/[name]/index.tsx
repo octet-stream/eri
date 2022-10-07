@@ -5,14 +5,15 @@ import {stringify} from "superjson"
 import type {FC} from "react"
 import {useMemo} from "react"
 
+import {Post} from "server/db/entity"
+import {router} from "server/trpc/route"
 import {runIsolatied} from "server/lib/db"
 import {IPostOutput} from "server/trpc/type/output/PostOutput"
-import {router} from "server/trpc/route"
-import {Post} from "server/db/entity"
 
-import {PostLayout} from "layout/PostLayout"
-import {usePageData} from "lib/hook/usePageData"
+import {patchStaticPaths} from "lib/util/patchStaticPaths"
 import {transformNodes} from "lib/slate-to-react"
+import {usePageData} from "lib/hook/usePageData"
+import {PostLayout} from "layout/PostLayout"
 
 interface Props {
   data: string
@@ -25,12 +26,7 @@ interface Query {
 
 type Paths = Awaited<ReturnType<GetStaticPaths>>["paths"]
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  // ! Bypass getStaticPath in "development" env, because it causes MikroORM initialization on every page
-  if (process.env.NODE_ENV !== "production") {
-    return {paths: [], fallback: "blocking"}
-  }
-
+export const getStaticPaths = patchStaticPaths(async () => {
   const posts = await runIsolatied(async em => em.find(
     Post,
 
@@ -52,7 +48,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   })
 
   return {paths, fallback: "blocking"}
-}
+})
 
 export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
   const {date, name} = params as unknown as Query

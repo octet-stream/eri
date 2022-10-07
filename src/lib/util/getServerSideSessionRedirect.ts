@@ -32,8 +32,11 @@ interface Props {
  * const PrivatePage: FC = () => <div>Very private information</div>
  * ```
  */
-const getServerSideSessionRedirect: GetServerSideProps<Props> = async ctx => {
-  const session = await getServerSession(ctx.req, ctx.res, options)
+export const getServerSideSessionRedirect: GetServerSideProps<Props> = async ({
+  req,
+  res
+}) => {
+  const session = await getServerSession(req, res, options)
 
   if (!session) {
     return {redirect: {destination: "/auth/login", permanent: false}}
@@ -41,5 +44,3 @@ const getServerSideSessionRedirect: GetServerSideProps<Props> = async ctx => {
 
   return {props: {session}}
 }
-
-export default getServerSideSessionRedirect

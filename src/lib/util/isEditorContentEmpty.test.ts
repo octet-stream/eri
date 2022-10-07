@@ -2,7 +2,7 @@ import test from "ava"
 
 import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
-import isEditorContentEmpty from "./isEditorContentEmpty"
+import {isEditorContentEmpty} from "./isEditorContentEmpty"
 
 test("Returns true for empty array", t => {
   t.true(isEditorContentEmpty([]))

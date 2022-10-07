@@ -7,7 +7,7 @@ import {isEmpty} from "lodash"
  *
  * @param value
  */
-const isEditorContentEmpty = (value: Value): boolean => {
+export const isEditorContentEmpty = (value: Value): boolean => {
   if (isEmpty(value)) {
     return true
   }

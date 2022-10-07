@@ -6,7 +6,7 @@ import {useRouter} from "next/router"
 import {useMemo} from "react"
 import type {FC} from "react"
 
-import getServerSideSession from "lib/util/getServerSideSession"
+import {getServerSideSession} from "lib/util/getServerSideSession"
 
 import {client} from "lib/trpc"
 

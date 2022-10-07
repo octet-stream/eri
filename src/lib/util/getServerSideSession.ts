@@ -28,10 +28,11 @@ interface Props {
  * const PrivatePage: FC = () => <div>Very private information</div>
  * ```
  */
-const getServerSideSession: GetServerSideProps<Props> = async ({req, res}) => {
+export const getServerSideSession: GetServerSideProps<Props> = async ({
+  req,
+  res
+}) => {
   const session = await getServerSession(req, res, options)
 
   return {props: {session}}
 }
-
-export default getServerSideSession
