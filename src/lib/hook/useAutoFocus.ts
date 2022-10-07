@@ -16,6 +16,7 @@ export const useAutoFocus = <T extends HTMLInputElement | HTMLTextAreaElement>(
   useEffect(() => {
     if (autoFocus && ref.current) {
       ref.current.focus()
+      ref.current.selectionStart = ref.current.value.length
     }
   }, [])
 

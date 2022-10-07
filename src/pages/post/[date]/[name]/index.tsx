@@ -26,6 +26,11 @@ interface Query {
 type Paths = Awaited<ReturnType<GetStaticPaths>>["paths"]
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  // ! Bypass getStaticPath in "development" env, because it causes MikroORM initialization on every page
+  if (process.env.NODE_ENV !== "production") {
+    return {paths: [], fallback: "blocking"}
+  }
+
   const posts = await runIsolatied(async em => em.find(
     Post,
 
