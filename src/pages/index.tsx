@@ -1,13 +1,13 @@
 import type {GetServerSideProps} from "next"
-import {stringify, parse} from "superjson"
+import {stringify} from "superjson"
 import {isEmpty} from "lodash"
 import type {FC} from "react"
-import {useMemo} from "react"
 
 import Link from "next/link"
 
+import type {IPostOutput} from "server/trpc/type/output/PostOutput"
 import type {IPageOutput} from "server/trpc/type/output/PageOutput"
-import {Post} from "server/db/entity"
+import {usePageData} from "lib/hook/usePageData"
 
 import {router} from "server/trpc/route"
 
@@ -49,8 +49,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   }
 }
 
-const Home: FC<Props> = ({data}) => {
-  const posts = useMemo(() => parse<IPageOutput<Post>>(data), [data])
+const Home: FC<Props> = () => {
+  const [posts] = usePageData<IPageOutput<IPostOutput>>()
 
   if (isEmpty(posts.items)) {
     return (

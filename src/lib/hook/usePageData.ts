@@ -3,10 +3,10 @@ import {useContext} from "react"
 import {PageDataContext} from "lib/context/PageDataContext"
 
 /**
- * Returns parsed page data from context
+ * Returns parsed page data from context, and a function to apply patch for this data, after it was updated on the server.
  */
 export const usePageData = <T>() => {
-  const data = useContext(PageDataContext) as T
+  const data = useContext(PageDataContext)
 
   if (!data) {
     // TODO: Improve error message
@@ -15,5 +15,5 @@ export const usePageData = <T>() => {
     )
   }
 
-  return data
+  return [data.data as T, data.update] as const
 }

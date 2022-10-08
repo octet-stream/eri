@@ -75,7 +75,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 }
 
 const PostPage: FC<Props> = () => {
-  const post = usePageData<IPostOutput>()
+  const [post] = usePageData<IPostOutput>()
 
   const content = useMemo(() => transformNodes(post.content), [post.content])
 

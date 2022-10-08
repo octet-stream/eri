@@ -12,8 +12,8 @@ import {EditPostFragment} from "component/MenuFragments/EditPostFragment"
 interface Props { }
 
 export const EditPostMenu: FC<Props> = () => {
+  const [{slug}] = usePageData<IPostOutput>()
   const {status} = useSession()
-  const {slug} = usePageData<IPostOutput>()
 
   const isAuthenticated = status === "authenticated"
 
