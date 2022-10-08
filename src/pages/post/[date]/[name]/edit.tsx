@@ -78,7 +78,7 @@ const PostEditPage: FC<Props> = () => {
   const onSave = useEvent<EditorOnSaveHandler>(async fields => {
     try {
       const updated = await client.mutation("post.update", {
-        id: post.id, ...fields
+        ...fields, id: post.id
       })
 
       const pageId = `/post/${updated.slug}`
