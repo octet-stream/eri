@@ -1,7 +1,6 @@
 import {router} from "@trpc/server"
 
-import {createPageOutput} from "server/trpc/type/output/PageOutput"
-import {PostOutput} from "server/trpc/type/output/PostOutput"
+import {PostsPageOutput} from "server/trpc/type/output/PostsPageOutput"
 import {PageInput} from "server/trpc/type/input/PageInput"
 import {PageArgs} from "server/trpc/helper/PageArgs"
 import type {Context} from "server/trpc/context"
@@ -16,7 +15,7 @@ const postsAll = router<Context>()
   .query("all", {
     input: PageInput,
 
-    output: createPageOutput(PostOutput),
+    output: PostsPageOutput,
 
     async resolve({input}) {
       const args = new PageArgs(input)
