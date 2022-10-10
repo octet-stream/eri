@@ -9,7 +9,7 @@ import type {IPostOutput} from "server/trpc/type/output/PostOutput"
 import type {IPageOutput} from "server/trpc/type/output/PageOutput"
 import {usePageData} from "lib/hook/usePageData"
 
-import {router} from "server/trpc/route"
+import {router} from "server/trpc/router"
 
 import {HomeLayout} from "layout/HomeLayout"
 

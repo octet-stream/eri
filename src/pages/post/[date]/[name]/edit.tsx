@@ -10,7 +10,7 @@ import type {FC} from "react"
 import useEvent from "react-use-event-hook"
 
 import {client} from "lib/trpc"
-import {router} from "server/trpc/route"
+import {router} from "server/trpc/router"
 import {Post} from "server/db/entity/Post"
 import {usePageData} from "lib/hook/usePageData"
 

@@ -2,7 +2,7 @@ import {createReactQueryHooks} from "@trpc/react"
 
 import superjson from "superjson"
 
-import type {Router} from "server/trpc/route"
+import type {Router} from "server/trpc/router"
 
 const {Provider, createClient, ...trpc} = createReactQueryHooks<Router>()
 

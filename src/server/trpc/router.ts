@@ -6,8 +6,8 @@ import type {GlobalContext} from "server/trpc/context"
 
 import ormContext from "server/trpc/middleware/ormContext"
 
-import query from "./query"
-import mutation from "./mutation"
+import query from "./route/query"
+import mutation from "./route/mutation"
 
 export const router = r<GlobalContext>()
   .transformer(superjson)

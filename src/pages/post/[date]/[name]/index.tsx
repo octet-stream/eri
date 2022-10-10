@@ -6,7 +6,7 @@ import type {FC} from "react"
 import {useMemo} from "react"
 
 import {Post} from "server/db/entity"
-import {router} from "server/trpc/route"
+import {router} from "server/trpc/router"
 import {runIsolatied} from "server/lib/db"
 import {IPostOutput} from "server/trpc/type/output/PostOutput"
 
