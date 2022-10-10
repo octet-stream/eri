@@ -18,7 +18,7 @@ export const useAutoFocus = <T extends HTMLInputElement | HTMLTextAreaElement>(
       ref.current.focus()
       ref.current.selectionStart = ref.current.value.length
     }
-  }, [])
+  })
 
   return ref
 }
