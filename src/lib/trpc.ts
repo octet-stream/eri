@@ -15,4 +15,10 @@ export const trpcClient = client
 export const TRPCProvider = Provider
 export const hooks = trpc
 
-export const {useQuery, useMutation, useInfiniteQuery, useSubscription} = trpc
+export const {
+  useQuery,
+  useMutation,
+  useInfiniteQuery,
+  useSubscription,
+  useContext
+} = trpc

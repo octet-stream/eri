@@ -23,7 +23,7 @@ interface Query {
 
 export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   const query = ctx.query as Query
-  const page = query.page ? parseInt(query.page, 10) : undefined
+  const page = query.page ? parseInt(query.page, 10) : null
 
   if (page && page < 1) {
     return {
