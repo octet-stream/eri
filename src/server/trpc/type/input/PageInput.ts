@@ -14,5 +14,6 @@ export const PageInput = z
       .optional()
       .default(50)
   })
+  .default({})
 
 export interface IPageInput extends Infer<typeof PageInput> { }
