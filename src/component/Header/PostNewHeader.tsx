@@ -4,4 +4,4 @@ import {MainMenu} from "component/Menu/MainMenu"
 
 import {PostHeader} from "./PostHeader"
 
-export const NewPostHeader: FC = () => <PostHeader menu={<MainMenu />} />
+export const PostNewHeader: FC = () => <PostHeader menu={<MainMenu />} />

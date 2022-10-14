@@ -16,7 +16,7 @@ import {usePageData} from "lib/hook/usePageData"
 
 import {options} from "pages/api/auth/[...nextauth]"
 
-import {EditorLayout} from "layout/EditorLayout"
+import {PostEditLayout} from "layout/PostEditLayout"
 
 import type {EditorOnSaveHandler} from "component/PostEditor"
 import {PostEditor} from "component/PostEditor"
@@ -93,14 +93,14 @@ const PostEditPage: FC<Props> = () => {
   })
 
   return (
-    <EditorLayout>
+    <PostEditLayout>
       <PostEditor
         title={post.title}
         content={post.content}
         onSave={onSave}
         author={post.author}
       />
-    </EditorLayout>
+    </PostEditLayout>
   )
 }
 

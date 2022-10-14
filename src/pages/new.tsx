@@ -14,7 +14,7 @@ import type {IUserOutput} from "server/trpc/type/output/UserOutput"
 
 import {client} from "lib/trpc"
 
-import {EditorLayout} from "layout/EditorLayout"
+import {PostNewLayout} from "layout/PostNewLayout"
 
 import type {EditorOnSaveHandler} from "component/PostEditor"
 import {PostEditor} from "component/PostEditor"
@@ -40,13 +40,13 @@ const NewPostPage: FC<Props> = () => {
   })
 
   return (
-    <EditorLayout>
+    <PostNewLayout>
       <PostEditor
         isNew
         onSave={onSubmit}
         author={session.data!.user as Pick<IUserOutput, "login">}
       />
-    </EditorLayout>
+    </PostNewLayout>
   )
 }
 

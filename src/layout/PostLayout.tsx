@@ -1,6 +1,6 @@
 import type {FC} from "react"
 
-import {EditPostHeader} from "component/Header/EditPostHeader"
+import {PostViewHeader} from "component/Header/PostViewHeader"
 
 import {BaseLayout} from "./BaseLayout"
 import type {BaseLayoutProps} from "./BaseLayout"
@@ -11,7 +11,7 @@ interface Props extends BaseLayoutProps {
 
 export const PostLayout: FC<Props> = ({title, children}) => (
   <BaseLayout title={title}>
-    <EditPostHeader />
+    <PostViewHeader />
 
     <article className="flex flex-1 flex-col">
       {children}
