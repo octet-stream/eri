@@ -35,7 +35,6 @@
   },
   "dependencies": {
     "@headlessui/react": "1.7.3",
-    "@heroicons/react": "2.0.12",
     "@hookform/resolvers": "2.9.8",
     "@mikro-orm/core": "5.4.2",
     "@mikro-orm/mysql": "5.4.2",
@@ -52,6 +51,7 @@
     "is-absolute-url": "3.0.3",
     "is-hotkey": "0.2.0",
     "lodash": "4.17.21",
+    "lucide-react": "^0.91.0",
     "mysql2": "2.3.3",
     "nanoid": "3.3.4",
     "next": "12.3.1",

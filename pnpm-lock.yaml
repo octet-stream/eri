@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@headlessui/react': 1.7.3
-  '@heroicons/react': 2.0.12
   '@hookform/resolvers': 2.9.8
   '@mikro-orm/cli': 5.4.2
   '@mikro-orm/core': 5.4.2
@@ -51,6 +50,7 @@ specifiers:
   is-hotkey: 0.2.0
   jsdom: ^20.0.1
   lodash: 4.17.21
+  lucide-react: ^0.91.0
   mysql2: 2.3.3
   nanoid: 3.3.4
   next: 12.3.1
@@ -84,7 +84,6 @@ specifiers:
 
 dependencies:
   '@headlessui/react': 1.7.3_biqbaboplfbrettd7655fr4n2y
-  '@heroicons/react': 2.0.12_react@18.2.0
   '@hookform/resolvers': 2.9.8_react-hook-form@7.37.0
   '@mikro-orm/core': 5.4.2_cj3qwfeptuwovylvyquky2y4xq
   '@mikro-orm/mysql': 5.4.2_kdfmmkkd46hr2266p3exwsatv4
@@ -101,6 +100,7 @@ dependencies:
   is-absolute-url: 3.0.3
   is-hotkey: 0.2.0
   lodash: 4.17.21
+  lucide-react: 0.91.0_react@18.2.0
   mysql2: 2.3.3
   nanoid: 3.3.4
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
@@ -404,14 +404,6 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /@heroicons/react/2.0.12_react@18.2.0:
-    resolution: {integrity: sha512-FZxKh3i9aKIDxyALTgIpSF2t6V6/eZfF5mRu41QlwkX3Oxzecdm1u6dpft6PQGxIBwO7TKYWaMAYYL8mp/EaOg==}
-    peerDependencies:
-      react: '>= 16'
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /@hookform/resolvers/2.9.8_react-hook-form@7.37.0:
@@ -5933,6 +5925,15 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /lucide-react/0.91.0_react@18.2.0:
+    resolution: {integrity: sha512-cJD4JQkzviEC1uhDRPYskWrU6S6ud+Wo3EIsK3p+x76AtaPMJuWpEmoxwxHKl7eUhjORaSDGlZ5L9I/HCDq1tA==}
+    peerDependencies:
+      prop-types: ^15.7.2
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /lz-string/1.4.4:
     resolution: {integrity: sha512-0ckx7ZHRPqb0oUm8zNr+90mtf9DQB60H1wMCjBtfi62Kl3a7JbHob6gA2bC+xRvZoOL+1hzUK8jeuEIQE8svEQ==}

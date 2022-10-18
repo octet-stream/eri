@@ -1,6 +1,7 @@
 import type {FC, ReactElement, ComponentPropsWithoutRef} from "react"
-import {EllipsisVerticalIcon} from "@heroicons/react/20/solid"
 import {Menu} from "@headlessui/react"
+
+import {MoreVertical} from "lucide-react"
 
 import type {MaybeArray} from "lib/type/MaybeArray"
 
@@ -21,8 +22,8 @@ interface Props {
 export const FlyoutMenu: FC<Props> = ({children}) => (
   <nav className="relative select-none">
     <Menu>
-      <Menu.Button className="w-full h-full flex flex-row justify-center items-center">
-        <EllipsisVerticalIcon className="w-5 h-5 cursor-pointer" />
+      <Menu.Button className="w-full h-full flex flex-row justify-center items-center cursor-pointer">
+        <MoreVertical size={20} />
       </Menu.Button>
 
       <Menu.Items className="absolute bg-white right-0 rounded-md drop-shadow-md overflow-hidden mt-2 w-[220px] z-10">
