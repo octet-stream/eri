@@ -30,8 +30,6 @@ specifiers:
   '@udecode/plate': 18.5.0
   '@udecode/plate-core': 18.2.0
   '@udecode/plate-headless': 18.5.0
-  '@udecode/plate-link': ^18.2.0
-  '@udecode/plate-paragraph': ^18.2.0
   autoprefixer: 10.4.12
   ava: 4.3.3
   bcrypt: 5.1.0
@@ -96,8 +94,6 @@ dependencies:
   '@udecode/plate': 18.5.0_ojxb5ebdbzm3dgxg5din5vwu2q
   '@udecode/plate-core': 18.2.0_bmb3bnf4hbalzfoaa7ux46wshe
   '@udecode/plate-headless': 18.5.0_blkzab7ykkgeprurez7lhsqs4e
-  '@udecode/plate-link': 18.2.0_bmb3bnf4hbalzfoaa7ux46wshe
-  '@udecode/plate-paragraph': 18.2.0_bmb3bnf4hbalzfoaa7ux46wshe
   bcrypt: 5.1.0
   classnames: 2.3.2
   date-fns: 2.29.3
