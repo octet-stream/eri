@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/indent */
+// import {
+//   createPlateUI,
+//   PlateFloatingLink,
+//   CodeBlockElement
+// } from "@udecode/plate"
+
+import {createPlugins} from "@udecode/plate-core"
+
 import {
-  createPlugins,
+  createLinkPlugin,
   createParagraphPlugin,
   createHeadingPlugin,
   createBoldPlugin,
@@ -12,18 +20,13 @@ import {
   createBlockquotePlugin,
   createCodeBlockPlugin,
   createCodePlugin,
-  createLinkPlugin,
   createSoftBreakPlugin,
   createExitBreakPlugin,
-
-  createPlateUI,
-  PlateFloatingLink,
-  CodeBlockElement,
 
   ELEMENT_CODE_BLOCK,
   ELEMENT_BLOCKQUOTE,
   KEYS_HEADING
-} from "@udecode/plate"
+} from "@udecode/plate-headless"
 
 import type {Value, Editor} from "lib/type/Editor"
 
@@ -44,7 +47,9 @@ export const plugins = createPlugins<Value, Editor>(
     createCodeBlockPlugin(),
     createBlockquotePlugin(),
     createHeadingPlugin({options: {levels: 4}}),
-    createLinkPlugin({renderAfterEditable: PlateFloatingLink}),
+    createLinkPlugin({
+      // renderAfterEditable: PlateFloatingLink
+    }),
 
     createSoftBreakPlugin({
       options: {
@@ -89,9 +94,9 @@ export const plugins = createPlugins<Value, Editor>(
     reset()
   ],
 
-  {
-    components: createPlateUI({
-      [ELEMENT_CODE_BLOCK]: CodeBlockElement
-    })
-  }
+  // {
+  //   components: createPlateUI({
+  //     [ELEMENT_CODE_BLOCK]: CodeBlockElement
+  //   })
+  // }
 )

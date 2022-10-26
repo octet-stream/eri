@@ -1,5 +1,5 @@
+import {Plate} from "@udecode/plate-core"
 import {ComponentProps} from "react"
-import {Plate} from "@udecode/plate"
 import {isEmpty} from "lodash"
 import type {FC} from "react"
 

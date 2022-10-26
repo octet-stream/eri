@@ -19,8 +19,8 @@ import {
   ELEMENT_PARAGRAPH,
   ELEMENT_BLOCKQUOTE,
   ELEMENT_CODE_BLOCK,
-} from "@udecode/plate"
-import type {AutoformatPlugin, AutoformatBlockRule} from "@udecode/plate"
+} from "@udecode/plate-headless"
+import type {AutoformatPlugin, AutoformatBlockRule} from "@udecode/plate-headless"
 
 import {Value, Editor} from "lib/type/Editor"
 

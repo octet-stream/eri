@@ -5,7 +5,7 @@ import {
   ELEMENT_H3,
   ELEMENT_H4,
   ELEMENT_BLOCKQUOTE
-} from "@udecode/plate"
+} from "@udecode/plate-headless"
 import type {ReactNode} from "react"
 
 import type {

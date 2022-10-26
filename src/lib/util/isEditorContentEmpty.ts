@@ -1,4 +1,4 @@
-import {ELEMENT_PARAGRAPH} from "@udecode/plate"
+import {ELEMENT_PARAGRAPH} from "@udecode/plate-headless"
 import type {Value} from "@udecode/plate"
 import {isEmpty} from "lodash"
 

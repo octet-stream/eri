@@ -45,6 +45,8 @@
     "@udecode/plate": "18.5.0",
     "@udecode/plate-core": "18.2.0",
     "@udecode/plate-headless": "18.5.0",
+    "@udecode/plate-link": "^18.2.0",
+    "@udecode/plate-paragraph": "^18.2.0",
     "bcrypt": "5.1.0",
     "classnames": "2.3.2",
     "date-fns": "2.29.3",

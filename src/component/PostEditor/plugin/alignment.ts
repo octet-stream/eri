@@ -7,7 +7,7 @@ import {
   ELEMENT_H4,
   ELEMENT_PARAGRAPH,
   KEY_ALIGN
-} from "@udecode/plate"
+} from "@udecode/plate-headless"
 import type {AnyObject, Alignment, KeyboardHandler} from "@udecode/plate"
 import {isHotkey} from "is-hotkey"
 

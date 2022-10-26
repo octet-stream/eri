@@ -9,8 +9,8 @@ import {
   ELEMENT_H2,
   ELEMENT_H3,
   ELEMENT_H4,
-} from "@udecode/plate"
-import type {ResetNodePluginRule, ResetNodePlugin} from "@udecode/plate"
+} from "@udecode/plate-headless"
+import type {ResetNodePluginRule, ResetNodePlugin} from "@udecode/plate-headless"
 
 import type {Value, Editor} from "lib/type/Editor"
 
