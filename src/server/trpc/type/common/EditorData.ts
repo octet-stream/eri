@@ -10,7 +10,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_CODE_BLOCK,
   ELEMENT_CODE_LINE
-} from "@udecode/plate"
+} from "@udecode/plate-headless"
 
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
