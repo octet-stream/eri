@@ -22,7 +22,7 @@ export const useAutoFocus = <T extends HTMLInputElement | HTMLTextAreaElement>(
         ref.current.selectionStart = ref.current.value.length // Fix cursor position within filled inputs
       }
     }
-  })
+  }, [])
 
   return ref
 }
