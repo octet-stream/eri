@@ -33,6 +33,10 @@ export const createBasicMarkComponent = <T extends BasicMarks>(
 ) => {
   const element = MARKS_TO_ELEMENTS[mark]
 
+  if (!element) {
+    throw new Error(`Can't find element for given mark type: ${mark}`)
+  }
+
   return forwardRef<ComponentRef<MarksElements[T]>, Props>(
     ({children, attributes}, ref) => createElement(
       element,
