@@ -1,7 +1,7 @@
-import type {ComponentPropsWithoutRef, ComponentRef} from "react"
 import {forwardRef, createElement} from "react"
+import type {ComponentRef} from "react"
 
-// import type {TRenderLeafProps} from "@udecode/plate-core"
+import type {TRenderLeafProps} from "@udecode/plate-core"
 import {
   MARK_BOLD,
   MARK_ITALIC,
@@ -10,6 +10,8 @@ import {
   MARK_SUPERSCRIPT,
   MARK_SUBSCRIPT
 } from "@udecode/plate-headless"
+
+import {IEditorData} from "server/trpc/type/common/EditorData"
 
 const MARKS_TO_ELEMENTS = {
   [MARK_BOLD]: "strong",
@@ -24,16 +26,22 @@ type MarksElements = typeof MARKS_TO_ELEMENTS
 
 type BasicMarks = keyof MarksElements
 
+interface Props extends TRenderLeafProps<IEditorData> { }
+
 export const createBasicMarkComponent = <T extends BasicMarks>(
   mark: T
-) => forwardRef<ComponentRef<MarksElements[T]>, ComponentPropsWithoutRef<"a">>(
-  ({children, ...props}, ref) => createElement(
-    MARKS_TO_ELEMENTS[mark],
+) => {
+  const element = MARKS_TO_ELEMENTS[mark]
 
-    {
-      ...props, ref
-    },
+  return forwardRef<ComponentRef<MarksElements[T]>, Props>(
+    ({children, attributes}, ref) => createElement(
+      element,
 
-    children
+      {
+        ...attributes, ref
+      },
+
+      children
+    )
   )
-)
+}

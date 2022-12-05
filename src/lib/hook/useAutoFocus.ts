@@ -16,7 +16,11 @@ export const useAutoFocus = <T extends HTMLInputElement | HTMLTextAreaElement>(
   useEffect(() => {
     if (autoFocus && ref.current) {
       ref.current.focus()
-      ref.current.selectionStart = ref.current.value.length // Fix cursor position within filled inputs
+
+      // TODO: Find a better fix for selection in email inputs
+      if (ref.current.type.toLowerCase() !== "email") {
+        ref.current.selectionStart = ref.current.value.length // Fix cursor position within filled inputs
+      }
     }
   })
 

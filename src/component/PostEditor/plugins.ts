@@ -1,9 +1,4 @@
 /* eslint-disable @typescript-eslint/indent */
-// import {
-//   createPlateUI,
-//   PlateFloatingLink,
-//   CodeBlockElement
-// } from "@udecode/plate"
 
 import {createPlugins} from "@udecode/plate-core"
 
@@ -23,13 +18,20 @@ import {
   createSoftBreakPlugin,
   createExitBreakPlugin,
 
+  MARK_BOLD,
+  MARK_ITALIC,
+  MARK_UNDERLINE,
+  MARK_STRIKETHROUGH,
+  MARK_SUPERSCRIPT,
+  MARK_SUBSCRIPT,
+
   ELEMENT_CODE_BLOCK,
   ELEMENT_BLOCKQUOTE,
-  KEYS_HEADING
+  KEYS_HEADING,
 } from "@udecode/plate-headless"
-// import {createPlateUI} from "@udecode/plate-ui"
 
 import type {Value, Editor} from "lib/type/Editor"
+import {createBasicMarkComponent} from "component/PostEditor/util/createBasicMarkComponent"
 
 import {alignment} from "./plugin/alignment"
 import {autoformat} from "./plugin/autoformat"
@@ -95,9 +97,14 @@ export const plugins = createPlugins<Value, Editor>(
     reset()
   ],
 
-  // {
-  //   components: createPlateUI({
-  //     [ELEMENT_CODE_BLOCK]: CodeBlockElement
-  //   })
-  // }
+  {
+    components: {
+      [MARK_BOLD]: createBasicMarkComponent("bold"),
+      [MARK_ITALIC]: createBasicMarkComponent("italic"),
+      [MARK_UNDERLINE]: createBasicMarkComponent("underline"),
+      [MARK_SUBSCRIPT]: createBasicMarkComponent("subscript"),
+      [MARK_SUPERSCRIPT]: createBasicMarkComponent("superscript"),
+      [MARK_STRIKETHROUGH]: createBasicMarkComponent("strikethrough")
+    }
+  }
 )
