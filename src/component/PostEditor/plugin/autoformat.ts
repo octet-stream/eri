@@ -1,3 +1,4 @@
+import {createPlugins} from "@udecode/plate-core"
 import {
   createAutoformatPlugin,
   insertEmptyCodeBlock,
@@ -30,97 +31,99 @@ type PreFormat = AutoformatBlockRule<Value, Editor>["preFormat"]
 
 export const preFormat: PreFormat = editor => unwrapList(editor)
 
-export const autoformat = () => createAutoformatPlugin<Plugin, Value, Editor>({
-  options: {
-    enableUndoOnDelete: true,
-    rules: [
-      // Marks
-      {
-        mode: "mark",
-        type: MARK_BOLD,
-        match: "**"
-      },
-      {
-        mode: "mark",
-        type: MARK_ITALIC,
-        match: ["*", "_"]
-      },
-      {
-        mode: "mark",
-        type: MARK_UNDERLINE,
-        match: "__"
-      },
-      {
-        mode: "mark",
-        type: MARK_STRIKETHROUGH,
-        match: "~~"
-      },
-      {
-        mode: "mark",
-        type: MARK_SUPERSCRIPT,
-        match: "^"
-      },
-      {
-        mode: "mark",
-        type: MARK_SUBSCRIPT,
-        match: "~"
-      },
-      {
-        mode: "mark",
-        type: [MARK_UNDERLINE, MARK_ITALIC, MARK_BOLD],
-        match: ["___**", "__***"]
-      },
-      {
-        mode: "mark",
-        type: [MARK_ITALIC, MARK_BOLD],
-        match: ["_**", "***"]
-      },
-      {
-        mode: "mark",
-        type: MARK_CODE,
-        match: "`"
-      },
+export const autoformat = createPlugins<Value, Editor>([
+  createAutoformatPlugin<Plugin, Value, Editor>({
+    options: {
+      enableUndoOnDelete: true,
+      rules: [
+        // Marks
+        {
+          mode: "mark",
+          type: MARK_BOLD,
+          match: "**"
+        },
+        {
+          mode: "mark",
+          type: MARK_ITALIC,
+          match: ["*", "_"]
+        },
+        {
+          mode: "mark",
+          type: MARK_UNDERLINE,
+          match: "__"
+        },
+        {
+          mode: "mark",
+          type: MARK_STRIKETHROUGH,
+          match: "~~"
+        },
+        {
+          mode: "mark",
+          type: MARK_SUPERSCRIPT,
+          match: "^"
+        },
+        {
+          mode: "mark",
+          type: MARK_SUBSCRIPT,
+          match: "~"
+        },
+        {
+          mode: "mark",
+          type: [MARK_UNDERLINE, MARK_ITALIC, MARK_BOLD],
+          match: ["___**", "__***"]
+        },
+        {
+          mode: "mark",
+          type: [MARK_ITALIC, MARK_BOLD],
+          match: ["_**", "***"]
+        },
+        {
+          mode: "mark",
+          type: MARK_CODE,
+          match: "`"
+        },
 
-      // Blocks
-      {
-        mode: "block",
-        type: ELEMENT_H2,
-        match: "## ",
-        preFormat
-      },
-      {
-        mode: "block",
-        type: ELEMENT_H3,
-        match: "### ",
-        preFormat
-      },
-      {
-        mode: "block",
-        type: ELEMENT_H4,
-        match: "#### ",
-        preFormat
-      },
-      {
-        mode: "block",
-        type: ELEMENT_BLOCKQUOTE,
-        match: "> ",
-        preFormat
-      },
-      {
-        mode: "block",
-        type: ELEMENT_CODE_BLOCK,
-        match: "```",
-        triggerAtBlockStart: true,
-        preFormat,
-        format(editor) {
-          insertEmptyCodeBlock(editor, {
-            defaultType: getPluginType(editor, ELEMENT_PARAGRAPH),
-            insertNodesOptions: {
-              select: true
-            }
-          })
+        // Blocks
+        {
+          mode: "block",
+          type: ELEMENT_H2,
+          match: "## ",
+          preFormat
+        },
+        {
+          mode: "block",
+          type: ELEMENT_H3,
+          match: "### ",
+          preFormat
+        },
+        {
+          mode: "block",
+          type: ELEMENT_H4,
+          match: "#### ",
+          preFormat
+        },
+        {
+          mode: "block",
+          type: ELEMENT_BLOCKQUOTE,
+          match: "> ",
+          preFormat
+        },
+        {
+          mode: "block",
+          type: ELEMENT_CODE_BLOCK,
+          match: "```",
+          triggerAtBlockStart: true,
+          preFormat,
+          format(editor) {
+            insertEmptyCodeBlock(editor, {
+              defaultType: getPluginType(editor, ELEMENT_PARAGRAPH),
+              insertNodesOptions: {
+                select: true
+              }
+            })
+          }
         }
-      }
-    ]
-  }
-})
+      ]
+    }
+  })
+])

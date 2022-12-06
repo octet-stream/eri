@@ -1,3 +1,4 @@
+import {createPlugins} from "@udecode/plate-core"
 import {
   createResetNodePlugin,
   isSelectionAtBlockStart,
@@ -29,21 +30,23 @@ const commonResetRule: Pick<ResetRule, "defaultType" | "types"> = {
   ]
 }
 
-export const reset = () => createResetNodePlugin<Plugin, Value, Editor>({
-  options: {
-    rules: [
-      {
-        ...commonResetRule,
+export const reset = createPlugins<Value, Editor>([
+  createResetNodePlugin<Plugin, Value, Editor>({
+    options: {
+      rules: [
+        {
+          ...commonResetRule,
 
-        hotkey: "Enter",
-        predicate: isBlockAboveEmpty,
-      },
-      {
-        ...commonResetRule,
+          hotkey: "Enter",
+          predicate: isBlockAboveEmpty,
+        },
+        {
+          ...commonResetRule,
 
-        hotkey: "Backspace",
-        predicate: isSelectionAtBlockStart
-      }
-    ]
-  }
-})
+          hotkey: "Backspace",
+          predicate: isSelectionAtBlockStart
+        }
+      ]
+    }
+  })
+])
