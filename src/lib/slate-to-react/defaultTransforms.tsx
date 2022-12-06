@@ -71,7 +71,6 @@ export const h2 = createNodeTransform<IHeadingElement>(
   ({key, node, children}) => (
     <H2
       key={key}
-      className="mx-0 mt-[1.4em] mb-0 text-2xl font-medium"
       style={{textAlign: node.align}}
     >
       {children}
@@ -85,7 +84,6 @@ export const h3 = createNodeTransform<IHeadingElement>(
   ({key, node, children}) => (
     <H3
       key={key}
-      className="mx-0 mt-[1.4em] mb-0 text-xl font-medium"
       style={{textAlign: node.align}}
     >
       {children}
@@ -99,7 +97,6 @@ export const h4 = createNodeTransform<IHeadingElement>(
   ({key, node, children}) => (
     <H4
       key={key}
-      className="mx-0 mt-3 mb-0 text-lg font-medium"
       style={{textAlign: node.align}}
     >
       {children}
