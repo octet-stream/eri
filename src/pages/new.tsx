@@ -33,7 +33,9 @@ const NewPostPage: FC<Props> = () => {
     try {
       const {slug} = await client.mutation("post.create", data)
 
-      await router.replace(`/post/${slug}`)
+      await router.replace(`/post/${slug}`, undefined, {
+        unstable_skipClientCache: true
+      })
     } catch {
       toast.error("Can't create post")
     }

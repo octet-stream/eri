@@ -15,5 +15,5 @@ export const usePageData = <T>() => {
     )
   }
 
-  return [data.data as T, data.update] as const
+  return data as T
 }

@@ -73,7 +73,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
 const PostEditPage: FC<Props> = () => {
   const router = useRouter()
 
-  const [post, updatePageData] = usePageData<Post>()
+  const post = usePageData<Post>()
 
   const onSave = useEvent<EditorOnSaveHandler>(async fields => {
     try {
@@ -83,10 +83,9 @@ const PostEditPage: FC<Props> = () => {
 
       const pageId = `/post/${updated.slug}`
 
-      // ! Patch data on post page, because of what presumably is a bug in Next.js
-      updatePageData(pageId, updated)
-
-      await router.replace(pageId)
+      await router.replace(pageId, undefined, {
+        unstable_skipClientCache: true
+      })
     } catch {
       toast.error("Can't update this post")
     }

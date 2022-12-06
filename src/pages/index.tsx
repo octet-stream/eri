@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
 }
 
 const Home: FC<Props> = () => {
-  const [posts] = usePageData<IPageOutput<IPostOutput>>()
+  const posts = usePageData<IPageOutput<IPostOutput>>()
 
   if (isEmpty(posts.items)) {
     return (
