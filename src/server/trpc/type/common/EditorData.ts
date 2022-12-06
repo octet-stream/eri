@@ -93,6 +93,8 @@ export const HeadingTypes = z.union([
   z.literal(ELEMENT_H4)
 ])
 
+export type IHeadingTypes = Infer<typeof HeadingTypes>
+
 export const HeadingElement = AbstractElement.extend(Align.shape).extend({
   type: HeadingTypes,
   children: InlineChildren

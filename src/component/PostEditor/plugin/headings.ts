@@ -2,12 +2,16 @@ import {
   createPlugins,
   createHeadingPlugin,
 
-  KEYS_HEADING
+  ELEMENT_H2,
+  ELEMENT_H3,
+  ELEMENT_H4
 } from "@udecode/plate-headless"
 
 import type {Value, Editor} from "lib/type/Editor"
 
-import {Heading} from "../element/Heading"
+import {createHeadingElement} from "../util/createHeadingElement"
+
+const types = [ELEMENT_H2, ELEMENT_H3, ELEMENT_H4] as const
 
 export const headings = createPlugins<Value, Editor>(
   [
@@ -19,6 +23,6 @@ export const headings = createPlugins<Value, Editor>(
   ],
 
   {
-    components: Object.fromEntries(KEYS_HEADING.map(key => [key, Heading]))
+    components: Object.fromEntries(types.map(t => [t, createHeadingElement(t)]))
   }
 )

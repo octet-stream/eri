@@ -16,6 +16,9 @@ import type {
   IBlockquote
 } from "server/trpc/type/common/EditorData"
 import {Anchor} from "component/Anchor"
+import {H2} from "component/Heading/H2"
+import {H3} from "component/Heading/H3"
+import {H4} from "component/Heading/H4"
 
 import {createNodeTransform} from "./createNodeTransform"
 
@@ -66,13 +69,13 @@ export const h2 = createNodeTransform<IHeadingElement>(
   ELEMENT_H2,
 
   ({key, node, children}) => (
-    <h2
+    <H2
       key={key}
       className="mx-0 mt-[1.4em] mb-0 text-2xl font-medium"
       style={{textAlign: node.align}}
     >
       {children}
-    </h2>
+    </H2>
   )
 )
 
@@ -80,13 +83,13 @@ export const h3 = createNodeTransform<IHeadingElement>(
   ELEMENT_H3,
 
   ({key, node, children}) => (
-    <h3
+    <H3
       key={key}
       className="mx-0 mt-[1.4em] mb-0 text-xl font-medium"
       style={{textAlign: node.align}}
     >
       {children}
-    </h3>
+    </H3>
   )
 )
 
@@ -94,13 +97,13 @@ export const h4 = createNodeTransform<IHeadingElement>(
   ELEMENT_H4,
 
   ({key, node, children}) => (
-    <h4
+    <H4
       key={key}
       className="mx-0 mt-3 mb-0 text-lg font-medium"
       style={{textAlign: node.align}}
     >
       {children}
-    </h4>
+    </H4>
   )
 )
 
