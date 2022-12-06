@@ -11,7 +11,7 @@ export const Redirect: FC<Props> = ({url}) => {
 
   useEffect(() => {
     router.replace(url)
-  })
+  }, [])
 
   return null
 }
