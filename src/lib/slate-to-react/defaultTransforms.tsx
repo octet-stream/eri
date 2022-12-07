@@ -15,6 +15,7 @@ import type {
   IHeadingElement,
   IBlockquote
 } from "server/trpc/type/common/EditorData"
+import {InlineCode} from "component/InlineCode"
 import {Anchor} from "component/Anchor"
 import {H2} from "component/Heading/H2"
 import {H3} from "component/Heading/H3"
@@ -49,6 +50,10 @@ export const text = createNodeTransform<IRichText>(
       element = <sup>{element}</sup>
     } else if (node.subscript) {
       element = <sub>{element}</sub>
+    }
+
+    if (node.code) {
+      element = <InlineCode>{element}</InlineCode>
     }
 
     return <span key={key}>{element}</span>

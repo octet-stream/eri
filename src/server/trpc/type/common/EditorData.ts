@@ -33,7 +33,8 @@ export const RichText = PlainText.extend({
   underline: z.boolean().optional(),
   strikethrough: z.boolean().optional(),
   superscript: z.boolean().optional(),
-  subscript: z.boolean().optional()
+  subscript: z.boolean().optional(),
+  code: z.boolean().optional() // Maybe code must be in it's own type
 })
 
 export interface IRichText extends Infer<typeof RichText> { }
