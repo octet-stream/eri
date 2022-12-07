@@ -57,7 +57,7 @@ test("Updates post title", withTRPC, async (t, trpc, orm) => {
 
   const expected = "Some renamed post"
 
-  const {title} = await trpc.mutation("post.update", {
+  const {title} = await trpc.post.update({
     id: post.id,
     title: expected
   })
@@ -87,7 +87,7 @@ test("Updates post slug on title update", withTRPC, async (t, trpc, orm) => {
 
   const expected = "Some renamed post #2"
 
-  const {slug, updatedAt} = await trpc.mutation("post.update", {
+  const {slug, updatedAt} = await trpc.post.update({
     id: post.id,
     title: expected
   })
@@ -126,7 +126,7 @@ test("Updates post content", withTRPC, async (t, trpc, orm) => {
     }
   ]
 
-  const {content: actual} = await trpc.mutation("post.update", {
+  const {content: actual} = await trpc.post.update({
     id: post.id,
     content: expected
   })
@@ -135,7 +135,7 @@ test("Updates post content", withTRPC, async (t, trpc, orm) => {
 })
 
 test("Throws an error when there's no such post", withTRPC, async (t, trpc) => {
-  const trap = () => trpc.mutation("post.update", {
+  const trap = () => trpc.post.update({
     id: "00000000-0000-0000-0000-000000000000",
     title: "Foo"
   })
@@ -174,7 +174,7 @@ test(
 
     await orm.em.persistAndFlush([user, post])
 
-    const trap = () => trpc.mutation("post.update", {
+    const trap = () => trpc.post.update({
       id: post.id,
       title: "Some post that wont be updated"
     })

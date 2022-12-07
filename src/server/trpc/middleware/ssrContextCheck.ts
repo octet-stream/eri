@@ -1,14 +1,9 @@
-import type {
-  MiddlewareFunction
-} from "@trpc/server/dist/declarations/src/internals/middlewares"
 import {TRPCError} from "@trpc/server"
 
 import {isSSRContext} from "server/trpc/context"
-import type {GlobalContext, SSRContext} from "server/trpc/context"
+import {middleware} from "server/trpc/def"
 
-type SSRContextCheck = MiddlewareFunction<GlobalContext, SSRContext, unknown>
-
-const ssrContextCheck: SSRContextCheck = ({ctx, next}) => {
+const ssrContextCheck = middleware(({ctx, next}) => {
   if (!isSSRContext(ctx)) {
     throw new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
@@ -17,6 +12,6 @@ const ssrContextCheck: SSRContextCheck = ({ctx, next}) => {
   }
 
   return next({ctx})
-}
+})
 
 export default ssrContextCheck

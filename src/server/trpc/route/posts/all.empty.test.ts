@@ -18,7 +18,7 @@ test(
   withTRPC,
 
   async (t, trpc) => {
-    const page = await trpc.query("posts.all")
+    const page = await trpc.posts.all()
 
     t.is(page.total, 1)
     t.is(page.rows, 0)
