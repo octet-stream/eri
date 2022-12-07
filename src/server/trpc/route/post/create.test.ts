@@ -50,7 +50,7 @@ test("Createas a post", withTRPC, async (t, trpc, orm) => {
     }
   ]
 
-  const actual = await trpc.mutation("post.create", {
+  const actual = await trpc.post.create({
     title: expectedTitle,
     content: expectedContent
   })
@@ -68,7 +68,7 @@ test(
   withTRPC,
 
   async (t, trpc) => {
-    const trap = () => trpc.mutation("post.create", {
+    const trap = () => trpc.post.create({
       title: "This post is empty",
       content: []
     })
@@ -88,7 +88,7 @@ test(
   withTRPC,
 
   async (t, trpc) => {
-    const trap = () => trpc.mutation("post.create", {
+    const trap = () => trpc.post.create({
       title: "This post is empty",
       content: [
         {

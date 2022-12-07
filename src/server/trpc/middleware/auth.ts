@@ -1,8 +1,6 @@
-import type {
-  MiddlewareFunction
-} from "@trpc/server/dist/declarations/src/internals/middlewares"
 import {getToken} from "next-auth/jwt"
 import {TRPCError} from "@trpc/server"
+import type {MiddlewareFunction, ProcedureParams} from "@trpc/server"
 
 import {options} from "pages/api/auth/[...nextauth]"
 
@@ -10,13 +8,19 @@ import type {SSRContext, AuthContext} from "server/trpc/context"
 import {User} from "server/db/entity"
 import {getORM} from "server/lib/db"
 
-type AuthMiddleware = MiddlewareFunction<SSRContext, AuthContext, unknown>
+import {trpc} from "server/trpc/def"
 
 const sessionOptions = options.cookies?.sessionToken
 
+// FIXME: This might break anytime, need to find a better solution
+type AuthMiddleware = MiddlewareFunction<
+ProcedureParams<typeof trpc["_config"], SSRContext>,
+ProcedureParams<typeof trpc["_config"], AuthContext>
+>
+
 const auth: AuthMiddleware = async ({ctx, next}) => {
   const session = await getToken({
-    req: ctx.req,
+    req: (ctx as SSRContext).req,
     secret: process.env.NEXTAUTH_SECRET,
     cookieName: sessionOptions?.name,
     secureCookie: sessionOptions?.options?.secure

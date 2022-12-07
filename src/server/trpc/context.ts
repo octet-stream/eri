@@ -4,14 +4,14 @@ import type {JWT} from "next-auth/jwt"
 
 import type {User} from "server/db/entity"
 
-export interface Context { }
+export type Context = { }
 
-export interface SSRContext<R = any> extends Context {
+export type SSRContext<R = any> = Context & {
   req: NextApiRequest
   res: NextApiResponse<R>
 }
 
-export interface AuthContext extends SSRContext {
+export type AuthContext = SSRContext & {
   session: JWT
   user: User
 }

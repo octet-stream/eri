@@ -30,7 +30,7 @@ test("Creates a user", withTRPC, async (t, trpc, orm) => {
 
   await orm.em.persistAndFlush([issuer, invitation])
 
-  const created = await trpc.mutation("user.create", {
+  const created = await trpc.user.create({
     code: invitation.code,
     login: "johndoe",
     email: "john.doe@example.com",
@@ -45,7 +45,7 @@ test("Creates a user", withTRPC, async (t, trpc, orm) => {
 })
 
 test("Fails with incorrect code", withTRPC, async (t, trpc) => {
-  const trap = () => trpc.mutation("user.create", {
+  const trap = () => trpc.user.create({
     code: "aaaaaaaaaaaaaaaa",
     login: "johndoe",
     email: "john.doe@example.com",
@@ -75,7 +75,7 @@ test("Fails without code", withTRPC, async (t, trpc) => {
 })
 
 test("Fails if code length is less then 16", withTRPC, async (t, trpc) => {
-  const trap = () => trpc.mutation("user.create", {
+  const trap = () => trpc.user.create({
     code: "a",
     login: "johndoe",
     email: "john.doe@example.com",
@@ -91,7 +91,7 @@ test("Fails if code length is less then 16", withTRPC, async (t, trpc) => {
 })
 
 test("Fails if code length is longer then 16", withTRPC, async (t, trpc) => {
-  const trap = () => trpc.mutation("user.create", {
+  const trap = () => trpc.user.create({
     code: "aaaaaaaaaaaaaaaaa",
     login: "johndoe",
     email: "john.doe@example.com",
@@ -107,7 +107,7 @@ test("Fails if code length is longer then 16", withTRPC, async (t, trpc) => {
 })
 
 test("Fails if password is less than 8", withTRPC, async (t, trpc) => {
-  const trap = () => trpc.mutation("user.create", {
+  const trap = () => trpc.user.create({
     code: "aaaaaaaaaaaaaaaa",
     login: "johndoe",
     email: "john.doe@example.com",
@@ -141,7 +141,7 @@ test("Fails if invited user already exists", withTRPC, async (t, trpc, orm) => {
 
   await orm.em.persistAndFlush([issuer, user, invitation])
 
-  const trap = () => trpc.mutation("user.create", {
+  const trap = () => trpc.user.create({
     login: "maxdoe",
     email: "max.doe@example.com",
     password: "userpassword",
@@ -172,7 +172,7 @@ test(
 
     await orm.em.persistAndFlush([issuer, invitation])
 
-    const trap = () => trpc.mutation("user.create", {
+    const trap = () => trpc.user.create({
       login: "maxdoe3",
       email: "max.doe3@example.com",
       password: "userpassword",

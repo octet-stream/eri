@@ -1,6 +1,5 @@
-import {QueryClient, QueryClientProvider} from "react-query"
-import {useState, Fragment} from "react"
 import {SessionProvider} from "next-auth/react"
+import {Fragment} from "react"
 import {Toaster} from "react-hot-toast"
 import type {Session} from "next-auth"
 import type {AppProps} from "next/app"
@@ -8,7 +7,6 @@ import type {FC} from "react"
 
 import Head from "next/head"
 
-import {trpcClient, TRPCProvider} from "lib/trpc"
 import {PageDataProvider} from "lib/context/PageDataContext"
 
 import "style/globals.css"
@@ -26,25 +24,19 @@ interface Props extends AppProps {
 const PageContainer: FC<Props> = ({Component, pageProps}) => {
   const {session, ...props} = pageProps
 
-  const [queryClient] = useState(() => new QueryClient())
-
   return (
     <Fragment>
       <Head>
         <title>Blog</title>
       </Head>
 
-      <TRPCProvider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          <SessionProvider session={session}>
-            <PageDataProvider data={props.data}>
-              <Component {...props} />
-            </PageDataProvider>
+      <SessionProvider session={session}>
+        <PageDataProvider data={props.data}>
+          <Component {...props} />
+        </PageDataProvider>
 
-            <Toaster position="top-center" />
-          </SessionProvider>
-        </QueryClientProvider>
-      </TRPCProvider>
+        <Toaster position="top-center" />
+      </SessionProvider>
     </Fragment>
   )
 }

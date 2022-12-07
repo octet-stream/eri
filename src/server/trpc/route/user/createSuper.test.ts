@@ -16,7 +16,7 @@ test.before(setup)
 test.after.always(cleanup)
 
 test.serial("Creates a user with admin role", withTRPC, async (t, trpc, orm) => {
-  const created = await trpc.mutation("user.createSuper", {
+  const created = await trpc.user.createSuper({
     login: "admin",
     email: "admin@example.com",
     password: "adminadminadmin"
@@ -40,7 +40,7 @@ test("Fails if super user already exists", withTRPC, async (t, trpc, orm) => {
 
   await orm.em.persistAndFlush(user)
 
-  const trap = () => trpc.mutation("user.createSuper", {
+  const trap = () => trpc.user.createSuper({
     login: "admin",
     email: "admin@example.com",
     password: "adminadminadmin"

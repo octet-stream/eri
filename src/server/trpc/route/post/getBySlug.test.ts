@@ -17,7 +17,7 @@ test.before(setup)
 test.after.always(cleanup)
 
 test("Fails if requested post is not found", withTRPC, async (t, trpc) => {
-  const trap = () => trpc.query("post.getBySlug", {
+  const trap = () => trpc.post.getBySlug({
     slug: ["1970-01-01", "this-post-does-not-exists"]
   })
 
@@ -52,7 +52,7 @@ test("Returns requested post", withTRPC, async (t, trpc, orm) => {
   await orm.em.persistAndFlush([user, post])
 
   const [date, name] = post.slug.split("/")
-  const actual = await trpc.query("post.getBySlug", {
+  const actual = await trpc.post.getBySlug({
     slug: [date, name]
   })
 

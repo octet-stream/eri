@@ -13,9 +13,9 @@ specifiers:
   '@sindresorhus/slugify': 1.1.2
   '@tailwindcss/typography': 0.5.8
   '@testing-library/react': ^13.4.0
-  '@trpc/client': 9.27.4
+  '@trpc/client': 10.4.3
   '@trpc/react': 9.27.4
-  '@trpc/server': 9.27.4
+  '@trpc/server': 10.4.3
   '@types/bcrypt': 5.0.0
   '@types/is-hotkey': 0.1.7
   '@types/lodash': 4.14.191
@@ -90,9 +90,9 @@ dependencies:
   '@mikro-orm/core': 5.5.3_dbzduxhsa25b4u74zjkqkrdbn4
   '@mikro-orm/mysql': 5.5.3_tzlusnfqpmjg4dmgaoalecypeu
   '@sindresorhus/slugify': 1.1.2
-  '@trpc/client': 9.27.4_@trpc+server@9.27.4
-  '@trpc/react': 9.27.4_2g6rn7sj2da6xgohvi4oglgmnq
-  '@trpc/server': 9.27.4
+  '@trpc/client': 10.4.3_@trpc+server@10.4.3
+  '@trpc/react': 9.27.4_c55v2ynskdtckr4hpuhaft6gxe
+  '@trpc/server': 10.4.3
   '@udecode/plate': 18.13.1_jkv2qogs7mbompss46dqokhpry
   '@udecode/plate-basic-marks': 18.13.0_kdcf77jyhqhkk4nf6ve56gfpim
   '@udecode/plate-core': 18.13.0_kdcf77jyhqhkk4nf6ve56gfpim
@@ -1053,16 +1053,15 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
-  /@trpc/client/9.27.4_@trpc+server@9.27.4:
-    resolution: {integrity: sha512-NyS3J333xy8PJWGTSKO0egvj3x/s4SaSPx7XDWHf/i51W/i5Fla+sNxYpv+4z+SwE2xyJKszN2EZbvKIW2X/wA==}
+  /@trpc/client/10.4.3_@trpc+server@10.4.3:
+    resolution: {integrity: sha512-VMdyLHr6PG2FlMxnbPt/6jniDBxv3Ys1hFhk0AriFDD9h4Lg9fznwGn5RI1eV5RCOAoCQ/+ZwPMSKOMBhiycTw==}
     peerDependencies:
-      '@trpc/server': 9.27.4
+      '@trpc/server': 10.4.3
     dependencies:
-      '@babel/runtime': 7.19.4
-      '@trpc/server': 9.27.4
+      '@trpc/server': 10.4.3
     dev: false
 
-  /@trpc/react/9.27.4_2g6rn7sj2da6xgohvi4oglgmnq:
+  /@trpc/react/9.27.4_c55v2ynskdtckr4hpuhaft6gxe:
     resolution: {integrity: sha512-bP74Tf6vWcMoWYiTAvbWrieV9cFQiKUDKRoRj0+VeGJbxdbhdJyUzv4zos0T4SiSKuhgoEm9bP4jWU2NhNhpIA==}
     peerDependencies:
       '@trpc/client': 9.27.4
@@ -1072,15 +1071,15 @@ packages:
       react-query: ^3.37.0
     dependencies:
       '@babel/runtime': 7.19.4
-      '@trpc/client': 9.27.4_@trpc+server@9.27.4
-      '@trpc/server': 9.27.4
+      '@trpc/client': 10.4.3_@trpc+server@10.4.3
+      '@trpc/server': 10.4.3
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
     dev: false
 
-  /@trpc/server/9.27.4:
-    resolution: {integrity: sha512-yw0omUrxGp8+gEAuieZFeXB4bCqFvmyCDL3GOBv+Q6+cK0m5824ViHZKPgK5DYG1ijN/lbi1hP3UVKywPN7rbQ==}
+  /@trpc/server/10.4.3:
+    resolution: {integrity: sha512-U+TVFtMUnySUfKHXjdpdZdFS268naGafbjQiG/H7t0OKpiLnbJ4IhgyYzj82Hvghb6Ow9E+UTNt6ALP7KoN4/g==}
     dev: false
 
   /@tsconfig/node10/1.0.9:

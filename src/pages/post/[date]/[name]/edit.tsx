@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   const {date, name} = params as unknown as Query
 
   try {
-    const post = await router.createCaller({}).query("post.getBySlug", {
+    const post = await router.createCaller({}).post.getBySlug({
       slug: [date, name]
     })
 
@@ -77,7 +77,7 @@ const PostEditPage: FC<Props> = () => {
 
   const onSave = useEvent<EditorOnSaveHandler>(async fields => {
     try {
-      const updated = await client.mutation("post.update", {
+      const updated = await client.post.update.mutate({
         ...fields, id: post.id
       })
 
