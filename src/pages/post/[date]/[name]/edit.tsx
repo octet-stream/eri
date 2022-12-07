@@ -77,11 +77,11 @@ const PostEditPage: FC<Props> = () => {
 
   const onSave = useEvent<EditorOnSaveHandler>(async fields => {
     try {
-      const updated = await client.post.update.mutate({
+      const {slug} = await client.post.update.mutate({
         ...fields, id: post.id
       })
 
-      const pageId = `/post/${updated.slug}`
+      const pageId = `/post/${slug}`
 
       await router.replace(pageId, undefined, {
         unstable_skipClientCache: true
