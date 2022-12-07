@@ -81,9 +81,7 @@ const PostEditPage: FC<Props> = () => {
         ...fields, id: post.id
       })
 
-      const pageId = `/post/${slug}`
-
-      await router.replace(pageId, undefined, {
+      await router.replace(`/post/${slug}`, undefined, {
         unstable_skipClientCache: true
       })
     } catch {
