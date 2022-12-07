@@ -19,6 +19,7 @@ interface Props {
 export const ContentEditor: FC<Props> = ({value, onChange}) => (
   <div className="flex-1">
     <Plate<Value>
+      id="eri-post-content-editor"
       editableProps={{
         placeholder: "Write your thoughts here",
         className: "h-full overflow-hidden"
