@@ -31,7 +31,7 @@ const NewPostPage: FC<Props> = () => {
 
   const onSubmit = useEvent<EditorOnSaveHandler>(async data => {
     try {
-      const {slug} = await client.mutation("post.create", data)
+      const {slug} = await client.post.create.mutate(data)
 
       await router.replace(`/post/${slug}`, undefined, {
         unstable_skipClientCache: true
