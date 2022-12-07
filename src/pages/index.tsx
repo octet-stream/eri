@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
     }
   }
 
-  const posts = await router.createCaller({}).query("posts.all", {
+  const posts = await router.createCaller({}).posts.all({
     cursor: page
   })
 
