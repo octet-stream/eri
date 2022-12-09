@@ -3,7 +3,6 @@ import type {SubmitHandler} from "react-hook-form"
 import type {GetStaticProps} from "next"
 import {useForm} from "react-hook-form"
 import {toast} from "react-hot-toast"
-import {useRouter} from "next/router"
 import type {FC} from "react"
 
 import type {
@@ -12,6 +11,7 @@ import type {
 import {UserCreateSuperInput} from "server/trpc/type/input/UserCreateSuperInput"
 import {User, UserRoles} from "server/db/entity/User"
 import {runIsolatied} from "server/lib/db"
+
 import {Button} from "component/Button"
 import {AuthLayout} from "layout/AuthLayout"
 import {Input} from "component/Input"
@@ -29,14 +29,12 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const AuthSuperPage: FC = () => {
-  const router = useRouter()
   const {handleSubmit, register, formState} = useForm<IUserCreateSuperInput>({
     resolver: zodResolver(UserCreateSuperInput)
   })
 
   const submit: SubmitHandler<IUserCreateSuperInput> = data => client
-    .mutation("user.createSuper", data)
-    .then(() => router.replace("/"))
+    .user.createSuper.mutate(data)
     .catch(() => toast.error("Can't create admin account"))
 
   return (

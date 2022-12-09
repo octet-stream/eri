@@ -38,7 +38,7 @@ const SignupPage: FC = () => {
   })
 
   const submit: SubmitHandler<IUserCreateInput> = data => client
-    .mutation("user.create", data)
+    .user.create.mutate(data)
     .then(() => reset())
     .catch(() => toast.error("Error while creating an account", {
       duration: 5000

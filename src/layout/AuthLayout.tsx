@@ -4,6 +4,8 @@ import {Fragment} from "react"
 
 import Head from "next/head"
 
+import {useAuthSubmitRedirect} from "lib/hook/useAuthSubmitRedirect"
+
 import {Redirect} from "component/Redirect"
 
 interface Props {
@@ -19,8 +21,11 @@ export const AuthLayout: FC<Props> = ({
 }) => {
   const session = useSession()
 
+  const {destination} = useAuthSubmitRedirect()
+
+  // Will trigger redirect once session changes, so no need to redirect after `signIn()` call
   if (session.status === "authenticated" && !disableRedirect) {
-    return <Redirect url="/" />
+    return <Redirect url={destination} />
   }
 
   return (

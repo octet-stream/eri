@@ -34,13 +34,23 @@ interface Props {
  */
 export const getServerSideSessionRedirect: GetServerSideProps<Props> = async ({
   req,
-  res
+  res,
+  resolvedUrl
 }) => {
   const session = await getServerSession(req, res, options)
 
   if (!session) {
-    return {redirect: {destination: "/auth/login", permanent: false}}
+    return {
+      redirect: {
+        destination: `/auth/login?r=${resolvedUrl}`,
+        permanent: false
+      }
+    }
   }
 
-  return {props: {session}}
+  return {
+    props: {
+      session
+    }
+  }
 }

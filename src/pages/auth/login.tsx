@@ -3,7 +3,6 @@ import type {SubmitHandler} from "react-hook-form"
 import {useForm} from "react-hook-form"
 import {signIn} from "next-auth/react"
 import {toast} from "react-hot-toast"
-import {useRouter} from "next/router"
 import type {FC} from "react"
 
 import {getServerSideSession} from "lib/util/getServerSideSession"
@@ -20,14 +19,12 @@ interface Props { }
 export const getServerSideProps = getServerSideSession
 
 const LoginPage: FC<Props> = () => {
-  const router = useRouter()
   const {handleSubmit, register, formState} = useForm<IUserLoginInput>({
     resolver: zodResolver(UserLoginInput)
   })
 
   const submit: SubmitHandler<IUserLoginInput> = ({email, password}) => (
     signIn("credentials", {email, password, redirect: false})
-      .then(() => router.replace("/"))
       .catch(() => toast.error("Authentication failed"))
   )
 
