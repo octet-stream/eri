@@ -1,6 +1,6 @@
+import type {MiddlewareFunction, ProcedureParams} from "@trpc/server"
 import {getToken} from "next-auth/jwt"
 import {TRPCError} from "@trpc/server"
-import type {MiddlewareFunction, ProcedureParams} from "@trpc/server"
 
 import {options} from "pages/api/auth/[...nextauth]"
 
