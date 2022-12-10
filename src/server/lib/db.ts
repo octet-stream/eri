@@ -99,7 +99,12 @@ export async function forkEntityManager(): Promise<EntityManager> {
   return orm.em.fork()
 }
 
-export async function runIsolatied<T>(fn: RunIsolatedCallback<T>): Promise<T> {
+/**
+ * Runs given callback with forked EntityManager, then destroys it and returns the result of the callback.
+ */
+export async function runIsolatied<T>(
+  fn: RunIsolatedCallback<T>
+): Promise<Awaited<T>> {
   const em = await forkEntityManager()
 
   try {
