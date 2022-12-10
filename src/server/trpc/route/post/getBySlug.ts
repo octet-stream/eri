@@ -6,7 +6,7 @@ import {Slug} from "server/trpc/type/common/Slug"
 import {Post} from "server/db/entity"
 import {getORM} from "server/lib/db"
 
-import {procedure} from "server/trpc/def"
+import procedure from "server/trpc/procedure/base"
 
 const {isArray} = Array
 

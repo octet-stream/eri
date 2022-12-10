@@ -5,7 +5,7 @@ import {Page} from "server/trpc/helper/Page"
 import {Post} from "server/db/entity/Post"
 import {getORM} from "server/lib/db"
 
-import {procedure} from "server/trpc/def"
+import procedure from "server/trpc/procedure/base"
 
 /**
  * Returns a page of posts, 50 per each page.

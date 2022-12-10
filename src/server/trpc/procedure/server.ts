@@ -1,6 +1,6 @@
-import {procedure} from "server/trpc/def"
-
 import ssrContextCheck from "server/trpc/middleware/ssrContextCheck"
+
+import procedure from "./base"
 
 /**
  * Procedure builder for server-side usage only.
