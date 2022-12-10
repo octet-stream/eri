@@ -1,9 +1,8 @@
 import type {EventSubscriber, EventArgs, EntityName} from "@mikro-orm/core"
-import {hash} from "bcrypt"
+
+import {hashPassword} from "server/lib/util/hashPassword"
 
 import {User} from "server/db/entity/User"
-
-const hashPassword = (password: string) => hash(password, 15)
 
 export class UserSubscriber implements EventSubscriber<User> {
   getSubscribedEntities(): Array<EntityName<User>> {
