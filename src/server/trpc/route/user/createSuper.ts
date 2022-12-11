@@ -18,7 +18,18 @@ const userCreateSuper = procedure
   .output(UserOutput)
   .mutation(async ({input, ctx}) => {
     const orm = await getORM()
-    const existent = await orm.em.findOne(User, {role: UserRoles.SUPER})
+
+    const existent = await orm.em.findOne(
+      User,
+
+      {
+        role: UserRoles.SUPER
+      },
+
+      {
+        fields: ["id"]
+      }
+    )
 
     // Check presence of super user first. If exists, then throw an error and stop.
     if (existent) {

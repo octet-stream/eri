@@ -26,7 +26,17 @@ const userCreate = procedure
       })
     }
 
-    const existent = await orm.em.findOne(User, {email: invitation.email})
+    const existent = await orm.em.findOne(
+      User,
+
+      {
+        email: invitation.email
+      },
+
+      {
+        fields: ["id"]
+      }
+    )
 
     // If there's a user that matched the email from invitation code, then throw an error and stop
     if (existent) {
