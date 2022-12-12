@@ -29,7 +29,7 @@ const postUpdate = procedure
 
     wrap(post).assign(fields)
 
-    await orm.em.persistAndFlush(post)
+    await orm.em.flush()
     await res.revalidate(`/post/${post.slug}`, {
       unstable_onlyGenerated: true
     })
