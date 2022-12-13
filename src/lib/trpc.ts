@@ -12,5 +12,3 @@ export const client = createTRPCProxyClient<Router>({
     })
   ]
 })
-
-export const trpcClient = client
