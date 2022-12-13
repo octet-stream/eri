@@ -9,7 +9,7 @@ import {
   ELEMENT_PARAGRAPH,
   KEY_ALIGN
 } from "@udecode/plate-headless"
-import type {Alignment, KeyboardHandler} from "@udecode/plate"
+import type {Alignment, KeyboardHandler} from "@udecode/plate-headless"
 import {isHotkey} from "is-hotkey"
 
 import type {Value, Editor} from "lib/type/Editor"
@@ -44,7 +44,7 @@ export const alignment = createPlugins<Value, Editor>([
       onKeyDown: editor => event => {
         switch (true) {
         case isHotkey(ALIGN_LEFT_HOTKEY, event):
-          align(editor, event, "left")
+          align(editor, event, "left") // FIXME: This shortcut doesn't work in Chrome for some reason
           break
         case isHotkey(ALIGN_CENTER_HOTKEY, event):
           align(editor, event, "center")
