@@ -1,6 +1,7 @@
 import {ELEMENT_PARAGRAPH} from "@udecode/plate-headless"
 import type {Value} from "@udecode/plate"
-import {isEmpty} from "lodash"
+
+import isEmpty from "lodash/isEmpty"
 
 /**
  * Checks if Editor content is empty

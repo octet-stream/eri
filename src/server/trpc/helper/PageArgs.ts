@@ -1,4 +1,5 @@
-import {omitBy, isNil} from "lodash"
+import omitBy from "lodash/omitBy"
+import isNil from "lodash/isNil"
 
 import type {IPageInput} from "server/trpc/type/input/PageInput"
 

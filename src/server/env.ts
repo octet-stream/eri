@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as env from "@next/env"
 
-import {noop} from "lodash"
+import noop from "lodash/noop"
 
 env.loadEnvConfig(
   process.cwd(),

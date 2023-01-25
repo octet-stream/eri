@@ -4,7 +4,8 @@ import {RequestContext} from "@mikro-orm/core"
 import type {ImplementationFn, TestFn} from "ava"
 import type {MikroORM} from "@mikro-orm/core"
 import {encode} from "next-auth/jwt"
-import {noop} from "lodash"
+
+import noop from "lodash/noop"
 
 import {getORM} from "server/lib/db"
 import type {Caller} from "server/trpc/router"

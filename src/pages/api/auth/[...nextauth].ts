@@ -1,9 +1,9 @@
 import type {NextApiRequest, NextApiResponse} from "next"
 import type {NextAuthOptions} from "next-auth"
 import {createRouter} from "next-connect"
-import {pickBy} from "lodash"
 
 import NextAuth from "next-auth"
+import pickBy from "lodash/pickBy"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 import withORMContext from "server/middleware/withORMContext"

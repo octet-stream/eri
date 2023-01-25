@@ -1,9 +1,9 @@
 import type {GetServerSideProps} from "next"
 import {stringify} from "superjson"
-import {isEmpty} from "lodash"
 import type {FC} from "react"
 
 import Link from "next/link"
+import isEmpty from "lodash/isEmpty"
 
 import type {IPostOutput} from "server/trpc/type/output/PostOutput"
 import type {IPageOutput} from "server/trpc/type/output/PageOutput"

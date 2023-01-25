@@ -1,6 +1,7 @@
 import anyTest from "ava"
 
-import {isEmpty} from "lodash"
+import isEmpty from "lodash/isEmpty"
+
 import type {TestFn} from "ava"
 import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 

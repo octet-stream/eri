@@ -36,7 +36,7 @@ specifiers:
   ava: 5.1.1
   bcrypt: 5.1.0
   c8: 7.12.0
-  classnames: 2.3.2
+  clsx: ^1.2.1
   date-fns: 2.29.3
   eslint: 8.32.0
   eslint-config-airbnb: 19.0.4
@@ -99,7 +99,7 @@ dependencies:
   '@udecode/plate-ui': 19.1.1_26miiffjvbtc35cdkxezyek3na
   '@udecode/plate-ui-link': 19.1.1_zbhnf27baqenaqzvuhd7us7yju
   bcrypt: 5.1.0
-  classnames: 2.3.2
+  clsx: 1.2.1
   date-fns: 2.29.3
   is-absolute-url: 3.0.3
   is-hotkey: 0.2.0
@@ -4033,10 +4033,6 @@ packages:
   /ci-parallel-vars/1.0.1:
     resolution: {integrity: sha512-uvzpYrpmidaoxvIQHM+rKSrigjOe9feHYbw4uOI2gdfe1C3xIlxO+kVXq83WQWNniTf8bAxVpy+cQeFQsMERKg==}
     dev: true
-
-  /classnames/2.3.2:
-    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
-    dev: false
 
   /clean-stack/4.2.0:
     resolution: {integrity: sha512-LYv6XPxoyODi36Dp976riBtSY27VmFo+MKqEU9QCCWyTrdEPDog+RWA7xQWHi6Vbp61j5c4cdzzX1NidnwtUWg==}

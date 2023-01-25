@@ -1,7 +1,7 @@
 import type {FC, ReactNode} from "react"
 import {Menu} from "@headlessui/react"
 
-import cn from "classnames"
+import cn from "clsx"
 
 import {Anchor} from "component/Anchor"
 

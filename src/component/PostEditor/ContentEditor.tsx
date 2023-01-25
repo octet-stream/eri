@@ -1,7 +1,8 @@
 import {Plate} from "@udecode/plate-core"
 import {ComponentProps} from "react"
-import {isEmpty} from "lodash"
 import type {FC} from "react"
+
+import isEmpty from "lodash/isEmpty"
 
 import type {Value} from "lib/type/Editor"
 

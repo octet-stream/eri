@@ -2,7 +2,7 @@
 import type {ComponentPropsWithoutRef, ReactNode} from "react"
 import {forwardRef} from "react"
 
-import cn from "classnames"
+import cn from "clsx"
 
 interface Props extends ComponentPropsWithoutRef<"button"> {
   wide?: boolean

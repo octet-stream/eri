@@ -49,7 +49,7 @@
     "@udecode/plate-ui": "^19.1.1",
     "@udecode/plate-ui-link": "^19.1.1",
     "bcrypt": "5.1.0",
-    "classnames": "2.3.2",
+    "clsx": "^1.2.1",
     "date-fns": "2.29.3",
     "is-absolute-url": "3.0.3",
     "is-hotkey": "0.2.0",
