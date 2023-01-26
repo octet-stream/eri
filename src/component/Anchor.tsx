@@ -1,9 +1,12 @@
-import {forwardRef, useMemo, createElement} from "react"
 import type {ComponentPropsWithoutRef} from "react"
+import {forwardRef, useMemo} from "react"
 
 import Link from "next/link"
+import cn from "clsx"
 
 import {isInternalUrl} from "lib/util/isInternalUrl"
+
+import {ExternalAnchor} from "component/ExternalAnchor"
 
 interface Props extends ComponentPropsWithoutRef<"a"> {
   href: string
@@ -32,12 +35,21 @@ interface Props extends ComponentPropsWithoutRef<"a"> {
  * )
  * ```
  */
-export const Anchor = forwardRef<HTMLAnchorElement, Props>((props, ref) => {
+export const Anchor = forwardRef<HTMLAnchorElement, Props>(({
+  className,
+
+  ...props
+}, ref) => {
   const isInternal = useMemo(() => isInternalUrl(props.href), [props.href])
 
-  const renderProps: Props = isInternal
-    ? props
-    : {...props, target: "_blank", rel: "noopener noreferrer"}
+  const LinkCompoent = isInternal ? Link : ExternalAnchor
 
-  return createElement(isInternal ? Link : "a", {...renderProps, ref})
+  return (
+    <LinkCompoent
+      {...props}
+
+      ref={ref}
+      className={cn("dark:text-white", className)}
+    />
+  )
 })

@@ -69,7 +69,7 @@ const Home: FC<Props> = () => {
       <ul className="list-none p-0 m-0">
         {posts.items.map(post => (
           <li key={post.id} className="p-0">
-            <Link href={`/post/${post.slug}`}>
+            <Link href={`/post/${post.slug}`} className="dark:text-white">
               {post.title}
             </Link>
           </li>

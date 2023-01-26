@@ -21,7 +21,7 @@ export const PostHeader: FC<Props> = ({
 }) => (
   <Header menu={menu}>
     <Nav>
-      <Link href={backButtonUrl} className="no-underline">
+      <Link href={backButtonUrl} className="no-underline dark:text-white">
         {backButtonText}
       </Link>
     </Nav>

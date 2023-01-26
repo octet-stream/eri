@@ -14,6 +14,7 @@ import {patchStaticPaths} from "lib/util/patchStaticPaths"
 import {transformNodes} from "lib/slate-to-react"
 import {usePageData} from "lib/hook/usePageData"
 import {PostLayout} from "layout/PostLayout"
+import {H1} from "component/Heading"
 
 interface Props {
   data: string
@@ -77,21 +78,26 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 const PostPage: FC<Props> = () => {
   const post = usePageData<IPostOutput>()
 
+  const postInfo = useMemo<string>(
+    () => [
+      formatRelative(post.createdAt, Date.now()), // TODO: Make custom formatRelative function.
+      `by @${post.author.login}`
+    ].join(" "),
+
+    [post.createdAt, post.author.login]
+  )
+
   const content = useMemo(() => transformNodes(post.content), [post.content])
 
   return (
     <PostLayout title={post.title}>
-      <h1 className="mb-0">{post.title}</h1>
+      <H1 className="mb-0">
+        {post.title}
+      </H1>
 
       <div>
-        <small className="text-gray-500">
-          <span>
-            {formatRelative(post.createdAt, Date.now())}
-          </span>
-
-          <span>
-            {` by @${post.author.login}`}
-          </span>
+        <small className="text-gray-600 select-none">
+          {postInfo}
         </small>
       </div>
 

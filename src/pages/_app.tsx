@@ -9,8 +9,8 @@ import Head from "next/head"
 
 import {PageDataProvider} from "lib/context/PageDataContext"
 
-import "style/globals.css"
 import "style/tailwind.css"
+import "style/globals.css"
 
 interface PageProps {
   session?: Session | null
