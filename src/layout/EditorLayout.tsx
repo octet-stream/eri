@@ -20,7 +20,7 @@ export const EditorLayout: FC<Props> = ({header, children}) => {
 
   return (
     <div className="w-screen min-h-screen flex py-5 desktop:p-5">
-      <main className="flex flex-1 flex-col prose mx-auto">
+      <main className="flex flex-1 flex-col prose dark:prose-invert mx-auto">
         {header}
 
         <div className="flex-1">

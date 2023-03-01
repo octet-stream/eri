@@ -1,6 +1,8 @@
 import {useImperativeHandle, forwardRef} from "react"
 import type {ComponentPropsWithoutRef} from "react"
 
+import cn from "clsx"
+
 import AutosizeTextArea from "react-textarea-autosize"
 
 import {useAutoFocus} from "lib/hook/useAutoFocus"
@@ -9,7 +11,10 @@ type Props = ComponentPropsWithoutRef<typeof AutosizeTextArea>
 
 export const TextArea = forwardRef<HTMLTextAreaElement, Props>((
   {
-    autoFocus, ...props
+    autoFocus,
+    className,
+
+    ...props
   },
 
   ref
@@ -18,5 +23,12 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>((
 
   useImperativeHandle(ref, () => innerRef.current!)
 
-  return <AutosizeTextArea ref={innerRef} {...props} />
+  return (
+    <AutosizeTextArea
+      {...props}
+
+      ref={innerRef}
+      className={cn("resize-none dark:bg-transparent", className)}
+    />
+  )
 })

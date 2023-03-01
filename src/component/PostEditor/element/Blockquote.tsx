@@ -7,7 +7,7 @@ import type {Value} from "lib/type/Editor"
 interface Props extends TRenderElementProps<Value, IBlockquote> { }
 
 export const Blockquote: FC<Props> = ({attributes, children}) => (
-  <blockquote {...attributes} className="dark:text-white">
+  <blockquote {...attributes}>
     {children}
   </blockquote>
 )
