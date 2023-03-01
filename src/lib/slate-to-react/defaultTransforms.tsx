@@ -31,25 +31,25 @@ export const text = createNodeTransform<IRichText>(
     let element: ReactNode = children || <br />
 
     if (node.bold) {
-      element = <strong className="dark:text-white">{element}</strong>
+      element = <strong>{element}</strong>
     }
 
     if (node.italic) {
-      element = <i className="dark:text-white">{element}</i>
+      element = <i>{element}</i>
     }
 
     if (node.underline) {
-      element = <u className="dark:text-white">{element}</u>
+      element = <u>{element}</u>
     }
 
     if (node.strikethrough) {
-      element = <s className="dark:text-white">{element}</s>
+      element = <s>{element}</s>
     }
 
     if (node.superscript) {
-      element = <sup className="dark:text-white">{element}</sup>
+      element = <sup>{element}</sup>
     } else if (node.subscript) {
-      element = <sub className="dark:text-white">{element}</sub>
+      element = <sub>{element}</sub>
     }
 
     if (node.code) {
@@ -123,7 +123,7 @@ export const blockquote = createNodeTransform<IBlockquote>(
   ELEMENT_BLOCKQUOTE,
 
   ({key, children}) => (
-    <blockquote key={key} className="dark:text-white">
+    <blockquote key={key}>
       {children}
     </blockquote>
   )
