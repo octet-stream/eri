@@ -1,10 +1,9 @@
 import type {infer as Infer} from "zod"
-import {z} from "zod"
+
+import {Node} from "server/trpc/type/common/Node"
 
 import {PostCreateInput} from "./PostCreateInput"
 
-export const PostUpdateInput = PostCreateInput.partial().extend({
-  id: z.string().uuid()
-})
+export const PostUpdateInput = PostCreateInput.partial().extend(Node.shape)
 
-export type TPostUpdateInput = Infer<typeof PostCreateInput>
+export type TPostUpdateInput = Infer<typeof PostUpdateInput>
