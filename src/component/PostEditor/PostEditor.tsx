@@ -6,10 +6,11 @@ import useEvent from "react-use-event-hook"
 
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
-import type {Value} from "lib/type/Editor"
 import type {IUserOutput} from "server/trpc/type/output/UserOutput"
+import type {Value} from "lib/type/Editor"
 
 import {Button} from "component/Button"
+import {PostInfo} from "component/PostInfo"
 
 import {TitleEditor} from "./TitleEditor"
 import {ContentEditor} from "./ContentEditor"
@@ -45,6 +46,18 @@ export const PostEditor: FC<Props> = ({
   const [title, setTitle] = useState(initialTitle)
   const [content, setContent] = useState<Value>(initialContent)
 
+  const postInfo = useMemo(
+    () => [
+      isNew ? "A new post" : "Published",
+
+      "by",
+
+      `@${author.login}`
+    ].join(" "),
+
+    [isNew, author.login]
+  )
+
   const pageTitle = useMemo<string>(() => title.trim() || "Untitled", [title])
 
   const isSubmittingDisabled = !title || isEditorContentEmpty(content)
@@ -72,15 +85,9 @@ export const PostEditor: FC<Props> = ({
           <TitleEditor value={title} onTitleChange={onTitleChange} />
 
           <div>
-            <small className="text-gray-500">
-              <span>{isNew ? "A new post" : "Published"}</span>
-
-              <span> by </span>
-
-              <span>
-                @{author.login}
-              </span>
-            </small>
+            <PostInfo>
+              {postInfo}
+            </PostInfo>
           </div>
 
           <ContentEditor value={content} onChange={onContentChange} />

@@ -17,6 +17,7 @@ import {usePageData} from "lib/hook/usePageData"
 import {PostLayout} from "layout/PostLayout"
 
 import {H1} from "component/Heading"
+import {PostInfo} from "component/PostInfo"
 
 interface Props {
   data: string
@@ -103,9 +104,9 @@ const PostPage: FC<Props> = () => {
       </H1>
 
       <div>
-        <small className="text-gray-600 select-none">
+        <PostInfo>
           {postInfo}
-        </small>
+        </PostInfo>
       </div>
 
       <div className="flex-1">
