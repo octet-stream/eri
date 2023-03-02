@@ -8,6 +8,8 @@ import differenceInYears from "date-fns/differenceInYears"
 import differenceInHours from "date-fns/differenceInHours"
 import format from "date-fns/format"
 
+import type {RawDate} from "lib/type/RawDate"
+
 import {normalizeDate} from "./normalizeDate"
 import {formatTime, TIME_FORMAT} from "./formatTime"
 
@@ -56,8 +58,8 @@ function formatRelativeDays(left: Date, right: Date, diff: number): string {
  * Formats date relative to `Date.now()` in human-readable form.
  */
 export function formatRelative(
-  date: Date | number | string,
-  from = new Date()
+  date: RawDate,
+  from: RawDate = new Date()
 ): string {
   const left = normalizeDate(date)
   const right = normalizeDate(from)
