@@ -51,7 +51,7 @@ export const Anchor = forwardRef<HTMLAnchorElement, Props>(({
       {...props}
 
       ref={ref}
-      className={cn("dark:text-white", className)}
+      className={cn("text-violet-500 dark:text-violet-400 no-underline hover:underline", className)}
     />
   )
 })

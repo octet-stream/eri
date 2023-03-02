@@ -23,14 +23,14 @@ export const FlyoutMenuItem: FC<Props> = ({href, children, className}) => {
         isLink ? (
           <Anchor
             href={href}
-            className={cn("not-prose block text-black font-normal cursor-pointer px-6 py-2 w-full text-left no-underline", {"bg-violet-400 !text-white": active}, className)}
+            className={cn("not-prose block font-normal cursor-pointer px-6 py-2 w-full text-left no-underline hover:no-underline text-inherit!", {"bg-violet-400 !text-white": active, "!text-black": !active}, className)}
           >
             {children}
           </Anchor>
         ) : (
           <button
             type="button"
-            className={cn("cursor-pointer px-6 py-2 w-full text-left", {"bg-violet-400 text-white": active}, className)}
+            className={cn("cursor-pointer px-6 py-2 w-full text-left", {"bg-violet-400 !text-white": active}, className)}
           >
             {children}
           </button>

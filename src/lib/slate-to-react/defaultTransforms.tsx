@@ -113,7 +113,7 @@ export const link = createNodeTransform<ILink>(
   ELEMENT_LINK,
 
   ({key, node, children}) => (
-    <Anchor key={key} href={node.url} className="text-[#0078d4] no-underline hover:underline">
+    <Anchor key={key} href={node.url}>
       {children}
     </Anchor>
   )

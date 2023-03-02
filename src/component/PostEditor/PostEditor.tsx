@@ -87,7 +87,13 @@ export const PostEditor: FC<Props> = ({
         </div>
 
         <div className="flex justify-end mt-5">
-          <Button disabled={isSubmittingDisabled} type="button" onClick={onSubmitClick}>
+          <Button
+            type="button"
+            variant="primary"
+            color="brand"
+            disabled={isSubmittingDisabled}
+            onClick={onSubmitClick}
+          >
             Publish
           </Button>
         </div>

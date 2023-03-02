@@ -9,7 +9,7 @@ import type {Value} from "lib/type/Editor"
 interface Props extends TRenderElementProps<Value, ILink> { }
 
 export const Link: FC<Props> = ({attributes, element, children}) => (
-  <Anchor {...attributes} href={element.url} className="text-[#0078d4] no-underline hover:underline">
+  <Anchor {...attributes} href={element.url}>
     {children}
   </Anchor>
 )
