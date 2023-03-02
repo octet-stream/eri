@@ -1,5 +1,4 @@
 import type {GetStaticProps, GetStaticPaths} from "next"
-import {formatRelative} from "date-fns"
 import {TRPCError} from "@trpc/server"
 import {stringify} from "superjson"
 import type {FC} from "react"
@@ -10,6 +9,7 @@ import {getORM} from "server/lib/db/orm"
 import {router} from "server/trpc/router"
 import {IPostOutput} from "server/trpc/type/output/PostOutput"
 
+import {formatRelative} from "lib/util/formatRelative"
 import {patchStaticPaths} from "lib/util/patchStaticPaths"
 import {transformNodes} from "lib/slate-to-react"
 import {usePageData} from "lib/hook/usePageData"
@@ -88,7 +88,8 @@ const PostPage: FC<Props> = () => {
 
   const postInfo = useMemo<string>(
     () => [
-      formatRelative(post.createdAt, Date.now()), // TODO: Make custom formatRelative function.
+      formatRelative(post.createdAt),
+
       `by @${post.author.login}`
     ].join(" "),
 
