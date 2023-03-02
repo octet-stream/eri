@@ -7,7 +7,7 @@ import cn from "clsx"
 
 type Variants = "primary" | "secondary"
 
-type Colors = "brand" | "gray" | "red"
+type Colors = "brand" | "red"
 
 interface Props extends ComponentPropsWithoutRef<"button"> {
   wide?: boolean
@@ -39,9 +39,14 @@ export const Button = forwardRef<HTMLButtonElement, Props>((
       "text-center disabled:cursor-not-allowed",
       "py-2 px-6 rounded-md border border-transparent",
 
+      "transition-colors duration-200",
+
+      // Disabled style.
+      "disabled:text-black disabled:bg-gray-200 disabled:border-gray-200 dark:disabled:text-white dark:disabled:border-slate-800 disabled:dark:bg-slate-800",
+
       {
         "w-full": wide,
-        "text-white": variant === "primary" && color !== "gray",
+        "text-white": variant === "primary",
         "bg-transparent": variant === "secondary",
 
         // Primary
