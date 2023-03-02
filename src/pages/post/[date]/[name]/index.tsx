@@ -5,8 +5,8 @@ import {stringify} from "superjson"
 import type {FC} from "react"
 import {useMemo} from "react"
 
-import {getORM} from "server/lib/db"
 import {Post} from "server/db/entity"
+import {getORM} from "server/lib/db/orm"
 import {router} from "server/trpc/router"
 import {IPostOutput} from "server/trpc/type/output/PostOutput"
 

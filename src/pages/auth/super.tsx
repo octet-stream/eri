@@ -10,7 +10,7 @@ import type {
 } from "server/trpc/type/input/UserCreateSuperInput"
 import {UserCreateSuperInput} from "server/trpc/type/input/UserCreateSuperInput"
 import {User, UserRoles} from "server/db/entity/User"
-import {runIsolatied} from "server/lib/db"
+import {runIsolatied} from "server/lib/db/orm"
 
 import {Button} from "component/Button"
 import {AuthLayout} from "layout/AuthLayout"

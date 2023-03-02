@@ -9,8 +9,8 @@ import {setup, cleanup} from "server/__helper__/database"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
 
 import {formatSlug} from "server/db/subscriber/PostSubscriber"
+import {runIsolatied} from "server/lib/db/orm"
 import {User, Post} from "server/db/entity"
-import {runIsolatied} from "server/lib/db"
 import type {Value} from "lib/type/Editor"
 
 const test = anyTest as TestFn<WithTRPCContext>

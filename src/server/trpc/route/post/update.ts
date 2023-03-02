@@ -1,7 +1,7 @@
 import {TRPCError} from "@trpc/server"
 import {wrap} from "@mikro-orm/core"
 
-import {getORM} from "server/lib/db"
+import {getORM} from "server/lib/db/orm"
 
 import {procedure} from "server/trpc/procedure/authorized"
 

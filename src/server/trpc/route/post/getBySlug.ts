@@ -3,8 +3,8 @@ import {z} from "zod"
 
 import {PostOutput} from "server/trpc/type/output/PostOutput"
 import {Slug} from "server/trpc/type/common/Slug"
+import {getORM} from "server/lib/db/orm"
 import {Post} from "server/db/entity"
-import {getORM} from "server/lib/db"
 
 import {procedure} from "server/trpc/procedure/base"
 

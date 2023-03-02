@@ -1,14 +1,14 @@
 namespace NodeJS {
   interface ProcessEnv {
-    NEXT_PUBLIC_SERVER_URL: string
+    readonly NEXT_PUBLIC_SERVER_URL: string
 
-    NEXTAUTH_URL: string
-    NEXTAUTH_SECRET: string
+    readonly NEXTAUTH_URL: string
+    readonly NEXTAUTH_SECRET: string
 
-    MIKRO_ORM_DB_NAME: string
-    MIKRO_ORM_HOST?: string
-    MIKRO_ORM_PORT?: string
-    MIKRO_ORM_USER: string
-    MIKRO_ORM_PASSWORD: string
+    readonly MIKRO_ORM_DB_NAME: string
+    readonly MIKRO_ORM_HOST?: string
+    readonly MIKRO_ORM_PORT?: string
+    readonly MIKRO_ORM_USER: string
+    readonly MIKRO_ORM_PASSWORD: string
   }
 }

@@ -19,7 +19,7 @@
   "mikro-orm": {
     "useTsNode": true,
     "configPaths": [
-      "./src/server/mikro-orm.config.ts"
+      "./src/server/lib/db/cli"
     ]
   },
   "pnpm": {

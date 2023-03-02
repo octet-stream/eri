@@ -7,7 +7,7 @@ import {encode} from "next-auth/jwt"
 
 import noop from "lodash/noop"
 
-import {getORM} from "server/lib/db"
+import {getORM} from "server/lib/db/orm"
 import type {Caller} from "server/trpc/router"
 import {router} from "server/trpc/router"
 import {User} from "server/db/entity"

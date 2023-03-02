@@ -8,39 +8,40 @@ import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
 import {withTRPC} from "server/__macro__/withTRPC"
-import {withORM} from "server/__macro__/withORM"
+
+import {runIsolatied} from "server/lib/db/orm"
 
 import {Post, User} from "server/db/entity"
 
 const test = anyTest as TestFn<WithTRPCContext>
 
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-test.before(withORM, async (_, orm) => {
+test.before(async () => {
   await setup()
 
-  const user = orm.em.create(User, {
-    login: "johndoe",
-    email: "john.doe@example.com",
-    password: "someveryverylongpasswordbecausewhynot"
+  await runIsolatied(async em => {
+    const user = await em.create(User, {
+      login: "johndoe",
+      email: "john.doe@example.com",
+      password: "someveryverylongpasswordbecausewhynot"
+    })
+
+    const posts = Array.from({length: 50}, (_, key) => em.create(Post, {
+      title: `Test post #${key + 1}`,
+      author: user,
+      content: [
+        {
+          type: ELEMENT_PARAGRAPH,
+          children: [
+            {
+              text: "This is the test post"
+            }
+          ]
+        }
+      ]
+    }))
+
+    await em.persistAndFlush(posts)
   })
-
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const posts = Array.from({length: 50}, (_, key) => orm.em.create(Post, {
-    title: `Test post #${key + 1}`,
-    author: user,
-    content: [
-      {
-        type: ELEMENT_PARAGRAPH,
-        children: [
-          {
-            text: "This is the test post"
-          }
-        ]
-      }
-    ]
-  }))
-
-  await orm.em.persistAndFlush(posts)
 })
 
 test.after.always(cleanup)

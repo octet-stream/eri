@@ -13,7 +13,7 @@ import type {WithTRPCContext} from "server/__macro__/withTRPC"
 
 import {formatSlug} from "server/db/subscriber/PostSubscriber"
 import {User, Post} from "server/db/entity"
-import {runIsolatied} from "server/lib/db"
+import {runIsolatied} from "server/lib/db/orm"
 
 const test = anyTest as TestFn<WithTRPCContext>
 

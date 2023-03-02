@@ -5,7 +5,7 @@ import {
 } from "server/trpc/type/input/UserCreateSuperInput"
 import {UserOutput} from "server/trpc/type/output/UserOutput"
 import {User, UserRoles} from "server/db/entity/User"
-import {getORM} from "server/lib/db"
+import {getORM} from "server/lib/db/orm"
 
 import {procedure} from "server/trpc/procedure/server"
 

@@ -1,7 +1,7 @@
 import {PostCreateInput} from "server/trpc/type/input/PostCreateInput"
 import {PostOutput} from "server/trpc/type/output/PostOutput"
 import {Post} from "server/db/entity/Post"
-import {getORM} from "server/lib/db"
+import {getORM} from "server/lib/db/orm"
 
 import {procedure} from "server/trpc/procedure/authorized"
 

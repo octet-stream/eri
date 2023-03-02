@@ -5,8 +5,8 @@ import {TRPCError} from "@trpc/server"
 import {options} from "pages/api/auth/[...nextauth]"
 
 import type {SSRContext, AuthContext} from "server/trpc/context"
+import {getORM} from "server/lib/db/orm"
 import {User} from "server/db/entity"
-import {getORM} from "server/lib/db"
 
 import {trpc} from "server/trpc/def"
 

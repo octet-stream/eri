@@ -3,7 +3,7 @@ import {TRPCError} from "@trpc/server"
 import {UserCreateInput} from "server/trpc/type/input/UserCreateInput"
 import {UserOutput} from "server/trpc/type/output/UserOutput"
 import {User, InvitationCode} from "server/db/entity"
-import {getORM} from "server/lib/db"
+import {getORM} from "server/lib/db/orm"
 
 import {procedure} from "server/trpc/procedure/server"
 

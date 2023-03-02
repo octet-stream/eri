@@ -1,7 +1,7 @@
 import {RequestContext} from "@mikro-orm/core"
 
 import type {Middleware} from "server/lib/type/Middleware"
-import {getORM} from "server/lib/db"
+import {getORM} from "server/lib/db/orm"
 
 /**
  * Creates a new RequestContext for MikroORM and runs the code within that context.

@@ -9,7 +9,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import withORMContext from "server/middleware/withORMContext"
 
 import {assertRequiredEnv} from "server/lib/util/assertRequiredEnv"
-import {runIsolatied} from "server/lib/db"
+import {runIsolatied, getORM} from "server/lib/db/orm"
 
 import {User} from "server/db/entity/User"
 
@@ -104,11 +104,11 @@ export const options: NextAuthOptions = {
   ],
   callbacks: {
     async session({session, token}) {
-      const user = await runIsolatied(em => (
-        em.findOneOrFail(User, {id: token.sub}, {
-          fields: ["id", "login", "role"]
-        })
-      ))
+      const orm = await getORM()
+
+      const user = await orm.em.findOneOrFail(User, {id: token.sub}, {
+        fields: ["id", "login", "role"]
+      })
 
       // Expose additional props
       session.user = pickBy({

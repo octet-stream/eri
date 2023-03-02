@@ -3,7 +3,7 @@ import {urlAlphabet} from "nanoid"
 
 import mysql from "mysql2/promise"
 
-import {getORM} from "server/lib/db"
+import {getORM} from "server/lib/db/orm"
 
 const alphanum = urlAlphabet.replace(/[^a-z0-9]/gi, "")
 const createDatabaseNameSuffix = customAlphabet(alphanum, 21)
@@ -22,14 +22,15 @@ const createNativeConnection = () => mysql.createConnection({
 export const setup = async () => {
   const name = `eri-test__${await createDatabaseNameSuffix()}`
 
+  // @ts-expect-error This normally should not be overriten by hand, but its allowed for tests.
+  process.env.MIKRO_ORM_DB_NAME = name
+
   const connection = await createNativeConnection()
 
   await connection.query(`CREATE DATABASE IF NOT EXISTS \`${name}\``)
   await connection.end()
 
   const orm = await getORM()
-
-  orm.config.set("dbName", name)
 
   await orm.connect()
 

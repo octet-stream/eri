@@ -3,7 +3,7 @@ import {PageInput} from "server/trpc/type/input/PageInput"
 import {PageArgs} from "server/trpc/helper/PageArgs"
 import {Page} from "server/trpc/helper/Page"
 import {Post} from "server/db/entity/Post"
-import {getORM} from "server/lib/db"
+import {getORM} from "server/lib/db/orm"
 
 import {procedure} from "server/trpc/procedure/base"
 
