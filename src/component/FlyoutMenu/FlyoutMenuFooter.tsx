@@ -24,7 +24,7 @@ export const FlyoutMenuFooter = forwardRef<HTMLElement, Props>((_, ref) => {
           <Link
             ref={ref as any}
             href={`/auth/login?r=${asPath}`}
-            className="no-underline px-6 py-2 flex-1 font-normal text-inherit"
+            className="no-underline px-6 py-2 flex-1 font-normal text-inherit !text-black"
           >
             Log in
           </Link>
