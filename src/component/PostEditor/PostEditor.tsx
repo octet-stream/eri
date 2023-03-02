@@ -1,8 +1,8 @@
 import {Fragment, useState, useMemo} from "react"
+import {useEvent} from "react-use-event-hook"
 import type {FC} from "react"
 
 import Head from "next/head"
-import useEvent from "react-use-event-hook"
 
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 

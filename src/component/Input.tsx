@@ -3,10 +3,10 @@
 import type {ComponentPropsWithoutRef, FocusEventHandler} from "react"
 import {forwardRef, useState, useImperativeHandle} from "react"
 import type {FieldError} from "react-hook-form"
+import {useEvent} from "react-use-event-hook"
 import {toast} from "react-hot-toast"
 
 import cn from "clsx"
-import useEvent from "react-use-event-hook"
 
 import {useAutoFocus} from "lib/hook/useAutoFocus"
 

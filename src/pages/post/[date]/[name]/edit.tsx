@@ -1,4 +1,5 @@
 import {getServerSession} from "next-auth/next"
+import {useEvent} from "react-use-event-hook"
 import type {GetServerSideProps} from "next"
 import type {Session} from "next-auth"
 import {TRPCError} from "@trpc/server"
@@ -6,8 +7,6 @@ import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
 import {stringify} from "superjson"
 import type {FC} from "react"
-
-import useEvent from "react-use-event-hook"
 
 import {client} from "lib/trpc"
 import {router} from "server/trpc/router"

@@ -1,10 +1,9 @@
+import {useEvent} from "react-use-event-hook"
 import {useSession} from "next-auth/react"
 import type {Session} from "next-auth"
 import {toast} from "react-hot-toast"
 import {useRouter} from "next/router"
 import type {FC} from "react"
-
-import useEvent from "react-use-event-hook"
 
 import {
   getServerSideSessionRedirect
