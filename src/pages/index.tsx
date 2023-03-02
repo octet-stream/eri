@@ -5,8 +5,7 @@ import type {FC} from "react"
 import Link from "next/link"
 import isEmpty from "lodash/isEmpty"
 
-import type {TPostOutput} from "server/trpc/type/output/PostOutput"
-import type {IPageOutput} from "server/trpc/type/output/PageOutput"
+import {TPostsPageOutput} from "server/trpc/type/output/PostsPageOutput"
 import {usePageData} from "lib/hook/usePageData"
 
 import {router} from "server/trpc/router"
@@ -25,7 +24,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   const trpc = router.createCaller({})
 
   const query = ctx.query as Query
-  const page = query.page ? parseInt(query.page, 10) : null
+  const page = query.page ? parseInt(query.page, 10) : undefined
 
   if (page && page < 1) {
     return {
@@ -50,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
 }
 
 const Home: FC<Props> = () => {
-  const posts = usePageData<IPageOutput<TPostOutput>>()
+  const posts = usePageData<TPostsPageOutput>()
 
   if (isEmpty(posts.items)) {
     return (

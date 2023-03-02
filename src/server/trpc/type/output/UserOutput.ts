@@ -1,9 +1,9 @@
 import type {infer as Infer} from "zod"
 
-import {Login} from "../common/Login"
-import {Node} from "../common/Node"
+import {Login} from "server/trpc/type/common/Login"
+import {Record} from "server/trpc/type/common/Record"
 
-export const UserOutput = Node.extend({
+export const UserOutput = Record.extend({
   login: Login
 })
 

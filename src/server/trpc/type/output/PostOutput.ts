@@ -1,11 +1,12 @@
 import type {infer as Infer} from "zod"
 import {z} from "zod"
 
-import {Node} from "../common/Node"
-import {EditorData} from "../common/EditorData"
+import {Record} from "server/trpc/type/common/Record"
+import {EditorData} from "server/trpc/type/common/EditorData"
+
 import {UserOutput} from "./UserOutput"
 
-export const PostOutput = Node.extend({
+export const PostOutput = Record.extend({
   title: z.string().min(1),
   slug: z.string().min(1),
   content: EditorData,
