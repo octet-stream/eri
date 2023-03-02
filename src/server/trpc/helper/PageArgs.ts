@@ -1,9 +1,9 @@
 import omitBy from "lodash/omitBy"
 import isNil from "lodash/isNil"
 
-import type {IPageInput} from "server/trpc/type/input/PageInput"
+import type {TPageInput} from "server/trpc/type/input/PageInput"
 
-interface IPageArgs extends IPageInput {
+interface IPageArgs extends TPageInput {
   cursor: number
   limit: number
 }
@@ -20,7 +20,7 @@ export class PageArgs implements IPageArgs {
 
   readonly #offset: number | undefined
 
-  constructor(input: IPageInput) {
+  constructor(input: TPageInput) {
     const {cursor, limit} = {...DEFAULT_PAGE_INPUT, ...omitBy(input, isNil)}
 
     this.#cursor = cursor

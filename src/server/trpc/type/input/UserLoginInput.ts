@@ -1,8 +1,9 @@
-import {z, infer as Infer} from "zod"
+import type {infer as Infer} from "zod"
+import {z} from "zod"
 
 export const UserLoginInput = z.object({
   email: z.string().email("Invalid email"),
   password: z.string()
 })
 
-export interface IUserLoginInput extends Infer<typeof UserLoginInput> { }
+export type TUserLoginInput = Infer<typeof UserLoginInput>

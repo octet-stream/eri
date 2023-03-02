@@ -6,7 +6,7 @@ import useEvent from "react-use-event-hook"
 
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
-import type {IUserOutput} from "server/trpc/type/output/UserOutput"
+import type {TUserOutput} from "server/trpc/type/output/UserOutput"
 import type {Value} from "lib/type/Editor"
 
 import {Button} from "component/Button"
@@ -30,7 +30,7 @@ interface Props {
   isNew?: boolean
   title?: string
   content?: Value
-  author: Pick<IUserOutput, "login">
+  author: Pick<TUserOutput, "login">
   interactivePageTitle?: boolean
   onSave: EditorOnSaveHandler
 }

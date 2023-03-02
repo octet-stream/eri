@@ -11,7 +11,7 @@ import {
   MARK_SUBSCRIPT
 } from "@udecode/plate-headless"
 
-import {IEditorData} from "server/trpc/type/common/EditorData"
+import {Value} from "lib/type/Editor"
 
 const MARKS_TO_ELEMENTS = {
   [MARK_BOLD]: "strong",
@@ -26,7 +26,7 @@ type MarksElements = typeof MARKS_TO_ELEMENTS
 
 type BasicMarks = keyof MarksElements
 
-interface Props extends TRenderLeafProps<IEditorData> { }
+interface Props extends TRenderLeafProps<Value> { }
 
 export const createBasicMarkComponent = <T extends BasicMarks>(
   mark: T

@@ -1,15 +1,12 @@
-import {z, infer as Infer} from "zod"
+import type {infer as Infer} from "zod"
+import {z} from "zod"
 
-import {Login} from "../common/Login"
+import {Login} from "server/trpc/type/common/Login"
 
-export const UserCreateSuperInput = z
-  .object({
-    login: Login,
-    email: z.string().email("Invalid email"),
-    password: z.string().min(8, "Password must contain at least 8 characters")
-  })
-  .strict()
+export const UserCreateSuperInput = z.object({
+  login: Login,
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Password must contain at least 8 characters")
+})
 
-export interface IUserCreateSuperInput extends Infer<
-  typeof UserCreateSuperInput
-> { }
+export type TUserCreateSuperInput = Infer<typeof UserCreateSuperInput>

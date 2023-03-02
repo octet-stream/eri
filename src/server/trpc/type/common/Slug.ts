@@ -1,3 +1,4 @@
+import type {infer as Infer} from "zod"
 import {z} from "zod"
 
 import isDate from "validator/lib/isDate"
@@ -22,3 +23,5 @@ export const SlugString = z.string().refine(slug => {
 export const Slug = z
   .union([SlugTuple, SlugString])
   .transform(slug => isArray(slug) ? slug.join("/") : slug)
+
+export type TSlug = Infer<typeof Slug>

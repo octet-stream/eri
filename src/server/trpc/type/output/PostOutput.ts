@@ -1,4 +1,5 @@
-import {z, infer as Infer} from "zod"
+import type {infer as Infer} from "zod"
+import {z} from "zod"
 
 import {Node} from "../common/Node"
 import {EditorData} from "../common/EditorData"
@@ -14,4 +15,4 @@ export const PostOutput = Node.extend({
   })
 })
 
-export interface IPostOutput extends Infer<typeof PostOutput> { }
+export type TPostOutput = Infer<typeof PostOutput>

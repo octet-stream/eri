@@ -1,10 +1,12 @@
 import type {infer as Infer} from "zod"
 import {z} from "zod"
 
+import {DateTime} from "./DateTime"
+
 export const Node = z.object({
   id: z.string().uuid(),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  createdAt: DateTime,
+  updatedAt: DateTime
 })
 
-export interface INode extends Infer<typeof Node> { }
+export type TNode = Infer<typeof Node>

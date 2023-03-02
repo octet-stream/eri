@@ -9,7 +9,7 @@ import {
   ELEMENT_LINK
 } from "@udecode/plate"
 
-import {IEditorData} from "server/trpc/type/common/EditorData"
+import {TEditorData} from "server/trpc/type/common/EditorData"
 
 import {transformNodes} from "./transformNodes"
 
@@ -23,7 +23,7 @@ test("Transforms simple paragraph with text (w/ default transform)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [actual] = container.childNodes
@@ -43,7 +43,7 @@ test("Transforms h2 heading (w/ default transform)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [actual] = container.childNodes
@@ -65,7 +65,7 @@ test("Transforms h3 heading (w/ default transform)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [actual] = container.childNodes
@@ -87,7 +87,7 @@ test("Transforms h4 heading (w/ default transform)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [actual] = container.childNodes as NodeListOf<HTMLHeadingElement>
@@ -115,7 +115,7 @@ test("Transforms link (w/ default transform)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -140,7 +140,7 @@ test("Default text transform applies bold text mark", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -162,7 +162,7 @@ test("Default text transform applies italic text mark", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -184,7 +184,7 @@ test("Default text transform applies underlined text mark", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -206,7 +206,7 @@ test("Default text transform applies strikethrough text mark", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -228,7 +228,7 @@ test("Default text transform applies superscript text mark", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -250,7 +250,7 @@ test("Default text transform applies subscript text mark", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -272,7 +272,7 @@ test("Default transform applies alignment to paragraph (left)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -291,7 +291,7 @@ test("Default transform applies alignment to paragraph (right)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -310,7 +310,7 @@ test("Default transform applies alignment to paragraph (center)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -329,7 +329,7 @@ test("Default transform applies alignment to paragraph (justify)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [p] = container.childNodes as NodeListOf<HTMLParagraphElement>
@@ -348,7 +348,7 @@ test("Default transform applies alignment to heading (left)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [h2] = container.childNodes as NodeListOf<HTMLHeadingElement>
@@ -367,7 +367,7 @@ test("Default transform applies alignment to heading (right)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [h2] = container.childNodes as NodeListOf<HTMLHeadingElement>
@@ -386,7 +386,7 @@ test("Default transform applies alignment to heading (center)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [h2] = container.childNodes as NodeListOf<HTMLHeadingElement>
@@ -405,7 +405,7 @@ test("Default transform applies alignment to heading (justify)", t => {
         }
       ]
     }
-  ] as IEditorData)
+  ] as TEditorData)
 
   const {container} = render(node)
   const [h2] = container.childNodes as NodeListOf<HTMLHeadingElement>

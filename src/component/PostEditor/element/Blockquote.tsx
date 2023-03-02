@@ -1,10 +1,12 @@
 import type {TRenderElementProps} from "@udecode/plate-core"
-import type {FC} from "react"
+import type {FC, ReactNode} from "react"
 
-import type {IBlockquote} from "server/trpc/type/common/EditorData"
+import type {TBlockquote} from "server/trpc/type/common/EditorData"
 import type {Value} from "lib/type/Editor"
 
-interface Props extends TRenderElementProps<Value, IBlockquote> { }
+interface Props extends TRenderElementProps<Value, TBlockquote> {
+  children: ReactNode
+}
 
 export const Blockquote: FC<Props> = ({attributes, children}) => (
   <blockquote {...attributes}>

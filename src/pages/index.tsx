@@ -5,7 +5,7 @@ import type {FC} from "react"
 import Link from "next/link"
 import isEmpty from "lodash/isEmpty"
 
-import type {IPostOutput} from "server/trpc/type/output/PostOutput"
+import type {TPostOutput} from "server/trpc/type/output/PostOutput"
 import type {IPageOutput} from "server/trpc/type/output/PageOutput"
 import {usePageData} from "lib/hook/usePageData"
 
@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
 }
 
 const Home: FC<Props> = () => {
-  const posts = usePageData<IPageOutput<IPostOutput>>()
+  const posts = usePageData<IPageOutput<TPostOutput>>()
 
   if (isEmpty(posts.items)) {
     return (

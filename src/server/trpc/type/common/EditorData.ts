@@ -37,7 +37,7 @@ export const RichText = PlainText.extend({
   code: z.boolean().optional() // Maybe code must be in it's own type
 })
 
-export interface IRichText extends Infer<typeof RichText> { }
+export type TRichText = Infer<typeof RichText>
 
 const AbstractElement = z.object({
   type: z.string(),
@@ -50,7 +50,7 @@ export const Link = AbstractElement.extend({
   children: z.array(RichText)
 })
 
-export interface ILink extends Infer<typeof Link> { }
+export type TLink = Infer<typeof Link>
 
 export const InlineDescendant = z.union([Link, RichText])
 
@@ -65,28 +65,28 @@ export const Paragraph = BlockElement.extend(Align.shape).extend({
   children: InlineChildren
 })
 
-export interface IParagraph extends Infer<typeof Paragraph> { }
+export type TParagraph = Infer<typeof Paragraph>
 
 export const Blockquote = BlockElement.extend({
   type: z.literal(ELEMENT_BLOCKQUOTE),
   children: InlineChildren
 })
 
-export interface IBlockquote extends Infer<typeof Blockquote> { }
+export type TBlockquote = Infer<typeof Blockquote>
 
 export const CodeLine = BlockElement.extend({
   type: z.literal(ELEMENT_CODE_LINE),
   children: z.array(PlainText)
 })
 
-export interface ICodeLine extends Infer<typeof CodeLine> { }
+export type TCodeLine = Infer<typeof CodeLine>
 
 export const CodeBlock = BlockElement.extend({
   type: z.literal(ELEMENT_CODE_BLOCK),
   children: z.array(CodeLine)
 })
 
-export interface ICodeBlock extends Infer<typeof CodeBlock> { }
+export type TCodeBlock = Infer<typeof CodeBlock>
 
 export const HeadingTypes = z.union([
   z.literal(ELEMENT_H2),
@@ -94,14 +94,14 @@ export const HeadingTypes = z.union([
   z.literal(ELEMENT_H4)
 ])
 
-export type IHeadingTypes = Infer<typeof HeadingTypes>
+export type THeadingTypes = Infer<typeof HeadingTypes>
 
 export const HeadingElement = AbstractElement.extend(Align.shape).extend({
   type: HeadingTypes,
   children: InlineChildren
 })
 
-export interface IHeadingElement extends Infer<typeof HeadingElement> { }
+export type THeadingElement = Infer<typeof HeadingElement>
 
 export const RootElement = z.union([
   Paragraph,
@@ -109,6 +109,8 @@ export const RootElement = z.union([
   Blockquote,
   CodeBlock
 ])
+
+export type TRootElement = Infer<typeof RootElement>
 
 export const EditorData = z
   .array(RootElement)
@@ -120,4 +122,4 @@ export const EditorData = z
     }
   )
 
-export interface IEditorData extends Infer<typeof EditorData> { }
+export type TEditorData = Infer<typeof EditorData>

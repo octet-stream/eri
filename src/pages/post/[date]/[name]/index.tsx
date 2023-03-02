@@ -7,7 +7,7 @@ import {useMemo} from "react"
 import {Post} from "server/db/entity"
 import {getORM} from "server/lib/db/orm"
 import {router} from "server/trpc/router"
-import {IPostOutput} from "server/trpc/type/output/PostOutput"
+import {TPostOutput} from "server/trpc/type/output/PostOutput"
 
 import {formatRelative} from "lib/util/formatRelative"
 import {patchStaticPaths} from "lib/util/patchStaticPaths"
@@ -84,7 +84,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 }
 
 const PostPage: FC<Props> = () => {
-  const post = usePageData<IPostOutput>()
+  const post = usePageData<TPostOutput>()
 
   const postInfo = useMemo<string>(
     () => [

@@ -1,4 +1,5 @@
-import {z, infer as Infer} from "zod"
+import type {infer as Infer} from "zod"
+import {z} from "zod"
 
 export const PageInput = z
   .object({
@@ -18,4 +19,4 @@ export const PageInput = z
   })
   .default({})
 
-export interface IPageInput extends Infer<typeof PageInput> { }
+export type TPageInput = Infer<typeof PageInput>

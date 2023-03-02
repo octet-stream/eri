@@ -9,11 +9,11 @@ import {
 import type {ReactNode} from "react"
 
 import type {
-  ILink,
-  IRichText,
-  IParagraph,
-  IHeadingElement,
-  IBlockquote
+  TLink,
+  TRichText,
+  TParagraph,
+  THeadingElement,
+  TBlockquote
 } from "server/trpc/type/common/EditorData"
 import {InlineCode} from "component/InlineCode"
 import {Anchor} from "component/Anchor"
@@ -23,7 +23,7 @@ import {H4} from "component/Heading/H4"
 
 import {createNodeTransform} from "./createNodeTransform"
 
-export const text = createNodeTransform<IRichText>(
+export const text = createNodeTransform<TRichText>(
   "text",
 
   ({key, node, children}) => {
@@ -60,7 +60,7 @@ export const text = createNodeTransform<IRichText>(
   }
 )
 
-export const paragraph = createNodeTransform<IParagraph>(
+export const paragraph = createNodeTransform<TParagraph>(
   ELEMENT_PARAGRAPH,
 
   ({key, node, children}) => (
@@ -70,7 +70,7 @@ export const paragraph = createNodeTransform<IParagraph>(
   )
 )
 
-export const h2 = createNodeTransform<IHeadingElement>(
+export const h2 = createNodeTransform<THeadingElement>(
   ELEMENT_H2,
 
   ({key, node, children}) => (
@@ -83,7 +83,7 @@ export const h2 = createNodeTransform<IHeadingElement>(
   )
 )
 
-export const h3 = createNodeTransform<IHeadingElement>(
+export const h3 = createNodeTransform<THeadingElement>(
   ELEMENT_H3,
 
   ({key, node, children}) => (
@@ -96,7 +96,7 @@ export const h3 = createNodeTransform<IHeadingElement>(
   )
 )
 
-export const h4 = createNodeTransform<IHeadingElement>(
+export const h4 = createNodeTransform<THeadingElement>(
   ELEMENT_H4,
 
   ({key, node, children}) => (
@@ -109,7 +109,7 @@ export const h4 = createNodeTransform<IHeadingElement>(
   )
 )
 
-export const link = createNodeTransform<ILink>(
+export const link = createNodeTransform<TLink>(
   ELEMENT_LINK,
 
   ({key, node, children}) => (
@@ -119,7 +119,7 @@ export const link = createNodeTransform<ILink>(
   )
 )
 
-export const blockquote = createNodeTransform<IBlockquote>(
+export const blockquote = createNodeTransform<TBlockquote>(
   ELEMENT_BLOCKQUOTE,
 
   ({key, children}) => (
