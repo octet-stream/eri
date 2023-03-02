@@ -20,8 +20,8 @@ test(
   async (t, trpc) => {
     const page = await trpc.posts.all()
 
-    t.is(page.total, 1)
-    t.is(page.rows, 0)
+    t.is(page.pagesCount, 1)
+    t.is(page.itemsCount, 0)
     t.is(page.prevCursor, null)
     t.is(page.nextCursor, null)
     t.deepEqual(page.items, [])

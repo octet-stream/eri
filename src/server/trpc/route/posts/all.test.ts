@@ -19,7 +19,7 @@ test.before(async () => {
   await setup()
 
   await runIsolatied(async em => {
-    const user = await em.create(User, {
+    const user = em.create(User, {
       login: "johndoe",
       email: "john.doe@example.com",
       password: "someveryverylongpasswordbecausewhynot"
@@ -54,8 +54,8 @@ test(
   async (t, trpc) => {
     const page = await trpc.posts.all()
 
-    t.is(page.total, 1)
-    t.is(page.rows, 50)
+    t.is(page.pagesCount, 1)
+    t.is(page.itemsCount, 50)
     t.is(page.prevCursor, null)
     t.is(page.nextCursor, null)
     t.false(isEmpty(page.items))
@@ -68,7 +68,7 @@ test("Follows the limit parameter", withTRPC, async (t, trpc) => {
     cursor: 1
   })
 
-  t.is(page.total, 5)
+  t.is(page.pagesCount, 5)
 })
 
 test(
