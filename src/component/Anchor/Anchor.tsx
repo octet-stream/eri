@@ -6,7 +6,7 @@ import cn from "clsx"
 
 import {isInternalUrl} from "lib/util/isInternalUrl"
 
-import {ExternalAnchor} from "component/ExternalAnchor"
+import {ExternalAnchor} from "./ExternalAnchor"
 
 interface Props extends ComponentPropsWithoutRef<"a"> {
   href: string
@@ -40,9 +40,11 @@ export const Anchor = forwardRef<HTMLAnchorElement, Props>(({
 
   ...props
 }, ref) => {
-  const isInternal = useMemo(() => isInternalUrl(props.href), [props.href])
+  const LinkCompoent = useMemo(
+    () => isInternalUrl(props.href) ? Link : ExternalAnchor,
 
-  const LinkCompoent = isInternal ? Link : ExternalAnchor
+    [props.href]
+  )
 
   return (
     <LinkCompoent
