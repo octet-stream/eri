@@ -1,7 +1,8 @@
+import {randomUUID} from "node:crypto"
+
 import test from "ava"
 
 import type {ZodInvalidTypeIssue} from "zod"
-import {nanoid} from "nanoid/async"
 import {ZodError} from "zod"
 
 import {Record} from "./Record"
@@ -11,7 +12,7 @@ test("Validates correct record input", async t => {
   const now = new Date()
 
   const expected: TRecord = {
-    id: await nanoid(),
+    id: randomUUID(),
     createdAt: now,
     updatedAt: now
   }
