@@ -1,4 +1,4 @@
-import {unstable_getServerSession as getServerSession} from "next-auth/next"
+import {getServerSession} from "next-auth/next"
 import type {GetServerSideProps} from "next"
 import type {Session} from "next-auth"
 import {TRPCError} from "@trpc/server"

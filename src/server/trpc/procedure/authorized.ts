@@ -1,7 +1,7 @@
-import auth from "server/trpc/middleware/auth"
+import {auth} from "server/trpc/middleware/auth"
 
-import procedure from "./server"
+import {ssrProcedure} from "./server"
 
-const authorized = procedure.use(auth)
+export const procedure = ssrProcedure.use(auth)
 
-export default authorized
+export const authorizedProcedure = procedure

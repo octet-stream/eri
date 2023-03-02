@@ -1,9 +1,7 @@
 import {router} from "server/trpc/def"
 
-import all from "./all"
+import {all} from "./all"
 
-const posts = router({
+export const posts = router({
   all
 })
-
-export default posts

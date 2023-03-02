@@ -3,13 +3,13 @@ import {wrap} from "@mikro-orm/core"
 
 import {getORM} from "server/lib/db"
 
-import procedure from "server/trpc/procedure/authorized"
+import {procedure} from "server/trpc/procedure/authorized"
 
 import {PostOutput} from "server/trpc/type/output/PostOutput"
 import {PostUpdateInput} from "server/trpc/type/input/PostUpdateInput"
 import {Post} from "server/db/entity"
 
-const postUpdate = procedure
+export const update = procedure
   .input(PostUpdateInput)
   .output(PostOutput)
   .mutation(async ({input, ctx}) => {
@@ -36,5 +36,3 @@ const postUpdate = procedure
 
     return post
   })
-
-export default postUpdate

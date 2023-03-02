@@ -1,7 +1,7 @@
 import {trpc} from "server/trpc/def"
 
-import ormContext from "server/trpc/middleware/ormContext"
+import {ormContext} from "server/trpc/middleware/ormContext"
 
-const baseProcedure = trpc.procedure.use(ormContext)
+export const procedure = trpc.procedure.use(ormContext)
 
-export default baseProcedure
+export const baseProcedure = procedure

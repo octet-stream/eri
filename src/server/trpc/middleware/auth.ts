@@ -18,7 +18,7 @@ ProcedureParams<typeof trpc["_config"], SSRContext>,
 ProcedureParams<typeof trpc["_config"], AuthContext>
 >
 
-const auth: AuthMiddleware = async ({ctx, next}) => {
+export const auth: AuthMiddleware = async ({ctx, next}) => {
   const session = await getToken({
     req: (ctx as SSRContext).req,
     secret: process.env.NEXTAUTH_SECRET,
@@ -40,5 +40,3 @@ const auth: AuthMiddleware = async ({ctx, next}) => {
 
   return next({ctx: {...ctx, session, user}})
 }
-
-export default auth

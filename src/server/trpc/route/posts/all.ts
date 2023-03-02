@@ -5,12 +5,12 @@ import {Page} from "server/trpc/helper/Page"
 import {Post} from "server/db/entity/Post"
 import {getORM} from "server/lib/db"
 
-import procedure from "server/trpc/procedure/base"
+import {procedure} from "server/trpc/procedure/base"
 
 /**
  * Returns a page of posts, 50 per each page.
  */
-const postsAll = procedure
+export const all = procedure
   .input(PageInput)
   .output(PostsPageOutput)
   .query(async ({input}) => {
@@ -26,5 +26,3 @@ const postsAll = procedure
 
     return new Page({items, rows, args})
   })
-
-export default postsAll

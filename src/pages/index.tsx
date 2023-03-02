@@ -22,6 +22,8 @@ interface Query {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
+  const trpc = router.createCaller({})
+
   const query = ctx.query as Query
   const page = query.page ? parseInt(query.page, 10) : null
 
@@ -31,9 +33,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
     }
   }
 
-  const posts = await router.createCaller({}).posts.all({
-    cursor: page
-  })
+  const posts = await trpc.posts.all({cursor: page})
 
   // Check if user is not on the 1st page and if the items list is empty. If so, render 404 page.
   if (isEmpty(posts.items) && page && page !== 1) {

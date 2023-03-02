@@ -7,13 +7,13 @@ import {UserOutput} from "server/trpc/type/output/UserOutput"
 import {User, UserRoles} from "server/db/entity/User"
 import {getORM} from "server/lib/db"
 
-import procedure from "server/trpc/procedure/server"
+import {procedure} from "server/trpc/procedure/server"
 
 /**
  * Creates a super user account.
  * This mutation will be available only once, when there's no super user exists yet
  */
-const userCreateSuper = procedure
+export const createSuper = procedure
   .input(UserCreateSuperInput)
   .output(UserOutput)
   .mutation(async ({input, ctx}) => {
@@ -43,5 +43,3 @@ const userCreateSuper = procedure
 
     return user
   })
-
-export default userCreateSuper

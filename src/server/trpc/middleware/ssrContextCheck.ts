@@ -3,7 +3,7 @@ import {TRPCError} from "@trpc/server"
 import {isSSRContext} from "server/trpc/context"
 import {middleware} from "server/trpc/def"
 
-const ssrContextCheck = middleware(({ctx, next}) => {
+export const ssrContextCheck = middleware(({ctx, next}) => {
   if (!isSSRContext(ctx)) {
     throw new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
@@ -13,5 +13,3 @@ const ssrContextCheck = middleware(({ctx, next}) => {
 
   return next({ctx})
 })
-
-export default ssrContextCheck

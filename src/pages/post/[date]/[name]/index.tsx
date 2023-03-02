@@ -5,15 +5,17 @@ import {stringify} from "superjson"
 import type {FC} from "react"
 import {useMemo} from "react"
 
+import {getORM} from "server/lib/db"
 import {Post} from "server/db/entity"
 import {router} from "server/trpc/router"
-import {runIsolatied} from "server/lib/db"
 import {IPostOutput} from "server/trpc/type/output/PostOutput"
 
 import {patchStaticPaths} from "lib/util/patchStaticPaths"
 import {transformNodes} from "lib/slate-to-react"
 import {usePageData} from "lib/hook/usePageData"
+
 import {PostLayout} from "layout/PostLayout"
+
 import {H1} from "component/Heading"
 
 interface Props {
@@ -28,19 +30,22 @@ interface Query {
 type Paths = Awaited<ReturnType<GetStaticPaths>>["paths"]
 
 export const getStaticPaths = patchStaticPaths(async () => {
-  const posts = await runIsolatied(async em => em.find(
+  const orm = await getORM()
+
+  const posts = await orm.em.find(
     Post,
 
     {},
 
     {
+      disableIdentityMap: true,
       fields: ["slug"],
       limit: 100,
       orderBy: {
         createdAt: "desc"
       }
     }
-  ))
+  )
 
   const paths: Paths = posts.map(({slug}) => {
     const [date, name] = slug.split("/")
@@ -52,10 +57,12 @@ export const getStaticPaths = patchStaticPaths(async () => {
 })
 
 export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
+  const trpc = router.createCaller({})
+
   const {date, name} = params as unknown as Query
 
   try {
-    const post = await router.createCaller({}).post.getBySlug({
+    const post = await trpc.post.getBySlug({
       slug: [date, name]
     })
 

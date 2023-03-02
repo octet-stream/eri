@@ -3,12 +3,12 @@ import {PostOutput} from "server/trpc/type/output/PostOutput"
 import {Post} from "server/db/entity/Post"
 import {getORM} from "server/lib/db"
 
-import procedure from "server/trpc/procedure/authorized"
+import {procedure} from "server/trpc/procedure/authorized"
 
 /**
  * Creates a new post
  */
-const postCreate = procedure
+export const create = procedure
   .input(PostCreateInput)
   .output(PostOutput)
   .mutation(async ({input, ctx}) => {
@@ -23,5 +23,3 @@ const postCreate = procedure
 
     return post
   })
-
-export default postCreate

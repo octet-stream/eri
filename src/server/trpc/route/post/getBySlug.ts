@@ -6,12 +6,12 @@ import {Slug} from "server/trpc/type/common/Slug"
 import {Post} from "server/db/entity"
 import {getORM} from "server/lib/db"
 
-import procedure from "server/trpc/procedure/base"
+import {procedure} from "server/trpc/procedure/base"
 
 /**
  * Returns a single post that matches given slug
  */
-const getBySlug = procedure
+export const getBySlug = procedure
   .input(z.object({slug: Slug}))
   .output(PostOutput)
   .query(async ({input}) => {

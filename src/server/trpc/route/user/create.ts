@@ -5,12 +5,12 @@ import {UserOutput} from "server/trpc/type/output/UserOutput"
 import {User, InvitationCode} from "server/db/entity"
 import {getORM} from "server/lib/db"
 
-import procedure from "server/trpc/procedure/server"
+import {procedure} from "server/trpc/procedure/server"
 
 /**
  * Creates a new regular user account
  */
-const userCreate = procedure
+export const create = procedure
   .input(UserCreateInput)
   .output(UserOutput)
   .mutation(async ({input}) => {
@@ -63,5 +63,3 @@ const userCreate = procedure
 
     return user
   })
-
-export default userCreate
