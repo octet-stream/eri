@@ -85,7 +85,7 @@ const SignupPage: FC = () => {
           error={formState.errors.code}
         />
 
-        <Button wide type="submit">
+        <Button wide type="submit" variant="primary" color="brand">
           Sign up
         </Button>
       </form>

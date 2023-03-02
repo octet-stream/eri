@@ -18,7 +18,14 @@ type InputFocusHandler = FocusEventHandler<HTMLInputElement>
 
 export const Input = forwardRef<HTMLInputElement, Props>((
   {
-    className, error, onFocus, onBlur, autoFocus, ...props
+    type = "text",
+    className,
+    error,
+    onFocus,
+    onBlur,
+    autoFocus,
+
+    ...props
   },
 
   ref
@@ -57,9 +64,10 @@ export const Input = forwardRef<HTMLInputElement, Props>((
     <input
       {...props}
 
+      type={type}
       ref={innferRef}
       className={cn(
-        "border-black border border-solid rounded-md p-2",
+        "border-black border border-solid dark:border-white rounded-md p-2 dark:bg-transparent",
 
         {
           "border-rose-500": !!error
@@ -72,7 +80,3 @@ export const Input = forwardRef<HTMLInputElement, Props>((
     />
   )
 })
-
-Input.defaultProps = {
-  type: "text"
-}

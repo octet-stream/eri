@@ -50,7 +50,7 @@ const LoginPage: FC<Props> = () => {
           error={formState.errors.password}
         />
 
-        <Button wide type="submit">
+        <Button wide type="submit" variant="primary" color="brand">
           Log in
         </Button>
       </form>

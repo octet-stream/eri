@@ -34,7 +34,7 @@ export const AuthLayout: FC<Props> = ({
         <title>{title}</title>
       </Head>
 
-      <main className="w-screen h-screen flex justify-center items-center mobile:p-5">
+      <main className="w-screen h-screen flex justify-center items-center mobile:p-5 dark:text-white">
         <div className="w-72">
           <div className="mb-6 text-2xl font-semibold text-center">
             {title}

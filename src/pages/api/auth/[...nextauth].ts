@@ -9,7 +9,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import withORMContext from "server/middleware/withORMContext"
 
 import {assertRequiredEnv} from "server/lib/util/assertRequiredEnv"
-import {runIsolatied, getORM} from "server/lib/db/orm"
+import {getORM} from "server/lib/db/orm"
 
 import {User} from "server/db/entity/User"
 
@@ -83,8 +83,18 @@ export const options: NextAuthOptions = {
           return null
         }
 
-        const user = await runIsolatied(
-          em => em.findOne(User, {email: credentials.email})
+        const orm = await getORM()
+
+        const user = await orm.em.findOne(
+          User,
+
+          {
+            email: credentials.email
+          },
+
+          {
+            disableIdentityMap: true
+          }
         )
 
         if (!user) {
@@ -107,7 +117,8 @@ export const options: NextAuthOptions = {
       const orm = await getORM()
 
       const user = await orm.em.findOneOrFail(User, {id: token.sub}, {
-        fields: ["id", "login", "role"]
+        fields: ["id", "login", "role"],
+        disableIdentityMap: true
       })
 
       // Expose additional props
