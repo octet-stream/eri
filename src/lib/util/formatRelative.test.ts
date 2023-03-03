@@ -3,10 +3,13 @@ import test from "ava"
 import {
   format,
   subDays,
+  subMinutes,
   subMonths,
   subYears,
   addDays,
-  setDay
+  setDay,
+  set,
+  sub
 } from "date-fns"
 
 import {formatRelative, DATETIME_FORMAT} from "./formatRelative"
@@ -25,11 +28,48 @@ test("Formats todays date", t => {
   t.is(actual, expected)
 })
 
-test("Formats yesterday date", t => {
-  const date = subDays(Date.now(), 1)
-  const expected = `Yesterday at ${formatTime(date)}`
+test("Formats date distance more than a minnute ago", t => {
+  const date = set(new Date(), {hours: 14})
+  const input = sub(date, {minutes: 2})
 
-  const actual = formatRelative(date)
+  const expected = relative.format(-2, "minute")
+  const actual = formatRelative(input, date)
+
+  t.is(actual, expected)
+})
+
+test("Formats date distance more than an hour ago", t => {
+  const date = set(new Date(), {hours: 14})
+  const input = sub(date, {hours: 2})
+
+  const expected = relative.format(-2, "hour")
+  const actual = formatRelative(input, date)
+
+  t.is(actual, expected)
+})
+
+test("Formats yesterday date", t => {
+  const date = set(new Date(), {hours: 14})
+  const input = subDays(date, 1)
+
+  const expected = `Yesterday at ${formatTime(input)}`
+  const actual = formatRelative(input, date)
+
+  t.is(actual, expected)
+})
+
+test("Formats yesterday date when time is 00:00 and input is 23:59", t => {
+  const date = set(new Date(), {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0
+  })
+
+  const input = subMinutes(date, 1)
+
+  const expected = `Yesterday at ${formatTime(input)}`
+  const actual = formatRelative(input, date)
 
   t.is(actual, expected)
 })
@@ -82,9 +122,10 @@ test("Formats date when yearsDiff > 10", t => {
 })
 
 test("Throws an error when given date is a future date", t => {
-  const date = addDays(Date.now(), 1)
+  const date = set(new Date(), {hours: 14})
+  const input = addDays(date, 1)
 
-  const trap = () => formatRelative(date)
+  const trap = () => formatRelative(input, date)
 
   t.throws(trap, {
     instanceOf: RangeError,
