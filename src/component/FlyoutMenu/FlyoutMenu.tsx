@@ -22,7 +22,7 @@ interface Props {
 export const FlyoutMenu: FC<Props> = ({children}) => (
   <nav className="relative select-none">
     <Menu>
-      <Menu.Button className="w-full h-full flex flex-row justify-center items-center cursor-pointer">
+      <Menu.Button className="w-full h-full flex flex-row justify-center items-center cursor-pointer" aria-label="App menu">
         <MoreVertical size={20} />
       </Menu.Button>
 
