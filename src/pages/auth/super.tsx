@@ -68,7 +68,7 @@ const AuthSuperPage: FC = () => {
           error={formState.errors.password}
         />
 
-        <Button wide type="submit">
+        <Button wide type="submit" variant="primary" color="brand">
           Sign up
         </Button>
       </form>
