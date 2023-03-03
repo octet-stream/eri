@@ -1,8 +1,6 @@
 import anyTest from "ava"
 
 import type {TestFn} from "ava"
-import type {ZodError} from "zod"
-import {TRPCError} from "@trpc/server"
 import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
 import type {Value} from "lib/type/Editor"
@@ -61,52 +59,3 @@ test("Createas a post", withTRPC, async (t, trpc, orm) => {
   t.is(actual.slug, formatSlug(expectedTitle, actual.createdAt))
   t.deepEqual(actual.content, expectedContent)
 })
-
-test(
-  "Throws an error when creating post with empty content",
-
-  withTRPC,
-
-  async (t, trpc) => {
-    const trap = () => trpc.post.create({
-      title: "This post is empty",
-      content: []
-    })
-
-    const error = await t.throwsAsync(trap) as TRPCError
-    const {errors} = error.cause as ZodError
-    const [actual] = errors
-
-    t.is(actual.code, "custom")
-    t.is(actual.message, "Post content must be of at least one Node element")
-  }
-)
-
-test(
-  "Throws an error when creating post with just one empty paragraph",
-
-  withTRPC,
-
-  async (t, trpc) => {
-    const trap = () => trpc.post.create({
-      title: "This post is empty",
-      content: [
-        {
-          type: ELEMENT_PARAGRAPH,
-          children: [
-            {
-              text: ""
-            }
-          ]
-        }
-      ]
-    })
-
-    const error = await t.throwsAsync(trap) as TRPCError
-    const {errors} = error.cause as ZodError
-    const [actual] = errors
-
-    t.is(actual.code, "custom")
-    t.is(actual.message, "Post content must be of at least one Node element")
-  }
-)

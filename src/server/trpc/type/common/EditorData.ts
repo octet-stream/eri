@@ -1,5 +1,5 @@
+import {z, ZodIssueCode, NEVER} from "zod"
 import type {infer as Infer} from "zod"
-import {z} from "zod"
 
 import {
   ELEMENT_H2,
@@ -114,12 +114,18 @@ export type TRootElement = Infer<typeof RootElement>
 
 export const EditorData = z
   .array(RootElement)
-  .refine(
-    value => isEditorContentEmpty(value) === false,
-
-    {
-      message: "Post content must be of at least one Node element"
+  .superRefine((data, ctx): data is TRootElement[] => {
+    if (isEditorContentEmpty(data)) {
+      ctx.addIssue({
+        code: ZodIssueCode.too_small,
+        type: "array",
+        inclusive: true, // Not sure about that
+        minimum: 1,
+        message: "EditorData must be at least of one non-empty paragraph"
+      })
     }
-  )
+
+    return NEVER
+  })
 
 export type TEditorData = Infer<typeof EditorData>
