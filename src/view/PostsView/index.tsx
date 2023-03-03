@@ -1,0 +1,1 @@
+export {PostsView} from "./PostsView"

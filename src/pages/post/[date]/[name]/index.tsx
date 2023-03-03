@@ -2,22 +2,18 @@ import type {GetStaticProps, GetStaticPaths} from "next"
 import {TRPCError} from "@trpc/server"
 import {stringify} from "superjson"
 import type {FC} from "react"
-import {useMemo} from "react"
 
 import {Post} from "server/db/entity"
 import {getORM} from "server/lib/db/orm"
 import {router} from "server/trpc/router"
 import {TPostOutput} from "server/trpc/type/output/PostOutput"
 
-import {formatRelative} from "lib/util/formatRelative"
 import {patchStaticPaths} from "lib/util/patchStaticPaths"
-import {transformNodes} from "lib/slate-to-react"
 import {usePageData} from "lib/hook/usePageData"
 
 import {PostLayout} from "layout/PostLayout"
 
-import {H1} from "component/Heading"
-import {PostInfo} from "component/PostInfo"
+import {PostView} from "view/PostView"
 
 interface Props {
   data: string
@@ -84,35 +80,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 }
 
 const PostPage: FC<Props> = () => {
-  const post = usePageData<TPostOutput>()
-
-  const postInfo = useMemo<string>(
-    () => [
-      formatRelative(post.createdAt),
-
-      `by @${post.author.login}`
-    ].join(" "),
-
-    [post.createdAt, post.author.login]
-  )
-
-  const content = useMemo(() => transformNodes(post.content), [post.content])
+  const {title} = usePageData<TPostOutput>()
 
   return (
-    <PostLayout title={post.title}>
-      <H1 className="mb-0">
-        {post.title}
-      </H1>
-
-      <div>
-        <PostInfo>
-          {postInfo}
-        </PostInfo>
-      </div>
-
-      <div className="flex-1">
-        {content}
-      </div>
+    <PostLayout title={title}>
+      <PostView />
     </PostLayout>
   )
 }

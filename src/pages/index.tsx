@@ -2,15 +2,13 @@ import type {GetServerSideProps} from "next"
 import {stringify} from "superjson"
 import type {FC} from "react"
 
-import Link from "next/link"
 import isEmpty from "lodash/isEmpty"
-
-import {TPostsPageOutput} from "server/trpc/type/output/PostsPageOutput"
-import {usePageData} from "lib/hook/usePageData"
 
 import {router} from "server/trpc/router"
 
 import {HomeLayout} from "layout/HomeLayout"
+
+import {PostsView} from "view/PostsView"
 
 interface Props {
   data: string
@@ -48,34 +46,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
   }
 }
 
-const Home: FC<Props> = () => {
-  const posts = usePageData<TPostsPageOutput>()
+const HomePage: FC<Props> = () => (
+  <HomeLayout>
+    <PostsView />
+  </HomeLayout>
+)
 
-  if (isEmpty(posts.items)) {
-    return (
-      <HomeLayout>
-        <div className="flex flex-1 justify-center items-center select-none">
-          <div className="py-2 px-5 text-slate-400 rounded-md">
-            There&apos;s nothing to read here yet
-          </div>
-        </div>
-      </HomeLayout>
-    )
-  }
-
-  return (
-    <HomeLayout>
-      <ul className="list-none p-0 m-0">
-        {posts.items.map(post => (
-          <li key={post.id} className="p-0">
-            <Link href={`/post/${post.slug}`} className="dark:text-white">
-              {post.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </HomeLayout>
-  )
-}
-
-export default Home
+export default HomePage
