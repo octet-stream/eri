@@ -1,6 +1,5 @@
 import {z, ZodIssueCode, NEVER} from "zod"
 import type {infer as Infer} from "zod"
-
 import {
   ELEMENT_H2,
   ELEMENT_H3,
@@ -12,7 +11,10 @@ import {
   ELEMENT_CODE_LINE
 } from "@udecode/plate-headless"
 
+import isEmpty from "lodash/isEmpty"
+
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
+import {isEmptyTextChild} from "lib/util/isEmptyTextChild"
 
 export const Align = z.object({
   align: z.union([
@@ -115,12 +117,25 @@ export type TRootElement = Infer<typeof RootElement>
 export const EditorData = z
   .array(RootElement)
   .superRefine((data, ctx): data is TRootElement[] => {
-    if (isEditorContentEmpty(data)) {
+    if (!isEditorContentEmpty(data)) {
+      return NEVER
+    }
+
+    if (isEmpty(data)) {
       ctx.addIssue({
         code: ZodIssueCode.too_small,
         type: "array",
         inclusive: true, // Not sure about that
         minimum: 1,
+        message: "EditorData must be at least of one Node element"
+      })
+    }
+
+    if (isEmptyTextChild(data)) {
+      ctx.addIssue({
+        code: ZodIssueCode.invalid_type,
+        expected: "array",
+        received: "unknown",
         message: "EditorData must be at least of one non-empty paragraph"
       })
     }

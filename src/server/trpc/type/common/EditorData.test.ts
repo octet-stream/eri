@@ -1,6 +1,6 @@
 import test from "ava"
 
-import type {ZodTooSmallIssue} from "zod"
+import type {ZodTooSmallIssue, ZodInvalidTypeIssue} from "zod"
 import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 import {ZodError} from "zod"
 
@@ -39,7 +39,7 @@ test("Fails to validate empty array", async t => {
   t.is(type, "array")
   t.is(minimum, 1)
   t.true(inclusive)
-  t.is(message, "EditorData must be at least of one non-empty paragraph")
+  t.is(message, "EditorData must be at least of one Node element")
 })
 
 test("Fails to validate empty paragraph", async t => {
@@ -66,15 +66,13 @@ test("Fails to validate empty paragraph", async t => {
 
   const [{
     code,
-    type,
-    minimum,
-    inclusive,
+    expected,
+    received,
     message
-  }] = error.issues as ZodTooSmallIssue[]
+  }] = error.issues as ZodInvalidTypeIssue[]
 
-  t.is(code, "too_small")
-  t.is(type, "array")
-  t.is(minimum, 1)
-  t.true(inclusive)
+  t.is(code, "invalid_type")
+  t.is(expected, "array")
+  t.is(received, "unknown")
   t.is(message, "EditorData must be at least of one non-empty paragraph")
 })
