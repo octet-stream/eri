@@ -4,6 +4,7 @@
     "**/__helper__/**",
     "**/__macro__/**",
     "**/__fixture__/**",
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
   ]
 }
