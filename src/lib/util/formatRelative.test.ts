@@ -12,8 +12,8 @@ import {
   sub
 } from "date-fns"
 
-import {formatRelative, DATETIME_FORMAT} from "./formatRelative"
-import {formatTime, TIME_FORMAT} from "./formatTime"
+import {formatRelative, LAST_WEEK_FORMAT, DATETIME_FORMAT} from "./formatRelative"
+import {formatTime} from "./formatTime"
 
 const relative = new Intl.RelativeTimeFormat("en", {
   style: "long"
@@ -49,8 +49,8 @@ test("Formats date distance more than an hour ago", t => {
 })
 
 test("Formats yesterday date", t => {
-  const date = set(new Date(), {hours: 14})
-  const input = subDays(date, 1)
+  const date = set(setDay(new Date(), 3), {hours: 14})
+  const input = sub(date, {days: 1})
 
   const expected = `Yesterday at ${formatTime(input)}`
   const actual = formatRelative(input, date)
@@ -59,7 +59,7 @@ test("Formats yesterday date", t => {
 })
 
 test("Formats yesterday date when time is 00:00 and input is 23:59", t => {
-  const date = set(new Date(), {
+  const date = set(setDay(new Date(), 3), {
     hours: 0,
     minutes: 0,
     seconds: 0,
@@ -74,15 +74,40 @@ test("Formats yesterday date when time is 00:00 and input is 23:59", t => {
   t.is(actual, expected)
 })
 
-test("Formats last week's date", t => {
-  const date = setDay(Date.now(), 1)
-  const input = subDays(date, 3)
+test("Formats yesterday date relative to last week day", t => {
+  const date = setDay(new Date(), 0)
+  const input = sub(date, {days: 1})
 
-  const expected = format(input, `'Last' EEEE 'at' ${TIME_FORMAT}`)
+  const expected = `Yesterday at ${formatTime(input)}`
   const actual = formatRelative(input, date)
 
   t.is(actual, expected)
 })
+
+test("Formats last week date", t => {
+  const date = setDay(new Date(), 1)
+  const input = subDays(date, 3)
+
+  const expected = format(input, LAST_WEEK_FORMAT)
+  const actual = formatRelative(input, date)
+
+  t.is(actual, expected)
+})
+
+test(
+  "Formats last week date if relative date is -2 days before "
+    + "and input date is at the start of the week",
+
+  t => {
+    const date = setDay(new Date(), 0)
+    const input = subDays(date, 2)
+
+    const expected = format(input, LAST_WEEK_FORMAT)
+    const actual = formatRelative(input, date)
+
+    t.is(actual, expected)
+  }
+)
 
 test("Formats relative days when daysDiff > 1", t => {
   const date = setDay(Date.now(), 4)

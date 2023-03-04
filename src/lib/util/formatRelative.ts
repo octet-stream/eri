@@ -13,6 +13,8 @@ import type {RawDate} from "lib/type/RawDate"
 import {normalizeDate} from "./normalizeDate"
 import {formatTime, TIME_FORMAT} from "./formatTime"
 
+export const LAST_WEEK_FORMAT = `'Last' EEEE 'at' ${TIME_FORMAT}`
+
 export const DATETIME_FORMAT = `dd.MM.yyyy 'at' ${TIME_FORMAT}`
 
 const relative = new Intl.RelativeTimeFormat("en", {
@@ -48,14 +50,14 @@ function formatRelativeDays(left: Date, right: Date, diff: number): string {
   // When the difference is more than 1 week and less then 2
   const weeksDiff = differenceInCalendarWeeks(left, right)
   if (weeksDiff > -2 && weeksDiff <= -1) {
-    return format(left, `'Last' EEEE 'at' ${TIME_FORMAT}`)
+    return format(left, LAST_WEEK_FORMAT)
   }
 
   return relative.format(diff, "day")
 }
 
 /**
- * Formats date relative to `Date.now()` in human-readable form.
+ * Formats given `date` relative to `from` date in human-readable form.
  */
 export function formatRelative(
   date: RawDate,
