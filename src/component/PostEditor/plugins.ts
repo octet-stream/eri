@@ -4,6 +4,7 @@ import {createPlugins} from "@udecode/plate-core"
 
 import type {Value, Editor} from "lib/type/Editor"
 
+import {blockquote} from "./plugin/blockquote"
 import {autoformat} from "./plugin/autoformat"
 import {alignment} from "./plugin/alignment"
 import {softBreak} from "./plugin/softBreak"
@@ -13,7 +14,6 @@ import {reset} from "./plugin/reset"
 import {marks} from "./plugin/marks"
 import {link} from "./plugin/link"
 import {code} from "./plugin/code"
-import {blockquote} from "./plugin/blockquote"
 
 export const plugins = createPlugins<Value, Editor>([
   ...paragraph,
