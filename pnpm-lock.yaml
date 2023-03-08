@@ -75,7 +75,7 @@ specifiers:
   slate: 0.91.4
   slate-history: 0.86.0
   slate-react: 0.91.7
-  slate-to-react: ^0.1.0
+  slate-to-react: ^0.2.0
   styled-components: 5.3.8
   superjson: 1.12.2
   tailwindcss: 3.2.7
@@ -126,7 +126,7 @@ dependencies:
   slate: 0.91.4
   slate-history: 0.86.0_slate@0.91.4
   slate-react: 0.91.7_6tgy34rvmll7duwkm4ydcekf3u
-  slate-to-react: 0.1.0_lnvhj2b75lheb4zuxgf4lrsu2a
+  slate-to-react: 0.2.0_lnvhj2b75lheb4zuxgf4lrsu2a
   styled-components: 5.3.8_7i5myeigehqah43i5u7wbekgba
   superjson: 1.12.2
   validator: 13.9.0
@@ -7571,8 +7571,8 @@ packages:
       tiny-invariant: 1.0.6
     dev: false
 
-  /slate-to-react/0.1.0_lnvhj2b75lheb4zuxgf4lrsu2a:
-    resolution: {integrity: sha512-2wJYZbOBhGss2qPY8PzkcU4eTaN9HGHche7FtTpvqd7bV3sOf6aEKJ8BTZyESVf6dHXUo+rPRiAEVSLQG+IM3g==}
+  /slate-to-react/0.2.0_lnvhj2b75lheb4zuxgf4lrsu2a:
+    resolution: {integrity: sha512-SsXXHk9IfiRbZ9sRQFHtk/NBiZW6tPEG+gX+E3xcXagyJo/yMzvmVvLGJTdXyaZVR15bISHRl+Tk7Npe9DZMzw==}
     peerDependencies:
       react: ^18.2.0
       slate: ^0.82.1
