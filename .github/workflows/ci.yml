@@ -57,8 +57,9 @@ jobs:
 
       - name: Get pnpm store directory
         id: pnpm-cache
+        shell: bash
         run: |
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v3
         name: Setup pnpm cache
@@ -69,7 +70,7 @@ jobs:
             ${{ runner.os }}-${{env.cache-name}}-${{matrix.node}}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i --frozen-lockfile
 
       - name: Setup docker compose
         run: docker compose -f docker-compose.test.yml up --wait
