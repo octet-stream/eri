@@ -75,7 +75,7 @@
     "slate": "0.91.4",
     "slate-history": "0.86.0",
     "slate-react": "0.91.7",
-    "slate-to-react": "^0.2.0",
+    "slate-to-react": "^0.2.1",
     "styled-components": "5.3.8",
     "superjson": "1.12.2",
     "validator": "13.9.0",
