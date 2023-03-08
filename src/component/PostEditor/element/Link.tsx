@@ -1,4 +1,4 @@
-import type {TRenderElementProps} from "@udecode/plate-core"
+import type {PlateRenderElementProps} from "@udecode/plate-core"
 import type {FC, ReactNode} from "react"
 
 import {Anchor} from "component/Anchor"
@@ -6,7 +6,7 @@ import {Anchor} from "component/Anchor"
 import type {TLink} from "server/trpc/type/common/EditorData"
 import type {Value} from "lib/type/Editor"
 
-interface Props extends TRenderElementProps<Value, TLink> {
+interface Props extends PlateRenderElementProps<Value, TLink> {
   children: ReactNode
 }
 

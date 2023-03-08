@@ -1,7 +1,7 @@
 import {forwardRef, createElement} from "react"
 import type {ComponentRef} from "react"
 
-import type {TRenderLeafProps} from "@udecode/plate-core"
+import type {PlateRenderLeafProps} from "@udecode/plate-core"
 import {
   MARK_BOLD,
   MARK_ITALIC,
@@ -26,7 +26,7 @@ type MarksElements = typeof MARKS_TO_ELEMENTS
 
 type BasicMarks = keyof MarksElements
 
-interface Props extends TRenderLeafProps<Value> { }
+interface Props extends PlateRenderLeafProps<Value> { }
 
 export const createBasicMarkComponent = <T extends BasicMarks>(
   mark: T
