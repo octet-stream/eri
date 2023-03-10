@@ -5,6 +5,7 @@ import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
 import type {Value} from "lib/type/Editor"
 
+import {omitId} from "server/__helper__/omitId"
 import {withTRPC} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
@@ -57,5 +58,13 @@ test("Createas a post", withTRPC, async (t, trpc, orm) => {
 
   t.is(actual.title, expectedTitle)
   t.is(actual.slug, formatSlug(expectedTitle, actual.createdAt))
-  t.deepEqual(actual.content, expectedContent)
+  t.deepEqual(
+    actual.content.map(element => ({
+      ...omitId(element),
+
+      children: element.children.map(omitId)
+    })),
+
+    expectedContent
+  )
 })

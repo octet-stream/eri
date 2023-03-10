@@ -18,7 +18,7 @@ import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 import {isEmptyTextChild} from "lib/util/isEmptyTextChild"
 
 export const WithId = z.object({
-  id: z.string().uuid().optional().default(() => v4())
+  id: z.string().default(() => v4()).optional()
 })
 
 export type TWithId = Infer<typeof WithId>

@@ -1,9 +1,11 @@
 import anyTest from "ava"
 
+import {NIL} from "uuid"
 import type {TestFn} from "ava"
 import type {TRPCError} from "@trpc/server"
 import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
+import {omitId} from "server/__helper__/omitId"
 import {withTRPC} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
@@ -126,17 +128,25 @@ test("Updates post content", withTRPC, async (t, trpc, orm) => {
     }
   ]
 
-  const {content: actual} = await trpc.post.update({
+  const {content} = await trpc.post.update({
     id: post.id,
     content: expected
   })
+
+  const actual = content.map(
+    element => ({
+      ...omitId(element),
+
+      children: element.children.map(omitId)
+    })
+  )
 
   t.deepEqual(actual, expected)
 })
 
 test("Throws an error when there's no such post", withTRPC, async (t, trpc) => {
   const trap = () => trpc.post.update({
-    id: "00000000-0000-0000-0000-000000000000",
+    id: NIL,
     title: "Foo"
   })
 
