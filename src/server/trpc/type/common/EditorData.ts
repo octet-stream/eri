@@ -16,13 +16,17 @@ import isEmpty from "lodash/isEmpty"
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 import {isEmptyTextChild} from "lib/util/isEmptyTextChild"
 
-export const Align = z.object({
-  align: z.union([
-    z.literal("left"),
-    z.literal("center"),
-    z.literal("right"),
-    z.literal("justify")
-  ]).optional()
+export const Alignment = z.union([
+  z.literal("left"),
+  z.literal("center"),
+  z.literal("right"),
+  z.literal("justify")
+])
+
+export type TAlignment = Infer<typeof Alignment>
+
+export const WithAlignment = z.object({
+  align: Alignment.optional()
 })
 
 export const PlainText = z.object({
@@ -62,7 +66,7 @@ export const BlockElement = AbstractElement.extend({
   id: z.string().optional()
 })
 
-export const Paragraph = BlockElement.extend(Align.shape).extend({
+export const Paragraph = BlockElement.extend(WithAlignment.shape).extend({
   type: z.literal(ELEMENT_PARAGRAPH),
   children: InlineChildren
 })
@@ -98,10 +102,12 @@ export const HeadingTypes = z.union([
 
 export type THeadingTypes = Infer<typeof HeadingTypes>
 
-export const HeadingElement = AbstractElement.extend(Align.shape).extend({
-  type: HeadingTypes,
-  children: InlineChildren
-})
+export const HeadingElement = AbstractElement
+  .extend(WithAlignment.shape)
+  .extend({
+    type: HeadingTypes,
+    children: InlineChildren
+  })
 
 export type THeadingElement = Infer<typeof HeadingElement>
 

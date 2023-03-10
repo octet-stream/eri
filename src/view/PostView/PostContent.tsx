@@ -6,13 +6,18 @@ import type {TPostOutput} from "server/trpc/type/output/PostOutput"
 import {usePageData} from "lib/hook/usePageData"
 
 import {Link} from "./element/Link"
+import {Heading} from "./element/Heading"
+import {Paragraph} from "./element/Paragraph"
 
 export const PostContent: FC = () => {
   const {content} = usePageData<TPostOutput>()
 
   return (
     <div className="flex-1">
-      <SlateView nodes={content} transforms={{elements: [Link]}} />
+      <SlateView
+        nodes={content}
+        transforms={{elements: [Link, Paragraph, Heading]}}
+      />
     </div>
   )
 }
