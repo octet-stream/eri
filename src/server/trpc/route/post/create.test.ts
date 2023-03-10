@@ -3,7 +3,7 @@ import anyTest from "ava"
 import type {TestFn} from "ava"
 import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
-import type {Value} from "lib/type/Editor"
+import type {TEditorDataInput} from "server/trpc/type/common/EditorData"
 
 import {omitId} from "server/__helper__/omitId"
 import {withTRPC} from "server/__macro__/withTRPC"
@@ -38,12 +38,12 @@ test.after.always(cleanup)
 
 test("Createas a post", withTRPC, async (t, trpc, orm) => {
   const expectedTitle = "Test post"
-  const expectedContent: Value = [
+  const expectedContent: TEditorDataInput = [
     {
       type: ELEMENT_PARAGRAPH,
       children: [
         {
-          text: "Test content"
+          text: "Test content",
         }
       ]
     }

@@ -5,10 +5,10 @@ import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 import {ZodError} from "zod"
 
 import {EditorData} from "./EditorData"
-import type {TEditorData} from "./EditorData"
+import type {TEditorDataInput} from "./EditorData"
 
 test("Parses valid editor data", async t => {
-  const input: TEditorData = [{
+  const input: TEditorDataInput = [{
     type: ELEMENT_PARAGRAPH,
     children: [{
       text: "On Soviet Moon landscape see binoculars through YOU."

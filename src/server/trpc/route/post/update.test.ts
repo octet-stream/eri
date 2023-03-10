@@ -10,10 +10,10 @@ import {withTRPC} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
 
+import type {TEditorDataInput} from "server/trpc/type/common/EditorData"
 import {formatSlug} from "server/db/subscriber/PostSubscriber"
 import {runIsolatied} from "server/lib/db/orm"
 import {User, Post} from "server/db/entity"
-import type {Value} from "lib/type/Editor"
 
 const test = anyTest as TestFn<WithTRPCContext>
 
@@ -117,7 +117,7 @@ test("Updates post content", withTRPC, async (t, trpc, orm) => {
 
   await orm.em.persistAndFlush(post)
 
-  const expected: Value = [
+  const expected: TEditorDataInput = [
     {
       type: ELEMENT_PARAGRAPH,
       children: [
