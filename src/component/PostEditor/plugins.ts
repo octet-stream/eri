@@ -14,6 +14,7 @@ import {reset} from "./plugin/reset"
 import {marks} from "./plugin/marks"
 import {link} from "./plugin/link"
 import {code} from "./plugin/code"
+import {id} from "./plugin/id"
 
 export const plugins = createPlugins<Value, Editor>([
   ...paragraph,
@@ -25,5 +26,6 @@ export const plugins = createPlugins<Value, Editor>([
   ...autoformat,
   ...alignment,
   ...softBreak,
-  ...reset
+  ...reset,
+  ...id
 ])

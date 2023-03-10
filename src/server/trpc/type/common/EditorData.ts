@@ -1,5 +1,6 @@
 import {z, ZodIssueCode, NEVER} from "zod"
 import type {infer as Infer} from "zod"
+import {v4} from "uuid"
 import {
   ELEMENT_H2,
   ELEMENT_H3,
@@ -16,6 +17,12 @@ import isEmpty from "lodash/isEmpty"
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 import {isEmptyTextChild} from "lib/util/isEmptyTextChild"
 
+export const WithId = z.object({
+  id: z.string().uuid().optional().default(() => v4())
+})
+
+export type TWithId = Infer<typeof WithId>
+
 export const Alignment = z.union([
   z.literal("left"),
   z.literal("center"),
@@ -29,9 +36,19 @@ export const WithAlignment = z.object({
   align: Alignment.optional()
 })
 
-export const PlainText = z.object({
+export type TWithAlignment = Infer<typeof WithAlignment>
+
+export const PlainText = WithId.extend({
   text: z.string()
 })
+
+export type TPlainText = Infer<typeof PlainText>
+
+export const EmptyText = PlainText.extend({
+  text: z.literal("")
+})
+
+export type TEmptyText = Infer<typeof EmptyText>
 
 export const RichText = PlainText.extend({
   bold: z.boolean().optional(),
@@ -45,7 +62,7 @@ export const RichText = PlainText.extend({
 
 export type TRichText = Infer<typeof RichText>
 
-const AbstractElement = z.object({
+const AbstractElement = WithId.extend({
   type: z.string(),
   children: z.array(z.unknown())
 })
@@ -62,32 +79,28 @@ export const InlineDescendant = z.union([Link, RichText])
 
 export const InlineChildren = z.array(InlineDescendant)
 
-export const BlockElement = AbstractElement.extend({
-  id: z.string().optional()
-})
-
-export const Paragraph = BlockElement.extend(WithAlignment.shape).extend({
+export const Paragraph = AbstractElement.extend(WithAlignment.shape).extend({
   type: z.literal(ELEMENT_PARAGRAPH),
   children: InlineChildren
 })
 
 export type TParagraph = Infer<typeof Paragraph>
 
-export const Blockquote = BlockElement.extend({
+export const Blockquote = AbstractElement.extend({
   type: z.literal(ELEMENT_BLOCKQUOTE),
   children: InlineChildren
 })
 
 export type TBlockquote = Infer<typeof Blockquote>
 
-export const CodeLine = BlockElement.extend({
+export const CodeLine = AbstractElement.extend({
   type: z.literal(ELEMENT_CODE_LINE),
   children: z.array(PlainText)
 })
 
 export type TCodeLine = Infer<typeof CodeLine>
 
-export const CodeBlock = BlockElement.extend({
+export const CodeBlock = AbstractElement.extend({
   type: z.literal(ELEMENT_CODE_BLOCK),
   children: z.array(CodeLine)
 })
