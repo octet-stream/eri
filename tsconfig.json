@@ -16,14 +16,16 @@
     "incremental": true,
     "baseUrl": "src",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "importHelpers": true
   },
   "include": ["next-env.d.ts", "env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
   "ts-node": {
+    "swc": true,
+    "preferTsExts": true,
     "require": [
       "tsconfig-paths/register"
-    ],
-    "preferTsExts": true
+    ]
   }
 }
