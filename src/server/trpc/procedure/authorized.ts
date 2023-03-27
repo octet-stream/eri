@@ -1,7 +1,7 @@
-import {auth} from "server/trpc/middleware/auth"
+import {withAuthorization} from "server/trpc/middleware/withAuthorization"
 
 import {ssrProcedure} from "./server"
 
-export const procedure = ssrProcedure.use(auth)
+export const procedure = ssrProcedure.use(withAuthorization)
 
 export const authorizedProcedure = procedure
