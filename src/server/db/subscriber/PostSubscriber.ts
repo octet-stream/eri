@@ -20,7 +20,6 @@ export const createSlugSuffix = customAlphabet(
   5
 )
 
-// TODO: Add suffix using nanoid
 export const formatSlug = (title: string, date: RawDate) => (
   `${
     format(normalizeDate(date), DATE_FORMAT)
