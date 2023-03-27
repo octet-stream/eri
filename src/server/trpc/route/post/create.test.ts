@@ -5,12 +5,10 @@ import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
 import type {IEditorData} from "server/trpc/type/common/EditorData"
 
-import {omitId} from "server/__helper__/omitId"
 import {withTRPC} from "server/__macro__/withTRPC"
 import {setup, cleanup} from "server/__helper__/database"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
 
-import {formatSlug} from "server/db/subscriber/PostSubscriber"
 import {User, Post} from "server/db/entity"
 import {runIsolatied} from "server/lib/db/orm"
 
@@ -54,17 +52,9 @@ test("Createas a post", withTRPC, async (t, trpc, orm) => {
     content: expectedContent
   })
 
-  await t.notThrowsAsync(() => orm.em.findOneOrFail(Post, actual.id))
+  const expected = await orm.em.findOneOrFail(Post, actual.id)
 
-  t.is(actual.title, expectedTitle)
-  t.is(actual.slug, formatSlug(expectedTitle, actual.createdAt))
-  t.deepEqual(
-    actual.content.map(element => ({
-      ...omitId(element),
-
-      children: element.children.map(omitId)
-    })),
-
-    expectedContent
-  )
+  t.is(actual.title, expected.title)
+  t.is(actual.slug, expected.slug)
+  t.deepEqual(actual.content, expected.content)
 })

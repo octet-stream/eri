@@ -1,4 +1,5 @@
 import type {EventSubscriber, EventArgs, EntityName} from "@mikro-orm/core"
+import {customAlphabet, urlAlphabet} from "nanoid"
 
 import format from "date-fns/format"
 
@@ -10,9 +11,24 @@ import type {RawDate} from "lib/type/RawDate"
 
 const DATE_FORMAT = "yyyy-MM-dd"
 
+/**
+ * Creates a suffix for slug using nanoid
+ */
+export const createSlugSuffix = customAlphabet(
+  urlAlphabet.replace(/[^a-z0-9]/gi, ""),
+
+  5
+)
+
 // TODO: Add suffix using nanoid
 export const formatSlug = (title: string, date: RawDate) => (
-  `${format(normalizeDate(date), DATE_FORMAT)}/${createSlug(title)}`
+  `${
+    format(normalizeDate(date), DATE_FORMAT)
+  }/${
+    createSlug(title)
+      .replace(/^-{1,}/, "") // Trim any "-" from the start
+      .replace(/-{1,}$/, "") // Trim any "-" from the end
+  }-${createSlugSuffix()}`
 )
 
 export class PostSubscriber implements EventSubscriber<Post> {

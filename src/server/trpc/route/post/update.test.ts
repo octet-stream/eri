@@ -11,7 +11,6 @@ import {setup, cleanup} from "server/__helper__/database"
 import type {WithTRPCContext} from "server/__macro__/withTRPC"
 
 import type {IEditorData} from "server/trpc/type/common/EditorData"
-import {formatSlug} from "server/db/subscriber/PostSubscriber"
 import {runIsolatied} from "server/lib/db/orm"
 import {User, Post} from "server/db/entity"
 
@@ -87,14 +86,17 @@ test("Updates post slug on title update", withTRPC, async (t, trpc, orm) => {
 
   await orm.em.persistAndFlush(post)
 
-  const expected = "Some renamed post #2"
-
-  const {slug, updatedAt} = await trpc.post.update({
+  const {slug: actual} = await trpc.post.update({
     id: post.id,
-    title: expected
+    title: "Some renamed post #2"
   })
 
-  t.is(slug, formatSlug(expected, updatedAt))
+  const {slug: expected} = await orm.em.findOneOrFail(Post, post.id, {
+    disableIdentityMap: true
+  })
+
+  t.not(actual, post.slug)
+  t.is(actual, expected)
 })
 
 test("Updates post content", withTRPC, async (t, trpc, orm) => {
