@@ -3,10 +3,10 @@ import type {FC, ReactNode} from "react"
 
 import {Anchor} from "component/Anchor"
 
-import type {TLink} from "server/trpc/type/common/EditorData"
+import type {OLink} from "server/trpc/type/common/EditorData"
 import type {Value} from "lib/type/Editor"
 
-interface Props extends PlateRenderElementProps<Value, TLink> {
+interface Props extends PlateRenderElementProps<Value, OLink> {
   children: ReactNode
 }
 

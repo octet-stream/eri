@@ -1,4 +1,4 @@
-import type {infer as Infer} from "zod"
+import type {input, output} from "zod"
 import {z} from "zod"
 
 import {EditorData} from "server/trpc/type/common/EditorData"
@@ -8,4 +8,6 @@ export const PostCreateInput = z.object({
   content: EditorData
 })
 
-export type TPostCreateInput = Infer<typeof PostCreateInput>
+export type IPostCreateInput = input<typeof PostCreateInput>
+
+export type OPostCreateInput = output<typeof PostCreateInput>

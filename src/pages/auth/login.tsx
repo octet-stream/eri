@@ -10,7 +10,7 @@ import {getServerSideSession} from "lib/util/getServerSideSession"
 import {AuthLayout} from "layout/AuthLayout"
 
 import {UserLoginInput} from "server/trpc/type/input/UserLoginInput"
-import type {TUserLoginInput} from "server/trpc/type/input/UserLoginInput"
+import type {IUserLoginInput} from "server/trpc/type/input/UserLoginInput"
 import {Button} from "component/Button"
 import {Input} from "component/Input"
 
@@ -19,11 +19,11 @@ interface Props { }
 export const getServerSideProps = getServerSideSession
 
 const LoginPage: FC<Props> = () => {
-  const {handleSubmit, register, formState} = useForm<TUserLoginInput>({
+  const {handleSubmit, register, formState} = useForm<IUserLoginInput>({
     resolver: zodResolver(UserLoginInput)
   })
 
-  const submit: SubmitHandler<TUserLoginInput> = ({email, password}) => (
+  const submit: SubmitHandler<IUserLoginInput> = ({email, password}) => (
     signIn("credentials", {email, password, redirect: false})
       .catch(() => toast.error("Authentication failed"))
   )

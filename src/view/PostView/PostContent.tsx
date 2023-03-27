@@ -1,7 +1,7 @@
 import {SlateView} from "slate-to-react"
 import type {FC} from "react"
 
-import type {TPostOutput} from "server/trpc/type/output/PostOutput"
+import type {OPostOutput} from "server/trpc/type/output/PostOutput"
 
 import {usePageData} from "lib/hook/usePageData"
 
@@ -10,7 +10,7 @@ import {Heading} from "./element/Heading"
 import {Paragraph} from "./element/Paragraph"
 
 export const PostContent: FC = () => {
-  const {content} = usePageData<TPostOutput>()
+  const {content} = usePageData<OPostOutput>()
 
   return (
     <div className="flex-1">

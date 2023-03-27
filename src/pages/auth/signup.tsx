@@ -12,7 +12,7 @@ import {client} from "lib/trpc"
 
 import {AuthLayout} from "layout/AuthLayout"
 
-import type {TUserCreateInput} from "server/trpc/type/input/UserCreateInput"
+import type {IUserCreateInput} from "server/trpc/type/input/UserCreateInput"
 import {UserCreateInput} from "server/trpc/type/input/UserCreateInput"
 
 import {Button} from "component/Button"
@@ -33,11 +33,11 @@ const SignupPage: FC = () => {
   // Retrieve code from `?code=` search param, if any
   const initialCode = useMemo(() => getCode(router.asPath), [router.asPath])
 
-  const {handleSubmit, register, reset, formState} = useForm<TUserCreateInput>({
+  const {handleSubmit, register, reset, formState} = useForm<IUserCreateInput>({
     resolver: zodResolver(UserCreateInput)
   })
 
-  const submit: SubmitHandler<TUserCreateInput> = data => client
+  const submit: SubmitHandler<IUserCreateInput> = data => client
     .user.create.mutate(data)
     .then(() => reset())
     .catch(() => toast.error("Error while creating an account", {

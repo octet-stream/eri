@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:types": "tsc --noEmit",
     "test:compose-up": "docker compose -f docker-compose.test.yml up --wait",
     "test:compose-down": "docker compose -f docker-compose.test.yml down",
     "test": "pnpm test:compose-up && (ava ; pnpm test:compose-down)",

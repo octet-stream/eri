@@ -1,4 +1,4 @@
-import type {infer as Infer} from "zod"
+import type {input, output} from "zod"
 import {z} from "zod"
 
 import isDate from "validator/lib/isDate"
@@ -14,6 +14,7 @@ export const SlugTuple = z.tuple([
   z.string().min(1).regex(SLUG_REGEXP)
 ])
 
+// TODO: Rewrite with .superRefine
 export const SlugString = z.string().refine(slug => {
   const [date, name] = slug.split("/")
 
@@ -24,4 +25,6 @@ export const Slug = z
   .union([SlugTuple, SlugString])
   .transform(slug => isArray(slug) ? slug.join("/") : slug)
 
-export type TSlug = Infer<typeof Slug>
+export type ISlug = input<typeof Slug>
+
+export type OSlug = output<typeof Slug>

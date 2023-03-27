@@ -1,4 +1,4 @@
-import type {infer as Infer} from "zod"
+import type {input, output} from "zod"
 import {z} from "zod"
 
 export const UserLoginInput = z.object({
@@ -6,4 +6,6 @@ export const UserLoginInput = z.object({
   password: z.string()
 })
 
-export type TUserLoginInput = Infer<typeof UserLoginInput>
+export type IUserLoginInput = input<typeof UserLoginInput>
+
+export type OUserLoginInput = output<typeof UserLoginInput>

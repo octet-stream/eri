@@ -1,4 +1,4 @@
-import type {infer as Infer} from "zod"
+import type {input, output} from "zod"
 import {z} from "zod"
 
 import {Record} from "server/trpc/type/common/Record"
@@ -16,4 +16,6 @@ export const PostOutput = Record.extend({
   })
 })
 
-export type TPostOutput = Infer<typeof PostOutput>
+export type IPostOutput = input<typeof PostOutput>
+
+export type OPostOutput = output<typeof PostOutput>

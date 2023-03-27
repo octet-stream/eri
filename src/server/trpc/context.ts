@@ -6,24 +6,24 @@ import type {User} from "server/db/entity"
 
 export type Context = { }
 
-export type SSRContext<R = any> = Context & {
+export type HttpContext<R = any> = Context & {
   req: NextApiRequest
   res: NextApiResponse<R>
 }
 
-export type AuthContext = SSRContext & {
+export type AuthContext = HttpContext & {
   session: JWT
   user: User
 }
 
-export type GlobalContext = Context | SSRContext
+export type GlobalContext = Context | HttpContext
 
-export function isSSRContext(
+export function isHttpContext(
   ctx: GlobalContext
-): ctx is SSRContext {
-  return !!((ctx as SSRContext)?.req && (ctx as SSRContext)?.res)
+): ctx is HttpContext {
+  return !!((ctx as HttpContext)?.req && (ctx as HttpContext)?.res)
 }
 
 export const createContext = (
   ctx: CreateNextContextOptions
-): GlobalContext => isSSRContext(ctx) ? ctx : {}
+): GlobalContext => isHttpContext(ctx) ? ctx : {}

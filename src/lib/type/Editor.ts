@@ -4,9 +4,9 @@ import type {
   PluginOptions
 } from "@udecode/plate"
 
-import type {TEditorData} from "server/trpc/type/common/EditorData"
+import type {OEditorData} from "server/trpc/type/common/EditorData"
 
-export type Value = TEditorData
+export type Value = OEditorData
 
 export interface Editor extends PlateEditor<Value> {
   isDragging?: boolean

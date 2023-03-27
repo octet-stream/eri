@@ -9,7 +9,7 @@ import {
   getServerSideSessionRedirect
 } from "lib/util/getServerSideSessionRedirect"
 
-import type {TUserOutput} from "server/trpc/type/output/UserOutput"
+import type {OUserOutput} from "server/trpc/type/output/UserOutput"
 
 import {client} from "lib/trpc"
 
@@ -45,7 +45,7 @@ const NewPostPage: FC<Props> = () => {
       <PostEditor
         isNew
         onSave={onSubmit}
-        author={session.data!.user as Pick<TUserOutput, "login">}
+        author={session.data!.user as Pick<OUserOutput, "login">}
       />
     </PostNewLayout>
   )

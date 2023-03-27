@@ -6,7 +6,7 @@ import type {FC} from "react"
 import {Post} from "server/db/entity"
 import {getORM} from "server/lib/db/orm"
 import {router} from "server/trpc/router"
-import {TPostOutput} from "server/trpc/type/output/PostOutput"
+import {OPostOutput} from "server/trpc/type/output/PostOutput"
 
 import {patchStaticPaths} from "lib/util/patchStaticPaths"
 import {usePageData} from "lib/hook/usePageData"
@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
 }
 
 const PostPage: FC<Props> = () => {
-  const {title} = usePageData<TPostOutput>()
+  const {title} = usePageData<OPostOutput>()
 
   return (
     <PostLayout title={title}>

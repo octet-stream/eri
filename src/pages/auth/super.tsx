@@ -6,7 +6,7 @@ import {toast} from "react-hot-toast"
 import type {FC} from "react"
 
 import type {
-  TUserCreateSuperInput
+  IUserCreateSuperInput
 } from "server/trpc/type/input/UserCreateSuperInput"
 import {UserCreateSuperInput} from "server/trpc/type/input/UserCreateSuperInput"
 import {User, UserRoles} from "server/db/entity/User"
@@ -29,11 +29,11 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const AuthSuperPage: FC = () => {
-  const {handleSubmit, register, formState} = useForm<TUserCreateSuperInput>({
+  const {handleSubmit, register, formState} = useForm<IUserCreateSuperInput>({
     resolver: zodResolver(UserCreateSuperInput)
   })
 
-  const submit: SubmitHandler<TUserCreateSuperInput> = data => client
+  const submit: SubmitHandler<IUserCreateSuperInput> = data => client
     .user.createSuper.mutate(data)
     .catch(() => toast.error("Can't create admin account"))
 

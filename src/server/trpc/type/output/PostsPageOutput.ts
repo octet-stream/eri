@@ -1,4 +1,4 @@
-import type {infer as Infer} from "zod"
+import type {input, output} from "zod"
 
 import {createPageOutput} from "server/trpc/helper/createPageOutput"
 
@@ -12,4 +12,6 @@ export const PostsPageOutput = createPageOutput(
   PostsPageInput
 )
 
-export type TPostsPageOutput = Infer<typeof PostsPageOutput>
+export type IPostsPageOutput = input<typeof PostsPageOutput>
+
+export type OPostsPageOutput = output<typeof PostsPageOutput>

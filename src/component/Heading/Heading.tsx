@@ -4,9 +4,9 @@ import type {
   ComponentPropsWithoutRef
 } from "react"
 
-import {THeadingTypes} from "server/trpc/type/common/EditorData"
+import {IHeadingTypes} from "server/trpc/type/common/EditorData"
 
-export type HeadingTypes = THeadingTypes | "h1" | "h5" | "h6"
+export type HeadingTypes = IHeadingTypes | "h1" | "h5" | "h6"
 
 interface Props extends ComponentPropsWithoutRef<"h2"> {
   as: HeadingTypes,

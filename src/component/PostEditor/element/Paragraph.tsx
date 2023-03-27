@@ -1,10 +1,10 @@
 import type {PlateRenderElementProps} from "@udecode/plate-core"
 import type {FC, ReactNode} from "react"
 
-import type {TParagraph} from "server/trpc/type/common/EditorData"
+import type {OParagraph} from "server/trpc/type/common/EditorData"
 import type {Value} from "lib/type/Editor"
 
-interface Props extends PlateRenderElementProps<Value, TParagraph> {
+interface Props extends PlateRenderElementProps<Value, OParagraph> {
   children: ReactNode
 }
 

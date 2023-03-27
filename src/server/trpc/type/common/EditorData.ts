@@ -1,5 +1,5 @@
-import type {infer as Infer, input as Input} from "zod"
 import {z, ZodIssueCode, NEVER} from "zod"
+import type {input, output} from "zod"
 import {v4} from "uuid"
 import {
   ELEMENT_H2,
@@ -19,9 +19,9 @@ import {isEmptyTextChild} from "lib/util/isEmptyTextChild"
 
 export const WithId = z.object({id: z.string().optional().default(() => v4())})
 
-export type TWithId = Infer<typeof WithId>
+export type IWithId = input<typeof WithId>
 
-export type TWithIdInput = Input<typeof WithId>
+export type OWithId = output<typeof WithId>
 
 export const Alignment = z.union([
   z.literal("left"),
@@ -30,29 +30,33 @@ export const Alignment = z.union([
   z.literal("justify")
 ])
 
-export type TAlignment = Infer<typeof Alignment>
+export type IAlignment = input<typeof Alignment>
+
+export type OAlignment = output<typeof Alignment>
 
 export const WithAlignment = z.object({
   align: Alignment.optional()
 })
 
-export type TWithAlignment = Infer<typeof WithAlignment>
+export type IWithAlignment = input<typeof WithAlignment>
+
+export type OWithAlignment = output<typeof WithAlignment>
 
 export const PlainText = WithId.extend({
   text: z.string()
 })
 
-export type TPlainText = Infer<typeof PlainText>
+export type IPlainText = input<typeof PlainText>
 
-export type TPlainTextInput = Input<typeof PlainText>
+export type OPlainText = output<typeof PlainText>
 
 export const EmptyText = PlainText.extend({
   text: z.literal("")
 })
 
-export type TEmptyText = Infer<typeof EmptyText>
+export type IEmptyText = input<typeof EmptyText>
 
-export type TEmptyTextInput = Input<typeof EmptyText>
+export type OEmptyText = output<typeof EmptyText>
 
 export const RichText = PlainText.extend({
   bold: z.boolean().optional(),
@@ -64,9 +68,17 @@ export const RichText = PlainText.extend({
   code: z.boolean().optional() // Maybe code must be in it's own type
 })
 
-export type TRichText = Infer<typeof RichText>
+export type IRichText = input<typeof RichText>
 
-export type TRichTextInput = Input<typeof RichText>
+export type ORichText = output<typeof RichText>
+
+export const InlineCode = PlainText.extend({
+  code: z.boolean()
+})
+
+export type IInlineCode = input<typeof InlineCode>
+
+export type OInlineCode = output<typeof InlineCode>
 
 const AbstractElement = WithId.extend({
   type: z.string(),
@@ -76,52 +88,66 @@ const AbstractElement = WithId.extend({
 export const Link = AbstractElement.extend({
   type: z.literal(ELEMENT_LINK),
   url: z.string(),
-  children: z.array(RichText)
+  children: z.array(z.union([PlainText, InlineCode, RichText]))
 })
 
-export type TLink = Infer<typeof Link>
+export type ILink = input<typeof Link>
 
-export type TLinkInput = Input<typeof Link>
+export type OLink = output<typeof Link>
 
-export const InlineDescendant = z.union([Link, RichText])
+export const InlineDescendant = z.union([
+  Link,
+  InlineCode,
+  EmptyText,
+  PlainText,
+  RichText
+])
+
+export type IInlineDescendant = input<typeof InlineDescendant>
+
+export type OInlineDescendant = output<typeof InlineDescendant>
 
 export const InlineChildren = z.array(InlineDescendant)
+
+export type IInlineChildren = input<typeof InlineChildren>
+
+export type OInlineChildren = output<typeof InlineChildren>
 
 export const Paragraph = AbstractElement.extend(WithAlignment.shape).extend({
   type: z.literal(ELEMENT_PARAGRAPH),
   children: InlineChildren
 })
 
-export type TParagraph = Infer<typeof Paragraph>
+export type IParagraph = input<typeof Paragraph>
 
-export type TParagraphInput = Input<typeof Paragraph>
+export type OParagraph = output<typeof Paragraph>
 
 export const Blockquote = AbstractElement.extend({
   type: z.literal(ELEMENT_BLOCKQUOTE),
   children: InlineChildren
 })
 
-export type TBlockquote = Infer<typeof Blockquote>
+export type IBlockquote = input<typeof Blockquote>
 
-export type TBlockquoteInput = Input<typeof Blockquote>
+export type OBlockquote = output<typeof Blockquote>
 
 export const CodeLine = AbstractElement.extend({
   type: z.literal(ELEMENT_CODE_LINE),
   children: z.array(PlainText)
 })
 
-export type TCodeLine = Infer<typeof CodeLine>
+export type ICodeLine = input<typeof CodeLine>
 
-export type TCodeLineInput = Input<typeof CodeLine>
+export type OCodeLine = output<typeof CodeLine>
 
 export const CodeBlock = AbstractElement.extend({
   type: z.literal(ELEMENT_CODE_BLOCK),
   children: z.array(CodeLine)
 })
 
-export type TCodeBlock = Infer<typeof CodeBlock>
+export type ICodeBlock = input<typeof CodeBlock>
 
-export type TCodeBlockInput = Input<typeof CodeBlock>
+export type OCodeBlock = output<typeof CodeBlock>
 
 export const HeadingTypes = z.union([
   z.literal(ELEMENT_H2),
@@ -129,7 +155,9 @@ export const HeadingTypes = z.union([
   z.literal(ELEMENT_H4)
 ])
 
-export type THeadingTypes = Infer<typeof HeadingTypes>
+export type IHeadingTypes = input<typeof HeadingTypes>
+
+export type OHeadingTypes = output<typeof HeadingTypes>
 
 export const HeadingElement = AbstractElement
   .extend(WithAlignment.shape)
@@ -138,9 +166,9 @@ export const HeadingElement = AbstractElement
     children: InlineChildren
   })
 
-export type THeadingElement = Infer<typeof HeadingElement>
+export type IHeadingElement = input<typeof HeadingElement>
 
-export type THeadingElementInput = Input<typeof HeadingElement>
+export type OHeadingElement = output<typeof HeadingElement>
 
 export const RootElement = z.union([
   Paragraph,
@@ -149,13 +177,13 @@ export const RootElement = z.union([
   CodeBlock
 ])
 
-export type TRootElement = Infer<typeof RootElement>
+export type IRootElementI = input<typeof RootElement>
 
-export type TRootElementInptut = Input<typeof RootElement>
+export type ORootElement = output<typeof RootElement>
 
 export const EditorData = z
   .array(RootElement)
-  .superRefine((data, ctx): data is TRootElement[] => {
+  .superRefine((data, ctx): data is ORootElement[] => {
     if (!isEditorContentEmpty(data)) {
       return NEVER
     }
@@ -182,6 +210,6 @@ export const EditorData = z
     return NEVER
   })
 
-export type TEditorData = Infer<typeof EditorData>
+export type IEditorData = input<typeof EditorData>
 
-export type TEditorDataInput = Input<typeof EditorData>
+export type OEditorData = output<typeof EditorData>

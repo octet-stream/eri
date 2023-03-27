@@ -4,12 +4,12 @@ import type {FC} from "react"
 import type {PlateRenderElementProps} from "@udecode/plate-core"
 import {createHeading} from "component/Heading/createHeading"
 
-import type {THeadingTypes} from "server/trpc/type/common/EditorData"
+import type {OHeadingTypes} from "server/trpc/type/common/EditorData"
 import type {Value} from "lib/type/Editor"
 
 interface Props extends PlateRenderElementProps<Value> { }
 
-export const createHeadingElement = (type: THeadingTypes) => {
+export const createHeadingElement = (type: OHeadingTypes) => {
   const element = createHeading(type)
 
   const HeadingElement: FC<Props> = ({

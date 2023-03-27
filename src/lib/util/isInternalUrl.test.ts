@@ -4,6 +4,7 @@ import test from "ava"
 import {isInternalUrl} from "./isInternalUrl"
 
 test.before(() => {
+  // @ts-ignore
   process.env.NEXTAUTH_URL = "https://example.com"
 })
 

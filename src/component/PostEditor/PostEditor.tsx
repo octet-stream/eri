@@ -6,7 +6,7 @@ import Head from "next/head"
 
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
-import type {TUserOutput} from "server/trpc/type/output/UserOutput"
+import type {OUserOutput} from "server/trpc/type/output/UserOutput"
 import type {Value} from "lib/type/Editor"
 
 import {Button} from "component/Button"
@@ -30,7 +30,7 @@ interface Props {
   isNew?: boolean
   title?: string
   content?: Value
-  author: Pick<TUserOutput, "login">
+  author: Pick<OUserOutput, "login">
   interactivePageTitle?: boolean
   onSave: EditorOnSaveHandler
 }
