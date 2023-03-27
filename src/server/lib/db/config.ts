@@ -17,7 +17,7 @@ const DB_ROOT = resolve("db")
 
 const isTestEnv = process.env.NODE_ENV === "test"
 
-export const getConfig = () => defineConfig({
+export const getConfig = async () => defineConfig({
   connect: !isTestEnv,
   implicitTransactions: true,
   dbName: process.env.MIKRO_ORM_DB_NAME || undefined,
