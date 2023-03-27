@@ -1,28 +1,28 @@
-import type {GetStaticProps, GetStaticPaths} from "next"
-import {TRPCError} from "@trpc/server"
-import {stringify} from "superjson"
+import type {GetStaticPaths} from "next"
 import type {FC} from "react"
 
 import {Post} from "server/db/entity"
 import {getORM} from "server/lib/db/orm"
-import {router} from "server/trpc/router"
 import {OPostOutput} from "server/trpc/type/output/PostOutput"
 
+import {createStaticPropsLoader} from "lib/util/createPagePropsLoader"
 import {patchStaticPaths} from "lib/util/patchStaticPaths"
-import {usePageData} from "lib/hook/usePageData"
+import type {PageDataProps} from "lib/type/PageDataProps"
+
+import type {GetPostParams} from "loader/getPost"
+import {getPost} from "loader/getPost"
+
+import {PostDataContextProvider} from "context/PostDataContext"
 
 import {PostLayout} from "layout/PostLayout"
 
 import {PostView} from "view/PostView"
 
-interface Props {
-  data: string
-}
+type PageData = PageDataProps<OPostOutput>
 
-interface Query {
-  date: string
-  name: string
-}
+interface Props extends PageData { }
+
+interface Params extends GetPostParams { }
 
 type Paths = Awaited<ReturnType<GetStaticPaths>>["paths"]
 
@@ -53,40 +53,24 @@ export const getStaticPaths = patchStaticPaths(async () => {
   return {paths, fallback: "blocking"}
 })
 
-export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
-  const trpc = router.createCaller({})
+export const getStaticProps = createStaticPropsLoader<Props>(async ctx => {
+  const {date, name} = ctx.params as unknown as Params
 
-  const {date, name} = params as unknown as Query
+  const post = await getPost({date, name})
 
-  try {
-    const post = await trpc.post.getBySlug({
-      slug: [date, name]
-    })
-
-    return {
-      props: {
-        data: stringify(post)
-      }
+  return {
+    props: {
+      data: post
     }
-  } catch (error) {
-    if (error instanceof TRPCError && error.code === "NOT_FOUND") {
-      return {
-        notFound: true
-      }
-    }
-
-    throw error
   }
-}
+})
 
-const PostPage: FC<Props> = () => {
-  const {title} = usePageData<OPostOutput>()
-
-  return (
-    <PostLayout title={title}>
+const PostPage: FC<Props> = ({data}) => (
+  <PostDataContextProvider data={data}>
+    <PostLayout title={data.title}>
       <PostView />
     </PostLayout>
-  )
-}
+  </PostDataContextProvider>
+)
 
 export default PostPage

@@ -1,8 +1,7 @@
 import {useSession} from "next-auth/react"
 import type {FC} from "react"
 
-import {usePageData} from "lib/hook/usePageData"
-import {OPostOutput} from "server/trpc/type/output/PostOutput"
+import {usePostData} from "context/PostDataContext"
 
 import {FlyoutMenu} from "component/FlyoutMenu"
 
@@ -12,7 +11,7 @@ import {EditPostFragment} from "component/MenuFragments/EditPostFragment"
 interface Props { }
 
 export const EditPostMenu: FC<Props> = () => {
-  const {slug} = usePageData<OPostOutput>()
+  const {slug} = usePostData()
   const {status} = useSession()
 
   const isAuthenticated = status === "authenticated"

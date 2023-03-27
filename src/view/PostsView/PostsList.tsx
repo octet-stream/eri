@@ -2,11 +2,10 @@ import type {FC} from "react"
 
 import Link from "next/link"
 
-import {OPostsPageOutput} from "server/trpc/type/output/PostsPageOutput"
-import {usePageData} from "lib/hook/usePageData"
+import {usePostsData} from "context/PostsDataContext"
 
 export const PostsList: FC = () => {
-  const posts = usePageData<OPostsPageOutput>()
+  const posts = usePostsData()
 
   return (
     <ul className="list-none p-0 m-0">

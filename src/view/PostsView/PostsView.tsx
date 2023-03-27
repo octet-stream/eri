@@ -1,13 +1,12 @@
 import type {FC} from "react"
 
-import {OPostsPageOutput} from "server/trpc/type/output/PostsPageOutput"
-import {usePageData} from "lib/hook/usePageData"
+import {usePostsData} from "context/PostsDataContext"
 
 import {PostsList} from "./PostsList"
 import {NoPosts} from "./NoPosts"
 
 export const PostsView: FC = () => {
-  const {itemsCount} = usePageData<OPostsPageOutput>()
+  const {itemsCount} = usePostsData()
 
   return itemsCount > 0 ? <PostsList /> : <NoPosts />
 }

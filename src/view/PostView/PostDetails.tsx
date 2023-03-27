@@ -1,15 +1,13 @@
 import type {FC} from "react"
 import {useMemo} from "react"
 
-import type {OPostOutput} from "server/trpc/type/output/PostOutput"
-
 import {formatRelative} from "lib/util/formatRelative"
-import {usePageData} from "lib/hook/usePageData"
+import {usePostData} from "context/PostDataContext"
 
 import {PostInfo} from "component/PostInfo"
 
 export const PostDetails: FC = () => {
-  const {createdAt, author} = usePageData<OPostOutput>()
+  const {createdAt, author} = usePostData()
 
   const postInfo = useMemo<string>(
     () => [
