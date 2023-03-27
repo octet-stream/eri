@@ -1,4 +1,4 @@
-import {randomUUID} from "node:crypto"
+import {v4} from "uuid"
 
 import test from "ava"
 
@@ -8,7 +8,7 @@ import {ZodError} from "zod"
 import {ID} from "./ID"
 
 test("Validates correct UUIDv4", async t => {
-  const expected = randomUUID()
+  const expected = v4()
 
   const actual = await ID.parseAsync(expected)
 

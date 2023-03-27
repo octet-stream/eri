@@ -1,8 +1,8 @@
 import test from "ava"
 
 import type {ZodInvalidTypeIssue} from "zod"
-import {nanoid} from "nanoid/async"
 import {ZodError} from "zod"
+import {v4} from "uuid"
 
 import {Record} from "./Record"
 import type {ORecord} from "./Record"
@@ -11,7 +11,7 @@ test("Validates correct record input", async t => {
   const now = new Date()
 
   const expected: ORecord = {
-    id: await nanoid(),
+    id: v4(),
     createdAt: now.toISOString(),
     updatedAt: now.toISOString()
   }
