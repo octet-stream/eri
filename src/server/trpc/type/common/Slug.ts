@@ -5,7 +5,7 @@ import isDate from "validator/lib/isDate"
 
 const {isArray} = Array
 
-const SLUG_REGEXP = /^[a-z0-9-]+(?:-[a-z0-9]{5})?$/i
+export const SLUG_REGEXP = /^[a-z0-9-]+-[a-zA-Z0-9]{5}$/
 
 const isDateValid = (date: string) => isDate(date, {format: "YYYY-MM-DD"})
 
