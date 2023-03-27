@@ -15,7 +15,9 @@ import {formatTime, TIME_FORMAT} from "./formatTime"
 
 export const LAST_WEEK_FORMAT = `'Last' EEEE 'at' ${TIME_FORMAT}`
 
-export const DATETIME_FORMAT = `dd.MM.yyyy 'at' ${TIME_FORMAT}`
+export const DATE_FORMAT = "dd.MM.yyyy"
+
+export const DATETIME_FORMAT = `${DATE_FORMAT} 'at' ${TIME_FORMAT}`
 
 const relative = new Intl.RelativeTimeFormat("en", {
   style: "long"

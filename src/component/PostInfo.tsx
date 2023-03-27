@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const PostInfo: FC<Props> = ({children}) => (
-  <small className="text-gray-400 dark:text-gray-600 select-none">
+  <small className="text-gray-400 dark:text-gray-600 select-none" suppressHydrationWarning>
     {children}
   </small>
 )
