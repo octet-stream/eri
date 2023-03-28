@@ -142,6 +142,7 @@ export type OCodeLine = output<typeof CodeLine>
 
 export const CodeBlock = AbstractElement.extend({
   type: z.literal(ELEMENT_CODE_BLOCK),
+  lang: z.string(),
   children: z.array(CodeLine)
 })
 
