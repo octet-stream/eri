@@ -17,34 +17,36 @@ import {ContentEditor} from "./ContentEditor"
 import type {ContentEditorOnChangeHandler} from "./ContentEditor"
 import type {TitleEditorOnChangeHandler} from "./TitleEditor"
 
-interface EditorData {
+interface PostEditorDataOutput {
   title: string
   content: Value
 }
 
 export interface EditorOnSaveHandler {
-  (data: EditorData): void
+  (data: PostEditorDataOutput): void
+}
+
+export interface PostEditorDataInput extends Partial<PostEditorDataOutput> {
+  author: Pick<OUserOutput, "login">
 }
 
 interface Props {
   isNew?: boolean
-  title?: string
-  content?: Value
-  author: Pick<OUserOutput, "login">
   interactivePageTitle?: boolean
+  data: PostEditorDataInput
   onSave: EditorOnSaveHandler
 }
 
 export const PostEditor: FC<Props> = ({
-  title: initialTitle = "",
-  content: initialContent = [],
   interactivePageTitle = true,
   isNew = false,
-  author,
+  data,
   onSave
 }) => {
-  const [title, setTitle] = useState(initialTitle)
-  const [content, setContent] = useState<Value>(initialContent)
+  const {author} = data
+
+  const [title, setTitle] = useState(() => data.title || "")
+  const [content, setContent] = useState<Value>(() => data.content || [])
 
   const postInfo = useMemo(
     () => [

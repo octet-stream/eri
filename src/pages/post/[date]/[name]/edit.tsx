@@ -80,12 +80,7 @@ const PostEditPage: FC<Props> = ({data: post}) => {
   return (
     <PostDataContextProvider data={post}>
       <PostEditLayout>
-        <PostEditor
-          title={post.title}
-          content={post.content}
-          onSave={onSave}
-          author={post.author}
-        />
+        <PostEditor data={post} onSave={onSave} />
       </PostEditLayout>
     </PostDataContextProvider>
   )
