@@ -1,34 +1,7 @@
 import type {EventSubscriber, EventArgs, EntityName} from "@mikro-orm/core"
-import {customAlphabet, urlAlphabet} from "nanoid"
-
-import format from "date-fns/format"
 
 import {Post} from "server/db/entity"
-import {createSlug} from "server/lib/util/createSlug"
-
-import {normalizeDate} from "lib/util/normalizeDate"
-import type {RawDate} from "lib/type/RawDate"
-
-const DATE_FORMAT = "yyyy-MM-dd"
-
-/**
- * Creates a suffix for slug using nanoid
- */
-export const createSlugSuffix = customAlphabet(
-  urlAlphabet.replace(/[^a-z0-9]/gi, ""),
-
-  5
-)
-
-export const formatSlug = (title: string, date: RawDate) => (
-  `${
-    format(normalizeDate(date), DATE_FORMAT)
-  }/${
-    createSlug(title)
-      .replace(/^-{1,}/, "") // Trim any "-" from the start
-      .replace(/-{1,}$/, "") // Trim any "-" from the end
-  }-${createSlugSuffix()}`
-)
+import {formatSlug} from "server/lib/util/slug"
 
 export class PostSubscriber implements EventSubscriber<Post> {
   getSubscribedEntities(): Array<EntityName<Post>> {

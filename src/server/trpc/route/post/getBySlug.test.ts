@@ -18,7 +18,7 @@ test.after.always(cleanup)
 
 test("Fails if requested post is not found", withTRPC, async (t, trpc) => {
   const trap = () => trpc.post.getBySlug({
-    slug: ["1970-01-01", "this-post-does-not-exists-123ac"]
+    slug: ["1970-01-01", "this-post-does-not-exists~123ac"]
   })
 
   const actual = await t.throwsAsync(trap) as TRPCError

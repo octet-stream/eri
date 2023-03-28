@@ -1,24 +1,43 @@
-import type {input, output} from "zod"
-import {z} from "zod"
+import type {input, output, RefinementCtx} from "zod"
+import {z, ZodIssueCode} from "zod"
 
-import isDate from "validator/lib/isDate"
+import {
+  isSlugNameValid,
+  isSlugDateValid
+} from "server/lib/util/slug"
 
 const {isArray} = Array
 
-export const SLUG_REGEXP = /^[a-z0-9-]+-[a-zA-Z0-9]{5}$/
+function validateDate(value: string, ctx: RefinementCtx): void {
+  if (!isSlugDateValid(value)) {
+    ctx.addIssue({
+      code: ZodIssueCode.invalid_string,
+      message: "Invalid date format.",
+      validation: "datetime"
+    })
+  }
+}
 
-const isDateValid = (date: string) => isDate(date, {format: "YYYY-MM-DD"})
+function validateName(value: string, ctx: RefinementCtx): void {
+  if (!isSlugNameValid(value)) {
+    ctx.addIssue({
+      code: ZodIssueCode.invalid_string,
+      message: "Invalid slug name format",
+      validation: "regex"
+    })
+  }
+}
 
 export const SlugTuple = z.tuple([
-  z.string().refine(isDateValid),
-  z.string().min(1).regex(SLUG_REGEXP)
+  z.string().superRefine(validateDate),
+  z.string().min(1).superRefine(validateName)
 ])
 
-// TODO: Rewrite with .superRefine
-export const SlugString = z.string().refine(slug => {
+export const SlugString = z.string().superRefine((slug, ctx) => {
   const [date, name] = slug.split("/")
 
-  return isDateValid(date) && SLUG_REGEXP.test(name)
+  validateDate(date, ctx)
+  validateName(name, ctx)
 })
 
 export const Slug = z
