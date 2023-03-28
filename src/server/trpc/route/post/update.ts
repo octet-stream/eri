@@ -1,9 +1,8 @@
 import {TRPCError} from "@trpc/server"
 import {wrap} from "@mikro-orm/core"
 
-import {getORM} from "server/lib/db/orm"
-
 import {procedure} from "server/trpc/procedure/authorized"
+import {notFound} from "server/trpc/error/notFound"
 
 import {PostOutput} from "server/trpc/type/output/PostOutput"
 import {PostUpdateInput} from "server/trpc/type/input/PostUpdateInput"
@@ -12,16 +11,12 @@ import {Post} from "server/db/entity"
 export const update = procedure
   .input(PostUpdateInput)
   .output(PostOutput)
-  .mutation(async ({input, ctx}) => {
+  .mutation(async ({input, ctx: {res, orm, user}}) => {
     const {id, ...fields} = input
-    const {user, res} = ctx
 
-    const orm = await getORM()
-    const post = await orm.em.findOne(Post, {id})
-
-    if (!post) {
-      throw new TRPCError({code: "NOT_FOUND"})
-    }
+    const post = await orm.em.findOneOrFail(Post, {id}, {
+      failHandler: notFound
+    })
 
     if (post.author.id !== user.id) {
       throw new TRPCError({code: "FORBIDDEN"})
