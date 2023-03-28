@@ -1,7 +1,7 @@
 import anyTest from "ava"
 
 import type {TestFn} from "ava"
-import type {TRPCError} from "@trpc/server"
+import {TRPCError} from "@trpc/server"
 import {ELEMENT_PARAGRAPH} from "@udecode/plate"
 
 import {setup, cleanup} from "server/__helper__/database"
@@ -16,15 +16,15 @@ test.before(setup)
 
 test.after.always(cleanup)
 
-test("Fails if requested post is not found", withTRPC, async (t, trpc) => {
+test.serial("Fails if post is not found", withTRPC, async (t, trpc) => {
   const trap = () => trpc.post.getBySlug({
     slug: ["1970-01-01", "this-post-does-not-exists~123ac"]
   })
 
-  const actual = await t.throwsAsync(trap) as TRPCError
-
-  t.is(actual.code, "NOT_FOUND")
-  t.is(actual.message, "Can't find a post")
+  await t.throwsAsync(trap, {
+    instanceOf: TRPCError,
+    code: "NOT_FOUND"
+  })
 })
 
 test("Returns requested post", withTRPC, async (t, trpc, orm) => {
