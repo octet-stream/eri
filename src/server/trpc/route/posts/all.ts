@@ -3,12 +3,14 @@ import {PostsPageInput} from "server/trpc/type/input/PostsPageInput"
 import {Post} from "server/db/entity/Post"
 import {getORM} from "server/lib/db/orm"
 
+import {withPageAssert} from "server/trpc/middleware/withPageAssert"
 import {procedure} from "server/trpc/procedure/base"
 
 /**
  * Returns a page of posts, 50 per each page.
  */
 export const all = procedure
+  .use(withPageAssert)
   .input(PostsPageInput)
   .output(PostsPageOutput)
   .query(async ({input}) => {
