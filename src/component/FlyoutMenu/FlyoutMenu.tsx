@@ -26,11 +26,13 @@ export const FlyoutMenu: FC<Props> = ({children}) => (
         <MoreVertical size={20} />
       </Menu.Button>
 
-      <Menu.Items className="absolute bg-white right-0 rounded-md drop-shadow-md overflow-hidden mt-2 w-[220px] z-10">
-        {children}
+      <div className="absolute device-touch:fixed right-0 device-touch:bottom-0 device-touch:left-0 device-touch:right-0 mt-2 device-touch:m-0 device-touch:p-5 device-touch:w-full w-[220px] z-10">
+        <Menu.Items className="w-full bg-white rounded-md drop-shadow-md overflow-hidden">
+          {children}
 
-        <FlyoutMenuFooter />
-      </Menu.Items>
+          <FlyoutMenuFooter />
+        </Menu.Items>
+      </div>
     </Menu>
   </nav>
 )
