@@ -4,14 +4,14 @@ import type {JWT} from "next-auth/jwt"
 
 import type {User} from "server/db/entity"
 
-export type Context = { }
+export interface Context { }
 
-export type HttpContext<R = any> = Context & {
+export interface HttpContext extends Context {
   req: NextApiRequest
-  res: NextApiResponse<R>
+  res: NextApiResponse
 }
 
-export type AuthContext = HttpContext & {
+export interface AuthContext extends HttpContext {
   session: JWT
   user: User
 }
@@ -26,4 +26,4 @@ export function isHttpContext(
 
 export const createContext = (
   ctx: CreateNextContextOptions
-): GlobalContext => isHttpContext(ctx) ? ctx : {}
+): GlobalContext => ctx
