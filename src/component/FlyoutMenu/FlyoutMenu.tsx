@@ -30,6 +30,8 @@ export const FlyoutMenu: FC<Props> = ({children}) => (
         <Menu.Items className="w-full bg-white rounded-md drop-shadow-md overflow-hidden">
           {children}
 
+          <div className="h-[1px] w-full bg-gray-200" />
+
           <FlyoutMenuFooter />
         </Menu.Items>
       </div>

@@ -1,25 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 import {signOut} from "next-auth/react"
 import {toast} from "react-hot-toast"
-import {forwardRef} from "react"
+import type {FC} from "react"
 
-interface Props { }
+import {FlyoutMenuItem} from "./FlyoutMenuItem"
 
-export const FlyoutMenuLogout = forwardRef<HTMLButtonElement, Props>(
-  (_, ref) => {
-    const onClickLogOut = () => signOut().catch(() => {
-      toast.error("Can't perform this operation")
-    })
+export const FlyoutMenuLogout: FC = () => {
+  const onClickLogOut = () => signOut().catch(() => {
+    toast.error("Can't perform this operation")
+  })
 
-    return (
-      <button
-        ref={ref}
-        type="button"
-        className="px-6 py-2 flex-1 text-left text-black"
-        onClick={onClickLogOut}
-      >
-        Log out
-      </button>
-    )
-  }
-)
+  return (
+    <FlyoutMenuItem
+      className="text-left text-black hover:text-white"
+      onClick={onClickLogOut}
+    >
+      Log out
+    </FlyoutMenuItem>
+  )
+}
