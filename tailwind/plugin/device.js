@@ -1,38 +1,29 @@
 const plugin = require("tailwindcss/plugin")
+const postcss = require("postcss")
 
-const values = {
-  touch: 1,
-  "desktop-touch": 2,
-  "desktop": 3,
-}
+/**
+ * @typedef {[name: string, params: string][]} Variants
+ */
+
+/**
+ * @type {Variants}
+ */
+const variants = [
+  ["touch", "(pointer: coarse)"],
+  ["desktop-touch", "(pointer: fine) and (any-pointer: coarse)"],
+  ["desktop", "(pointer: fine)"],
+  ["desktop-any", "(pointer: fine), (pointer: fine) and (any-pointer: coarse)"]
+]
 
 /**
  * Adds variants to specify input device type and applies `@media` query accordingly to the variant.
  */
-const device = plugin(({matchVariant}) => {
-  matchVariant(
-    "device",
+const device = plugin(({addVariant}) => {
+  variants.forEach(([name, params]) => addVariant(
+    `device-${name}`,
 
-    value => {
-      let variant = ""
-      switch (value) {
-        case values.desktop:
-          variant = "(pointer: fine), (pointer: none)"
-          break
-        case values["desktop-touch"]:
-          variant = "(pointer: fine) and (any-pointer: coarse)"
-          break
-        default:
-          variant = "(pointer: coarse)"
-      }
-
-      return `@media ${variant}`
-    },
-
-    {
-      values
-    }
-  )
+    postcss.atRule({name: "media", params}).toString()
+  ))
 })
 
 module.exports = device
