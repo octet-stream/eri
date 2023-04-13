@@ -43,20 +43,20 @@ export const alignment = createPlugins<Value, Editor>([
     handlers: {
       onKeyDown: editor => event => {
         switch (true) {
-        case isHotkey(ALIGN_LEFT_HOTKEY, event):
-          align(editor, event, "left") // FIXME: This shortcut doesn't work in Chrome for some reason
-          break
-        case isHotkey(ALIGN_CENTER_HOTKEY, event):
-          align(editor, event, "center")
-          break
-        case isHotkey(ALIGN_RIGHT_HOTKEY, event):
-          align(editor, event, "right")
-          break
-        case isHotkey(ALIGN_JUSTIFY_HOTKEY, event):
-          align(editor, event, "justify")
-          break
-        default:
-          return undefined
+          case isHotkey(ALIGN_LEFT_HOTKEY, event):
+            align(editor, event, "left") // FIXME: This shortcut doesn't work in Chrome for some reason
+            break
+          case isHotkey(ALIGN_CENTER_HOTKEY, event):
+            align(editor, event, "center")
+            break
+          case isHotkey(ALIGN_RIGHT_HOTKEY, event):
+            align(editor, event, "right")
+            break
+          case isHotkey(ALIGN_JUSTIFY_HOTKEY, event):
+            align(editor, event, "justify")
+            break
+          default:
+            return undefined
         }
       }
     }

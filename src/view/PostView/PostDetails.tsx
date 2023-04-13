@@ -14,7 +14,7 @@ export const PostDetails: FC = () => {
   const postInfo = useMemo<string>(
     () => [date, `by @${author.login}`].join(" "),
 
-    [createdAt, author.login]
+    [author.login, date]
   )
 
   return (
