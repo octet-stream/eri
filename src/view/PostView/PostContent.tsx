@@ -13,6 +13,7 @@ export const PostContent: FC = () => {
   return (
     <div className="flex-1">
       <SlateView
+        strict
         nodes={content}
         transforms={{elements: [Link, Paragraph, Heading]}}
       />
