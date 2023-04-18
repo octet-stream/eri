@@ -59,8 +59,8 @@ dependencies:
     specifier: 4.17.21
     version: 4.17.21
   lucide-react:
-    specifier: ^0.161.0
-    version: 0.161.0(react@18.2.0)
+    specifier: ^0.162.0
+    version: 0.162.0(react@18.2.0)
   mysql2:
     specifier: 3.2.3
     version: 3.2.3
@@ -71,8 +71,8 @@ dependencies:
     specifier: 13.3.0
     version: 13.3.0(react-dom@18.2.0)(react@18.2.0)
   next-auth:
-    specifier: 4.22.0
-    version: 4.22.0(next@13.3.0)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.22.1
+    version: 4.22.1(next@13.3.0)(react-dom@18.2.0)(react@18.2.0)
   next-connect:
     specifier: 1.0.0-next.2
     version: 1.0.0-next.2
@@ -122,8 +122,8 @@ dependencies:
     specifier: 0.93.0
     version: 0.93.0(react-dom@18.2.0)(react@18.2.0)(slate@0.93.0)
   slate-to-react:
-    specifier: ^0.7.1
-    version: 0.7.1(react@18.2.0)(slate-react@0.93.0)(slate@0.93.0)
+    specifier: ^0.7.2
+    version: 0.7.2(react@18.2.0)(slate-react@0.93.0)(slate@0.93.0)
   styled-components:
     specifier: 5.3.9
     version: 5.3.9(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
@@ -6452,8 +6452,8 @@ packages:
     hasBin: true
     dev: true
 
-  /jose@4.13.2:
-    resolution: {integrity: sha512-GMUKtV+l05F6NY/06nM7rucHM6Ktvw6sxnyRqINBNWS/hCM/bBk7kanOEckRP8xtC/jzuGfTRVZvkjjuy+g4dA==}
+  /jose@4.14.0:
+    resolution: {integrity: sha512-LSA/XenLPwqk6e2L+PSUNuuY9G4NGsvjRWz6sJcUBmzTLEPJqQh46FHSUxnAQ64AWOkRO6bSXpy3yXuEKZkbIA==}
     dev: false
 
   /jotai@1.13.1(react@18.2.0):
@@ -6827,8 +6827,8 @@ packages:
     resolution: {integrity: sha512-MhWWlVnuab1RG5/zMRRcVGXZLCXrZTgfwMikgzCegsPnG62yDQo5JnqKkrK4jO5iKqDAZGItAqN5CtKBCBWRUA==}
     engines: {node: '>=16.14'}
 
-  /lucide-react@0.161.0(react@18.2.0):
-    resolution: {integrity: sha512-Yr0VR0l6r+t65JCE9q+rTMItWqbhF4Wn3l73PHMwxves2wDhEPH7V2JqxvqS0In/brIwiyBV90++r/rHxNK9ug==}
+  /lucide-react@0.162.0(react@18.2.0):
+    resolution: {integrity: sha512-bKUvG2OTerGVt2GdbYK+VE4cdZS2DNUspY1CrqFnlvOkMPHjWzbydsJVtmFjtdExsII34JpthHUml2zWP4R9iw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -7086,8 +7086,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth@4.22.0(next@13.3.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-08+kjnDoE7aQ52O996x6cwA3ffc2CbHIkrCgLYhbE+aDIJBKI0oA9UbIEIe19/+ODYJgpAHHOtJx4izmsgaVag==}
+  /next-auth@4.22.1(next@13.3.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-NTR3f6W7/AWXKw8GSsgSyQcDW6jkslZLH8AiZa5PQ09w1kR8uHtR9rez/E9gAq/o17+p0JYHE8QjF3RoniiObA==}
     peerDependencies:
       next: ^12.2.5 || ^13
       nodemailer: ^6.6.5
@@ -7100,7 +7100,7 @@ packages:
       '@babel/runtime': 7.21.0
       '@panva/hkdf': 1.0.4
       cookie: 0.5.0
-      jose: 4.13.2
+      jose: 4.14.0
       next: 13.3.0(react-dom@18.2.0)(react@18.2.0)
       oauth: 0.9.15
       openid-client: 5.4.0
@@ -7333,7 +7333,7 @@ packages:
   /openid-client@5.4.0:
     resolution: {integrity: sha512-hgJa2aQKcM2hn3eyVtN12tEA45ECjTJPXCgUh5YzTzy9qwapCvmDTVPWOcWVL0d34zeQoQ/hbG9lJhl3AYxJlQ==}
     dependencies:
-      jose: 4.13.2
+      jose: 4.14.0
       lru-cache: 6.0.0
       object-hash: 2.2.0
       oidc-token-hash: 5.0.2
@@ -8274,8 +8274,8 @@ packages:
       tiny-invariant: 1.0.6
     dev: false
 
-  /slate-to-react@0.7.1(react@18.2.0)(slate-react@0.93.0)(slate@0.93.0):
-    resolution: {integrity: sha512-z1opmwgaTb/MPbEnH0m+cR343x90h67afZLDh7/69zeEd07B0V8l++kpIN6ibZgAh97sDI+9qJ+3OEU+rFIdZg==}
+  /slate-to-react@0.7.2(react@18.2.0)(slate-react@0.93.0)(slate@0.93.0):
+    resolution: {integrity: sha512-Z3OFsnwtvcz4agAR6irUikHl65B0UZJTLf8v+NZUjIX9w/ZIrOPIbsEvsDf5qgh1Acn5mg+Dbl2VlUfkZyphqg==}
     peerDependencies:
       react: 18.x
       slate: '>= 0.91.x || <= 0.93.x'
