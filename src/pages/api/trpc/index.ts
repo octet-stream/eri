@@ -9,7 +9,7 @@ const base = process.env.NEXTAUTH_URL || process.env.NEXT_PUBLIC_SERVER_URL
 
 let cachedNotFoundResponse: string | undefined
 
-const panelHanlder: NextApiHandler = async (_, res) => {
+const panelHandler: NextApiHandler<string> = async (_, res) => {
   // Disabled in production
   if (process.env.NODE_ENV !== "production") {
     return res.status(200).send(renderTrpcPanel(router, {
@@ -29,4 +29,4 @@ const panelHanlder: NextApiHandler = async (_, res) => {
   res.status(404).send(cachedNotFoundResponse)
 }
 
-export default panelHanlder
+export default panelHandler
