@@ -25,7 +25,7 @@ async function get404Page(): Promise<string> {
   return got
     .get(url, {
       throwHttpErrors: false,
-      dnsLookupIpVersion: isLocalhost(url) ? "ipv4" : "auto"
+      dnsLookupIpVersion: isLocalhost(url) ? "ipv4" : undefined
     })
     .text()
 }

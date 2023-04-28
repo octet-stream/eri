@@ -32,8 +32,6 @@ export const setup = async () => {
 
   const orm = await getORM()
 
-  await orm.connect()
-
   const generator = orm.getSchemaGenerator()
 
   await generator.createSchema()
