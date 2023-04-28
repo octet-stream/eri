@@ -18,7 +18,7 @@ const DB_ROOT = resolve("db")
 
 const ConnectionPortString = z.string().optional()
   .superRefine((value, ctx) => {
-    if (value && /^[0-9]+$/.test(value)) {
+    if (value && /^[0-9]+$/.test(value) === false) {
       ctx.addIssue({
         code: ZodIssueCode.invalid_string,
         validation: "regex"
