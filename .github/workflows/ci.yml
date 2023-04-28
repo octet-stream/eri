@@ -77,7 +77,10 @@ jobs:
 
       - name: Create .env.test.local
         run: |
-          echo NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}} > .env.test.local
+          tee .env.test.local << ENV
+          NEXTAUTH_SECRET=${{secrets.NEXTAUTH_SECRET}}
+          MIKRO_ORM_PORT=${{secrets.MIKRO_ORM_PORT}}
+          ENV
 
       - name: Run tests
         run: pnpm run ci
