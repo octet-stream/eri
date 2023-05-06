@@ -1,3 +1,5 @@
+"use client"
+
 import {SlateView} from "slate-to-react"
 import type {FC} from "react"
 

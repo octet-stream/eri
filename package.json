@@ -45,6 +45,7 @@
     "@trpc/client": "10.25.0",
     "@trpc/server": "10.25.0",
     "@udecode/plate": "21.1.2",
+    "@udecode/plate-basic-elements": "^21.0.0",
     "@udecode/plate-basic-marks": "21.0.0",
     "@udecode/plate-core": "21.0.0",
     "@udecode/plate-headless": "21.1.0",

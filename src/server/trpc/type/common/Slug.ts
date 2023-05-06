@@ -1,6 +1,8 @@
 import type {input, output, RefinementCtx} from "zod"
 import {z, ZodIssueCode} from "zod"
 
+import isString from "lodash/isString"
+
 import {
   isSlugNameValid,
   isSlugDateValid
@@ -29,9 +31,14 @@ function validateName(value: string, ctx: RefinementCtx): void {
 }
 
 export const SlugTuple = z.tuple([
-  z.string().superRefine(validateDate),
-  z.string().min(1).superRefine(validateName)
+  z.string().nonempty().superRefine(validateDate),
+  z.string().nonempty().superRefine(validateName)
 ])
+
+export const SlugObject = z.object({
+  date: z.string().nonempty().superRefine(validateDate),
+  name: z.string().nonempty().superRefine(validateName)
+})
 
 export const SlugString = z.string().superRefine((slug, ctx) => {
   const [date, name] = slug.split("/")
@@ -41,8 +48,18 @@ export const SlugString = z.string().superRefine((slug, ctx) => {
 })
 
 export const Slug = z
-  .union([SlugTuple, SlugString])
-  .transform(slug => isArray(slug) ? slug.join("/") : slug)
+  .union([SlugObject, SlugTuple, SlugString])
+  .transform(slug => {
+    if (isString(slug)) {
+      return slug
+    }
+
+    if (isArray(slug)) {
+      return slug.join("/")
+    }
+
+    return `${slug.date}/${slug.name}`
+  })
 
 export type ISlug = input<typeof Slug>
 

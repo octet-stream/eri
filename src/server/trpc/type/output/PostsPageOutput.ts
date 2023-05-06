@@ -4,13 +4,9 @@ import {createPageOutput} from "server/trpc/helper/createPageOutput"
 
 import {PostsPageInput} from "server/trpc/type/input/PostsPageInput"
 
-import {PostOutput} from "./PostOutput"
+import {PostBaseOutput} from "./PostBaseOutput"
 
-export const PostsPageOutput = createPageOutput(
-  PostOutput.omit({content: true}),
-
-  PostsPageInput
-)
+export const PostsPageOutput = createPageOutput(PostBaseOutput, PostsPageInput)
 
 export type IPostsPageOutput = input<typeof PostsPageOutput>
 

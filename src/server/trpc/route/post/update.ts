@@ -8,10 +8,13 @@ import {PostOutput} from "server/trpc/type/output/PostOutput"
 import {PostUpdateInput} from "server/trpc/type/input/PostUpdateInput"
 import {Post} from "server/db/entity"
 
+/**
+ * Updates post with given `id`
+ */
 export const update = procedure
   .input(PostUpdateInput)
   .output(PostOutput)
-  .mutation(async ({input, ctx: {res, orm, user}}) => {
+  .mutation(async ({input, ctx: {orm, user, revalidate}}) => {
     const {id, ...fields} = input
 
     const post = await orm.em.findOneOrFail(Post, {id}, {
@@ -25,9 +28,8 @@ export const update = procedure
     wrap(post).assign(fields)
 
     await orm.em.flush()
-    await res.revalidate(`/post/${post.slug}`, {
-      unstable_onlyGenerated: true
-    })
+
+    revalidate(`/post/${post.slug}`)
 
     return post
   })

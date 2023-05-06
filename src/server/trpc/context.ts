@@ -1,29 +1,40 @@
-import type {CreateNextContextOptions} from "@trpc/server/adapters/next"
-import type {NextApiRequest, NextApiResponse} from "next"
-import type {JWT} from "next-auth/jwt"
+import type {
+  FetchCreateContextFn,
+  FetchCreateContextFnOptions
+} from "@trpc/server/adapters/fetch"
 
-import type {User} from "server/db/entity"
+import {User} from "server/db/entity/User"
+
+import type {Router} from "./router"
 
 export interface Context { }
 
-export interface HttpContext extends Context {
-  req: NextApiRequest
-  res: NextApiResponse
-}
+export type FetchContext = Context & FetchCreateContextFnOptions
 
-export interface AuthContext extends HttpContext {
-  session: JWT
+export type AuthContext = Context & {
   user: User
 }
 
-export type GlobalContext = Context | HttpContext
+export const TRPC_CALLER_CONTEXT_KEY = "__$$TRPC_CALLER_CONTEXT_KEY$$__"
 
-export function isHttpContext(
-  ctx: GlobalContext
-): ctx is HttpContext {
-  return !!((ctx as HttpContext)?.req && (ctx as HttpContext)?.res)
+export interface TRPCCallerContext {
+  [TRPC_CALLER_CONTEXT_KEY]: true
 }
 
-export const createContext = (
-  ctx: CreateNextContextOptions
-): GlobalContext => ctx
+export type GlobalContext =
+  | Context
+  | FetchContext
+  | AuthContext
+  | TRPCCallerContext
+
+export const isFetchContext = (
+  ctx: GlobalContext
+): ctx is FetchContext => !!("req" in ctx && "resHeaders" in ctx)
+
+export const isTRPCCallerContext = (
+  ctx: GlobalContext
+): ctx is TRPCCallerContext => TRPC_CALLER_CONTEXT_KEY in ctx
+
+export const createContext: FetchCreateContextFn<Router> = (
+  ctx
+): GlobalContext => isFetchContext(ctx) ? ctx : {}

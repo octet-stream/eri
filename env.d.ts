@@ -1,5 +1,7 @@
 namespace NodeJS {
   interface ProcessEnv {
+    readonly BLOG_NAME?: string
+
     readonly NEXT_PUBLIC_SERVER_URL: string
 
     readonly NEXTAUTH_URL: string

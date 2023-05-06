@@ -1,7 +1,6 @@
 import {PostsPageOutput} from "server/trpc/type/output/PostsPageOutput"
 import {PostsPageInput} from "server/trpc/type/input/PostsPageInput"
 import {Post} from "server/db/entity/Post"
-import {getORM} from "server/lib/db/orm"
 
 import {withPageAssert} from "server/trpc/middleware/withPageAssert"
 import {procedure} from "server/trpc/procedure/base"
@@ -9,14 +8,12 @@ import {procedure} from "server/trpc/procedure/base"
 /**
  * Returns a page of posts, 50 per each page.
  */
-export const all = procedure
+export const list = procedure
   .use(withPageAssert)
   .input(PostsPageInput)
   .output(PostsPageOutput)
-  .query(async ({input}) => {
+  .query(async ({input, ctx: {orm}}) => {
     const {args} = input
-
-    const orm = await getORM()
 
     const [items, count] = await orm.em.findAndCount(Post, {}, {
       limit: args.limit,
