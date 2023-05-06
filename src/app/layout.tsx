@@ -5,8 +5,13 @@ import {Toaster} from "component/Toaster"
 
 import "style/tailwind.css"
 
+const TITLE_BASE = process.env.BLOG_NAME || "Blog"
+
 export const metadata: Metadata = {
-  title: process.env.BLOG_NAME || "Blog"
+  title: {
+    template: `%s | ${TITLE_BASE}`,
+    default: TITLE_BASE
+  }
 }
 
 interface Props {
@@ -18,8 +23,8 @@ const RootLayout: FC<Props> = ({children}) => (
     <head />
 
     <body className="bg-white text-black dark:bg-gray-900 dark:text-white">
-      <main className="w-screen h-screen">
-        <div className="min-h-screen w-full lg:max-w-laptop lg:mx-auto lg:py-5 p-5 flex flex-col">
+      <main className="w-screen min-h-screen flex">
+        <div className="prose dark:prose-invert py-5 laptop:p-5 mx-auto flex flex-1 flex-col dark:text-white">
           {children}
         </div>
       </main>

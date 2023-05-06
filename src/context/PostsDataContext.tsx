@@ -1,3 +1,5 @@
+"use client"
+
 import {OPostsPageOutput} from "server/trpc/type/output/PostsPageOutput"
 
 import {createPageDataContext} from "lib/context/createPageData"

@@ -6,6 +6,9 @@ import {getORM} from "server/lib/db/orm"
 import type {AFC} from "lib/type/AsyncFunctionComponent"
 import {patchStaticParams} from "lib/util/patchStaticParams"
 
+import {PostDataContextProvider} from "context/PostDataContext"
+
+import {PostView} from "./_/component/PostView"
 import {getPost} from "./_/loader/getPost"
 
 export interface Params {
@@ -41,10 +44,14 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   }
 }
 
-export const PostViewPage: AFC<Props> = async ({params}) => {
+const PostViewPage: AFC<Props> = async ({params}) => {
   const post = await getPost(params)
 
   return (
-    <div>{post.title}</div>
+    <PostDataContextProvider data={post}>
+      <PostView />
+    </PostDataContextProvider>
   )
 }
+
+export default PostViewPage
