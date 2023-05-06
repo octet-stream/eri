@@ -39,7 +39,8 @@ export const createSuper = procedure
     const user = orm.em.create(User, {...input, role: UserRoles.SUPER})
 
     await orm.em.persistAndFlush(user)
-    await ctx.res.revalidate("/auth/super") // Revalidate the page to block further access to it
+
+    ctx.revalidate("/auth/super") // Revalidate the page to block further access to it
 
     return user
   })

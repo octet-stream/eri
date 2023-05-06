@@ -52,7 +52,7 @@ test(
   withTRPC,
 
   async (t, trpc) => {
-    const page = await trpc.posts.all()
+    const page = await trpc.posts.list()
 
     t.is(page.pagesCount, 1)
     t.is(page.itemsCount, 50)
@@ -63,7 +63,7 @@ test(
 )
 
 test("Follows the limit parameter", withTRPC, async (t, trpc) => {
-  const page = await trpc.posts.all({
+  const page = await trpc.posts.list({
     limit: 10,
     cursor: 1
   })
@@ -77,7 +77,7 @@ test(
   withTRPC,
 
   async (t, trpc) => {
-    const page = await trpc.posts.all({
+    const page = await trpc.posts.list({
       limit: 10,
       cursor: 1
     })
@@ -92,7 +92,7 @@ test(
   withTRPC,
 
   async (t, trpc) => {
-    const page = await trpc.posts.all({
+    const page = await trpc.posts.list({
       limit: 10,
       cursor: 5
     })
@@ -107,7 +107,7 @@ test(
   withTRPC,
 
   async (t, trpc) => {
-    const page = await trpc.posts.all({
+    const page = await trpc.posts.list({
       limit: 10,
       cursor: 2
     })
