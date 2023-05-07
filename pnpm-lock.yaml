@@ -131,8 +131,8 @@ dependencies:
     specifier: 0.94.0
     version: 0.94.0(react-dom@18.2.0)(react@18.2.0)(slate@0.94.0)
   slate-to-react:
-    specifier: 0.9.0
-    version: 0.9.0(react@18.2.0)(slate-react@0.94.0)(slate@0.94.0)
+    specifier: 0.9.1
+    version: 0.9.1(react@18.2.0)(slate-react@0.94.0)(slate@0.94.0)
   superjson:
     specifier: 1.12.3
     version: 1.12.3
@@ -7752,7 +7752,7 @@ packages:
     resolution: {integrity: sha512-E398TUmfAYFPBSdzgeieK2Y1+1cpdxJx8yXbK/m57nRhKSmk1GB2tO4lbLBtlkfPQTDKfe4Xqv1ASWPpayPEig==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
-      nanoid: 3.3.6
+      nanoid: 3.3.4
       picocolors: 1.0.0
       source-map-js: 1.0.2
     dev: false
@@ -8431,8 +8431,8 @@ packages:
       tiny-invariant: 1.0.6
     dev: false
 
-  /slate-to-react@0.9.0(react@18.2.0)(slate-react@0.94.0)(slate@0.94.0):
-    resolution: {integrity: sha512-lTmrKfeh6mn5ZA9JVxsz7J9EopXH3VYxrIUAosF4FcP+qBfUcxwK7rE81RnPKEDzh6G0P835/RVL/VzW3h20Wg==}
+  /slate-to-react@0.9.1(react@18.2.0)(slate-react@0.94.0)(slate@0.94.0):
+    resolution: {integrity: sha512-NnkmAOq9oloz70E08s2KRkjKGp9GBvpolK1ue5ngOVSZnCE2H5m8qicgGI6okUtsqmjM//M/gpuscEkfjMHfxQ==}
     peerDependencies:
       react: 18.x
       slate: '>= 0.91.x || <= 0.94.x'
