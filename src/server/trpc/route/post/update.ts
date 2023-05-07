@@ -30,6 +30,7 @@ export const update = procedure
     await orm.em.flush()
 
     revalidate(`/post/${post.slug}`)
+    revalidate("/")
 
     return post
   })

@@ -17,6 +17,7 @@ export const create = procedure
     await orm.em.persistAndFlush(post)
 
     revalidate(`/post/${post.slug}`)
+    revalidate("/")
 
     return post
   })
