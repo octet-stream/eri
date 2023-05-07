@@ -6,12 +6,14 @@ import {getAlignentClass} from "server/lib/util/getAlignentClass"
 export const Heading = createElementTransform(
   isHeading,
 
-  ({element, attributes, children}) => (
+  ({key, element, attributes, children}) => (
     createElement(
       element.type,
 
       {
         ...attributes,
+
+        key,
 
         className: getAlignentClass(element.align)
       },
