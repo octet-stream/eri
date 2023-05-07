@@ -1,10 +1,10 @@
 import type {NextApiRequest} from "next"
 import {NextRequest} from "next/server"
 import {getToken} from "next-auth/jwt"
-import {TRPCError} from "@trpc/server"
 
 import {COOKIE_NAME_SESSION} from "app/api/auth/[...nextauth]/route"
 
+import {unauthorized} from "server/trpc/error/unauthorized"
 import {getORM} from "server/lib/db/orm"
 import {User} from "server/db/entity"
 
@@ -31,15 +31,14 @@ export const withAuthorization = withFetchCotext.unstable_pipe(
     })
 
     if (!token) {
-      throw new TRPCError({code: "UNAUTHORIZED"})
+      unauthorized()
     }
 
     const orm = await getORM()
-
     const user = await orm.em.findOne(User, {id: token.sub})
 
     if (!user) {
-      throw new TRPCError({code: "UNAUTHORIZED"})
+      unauthorized()
     }
 
     return next({ctx: {...ctx, token, user}})
