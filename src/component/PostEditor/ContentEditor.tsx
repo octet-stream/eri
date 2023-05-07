@@ -1,3 +1,5 @@
+"use client"
+
 import {Plate} from "@udecode/plate-core"
 import {ComponentProps} from "react"
 import type {FC} from "react"

@@ -118,6 +118,9 @@ dependencies:
   reflect-metadata:
     specifier: 0.1.13
     version: 0.1.13
+  set-cookie-parser:
+    specifier: ^2.6.0
+    version: 2.6.0
   slate:
     specifier: 0.94.0
     version: 0.94.0
@@ -192,6 +195,9 @@ devDependencies:
   '@types/react-dom':
     specifier: 18.2.4
     version: 18.2.4
+  '@types/set-cookie-parser':
+    specifier: ^2.4.2
+    version: 2.4.2
   '@types/sinon':
     specifier: 10.0.14
     version: 10.0.14
@@ -1616,6 +1622,12 @@ packages:
 
   /@types/semver@7.3.13:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
+    dev: true
+
+  /@types/set-cookie-parser@2.4.2:
+    resolution: {integrity: sha512-fBZgytwhYAUkj/jC/FAV4RQ5EerRup1YQsXQCh8rZfiHkc4UahC192oH0smGwsXol3cL3A5oETuAHeQHmhXM4w==}
+    dependencies:
+      '@types/node': 20.1.0
     dev: true
 
   /@types/sinon@10.0.14:
@@ -8224,6 +8236,10 @@ packages:
 
   /set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
+    dev: false
+
+  /set-cookie-parser@2.6.0:
+    resolution: {integrity: sha512-RVnVQxTXuerk653XfuliOxBP81Sf0+qfQE73LIYKcyMYHG94AuH0kgrQpRDuTZnSmjpysHmzxJXKNfa6PjFhyQ==}
     dev: false
 
   /set-harmonic-interval@1.0.1:

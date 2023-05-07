@@ -1,8 +1,10 @@
-import {Fragment, useState, useMemo} from "react"
+"use client"
+
+import {useState, useMemo} from "react"
 import {useEvent} from "react-use-event-hook"
 import type {FC} from "react"
 
-import Head from "next/head"
+import {useIsomorphicLayoutEffect} from "react-use"
 
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
@@ -62,6 +64,12 @@ export const PostEditor: FC<Props> = ({
 
   const pageTitle = useMemo<string>(() => title.trim() || "Untitled", [title])
 
+  useIsomorphicLayoutEffect(() => {
+    if (interactivePageTitle && typeof window !== "undefined") {
+      document.title = pageTitle
+    }
+  }, [interactivePageTitle, pageTitle])
+
   const isSubmittingDisabled = !title || isEditorContentEmpty(content)
 
   const onTitleChange = useEvent<TitleEditorOnChangeHandler>(
@@ -75,38 +83,30 @@ export const PostEditor: FC<Props> = ({
   const onSubmitClick = useEvent(() => onSave({title, content}))
 
   return (
-    <Fragment>
-      {interactivePageTitle && (
-        <Head>
-          <title>{pageTitle}</title>
-        </Head>
-      )}
+    <div className="w-full h-full flex flex-col relative">
+      <div className="flex flex-1 flex-col">
+        <TitleEditor value={title} onTitleChange={onTitleChange} />
 
-      <div className="w-full h-full flex flex-col relative">
-        <div className="flex flex-1 flex-col">
-          <TitleEditor value={title} onTitleChange={onTitleChange} />
-
-          <div>
-            <PostInfo>
-              {postInfo}
-            </PostInfo>
-          </div>
-
-          <ContentEditor value={content} onChange={onContentChange} />
+        <div>
+          <PostInfo>
+            {postInfo}
+          </PostInfo>
         </div>
 
-        <div className="flex justify-end mt-5">
-          <Button
-            type="button"
-            variant="primary"
-            color="brand"
-            disabled={isSubmittingDisabled}
-            onClick={onSubmitClick}
-          >
-            Publish
-          </Button>
-        </div>
+        <ContentEditor value={content} onChange={onContentChange} />
       </div>
-    </Fragment>
+
+      <div className="flex justify-end mt-5">
+        <Button
+          type="button"
+          variant="primary"
+          color="brand"
+          disabled={isSubmittingDisabled}
+          onClick={onSubmitClick}
+        >
+          Publish
+        </Button>
+      </div>
+    </div>
   )
 }

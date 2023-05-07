@@ -1,8 +1,8 @@
 import type {AFC} from "lib/type/AsyncFunctionComponent"
 import {PostsDataContextProvider} from "context/PostsDataContext"
 
-import {PostsView} from "./_/component/PostsView"
-import {getPosts} from "./_/loader/getPosts"
+import {PostsView} from "../_/component/PostsView"
+import {getPosts} from "../_/loader/getPosts"
 
 export const dynamic = "force-dynamic"
 

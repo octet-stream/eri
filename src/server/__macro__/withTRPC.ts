@@ -60,7 +60,7 @@ export const withTRPC = test.macro(async (t, fn: Implementation) => {
       secret: process.env.NEXTAUTH_SECRET
     })
 
-    headers.append("Set-Cookie", `${COOKIE_NAME_SESSION}=${token}`)
+    headers.append("cookie", `${COOKIE_NAME_SESSION}=${token}`)
   }
 
   const resHeaders = new Headers()

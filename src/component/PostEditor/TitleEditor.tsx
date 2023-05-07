@@ -1,3 +1,5 @@
+"use client"
+
 import type {FC, ChangeEventHandler, KeyboardEventHandler} from "react"
 import {useEvent} from "react-use-event-hook"
 
