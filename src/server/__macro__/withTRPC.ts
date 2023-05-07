@@ -3,6 +3,7 @@ import anyTest from "ava"
 import {RequestContext} from "@mikro-orm/core"
 import type {ImplementationFn, TestFn} from "ava"
 import type {MikroORM} from "@mikro-orm/core"
+import {NextRequest} from "next/server"
 import {encode} from "next-auth/jwt"
 
 import {getORM} from "server/lib/db/orm"
@@ -64,7 +65,7 @@ export const withTRPC = test.macro(async (t, fn: Implementation) => {
   }
 
   const resHeaders = new Headers()
-  const req = new Request(new URL("/api/trpc", serverAddress), {headers})
+  const req = new NextRequest(new URL("/api/trpc", serverAddress), {headers})
 
   const caller = router.createCaller({resHeaders, req})
 

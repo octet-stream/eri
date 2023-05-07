@@ -2,6 +2,10 @@ import type {
   FetchCreateContextFn,
   FetchCreateContextFnOptions
 } from "@trpc/server/adapters/fetch"
+import {NextRequest} from "next/server"
+
+import type {Simplify} from "lib/type/Simplify"
+import type {Replace} from "lib/type/Replace"
 
 import {User} from "server/db/entity/User"
 
@@ -9,7 +13,10 @@ import type {Router} from "./router"
 
 export interface Context { }
 
-export type FetchContext = Context & FetchCreateContextFnOptions
+export type FetchContext =
+  Simplify<Context & Replace<FetchCreateContextFnOptions, {
+    req: NextRequest
+  }>>
 
 export type AuthContext = Context & {
   user: User
