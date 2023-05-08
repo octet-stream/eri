@@ -1,7 +1,6 @@
 "use client"
 
 import {zodResolver} from "@hookform/resolvers/zod"
-import type {SubmitHandler} from "react-hook-form"
 import {useForm} from "react-hook-form"
 import {signIn} from "next-auth/react"
 import {toast} from "react-hot-toast"
@@ -19,13 +18,13 @@ const LoginPage: FC = () => {
     resolver: zodResolver(UserLoginInput)
   })
 
-  const submit: SubmitHandler<IUserLoginInput> = ({email, password}) => (
+  const submit = handleSubmit(({email, password}) => (
     signIn("credentials", {email, password, redirect: false})
       .catch(() => toast.error("Authentication failed"))
-  )
+  ))
 
   return (
-    <Form title="Login" submitLabel="Log in" onSubmit={handleSubmit(submit)}>
+    <Form title="Login" submitLabel="Log in" onSubmit={submit}>
       <Input
         {...register("email")}
 
