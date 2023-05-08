@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Title: FC<Props> = ({children}) => (
-  <div className="mb-6 text-2xl font-semibold text-center">
+  <div className="mb-6 text-2xl font-semibold text-center select-none">
     {children}
   </div>
 )

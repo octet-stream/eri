@@ -1,17 +1,51 @@
 "use client"
 
-import {FC} from "react"
+import {zodResolver} from "@hookform/resolvers/zod"
+import type {SubmitHandler} from "react-hook-form"
+import {useForm} from "react-hook-form"
+import {signIn} from "next-auth/react"
+import {toast} from "react-hot-toast"
+import type {FC} from "react"
 
-import {Title} from "../_/component/Title"
+import {UserLoginInput} from "server/trpc/type/input/UserLoginInput"
+import type {IUserLoginInput} from "server/trpc/type/input/UserLoginInput"
 
-const LoginPage: FC = () => (
-  <div className="w-full">
-    <Title>
-      Login
-    </Title>
+import {Input} from "component/Input"
 
-    <div>form</div>
-  </div>
-)
+import {Form} from "../_/component/Form"
+
+const LoginPage: FC = () => {
+  const {handleSubmit, register, formState} = useForm<IUserLoginInput>({
+    resolver: zodResolver(UserLoginInput)
+  })
+
+  const submit: SubmitHandler<IUserLoginInput> = ({email, password}) => (
+    signIn("credentials", {email, password, redirect: false})
+      .catch(() => toast.error("Authentication failed"))
+  )
+
+  return (
+    <Form title="Login" submitLabel="Log in" onSubmit={handleSubmit(submit)}>
+      <Input
+        {...register("email")}
+
+        autoFocus
+        className="w-full mb-2"
+        type="email"
+        placeholder="Email"
+        error={formState.errors.email}
+      />
+
+      <Input
+        {...register("password")}
+
+        className="w-full mb-2"
+        type="password"
+        placeholder="Password"
+        error={formState.errors.password}
+      />
+    </Form>
+  )
+}
 
 export default LoginPage
