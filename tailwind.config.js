@@ -13,22 +13,20 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        laptop
+        mobile,
+        laptop,
+        desktop
       },
       maxWidth: {
-        laptop
+        mobile,
+        laptop,
+        desktop
       }
     },
     screens: {
-      mobile: {
-        max: mobile
-      },
-      laptop: {
-        max: laptop
-      },
-      desktop: {
-        max: desktop
-      }
+      mobile,
+      laptop,
+      desktop
     }
   },
   plugins: [

@@ -11,7 +11,7 @@ import type {IUserLoginInput} from "server/trpc/type/input/UserLoginInput"
 
 import {Input} from "component/Input"
 
-import {Form} from "../_/component/Form"
+import {Form} from "../../_/component/Form"
 
 const LoginPage: FC = () => {
   const {handleSubmit, register, formState} = useForm<IUserLoginInput>({

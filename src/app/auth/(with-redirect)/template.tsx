@@ -6,6 +6,8 @@ import {options} from "app/api/auth/[...nextauth]/route"
 
 import type {AFC} from "lib/type/AsyncFunctionComponent"
 
+import {Layout} from "../_/component/Layout"
+
 interface Props {
   children: ReactNode
 }
@@ -17,9 +19,9 @@ const AuthLayout: AFC<Props> = async ({children}) => {
   }
 
   return (
-    <div className="flex w-72 m-auto">
+    <Layout>
       {children}
-    </div>
+    </Layout>
   )
 }
 
