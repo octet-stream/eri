@@ -1,4 +1,11 @@
+import type {Metadata} from "next"
 import type {FC} from "react"
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Page not found"
+  }
+}
 
 const NotFound: FC = () => (
   <div className="w-full mobile:w-mobile m-auto text-center select-none mobile:flex mobile:justify-center">
