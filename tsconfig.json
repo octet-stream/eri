@@ -30,6 +30,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "next-auth.d.ts",
     "env.d.ts",
     "**/*.ts",
     "**/*.tsx",

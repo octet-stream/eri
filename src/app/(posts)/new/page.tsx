@@ -14,7 +14,6 @@ import {PostEditor} from "component/PostEditor"
 
 const PostNewPage: FC = () => {
   const session = useServerSession()
-
   const router = useRouter()
 
   const onSave = useEvent<EditorOnSaveHandler>(data => (

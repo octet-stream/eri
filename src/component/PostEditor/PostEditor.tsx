@@ -1,11 +1,12 @@
 "use client"
 
-import {useState, useMemo} from "react"
 import {useEvent} from "react-use-event-hook"
+import {useState, useMemo} from "react"
 import type {FC} from "react"
 
 import {useIsomorphicLayoutEffect} from "react-use"
 
+import {useServerSession} from "lib/hook/useServerSession"
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
 import type {OUserOutput} from "server/trpc/type/output/UserOutput"
@@ -45,10 +46,10 @@ export const PostEditor: FC<Props> = ({
   data,
   onSave
 }) => {
-  const {author} = data
-
   const [title, setTitle] = useState(() => data.title || "")
   const [content, setContent] = useState<Value>(() => data.content || [])
+
+  const {user} = useServerSession()
 
   const postInfo = useMemo(
     () => [
@@ -56,10 +57,10 @@ export const PostEditor: FC<Props> = ({
 
       "by",
 
-      `@${author.login}`
+      `@${user.login}`
     ].join(" "),
 
-    [isNew, author.login]
+    [isNew, user.login]
   )
 
   const pageTitle = useMemo<string>(() => title.trim() || "Untitled", [title])

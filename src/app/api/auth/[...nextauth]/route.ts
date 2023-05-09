@@ -1,7 +1,6 @@
 import type {NextAuthOptions} from "next-auth"
 
 import NextAuth from "next-auth"
-import pickBy from "lodash/pickBy"
 
 import CredentialsProvider from "next-auth/providers/credentials"
 
@@ -10,6 +9,7 @@ import {serverAddress} from "lib/util/serverAddress"
 import {getORM} from "server/lib/db/orm"
 
 import {User} from "server/db/entity/User"
+import {UserOutput} from "server/trpc/type/output/UserOutput"
 
 const COOKIE_PREFIX = "eri"
 
@@ -120,15 +120,11 @@ export const options: NextAuthOptions = {
         disableIdentityMap: true
       })
 
-      // Expose additional props
-      session.user = pickBy({
-        ...session.user,
+      return {
+        ...session,
 
-        login: user.login,
-        role: user.role
-      }, Boolean)
-
-      return session
+        user: await UserOutput.parseAsync(user)
+      }
     }
   }
 }
