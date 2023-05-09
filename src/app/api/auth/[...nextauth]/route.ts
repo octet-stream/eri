@@ -104,10 +104,7 @@ export const options: NextAuthOptions = {
           throw new Error("Invalid password.")
         }
 
-        return {
-          id: user.id,
-          email: user.email
-        }
+        return UserOutput.parseAsync(user)
       }
     })
   ],
