@@ -5,7 +5,6 @@ import {
 } from "server/trpc/type/input/UserCreateSuperInput"
 import {UserOutput} from "server/trpc/type/output/UserOutput"
 import {User, UserRoles} from "server/db/entity/User"
-import {getORM} from "server/lib/db/orm"
 
 import {procedure} from "server/trpc/procedure/server"
 
@@ -16,9 +15,7 @@ import {procedure} from "server/trpc/procedure/server"
 export const createSuper = procedure
   .input(UserCreateSuperInput)
   .output(UserOutput)
-  .mutation(async ({input, ctx}) => {
-    const orm = await getORM()
-
+  .mutation(async ({input, ctx: {orm, revalidate}}) => {
     const existent = await orm.em.findOne(
       User,
 
@@ -40,7 +37,7 @@ export const createSuper = procedure
 
     await orm.em.persistAndFlush(user)
 
-    ctx.revalidate("/auth/super") // Revalidate the page to block further access to it
+    revalidate("/auth/super") // Revalidate the page to block further access to it
 
     return user
   })
