@@ -113,7 +113,6 @@ export const options: NextAuthOptions = {
       const orm = await getORM()
 
       const user = await orm.em.findOneOrFail(User, {id: token.sub}, {
-        fields: ["id", "login", "role"],
         disableIdentityMap: true
       })
 

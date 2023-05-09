@@ -6,7 +6,6 @@ import type {FC} from "react"
 
 import {useIsomorphicLayoutEffect} from "react-use"
 
-import {useServerSession} from "lib/hook/useServerSession"
 import {isEditorContentEmpty} from "lib/util/isEditorContentEmpty"
 
 import type {OUserOutput} from "server/trpc/type/output/UserOutput"
@@ -49,18 +48,16 @@ export const PostEditor: FC<Props> = ({
   const [title, setTitle] = useState(() => data.title || "")
   const [content, setContent] = useState<Value>(() => data.content || [])
 
-  const {user} = useServerSession()
-
   const postInfo = useMemo(
     () => [
       isNew ? "A new post" : "Published",
 
       "by",
 
-      `@${user.login}`
+      `@${data.author.login}`
     ].join(" "),
 
-    [isNew, user.login]
+    [isNew, data.author.login]
   )
 
   const pageTitle = useMemo<string>(() => title.trim() || "Untitled", [title])
