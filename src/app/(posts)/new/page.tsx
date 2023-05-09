@@ -1,25 +1,36 @@
-import type {Metadata} from "next"
+"use client"
 
-import type {AFC} from "lib/type/AsyncFunctionComponent"
+import {useEvent} from "react-use-event-hook"
+import {useRouter} from "next/navigation"
+import {toast} from "react-hot-toast"
+import type {FC} from "react"
+
+import {client} from "lib/trpc/client"
 import {OUserOutput} from "server/trpc/type/output/UserOutput"
-import {getSession} from "lib/util/getSession"
+import {useServerSession} from "lib/hook/useServerSession"
 
-import {Editor} from "./_/component/Editor"
+import type {EditorOnSaveHandler} from "component/PostEditor"
+import {PostEditor} from "component/PostEditor"
 
-export const dynamic = "force-dynamic"
+const PostNewPage: FC = () => {
+  const session = useServerSession()
 
-export const metadata: Metadata = {
-  title: {
-    absolute: "Untitled"
-  }
-}
+  const router = useRouter()
 
-const PostNewPage: AFC = async () => {
-  const session = await getSession("/auth/login")
+  const onSave = useEvent<EditorOnSaveHandler>(data => (
+    client.post.create.mutate(data)
+      .then(({slug}) => router.replace(`/post/${slug}`))
+      .catch(error => {
+        toast.error("Can't create a new post.")
+        console.error(error)
+      })
+  ))
 
   return (
-    <Editor
-      author={session!.user as Pick<OUserOutput, "login">}
+    <PostEditor
+      isNew
+      data={{author: session.user! as OUserOutput}}
+      onSave={onSave}
     />
   )
 }

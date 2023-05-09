@@ -16,7 +16,7 @@ export interface Params {
   name: string
 }
 
-interface Props {
+export interface Props {
   params: Params
 }
 

@@ -1,3 +1,5 @@
+"use client"
+
 import {useImperativeHandle, forwardRef} from "react"
 import type {ComponentPropsWithoutRef} from "react"
 

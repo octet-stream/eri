@@ -1,28 +1,28 @@
 "use client"
 
-import type {FC} from "react"
-import {toast} from "react-hot-toast"
-import {useRouter} from "next/navigation"
 import {useEvent} from "react-use-event-hook"
+import {useRouter} from "next/navigation"
+import {toast} from "react-hot-toast"
+import type {FC} from "react"
 
-import type {OUserOutput} from "server/trpc/type/output/UserOutput"
+import {client} from "lib/trpc/client"
 
 import type {EditorOnSaveHandler} from "component/PostEditor"
 import {PostEditor} from "component/PostEditor"
-import {client} from "lib/trpc/client"
 
-interface Props {
-  author: Pick<OUserOutput, "login">
-}
+import {usePostData} from "context/PostDataContext"
 
-export const Editor: FC<Props> = ({author}) => {
+export const dynamic = "force-dynamic"
+
+const PostEditPage: FC = () => {
+  const post = usePostData()
   const router = useRouter()
 
   const onSave = useEvent<EditorOnSaveHandler>(data => (
-    client.post.create.mutate(data)
+    client.post.update.mutate({...data, id: post.id})
       .then(({slug}) => router.replace(`/post/${slug}`))
       .catch(error => {
-        toast.error("Can't create a new post.")
+        toast.error("Can't update this post.")
         console.error(error)
       })
   ))
@@ -30,8 +30,10 @@ export const Editor: FC<Props> = ({author}) => {
   return (
     <PostEditor
       isNew
-      data={{author}}
+      data={post}
       onSave={onSave}
     />
   )
 }
+
+export default PostEditPage
