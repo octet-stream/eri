@@ -29,7 +29,6 @@ const PostEditPage: FC = () => {
 
   return (
     <PostEditor
-      isNew
       data={post}
       onSave={onSave}
     />
