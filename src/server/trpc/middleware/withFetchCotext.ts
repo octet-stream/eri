@@ -11,7 +11,7 @@ export const withFetchCotext = withRevalidate.unstable_pipe(({ctx, next}) => {
   if (!isFetchContext(ctx)) {
     throw new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
-      message: "SSRContext required for this operation"
+      message: "FetchContext required for this operation"
     })
   }
 
