@@ -19,6 +19,9 @@ function getCookies(request: NextRequest): Record<string, string> {
   return Object.fromEntries(cookies)
 }
 
+/**
+ * Checks whether user associated with the request is authorized. Throws `401` error if not
+ */
 export const withAuthorization = withFetchCotext.unstable_pipe(
   async ({ctx, next}) => {
     // Get token from cookies. Patch `req` to get this function work with fetch.Headers

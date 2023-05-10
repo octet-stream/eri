@@ -34,14 +34,25 @@ export type GlobalContext =
   | AuthContext
   | TRPCCallerContext
 
+/**
+ * Checks whether current context has `req` and `resHeaders` fields.
+ * This indicated that procedure is being called within HTTP request context
+ */
 export const isFetchContext = (
   ctx: GlobalContext
 ): ctx is FetchContext => !!("req" in ctx && "resHeaders" in ctx)
 
+/**
+ * Checks whether `TRPC_CALLER_CONTEXT_KEY` key is present.
+ * This indicates that procedure being called using `createCaller` (the one exposed from `lib/trpc/server.ts` module)
+ */
 export const isTRPCCallerContext = (
   ctx: GlobalContext
 ): ctx is TRPCCallerContext => TRPC_CALLER_CONTEXT_KEY in ctx
 
+/**
+ * Creates context for procedue call
+ */
 export const createContext: FetchCreateContextFn<Router> = (
   ctx
 ): GlobalContext => isFetchContext(ctx) ? ctx : {}
