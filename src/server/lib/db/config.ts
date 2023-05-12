@@ -16,6 +16,23 @@ import {
 
 const DB_ROOT = resolve("db")
 
+const ConnectionPassword = z
+  .string()
+  .nonempty()
+  .optional()
+  .superRefine((value, ctx): value is string => {
+    if (process.env.NODE_ENV !== "test" && value == null) {
+      ctx.addIssue({
+        code: "invalid_type",
+        expected: "string",
+        received: "undefined",
+        message: "Password is required for connection user"
+      })
+    }
+
+    return z.NEVER
+  })
+
 const ConnectionPortString = z.string().optional()
   .superRefine((value, ctx) => {
     if (value && /^[0-9]+$/.test(value) === false) {
@@ -27,10 +44,14 @@ const ConnectionPortString = z.string().optional()
   })
   .transform(port => port ? parseInt(port, 10) : undefined)
 
+const ConnectionPort = z.union([ConnectionPortString, z.number()]).optional()
+
 const ConnectionConfig = z.object({
-  dbName: z.string().regex(/^[a-z0-9-_]+$/i),
-  host: z.string().optional(),
-  port: z.union([ConnectionPortString, z.number()]).optional(),
+  dbName: z.string().nonempty().regex(/^[a-z0-9-_]+$/i),
+  user: z.string().nonempty(),
+  password: ConnectionPassword,
+  host: z.string().nonempty().optional(),
+  port: ConnectionPort,
   debug: z.union([
     z.literal("development"),
     z.literal("production"),
@@ -39,17 +60,28 @@ const ConnectionConfig = z.object({
 })
 
 export const getConfig = async () => {
-  const {host, port, dbName, debug} = await ConnectionConfig.parseAsync({
+  const {
+    host,
+    port,
+    user,
+    password,
+    dbName,
+    debug
+  } = await ConnectionConfig.parseAsync({
     dbName: process.env.MIKRO_ORM_DB_NAME,
     host: process.env.MIKRO_ORM_HOST,
     port: process.env.MIKRO_ORM_PORT,
+    user: process.env.MIKRO_ORM_USER,
+    password: process.env.MIKRO_ORM_PASSWORD,
     debug: process.env.NODE_ENV
-  })
+  } as z.input<typeof ConnectionConfig>)
 
   return defineConfig({
     dbName,
     host,
     port,
+    user,
+    password,
     debug,
 
     implicitTransactions: true,

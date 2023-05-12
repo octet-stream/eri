@@ -3,7 +3,7 @@
 
 import "reflect-metadata"
 
-import type {EntityManager} from "@mikro-orm/mysql"
+import type {EntityManager, Options} from "@mikro-orm/mysql"
 import {MikroORM} from "@mikro-orm/mysql"
 
 import {getConfig} from "./config"
@@ -20,8 +20,15 @@ interface WithORM {
 const globalObject = globalThis as typeof globalThis & WithORM
 
 /**
+ * Creates a new MikroORM instance with given options
+ */
+export const createORM = (
+  options: Options
+): Promise<MikroORM> => MikroORM.init(options)
+
+/**
  * Returns MikroORM instance.
- * Creates the new if one does not exists, then caches it.
+ * Creates the new if one does not exists, then caches it
  */
 export function getORM(): Promise<MikroORM> {
   // Return cached orm initialization to deduplicate unnecessary connections (when page or layout requests run concurrently)
@@ -32,7 +39,7 @@ export function getORM(): Promise<MikroORM> {
   // If no MikroORM instance is cached, initialize new ORM and cache its initialization Promise.
   if (!globalObject.__CACHED_ORM__) {
     globalObject.__CACHED_ORM_PROMISE__ = getConfig()
-      .then(config => MikroORM.init(config))
+      .then(config => createORM(config))
       .then(orm => {
         globalObject.__CACHED_ORM_PROMISE__ = undefined // Remove initialization promise
         globalObject.__CACHED_ORM__ = orm // Cache ORM instance
@@ -55,7 +62,7 @@ export async function forkEntityManager(): Promise<EntityManager> {
 /**
  * Runs given function with isolated EntityManager, created with `em.fork()`.
  *
- * Returns the result of the function and cleans that `em`.
+ * Returns the result of the function and cleans that `em`
  *
  * @param fn
  */

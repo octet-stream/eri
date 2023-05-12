@@ -1,12 +1,26 @@
+import type {Options} from "@mikro-orm/mysql"
 import {customAlphabet} from "nanoid/async"
 import {urlAlphabet} from "nanoid"
 
 import mysql from "mysql2/promise"
 
-import {getORM} from "server/lib/db/orm"
+import {createORM} from "server/lib/db/orm"
+import {getConfig} from "server/lib/db/config"
 
 const alphanum = urlAlphabet.replace(/[^a-z0-9]/gi, "")
 const createDatabaseNameSuffix = customAlphabet(alphanum, 21)
+
+const getTestConfig = async (): Promise<Options> => {
+  // TODO: Share config using test context
+  const config = await getConfig()
+
+  config.dbName = `${config.dbName}__test__${await createDatabaseNameSuffix()}`
+
+  // @ts-expect-error Override db name so we can pass it to getORM in tests
+  process.env.MIKRO_ORM_DB_NAME = config.dbName
+
+  return config
+}
 
 /**
  * Creates a new MySQL connection using mysql2 driver.
@@ -14,31 +28,29 @@ const createDatabaseNameSuffix = customAlphabet(alphanum, 21)
  * **Important**: this function requires a user with database management access.
  * You'll probably gonna need to create a user that can manage databases with names starting with eri-test__ name
  */
-const createNativeConnection = () => mysql.createConnection({
-  port: parseInt(process.env.MIKRO_ORM_PORT!, 10) || undefined,
-  user: process.env.MIKRO_ORM_USER
+const createNativeConnection = (options: Options) => mysql.createConnection({
+  port: options.port,
+  user: options.user
 })
 
 export const setup = async () => {
-  const name = `eri-test__${await createDatabaseNameSuffix()}`
+  const config = await getTestConfig()
+  const connection = await createNativeConnection(config)
 
-  // @ts-expect-error This normally should not be overriten by hand, but its allowed for tests.
-  process.env.MIKRO_ORM_DB_NAME = name
-
-  const connection = await createNativeConnection()
-
-  await connection.query(`CREATE DATABASE IF NOT EXISTS \`${name}\``)
+  await connection.query(`CREATE DATABASE IF NOT EXISTS \`${config.dbName}\``)
   await connection.end()
 
-  const orm = await getORM()
+  const orm = await createORM(config)
 
   const generator = orm.getSchemaGenerator()
 
   await generator.createSchema()
+  await orm.close()
 }
 
 export const cleanup = async () => {
-  const orm = await getORM()
+  const config = await getConfig()
+  const orm = await createORM(config)
   const generator = orm.getSchemaGenerator()
 
   if (await orm.isConnected()) {
