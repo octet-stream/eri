@@ -1,4 +1,3 @@
-import type {input, output} from "zod"
 import {z} from "zod"
 
 import {Record} from "server/trpc/type/common/Record"
@@ -14,6 +13,6 @@ export const PostBaseOutput = Record.extend({
   })
 })
 
-export type IPostBaseOutput = input<typeof PostBaseOutput>
+export type IPostBaseOutput = z.input<typeof PostBaseOutput>
 
-export type OPostBaseOutput = output<typeof PostBaseOutput>
+export type OPostBaseOutput = z.output<typeof PostBaseOutput>

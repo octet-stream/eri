@@ -1,4 +1,4 @@
-import type {input, output, RefinementCtx} from "zod"
+import type {RefinementCtx} from "zod"
 import {z, ZodIssueCode} from "zod"
 
 import isString from "lodash/isString"
@@ -61,6 +61,6 @@ export const Slug = z
     return `${slug.date}/${slug.name}`
   })
 
-export type ISlug = input<typeof Slug>
+export type ISlug = z.input<typeof Slug>
 
-export type OSlug = output<typeof Slug>
+export type OSlug = z.output<typeof Slug>

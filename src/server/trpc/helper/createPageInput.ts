@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/indent */
 
-import type {ZodObject, ZodRawShape, input, output} from "zod"
+import type {ZodObject, ZodRawShape} from "zod"
 import {z} from "zod"
 
 import type {MaybeNull} from "lib/type/MaybeNull"
@@ -17,7 +17,7 @@ const defaults: Required<CreatePageInputOptions> = {
 
 type PageOutput<T extends ZodRawShape = never> = [T] extends [never]
   ? {args: PageArgs}
-  : {args: PageArgs} & output<ZodObject<T>>
+  : {args: PageArgs} & z.output<ZodObject<T>>
 
 /**
  * Creates PageInput type with given `maxLimit` option
@@ -64,6 +64,6 @@ export function createPageInput<T extends ZodRawShape = never>(
  */
 export const DefaultPageInput = createPageInput({maxLimit: 50})
 
-export type IDefaultPageInput = input<typeof DefaultPageInput>
+export type IDefaultPageInput = z.input<typeof DefaultPageInput>
 
-export type ODefaultPageInput = output<typeof DefaultPageInput>
+export type ODefaultPageInput = z.output<typeof DefaultPageInput>

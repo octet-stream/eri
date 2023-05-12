@@ -1,4 +1,3 @@
-import type {input, output} from "zod"
 import {z} from "zod"
 
 import {EditorData} from "server/trpc/type/common/EditorData"
@@ -8,6 +7,6 @@ export const PostCreateInput = z.object({
   content: EditorData
 })
 
-export type IPostCreateInput = input<typeof PostCreateInput>
+export type IPostCreateInput = z.input<typeof PostCreateInput>
 
-export type OPostCreateInput = output<typeof PostCreateInput>
+export type OPostCreateInput = z.output<typeof PostCreateInput>

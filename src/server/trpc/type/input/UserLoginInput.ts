@@ -1,4 +1,3 @@
-import type {input, output} from "zod"
 import {z} from "zod"
 
 export const UserLoginInput = z.object({
@@ -6,6 +5,6 @@ export const UserLoginInput = z.object({
   password: z.string()
 })
 
-export type IUserLoginInput = input<typeof UserLoginInput>
+export type IUserLoginInput = z.input<typeof UserLoginInput>
 
-export type OUserLoginInput = output<typeof UserLoginInput>
+export type OUserLoginInput = z.output<typeof UserLoginInput>

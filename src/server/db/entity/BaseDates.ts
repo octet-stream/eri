@@ -1,8 +1,8 @@
 import {Entity, Property} from "@mikro-orm/core"
 
-import {Base} from "./Base"
+import type {PickKeys} from "lib/type/PickKeys"
 
-export type OptionalDates = "createdAt" | "updatedAt"
+import {Base} from "./Base"
 
 @Entity({abstract: true})
 export abstract class BaseDates extends Base {
@@ -18,3 +18,5 @@ export abstract class BaseDates extends Base {
   @Property({onUpdate: () => new Date()})
   readonly updatedAt: Date = new Date()
 }
+
+export type OptionalDates = PickKeys<BaseDates, "createdAt" | "updatedAt">

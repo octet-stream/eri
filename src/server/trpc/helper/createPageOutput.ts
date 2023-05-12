@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 
 import {z} from "zod"
-import type {ZodObject, ZodRawShape, input, output} from "zod"
+import type {ZodObject, ZodRawShape} from "zod"
 
 import {createPageInput, DefaultPageInput} from "./createPageInput"
 import {Page} from "./Page"
@@ -29,6 +29,6 @@ export const DefaultPageOutput = createPageOutput(
   DefaultPageInput
 )
 
-export type IDefaultPageOutput = input<typeof DefaultPageOutput>
+export type IDefaultPageOutput = z.input<typeof DefaultPageOutput>
 
-export type ODefaultPageOutput = output<typeof DefaultPageOutput>
+export type ODefaultPageOutput = z.output<typeof DefaultPageOutput>

@@ -1,4 +1,4 @@
-import type {input, output} from "zod"
+import type {z} from "zod"
 
 import {EditorData} from "server/trpc/type/common/EditorData"
 
@@ -8,6 +8,6 @@ export const PostOutput = PostBaseOutput.extend({
   content: EditorData
 })
 
-export type IPostOutput = input<typeof PostOutput>
+export type IPostOutput = z.input<typeof PostOutput>
 
-export type OPostOutput = output<typeof PostOutput>
+export type OPostOutput = z.output<typeof PostOutput>

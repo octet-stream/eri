@@ -1,14 +1,17 @@
+/* eslint-disable no-use-before-define */
+
 import {
   Entity,
   Property,
   Enum,
   OptionalProps
 } from "@mikro-orm/core"
-
 import {compare} from "bcrypt"
 
-import {BaseDates} from "./BaseDates"
+import type {PickKeys} from "lib/type/PickKeys"
+
 import type {OptionalDates} from "./BaseDates"
+import {BaseDates} from "./BaseDates"
 
 export enum UserRoles {
   SUPER = "super",
@@ -17,7 +20,7 @@ export enum UserRoles {
 
 @Entity()
 export class User extends BaseDates {
-  [OptionalProps]?: OptionalDates | "role"
+  [OptionalProps]?: PickKeys<User, OptionalDates | "role">
 
   /**
    * User unique login

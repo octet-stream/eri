@@ -1,4 +1,4 @@
-import type {input, output} from "zod"
+import type {z} from "zod"
 
 import {Node} from "./Node"
 import {DateTime} from "./DateTime"
@@ -8,6 +8,6 @@ export const Record = Node.extend({
   updatedAt: DateTime
 })
 
-export type IRecord = input<typeof Record>
+export type IRecord = z.input<typeof Record>
 
-export type ORecord = output<typeof Record>
+export type ORecord = z.output<typeof Record>

@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 import {
   Entity,
   Property,
@@ -6,15 +8,16 @@ import {
   JsonType
 } from "@mikro-orm/core"
 
-import type {OPostCreateInput} from "server/trpc/type/input/PostCreateInput"
+import type {PickKeys} from "lib/type/PickKeys"
 import type {OEditorData} from "server/trpc/type/common/EditorData"
+import type {OPostCreateInput} from "server/trpc/type/input/PostCreateInput"
 
 import {BaseDates, OptionalDates} from "./BaseDates"
 import {User} from "./User"
 
 @Entity()
 export class Post extends BaseDates implements OPostCreateInput {
-  [OptionalProps]?: OptionalDates | "slug"
+  [OptionalProps]?: PickKeys<Post, OptionalDates | "slug">
 
   /**
    * Post title

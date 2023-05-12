@@ -1,4 +1,4 @@
-import type {input, output} from "zod"
+import type {z} from "zod"
 
 import {createPageOutput} from "server/trpc/helper/createPageOutput"
 
@@ -8,6 +8,6 @@ import {PostBaseOutput} from "./PostBaseOutput"
 
 export const PostsPageOutput = createPageOutput(PostBaseOutput, PostsPageInput)
 
-export type IPostsPageOutput = input<typeof PostsPageOutput>
+export type IPostsPageOutput = z.input<typeof PostsPageOutput>
 
-export type OPostsPageOutput = output<typeof PostsPageOutput>
+export type OPostsPageOutput = z.output<typeof PostsPageOutput>
