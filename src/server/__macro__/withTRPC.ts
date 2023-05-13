@@ -64,10 +64,10 @@ export const withTRPC = test.macro(async (t, fn: Implementation) => {
     headers.append("cookie", `${COOKIE_NAME_SESSION}=${token}`)
   }
 
-  const resHeaders = new Headers()
   const req = new NextRequest(new URL("/api/trpc", serverAddress), {headers})
+  const resHeaders = new Headers()
 
-  const caller = router.createCaller({resHeaders, req})
+  const caller = router.createCaller({req, resHeaders})
 
   return RequestContext.createAsync(orm.em, async () => fn(t, caller, orm))
 })
