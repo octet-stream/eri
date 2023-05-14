@@ -1,3 +1,4 @@
+import {transformNodes} from "slate-to-react"
 import type {Metadata} from "next"
 
 import {Post} from "server/db/entity"
@@ -8,6 +9,7 @@ import {patchStaticParams} from "lib/util/patchStaticParams"
 
 import {PostDataContextProvider} from "context/PostDataContext"
 
+import {Paragraph, Heading, Link} from "./_/component/element"
 import {PostView} from "./_/component/PostView"
 import {getPost} from "./_/loader/getPost"
 
@@ -47,9 +49,18 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 const PostViewPage: AFC<Props> = async ({params}) => {
   const post = await getPost(params)
 
+  const content = transformNodes(post.content, {
+    strict: true,
+    transforms: {
+      elements: [Paragraph, Heading, Link]
+    }
+  })
+
   return (
     <PostDataContextProvider data={post}>
-      <PostView />
+      <PostView>
+        {content}
+      </PostView>
     </PostDataContextProvider>
   )
 }

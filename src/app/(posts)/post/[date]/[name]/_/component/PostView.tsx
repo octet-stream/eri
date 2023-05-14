@@ -1,16 +1,19 @@
+import type {FC, ReactElement} from "react"
 import {Fragment} from "react"
-import type {FC} from "react"
 
 import {PostTitle} from "./PostTitle"
-import {PostContent} from "./PostContent"
 import {PostDetails} from "./PostDetails"
 
-export const PostView: FC = () => (
+interface Props {
+  children: ReactElement
+}
+
+export const PostView: FC<Props> = ({children}) => (
   <Fragment>
     <PostTitle />
 
     <PostDetails />
 
-    <PostContent />
+    {children}
   </Fragment>
 )
