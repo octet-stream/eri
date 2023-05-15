@@ -25,7 +25,7 @@ interface CreatePageDataContextResult<T extends object> {
    * Returns page data from context.
    * Components will not react to the changes in this object, it meant for read-only
    */
-  usePageData(): T // FIXME: Make returned T type readonly (recursively)
+  usePageData(): T
 }
 
 /**
