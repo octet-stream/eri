@@ -4,12 +4,12 @@ import type {FC} from "react"
 import {useMemo} from "react"
 
 import {useIsomorphicFormatRelative} from "lib/hook/useIsomorphicFormatRelative"
-import {usePostData} from "context/PostDataContext"
+import {usePostViewData} from "context/PostViewDataContext"
 
 import {PostInfo} from "component/PostInfo"
 
 export const PostDetails: FC = () => {
-  const {createdAt, author} = usePostData()
+  const {createdAt, author} = usePostViewData()
 
   const date = useIsomorphicFormatRelative(createdAt)
 
