@@ -17,10 +17,11 @@ export const update = procedure
   .mutation(async ({input, ctx: {orm, user, revalidate}}) => {
     const {id, ...fields} = input
 
-    const post = await orm.em.findOneOrFail(Post, {id}, {
+    const post = await orm.em.findOneOrFail(Post, id, {
       failHandler: notFound
     })
 
+    // Only author can edit post, prohibit the action for others
     if (post.author.id !== user.id) {
       throw new TRPCError({code: "FORBIDDEN"})
     }
