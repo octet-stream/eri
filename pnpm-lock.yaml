@@ -174,6 +174,9 @@ devDependencies:
   '@types/bcrypt':
     specifier: 5.0.0
     version: 5.0.0
+  '@types/cookie':
+    specifier: ^0.5.1
+    version: 0.5.1
   '@types/is-hotkey':
     specifier: 0.1.7
     version: 0.1.7
@@ -219,6 +222,9 @@ devDependencies:
   c8:
     specifier: 7.13.0
     version: 7.13.0
+  cookie:
+    specifier: ^0.5.0
+    version: 0.5.0
   eslint:
     specifier: 8.40.0
     version: 8.40.0
@@ -1583,6 +1589,10 @@ packages:
       '@types/node': 20.1.0
       '@types/responselike': 1.0.0
     dev: false
+
+  /@types/cookie@0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
 
   /@types/hoist-non-react-statics@3.3.1:
     resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
@@ -4831,7 +4841,6 @@ packages:
   /cookie@0.5.0:
     resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
     engines: {node: '>= 0.6'}
-    dev: false
 
   /copy-anything@3.0.3:
     resolution: {integrity: sha512-fpW2W/BqEzqPp29QS+MwwfisHCQZtiduTe/m8idFo0xbti9fIZ2WVhAsCv4ggFVH3AgCkVdpoOCtQC6gBrdhjw==}

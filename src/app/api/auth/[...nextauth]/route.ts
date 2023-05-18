@@ -1,5 +1,5 @@
+import type {CookieSerializeOptions} from "cookie"
 import type {NextAuthOptions} from "next-auth"
-
 import NextAuth from "next-auth"
 
 import CredentialsProvider from "next-auth/providers/credentials"
@@ -15,7 +15,7 @@ const COOKIE_PREFIX = "eri"
 
 const getCookieName = (name: string) => `${COOKIE_PREFIX}.${name}`
 
-const getCookieOptions = () => ({
+export const getCookieOptions = (): CookieSerializeOptions => ({
   httpOnly: true,
   sameSite: "lax",
   path: "/",

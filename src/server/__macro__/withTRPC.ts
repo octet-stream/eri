@@ -13,7 +13,12 @@ import {User} from "server/db/entity"
 
 import {serverAddress} from "lib/util/serverAddress"
 
-import {COOKIE_NAME_SESSION} from "app/api/auth/[...nextauth]/route"
+import {
+  COOKIE_NAME_SESSION,
+  getCookieOptions
+} from "app/api/auth/[...nextauth]/route"
+
+import {chunk} from "../__helper__/cookie"
 
 export interface WithTRPCContext {
   /**
@@ -61,7 +66,15 @@ export const withTRPC = test.macro(async (t, fn: Implementation) => {
       secret: process.env.NEXTAUTH_SECRET
     })
 
-    headers.append("cookie", `${COOKIE_NAME_SESSION}=${token}`)
+    const coookies = chunk({
+      name: COOKIE_NAME_SESSION,
+      value: token,
+      options: getCookieOptions()
+    })
+
+    for (const {name, value} of coookies) {
+      headers.append("cookie", `${name}=${value}`)
+    }
   }
 
   const req = new NextRequest(new URL("/api/trpc", serverAddress), {headers})
