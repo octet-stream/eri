@@ -3,6 +3,7 @@ const config = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
+    typedRoutes: false, // TODO: Turn this on and refactor (some time in a future, surely will do that)
     serverComponentsExternalPackages: [
       "@mikro-orm/core",
       "@mikro-orm/mysql",

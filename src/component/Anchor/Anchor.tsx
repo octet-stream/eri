@@ -1,16 +1,19 @@
-import type {ComponentPropsWithoutRef} from "react"
+import type {UrlObject} from "node:url"
+
+import type {ComponentPropsWithoutRef, ComponentProps} from "react"
 import {forwardRef, useMemo} from "react"
 
-import Link from "next/link"
 import cn from "clsx"
+import Link from "next/link"
 
 import {isInternalUrl} from "lib/util/isInternalUrl"
+import type {Replace} from "lib/type/Replace"
 
 import {ExternalAnchor} from "./ExternalAnchor"
 
-interface Props extends ComponentPropsWithoutRef<"a"> {
-  href: string
-}
+type Props = Replace<ComponentPropsWithoutRef<"a">, {
+  href: Exclude<ComponentProps<typeof Link>["href"], UrlObject> | string
+}>
 
 /**
  * Abstract Anchor component.
@@ -37,13 +40,14 @@ interface Props extends ComponentPropsWithoutRef<"a"> {
  */
 export const Anchor = forwardRef<HTMLAnchorElement, Props>(({
   className,
+  href,
 
   ...props
 }, ref) => {
   const LinkCompoent = useMemo(
-    () => isInternalUrl(props.href) ? Link : ExternalAnchor,
+    () => isInternalUrl(href) ? Link : ExternalAnchor,
 
-    [props.href]
+    [href]
   )
 
   return (
@@ -51,6 +55,7 @@ export const Anchor = forwardRef<HTMLAnchorElement, Props>(({
       {...props}
 
       ref={ref}
+      href={href as any}
       className={cn("text-violet-500 dark:text-violet-400 no-underline hover:underline", className)}
     />
   )

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import type {RefinementCtx} from "zod"
 import {z, ZodIssueCode} from "zod"
 
@@ -47,15 +48,19 @@ export const SlugString = z.string().superRefine((slug, ctx) => {
   validateName(name, ctx)
 })
 
+type FormattedSlugOutput = `${string}/${string}`
+
 export const Slug = z
   .union([SlugObject, SlugTuple, SlugString])
-  .transform(slug => {
+  .transform<FormattedSlugOutput>(slug => {
     if (isString(slug)) {
-      return slug
+      return slug as FormattedSlugOutput
     }
 
     if (isArray(slug)) {
-      return slug.join("/")
+      const [date, name] = slug
+
+      return `${date}/${name}`
     }
 
     return `${slug.date}/${slug.name}`
