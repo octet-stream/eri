@@ -19,12 +19,12 @@ export function* chunk(cookie: Cookie): Generator<Cookie, void> {
   const decoder = new TextDecoder()
 
   const value = encoder.encode(cookie.value)
-  const COOKIE_SIZE = encoder
+  const cookieSize = encoder
     .encode(serialize(cookie.name, cookie.value, cookie.options))
     .byteLength
 
-  // If the whole cookie size is within CHUNK_SIZE, just return it as is
-  if (COOKIE_SIZE <= MAX_COOKIE_SIZE) {
+  // If the whole cookie size is within MAX_COOKIE_SIZE, just return it as is
+  if (cookieSize <= MAX_COOKIE_SIZE) {
     yield cookie
 
     return
@@ -33,16 +33,13 @@ export function* chunk(cookie: Cookie): Generator<Cookie, void> {
   // Need to test this code
   let chunkNumber = 0
   let offset = value.byteOffset
-  while (offset < COOKIE_SIZE) {
+  while (offset < cookieSize) {
     const name = `${cookie.name}.${chunkNumber++}`
-    const EMPTY_COOKIE_SIZE = getEmptyCookieSize(name, cookie.options)
-    const CHUNK_SIZE = MAX_COOKIE_SIZE - EMPTY_COOKIE_SIZE
+    const emptyCookieSize = getEmptyCookieSize(name, cookie.options)
+    const chunkSize = MAX_COOKIE_SIZE - emptyCookieSize
+    const size = Math.min(cookieSize - offset, chunkSize)
 
-    const chunk = value.buffer.slice(
-      offset,
-
-      Math.min(COOKIE_SIZE - offset, CHUNK_SIZE)
-    )
+    const chunk = value.buffer.slice(offset, offset + size)
 
     yield {...cookie, name, value: decoder.decode(chunk)}
 
