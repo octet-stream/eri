@@ -22,7 +22,7 @@ const Response = z.object({ok: z.literal(true)})
 const handler: NextApiHandler<z.output<typeof Response>> = async (req, res) => {
   const {url} = await Query.parseAsync(req.query)
 
-  await res.revalidate(url, {unstable_onlyGenerated: true})
+  await res.revalidate(new URL(url).pathname, {unstable_onlyGenerated: true})
 
   res.json(await Response.parseAsync({ok: true}))
 }
