@@ -8,7 +8,8 @@ const config = {
       "@mikro-orm/core",
       "@mikro-orm/mysql",
       "@mikro-orm/migrations",
-      "@mikro-orm/seeder"
+      "@mikro-orm/seeder",
+      "got"
     ]
   }
 }
