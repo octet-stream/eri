@@ -9,6 +9,8 @@ const Response = z.object({ok: z.literal(true)})
 
 const handler: NextApiHandler<z.output<typeof Response>> = async (req, res) => {
   const {path} = await RevalidateParams.parseAsync({
+    ...req.query,
+
     path: isString(req.query.path)
       ? decodeURIComponent(req.query.path)
       : undefined
