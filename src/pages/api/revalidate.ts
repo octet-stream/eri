@@ -1,28 +1,20 @@
 import type {NextApiHandler} from "next"
-import {z, ZodIssueCode} from "zod"
+import {z} from "zod"
 
-import isURL from "validator/lib/isURL"
+import isString from "lodash/isString"
 
-import {serverAddress} from "lib/util/serverAddress"
-
-const Query = z.object({
-  url: z.string().superRefine((value, ctx) => {
-    if (isURL(new URL(value, serverAddress).href)) {
-      ctx.addIssue({
-        code: ZodIssueCode.invalid_string,
-        validation: "url",
-        message: "Invalid URL"
-      })
-    }
-  })
-})
+import {RevalidateParams} from "server/lib/util/legacyRevalidate"
 
 const Response = z.object({ok: z.literal(true)})
 
 const handler: NextApiHandler<z.output<typeof Response>> = async (req, res) => {
-  const {url} = await Query.parseAsync(req.query)
+  const {path} = await RevalidateParams.parseAsync({
+    path: isString(req.query.path)
+      ? decodeURIComponent(req.query.path)
+      : undefined
+  })
 
-  await res.revalidate(new URL(url).pathname, {unstable_onlyGenerated: true})
+  await res.revalidate(path, {unstable_onlyGenerated: true})
 
   res.json(await Response.parseAsync({ok: true}))
 }
