@@ -7,8 +7,6 @@ import {NextRequest} from "next/server"
 import type {Simplify} from "lib/type/Simplify"
 import type {Replace} from "lib/type/Replace"
 
-import {User} from "server/db/entity/User"
-
 import type {Router} from "./router"
 
 export interface Context { }
@@ -17,10 +15,6 @@ export type FetchContext =
   Simplify<Context & Replace<FetchCreateContextFnOptions, {
     req: NextRequest
   }>>
-
-export type AuthContext = Context & {
-  user: User
-}
 
 export const TRPC_CALLER_CONTEXT_KEY = "__$$TRPC_CALLER_CONTEXT_KEY$$__"
 
@@ -31,8 +25,6 @@ export interface TRPCCallerContext {
 export type GlobalContext =
   | Context
   | FetchContext
-  | AuthContext
-  | TRPCCallerContext
 
 /**
  * Checks whether current context has `req` and `resHeaders` fields.
