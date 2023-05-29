@@ -37,7 +37,7 @@ export const createSuper = procedure
 
     await orm.em.persistAndFlush(user)
 
-    await revalidate("/auth/super") // Revalidate the page to block further access to it
+    await revalidate("/admin") // Revalidate the page to block further access to it
 
     return user
   })

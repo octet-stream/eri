@@ -16,11 +16,11 @@ import {
   UserCreateSuperInput
 } from "server/trpc/type/input/UserCreateSuperInput"
 
+import {Form} from "app/admin/_/component/Auth/Form"
+
 import {Input} from "component/Input"
 
-import {Form} from "../_/component/Form"
-
-const SuperPage: FC = () => {
+const AdminSignupPage: FC = () => {
   const router = useRouter()
 
   const {register, handleSubmit, formState} = useForm<OUserCreateSuperInput>({
@@ -38,7 +38,7 @@ const SuperPage: FC = () => {
   ))
 
   return (
-    <Form title="Create super user" onSubmit={submit}>
+    <Form title="Admin signup" onSubmit={submit}>
       <Input
         {...register("email")}
 
@@ -70,4 +70,4 @@ const SuperPage: FC = () => {
   )
 }
 
-export default SuperPage
+export default AdminSignupPage
