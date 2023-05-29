@@ -1,4 +1,5 @@
 import type {ReactElement} from "react"
+import type {Metadata} from "next"
 
 import type {AFC} from "lib/type/AsyncFunctionComponent"
 
@@ -8,6 +9,10 @@ import {getORM} from "server/lib/db/orm"
 interface Props {
   admin: ReactElement
   signup: ReactElement
+}
+
+export const metadata: Metadata = {
+  title: "Admin"
 }
 
 const AdminRootLayout: AFC<Props> = async ({admin, signup}) => {

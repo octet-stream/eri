@@ -6,10 +6,10 @@ interface Props {
   children: ReactElement
 }
 
-const AdminSignupLayout: FC<Props> = ({children}) => (
+const AdminLoginLayout: FC<Props> = ({children}) => (
   <AuthLayout>
     {children}
   </AuthLayout>
 )
 
-export default AdminSignupLayout
+export default AdminLoginLayout
