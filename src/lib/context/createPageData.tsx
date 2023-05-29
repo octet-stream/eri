@@ -5,44 +5,44 @@ import type {FC, ReactNode, Context} from "react"
 
 import {MaybeUndefined} from "lib/type/MaybeUndefined"
 
-interface ProviderProps<T extends object> {
-  data: T
+interface ProviderProps<TData> {
+  data: TData
   children: ReactNode
 }
 
-interface CreatePageDataContextResult<T extends object> {
+interface CreatePageDataContextResult<TData> {
   /**
    * Plain `StateContext` object. Typically you won't need to use it directly.
    */
-  StateContext: Context<MaybeUndefined<T>>
+  StateContext: Context<MaybeUndefined<TData>>
 
   /**
    * Wraps its child components into the `StateContext`. Creates `valtio` state object for given `data` property.
    */
-  StateContextProvider: FC<ProviderProps<T>>
+  StateContextProvider: FC<ProviderProps<TData>>
 
   /**
    * Returns page data from context.
    * Components will not react to the changes in this object, it meant for read-only
    */
-  usePageData(): T
+  usePageData(): TData
 }
 
 /**
  * Creates `valtio` state object with `React.createContext`, and bunch of utilities to get access this state from within the context.
  */
 export const createPageDataContext = <
-  T extends object
->(): CreatePageDataContextResult<T> => {
-  const StateContext = createContext<MaybeUndefined<T>>(undefined)
+  TData,
+>(): CreatePageDataContextResult<TData> => {
+  const StateContext = createContext<MaybeUndefined<TData>>(undefined)
 
-  const StateContextProvider: FC<ProviderProps<T>> = ({data, children}) => (
+  const StateContextProvider: FC<ProviderProps<TData>> = ({data, children}) => (
     <StateContext.Provider value={data}>
       {children}
     </StateContext.Provider>
   )
 
-  function usePageData(): T {
+  function usePageData(): TData {
     const proxy = useContext(StateContext)
 
     if (!proxy) {
