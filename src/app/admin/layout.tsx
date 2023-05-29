@@ -19,7 +19,8 @@ const AdminRootLayout: AFC<Props> = async ({admin, signup}) => {
   const orm = await getORM()
 
   const user = await orm.em.findOne(User, {role: UserRoles.SUPER}, {
-    disableIdentityMap: true
+    disableIdentityMap: true,
+    fields: ["id"]
   })
 
   return user ? admin : signup
