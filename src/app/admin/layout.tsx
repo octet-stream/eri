@@ -13,7 +13,6 @@ interface Props {
 const AdminRootLayout: AFC<Props> = async ({admin, signup}) => {
   const orm = await getORM()
 
-  // Use regular findOne to tell TS to stop (using) if there's super user found
   const user = await orm.em.findOne(User, {role: UserRoles.SUPER}, {
     disableIdentityMap: true
   })
