@@ -1,3 +1,5 @@
+import {LoadStrategy} from "@mikro-orm/core"
+
 import {PostsPageOutput} from "server/trpc/type/output/PostsPageOutput"
 import {PostsPageInput} from "server/trpc/type/input/PostsPageInput"
 import {Post} from "server/db/entity/Post"
@@ -19,7 +21,8 @@ export const list = procedure
       limit: args.limit,
       offset: args.offset,
       orderBy: {createdAt: "desc"},
-      fields: ["id", "createdAt", "updatedAt", "title", "slug", "author"]
+      fields: ["id", "createdAt", "updatedAt", "title", "slug", "author"],
+      strategy: LoadStrategy.JOINED
     })
 
     return {items, count, args}
