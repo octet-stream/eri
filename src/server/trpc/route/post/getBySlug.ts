@@ -19,5 +19,3 @@ export const getBySlug = procedure
 
     return post
   })
-
-export default getBySlug
