@@ -6,10 +6,12 @@ import {createContext} from "react"
 
 import type {MaybeNull} from "lib/type/MaybeNull"
 
-export const SessionContext = createContext<MaybeNull<Session>>(null)
+export type MaybeSession = MaybeNull<Session>
+
+export const SessionContext = createContext<MaybeSession>(null)
 
 interface Props {
-  session: MaybeNull<Session>
+  session: MaybeSession
   children: ReactNode
 }
 
