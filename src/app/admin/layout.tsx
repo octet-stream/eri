@@ -12,7 +12,10 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: "Admin"
+  title: {
+    template: "%s | Admin",
+    absolute: "Admin"
+  }
 }
 
 const AdminRootLayout: AFC<Props> = async ({admin, signup}) => {

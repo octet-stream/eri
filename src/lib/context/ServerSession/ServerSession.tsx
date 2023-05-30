@@ -13,6 +13,9 @@ interface Props {
   redirectUrl: string | URL
 }
 
+/**
+ * @deprecated use `lib/context/SessionContext` and `lib/hook/useSession` instead
+ */
 export const ServerSession: AFC<Props> = async ({
   children,
   redirectUrl

@@ -1,7 +1,22 @@
-import type {FC} from "react"
+import type {AFC} from "lib/type/AsyncFunctionComponent"
+import {getPosts} from "app/(posts)/_/loader/getPosts"
 
-const AdminPanelPage: FC = () => (
-  <div>Admin panel will be here</div>
-)
+const AdminPanelPage: AFC = async () => {
+  const posts = await getPosts()
+
+  if (posts.itemsCount < 1) {
+    return <div>No posts yet</div>
+  }
+
+  return (
+    <ul>
+      {posts.items.map(post => (
+        <li key={post.id}>
+          {post.title}
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 export default AdminPanelPage
