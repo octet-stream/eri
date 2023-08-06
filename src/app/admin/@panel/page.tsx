@@ -1,8 +1,10 @@
-import type {AFC} from "lib/type/AsyncFunctionComponent"
-import {getPosts} from "app/(posts)/_/loader/getPosts"
+"use client"
 
-const AdminPanelPage: AFC = async () => {
-  const posts = await getPosts()
+import type {FC} from "react"
+import {usePostsData} from "context/PostsDataContext"
+
+const AdminPanelPage: FC = () => {
+  const posts = usePostsData()
 
   if (posts.itemsCount < 1) {
     return <div>No posts yet</div>
