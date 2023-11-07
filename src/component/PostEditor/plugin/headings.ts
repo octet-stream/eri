@@ -23,6 +23,8 @@ export const headings = createPlugins<Value, Editor>(
   ],
 
   {
-    components: Object.fromEntries(types.map(t => [t, createHeadingElement(t)]))
+    components: Object.fromEntries(
+      types.map(t => [t, createHeadingElement(t)])
+    ) as any
   }
 )

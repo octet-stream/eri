@@ -3,16 +3,8 @@ import {resolve, join} from "node:path"
 import {defineConfig} from "@mikro-orm/mysql"
 import {z, ZodIssueCode} from "zod"
 
-import {
-  User,
-  Post,
-  InvitationCode
-} from "server/db/entity"
-
-import {
-  UserSubscriber,
-  PostSubscriber
-} from "server/db/subscriber"
+import * as entities from "../../db/entity"
+import * as subscribers from "../../db/subscriber"
 
 const DB_ROOT = resolve("db")
 
@@ -91,10 +83,7 @@ export const getConfig = async () => {
     seeder: {
       path: join(DB_ROOT, "seed")
     },
-    entities: [User, Post, InvitationCode],
-    subscribers: [
-      UserSubscriber,
-      PostSubscriber
-    ].map(Subscriber => new Subscriber())
+    entities: Object.values(entities),
+    subscribers: Object.values(subscribers).map(Subscriber => new Subscriber())
   })
 }

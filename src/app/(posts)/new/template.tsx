@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 }
 
 const PostNewTemplate: AFC<Props> = async ({children}) => (
-  // @ts-expect-error RSC
   <ServerSession redirectUrl="auth/login">
     {children}
   </ServerSession>

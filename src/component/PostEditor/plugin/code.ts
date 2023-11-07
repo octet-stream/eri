@@ -9,6 +9,6 @@ import type {Value, Editor} from "lib/type/Editor"
 import {Code} from "../leaf/Code"
 
 export const code = createPlugins<Value, Editor>([
-  createCodePlugin({component: Code}),
+  createCodePlugin({component: Code as any}),
   // createCodeBlockPlugin()
 ])

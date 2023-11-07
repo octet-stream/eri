@@ -10,7 +10,7 @@ import {Link} from "../element/Link"
 
 export const link = createPlugins<Value, Editor>([
   createLinkPlugin<LinkPlugin, Value, Editor>({
-    component: Link,
+    component: Link as any,
     renderAfterEditable: PlateFloatingLink as any // TODO: Replace with custom UI element
   })
 ])
