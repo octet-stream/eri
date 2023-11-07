@@ -1,10 +1,11 @@
 import {TRPCError} from "@trpc/server"
+import {cache} from "react"
 
 import {createCaller} from "lib/trpc/server"
 
 import type {Params} from "../../page"
 
-export const getPost = createCaller(
+export const getPost = cache(createCaller(
   async (trpc, params: Params) => {
     try {
       return await trpc.post.getBySlug({
@@ -19,4 +20,4 @@ export const getPost = createCaller(
       throw error
     }
   }
-)
+))
