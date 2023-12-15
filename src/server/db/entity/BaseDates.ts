@@ -1,21 +1,20 @@
-import {Entity, Property} from "@mikro-orm/core"
+import {Property} from "@mikro-orm/core"
 
 import type {PickKeys} from "lib/type/PickKeys"
 
 import {Base} from "./Base"
 
-@Entity({abstract: true})
 export abstract class BaseDates extends Base {
   /**
    * Date and time the entity was created
    */
-  @Property()
+  @Property({type: Date})
   readonly createdAt: Date = new Date()
 
   /**
    * Most recent date and time the entity was updated
    */
-  @Property({onUpdate: () => new Date()})
+  @Property({type: Date, onUpdate: () => new Date()})
   readonly updatedAt: Date = new Date()
 }
 

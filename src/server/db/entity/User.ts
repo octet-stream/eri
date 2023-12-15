@@ -18,20 +18,20 @@ export enum UserRoles {
   REGULAR = "regular"
 }
 
-@Entity()
+@Entity({tableName: "user"})
 export class User extends BaseDates {
   [OptionalProps]?: PickKeys<User, OptionalDates | "role">
 
   /**
    * User unique login
    */
-  @Property({unique: true})
+  @Property({type: "varchar", unique: true})
   login!: string
 
   /**
    * User private email address
    */
-  @Property({unique: true})
+  @Property({type: "varchar", unique: true})
   email!: string
 
   /**
@@ -43,7 +43,7 @@ export class User extends BaseDates {
   /**
    * User password
    */
-  @Property({hidden: true})
+  @Property({type: "varchar", hidden: true})
   password!: string
 
   /**

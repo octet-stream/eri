@@ -15,14 +15,14 @@ import type {OPostCreateInput} from "server/trpc/type/input/PostCreateInput"
 import {BaseDates, OptionalDates} from "./BaseDates"
 import {User} from "./User"
 
-@Entity()
+@Entity({tableName: "post"})
 export class Post extends BaseDates implements OPostCreateInput {
   [OptionalProps]?: PickKeys<Post, OptionalDates | "slug">
 
   /**
    * Post title
    */
-  @Property()
+  @Property({type: "varchar"})
   title!: string
 
   /**
@@ -34,12 +34,12 @@ export class Post extends BaseDates implements OPostCreateInput {
   /**
    * Unique, human-readable Post identifier.
    */
-  @Property({unique: true})
+  @Property({type: "varchar", unique: true})
   slug!: string
 
   /**
    * Post author
    */
-  @ManyToOne({eager: true})
+  @ManyToOne({type: User, eager: true})
   author!: User
 }

@@ -13,31 +13,31 @@ import type {PickKeys} from "lib/type/PickKeys"
 
 import {User} from "./User"
 
-@Entity()
+@Entity({tableName: "invitation_code"})
 export class InvitationCode {
   [OptionalProps]?: PickKeys<InvitationCode, "createdAt" | "code">
 
   /**
    * Invitation code payload. Should be included in invitation email
    */
-  @PrimaryKey()
+  @PrimaryKey({type: "varchar", length: 16})
   readonly code: string = nanoid(16)
 
   /**
    * User who created the code
    */
-  @ManyToOne()
+  @ManyToOne({type: User})
   readonly issuer!: User
 
   /**
    * Email that will receive the code
    */
-  @Property()
+  @Property({type: "varchar"})
   readonly email!: string
 
   /**
    * Date and time the code was created
    */
-  @Property()
+  @Property({type: Date})
   readonly createdAt: Date = new Date()
 }

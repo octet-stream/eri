@@ -1,10 +1,9 @@
 import {randomUUID} from "node:crypto"
 
-import {Entity, PrimaryKey} from "@mikro-orm/core"
+import {PrimaryKey} from "@mikro-orm/core"
 
 import type {ONode} from "server/trpc/type/common/Node"
 
-@Entity({abstract: true})
 export abstract class Base implements ONode {
   /**
    * Unique entity identifier (UUID)

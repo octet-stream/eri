@@ -14,21 +14,21 @@ import {createBasicMarkComponent} from "../util/createBasicMarkComponent"
 
 export const marks = createPlugins<Value, Editor>([
   createBoldPlugin({
-    component: createBasicMarkComponent("bold")
+    component: createBasicMarkComponent("bold") as any
   }),
   createItalicPlugin({
-    component: createBasicMarkComponent("italic")
+    component: createBasicMarkComponent("italic") as any
   }),
   createStrikethroughPlugin({
-    component: createBasicMarkComponent("strikethrough")
+    component: createBasicMarkComponent("strikethrough") as any
   }),
   createUnderlinePlugin({
-    component: createBasicMarkComponent("underline")
+    component: createBasicMarkComponent("underline") as any
   }),
   createSubscriptPlugin({
-    component: createBasicMarkComponent("subscript")
+    component: createBasicMarkComponent("subscript") as any
   }),
   createSuperscriptPlugin({
-    component: createBasicMarkComponent("superscript")
+    component: createBasicMarkComponent("superscript") as any
   })
 ])

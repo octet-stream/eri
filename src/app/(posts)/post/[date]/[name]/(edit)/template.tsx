@@ -8,7 +8,6 @@ interface Props {
 }
 
 const PostEditTemplate: AFC<Props> = async ({children}) => (
-  // @ts-expect-error RSC
   <ServerSession redirectUrl="/auth/login">
     {children}
   </ServerSession>
