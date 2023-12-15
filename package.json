@@ -17,6 +17,7 @@
     "coverage": "pnpm test:compose-up && (c8 ava ; pnpm test:compose-down)",
     "report:html": "pnpm test:compose-up && ((c8 ava && c8 report --reporter=html) ; pnpm test:compose-down)",
     "ci": "c8 ava && c8 report --reporter=json",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "npx is-in-ci || husky install"
   },
   "mikro-orm": {
