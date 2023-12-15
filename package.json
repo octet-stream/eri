@@ -2,7 +2,7 @@
   "name": "eri",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@8.7.6",
+  "packageManager": "pnpm@8.7.1",
   "license": "MIT",
   "author": "Nick K. <io@octetstream.me>",
   "scripts": {
@@ -16,7 +16,8 @@
     "test": "pnpm test:compose-up && (ava ; pnpm test:compose-down)",
     "coverage": "pnpm test:compose-up && (c8 ava ; pnpm test:compose-down)",
     "report:html": "pnpm test:compose-up && ((c8 ava && c8 report --reporter=html) ; pnpm test:compose-down)",
-    "ci": "c8 ava && c8 report --reporter=json"
+    "ci": "c8 ava && c8 report --reporter=json",
+    "prepare": "npx is-in-ci || husky install"
   },
   "mikro-orm": {
     "useTsNode": true,
@@ -88,6 +89,9 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@commitlint/types": "^18.4.3",
     "@mikro-orm/cli": "5.9.3",
     "@mikro-orm/migrations": "5.9.3",
     "@mikro-orm/seeder": "5.9.3",
@@ -130,6 +134,7 @@
     "tailwindcss-device": "0.2.2",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "husky": "^8.0.0"
   }
 }
