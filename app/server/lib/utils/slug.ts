@@ -3,7 +3,7 @@ import {format, toDate} from "date-fns"
 
 import slugify from "@sindresorhus/slugify"
 
-import {isDate} from "validator"
+import validator from "validator"
 
 import type {RawDate} from "../../../lib/types/RawDate.js"
 
@@ -29,7 +29,9 @@ export const SLUG_NAME_VALID_REGEXPR = /^[a-z0-9-]+~[a-zA-Z0-9]{5}$/
  * // -> false
  * ```
  */
-export const isSlugDateValid = (date: string): boolean => isDate(date, {
+export const isSlugDateValid = (
+  date: string
+): boolean => validator.isDate(date, {
   format: SLUG_DATE_FORMAT.toUpperCase()
 })
 

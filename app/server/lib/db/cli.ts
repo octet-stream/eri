@@ -1,1 +1,3 @@
-export {config as default} from "./config.js"
+process.loadEnvFile(".env.development.local")
+
+export default import("./config.js").then(({config}) => config)
