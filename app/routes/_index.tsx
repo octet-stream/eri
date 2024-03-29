@@ -6,11 +6,7 @@ import {withOrm} from "../server/lib/db/orm.js"
 
 export const meta: MetaFunction = () => [
   {
-    title: "New Remix App"
-  },
-  {
-    name: "description",
-    content: "Welcome to Remix!"
+    title: "Eri's Blog" // TODO: Make this configurable
   }
 ]
 
