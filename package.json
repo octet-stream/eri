@@ -9,7 +9,7 @@
     "dev": "remix vite:dev",
     "dev.open": "remix vite:dev --open",
     "build": "remix vite:build",
-    "start": "remix-serve ./build/server/index.js",
+    "preview": "NODE_ENV=production remix-serve ./build/server/index.js",
     "lint": "next lint",
     "lint:types": "tsc --noEmit",
     "test:compose-up": "docker compose -f docker-compose.test.yml up --wait",
