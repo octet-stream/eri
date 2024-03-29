@@ -7,7 +7,7 @@ export const meta: MetaFunction = () => [
   {
     name: "description",
     content: "Welcome to Remix!"
-  },
+  }
 ]
 
 const HomePage = () => (
