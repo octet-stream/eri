@@ -9,7 +9,7 @@
     "dev": "remix vite:dev",
     "dev.open": "remix vite:dev --open",
     "build": "remix vite:build",
-    "preview": "node --env-file .env.local ./node_modules/@remix-run/serve/dist/cli.js ./build/server/index.js",
+    "preview": "node --env-file .env.development.local ./node_modules/@remix-run/serve/dist/cli.js ./build/server/index.js",
     "start": "remix-serve ./build/server/index.js",
     "lint": "next lint",
     "lint:types": "tsc --noEmit",
