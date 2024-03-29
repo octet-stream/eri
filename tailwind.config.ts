@@ -1,12 +1,14 @@
-const typography = require("@tailwindcss/typography")
-const device = require("tailwindcss-device")
+import typography from "@tailwindcss/typography"
+import device from "tailwindcss-device"
+
+import type {Config} from "tailwindcss"
 
 // Screen sizes
 const mobile = "450px"
 const laptop = "1024px"
 const desktop = "1280px"
 
-module.exports = {
+export default {
   content: [
     "./src/**/*.tsx",
   ],
@@ -33,4 +35,4 @@ module.exports = {
     typography,
     device
   ]
-}
+} satisfies Config

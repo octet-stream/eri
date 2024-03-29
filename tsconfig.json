@@ -12,37 +12,20 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "node16",
+    "moduleResolution": "node16",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "moduleDetection": "force",
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "src",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "importHelpers": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "experimentalDecorators": true
   },
   "include": [
-    "next-env.d.ts",
-    "next-auth.d.ts",
+    "remix.env.d.ts",
     "env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ],
-  "ts-node": {
-    "preferTsExts": true,
-    "require": [
-      "tsconfig-paths/register"
-    ]
-  }
+  "exclude": ["node_modules"]
 }
