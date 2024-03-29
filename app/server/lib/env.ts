@@ -10,7 +10,7 @@ function loadEnv(path: string): boolean {
     return true
   } catch (error) {
     if ((error as NodeJS.ErrnoException)?.code === "ENOENT") {
-      console.info("Can't find env file at %s", resolve(path))
+      console.info("Unable to find find env file at %s", resolve(path))
 
       return false
     }
@@ -21,8 +21,8 @@ function loadEnv(path: string): boolean {
 
 const env = process.env.NODE_ENV
 const sources = [`.env.${env}`, `.env.${env}.local`, ".env", ".env.local"] as const
-for (const name of sources) {
-  if (loadEnv(name)) {
-    break
-  }
+
+const loadedAny = sources.some(source => loadEnv(source))
+if (!loadedAny) {
+  console.info("No .env files found. Fallback to process.env object.")
 }
