@@ -10,7 +10,7 @@ const desktop = "1280px"
 
 export default {
   content: [
-    "./src/**/*.tsx",
+    "**/*.tsx"
   ],
   theme: {
     extend: {

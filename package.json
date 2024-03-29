@@ -15,10 +15,10 @@
     "lint:types": "tsc --noEmit",
     "test:compose-up": "docker compose -f docker-compose.test.yml up --wait",
     "test:compose-down": "docker compose -f docker-compose.test.yml down",
-    "test": "pnpm test:compose-up && (ava ; pnpm test:compose-down)",
-    "coverage": "pnpm test:compose-up && (c8 ava ; pnpm test:compose-down)",
-    "report:html": "pnpm test:compose-up && ((c8 ava && c8 report --reporter=html) ; pnpm test:compose-down)",
-    "ci": "c8 ava && c8 report --reporter=json",
+    "test": "pnpm test:compose-up && (vitest run ; pnpm test:compose-down)",
+    "coverage": "pnpm test:compose-up && (c8 vitest run ; pnpm test:compose-down)",
+    "report:html": "pnpm test:compose-up && ((c8 vitest run && c8 report --reporter=html) ; pnpm test:compose-down)",
+    "ci": "pnpm test:compose-up && ((c8 vitest run && c8 report --reporter=json) ; pnpm test:compose-down)",
     "preinstall": "npx only-allow pnpm",
     "prepare": "npx is-in-ci || husky install"
   },
@@ -31,13 +31,9 @@
   "pnpm": {
     "updateConfig": {
       "ignoreDependencies": [
-        "@sindresorhus/slugify",
-        "nanoid",
         "react-dnd",
         "react-dnd-html5-backend",
-        "react-query",
-        "is-absolute-url",
-        "got"
+        "react-query"
       ]
     }
   },

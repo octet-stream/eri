@@ -101,9 +101,7 @@ export const formatSlugSuffix = customAlphabet(
  *
  * @param date Raw date or datetime to format
  */
-export const formatSlugDate = (date: RawDate) => (
-  format(toDate(date), SLUG_DATE_FORMAT)
-)
+export const formatSlugDate = (date: RawDate) => format(date, SLUG_DATE_FORMAT)
 
 const customReplacements: readonly [key: string, replacement: string][] = [
   [":", "colon"],

@@ -7,5 +7,9 @@ import tsconfigPaths from "vite-tsconfig-paths"
 installGlobals()
 
 export default defineConfig({
-  plugins: [remix(), tsconfigPaths()]
+  plugins: [remix(), tsconfigPaths()],
+  test: {
+    include: ["**/*.test.ts?(x)"],
+    exclude: ["e2e", "node_modules", "src"]
+  }
 })
