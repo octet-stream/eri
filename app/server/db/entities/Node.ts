@@ -1,6 +1,6 @@
-import {Property} from "@mikro-orm/mysql"
+import {PrimaryKey} from "@mikro-orm/mysql"
 
 export abstract class Node {
-  @Property({type: "uuid"})
+  @PrimaryKey({type: "uuid"})
   readonly id: string = crypto.randomUUID()
 }

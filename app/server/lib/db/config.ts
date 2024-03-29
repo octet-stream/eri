@@ -1,6 +1,8 @@
 import {join, dirname} from "node:path"
 
 import {defineConfig} from "@mikro-orm/mysql"
+import {Migrator} from "@mikro-orm/migrations"
+import {SeedManager} from "@mikro-orm/seeder"
 
 import * as entities from "../../db/entities.js"
 
@@ -14,6 +16,7 @@ export const config = defineConfig({
   password: process.env.DB_PASSWORD,
   ensureDatabase: true,
   entities: Object.values(entities),
+  extensions: [Migrator, SeedManager],
   migrations: {
     path: join(base, "migrations")
   },

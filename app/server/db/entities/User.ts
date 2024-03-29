@@ -10,15 +10,15 @@ export interface UserInput {
 
 @Entity()
 export class User extends RecordSoft implements UserInput {
-  @Property({type: "varchar"})
+  @Property<User>({type: "varchar"})
   @Unique()
   login: string
 
-  @Property({type: "varchar"})
+  @Property<User>({type: "varchar"})
   @Unique()
   email: string
 
-  @Property()
+  @Property<User>({type: "varchar"})
   password: string
 
   constructor(input: UserInput) {
