@@ -9,6 +9,7 @@ import * as entities from "../../db/entities.js"
 const base = join(dirname(dirname(import.meta.dirname)), "db")
 
 export const config = defineConfig({
+  debug: ["development", "debug"].includes(process.env.NODE_ENV),
   dbName: process.env.DB_NAME,
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || "3306", 10),
