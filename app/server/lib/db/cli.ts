@@ -1,4 +1,2 @@
-// TODO: Improve env loading
-process.loadEnvFile(`.env.${process.env.NODE_ENV || "development"}.local`)
-
-export default import("./config.js").then(({config}) => config)
+// eslint-disable-next-line no-restricted-exports
+export {config as default} from "./config.js"

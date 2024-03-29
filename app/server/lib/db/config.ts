@@ -2,6 +2,8 @@ import {join, dirname} from "node:path"
 
 import {defineConfig} from "@mikro-orm/mysql"
 
+import "../env.js"
+
 import * as entities from "../../db/entities.js"
 
 const base = join(dirname(dirname(import.meta.dirname)), "db")
