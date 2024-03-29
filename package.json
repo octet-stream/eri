@@ -37,7 +37,10 @@
       ]
     }
   },
-  "bundledDependencies": ["@mikro-orm/migrations", "@mikro-orm/seeder"],
+  "bundledDependencies": [
+    "@mikro-orm/migrations",
+    "@mikro-orm/seeder"
+  ],
   "dependencies": {
     "@headlessui/react": "1.7.17",
     "@hookform/resolvers": "3.3.1",
@@ -52,8 +55,11 @@
     "@udecode/plate": "21.2.0",
     "@udecode/plate-basic-elements": "^21.1.5",
     "@udecode/plate-basic-marks": "21.1.5",
+    "@udecode/plate-block-quote": "^31.0.0",
     "@udecode/plate-core": "21.1.5",
     "@udecode/plate-headless": "21.2.0",
+    "@udecode/plate-link": "^31.0.0",
+    "@udecode/plate-paragraph": "^31.0.0",
     "@udecode/plate-ui": "21.2.0",
     "@udecode/plate-ui-link": "21.2.0",
     "bcrypt": "5.1.1",
