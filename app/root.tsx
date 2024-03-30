@@ -5,10 +5,15 @@ import {
   Scripts,
   ScrollRestoration
 } from "@remix-run/react"
+import type {FC, ReactNode} from "react"
 
 import "./tailwind.css"
 
-export const Layout = ({children}: { children: React.ReactNode }) => (
+interface Props {
+  children: ReactNode
+}
+
+export const Layout: FC<Props> = ({children}) => (
   <html lang="en">
     <head>
       <meta charSet="utf-8" />
@@ -18,8 +23,10 @@ export const Layout = ({children}: { children: React.ReactNode }) => (
       <Links />
     </head>
 
-    <body className="bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">
-      {children}
+    <body className="bg-background text-foreground">
+      <main className="w-screen min-h-dynamic-screen flex ">
+        {children}
+      </main>
 
       <ScrollRestoration />
 
