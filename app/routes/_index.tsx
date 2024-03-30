@@ -4,12 +4,6 @@ import {useLoaderData} from "@remix-run/react"
 import {Post} from "../server/db/entities.js"
 import {withOrm} from "../server/lib/db/orm.js"
 
-export const meta: MetaFunction = () => [
-  {
-    title: "Eri's Blog" // TODO: Make this configurable
-  }
-]
-
 export const loader = withOrm(async orm => {
   const [list, count] = await orm.em.findAndCount(Post, {}, {
     orderBy: {
@@ -17,8 +11,14 @@ export const loader = withOrm(async orm => {
     }
   })
 
-  return json({list, count})
+  return json({list, count, title: process.env.BLOG_NAME || "Eri's Blog"})
 })
+
+export const meta: MetaFunction<typeof loader> = ({data}) => [
+  {
+    title: data?.title
+  }
+]
 
 // TODO: Implement posts list
 const HomePage = () => {
