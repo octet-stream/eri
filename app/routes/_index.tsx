@@ -25,8 +25,10 @@ const HomePage = () => {
   const {count} = useLoaderData<typeof loader>()
 
   return (
-    <div>
-      {count > 0 ? "Posts will apper here" : "No posts yet"}
+    <div className="w-full p-5 laptop:w-laptop laptop:mx-auto">
+      <div className="text-center">
+        {count > 0 ? "Posts will apper here" : "No posts yet"}
+      </div>
     </div>
   )
 }
