@@ -2,10 +2,19 @@ import {MikroORM, RequestContext} from "@mikro-orm/mysql"
 
 import {config} from "./config.js"
 
-export const orm = await MikroORM.init(config)
+let cache: Promise<MikroORM> | undefined
+
+export const createOrm = () => MikroORM.init(config)
+
+export function getOrm(): Promise<MikroORM> {
+  if (!cache) {
+    cache = createOrm()
+  }
+
+  return cache
+}
 
 export type WithOrmCallback<TResult, TArgs extends unknown[]> = (
-  // eslint-disable-next-line no-shadow
   orm: MikroORM,
 
   ...args: TArgs
@@ -13,8 +22,8 @@ export type WithOrmCallback<TResult, TArgs extends unknown[]> = (
 
 export const withOrm = <TResult, TArgs extends unknown[]>(
   fn: WithOrmCallback<TResult, TArgs>
-) => async (...args: TArgs) => RequestContext.create(
-  orm.em,
+) => async (...args: TArgs) => {
+  const orm = await getOrm()
 
-  () => fn(orm, ...args)
-)
+  return RequestContext.create(orm.em, () => fn(orm, ...args))
+}
