@@ -8,6 +8,9 @@ installGlobals()
 
 export default defineConfig({
   plugins: [remix(), tsconfigPaths()],
+  optimizeDeps: {
+    exclude: ["oslo"]
+  },
   test: {
     include: ["**/*.test.ts?(x)"],
     exclude: ["e2e", "node_modules", "src"]

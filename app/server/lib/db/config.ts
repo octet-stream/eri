@@ -5,6 +5,7 @@ import {Migrator} from "@mikro-orm/migrations"
 import {SeedManager} from "@mikro-orm/seeder"
 
 import * as entities from "../../db/entities.js"
+import * as subscribers from "../../db/subscribers.js"
 
 const base = join(dirname(dirname(import.meta.dirname)), "db")
 
@@ -17,6 +18,7 @@ export const config = defineConfig({
   password: process.env.DB_PASSWORD,
   ensureDatabase: true,
   entities: Object.values(entities),
+  subscribers: Object.values(subscribers).map(Subscriber => new Subscriber()),
   extensions: [Migrator, SeedManager],
   migrations: {
     path: join(base, "migrations")

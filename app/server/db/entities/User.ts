@@ -1,4 +1,4 @@
-import {Entity, Property, Unique} from "@mikro-orm/mysql"
+import {Entity, Property, Unique, type Hidden} from "@mikro-orm/mysql"
 
 import {RecordSoft} from "./RecordSoft.js"
 
@@ -13,8 +13,8 @@ export class User extends RecordSoft implements UserInput {
   @Unique()
   email: string
 
-  @Property<User>({type: "varchar"})
-  password: string
+  @Property<User>({type: "varchar", hidden: true})
+  password: Hidden<string>
 
   constructor(input: UserInput) {
     super()

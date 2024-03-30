@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
-// import {useFetcher} from "@remix-run/react"
 import type {FC} from "react"
 import {useId} from "react"
 
