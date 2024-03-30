@@ -7,7 +7,7 @@ import {useId} from "react"
 
 import {Input} from "../../components/ui/Input.js"
 import {Button} from "../../components/ui/Button.js"
-import {Label} from "../../components/ui/Label.jsx"
+import {Label} from "../../components/ui/Label.js"
 import {
   Card,
   CardHeader,
