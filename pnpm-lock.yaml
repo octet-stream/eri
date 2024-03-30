@@ -77,6 +77,9 @@ dependencies:
   date-fns:
     specifier: 3.6.0
     version: 3.6.0
+  domain-functions:
+    specifier: ^2.6.0
+    version: 2.6.0
   is-absolute-url:
     specifier: 3.0.3
     version: 3.0.3
@@ -125,6 +128,9 @@ dependencies:
   react-use-event-hook:
     specifier: 0.9.6
     version: 0.9.6(react@18.2.0)
+  remix-forms:
+    specifier: ^2.3.0
+    version: 2.3.0(domain-functions@2.6.0)(react-hook-form@7.51.2)(react@18.2.0)(zod@3.22.4)
   slate:
     specifier: 0.94.1
     version: 0.94.1
@@ -1303,6 +1309,14 @@ packages:
 
   /@floating-ui/utils@0.2.1:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
+    dev: false
+
+  /@hookform/resolvers@2.9.11(react-hook-form@7.51.2):
+    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.51.2(react@18.2.0)
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:
@@ -7030,6 +7044,10 @@ packages:
     resolution: {integrity: sha512-X7BJ2yElsnOJ30pZF4uIIDfBEVgF4XEBxL9Bxhy6dnrm5hkzqmsWHGTiHqRiITNhMyFLyAiWndIJP7Z1NTteDg==}
     dev: true
 
+  /domain-functions@2.6.0:
+    resolution: {integrity: sha512-UiIyxC76DaMGNuCQ/CS8nC+EuGx11WV5juYG+F1BoMu+Nz03exJW/QFIelhlo7AuSXW+/rkNOyidKMpVtsqHwQ==}
+    dev: false
+
   /dot-prop@5.3.0:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
@@ -11627,6 +11645,21 @@ packages:
       mdast-util-to-hast: 12.3.0
       unified: 10.1.2
     dev: true
+
+  /remix-forms@2.3.0(domain-functions@2.6.0)(react-hook-form@7.51.2)(react@18.2.0)(zod@3.22.4):
+    resolution: {integrity: sha512-w6f83f88wEahvx91ma6+Vn5NRz4uP5ZOhiXg//5UDoBLb4yfsvy0R3lRDVopDHmD+9WQ9mvIgz1uQh1OBedAsQ==}
+    peerDependencies:
+      domain-functions: 2.x
+      react: '>=16.8'
+      react-hook-form: '>=7.27'
+      zod: '>=3.12'
+    dependencies:
+      '@hookform/resolvers': 2.9.11(react-hook-form@7.51.2)
+      domain-functions: 2.6.0
+      react: 18.2.0
+      react-hook-form: 7.51.2(react@18.2.0)
+      zod: 3.22.4
+    dev: false
 
   /remove-accents@0.4.2:
     resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
