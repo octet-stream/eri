@@ -27,6 +27,6 @@ export const logIn = makeDomainFunction(AdminLogInInput)(
 
     const cookie = lucia.createSessionCookie(session.id)
 
-    return new Headers([["Set-Cookie", cookie.serialize()]])
+    return new Headers([["set-cookie", cookie.serialize()]])
   })
 )
