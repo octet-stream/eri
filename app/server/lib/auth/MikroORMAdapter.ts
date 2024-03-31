@@ -39,7 +39,7 @@ export class MikroORMAdapter implements Adapter {
     // TODO: Add proper error handling
     const session = await orm.em.findOneOrFail(Session, sessionId)
 
-    return [session, session.user as any] // fixme: Add attributes type to a user
+    return [session, session.user] // fixme: Add attributes type to a user
   }
 
   async getUserSessions(userId: string): Promise<DatabaseSession[]> {

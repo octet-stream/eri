@@ -12,14 +12,14 @@ export class Session extends Record implements DatabaseSession {
   /**
    * Date a time of session expiration
    */
-  @Property({type: "datetime"})
+  @Property<Session>({type: "datetime"})
   expiresAt!: Date
 
   /**
    * Additional session attributes
    */
-  @Property({type: JsonType})
-  attributes!: RegisteredDatabaseSessionAttributes
+  @Property<Session>({type: JsonType})
+  attributes: RegisteredDatabaseSessionAttributes = {}
 
   /**
    * User associated with the sesssion
