@@ -1,9 +1,10 @@
-import {Lucia, TimeSpan} from "lucia"
+import {Lucia} from "lucia"
 
 import {MikroORMAdapter} from "./MikroORMAdapter.js"
+import {ttl} from "./ttl.js"
 
 export const lucia = new Lucia(new MikroORMAdapter(), {
-  sessionExpiresIn: new TimeSpan(30, "d"),
+  sessionExpiresIn: ttl,
   sessionCookie: {
     name: "eri.sid", // TODO: Make session name configurable
     attributes: {

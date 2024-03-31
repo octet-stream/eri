@@ -7,10 +7,7 @@ namespace NodeJS {
     readonly NODE_ENV: "production" | "development" | "test"
     readonly BLOG_NAME?: string
 
-    readonly NEXT_PUBLIC_SERVER_URL: string
-
-    readonly NEXTAUTH_URL: string
-    readonly NEXTAUTH_SECRET: string
+    readonly AUTH_SECRET: string
 
     readonly DB_NAME: string
     readonly DB_HOST?: string

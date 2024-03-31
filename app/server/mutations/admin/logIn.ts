@@ -1,6 +1,7 @@
 import {makeDomainFunction} from "domain-functions"
 
 import {AdminLogInInput} from "../../zod/user/AdminLogInInput.js"
+import {serializeCookie} from "../../lib/auth/cookie.js"
 import {password} from "../../lib/auth/password.js"
 import {lucia} from "../../lib/auth/lucia.js"
 import {withOrm} from "../../lib/db/orm.js"
@@ -24,9 +25,8 @@ export const logIn = makeDomainFunction(AdminLogInInput)(
     }
 
     const session = await lucia.createSession(user.id, {})
+    const cookie = await serializeCookie(session.id)
 
-    const cookie = lucia.createSessionCookie(session.id)
-
-    return new Headers([["set-cookie", cookie.serialize()]])
+    return new Headers([["set-cookie", cookie]])
   })
 )

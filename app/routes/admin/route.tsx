@@ -5,6 +5,7 @@ import type {FC} from "react"
 import {User} from "../../server/db/entities.js"
 import {withOrm} from "../../server/lib/db/orm.js"
 import {lucia} from "../../server/lib/auth/lucia.js"
+import {parseCookie} from "../../server/lib/auth/cookie.js"
 
 import {AdminSetupPage} from "./pages/Setup.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
@@ -26,12 +27,7 @@ export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
     return json<AdminData>({hasAdminUser: false, isAuthorized: false})
   }
 
-  const cookie = request.headers.get("cookie")
-  if (!cookie) {
-    return json<AdminData>({hasAdminUser: true, isAuthorized: false})
-  }
-
-  const sessionId = lucia.readSessionCookie(cookie)
+  const sessionId = await parseCookie(request.headers.get("cookie"))
   if (!sessionId) {
     return json<AdminData>({hasAdminUser: true, isAuthorized: false})
   }
