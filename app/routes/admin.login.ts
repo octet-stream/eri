@@ -1,4 +1,5 @@
 import {ActionFunctionArgs} from "@remix-run/node"
+import {redirect} from "@remix-run/react"
 
 export const loader = (): never => {
   throw new Response(null, {
@@ -10,5 +11,5 @@ export const loader = (): never => {
 export const action = async ({request}: ActionFunctionArgs) => {
   console.log(Object.fromEntries(await request.formData()))
 
-  return null
+  return redirect("/admin")
 }

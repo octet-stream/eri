@@ -8,18 +8,18 @@ import {Label} from "../../../components/ui/Label.js"
 
 import {AuthForm} from "../components/AuthForm.jsx"
 
-export const AdminSetupPage: FC = () => {
+export const AdminLoginPage: FC = () => {
   const emailId = useId()
   const passwordId = useId()
 
   return (
     <AuthForm
       schema={AdminSetupInput}
-      title="Create admin account"
-      description="To manage your blog you&apos;ll need to setup admin account"
-      submitButtonText="Log in"
+      title="Login"
+      description="You need to log in to your account to access this page"
+      submitButtonText="Continue"
       method="post"
-      action="/admin/setup"
+      action="/admin/login"
     >
       {({register}) => (
         <div className="flex flex-col gap-5">

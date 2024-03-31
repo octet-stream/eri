@@ -6,9 +6,10 @@ import {User} from "../../server/db/entities.js"
 import {withOrm} from "../../server/lib/db/orm.js"
 
 import {AdminSetupPage} from "./pages/Setup.jsx"
+import {AdminLoginPage} from "./pages/Login.jsx"
 
 interface AdminData {
-  isInstalled: boolean
+  hasAdminUser: boolean
 }
 
 export const loader = withOrm(async orm => {
@@ -20,26 +21,25 @@ export const loader = withOrm(async orm => {
     }
   })
 
-  return json<AdminData>({isInstalled: !!user})
+  return json<AdminData>({hasAdminUser: !!user})
 })
 
 export const meta: MetaFunction<typeof loader> = ({data}) => [
   {
     // TODO: Add title for Login page
-    title: data?.isInstalled ? "Admin" : "Setup"
+    title: data?.hasAdminUser ? "Admin" : "Setup"
   }
 ]
 
 const AdminLayout: FC = () => {
-  const data = useLoaderData<typeof loader>()
+  const {hasAdminUser} = useLoaderData<typeof loader>()
 
   // Render admin setup page if admin user not existent
-  if (!data.isInstalled) {
+  if (!hasAdminUser) {
     return <AdminSetupPage />
   }
 
-  // TOOD: Render login page first, if user is not authorized
-  return <div>Admin</div>
+  return <AdminLoginPage />
 }
 
 export default AdminLayout
