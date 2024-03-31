@@ -7,13 +7,22 @@ export interface UserInput {
   password: string
 }
 
+/**
+ * Represents a user stored in database
+ */
 @Entity()
 export class User extends RecordSoft implements UserInput {
+  /**
+   * User email address
+   */
   @Property<User>({type: "varchar"})
   @Unique()
   email: string
 
-  @Property<User>({type: "varchar", hidden: true})
+  /**
+   * User password
+   */
+  @Property<User>({type: "varchar", hidden: true, lazy: true})
   password: Hidden<string>
 
   constructor(input: UserInput) {

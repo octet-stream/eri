@@ -16,14 +16,23 @@ import {
 import {RecordSoft} from "./RecordSoft.js"
 import {User} from "./User.js"
 
+/**
+ * Represents a post stored in database
+ */
 @Entity()
 export class Post extends RecordSoft {
+  /**
+   * Post title
+   */
   @Property<Post>({type: "varchar"})
   title: string
 
   @Property<Post>({type: JsonType})
   content: PostContent
 
+  /**
+   * Human-readable, unique, URL-friendly identifier of the post
+   */
   @Property<Post>({
     type: "varchar",
     length: 512,
@@ -33,6 +42,9 @@ export class Post extends RecordSoft {
   @Unique()
   readonly slug!: Opt<string>
 
+  /**
+   * The author of the post
+   */
   @ManyToOne(() => User, {eager: true})
   author!: User
 
