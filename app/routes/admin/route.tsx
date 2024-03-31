@@ -38,10 +38,22 @@ export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
 
   const {session} = await lucia.validateSession(sessionId)
 
-  return json<AdminData>({
-    isAuthorized: !!session?.fresh,
-    hasAdminUser: true
-  })
+  // Refresh session cookie if necessary
+  const headers = new Headers()
+  if (session?.fresh) {
+    headers.set("set-cookie", lucia.createSessionCookie(session.id).serialize())
+  }
+
+  return json<AdminData>(
+    {
+      isAuthorized: !!session,
+      hasAdminUser: true
+    },
+
+    {
+      headers
+    }
+  )
 })
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
