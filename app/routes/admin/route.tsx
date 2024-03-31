@@ -1,19 +1,20 @@
-import {json, type MetaFunction} from "@remix-run/node"
-import {useLoaderData} from "@remix-run/react"
+import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
+import {useLoaderData, Outlet} from "@remix-run/react"
 import type {FC} from "react"
 
 import {User} from "../../server/db/entities.js"
 import {withOrm} from "../../server/lib/db/orm.js"
+import {lucia} from "../../server/lib/auth/lucia.js"
 
 import {AdminSetupPage} from "./pages/Setup.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
 
-interface AdminData {
-  hasAdminUser: boolean
-}
+type AdminData =
+  | {hasAdminUser: boolean, isAuthorized: false}
+  | {hasAdminUser: true, isAuthorized: true}
 
-export const loader = withOrm(async orm => {
-  const [user] = await orm.em.find(User, {}, {
+export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
+  const [admin] = await orm.em.find(User, {}, {
     fields: ["id"],
     limit: 1,
     orderBy: {
@@ -21,25 +22,54 @@ export const loader = withOrm(async orm => {
     }
   })
 
-  return json<AdminData>({hasAdminUser: !!user})
+  if (!admin) {
+    return json<AdminData>({hasAdminUser: false, isAuthorized: false})
+  }
+
+  const cookie = request.headers.get("cookie")
+  if (!cookie) {
+    return json<AdminData>({hasAdminUser: true, isAuthorized: false})
+  }
+
+  const sessionId = lucia.readSessionCookie(cookie)
+  if (!sessionId) {
+    return json<AdminData>({hasAdminUser: true, isAuthorized: false})
+  }
+
+  const {session} = await lucia.validateSession(sessionId)
+
+  return json<AdminData>({
+    isAuthorized: !!session?.fresh,
+    hasAdminUser: true
+  })
 })
 
-export const meta: MetaFunction<typeof loader> = ({data}) => [
-  {
-    // TODO: Add title for Login page
-    title: data?.hasAdminUser ? "Admin" : "Setup"
+export const meta: MetaFunction<typeof loader> = ({data}) => {
+  let title: string
+  if (data?.isAuthorized === true) {
+    title = "Admin panel"
+  } else if (data?.hasAdminUser === true) {
+    title = "Login"
+  } else {
+    title = "Setup"
   }
-]
+
+  return [{title}]
+}
 
 const AdminLayout: FC = () => {
-  const {hasAdminUser} = useLoaderData<typeof loader>()
+  const data = useLoaderData<typeof loader>()
 
   // Render admin setup page if admin user not existent
-  if (!hasAdminUser) {
+  if (data.hasAdminUser === false) {
     return <AdminSetupPage />
   }
 
-  return <AdminLoginPage />
+  if (data.isAuthorized === false) {
+    return <AdminLoginPage />
+  }
+
+  return <Outlet />
 }
 
 export default AdminLayout
