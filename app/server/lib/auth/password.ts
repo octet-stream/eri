@@ -1,3 +1,3 @@
 import {Argon2id} from "oslo/password"
 
-export const hasher = new Argon2id()
+export const password = new Argon2id()
