@@ -1,7 +1,8 @@
 # eri
 
-Yet another blogging engine.
-Built with [Remix](https://remix.run/), [Lucia](https://lucia-auth.com/), [MikroORM](https://mikro-orm.io/), [Tailwind](https://tailwindcss.com/docs) and [shadcn/ui](https://ui.shadcn.com/).
+Minimalistic open source blog engine.
+
+This project built with [Remix](https://remix.run/), [Lucia](https://lucia-auth.com/), [MikroORM](https://mikro-orm.io/), [Tailwind](https://tailwindcss.com/docs) and [shadcn/ui](https://ui.shadcn.com/).
 
 ## Development setup
 
