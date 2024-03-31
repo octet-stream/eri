@@ -3,16 +3,18 @@ import type {DatabaseUser, RegisteredDatabaseUserAttributes} from "lucia"
 
 import {RecordSoft} from "./RecordSoft.js"
 
-export interface UserInput extends DatabaseUser {
+export interface UserInput {
   email: string
   password: string
 }
+
+export interface UserBase extends DatabaseUser, UserInput { }
 
 /**
  * Represents a user stored in database
  */
 @Entity()
-export class User extends RecordSoft implements UserInput {
+export class User extends RecordSoft implements UserBase {
   /**
    * User email address
    */

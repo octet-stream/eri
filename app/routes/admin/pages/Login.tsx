@@ -1,7 +1,7 @@
 import type {FC} from "react"
 import {useId} from "react"
 
-import {AdminSetupInput} from "../../../server/zod/user/AdminSetupInput.js"
+import {AdminLogInInput} from "../../../server/zod/user/AdminLogInInput.js"
 
 import {Input} from "../../../components/ui/Input.js"
 import {Label} from "../../../components/ui/Label.js"
@@ -14,7 +14,7 @@ export const AdminLoginPage: FC = () => {
 
   return (
     <AuthForm
-      schema={AdminSetupInput}
+      schema={AdminLogInInput}
       title="Login"
       description="You need to log in to your account to access this page"
       submitButtonText="Continue"

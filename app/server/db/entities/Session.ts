@@ -1,4 +1,11 @@
-import {Entity, Property, ManyToOne, JsonType, type Opt} from "@mikro-orm/mysql"
+import {
+  Entity,
+  Property,
+  ManyToOne,
+  JsonType,
+  PrimaryKey,
+  type Opt
+} from "@mikro-orm/mysql"
 import type {DatabaseSession, RegisteredDatabaseSessionAttributes} from "lucia"
 
 import {Record} from "./Record.js"
@@ -9,6 +16,9 @@ import {User} from "./User.js"
  */
 @Entity()
 export class Session extends Record implements DatabaseSession {
+  @PrimaryKey({type: "varchar"})
+  id!: string // Override id column for session enitity because lucia sets this column automatically
+
   /**
    * Date a time of session expiration
    */

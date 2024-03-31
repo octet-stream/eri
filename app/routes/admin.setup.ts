@@ -2,7 +2,7 @@ import type {ActionFunction} from "@remix-run/node"
 
 import {AdminSetupInput} from "../server/zod/user/AdminSetupInput.js"
 import {formAction} from "../lib/utils/form-action.server.js"
-import {adminSetup} from "../server/mutations/admin/setup.js"
+import {mutations} from "../server/mutations.js"
 
 export const loader = (): never => {
   throw new Response(null, {
@@ -20,7 +20,7 @@ export const action: ActionFunction = ({request}) => {
   return formAction({
     request,
     schema: AdminSetupInput,
-    mutation: adminSetup,
+    mutation: mutations.admin.setup,
     successPath: "/admin"
   })
 }
