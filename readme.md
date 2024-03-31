@@ -1,7 +1,7 @@
 # eri
 
 Yet another blogging engine.
-Built with Next.js, NextAuth, tRPC, MikroORM and Tailwind.
+Built with [Remix](https://remix.run/), [Lucia](https://lucia-auth.com/), [MikroORM](https://mikro-orm.io/), [Tailwind](https://tailwindcss.com/docs) and [shadcn/ui](https://ui.shadcn.com/).
 
 ## Development setup
 
@@ -10,4 +10,4 @@ Built with Next.js, NextAuth, tRPC, MikroORM and Tailwind.
 3. When it's done, install dependencies using `pnpm install` command;
 4. Rename `.env.sample` file to either `.env.development.local` or `.env.local` and fill it with required configuration;
 5. Now you are able to run dev server. To do so, run `pnpm dev` command;
-6. Open http://localhost:3000/auth/super and create admin account.
+6. Open http://localhost:5173/admin and create admin account.

@@ -1,14 +1,9 @@
 {
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
   "extends": [
-    "@octetstream/eslint-config/typescript/react"
+    "@octetstream/eslint-config/typescript/esm/react"
   ],
   "rules": {
-    "no-shadow": 0,
-    "react/no-unused-prop-types": ["error", {
-      "ignore": ["session"]
-    }]
+    "no-use-before-define": "off",
+    "no-console": "off"
   }
 }
