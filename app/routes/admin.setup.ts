@@ -10,9 +10,17 @@ export const loader = (): never => {
   })
 }
 
-export const action: ActionFunction = ({request}) => formAction({
-  request,
-  schema: AdminSetupInput,
-  mutation: adminSetup,
-  successPath: "/admin"
-})
+export const action: ActionFunction = ({request}) => {
+  if (request.method.toLowerCase() !== "post") {
+    throw new Response(null, {
+      status: 405
+    })
+  }
+
+  return formAction({
+    request,
+    schema: AdminSetupInput,
+    mutation: adminSetup,
+    successPath: "/admin"
+  })
+}

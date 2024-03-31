@@ -9,6 +9,12 @@ export const loader = (): never => {
 
 // TODO: Implement authentication
 export const action = async ({request}: ActionFunctionArgs) => {
+  if (request.method.toLowerCase() !== "post") {
+    throw new Response(null, {
+      status: 405
+    })
+  }
+
   console.log(Object.fromEntries(await request.formData()))
 
   return redirect("/admin")
