@@ -4,6 +4,7 @@ namespace NodeJS {
   }
 
   interface ProcessEnv {
+    readonly NODE_ENV: "production" | "development" | "test"
     readonly BLOG_NAME?: string
 
     readonly NEXT_PUBLIC_SERVER_URL: string
