@@ -1,7 +1,7 @@
-import type {ActionFunction} from "@remix-run/node"
+import {json, redirect, ActionFunction} from "@remix-run/node"
+import {performMutation} from "remix-forms"
 
 import {AdminSetupInput} from "../server/zod/user/AdminSetupInput.js"
-import {formAction} from "../lib/utils/form-action.server.js"
 import {mutations} from "../server/mutations.js"
 
 export const loader = (): never => {
@@ -10,17 +10,31 @@ export const loader = (): never => {
   })
 }
 
-export const action: ActionFunction = ({request}) => {
+export const action: ActionFunction = async ({request}) => {
   if (request.method.toLowerCase() !== "post") {
     throw new Response(null, {
       status: 405
     })
   }
 
-  return formAction({
+  const result = await performMutation({
     request,
     schema: AdminSetupInput,
-    mutation: mutations.admin.setup,
-    successPath: "/admin"
+    mutation: mutations.admin.setup
+  })
+
+  if (!result.success) {
+    throw json(result)
+  }
+
+  if (!(result.data instanceof Headers)) {
+    throw new Response(null, {
+      status: 500,
+      statusText: "Unable to set cookie for current user session"
+    })
+  }
+
+  return redirect("/admin", {
+    headers: result.data
   })
 }
