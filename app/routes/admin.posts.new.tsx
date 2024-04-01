@@ -7,10 +7,10 @@ import {lucia} from "../server/lib/auth/lucia.js"
 import {PostCreateInput} from "../server/zod/post/PostCreateInput.js"
 import {parseCookie, serializeCookie} from "../server/lib/auth/cookie.js"
 
-import type {BreadcrumbHandle} from "../components/Breadcrumbs.jsx"
-import {BreadcrumbPage} from "../components/ui/Breadcrumb.jsx"
-import {Textarea} from "../components/ui/Textarea.jsx"
-import {Input} from "../components/ui/Input.jsx"
+import type {BreadcrumbHandle} from "../components/Breadcrumbs.js"
+import {PlateEditor} from "../components/editors/PostEditor.js"
+import {BreadcrumbPage} from "../components/ui/Breadcrumb.js"
+import {Input} from "../components/ui/Input.js"
 
 export const action: ActionFunction = async ({request}) => {
   if (request.method.toLowerCase() !== "post") {
@@ -75,7 +75,7 @@ const AdminPostNewPage: FC = () => (
   <div className="flex flex-col flex-1 gap-4">
     <Input name="title" placeholder="Post title" />
 
-    <Textarea placeholder="Post content" />
+    <PlateEditor />
   </div>
 )
 
