@@ -1,8 +1,6 @@
 import {z} from "zod"
 
-import {ID_LENGTH, ID_REGEX} from "../../lib/utils/id.js"
-
-export const ID = z.string().length(ID_LENGTH).regex(ID_REGEX)
+export const ID = z.string().uuid()
 
 export type IID = z.input<typeof ID>
 
