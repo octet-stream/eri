@@ -5,14 +5,10 @@ import {Paragraph} from "../common/Paragraph.js"
 import {CodeBlock} from "../common/CodeBlock.js"
 import {Heading} from "../common/Heading.js"
 
-export const PostContentEditorDescendant = z
+export const PostContent = z
   .array(z.union([Paragraph, Blockquote, Heading, CodeBlock]))
   .nonempty()
 
-export type IPostContentEditorDescendant = z.input<
-  typeof PostContentEditorDescendant
->
+export type IPostContent = z.input<typeof PostContent>
 
-export type OPostContentEditorDescendant = z.output<
-  typeof PostContentEditorDescendant
->
+export type OPostContent = z.output<typeof PostContent>

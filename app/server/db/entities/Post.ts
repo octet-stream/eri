@@ -9,18 +9,21 @@ import {
 
 import {formatSlug} from "../../lib/utils/slug.js"
 
-import {
-  OPostContentEditorDescendant as PostContent
-} from "../../zod/plate/editors/PostContentEditorDescendant.js"
+import {OPostContent} from "../../zod/plate/editors/PostContent.js"
+import {OPostCreateInput} from "../../zod/post/PostCreateInput.js"
 
 import {RecordSoft} from "./RecordSoft.js"
 import {User} from "./User.js"
+
+export interface PostInput extends OPostCreateInput {
+  author: User
+}
 
 /**
  * Represents a post stored in database
  */
 @Entity()
-export class Post extends RecordSoft {
+export class Post extends RecordSoft implements PostInput {
   /**
    * Post title
    */
@@ -28,7 +31,7 @@ export class Post extends RecordSoft {
   title: string
 
   @Property<Post>({type: JsonType})
-  content: PostContent
+  content: OPostContent
 
   /**
    * Human-readable, unique, URL-friendly identifier of the post
@@ -48,11 +51,11 @@ export class Post extends RecordSoft {
   @ManyToOne(() => User, {eager: true})
   author!: User
 
-  constructor(title: string, content: PostContent) {
+  constructor(input: PostInput) {
     super()
 
-    this.title = title
-    this.content = content
+    this.title = input.title
+    this.content = input.content
     this.slug = formatSlug(this.title, this.createdAt)
   }
 }

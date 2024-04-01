@@ -2,11 +2,9 @@ import {z} from "zod"
 
 import {createEditorType} from "../utils/createEditorType.js"
 
-import {PostContentEditorDescendant} from "./PostContentEditorDescendant.js"
+import {PostContent} from "./PostContent.js"
 
-export const PostContentEditor = createEditorType(
-  PostContentEditorDescendant
-)
+export const PostContentEditor = createEditorType(PostContent)
 
 export type IPostContentEditor = z.input<typeof PostContentEditor>
 
