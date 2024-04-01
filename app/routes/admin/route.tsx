@@ -1,11 +1,14 @@
 import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
-import {useLoaderData, Outlet} from "@remix-run/react"
+import {useLoaderData, Outlet, Link} from "@remix-run/react"
 import type {FC} from "react"
 
 import {User} from "../../server/db/entities.js"
 import {withOrm} from "../../server/lib/db/orm.js"
 import {lucia} from "../../server/lib/auth/lucia.js"
 import {parseCookie} from "../../server/lib/auth/cookie.js"
+
+import {BreadcrumbLink} from "../../components/ui/Breadcrumb.jsx"
+import {Breadcrumbs, type BreadcrumbHandle} from "../../components/Breadcrumbs.jsx"
 
 import {AdminSetupPage} from "./pages/Setup.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
@@ -65,6 +68,16 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [{title}]
 }
 
+export const handle: BreadcrumbHandle = {
+  breadcrumb: () => (
+    <BreadcrumbLink asChild>
+      <Link to="/admin">
+        Dashboard
+      </Link>
+    </BreadcrumbLink>
+  )
+}
+
 const AdminLayout: FC = () => {
   const data = useLoaderData<typeof loader>()
 
@@ -77,7 +90,15 @@ const AdminLayout: FC = () => {
     return <AdminLoginPage />
   }
 
-  return <Outlet />
+  return (
+    <div className="w-full laptop:max-w-laptop mx-auto px-5">
+      <header className="py-5">
+        <Breadcrumbs />
+      </header>
+
+      <Outlet />
+    </div>
+  )
 }
 
 export default AdminLayout

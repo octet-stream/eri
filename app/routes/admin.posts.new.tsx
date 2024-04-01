@@ -1,4 +1,4 @@
-import {json, type ActionFunction} from "@remix-run/node"
+import {json, type ActionFunction, MetaFunction} from "@remix-run/node"
 import {performMutation} from "remix-forms"
 import type {FC} from "react"
 
@@ -6,6 +6,11 @@ import {mutations} from "../server/mutations.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 import {PostCreateInput} from "../server/zod/post/PostCreateInput.js"
 import {parseCookie, serializeCookie} from "../server/lib/auth/cookie.js"
+
+import type {BreadcrumbHandle} from "../components/Breadcrumbs.jsx"
+import {BreadcrumbPage} from "../components/ui/Breadcrumb.jsx"
+import {Textarea} from "../components/ui/Textarea.jsx"
+import {Input} from "../components/ui/Input.jsx"
 
 export const action: ActionFunction = async ({request}) => {
   if (request.method.toLowerCase() !== "post") {
@@ -51,6 +56,27 @@ export const action: ActionFunction = async ({request}) => {
   })
 }
 
-const AdminPostNewPage: FC = () => <div>Post editor will be here</div>
+export const meta: MetaFunction = () => [
+  {
+    title: "New post"
+  }
+]
+
+export const handle: BreadcrumbHandle = {
+  breadcrumb: () => (
+    <BreadcrumbPage>
+      New post
+    </BreadcrumbPage>
+  )
+}
+
+// TODO: Add plate editor for content
+const AdminPostNewPage: FC = () => (
+  <div className="flex flex-col flex-1 gap-4">
+    <Input name="title" placeholder="Post title" />
+
+    <Textarea placeholder="Post content" />
+  </div>
+)
 
 export default AdminPostNewPage
