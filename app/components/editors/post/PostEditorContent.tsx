@@ -46,7 +46,7 @@ export const ContentEditor: FC = () => {
               </Plate>
             </DndProvider>
 
-            <input type="hidden" name={name} value={value ?? ""} />
+            <input type="hidden" name={name} value={value || ""} />
           </Fragment>
         )
       }}
