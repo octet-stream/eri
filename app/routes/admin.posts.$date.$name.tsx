@@ -1,16 +1,13 @@
-import {useLoaderData} from "@remix-run/react"
-import type {FC} from "react"
+import type {BreadcrumbHandle} from "../components/Breadcrumbs.jsx"
+import {BreadcrumbPage} from "../components/ui/Breadcrumb.jsx"
 
-import {loader} from "./posts.$date.$name.jsx"
-
-export {loader, meta} from "./posts.$date.$name.jsx"
-
-const AdminPostViewPage: FC = () => {
-  const {title} = useLoaderData<typeof loader>()
-
-  return (
-    <div>{title}</div>
+export const handle: BreadcrumbHandle = {
+  breadcrumb: () => (
+    <BreadcrumbPage>
+      Post
+    </BreadcrumbPage>
   )
 }
 
-export default AdminPostViewPage
+// eslint-disable-next-line no-restricted-exports
+export {default, loader} from "./posts.$date.$name.jsx"

@@ -1,5 +1,6 @@
 import type {LoaderFunctionArgs, MetaFunction} from "@remix-run/node"
 import {useLoaderData} from "@remix-run/react"
+import {SlateView} from "slate-to-react"
 import {json} from "@remix-run/node"
 import type {FC} from "react"
 
@@ -38,9 +39,7 @@ const PostViewPage: FC = () => {
   const post = useLoaderData<typeof loader>()
 
   return (
-    <div>
-      {post.title}
-    </div>
+    <SlateView nodes={post.content} />
   )
 }
 
