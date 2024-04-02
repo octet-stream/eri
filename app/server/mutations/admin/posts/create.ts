@@ -12,6 +12,8 @@ export const create = makeDomainFunction(PostCreateInput, AuthEnv)(
   withOrm(async (orm, {title, content}, {user}) => {
     const author = orm.em.getReference(User, user.id)
 
+    console.log(author)
+
     const post = new Post({title, content, author})
 
     await orm.em.persistAndFlush(post)
