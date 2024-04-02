@@ -45,7 +45,7 @@ export const Text = createLeafTransform(
     }
 
     if ("kbd" in leaf) {
-      return combineMarks([...nodes, Code], {...props, leaf})
+      return combineMarks([...nodes, Kbd], {...props, leaf})
     }
 
     if ("bold" in leaf) {
