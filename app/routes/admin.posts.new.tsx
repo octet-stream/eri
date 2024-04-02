@@ -13,6 +13,7 @@ import {ContentEditor} from "../components/editors/post/PostEditorContent.jsx"
 import {PostEditor} from "../components/editors/post/PostEditor.jsx"
 import type {BreadcrumbHandle} from "../components/Breadcrumbs.js"
 import {BreadcrumbPage} from "../components/ui/Breadcrumb.js"
+import {Button} from "../components/ui/Button.jsx"
 
 export const action = withOrm(async (_, {request}: ActionFunctionArgs) => {
   if (request.method.toLowerCase() !== "post") {
@@ -83,7 +84,7 @@ const AdminPostNewPage: FC = () => (
     <ContentEditor />
 
     <div>
-      <button type="submit">Save</button>
+      <Button type="submit">Save</Button>
     </div>
   </PostEditor>
 )
