@@ -138,7 +138,11 @@ export const plugins = createPlugins(
         ]
       }
     }),
-    createNodeIdPlugin(),
+    createNodeIdPlugin({
+      options: {
+        idCreator: () => crypto.randomUUID()
+      }
+    }),
     createResetNodePlugin({
       options: {
         rules: [
