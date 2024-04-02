@@ -7,6 +7,12 @@ import type {FC} from "react"
 import {Post} from "../server/db/entities.js"
 import {withOrm} from "../server/lib/db/orm.js"
 
+import {Anchor} from "../components/slate-view/elements/Anchor.jsx"
+import {Blockquote} from "../components/slate-view/elements/Blockquote.jsx"
+import {Heading} from "../components/slate-view/elements/Heading.jsx"
+
+import {Text} from "../components/slate-view/leaves/Text.jsx"
+
 interface Params {
   date: string
   name: string
@@ -39,7 +45,13 @@ const PostViewPage: FC = () => {
   const post = useLoaderData<typeof loader>()
 
   return (
-    <SlateView nodes={post.content} />
+    <SlateView
+      nodes={post.content}
+      transforms={{
+        elements: [Anchor, Heading, Blockquote],
+        leaves: [Text]
+      }}
+    />
   )
 }
 

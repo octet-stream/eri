@@ -1,6 +1,7 @@
 import {PlateElement} from "@udecode/plate-common"
 import {cn, withRef} from "@udecode/cn"
 
+// TODO: Use common element for component
 export const BlockquoteElement = withRef<typeof PlateElement>(
   ({className, children, ...props}, ref) => (
     <PlateElement
