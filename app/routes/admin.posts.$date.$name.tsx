@@ -10,4 +10,4 @@ export const handle: BreadcrumbHandle = {
 }
 
 // eslint-disable-next-line no-restricted-exports
-export {default, loader} from "./posts.$date.$name.jsx"
+export {default, loader, meta} from "./posts.$date.$name.jsx"
