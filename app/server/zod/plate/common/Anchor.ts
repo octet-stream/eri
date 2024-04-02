@@ -7,7 +7,10 @@ import {createElementType} from "../utils/createElementType.js"
 
 export const ElementAnchor = z.literal(ELEMENT_LINK)
 
-export const Anchor = createElementType(ElementAnchor, z.array(Text).nonempty())
+export const Anchor = createElementType(
+  ElementAnchor,
+  z.array(Text).nonempty()
+).extend({url: z.string().url()})
 
 export type IAnchor = z.input<typeof Anchor>
 

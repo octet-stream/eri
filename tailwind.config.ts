@@ -6,13 +6,13 @@ import animate from "tailwindcss-animate"
 const mobile = "450px"
 const laptop = "1024px"
 const desktop = "1280px"
+const post = "800px"
 
 const dynamicScreenWidth = "100dvw"
 const dynamicScreenHeight = "100dvh"
 const dynamicScreenKey = "dynamic-screen"
 
 export default {
-  // darkMode: ["class"],
   content: ["**/*.tsx"],
   theme: {
     container: {
@@ -35,13 +35,15 @@ export default {
         [dynamicScreenKey]: dynamicScreenWidth,
         mobile,
         laptop,
-        desktop
+        desktop,
+        post
       },
       maxWidth: {
         [dynamicScreenKey]: dynamicScreenWidth,
         mobile,
         laptop,
-        desktop
+        desktop,
+        post
       },
       minHeight: {
         [dynamicScreenKey]: dynamicScreenHeight
