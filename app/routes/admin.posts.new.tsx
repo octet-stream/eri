@@ -1,4 +1,4 @@
-import {json, type ActionFunction, MetaFunction} from "@remix-run/node"
+import {json, type ActionFunctionArgs, MetaFunction, redirect} from "@remix-run/node"
 import {performMutation} from "remix-forms"
 import type {FC} from "react"
 
@@ -6,13 +6,16 @@ import {mutations} from "../server/mutations.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 import {PostCreateInput} from "../server/zod/post/PostCreateInput.js"
 import {parseCookie, serializeCookie} from "../server/lib/auth/cookie.js"
+import {withOrm} from "../server/lib/db/orm.js"
 
-import type {BreadcrumbHandle} from "../components/Breadcrumbs.jsx"
-import {BreadcrumbPage} from "../components/ui/Breadcrumb.jsx"
-import {Textarea} from "../components/ui/Textarea.jsx"
-import {Input} from "../components/ui/Input.jsx"
+import {PostEditorTitle} from "../components/editors/post/PostEditorTitle.jsx"
+import {ContentEditor} from "../components/editors/post/PostEditorContent.jsx"
+import {PostEditor} from "../components/editors/post/PostEditor.jsx"
+import type {BreadcrumbHandle} from "../components/Breadcrumbs.js"
+import {BreadcrumbPage} from "../components/ui/Breadcrumb.js"
+import {Button} from "../components/ui/Button.jsx"
 
-export const action: ActionFunction = async ({request}) => {
+export const action = withOrm(async (_, {request}: ActionFunctionArgs) => {
   if (request.method.toLowerCase() !== "post") {
     throw new Response(null, {
       status: 405
@@ -51,10 +54,14 @@ export const action: ActionFunction = async ({request}) => {
     }
   })
 
+  if (result.success) {
+    return redirect(`/admin/posts/${result.data.slug}`)
+  }
+
   return json(result, {
     headers
   })
-}
+})
 
 export const meta: MetaFunction = () => [
   {
@@ -70,13 +77,16 @@ export const handle: BreadcrumbHandle = {
   )
 }
 
-// TODO: Add plate editor for content
 const AdminPostNewPage: FC = () => (
-  <div className="flex flex-col flex-1 gap-4">
-    <Input name="title" placeholder="Post title" />
+  <PostEditor schema={PostCreateInput} method="post">
+    <PostEditorTitle />
 
-    <Textarea placeholder="Post content" />
-  </div>
+    <ContentEditor />
+
+    <div>
+      <Button type="submit">Save</Button>
+    </div>
+  </PostEditor>
 )
 
 export default AdminPostNewPage

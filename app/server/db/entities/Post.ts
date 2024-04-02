@@ -23,7 +23,7 @@ export interface PostInput extends OPostCreateInput {
  * Represents a post stored in database
  */
 @Entity()
-export class Post extends RecordSoft implements PostInput {
+export class Post extends RecordSoft {
   /**
    * Post title
    */
@@ -55,6 +55,7 @@ export class Post extends RecordSoft implements PostInput {
     super()
 
     this.title = input.title
+    this.author = input.author
     this.content = input.content
     this.slug = formatSlug(this.title, this.createdAt)
   }
