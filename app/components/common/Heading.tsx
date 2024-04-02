@@ -15,16 +15,11 @@ const headingVariants = cva("", {
       h4: "mt-[0.75em] font-heading text-lg font-semibold tracking-tight",
       h5: "mt-[0.75em] text-lg font-semibold tracking-tight",
       h6: "mt-[0.75em] text-base font-semibold tracking-tight"
-    } satisfies Record<OHeadingLevels, string>,
-    isFirstBlock: {
-      true: "mt-0",
-      false: ""
-    }
+    } satisfies Record<OHeadingLevels, string>
   }
 })
 
 const HeadingElementVariants = withVariants(Box, headingVariants, [
-  "isFirstBlock",
   "variant"
 ])
 
