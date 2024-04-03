@@ -7,6 +7,9 @@ export type BlockquoteRef = ElementRef<"blockquote">
 
 export type BlockquoteProps = ComponentPropsWithoutRef<"blockquote">
 
+/**
+ * Styled `<blockquote>` component
+ */
 export const Blockquote = forwardRef<BlockquoteRef, BlockquoteProps>(
   ({className, children, ...props}, ref) => (
     <blockquote

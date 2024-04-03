@@ -11,8 +11,8 @@ import {withOrm} from "../server/lib/db/orm.js"
 import {PostEditorTitle} from "../components/editors/post/PostEditorTitle.jsx"
 import {ContentEditor} from "../components/editors/post/PostEditorContent.jsx"
 import {PostEditor} from "../components/editors/post/PostEditor.jsx"
-import type {BreadcrumbHandle} from "../components/Breadcrumbs.js"
-import {BreadcrumbPage} from "../components/ui/Breadcrumb.js"
+import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
+import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
 export const action = withOrm(async (_, {request}: ActionFunctionArgs) => {
@@ -71,9 +71,9 @@ export const meta: MetaFunction = () => [
 
 export const handle: BreadcrumbHandle = {
   breadcrumb: () => (
-    <BreadcrumbPage>
+    <Breadcrumb>
       New post
-    </BreadcrumbPage>
+    </Breadcrumb>
   )
 }
 

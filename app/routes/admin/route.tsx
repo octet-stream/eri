@@ -1,5 +1,5 @@
 import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
-import {useLoaderData, Outlet, Link} from "@remix-run/react"
+import {useLoaderData, Outlet} from "@remix-run/react"
 import type {FC} from "react"
 
 import {User} from "../../server/db/entities.js"
@@ -7,8 +7,11 @@ import {withOrm} from "../../server/lib/db/orm.js"
 import {lucia} from "../../server/lib/auth/lucia.js"
 import {parseCookie} from "../../server/lib/auth/cookie.js"
 
-import {BreadcrumbLink} from "../../components/ui/Breadcrumb.jsx"
-import {Breadcrumbs, type BreadcrumbHandle} from "../../components/Breadcrumbs.jsx"
+import {
+  Breadcrumbs,
+  Breadcrumb,
+  type BreadcrumbHandle
+} from "../../components/common/Breadcrumbs.jsx"
 
 import {AdminSetupPage} from "./pages/Setup.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
@@ -70,11 +73,9 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
 
 export const handle: BreadcrumbHandle = {
   breadcrumb: () => (
-    <BreadcrumbLink asChild>
-      <Link to="/admin">
-        Dashboard
-      </Link>
-    </BreadcrumbLink>
+    <Breadcrumb href="/admin">
+      Dashboard
+    </Breadcrumb>
   )
 }
 
