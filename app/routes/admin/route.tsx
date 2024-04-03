@@ -2,10 +2,13 @@ import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
 import {useLoaderData, Outlet} from "@remix-run/react"
 import type {FC} from "react"
 
+import {
+  parseCookie,
+  serializeCookie
+} from "../../server/lib/auth/cookie.js"
 import {User} from "../../server/db/entities.js"
 import {withOrm} from "../../server/lib/db/orm.js"
 import {lucia} from "../../server/lib/auth/lucia.js"
-import {parseCookie} from "../../server/lib/auth/cookie.js"
 
 import {
   Breadcrumbs,
@@ -43,7 +46,7 @@ export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
   // Refresh session cookie if necessary
   const headers = new Headers()
   if (session?.fresh) {
-    headers.set("set-cookie", lucia.createSessionCookie(session.id).serialize())
+    headers.set("set-cookie", await serializeCookie(session.id))
   }
 
   return json<AdminData>(

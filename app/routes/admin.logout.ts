@@ -3,6 +3,7 @@ import {redirect} from "@remix-run/react"
 
 import {withOrm} from "../server/lib/db/orm.js"
 import {lucia} from "../server/lib/auth/lucia.js"
+import {parseCookie, removeCookie} from "../server/lib/auth/cookie.js"
 
 export const loader = (): never => {
   throw new Response(null, {
@@ -17,14 +18,7 @@ export const action = withOrm(async (_, {request}: ActionFunctionArgs) => {
     })
   }
 
-  const cookies = request.headers.get("cookies")
-  if (!cookies) {
-    throw new Response(null, {
-      status: 401
-    })
-  }
-
-  const sessionId = lucia.readSessionCookie(cookies)
+  const sessionId = await parseCookie(request.headers.get("cookie"))
   if (!sessionId) {
     throw new Response(null, {
       status: 401
@@ -33,5 +27,7 @@ export const action = withOrm(async (_, {request}: ActionFunctionArgs) => {
 
   await lucia.invalidateSession(sessionId)
 
-  return redirect("/admin")
+  return redirect("/admin", {
+    headers: new Headers([["set-cookie", await removeCookie()]])
+  })
 })
