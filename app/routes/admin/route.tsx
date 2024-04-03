@@ -92,7 +92,7 @@ const AdminLayout: FC = () => {
   }
 
   return (
-    <div className="w-full laptop:max-w-laptop mx-auto px-5">
+    <div className="w-full laptop:max-w-post mx-auto px-5">
       <header className="py-5">
         <Breadcrumbs />
       </header>

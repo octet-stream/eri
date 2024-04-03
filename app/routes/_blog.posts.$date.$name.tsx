@@ -7,10 +7,13 @@ import type {FC} from "react"
 import {Post} from "../server/db/entities.js"
 import {withOrm} from "../server/lib/db/orm.js"
 
+import {
+  Breadcrumb,
+  type BreadcrumbHandle
+} from "../components/common/Breadcrumbs.jsx"
 import {Anchor} from "../components/slate-view/elements/Anchor.jsx"
 import {Blockquote} from "../components/slate-view/elements/Blockquote.jsx"
 import {Heading} from "../components/slate-view/elements/Heading.jsx"
-
 import {Text} from "../components/slate-view/leaves/Text.jsx"
 
 interface Params {
@@ -40,6 +43,14 @@ export const meta: MetaFunction<typeof loader> = ({data}) => [
     title: data?.title
   }
 ]
+
+export const handle: BreadcrumbHandle = {
+  breadcrumb: () => (
+    <Breadcrumb>
+      Post
+    </Breadcrumb>
+  )
+}
 
 const PostViewPage: FC = () => {
   const post = useLoaderData<typeof loader>()
