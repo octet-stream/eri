@@ -27,7 +27,9 @@ export const loader = withOrm(async (orm, {params}: LoaderFunctionArgs) => {
 
   const slug = `${date}/${name}`
 
-  const post = await orm.em.findOne(Post, {slug})
+  const post = await orm.em.findOne(Post, {slug}, {
+    populate: ["content"]
+  })
 
   if (!post) {
     throw new Response(null, {

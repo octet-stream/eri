@@ -30,7 +30,7 @@ export class Post extends RecordSoft {
   @Property<Post>({type: "varchar"})
   title: string
 
-  @Property<Post>({type: JsonType})
+  @Property<Post>({type: JsonType, lazy: true})
   content: OPostContent
 
   /**
