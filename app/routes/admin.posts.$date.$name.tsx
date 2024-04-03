@@ -1,11 +1,12 @@
-import type {BreadcrumbHandle} from "../components/Breadcrumbs.jsx"
-import {BreadcrumbPage} from "../components/ui/Breadcrumb.jsx"
+import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
+import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
+// import {BreadcrumbPage} from "../components/ui/Breadcrumb.jsx"
 
 export const handle: BreadcrumbHandle = {
   breadcrumb: () => (
-    <BreadcrumbPage>
+    <Breadcrumb>
       Post
-    </BreadcrumbPage>
+    </Breadcrumb>
   )
 }
 

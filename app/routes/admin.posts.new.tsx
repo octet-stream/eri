@@ -11,7 +11,7 @@ import {withOrm} from "../server/lib/db/orm.js"
 import {PostEditorTitle} from "../components/editors/post/PostEditorTitle.jsx"
 import {ContentEditor} from "../components/editors/post/PostEditorContent.jsx"
 import {PostEditor} from "../components/editors/post/PostEditor.jsx"
-import type {BreadcrumbHandle} from "../components/Breadcrumbs.js"
+import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 import {BreadcrumbPage} from "../components/ui/Breadcrumb.js"
 import {Button} from "../components/ui/Button.jsx"
 

@@ -1,7 +1,7 @@
 import type {FormProps, FormSchema} from "remix-forms"
 import type {ReactElement, ReactNode} from "react"
 
-import {Form} from "../../Form.jsx"
+import {Form} from "../../common/Form.jsx"
 import type {Replace} from "../../../lib/types/Replace.js"
 
 import {PostEditorContext} from "./PostEditorContext.jsx"

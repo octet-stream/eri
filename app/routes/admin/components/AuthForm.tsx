@@ -3,7 +3,7 @@ import type {FC, ComponentPropsWithoutRef, ReactNode} from "react"
 import type {Replace} from "../../../lib/types/Replace.js"
 
 import {Button} from "../../../components/ui/Button.js"
-import {Form} from "../../../components/Form.jsx"
+import {Form} from "../../../components/common/Form.jsx"
 import {
   Card,
   CardHeader,
