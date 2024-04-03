@@ -10,7 +10,7 @@ export interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({className, children}) => (
-  <aside className={cn("flex flex-col laptop:w-[200px] shrink-0 border-r", className)}>
+  <aside className={cn("flex flex-col post:w-[200px] shrink-0 border-r", className)}>
     <ol className="w-full flex flex-1 flex-col">
       {children}
     </ol>
@@ -34,7 +34,7 @@ export const SidebarItem: FC<SidebarItemProps> = ({
     <Link to={href} className="flex gap-3 items-center">
       <Icon />
 
-      <div className="hidden laptop:block">
+      <div className="hidden post:block">
         {children}
       </div>
     </Link>
