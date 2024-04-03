@@ -5,5 +5,5 @@ import {usePostEditorContext} from "./PostEditorContext.jsx"
 export const PostEditorTitle = () => {
   const {register} = usePostEditorContext()
 
-  return <Input {...register("title")} />
+  return <Input {...register("title")} placeholder="Title" />
 }

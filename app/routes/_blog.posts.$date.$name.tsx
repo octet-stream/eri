@@ -58,13 +58,15 @@ const PostViewPage: FC = () => {
   const post = useLoaderData<typeof loader>()
 
   return (
-    <SlateView
-      nodes={post.content}
-      transforms={{
-        elements: [Anchor, Heading, Blockquote],
-        leaves: [Text]
-      }}
-    />
+    <article>
+      <SlateView
+        nodes={post.content}
+        transforms={{
+          elements: [Anchor, Heading, Blockquote],
+          leaves: [Text]
+        }}
+      />
+    </article>
   )
 }
 

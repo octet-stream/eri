@@ -13,7 +13,7 @@ type Props<TSchema extends FormSchema> = Replace<FormProps<TSchema>, {
 export const PostEditor = <TSchema extends FormSchema>(
   {children, ...props}: Props<TSchema>
 ): ReactElement => (
-  <Form {...props}>
+  <Form {...props} className="contents">
     {value => (
       <div className="flex flex-1 flex-col gap-4">
         <PostEditorContext.Provider value={value}>
