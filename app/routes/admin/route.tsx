@@ -1,5 +1,5 @@
 import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
-import {useLoaderData, Outlet, Link} from "@remix-run/react"
+import {useLoaderData, Outlet} from "@remix-run/react"
 import {SquarePen} from "lucide-react"
 import type {FC} from "react"
 
@@ -112,14 +112,8 @@ const AdminLayout: FC = () => {
 
       <div className="flex flex-row flex-1 w-full laptop:max-w-laptop mx-auto">
         <Sidebar>
-          <SidebarItem>
-            <Link to="/admin/posts/new" className="flex gap-2 items-center">
-              <SquarePen />
-
-              <div>
-                New post
-              </div>
-            </Link>
+          <SidebarItem icon={SquarePen} href="/admin/posts/new">
+            New post
           </SidebarItem>
         </Sidebar>
 
