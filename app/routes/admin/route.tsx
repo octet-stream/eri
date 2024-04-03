@@ -1,5 +1,6 @@
 import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
 import {useLoaderData, Outlet, Link} from "@remix-run/react"
+import {SquarePen} from "lucide-react"
 import type {FC} from "react"
 
 import {
@@ -15,7 +16,7 @@ import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
-import {Sidebar} from "../../components/common/Sidebar.jsx"
+import {Sidebar, SidebarItem} from "../../components/common/Sidebar.jsx"
 
 import {AdminSetupPage} from "./pages/Setup.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
@@ -109,11 +110,17 @@ const AdminLayout: FC = () => {
         </div>
       </header>
 
-      <div className="flex flex-row flex-1 w-full px-5 laptop:max-w-laptop mx-auto">
+      <div className="flex flex-row flex-1 w-full laptop:max-w-laptop mx-auto">
         <Sidebar>
-          <Link to="/admin/posts/new">
-            New post
-          </Link>
+          <SidebarItem>
+            <Link to="/admin/posts/new" className="flex gap-2 items-center">
+              <SquarePen />
+
+              <div>
+                New post
+              </div>
+            </Link>
+          </SidebarItem>
         </Sidebar>
 
         <div className="flex flex-1 p-5">
