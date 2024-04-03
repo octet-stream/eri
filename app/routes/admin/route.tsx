@@ -1,5 +1,6 @@
 import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
 import {useLoaderData, Outlet} from "@remix-run/react"
+import {SquarePen} from "lucide-react"
 import type {FC} from "react"
 
 import {
@@ -15,13 +16,14 @@ import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
+import {Sidebar, SidebarItem} from "../../components/common/Sidebar.jsx"
 
 import {AdminSetupPage} from "./pages/Setup.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
 
-type AdminData =
+type AdminData<TUser = never> =
   | {hasAdminUser: boolean, isAuthorized: false}
-  | {hasAdminUser: true, isAuthorized: true}
+  | {hasAdminUser: true, isAuthorized: true, user: TUser}
 
 export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
   const [admin] = await orm.em.find(User, {}, {
@@ -33,15 +35,19 @@ export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
   })
 
   if (!admin) {
-    return json<AdminData>({hasAdminUser: false, isAuthorized: false})
+    return json<AdminData>({hasAdminUser: false, isAuthorized: false}, 401)
   }
 
   const sessionId = await parseCookie(request.headers.get("cookie"))
   if (!sessionId) {
-    return json<AdminData>({hasAdminUser: true, isAuthorized: false})
+    return json<AdminData>({hasAdminUser: true, isAuthorized: false}, 401)
   }
 
-  const {session} = await lucia.validateSession(sessionId)
+  const {session, user} = await lucia.validateSession(sessionId)
+
+  if (!(session || user)) {
+    return json<AdminData>({hasAdminUser: true, isAuthorized: false}, 401)
+  }
 
   // Refresh session cookie if necessary
   const headers = new Headers()
@@ -49,10 +55,11 @@ export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
     headers.set("set-cookie", await serializeCookie(session.id))
   }
 
-  return json<AdminData>(
+  return json<AdminData<NonNullable<typeof user>>>(
     {
       isAuthorized: !!session,
-      hasAdminUser: true
+      hasAdminUser: true,
+      user
     },
 
     {
@@ -90,17 +97,30 @@ const AdminLayout: FC = () => {
     return <AdminSetupPage />
   }
 
+  // Render login page for guests
   if (data.isAuthorized === false) {
     return <AdminLoginPage />
   }
 
   return (
-    <div className="w-full laptop:max-w-post mx-auto px-5 pb-5">
-      <header className="py-5">
-        <Breadcrumbs />
+    <div className="flex flex-1 flex-col w-full">
+      <header className="border-b w-full">
+        <div className="w-full p-5 laptop:max-w-laptop mx-auto">
+          <Breadcrumbs />
+        </div>
       </header>
 
-      <Outlet />
+      <div className="flex flex-row flex-1 w-full laptop:max-w-laptop mx-auto">
+        <Sidebar>
+          <SidebarItem icon={SquarePen} href="/admin/posts/new">
+            New post
+          </SidebarItem>
+        </Sidebar>
+
+        <div className="flex flex-1 p-5">
+          <Outlet />
+        </div>
+      </div>
     </div>
   )
 }

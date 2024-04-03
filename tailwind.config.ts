@@ -26,7 +26,8 @@ export default {
       screens: {
         mobile,
         laptop,
-        desktop
+        desktop,
+        post
       },
       minWidth: {
         [dynamicScreenKey]: dynamicScreenWidth
