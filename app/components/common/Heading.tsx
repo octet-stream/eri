@@ -23,6 +23,11 @@ const HeadingElementVariants = withVariants(Box, headingVariants, [
   "variant"
 ])
 
+/**
+ * Common heading component.
+ *
+ * Renders specific tag depending on the `variant` property
+ */
 export const Heading = withRef<typeof HeadingElementVariants>(
   ({variant, children, ...props}, ref) => {
     const Element = variant ?? "h1"
@@ -42,3 +47,5 @@ export const Heading = withRef<typeof HeadingElementVariants>(
     )
   }
 )
+
+Heading.displayName = "Heading"

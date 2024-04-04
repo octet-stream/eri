@@ -1,7 +1,6 @@
 import type {ComponentPropsWithoutRef, ElementRef} from "react"
 import {forwardRef} from "react"
-
-import {cn} from "../../lib/utils.js"
+import {cn} from "@udecode/cn"
 
 export type BlockquoteRef = ElementRef<"blockquote">
 
@@ -22,3 +21,5 @@ export const Blockquote = forwardRef<BlockquoteRef, BlockquoteProps>(
     </blockquote>
   )
 )
+
+Blockquote.displayName = "Blockquote"

@@ -1,12 +1,14 @@
 import type {ComponentPropsWithoutRef, ElementRef} from "react"
 import {forwardRef} from "react"
-
-import {cn} from "../../lib/utils.js"
+import {cn} from "@udecode/cn"
 
 export type LinkRef = ElementRef<"a">
 
 export type LinkProps = ComponentPropsWithoutRef<"a">
 
+/**
+ * Styled anchor `<a>` element
+ */
 export const Link = forwardRef<LinkRef, LinkProps>(
   ({className, children, ...props}, ref) => (
     <a
@@ -19,3 +21,5 @@ export const Link = forwardRef<LinkRef, LinkProps>(
     </a>
   )
 )
+
+Link.displayName = "Link"

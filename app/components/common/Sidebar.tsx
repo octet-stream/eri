@@ -1,8 +1,7 @@
 import type {LucideIcon} from "lucide-react"
 import type {FC, ReactNode} from "react"
 import {Link} from "@remix-run/react"
-
-import {cn} from "../../lib/utils.js"
+import {cn} from "@udecode/cn"
 
 export interface SidebarProps {
   className?: string
