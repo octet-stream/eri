@@ -1,5 +1,5 @@
 import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
-import {useLoaderData, Outlet} from "@remix-run/react"
+import {useLoaderData, Outlet, Link} from "@remix-run/react"
 import {SquarePen} from "lucide-react"
 import type {FC} from "react"
 
@@ -105,8 +105,14 @@ const AdminLayout: FC = () => {
   return (
     <div className="flex flex-1 flex-col w-full">
       <header className="border-b w-full">
-        <div className="w-full p-5 laptop:max-w-laptop mx-auto">
+        <div className="flex w-full p-5 laptop:max-w-laptop mx-auto">
           <Breadcrumbs />
+
+          <div className="flex-1" />
+
+          <Link to="/" className="font-normal text-foreground text-sm">
+            View blog
+          </Link>
         </div>
       </header>
 
