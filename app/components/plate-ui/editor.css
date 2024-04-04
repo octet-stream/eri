@@ -1,0 +1,6 @@
+/**
+* I am not sure if I can patch it other way.
+*/
+.slate-SelectionArea {
+  @apply h-full;
+}

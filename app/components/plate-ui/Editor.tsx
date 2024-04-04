@@ -6,6 +6,8 @@ import {cn} from "@udecode/cn"
 import type {PlateContentProps} from "@udecode/plate-common"
 import type {VariantProps} from "class-variance-authority"
 
+import "./editor.css"
+
 const editorVariants = cva(
   cn(
     "relative overflow-x-auto whitespace-pre-wrap break-words",
@@ -61,7 +63,7 @@ export const Editor = forwardRef<HTMLDivElement, EditorProps>(
     },
     ref
   ) => (
-    <div ref={ref} className="relative w-full">
+    <div ref={ref} className="relative w-full h-full">
       <PlateContent
         className={cn(
           editorVariants({
@@ -71,6 +73,9 @@ export const Editor = forwardRef<HTMLDivElement, EditorProps>(
             size,
             variant
           }),
+
+          "h-full",
+
           className
         )}
         disableDefaultStyles
