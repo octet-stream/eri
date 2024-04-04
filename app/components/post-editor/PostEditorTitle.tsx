@@ -1,4 +1,4 @@
-import {Input} from "../../ui/Input.jsx"
+import {Input} from "../ui/Input.jsx"
 
 import {usePostEditorContext} from "./PostEditorContext.jsx"
 
