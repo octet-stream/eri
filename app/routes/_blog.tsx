@@ -15,7 +15,7 @@ export const handle: BreadcrumbHandle = {
 }
 
 const MainLayout = () => (
-  <div className="flex flex-col w-full pb-5 px-5 laptop:w-post laptop:mx-auto">
+  <div className="flex flex-col w-full pb-5 px-5 post:w-post post:mx-auto">
     <header className="py-5">
       <Breadcrumbs />
     </header>

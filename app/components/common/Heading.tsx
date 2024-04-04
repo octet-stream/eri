@@ -30,7 +30,7 @@ const HeadingElementVariants = withVariants(Box, headingVariants, [
  */
 export const Heading = withRef<typeof HeadingElementVariants>(
   ({variant, children, ...props}, ref) => {
-    const Element = variant ?? "h1"
+    const Element = variant || "h1"
 
     return (
       <HeadingElementVariants
