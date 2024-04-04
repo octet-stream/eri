@@ -2,8 +2,7 @@
 
 import type {HTMLAttributes} from "react"
 import {forwardRef} from "react"
-
-import {cn} from "../../lib/utils.js"
+import {cn} from "@udecode/cn"
 
 export const Card = forwardRef<
   HTMLDivElement,
