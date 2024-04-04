@@ -19,6 +19,7 @@ import {TurnIntoDropdownMenu} from "./TurnIntoDropdownMenu.jsx"
 import {InsertDropdownMenu} from "./InsertDropdownMenu.jsx"
 import {MarkToolbarButton} from "./MarkToolbarButton.jsx"
 import {LinkToolbarButton} from "./LinkToolbarButton.jsx"
+import {MoreDropdownMenu} from "./MoreDropdownMenu.jsx"
 import {ToolbarGroup} from "./Toolbar.jsx"
 
 export const FixedToolbarButtons: FC = () => {
@@ -35,6 +36,7 @@ export const FixedToolbarButtons: FC = () => {
           <Fragment>
             <ToolbarGroup noSeparator>
               <InsertDropdownMenu />
+
               <TurnIntoDropdownMenu />
             </ToolbarGroup>
 
@@ -42,9 +44,11 @@ export const FixedToolbarButtons: FC = () => {
               <MarkToolbarButton tooltip="Bold (⌘+B)" nodeType={MARK_BOLD}>
                 <Bold />
               </MarkToolbarButton>
+
               <MarkToolbarButton tooltip="Italic (⌘+I)" nodeType={MARK_ITALIC}>
                 <Italic />
               </MarkToolbarButton>
+
               <MarkToolbarButton
                 tooltip="Underline (⌘+U)"
                 nodeType={MARK_UNDERLINE}
@@ -58,6 +62,7 @@ export const FixedToolbarButtons: FC = () => {
               >
                 <Strikethrough />
               </MarkToolbarButton>
+
               <MarkToolbarButton tooltip="Code (⌘+E)" nodeType={MARK_CODE}>
                 <Code />
               </MarkToolbarButton>
@@ -65,6 +70,8 @@ export const FixedToolbarButtons: FC = () => {
 
             <ToolbarGroup>
               <LinkToolbarButton />
+
+              <MoreDropdownMenu />
             </ToolbarGroup>
           </Fragment>
         )}
