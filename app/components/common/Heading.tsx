@@ -9,12 +9,12 @@ import {
 const headingVariants = cva("", {
   variants: {
     variant: {
-      h1: "mb-1 mt-[2em] font-heading text-4xl font-bold",
-      h2: "mb-px mt-[1.4em] font-heading text-2xl font-semibold tracking-tight",
-      h3: "mb-px mt-[1em] font-heading text-xl font-semibold tracking-tight",
-      h4: "mt-[0.75em] font-heading text-lg font-semibold tracking-tight",
-      h5: "mt-[0.75em] text-lg font-semibold tracking-tight",
-      h6: "mt-[0.75em] text-base font-semibold tracking-tight"
+      h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+      h2: "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+      h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
+      h4: "scroll-m-20 text-xl font-semibold tracking-tight",
+      h5: "scroll-m-20 text-lg font-semibold tracking-tight",
+      h6: "scroll-m-20 text-base font-semibold tracking-tight"
     } satisfies Record<OHeadingLevels, string>
   }
 })
