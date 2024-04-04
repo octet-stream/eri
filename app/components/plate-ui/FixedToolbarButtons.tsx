@@ -18,12 +18,11 @@ import {
 import {TurnIntoDropdownMenu} from "./TurnIntoDropdownMenu.jsx"
 import {InsertDropdownMenu} from "./InsertDropdownMenu.jsx"
 import {MarkToolbarButton} from "./MarkToolbarButton.jsx"
-// import {ModeDropdownMenu} from "./mode-dropdown-menu.jsx"
+import {LinkToolbarButton} from "./LinkToolbarButton.jsx"
 import {ToolbarGroup} from "./Toolbar.jsx"
 
 export const FixedToolbarButtons: FC = () => {
   const readOnly = useEditorReadOnly()
-
   return (
     <div className="w-full overflow-hidden">
       <div
@@ -63,14 +62,12 @@ export const FixedToolbarButtons: FC = () => {
                 <Code />
               </MarkToolbarButton>
             </ToolbarGroup>
+
+            <ToolbarGroup>
+              <LinkToolbarButton />
+            </ToolbarGroup>
           </Fragment>
         )}
-
-        <div className="grow" />
-
-        {/* <ToolbarGroup noSeparator>
-          <ModeDropdownMenu />
-        </ToolbarGroup> */}
       </div>
     </div>
   )
