@@ -15,7 +15,7 @@ export const PostEditor = <TSchema extends FormSchema>(
 ): ReactElement => (
   <Form {...props} className="contents">
     {value => (
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-4 min-w-0">
         <PostEditorContext.Provider value={value}>
           {children}
         </PostEditorContext.Provider>

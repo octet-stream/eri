@@ -131,7 +131,7 @@ const AdminLayout: FC = () => {
             </SidebarItem>
           </Sidebar>
 
-          <div className="flex flex-1 flex-col p-5 gap-5">
+          <div className="flex flex-1 flex-col p-5 gap-5 min-w-0">
             <Breadcrumbs />
 
             <div className="flex flex-1">
