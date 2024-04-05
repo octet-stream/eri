@@ -116,8 +116,6 @@ const AdminLayout: FC = () => {
               <Menu />
             </SidebarTrigger>
 
-            <Breadcrumbs />
-
             <div className="flex-1" />
 
             <Link to="/" className="font-normal text-foreground text-sm">
@@ -133,8 +131,12 @@ const AdminLayout: FC = () => {
             </SidebarItem>
           </Sidebar>
 
-          <div className="flex flex-1 p-5">
-            <Outlet />
+          <div className="flex flex-1 flex-col p-5 gap-5">
+            <Breadcrumbs />
+
+            <div className="flex flex-1">
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>
