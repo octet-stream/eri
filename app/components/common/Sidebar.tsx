@@ -11,7 +11,7 @@ export interface SidebarProps {
 }
 
 const SidebarContent: FC<SidebarProps> = ({children, className}) => (
-  <aside className={cn("flex flex-col w-full post:w-[200px] laptop:px-5 shrink-0", className)}>
+  <aside className={cn("flex flex-col w-full post:w-[200px] laptop:px-5 shrink-0 text-sm", className)}>
     <ol className="w-full flex flex-1 flex-col">
       {children}
     </ol>
@@ -58,11 +58,11 @@ export const SidebarItem: FC<SidebarItemProps> = ({
   <li className={cn("py-2.5 post:px-5 laptop:px-0 first:pt-5 last:pb-5 w-full", className)}>
     <SheetClose asChild>
       <Link to={href} className="flex gap-3 items-center">
-        <Icon />
+        <Icon size={20} />
 
-        <div>
+        <span>
           {children}
-        </div>
+        </span>
       </Link>
     </SheetClose>
   </li>
