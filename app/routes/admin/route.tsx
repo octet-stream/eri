@@ -40,18 +40,18 @@ export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
   })
 
   if (!admin) {
-    return json<AdminData>({hasAdminUser: false, isAuthorized: false}, 401)
+    return json<AdminData>({hasAdminUser: false, isAuthorized: false})
   }
 
   const sessionId = await parseCookie(request.headers.get("cookie"))
   if (!sessionId) {
-    return json<AdminData>({hasAdminUser: true, isAuthorized: false}, 401)
+    return json<AdminData>({hasAdminUser: true, isAuthorized: false})
   }
 
   const {session, user} = await lucia.validateSession(sessionId)
 
   if (!(session || user)) {
-    return json<AdminData>({hasAdminUser: true, isAuthorized: false}, 401)
+    return json<AdminData>({hasAdminUser: true, isAuthorized: false})
   }
 
   // Refresh session cookie if necessary
