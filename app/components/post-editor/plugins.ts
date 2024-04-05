@@ -48,9 +48,10 @@ import {createKbdPlugin, MARK_KBD} from "@udecode/plate-kbd"
 import {createAlignPlugin} from "@udecode/plate-alignment"
 import {createAutoformatPlugin} from "@udecode/plate-autoformat"
 import {createBlockSelectionPlugin} from "@udecode/plate-selection"
+import {createDeserializeMdPlugin} from "@udecode/plate-serializer-md"
+import {createExitBreakPlugin, createSoftBreakPlugin} from "@udecode/plate-break"
 import {createComboboxPlugin} from "@udecode/plate-combobox"
 import {createDndPlugin} from "@udecode/plate-dnd"
-import {createExitBreakPlugin, createSoftBreakPlugin} from "@udecode/plate-break"
 import {createNodeIdPlugin} from "@udecode/plate-node-id"
 import {createResetNodePlugin} from "@udecode/plate-reset-node"
 import {createDeletePlugin} from "@udecode/plate-select"
@@ -165,7 +166,8 @@ export const plugins = createPlugins(
           }
         ]
       }
-    })
+    }),
+    createDeserializeMdPlugin()
   ],
   {
     components: withDraggables(withPlaceholders({
