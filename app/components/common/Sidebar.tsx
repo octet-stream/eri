@@ -1,23 +1,45 @@
+import {Fragment, type FC, type ReactNode} from "react"
 import type {LucideIcon} from "lucide-react"
-import type {FC, ReactNode} from "react"
 import {Link} from "@remix-run/react"
 import {cn} from "@udecode/cn"
 
-import {SheetContent, SheetClose} from "../ui/Sheet.jsx"
+import {SheetContent, SheetClose, SheetTrigger} from "../ui/Sheet.jsx"
 
 export interface SidebarProps {
   className?: string
   children: ReactNode
 }
 
+const SidebarContent: FC<SidebarProps> = ({children, className}) => (
+  <aside className={cn("flex flex-col w-full post:w-[200px] laptop:px-5 shrink-0", className)}>
+    <ol className="w-full flex flex-1 flex-col">
+      {children}
+    </ol>
+  </aside>
+)
+
 export const Sidebar: FC<SidebarProps> = ({className, children}) => (
-  <SheetContent>
-    <aside className={cn("flex flex-col w-full shrink-0", className)}>
-      <ol className="w-full flex flex-1 flex-col">
+  <Fragment>
+    <SidebarContent className={cn(className, "hidden post:flex")}>
+      {children}
+    </SidebarContent>
+
+    <SheetContent>
+      <SidebarContent>
         {children}
-      </ol>
-    </aside>
-  </SheetContent>
+      </SidebarContent>
+    </SheetContent>
+  </Fragment>
+)
+
+export interface SidebarTriggerProps {
+  children: ReactNode
+}
+
+export const SidebarTrigger: FC<SidebarTriggerProps> = ({children}) => (
+  <SheetTrigger className="post:hidden">
+    {children}
+  </SheetTrigger>
 )
 
 export interface SidebarItemProps {
@@ -33,7 +55,7 @@ export const SidebarItem: FC<SidebarItemProps> = ({
   className,
   children
 }) => (
-  <li className={cn("py-2.5 first:pt-5 last:pb-5 w-full", className)}>
+  <li className={cn("py-2.5 post:px-5 laptop:px-0 first:pt-5 last:pb-5 w-full", className)}>
     <SheetClose asChild>
       <Link to={href} className="flex gap-3 items-center">
         <Icon />
@@ -46,7 +68,4 @@ export const SidebarItem: FC<SidebarItemProps> = ({
   </li>
 )
 
-export {
-  Sheet as SidebarProvider,
-  SheetTrigger as SidebarTrigger
-} from "../ui/Sheet.jsx"
+export {Sheet as SidebarProvider} from "../ui/Sheet.jsx"
