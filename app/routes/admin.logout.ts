@@ -5,22 +5,10 @@ import {withOrm} from "../server/lib/db/orm.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 import {parseCookie, removeCookie} from "../server/lib/auth/cookie.js"
 
-export const loader = (): never => {
-  throw new Response(null, {
-    status: 404
-  })
-}
-
-export const action = withOrm(async (_, {request}: ActionFunctionArgs) => {
-  if (request.method.toLowerCase() !== "post") {
-    throw new Response(null, {
-      status: 405
-    })
-  }
-
+export const loader = withOrm(async (_, {request}: ActionFunctionArgs) => {
   const sessionId = await parseCookie(request.headers.get("cookie"))
   if (!sessionId) {
-    throw new Response(null, {
+    throw redirect("/admin", {
       status: 401
     })
   }
@@ -31,3 +19,9 @@ export const action = withOrm(async (_, {request}: ActionFunctionArgs) => {
     headers: new Headers([["set-cookie", await removeCookie()]])
   })
 })
+
+export const action = (): never => {
+  throw new Response(null, {
+    status: 405
+  })
+}
