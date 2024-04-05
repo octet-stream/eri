@@ -8,9 +8,10 @@ import {PostCreateInput} from "../server/zod/post/PostCreateInput.js"
 import {parseCookie, serializeCookie} from "../server/lib/auth/cookie.js"
 import {withOrm} from "../server/lib/db/orm.js"
 
+import {PostFooter} from "../components/post-editor/PostFooter.jsx"
+import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {ContentEditor} from "../components/post-editor/PostEditorContent.jsx"
-import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import {Button} from "../components/ui/Button.jsx"
@@ -83,9 +84,9 @@ const AdminPostNewPage: FC = () => (
 
     <ContentEditor />
 
-    <div>
+    <PostFooter>
       <Button type="submit">Save</Button>
-    </div>
+    </PostFooter>
   </PostEditor>
 )
 
