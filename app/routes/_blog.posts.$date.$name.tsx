@@ -15,6 +15,7 @@ import {
 import {Anchor} from "../components/slate-view/elements/Anchor.jsx"
 import {Blockquote} from "../components/slate-view/elements/Blockquote.jsx"
 import {Heading as CommonHeading} from "../components/common/Heading.jsx"
+import {Paragraph} from "../components/slate-view/elements/Paragraph.jsx"
 import {Heading} from "../components/slate-view/elements/Heading.jsx"
 import {Text} from "../components/slate-view/leaves/Text.jsx"
 
@@ -74,7 +75,7 @@ const PostViewPage: FC = () => {
       <SlateView
         nodes={post.content}
         transforms={{
-          elements: [Anchor, Heading, Blockquote],
+          elements: [Paragraph, Anchor, Heading, Blockquote],
           leaves: [Text]
         }}
       />

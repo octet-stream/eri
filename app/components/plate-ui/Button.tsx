@@ -46,13 +46,14 @@ export const Button = withRef<
     asChild?: boolean;
   }
 >(({className, isMenu, variant, size, asChild = false, ...props}, ref) => {
-  const Comp = asChild ? Slot : "button"
+  const Element = asChild ? Slot : "button"
 
   return (
-    <Comp
-      className={cn(buttonVariants({isMenu, variant, size, className}))}
-      ref={ref}
+    <Element
       {...props}
+
+      ref={ref}
+      className={cn(buttonVariants({isMenu, variant, size, className}))}
     />
   )
 })
