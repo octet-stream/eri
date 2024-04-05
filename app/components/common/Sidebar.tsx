@@ -3,17 +3,21 @@ import type {FC, ReactNode} from "react"
 import {Link} from "@remix-run/react"
 import {cn} from "@udecode/cn"
 
+import {SheetContent, SheetClose} from "../ui/Sheet.jsx"
+
 export interface SidebarProps {
   className?: string
   children: ReactNode
 }
 
 export const Sidebar: FC<SidebarProps> = ({className, children}) => (
-  <aside className={cn("flex flex-col post:w-[200px] shrink-0 border-r", className)}>
-    <ol className="w-full flex flex-1 flex-col">
-      {children}
-    </ol>
-  </aside>
+  <SheetContent>
+    <aside className={cn("flex flex-col w-full shrink-0", className)}>
+      <ol className="w-full flex flex-1 flex-col">
+        {children}
+      </ol>
+    </aside>
+  </SheetContent>
 )
 
 export interface SidebarItemProps {
@@ -29,13 +33,20 @@ export const SidebarItem: FC<SidebarItemProps> = ({
   className,
   children
 }) => (
-  <li className={cn("p-5 py-2.5 first:pt-5 last:pb-5", className)}>
-    <Link to={href} className="flex gap-3 items-center">
-      <Icon />
+  <li className={cn("py-2.5 first:pt-5 last:pb-5 w-full", className)}>
+    <SheetClose asChild>
+      <Link to={href} className="flex gap-3 items-center">
+        <Icon />
 
-      <div className="hidden post:block">
-        {children}
-      </div>
-    </Link>
+        <div>
+          {children}
+        </div>
+      </Link>
+    </SheetClose>
   </li>
 )
+
+export {
+  Sheet as SidebarProvider,
+  SheetTrigger as SidebarTrigger
+} from "../ui/Sheet.jsx"

@@ -1,6 +1,6 @@
 import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
 import {useLoaderData, Outlet, Link} from "@remix-run/react"
-import {SquarePen} from "lucide-react"
+import {SquarePen, Menu} from "lucide-react"
 import type {FC} from "react"
 
 import {
@@ -16,7 +16,12 @@ import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
-import {Sidebar, SidebarItem} from "../../components/common/Sidebar.jsx"
+import {
+  SidebarProvider,
+  SidebarTrigger,
+  Sidebar,
+  SidebarItem
+} from "../../components/common/Sidebar.jsx"
 
 import {AdminSetupPage} from "./pages/Setup.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
@@ -103,31 +108,37 @@ const AdminLayout: FC = () => {
   }
 
   return (
-    <div className="flex flex-1 flex-col w-full">
-      <header className="border-b w-full">
-        <div className="flex w-full p-5 laptop:max-w-laptop mx-auto">
-          <Breadcrumbs />
+    <SidebarProvider>
+      <div className="flex flex-1 flex-col w-full">
+        <header className="border-b w-full">
+          <div className="flex w-full p-5 gap-3 laptop:max-w-laptop mx-auto items-center">
+            <SidebarTrigger>
+              <Menu />
+            </SidebarTrigger>
 
-          <div className="flex-1" />
+            <Breadcrumbs />
 
-          <Link to="/" className="font-normal text-foreground text-sm">
-            View blog
-          </Link>
-        </div>
-      </header>
+            <div className="flex-1" />
 
-      <div className="flex flex-row flex-1 w-full laptop:max-w-laptop mx-auto">
-        <Sidebar>
-          <SidebarItem icon={SquarePen} href="/admin/posts/new">
-            New post
-          </SidebarItem>
-        </Sidebar>
+            <Link to="/" className="font-normal text-foreground text-sm">
+              View blog
+            </Link>
+          </div>
+        </header>
 
-        <div className="flex flex-1 p-5">
-          <Outlet />
+        <div className="flex flex-row flex-1 w-full laptop:max-w-laptop mx-auto">
+          <Sidebar>
+            <SidebarItem icon={SquarePen} href="/admin/posts/new">
+              New post
+            </SidebarItem>
+          </Sidebar>
+
+          <div className="flex flex-1 p-5">
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    </SidebarProvider>
   )
 }
 
