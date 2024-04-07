@@ -29,7 +29,9 @@
   },
   "pnpm": {
     "updateConfig": {
-      "ignoreDependencies": []
+      "ignoreDependencies": [
+        "eslint"
+      ]
     }
   },
   "dependencies": {
