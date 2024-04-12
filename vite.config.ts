@@ -9,7 +9,16 @@ installGlobals()
 export default defineConfig({
   plugins: [remix(), tsconfigPaths()],
   optimizeDeps: {
-    exclude: ["oslo", "lucia"]
+    exclude: [
+      "oslo",
+      "lucia",
+      "@mikro-orm/core",
+      "@mikro-orm/mysql",
+      "@mikro-orm/knex",
+      "@mikro-orm/seeder",
+      "@mikro-orm/migrations",
+      "mysql2"
+    ]
   },
   test: {
     include: ["**/*.test.ts?(x)"],
