@@ -17,19 +17,11 @@ export default defineConfig({
       async buildEnd() {
         try {
           build({
-            alias: {
-              "~": "./app"
-            },
-            // The final file name
             outfile: "build/server/entry.hono.js",
-            // Our server entry point
             entryPoints: ["app/server/http/prod.ts"],
-            // Dependencies that should not be bundled
-            // We import the remix build from "../build/server/remix.js", so no need to bundle it again
             external: ["./remix.js"],
             platform: "node",
             format: "esm",
-            // Don't include node_modules in the bundle
             packages: "external",
             bundle: true,
             logLevel: "info"
