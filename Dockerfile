@@ -29,4 +29,5 @@ WORKDIR /usr/opt/eri
 
 RUN pnpm i -P --frozen-lockfile --ignore-scripts
 
+EXPOSE 3000
 CMD ["pnpm", "exec", "remix-serve", "build/server/index.js"]
