@@ -52,7 +52,6 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
-    "@remix-run/serve": "^2.8.1",
     "@sindresorhus/slugify": "2.2.1",
     "@udecode/cn": "^31.0.0",
     "@udecode/plate-alignment": "^31.0.0",
