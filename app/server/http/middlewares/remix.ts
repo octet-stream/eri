@@ -24,9 +24,9 @@ const importDevBuild = () => viteDevServer?.ssrLoadModule(
 
 const importBuild = async () => (
   process.env.NODE_ENV === "production"
-    // @ts-expect-error
-    // eslint-disable-next-line import/no-unresolved
-    ? import("../build/server/remix.js")
+    // @ts-ignore
+    // eslint-disable-next-line import/no-unresolved, import/no-self-import
+    ? import("./remix.js") // Ignored by eslint and ts because this file will be presented in production
     : importDevBuild()
 ) as unknown as Promise<ServerBuild>
 
