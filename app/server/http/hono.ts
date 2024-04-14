@@ -2,6 +2,8 @@ import {serveStatic} from "@hono/node-server/serve-static"
 import {logger} from "hono/logger"
 import {Hono} from "hono"
 
+import "../lib/env.js"
+
 import {remix} from "./middlewares/remix.js"
 
 const prod = process.env.NODE_ENV === "production"

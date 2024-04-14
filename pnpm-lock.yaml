@@ -140,6 +140,9 @@ dependencies:
   domain-functions:
     specifier: ^2.6.0
     version: 2.6.0
+  dotenv:
+    specifier: ^16.4.5
+    version: 16.4.5
   hono:
     specifier: ^4.2.4
     version: 4.2.4
@@ -167,6 +170,9 @@ dependencies:
   oslo:
     specifier: ^1.2.0
     version: 1.2.0
+  picocolors:
+    specifier: ^1.0.0
+    version: 1.0.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -9121,7 +9127,6 @@ packages:
 
   /picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
-    dev: true
 
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}

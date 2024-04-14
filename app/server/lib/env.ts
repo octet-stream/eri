@@ -1,22 +1,31 @@
 import {resolve} from "node:path"
 
+import pc from "picocolors"
+
 // @ts-expect-error Allow to override this readonly property here
 process.env.NODE_ENV ||= "development"
 
-function loadEnv(path: string): boolean {
+function loadEnv(name: string): boolean {
+  let hasFound = false
+
+  const path = resolve(name)
   try {
-    process.loadEnvFile(resolve(path))
+    process.loadEnvFile(path)
 
-    return true
+    hasFound = true
   } catch (error) {
-    if ((error as NodeJS.ErrnoException)?.code === "ENOENT") {
-      console.info("Unable to find find env file at %s", resolve(path))
-
-      return false
+    const reason = error as NodeJS.ErrnoException
+    if (!reason.code || reason.code !== "ENOENT") {
+      throw error
     }
+  } finally {
+    const status = [!hasFound && "not", "found"].filter(Boolean).join(" ")
+    const color = hasFound ? pc.green : pc.yellow
 
-    throw error
+    console.log("Load env from %s (%s)", path, color(status))
   }
+
+  return hasFound
 }
 
 const env = process.env.NODE_ENV
