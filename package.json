@@ -10,6 +10,8 @@
     "dev.open": "remix vite:dev --open",
     "build": "remix vite:build",
     "start": "NODE_ENV=production node ./build/server/entry.hono.js",
+    "demo.start": "docker compose -f compose.demo.yml --env-file .env.demo.local up --build -d --wait && node --env-file=.env.demo.local --loader ts-node/esm --no-warnings=ExperimentalWarning node_modules/@mikro-orm/cli/esm.js schema:update -r && echo 'The demo is ready.\nYou can now open http://localhost:3000/admin to setup admin account\n\nKeep in mind that the app data for this demo will be removed when you stop the app.'",
+    "demo.stop": "docker compose -f compose.demo.yml --env-file .env.demo.local down",
     "lint.types": "tsc --noEmit",
     "test.compose.up": "docker compose -f docker-compose.test.yml up --wait",
     "test.compose.down": "docker compose -f docker-compose.test.yml down",
