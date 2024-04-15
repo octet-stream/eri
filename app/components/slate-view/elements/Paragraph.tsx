@@ -7,8 +7,8 @@ export const Paragraph = createElementTransform(
   isParagraph,
 
   ({element, key, attributes, children}) => (
-    <Alignment align={element.align} asChild>
-      <P {...attributes} key={key}>
+    <Alignment key={key} align={element.align} asChild>
+      <P {...attributes}>
         {children}
       </P>
     </Alignment>
