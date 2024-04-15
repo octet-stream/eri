@@ -27,7 +27,7 @@ If none of these exists, then Eri will fallback to `process.env` object.
 
 1. To build the project, run `pnpm build`
 2. Once production build is finished, run `pnpm start`
-3. Open http://localhost:5173/admin and create admin account (if it doesn't exists).
+3. Open http://localhost:3000/admin and create admin account (if it doesn't exists).
 
 ## Commands
 
