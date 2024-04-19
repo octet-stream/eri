@@ -1,12 +1,9 @@
-import {z} from "zod"
-
 import {trpc} from "./trpc.js"
 
+import {admin} from "./routes/admin.js"
+
 export const router = trpc.router({
-  hello: trpc.procedure
-    .input(z.object({name: z.string().optional().default("World")}))
-    .output(z.string())
-    .query(({input}) => `Hello, ${input.name}`)
+  admin
 })
 
 export type Router = typeof router
