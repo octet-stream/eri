@@ -1,22 +1,22 @@
-import {z} from "zod"
-
-import {PostBaseOutput} from "../../../zod/post/PostBaseOutput.js"
 import {withOrm} from "../../middlewares/withOrm.js"
 import {Post} from "../../../db/entities.js"
 import {procedure} from "../../trpc.js"
 
+import {PostListInput} from "../../../zod/post/PostListInput.js"
+import {PostListOutput} from "../../../zod/post/PostListOutput.js"
+
 export const getList = procedure
   .use(withOrm)
-  .output(z.object({ // TODO: Add pagination utilities and types
-    count: z.number().positive().int(),
-    list: z.array(PostBaseOutput)
-  }))
-  .query(async ({ctx: {orm}}) => {
-    const [list, count] = await orm.em.findAndCount(Post, {}, {
+  .input(PostListInput)
+  .output(PostListOutput)
+  .query(async ({input: {args}, ctx: {orm}}) => {
+    const [items, count] = await orm.em.findAndCount(Post, {}, {
+      limit: args.limit,
+      offset: args.offset,
       orderBy: {
         createdAt: "asc"
       }
     })
 
-    return {list, count}
+    return {items, count, args}
   })
