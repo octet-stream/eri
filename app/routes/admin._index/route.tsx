@@ -10,9 +10,9 @@ import {PostsContext} from "./contexts/PostsContext.jsx"
 export {loader}
 
 const AdminDashboardPage = () => {
-  const page = useLoaderData<typeof loader>()
+  const {page} = useLoaderData<typeof loader>()
 
-  if (page.count < 0) {
+  if (page.rowsCount < 0) {
     return <NoPosts />
   }
 

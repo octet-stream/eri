@@ -9,7 +9,7 @@ export const PostsList: FC = () => {
 
   return (
     <ul className="flex flex-1 flex-col gap-3">
-      {posts.list.map(post => (
+      {posts.items.map(post => (
         <li key={post.id}>
           <PostContext.Provider value={post}>
             <PostItem />

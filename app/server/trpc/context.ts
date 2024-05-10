@@ -1,3 +1,3 @@
-import {FetchCreateContextFnOptions} from "@trpc/server/adapters/fetch"
+import type {RemixContext} from "./utils/createTrpcRequestHandlerFactory.js"
 
-export interface Context extends FetchCreateContextFnOptions { }
+export interface Context extends RemixContext { }
