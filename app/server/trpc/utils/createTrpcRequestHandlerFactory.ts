@@ -39,6 +39,7 @@ export interface CreateCallerDecoratorOptions<TRouter extends RemixRouter> {
   router: TRouter
 }
 
+// TODO: Add tests for errors (trpc wraps errors thrown by procedures into their own errors)
 export function createTrpcRequestHandlerFactory<TRouter extends RemixRouter>(
   options: CreateCallerDecoratorOptions<TRouter>
 ) {

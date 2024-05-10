@@ -17,6 +17,7 @@ export const getBySlug = procedure
     },
 
     {
+      populate: ["content"],
       failHandler(): never {
         throw new Response(null, {
           status: 404,
