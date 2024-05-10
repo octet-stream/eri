@@ -6,7 +6,7 @@ import {User} from "../../db/entities.js"
 
 import {withOrm} from "./withOrm.js"
 
-interface AuthContext {
+export interface AuthContext {
   viewer: User
   session: Session
 }
@@ -17,7 +17,7 @@ interface AuthContext {
 export const withAuth = withOrm.unstable_pipe(async ({ctx, next}) => {
   const {req, resHeaders, orm} = ctx
 
-  const cookies = req.headers.get("cookies")
+  const cookies = req.headers.get("cookie")
   const sessionId = await parseCookie(cookies)
 
   // Throw Response with 401 status code if session cookie found or the cookie is invalid

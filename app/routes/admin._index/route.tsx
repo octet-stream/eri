@@ -1,23 +1,22 @@
 import {useLoaderData} from "@remix-run/react"
 
-// TODO: Replace loader on this page with it's own when I add filters
-import {loader} from "../_blog._index/route.jsx"
-
 import {NoPosts} from "./components/NoPosts.js"
 import {PostsList} from "./components/PostsList.jsx"
 import {PostsContext} from "./contexts/PostsContext.jsx"
 
-export {loader}
+import {withTrpc} from "../../server/trpc/withTrpc.js"
+
+export const loader = withTrpc(trpc => trpc.admin.posts.getList())
 
 const AdminDashboardPage = () => {
-  const {page} = useLoaderData<typeof loader>()
+  const posts = useLoaderData<typeof loader>()
 
-  if (page.rowsCount < 0) {
+  if (posts.rowsCount < 0) {
     return <NoPosts />
   }
 
   return (
-    <PostsContext.Provider value={page}>
+    <PostsContext.Provider value={posts}>
       <PostsList />
     </PostsContext.Provider>
   )

@@ -5,7 +5,7 @@ import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
 
 import {loader} from "../route.jsx"
 
-export type PostsContextData = SerializeFrom<typeof loader>["page"]
+export type PostsContextData = SerializeFrom<typeof loader>
 
 export const PostsContext = createContext<MaybeNull<PostsContextData>>(null)
 
