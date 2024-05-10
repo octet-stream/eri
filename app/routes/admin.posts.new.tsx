@@ -18,7 +18,6 @@ import {withTrpc} from "../server/trpc/withTrpc.js"
 
 export const action = withTrpc(async (trpc, {request}: ActionFunctionArgs) => {
   const input = Object.fromEntries(await request.formData()) as IPostCreateInput
-  console.log(input)
   const post = await trpc.admin.posts.create(input)
 
   return redirect(`/admin/posts/${post.slug}`)

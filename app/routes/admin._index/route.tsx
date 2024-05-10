@@ -6,7 +6,7 @@ import {PostsContext} from "./contexts/PostsContext.jsx"
 
 import {withTrpc} from "../../server/trpc/withTrpc.js"
 
-export const loader = withTrpc(trpc => trpc.admin.posts.getList())
+export const loader = withTrpc(trpc => trpc.posts.getList())
 
 const AdminDashboardPage = () => {
   const posts = useLoaderData<typeof loader>()

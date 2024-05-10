@@ -23,7 +23,7 @@ export const login = procedure
     })
 
     if (!(await password.verify(user.password, input.password))) {
-      throw new Response(null, {
+      return new Response(null, {
         status: 401
       })
     }

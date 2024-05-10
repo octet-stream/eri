@@ -30,6 +30,7 @@ type AdminData<TUser = never> =
   | {hasAdminUser: boolean, isAuthorized: false}
   | {hasAdminUser: true, isAuthorized: true, user: TUser}
 
+// FIXME: Remix runs loaders in parallel, so I need to improve admin workflow
 export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
   const [admin] = await orm.em.find(User, {}, {
     fields: ["id"],

@@ -14,7 +14,7 @@ export interface AuthContext {
 /**
  * Validates and refsreshes user session. Will return HTTP 401 status if no session found.
  */
-export const withAuth = withOrm.unstable_pipe(async ({ctx, next}) => {
+export const withAuth = withOrm.unstable_pipe(async ({ctx, next, path}) => {
   const {req, resHeaders, orm} = ctx
 
   const cookies = req.headers.get("cookie")

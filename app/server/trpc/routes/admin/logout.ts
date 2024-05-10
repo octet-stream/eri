@@ -12,7 +12,7 @@ export const logout = procedure
     const sessionId = await parseCookie(req.headers.get("cookie"))
 
     if (!sessionId) {
-      throw redirect("/admin", {
+      return redirect("/admin", {
         status: 401
       })
     }
