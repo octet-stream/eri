@@ -57,6 +57,7 @@ export const SidebarItem: FC<SidebarItemProps> = ({
 }) => (
   <li className={cn("py-2.5 post:px-5 laptop:px-0 first:pt-5 last:pb-5 w-full", className)}>
     <SheetClose asChild>
+      {/* FIXME: This component breaks in sidebar and I have no idea why */}
       <Link to={href} className="flex gap-3 items-center">
         <Icon size={20} />
 
