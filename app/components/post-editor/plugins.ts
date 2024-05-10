@@ -21,12 +21,12 @@ import {
   createBlockquotePlugin,
   ELEMENT_BLOCKQUOTE
 } from "@udecode/plate-block-quote"
-import {
-  createCodeBlockPlugin,
-  ELEMENT_CODE_BLOCK,
-  ELEMENT_CODE_LINE,
-  ELEMENT_CODE_SYNTAX
-} from "@udecode/plate-code-block"
+// import {
+//   createCodeBlockPlugin,
+//   ELEMENT_CODE_BLOCK,
+//   ELEMENT_CODE_LINE,
+//   ELEMENT_CODE_SYNTAX
+// } from "@udecode/plate-code-block"
 import {createLinkPlugin, ELEMENT_LINK} from "@udecode/plate-link"
 import {
   createBoldPlugin,
@@ -48,7 +48,6 @@ import {createKbdPlugin, MARK_KBD} from "@udecode/plate-kbd"
 import {createAlignPlugin} from "@udecode/plate-alignment"
 import {createAutoformatPlugin} from "@udecode/plate-autoformat"
 import {createBlockSelectionPlugin} from "@udecode/plate-selection"
-import {createDeserializeMdPlugin} from "@udecode/plate-serializer-md"
 import {createExitBreakPlugin, createSoftBreakPlugin} from "@udecode/plate-break"
 import {createComboboxPlugin} from "@udecode/plate-combobox"
 import {createDndPlugin} from "@udecode/plate-dnd"
@@ -57,9 +56,9 @@ import {createResetNodePlugin} from "@udecode/plate-reset-node"
 import {createDeletePlugin} from "@udecode/plate-select"
 
 import {BlockquoteElement} from "../plate-ui/BlockquoteElement.jsx"
-import {CodeBlockElement} from "../plate-ui/CodeBlockElement.jsx"
-import {CodeLineElement} from "../plate-ui/CodeLineElement.jsx"
-import {CodeSyntaxLeaf} from "../plate-ui/CodeSyntaxLeaf.jsx"
+// import {CodeBlockElement} from "../plate-ui/CodeBlockElement.jsx"
+// import {CodeLineElement} from "../plate-ui/CodeLineElement.jsx"
+// import {CodeSyntaxLeaf} from "../plate-ui/CodeSyntaxLeaf.jsx"
 import {LinkElement} from "../plate-ui/LinkElement.jsx"
 import {LinkFloatingToolbar} from "../plate-ui/LinkFloatingToolbar.jsx"
 import {HeadingElement} from "../plate-ui/HeadingElement.jsx"
@@ -74,7 +73,7 @@ export const plugins = createPlugins(
     createParagraphPlugin(),
     createHeadingPlugin(),
     createBlockquotePlugin(),
-    createCodeBlockPlugin(),
+    // createCodeBlockPlugin(),
     createLinkPlugin({
       renderAfterEditable: LinkFloatingToolbar as RenderAfterEditable
     }),
@@ -167,14 +166,14 @@ export const plugins = createPlugins(
         ]
       }
     }),
-    createDeserializeMdPlugin()
+    // createDeserializeMdPlugin()
   ],
   {
     components: withDraggables(withPlaceholders({
       [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
-      [ELEMENT_CODE_BLOCK]: CodeBlockElement,
-      [ELEMENT_CODE_LINE]: CodeLineElement,
-      [ELEMENT_CODE_SYNTAX]: CodeSyntaxLeaf,
+      // [ELEMENT_CODE_BLOCK]: CodeBlockElement,
+      // [ELEMENT_CODE_LINE]: CodeLineElement,
+      // [ELEMENT_CODE_SYNTAX]: CodeSyntaxLeaf,
       [ELEMENT_LINK]: LinkElement,
       [ELEMENT_H1]: withProps(HeadingElement, {variant: "h1"}),
       [ELEMENT_H2]: withProps(HeadingElement, {variant: "h2"}),

@@ -43,7 +43,7 @@ export default defineConfig({
       "@mikro-orm/knex",
       "@mikro-orm/seeder",
       "@mikro-orm/migrations",
-      "mysql2"
+      "mysql2",
     ]
   },
   test: {
