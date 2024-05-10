@@ -1,16 +1,15 @@
 import {redirect} from "@remix-run/node"
 import {z} from "zod"
 
+import {procedure} from "../../procedures/public.js"
+
 import {AdminLogInInput} from "../../../zod/user/AdminLogInInput.js"
 import {serializeCookie} from "../../../lib/auth/cookie.js"
 import {password} from "../../../lib/auth/password.js"
-import {withOrm} from "../../middlewares/withOrm.js"
 import {lucia} from "../../../lib/auth/lucia.js"
 import {User} from "../../../db/entities.js"
-import {procedure} from "../../trpc.js"
 
 export const login = procedure
-  .use(withOrm)
   .input(AdminLogInInput)
   .output(z.instanceof(Response))
   .mutation(async ({input, ctx: {orm}}) => {

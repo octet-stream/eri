@@ -3,16 +3,14 @@ import {z} from "zod"
 
 import {AdminSetupInput} from "../../../zod/user/AdminSetupInput.js"
 import {serializeCookie} from "../../../lib/auth/cookie.js"
-import {withOrm} from "../../middlewares/withOrm.js"
+import {procedure} from "../../procedures/public.js"
 import {lucia} from "../../../lib/auth/lucia.js"
 import {User} from "../../../db/entities.js"
-import {procedure} from "../../trpc.js"
 
 /**
  * Creates admin account
  */
 export const setup = procedure
-  .use(withOrm)
   .input(AdminSetupInput)
   .output(z.instanceof(Response))
   .mutation(async ({input, ctx: {orm}}) => {

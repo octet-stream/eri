@@ -1,12 +1,10 @@
-import {withOrm} from "../../middlewares/withOrm.js"
-import {procedure} from "../../trpc.js"
+import {procedure} from "../../procedures/public.js"
 
 import {Post} from "../../../db/entities.js"
 import {PostOutput} from "../../../zod/post/PostOutput.js"
 import {PostGetBySlugInput} from "../../../zod/post/PostGetBySlugInput.js"
 
 export const getBySlug = procedure
-  .use(withOrm)
   .input(PostGetBySlugInput)
   .output(PostOutput)
   .query(async ({input, ctx: {orm}}) => orm.em.findOneOrFail(
