@@ -3,7 +3,7 @@ import {z} from "zod"
 
 export const DateTime = z
   .union([z.string(), z.number(), z.date()])
-  .transform(input => toDate(input))
+  .transform(input => toDate(input).toString())
 
 export type IDateTime = z.input<typeof DateTime>
 

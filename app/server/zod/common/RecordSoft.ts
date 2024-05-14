@@ -4,7 +4,7 @@ import {Record} from "./Record.js"
 import {DateTime} from "./DateTime.js"
 
 export const RecordSoft = Record.extend({
-  deletedAt: DateTime.nullable()
+  removedAt: DateTime.nullable()
 })
 
 export type IRecordSoft = z.input<typeof RecordSoft>

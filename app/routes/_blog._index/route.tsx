@@ -1,21 +1,16 @@
-import {json, type MetaFunction} from "@remix-run/node"
+import {type MetaFunction} from "@remix-run/node"
 import {useLoaderData} from "@remix-run/react"
-
-import {Post} from "../../server/db/entities.js"
-import {withOrm} from "../../server/lib/db/orm.js"
 
 import {NoPosts} from "./components/NoPosts.js"
 import {PostsList} from "./components/PostsList.jsx"
 import {PostsContext} from "./contexts/PostsContext.jsx"
 
-export const loader = withOrm(async orm => {
-  const [list, count] = await orm.em.findAndCount(Post, {}, {
-    orderBy: {
-      createdAt: "desc"
-    }
-  })
+import {withTrpc} from "../../server/trpc/withTrpc.js"
 
-  return json({list, count, title: process.env.BLOG_NAME || "Eri's Blog"})
+export const loader = withTrpc(async trpc => {
+  const page = await trpc.posts.getList()
+
+  return {page, title: process.env.BLOG_NAME || "Eri's Blog"}
 })
 
 export const meta: MetaFunction<typeof loader> = ({data}) => [
@@ -26,9 +21,9 @@ export const meta: MetaFunction<typeof loader> = ({data}) => [
 
 // TODO: Implement posts list
 const HomePage = () => {
-  const page = useLoaderData<typeof loader>()
+  const {page} = useLoaderData<typeof loader>()
 
-  if (page.count < 0) {
+  if (page.rowsCount < 0) {
     return <NoPosts />
   }
 

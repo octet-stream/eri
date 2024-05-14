@@ -1,12 +1,8 @@
 import type {LoaderFunctionArgs, MetaFunction} from "@remix-run/node"
 import {useLoaderData} from "@remix-run/react"
 import {SlateView} from "slate-to-react"
-import {json} from "@remix-run/node"
 import {format} from "date-fns"
 import type {FC} from "react"
-
-import {Post} from "../server/db/entities.js"
-import {withOrm} from "../server/lib/db/orm.js"
 
 import {
   Breadcrumb,
@@ -19,28 +15,17 @@ import {Paragraph} from "../components/slate-view/elements/Paragraph.jsx"
 import {Heading} from "../components/slate-view/elements/Heading.jsx"
 import {Text} from "../components/slate-view/leaves/Text.jsx"
 
+import {withTrpc} from "../server/trpc/withTrpc.js"
+
 interface Params {
   date: string
   name: string
 }
 
-export const loader = withOrm(async (orm, {params}: LoaderFunctionArgs) => {
-  // TODO: Valiadte with zod or use tRPC
+export const loader = withTrpc(async (trpc, {params}: LoaderFunctionArgs) => {
   const {date, name} = params as unknown as Params
 
-  const slug = `${date}/${name}`
-
-  const post = await orm.em.findOne(Post, {slug}, {
-    populate: ["content"]
-  })
-
-  if (!post) {
-    throw new Response(null, {
-      status: 404
-    })
-  }
-
-  return json(post)
+  return trpc.posts.getBySlug({slug: [date, name].join("/")})
 })
 
 export const meta: MetaFunction<typeof loader> = ({data}) => [

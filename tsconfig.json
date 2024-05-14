@@ -19,7 +19,8 @@
     "moduleDetection": "force",
     "jsx": "preserve",
     "incremental": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "remix.env.d.ts",

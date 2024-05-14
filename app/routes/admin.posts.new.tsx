@@ -1,12 +1,10 @@
-import {json, type ActionFunctionArgs, MetaFunction, redirect} from "@remix-run/node"
-import {performMutation} from "remix-forms"
+import {type ActionFunctionArgs, MetaFunction, redirect} from "@remix-run/node"
 import type {FC} from "react"
 
-import {mutations} from "../server/mutations.js"
-import {lucia} from "../server/lib/auth/lucia.js"
-import {PostCreateInput} from "../server/zod/post/PostCreateInput.js"
-import {parseCookie, serializeCookie} from "../server/lib/auth/cookie.js"
-import {withOrm} from "../server/lib/db/orm.js"
+import {
+  PostCreateInput,
+  type IPostCreateInput
+} from "../server/zod/post/PostCreateInput.js"
 
 import {PostFooter} from "../components/post-editor/PostFooter.jsx"
 import {PostEditor} from "../components/post-editor/PostEditor.jsx"
@@ -16,52 +14,13 @@ import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
-export const action = withOrm(async (_, {request}: ActionFunctionArgs) => {
-  if (request.method.toLowerCase() !== "post") {
-    throw new Response(null, {
-      status: 405
-    })
-  }
+import {withTrpc} from "../server/trpc/withTrpc.js"
 
-  const sessionId = await parseCookie(request.headers.get("cookie"))
+export const action = withTrpc(async (trpc, {request}: ActionFunctionArgs) => {
+  const input = Object.fromEntries(await request.formData()) as IPostCreateInput
+  const post = await trpc.admin.posts.create(input)
 
-  if (!sessionId) {
-    throw new Response(null, {
-      status: 401
-    })
-  }
-
-  // Not sure if that's the right way to implement sessions
-  const {user, session} = await lucia.validateSession(sessionId)
-
-  if (!(user || session)) {
-    throw new Response(null, {
-      status: 401
-    })
-  }
-
-  const headers = new Headers()
-
-  if (session.fresh) {
-    headers.set("set-cookie", await serializeCookie(session.id))
-  }
-
-  const result = await performMutation({
-    request,
-    schema: PostCreateInput,
-    mutation: mutations.admin.posts.create,
-    environment: {
-      user
-    }
-  })
-
-  if (result.success) {
-    return redirect(`/admin/posts/${result.data.slug}`)
-  }
-
-  return json(result, {
-    headers
-  })
+  return redirect(`/admin/posts/${post.slug}`)
 })
 
 export const meta: MetaFunction = () => [
