@@ -9,23 +9,23 @@ importers:
   .:
     dependencies:
       '@hono/node-server':
-        specifier: 1.10.0
-        version: 1.10.0
+        specifier: 1.11.1
+        version: 1.11.1
       '@mikro-orm/cli':
-        specifier: 6.2.1
-        version: 6.2.1(mysql2@3.9.7)
+        specifier: 6.2.5
+        version: 6.2.5(mysql2@3.9.7)
       '@mikro-orm/core':
-        specifier: 6.2.1
-        version: 6.2.1
+        specifier: 6.2.5
+        version: 6.2.5
       '@mikro-orm/migrations':
-        specifier: 6.2.1
-        version: 6.2.1(@mikro-orm/core@6.2.1)(@types/node@20.12.12)(mysql2@3.9.7)
+        specifier: 6.2.5
+        version: 6.2.5(@mikro-orm/core@6.2.5)(@types/node@20.12.12)(mysql2@3.9.7)
       '@mikro-orm/mysql':
-        specifier: 6.2.1
-        version: 6.2.1(@mikro-orm/core@6.2.1)
+        specifier: 6.2.5
+        version: 6.2.5(@mikro-orm/core@6.2.5)
       '@mikro-orm/seeder':
-        specifier: 6.2.1
-        version: 6.2.1(@mikro-orm/core@6.2.1)
+        specifier: 6.2.5
+        version: 6.2.5(@mikro-orm/core@6.2.5)
       '@radix-ui/react-dialog':
         specifier: 1.0.5
         version: 1.0.5(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -54,11 +54,11 @@ importers:
         specifier: 1.0.7
         version: 1.0.7(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@remix-run/node':
-        specifier: 2.8.1
-        version: 2.8.1(typescript@5.4.5)
+        specifier: 2.9.2
+        version: 2.9.2(typescript@5.4.5)
       '@remix-run/react':
-        specifier: 2.8.1
-        version: 2.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
+        specifier: 2.9.2
+        version: 2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
       '@sindresorhus/slugify':
         specifier: 2.2.1
         version: 2.2.1
@@ -254,7 +254,7 @@ importers:
         version: 8.2.5(eslint@8.57.0)(typescript@5.4.5)
       '@remix-run/dev':
         specifier: 2.9.2
-        version: 2.9.2(@remix-run/react@2.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@types/node@20.12.12)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12))
+        version: 2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@types/node@20.12.12)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12))
       '@tailwindcss/typography':
         specifier: 0.5.13
         version: 0.5.13(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5)))
@@ -1054,10 +1054,6 @@ packages:
   '@floating-ui/utils@0.2.2':
     resolution: {integrity: sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==}
 
-  '@hono/node-server@1.10.0':
-    resolution: {integrity: sha512-XXFmIT4swUm3gG9yPU/HMAqHAHTP/Wr2mqgJakOFQhbbWipomaLu7ys0h9KrgF9032j18efBYk2aHz2SfgDbTA==}
-    engines: {node: '>=18.14.1'}
-
   '@hono/node-server@1.11.1':
     resolution: {integrity: sha512-GW1Iomhmm1o4Z+X57xGby8A35Cu9UZLL7pSMdqDBkD99U5cywff8F+8hLk5aBTzNubnsFAvWQ/fZjNwPsEn9lA==}
     engines: {node: '>=18.14.1'}
@@ -1129,35 +1125,35 @@ packages:
   '@mdx-js/mdx@2.3.0':
     resolution: {integrity: sha512-jLuwRlz8DQfQNiUCJR50Y09CGPq3fLtmtUQfVrj79E0JWu3dvsVcxVIcfhR5h0iXu+/z++zDrYeiJqifRynJkA==}
 
-  '@mikro-orm/cli@6.2.1':
-    resolution: {integrity: sha512-Da43f8M0xmYBNLY1rdLF4An2UonpwyOJdKG1vY4nMVxM3iPE3Auj7iY3KonFeYv04nPQr0NLBaBcauQo6fp8jQ==}
+  '@mikro-orm/cli@6.2.5':
+    resolution: {integrity: sha512-1DKde27pB0EDvJF2srRn8JmaukKh8ea+UI1AkjHNK9+owgx5BrszrYxMl60UTqUfBpt08+Krblnis7mok/OJ6w==}
     engines: {node: '>= 18.12.0'}
     hasBin: true
 
-  '@mikro-orm/core@6.2.1':
-    resolution: {integrity: sha512-qx7Tqm95Mmni/9Rfe7rNttHPkTLPltDQzAFGsd6V3R1HVlnwDsBKkNT0mChZ6nSgJvtwDLH0C0YUttn+IRrhPA==}
+  '@mikro-orm/core@6.2.5':
+    resolution: {integrity: sha512-KZvirbAoFNjR/Sx30Jr7j6y5oEofNr13llPvCPUQlWQzHrFXedU1Td5AtVeBkOzp7f5FDBSv/a/wMRXqyqkrcA==}
     engines: {node: '>= 18.12.0'}
 
-  '@mikro-orm/knex@6.2.1':
-    resolution: {integrity: sha512-PZwCof0bCRcc8n90IyLgvpz4Pk+fva4RFo1kxaU+48M+QBDYtXpWU36mz32lcPP4fpt0fgLjEz0iLaSqaNy5pA==}
-    engines: {node: '>= 18.12.0'}
-    peerDependencies:
-      '@mikro-orm/core': ^6.0.0
-
-  '@mikro-orm/migrations@6.2.1':
-    resolution: {integrity: sha512-oi7yk5e9vKmoAJNQD4AB2fS8L9JJJR4Wop1VXvu1PuIb+CoaGeqxe7Kygt9fJIYaCBoGNAaT+ONWkjyf6+XbFA==}
+  '@mikro-orm/knex@6.2.5':
+    resolution: {integrity: sha512-PNKzclHk21Yx4dlfoTttUCOSAqj32WSSdY4G+mxpukTtIgSc/iFd8OpkJ+x/c9tfs27o3ZyBRQRxDoC6fMA4hQ==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@mikro-orm/core': ^6.0.0
 
-  '@mikro-orm/mysql@6.2.1':
-    resolution: {integrity: sha512-WIevYU7C32lhvcctkfus7fol8kTKeWUS6OaIqW9nRUvMfXq8zJkweKf0hJt2jt3XmanFcHJ+O9rTIEqXQ0lTIw==}
+  '@mikro-orm/migrations@6.2.5':
+    resolution: {integrity: sha512-cu2az/LiN26BywIyHvZE14PHOro5wpvwiekUmdNI/eTVTeYhzl/TCgZo/Pxvn+Yz/yjPX666eGtYjfjpxEspcw==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@mikro-orm/core': ^6.0.0
 
-  '@mikro-orm/seeder@6.2.1':
-    resolution: {integrity: sha512-8QAUxhW2qojWr2tmdqgUzwq/8+6HbCtH5CrZQc1KhV4csTeFMG9DbQk+cIhbI8DkB3YyHW50k3yqSFzDbqQdgQ==}
+  '@mikro-orm/mysql@6.2.5':
+    resolution: {integrity: sha512-jkqlVAL9PLQ7YVG7NEUUPKRQoRof8M1xvyyO9JmT7X3TVVNlxBtNHxMDDN5doWTjuVdb8BUYNW2oNgIqaQy4LQ==}
+    engines: {node: '>= 18.12.0'}
+    peerDependencies:
+      '@mikro-orm/core': ^6.0.0
+
+  '@mikro-orm/seeder@6.2.5':
+    resolution: {integrity: sha512-4j3dwW8jMu0mZiPPLCphYN3ZkVcEqxBW9fCc3iz3rmzWtBD2xUP0BopaM/xlHwo2RWgHmMTi+J9FCKL+ljxdQw==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@mikro-orm/core': ^6.0.0
@@ -1793,15 +1789,6 @@ packages:
       wrangler:
         optional: true
 
-  '@remix-run/node@2.8.1':
-    resolution: {integrity: sha512-ddCwBVlfLvRxTQJHPcaM1lhfMjsFYG3EGmYpWJIWnnzDX5EbX9pUNHBWisMuH1eA0c7pbw0PbW0UtCttKYx2qg==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      typescript: ^5.1.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   '@remix-run/node@2.9.2':
     resolution: {integrity: sha512-2Mt2107pfelz4T+ziDBef3P4A7kgPqCDshnEYCVGxInivJ3HHwAKUcb7MhGa8uMMMA6LMWxbAPYNHPzC3iKv2A==}
     engines: {node: '>=18.0.0'}
@@ -1811,8 +1798,8 @@ packages:
       typescript:
         optional: true
 
-  '@remix-run/react@2.8.1':
-    resolution: {integrity: sha512-HTPm1U8+xz2jPaVjZnssrckfmFMA8sUZUdaWnoF5lmLWdReqcQv+XlBhIrQQ3jO9L8iYYdnzaSZZcRFYSdpTYg==}
+  '@remix-run/react@2.9.2':
+    resolution: {integrity: sha512-DcZDzm68MBxGn8hjf/VsuUpjxDYZ8VOOH79P1zWu4hb3hBr90WV1Sa/gIAFUEGpOCcSQ0EG/ci8MaFxcAaPz2Q==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^18.0.0
@@ -1822,10 +1809,6 @@ packages:
       typescript:
         optional: true
 
-  '@remix-run/router@1.15.3':
-    resolution: {integrity: sha512-Oy8rmScVrVxWZVOpEF57ovlnhpZ8CCPlnIIumVcV9nFdiSIrus99+Lw78ekXyGvVDlIsFJbSfmSovJUhCWYV3w==}
-    engines: {node: '>=14.0.0'}
-
   '@remix-run/router@1.16.0':
     resolution: {integrity: sha512-Quz1KOffeEf/zwkCBM3kBtH4ZoZ+pT3xIXBG4PPW/XFtDP7EGhtTiC2+gpL9GnR7+Qdet5Oa6cYSvwKYg6kN9Q==}
     engines: {node: '>=14.0.0'}
@@ -1833,15 +1816,6 @@ packages:
   '@remix-run/router@1.16.1':
     resolution: {integrity: sha512-es2g3dq6Nb07iFxGk5GuHN20RwBZOsuDQN7izWIisUcv9r+d2C5jQxqmgkdebXgReWfiyUabcki6Fg77mSNrig==}
     engines: {node: '>=14.0.0'}
-
-  '@remix-run/server-runtime@2.8.1':
-    resolution: {integrity: sha512-fh4SOEoONrN73Kvzc0gMDCmYpVRVbvoj9j3BUXHAcn0An8iX+HD/22gU7nTkIBzExM/F9xgEcwTewOnWqLw0Bg==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      typescript: ^5.1.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   '@remix-run/server-runtime@2.9.1':
     resolution: {integrity: sha512-6rRPiR+eMdTPkDojlYiZohVzXkD3+3X55ZvD78axMVocwGcDFFllpmgH9NSR2RKHW9eZDZUfKvNCwd/i9W6Xog==}
@@ -4484,8 +4458,8 @@ packages:
   microseconds@0.2.0:
     resolution: {integrity: sha512-n7DHHMjR1avBbSpsTBj6fmMGh2AGrifVV4e+WYc3Q9lO+xnSZ3NyhcBND3vzzatt05LFhoKFRxrIyklmLlUtyA==}
 
-  mikro-orm@6.2.1:
-    resolution: {integrity: sha512-px/9uOzKoRmxDO150WOFndV1m6chjRc1UahM8Zhq8f/DnJ80qbVIhH9BKICu04A9l96SxVIL7AG94plFr8ZByg==}
+  mikro-orm@6.2.5:
+    resolution: {integrity: sha512-8GJulcYlawnMbXHch4/HTKDg8u0Q6p4l1Jfyn0WmaN4lMz/XXTuLQTZMSdHhISXUjf9/aQdVkmRPxvKog47pVA==}
     engines: {node: '>= 18.12.0'}
 
   mime-db@1.52.0:
@@ -4586,10 +4560,6 @@ packages:
   mustache@4.2.0:
     resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
     hasBin: true
-
-  mysql2@3.9.4:
-    resolution: {integrity: sha512-OEESQuwxMza803knC1YSt7NMuc1BrK9j7gZhCSs2WAyxr1vfiI7QLaLOKTh5c9SWGz98qVyQUbK8/WckevNQhg==}
-    engines: {node: '>= 8.0'}
 
   mysql2@3.9.7:
     resolution: {integrity: sha512-KnJT8vYRcNAZv73uf9zpXqNbvBG7DJrs+1nACsjZP1HMJ1TgXEy8wnNilXAn/5i57JizXKtrUtwDB7HxT9DDpw==}
@@ -5162,15 +5132,15 @@ packages:
       '@types/react':
         optional: true
 
-  react-router-dom@6.22.3:
-    resolution: {integrity: sha512-7ZILI7HjcE+p31oQvwbokjk6OA/bnFxrhJ19n82Ex9Ph8fNAq+Hm/7KchpMGlTgWhUxRHMMCut+vEtNpWpowKw==}
+  react-router-dom@6.23.1:
+    resolution: {integrity: sha512-utP+K+aSTtEdbWpC+4gxhdlPFwuEfDKq8ZrPFU65bbRJY+l706qjR7yaidBpo3MSeA/fzwbXWbKBI6ftOnP3OQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
 
-  react-router@6.22.3:
-    resolution: {integrity: sha512-dr2eb3Mj5zK2YISHK++foM9w4eBnO23eKnZEDs7c880P6oKbrjz/Svg9+nxqtHQK+oMW4OtjZca0RqPglXxguQ==}
+  react-router@6.23.1:
+    resolution: {integrity: sha512-fzcOaRF69uvqbbM7OhvQyBTFDVrrGlsFdS3AL+1KfIBtGETibHzi3FkoTRyiDJnWNc2VxrfvR+657ROHjaNjqQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
@@ -6870,8 +6840,6 @@ snapshots:
 
   '@floating-ui/utils@0.2.2': {}
 
-  '@hono/node-server@1.10.0': {}
-
   '@hono/node-server@1.11.1': {}
 
   '@hono/vite-dev-server@0.12.1(hono@4.3.6)':
@@ -6983,11 +6951,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@mikro-orm/cli@6.2.1(mysql2@3.9.7)':
+  '@mikro-orm/cli@6.2.5(mysql2@3.9.7)':
     dependencies:
       '@jercle/yargonaut': 1.1.5
-      '@mikro-orm/core': 6.2.1
-      '@mikro-orm/knex': 6.2.1(@mikro-orm/core@6.2.1)(mysql2@3.9.7)
+      '@mikro-orm/core': 6.2.5
+      '@mikro-orm/knex': 6.2.5(@mikro-orm/core@6.2.5)(mysql2@3.9.7)
       fs-extra: 11.2.0
       tsconfig-paths: 4.2.0
       yargs: 17.7.2
@@ -7001,35 +6969,19 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/core@6.2.1':
+  '@mikro-orm/core@6.2.5':
     dependencies:
       dataloader: 2.2.2
       dotenv: 16.4.5
       esprima: 4.0.1
       fs-extra: 11.2.0
       globby: 11.1.0
-      mikro-orm: 6.2.1
+      mikro-orm: 6.2.5
       reflect-metadata: 0.2.2
 
-  '@mikro-orm/knex@6.2.1(@mikro-orm/core@6.2.1)(mysql2@3.9.4)':
+  '@mikro-orm/knex@6.2.5(@mikro-orm/core@6.2.5)(mysql2@3.9.7)':
     dependencies:
-      '@mikro-orm/core': 6.2.1
-      fs-extra: 11.2.0
-      knex: 3.1.0(mysql2@3.9.4)
-      sqlstring: 2.3.3
-    transitivePeerDependencies:
-      - better-sqlite3
-      - mysql
-      - mysql2
-      - pg
-      - pg-native
-      - sqlite3
-      - supports-color
-      - tedious
-
-  '@mikro-orm/knex@6.2.1(@mikro-orm/core@6.2.1)(mysql2@3.9.7)':
-    dependencies:
-      '@mikro-orm/core': 6.2.1
+      '@mikro-orm/core': 6.2.5
       fs-extra: 11.2.0
       knex: 3.1.0(mysql2@3.9.7)
       sqlstring: 2.3.3
@@ -7043,10 +6995,10 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/migrations@6.2.1(@mikro-orm/core@6.2.1)(@types/node@20.12.12)(mysql2@3.9.7)':
+  '@mikro-orm/migrations@6.2.5(@mikro-orm/core@6.2.5)(@types/node@20.12.12)(mysql2@3.9.7)':
     dependencies:
-      '@mikro-orm/core': 6.2.1
-      '@mikro-orm/knex': 6.2.1(@mikro-orm/core@6.2.1)(mysql2@3.9.7)
+      '@mikro-orm/core': 6.2.5
+      '@mikro-orm/knex': 6.2.5(@mikro-orm/core@6.2.5)(mysql2@3.9.7)
       fs-extra: 11.2.0
       umzug: 3.8.0(@types/node@20.12.12)
     transitivePeerDependencies:
@@ -7060,11 +7012,11 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/mysql@6.2.1(@mikro-orm/core@6.2.1)':
+  '@mikro-orm/mysql@6.2.5(@mikro-orm/core@6.2.5)':
     dependencies:
-      '@mikro-orm/core': 6.2.1
-      '@mikro-orm/knex': 6.2.1(@mikro-orm/core@6.2.1)(mysql2@3.9.4)
-      mysql2: 3.9.4
+      '@mikro-orm/core': 6.2.5
+      '@mikro-orm/knex': 6.2.5(@mikro-orm/core@6.2.5)(mysql2@3.9.7)
+      mysql2: 3.9.7
     transitivePeerDependencies:
       - better-sqlite3
       - mysql
@@ -7074,9 +7026,9 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/seeder@6.2.1(@mikro-orm/core@6.2.1)':
+  '@mikro-orm/seeder@6.2.5(@mikro-orm/core@6.2.5)':
     dependencies:
-      '@mikro-orm/core': 6.2.1
+      '@mikro-orm/core': 6.2.5
       fs-extra: 11.2.0
       globby: 11.1.0
 
@@ -7706,7 +7658,7 @@ snapshots:
 
   '@react-dnd/shallowequal@4.0.2': {}
 
-  '@remix-run/dev@2.9.2(@remix-run/react@2.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@types/node@20.12.12)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12))':
+  '@remix-run/dev@2.9.2(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@types/node@20.12.12)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12))':
     dependencies:
       '@babel/core': 7.24.5
       '@babel/generator': 7.24.5
@@ -7719,7 +7671,7 @@ snapshots:
       '@mdx-js/mdx': 2.3.0
       '@npmcli/package-json': 4.0.1
       '@remix-run/node': 2.9.2(typescript@5.4.5)
-      '@remix-run/react': 2.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
+      '@remix-run/react': 2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
       '@remix-run/router': 1.16.1
       '@remix-run/server-runtime': 2.9.2(typescript@5.4.5)
       '@types/mdx': 2.0.13
@@ -7780,19 +7732,6 @@ snapshots:
       - ts-node
       - utf-8-validate
 
-  '@remix-run/node@2.8.1(typescript@5.4.5)':
-    dependencies:
-      '@remix-run/server-runtime': 2.8.1(typescript@5.4.5)
-      '@remix-run/web-fetch': 4.4.2
-      '@remix-run/web-file': 3.1.0
-      '@remix-run/web-stream': 1.1.0
-      '@web3-storage/multipart-parser': 1.0.0
-      cookie-signature: 1.2.1
-      source-map-support: 0.5.21
-      stream-slice: 0.1.2
-    optionalDependencies:
-      typescript: 5.4.5
-
   '@remix-run/node@2.9.2(typescript@5.4.5)':
     dependencies:
       '@remix-run/server-runtime': 2.9.2(typescript@5.4.5)
@@ -7805,33 +7744,21 @@ snapshots:
     optionalDependencies:
       typescript: 5.4.5
 
-  '@remix-run/react@2.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)':
+  '@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)':
     dependencies:
-      '@remix-run/router': 1.15.3
-      '@remix-run/server-runtime': 2.8.1(typescript@5.4.5)
+      '@remix-run/router': 1.16.1
+      '@remix-run/server-runtime': 2.9.2(typescript@5.4.5)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-router: 6.22.3(react@18.3.1)
-      react-router-dom: 6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router: 6.23.1(react@18.3.1)
+      react-router-dom: 6.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      turbo-stream: 2.0.1
     optionalDependencies:
       typescript: 5.4.5
-
-  '@remix-run/router@1.15.3': {}
 
   '@remix-run/router@1.16.0': {}
 
   '@remix-run/router@1.16.1': {}
-
-  '@remix-run/server-runtime@2.8.1(typescript@5.4.5)':
-    dependencies:
-      '@remix-run/router': 1.15.3
-      '@types/cookie': 0.6.0
-      '@web3-storage/multipart-parser': 1.0.0
-      cookie: 0.6.0
-      set-cookie-parser: 2.6.0
-      source-map: 0.7.4
-    optionalDependencies:
-      typescript: 5.4.5
 
   '@remix-run/server-runtime@2.9.1(typescript@5.4.5)':
     dependencies:
@@ -10448,27 +10375,6 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  knex@3.1.0(mysql2@3.9.4):
-    dependencies:
-      colorette: 2.0.19
-      commander: 10.0.1
-      debug: 4.3.4
-      escalade: 3.1.2
-      esm: 3.2.25
-      get-package-type: 0.1.0
-      getopts: 2.3.0
-      interpret: 2.2.0
-      lodash: 4.17.21
-      pg-connection-string: 2.6.2
-      rechoir: 0.8.0
-      resolve-from: 5.0.0
-      tarn: 3.0.2
-      tildify: 2.0.0
-    optionalDependencies:
-      mysql2: 3.9.4
-    transitivePeerDependencies:
-      - supports-color
-
   knex@3.1.0(mysql2@3.9.7):
     dependencies:
       colorette: 2.0.19
@@ -10963,7 +10869,7 @@ snapshots:
 
   microseconds@0.2.0: {}
 
-  mikro-orm@6.2.1: {}
+  mikro-orm@6.2.5: {}
 
   mime-db@1.52.0: {}
 
@@ -11055,17 +10961,6 @@ snapshots:
   ms@2.1.3: {}
 
   mustache@4.2.0: {}
-
-  mysql2@3.9.4:
-    dependencies:
-      denque: 2.1.0
-      generate-function: 2.3.1
-      iconv-lite: 0.6.3
-      long: 5.2.3
-      lru-cache: 8.0.5
-      named-placeholders: 1.1.3
-      seq-queue: 0.0.5
-      sqlstring: 2.3.3
 
   mysql2@3.9.7:
     dependencies:
@@ -11620,16 +11515,16 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.2
 
-  react-router-dom@6.22.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-router-dom@6.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@remix-run/router': 1.15.3
+      '@remix-run/router': 1.16.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-router: 6.22.3(react@18.3.1)
+      react-router: 6.23.1(react@18.3.1)
 
-  react-router@6.22.3(react@18.3.1):
+  react-router@6.23.1(react@18.3.1):
     dependencies:
-      '@remix-run/router': 1.15.3
+      '@remix-run/router': 1.16.1
       react: 18.3.1
 
   react-style-singleton@2.2.1(@types/react@18.3.2)(react@18.3.1):
