@@ -5,6 +5,10 @@
   "private": true,
   "license": "MIT",
   "author": "Nick K. <io@octetstream.me>",
+  "packageManager": "pnpm@9.5.0",
+  "engines": {
+    "node": ">= 22"
+  },
   "scripts": {
     "dev": "remix vite:dev",
     "dev.open": "remix vite:dev --open",
