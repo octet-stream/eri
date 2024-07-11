@@ -1,7 +1,7 @@
 import {withProps} from "@udecode/cn"
 import {
   createPlugins,
-  RenderAfterEditable,
+  type RenderAfterEditable,
   PlateLeaf
 } from "@udecode/plate-common"
 import {
@@ -48,7 +48,10 @@ import {createKbdPlugin, MARK_KBD} from "@udecode/plate-kbd"
 import {createAlignPlugin} from "@udecode/plate-alignment"
 import {createAutoformatPlugin} from "@udecode/plate-autoformat"
 import {createBlockSelectionPlugin} from "@udecode/plate-selection"
-import {createExitBreakPlugin, createSoftBreakPlugin} from "@udecode/plate-break"
+import {
+  createExitBreakPlugin,
+  createSoftBreakPlugin
+} from "@udecode/plate-break"
 import {createComboboxPlugin} from "@udecode/plate-combobox"
 import {createDndPlugin} from "@udecode/plate-dnd"
 import {createNodeIdPlugin} from "@udecode/plate-node-id"
@@ -165,31 +168,33 @@ export const plugins = createPlugins(
           }
         ]
       }
-    }),
+    })
     // createDeserializeMdPlugin()
   ],
   {
-    components: withDraggables(withPlaceholders({
-      [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
-      // [ELEMENT_CODE_BLOCK]: CodeBlockElement,
-      // [ELEMENT_CODE_LINE]: CodeLineElement,
-      // [ELEMENT_CODE_SYNTAX]: CodeSyntaxLeaf,
-      [ELEMENT_LINK]: LinkElement,
-      [ELEMENT_H1]: withProps(HeadingElement, {variant: "h1"}),
-      [ELEMENT_H2]: withProps(HeadingElement, {variant: "h2"}),
-      [ELEMENT_H3]: withProps(HeadingElement, {variant: "h3"}),
-      [ELEMENT_H4]: withProps(HeadingElement, {variant: "h4"}),
-      [ELEMENT_H5]: withProps(HeadingElement, {variant: "h5"}),
-      [ELEMENT_H6]: withProps(HeadingElement, {variant: "h6"}),
-      [ELEMENT_PARAGRAPH]: ParagraphElement,
-      [MARK_BOLD]: withProps(PlateLeaf, {as: "strong"}),
-      [MARK_CODE]: CodeLeaf,
-      [MARK_ITALIC]: withProps(PlateLeaf, {as: "em"}),
-      [MARK_KBD]: KbdLeaf,
-      [MARK_STRIKETHROUGH]: withProps(PlateLeaf, {as: "s"}),
-      [MARK_SUBSCRIPT]: withProps(PlateLeaf, {as: "sub"}),
-      [MARK_SUPERSCRIPT]: withProps(PlateLeaf, {as: "sup"}),
-      [MARK_UNDERLINE]: withProps(PlateLeaf, {as: "u"})
-    }))
+    components: withDraggables(
+      withPlaceholders({
+        [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
+        // [ELEMENT_CODE_BLOCK]: CodeBlockElement,
+        // [ELEMENT_CODE_LINE]: CodeLineElement,
+        // [ELEMENT_CODE_SYNTAX]: CodeSyntaxLeaf,
+        [ELEMENT_LINK]: LinkElement,
+        [ELEMENT_H1]: withProps(HeadingElement, {variant: "h1"}),
+        [ELEMENT_H2]: withProps(HeadingElement, {variant: "h2"}),
+        [ELEMENT_H3]: withProps(HeadingElement, {variant: "h3"}),
+        [ELEMENT_H4]: withProps(HeadingElement, {variant: "h4"}),
+        [ELEMENT_H5]: withProps(HeadingElement, {variant: "h5"}),
+        [ELEMENT_H6]: withProps(HeadingElement, {variant: "h6"}),
+        [ELEMENT_PARAGRAPH]: ParagraphElement,
+        [MARK_BOLD]: withProps(PlateLeaf, {as: "strong"}),
+        [MARK_CODE]: CodeLeaf,
+        [MARK_ITALIC]: withProps(PlateLeaf, {as: "em"}),
+        [MARK_KBD]: KbdLeaf,
+        [MARK_STRIKETHROUGH]: withProps(PlateLeaf, {as: "s"}),
+        [MARK_SUBSCRIPT]: withProps(PlateLeaf, {as: "sub"}),
+        [MARK_SUPERSCRIPT]: withProps(PlateLeaf, {as: "sup"}),
+        [MARK_UNDERLINE]: withProps(PlateLeaf, {as: "u"})
+      })
+    )
   }
 )

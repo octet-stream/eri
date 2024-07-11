@@ -8,13 +8,17 @@ export const getList = procedure
   .input(PostListInput)
   .output(PostListOutput)
   .query(async ({input: {args}, ctx: {orm}}) => {
-    const [items, count] = await orm.em.findAndCount(Post, {}, {
-      limit: args.limit,
-      offset: args.offset,
-      orderBy: {
-        createdAt: "asc"
+    const [items, count] = await orm.em.findAndCount(
+      Post,
+      {},
+      {
+        limit: args.limit,
+        offset: args.offset,
+        orderBy: {
+          createdAt: "asc"
+        }
       }
-    })
+    )
 
     return {items, count, args}
   })

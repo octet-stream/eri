@@ -9,14 +9,18 @@ import {User} from "../../db/entities.js"
 
 export const logIn = makeDomainFunction(AdminLogInInput)(
   withOrm(async (orm, input) => {
-    const user = await orm.em.findOneOrFail(User, {email: input.email}, {
-      populate: ["password"],
-      failHandler() {
-        throw new Response(null, {
-          status: 404
-        })
+    const user = await orm.em.findOneOrFail(
+      User,
+      {email: input.email},
+      {
+        populate: ["password"],
+        failHandler() {
+          throw new Response(null, {
+            status: 404
+          })
+        }
       }
-    })
+    )
 
     if (!(await password.verify(user.password, input.password))) {
       throw new Response(null, {

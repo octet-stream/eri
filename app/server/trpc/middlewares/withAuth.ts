@@ -1,4 +1,4 @@
-import {Session} from "lucia"
+import type {Session} from "lucia"
 
 import {parseCookie, serializeCookie} from "../../lib/auth/cookie.js"
 import {lucia} from "../../lib/auth/lucia.js"

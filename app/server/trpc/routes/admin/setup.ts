@@ -14,13 +14,17 @@ export const setup = procedure
   .input(AdminSetupInput)
   .output(z.instanceof(Response))
   .mutation(async ({input, ctx: {orm}}) => {
-    const [admin] = await orm.em.find(User, {}, {
-      fields: ["id"],
-      limit: 1,
-      orderBy: {
-        createdAt: "asc"
+    const [admin] = await orm.em.find(
+      User,
+      {},
+      {
+        fields: ["id"],
+        limit: 1,
+        orderBy: {
+          createdAt: "asc"
+        }
       }
-    })
+    )
 
     // Disallow admin account setup if admin account already esists
     if (admin) {

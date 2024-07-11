@@ -4,7 +4,7 @@ import type {
   TypedResponse
 } from "@remix-run/node"
 import type {RootConfig, AnyRouterDef, Router, RouterCaller} from "@trpc/server"
-import {FetchCreateContextFnOptions} from "@trpc/server/adapters/fetch"
+import type {FetchCreateContextFnOptions} from "@trpc/server/adapters/fetch"
 import {createCallerFactory} from "@trpc/server"
 import {json} from "@remix-run/node"
 
@@ -15,25 +15,20 @@ export interface RemixContext extends FetchCreateContextFnOptions {
 }
 
 export type RemixConfig = RootConfig<{
-  ctx: RemixContext,
-  meta: any,
-  errorShape: any,
+  ctx: RemixContext
+  meta: any
+  errorShape: any
   transformer: any
 }>
 
 export type RemixRouter = Router<AnyRouterDef<RemixConfig>>
 
-export interface TrpcRequestHandlerCallback<
-  TResult,
-  TRouter extends RemixRouter
-> {
-  <
-    TEvent extends RemixRequestEvent
-  >(
-    caller: ReturnType<RouterCaller<TRouter["_def"]>>,
-    event: TEvent
-  ): TResult
-}
+export type TrpcRequestHandlerCallback<TResult, TRouter extends RemixRouter> = <
+  TEvent extends RemixRequestEvent
+>(
+  caller: ReturnType<RouterCaller<TRouter["_def"]>>,
+  event: TEvent
+) => TResult
 
 export interface CreateCallerDecoratorOptions<TRouter extends RemixRouter> {
   router: TRouter
@@ -50,9 +45,7 @@ export function createTrpcRequestHandlerFactory<TRouter extends RemixRouter>(
   const createRemixTrpcRequestHanlder = <TResult>(
     callback: TrpcRequestHandlerCallback<TResult, TRouter>
   ) => {
-    const remixTrpcRequestHandler = async <
-      TEvent extends RemixRequestEvent
-    >(
+    const remixTrpcRequestHandler = async <TEvent extends RemixRequestEvent>(
       event: TEvent
     ): Promise<TypedResponse<Awaited<TResult>>> => {
       const resHeaders = new Headers()

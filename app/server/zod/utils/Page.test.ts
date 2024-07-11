@@ -8,10 +8,12 @@ interface Note {
   title: string
 }
 
-const data: Note[] = Array.from({length: 100}).fill({}).map((_, i) => ({
-  id: `${i + 1}`,
-  title: `Test note #${i + 1}`
-}))
+const data: Note[] = Array.from({length: 100})
+  .fill({})
+  .map((_, i) => ({
+    id: `${i + 1}`,
+    title: `Test note #${i + 1}`
+  }))
 
 describe("constructor", () => {
   test("returns page with default parameters", () => {

@@ -13,14 +13,18 @@ export const login = procedure
   .input(AdminLogInInput)
   .output(z.instanceof(Response))
   .mutation(async ({input, ctx: {orm}}) => {
-    const user = await orm.em.findOneOrFail(User, {email: input.email}, {
-      populate: ["password"],
-      failHandler() {
-        throw new Response(null, {
-          status: 404
-        })
+    const user = await orm.em.findOneOrFail(
+      User,
+      {email: input.email},
+      {
+        populate: ["password"],
+        failHandler() {
+          throw new Response(null, {
+            status: 404
+          })
+        }
       }
-    })
+    )
 
     if (!(await password.verify(user.password, input.password))) {
       return new Response(null, {

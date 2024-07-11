@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {createPageInput, DefaultPageInput} from "./createPageInput.js"
+import {type createPageInput, DefaultPageInput} from "./createPageInput.js"
 import {Page} from "./Page.js"
 
 /**
@@ -12,13 +12,14 @@ export const createPageOutput = <
 >(
   output: z.ZodObject<TOutput>,
   input: TInput
-) => z
-  .object({
-    items: z.array(output),
-    count: z.number().int(),
-    args: input.transform(({args}) => args)
-  })
-  .transform(page => new Page(page).toJSON())
+) =>
+  z
+    .object({
+      items: z.array(output),
+      count: z.number().int(),
+      args: input.transform(({args}) => args)
+    })
+    .transform(page => new Page(page).toJSON())
 
 export const DefaultPageOutput = createPageOutput(
   z.object({}),

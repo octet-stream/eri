@@ -1,4 +1,4 @@
-import {EntityName, EventArgs, EventSubscriber} from "@mikro-orm/mysql"
+import type {EntityName, EventArgs, EventSubscriber} from "@mikro-orm/mysql"
 
 import {password} from "../../lib/auth/password.js"
 

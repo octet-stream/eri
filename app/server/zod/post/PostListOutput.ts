@@ -1,4 +1,4 @@
-import {z} from "zod"
+import type {z} from "zod"
 
 import {createPageOutput} from "../utils/createPageOutput.js"
 

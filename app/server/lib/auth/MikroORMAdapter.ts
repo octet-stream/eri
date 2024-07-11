@@ -1,4 +1,4 @@
-import {Adapter, DatabaseSession, DatabaseUser} from "lucia"
+import type {Adapter, DatabaseSession, DatabaseUser} from "lucia"
 
 import {getOrm} from "../db/orm.js"
 import {User, Session} from "../../db/entities.js"
@@ -52,10 +52,11 @@ export class MikroORMAdapter implements Adapter {
    *
    * @param sessionId - ID of the session to get
    */
-  async getSessionAndUser(sessionId: string): Promise<[
-    session: MaybeNull<DatabaseSession>,
-    user: MaybeNull<DatabaseUser>
-  ]> {
+  async getSessionAndUser(
+    sessionId: string
+  ): Promise<
+    [session: MaybeNull<DatabaseSession>, user: MaybeNull<DatabaseUser>]
+  > {
     const orm = await getOrm()
 
     // TODO: Add proper error handling

@@ -1,4 +1,4 @@
-import {z} from "zod"
+import type {z} from "zod"
 
 import {PostContent} from "../plate/editors/PostContent.js"
 

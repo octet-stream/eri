@@ -29,11 +29,10 @@ export const SLUG_NAME_VALID_REGEXPR = /^[a-z0-9-]+~[a-zA-Z0-9]{5}$/
  * // -> false
  * ```
  */
-export const isSlugDateValid = (
-  date: string
-): boolean => validator.isDate(date, {
-  format: SLUG_DATE_FORMAT.toUpperCase()
-})
+export const isSlugDateValid = (date: string): boolean =>
+  validator.isDate(date, {
+    format: SLUG_DATE_FORMAT.toUpperCase()
+  })
 
 /**
  * Checks if slug `name` has valid format.
@@ -59,9 +58,8 @@ export const isSlugDateValid = (
  * // -> false
  * ```
  */
-export const isSlugNameValid = (
-  name: string
-): boolean => SLUG_NAME_VALID_REGEXPR.test(name)
+export const isSlugNameValid = (name: string): boolean =>
+  SLUG_NAME_VALID_REGEXPR.test(name)
 
 /**
  * Checks if given `slug` has valid format
@@ -117,19 +115,16 @@ const customReplacements: readonly [key: string, replacement: string][] = [
  *
  * @param name a value to slugify
  */
-export const formatSlugName = (name: string): string => (
+export const formatSlugName = (name: string): string =>
   slugify(name, {customReplacements})
     .replace(/^-{1,}/, "") // Trim any "-" from the start
     .replace(/-{1,}$/, "") // Trim any "-" from the end
-)
 
 /**
  * Formats a `name` then adds it to the `base` string.
  */
-const withName = (
-  name: string,
-  base: string
-) => `${base}/${formatSlugName(name)}`
+const withName = (name: string, base: string) =>
+  `${base}/${formatSlugName(name)}`
 
 /**
  * Adds suffix to given base
@@ -146,7 +141,5 @@ const withSuffix = (base: string) => `${base}~${formatSlugSuffix()}`
  * // -> 2023-03-28/hello-world~3u0tf
  * ```
  */
-export const formatSlug = (
-  name: string,
-  date: RawDate
-) => withSuffix(withName(name, format(toDate(date), SLUG_DATE_FORMAT)))
+export const formatSlug = (name: string, date: RawDate) =>
+  withSuffix(withName(name, format(toDate(date), SLUG_DATE_FORMAT)))
