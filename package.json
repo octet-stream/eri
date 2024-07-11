@@ -20,7 +20,7 @@
     "report.html": "pnpm test.compose.up && ((c8 vitest run && c8 report --reporter=html) ; pnpm test.compose.down)",
     "ci": "pnpm test.compose.up && ((c8 vitest run && c8 report --reporter=json) ; pnpm test.compose.down)",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "npx is-in-ci || husky install"
+    "prepare": "npx is-in-ci || husky"
   },
   "mikro-orm": {
     "useTsNode": true,
@@ -130,6 +130,7 @@
     "autoprefixer": "10.4.19",
     "esbuild": "0.21.2",
     "husky": "9.0.11",
+    "lint-staged": "15.2.7",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.3",
     "tailwindcss-animate": "1.0.7",
