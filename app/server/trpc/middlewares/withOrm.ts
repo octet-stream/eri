@@ -8,18 +8,17 @@ interface WithOrm {
   orm: MikroORM
 }
 
-interface LooseOrmContext extends Context, Partial<WithOrm> { }
+interface LooseOrmContext extends Context, Partial<WithOrm> {}
 
-export interface OrmContext extends Context, WithOrm { }
+export interface OrmContext extends Context, WithOrm {}
 
 /**
  * Checks if given `ctx` has orm context already installed
  *
  * @param ctx - A context to test
  */
-const hasOrmContext = (
-  ctx: LooseOrmContext
-): ctx is OrmContext => ctx.orm instanceof MikroORM
+const hasOrmContext = (ctx: LooseOrmContext): ctx is OrmContext =>
+  ctx.orm instanceof MikroORM
 
 export const withOrm = middleware(async ({ctx, next}) => {
   // Do nothing if we already have an ORM set up in the middlewares chain

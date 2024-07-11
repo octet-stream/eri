@@ -9,8 +9,8 @@ import {
 
 import {formatSlug} from "../../lib/utils/slug.js"
 
-import {OPostContent} from "../../zod/plate/editors/PostContent.js"
-import {OPostCreateInput} from "../../zod/post/PostCreateInput.js"
+import type {OPostContent} from "../../zod/plate/editors/PostContent.js"
+import type {OPostCreateInput} from "../../zod/post/PostCreateInput.js"
 
 import {RecordSoft} from "./RecordSoft.js"
 import {User} from "./User.js"

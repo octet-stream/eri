@@ -20,13 +20,12 @@ const baseSerializeOptions: Omit<CookieSerializeOptions, "maxAge"> = {
 /**
  * Creates signed session cookie. Use it instead of `lucia.createSessionCookie`
  */
-export const serializeCookie = (
-  sessionId: string
-) => cookie.serialize(sessionId, {
-  ...baseSerializeOptions,
+export const serializeCookie = (sessionId: string) =>
+  cookie.serialize(sessionId, {
+    ...baseSerializeOptions,
 
-  maxAge: ttl.seconds()
-})
+    maxAge: ttl.seconds()
+  })
 
 /**
  * Parses given `Cookie` header string. This utility supports signed cookies
@@ -38,8 +37,8 @@ export const parseCookie = (
 /**
  * Returns empty session cookie with maxAge set to 0.
  */
-export const removeCookie = () => createCookie(lucia.sessionCookieName)
-  .serialize("", {
+export const removeCookie = () =>
+  createCookie(lucia.sessionCookieName).serialize("", {
     ...baseSerializeOptions,
 
     maxAge: 0

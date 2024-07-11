@@ -1,6 +1,6 @@
 import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
 
-import {PageArgs} from "./PageArgs.js"
+import type {PageArgs} from "./PageArgs.js"
 
 export interface PageOutputInput<T extends object> {
   /**

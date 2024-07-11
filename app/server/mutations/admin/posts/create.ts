@@ -8,7 +8,10 @@ import {PostCreateInput} from "../../../zod/post/PostCreateInput.js"
 /**
  * Creates new post authored by current user
  */
-export const create = makeDomainFunction(PostCreateInput, AuthEnv)(
+export const create = makeDomainFunction(
+  PostCreateInput,
+  AuthEnv
+)(
   withOrm(async (orm, {title, content}, {user}) => {
     const author = orm.em.getReference(User, user.id)
 

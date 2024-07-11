@@ -1,7 +1,7 @@
 import type {ActionFunctionArgs} from "@remix-run/node"
 
 import {withTrpc} from "../server/trpc/withTrpc.js"
-import {IAdminLogInInput} from "../server/zod/user/AdminLogInInput.js"
+import type {IAdminLogInInput} from "../server/zod/user/AdminLogInInput.js"
 
 export const loader = (): never => {
   throw new Response(null, {

@@ -1,4 +1,4 @@
-import {z} from "zod"
+import type {z} from "zod"
 
 import {Record} from "./Record.js"
 import {DateTime} from "./DateTime.js"

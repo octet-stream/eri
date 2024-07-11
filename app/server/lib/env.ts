@@ -29,7 +29,12 @@ function loadEnv(name: string): boolean {
 }
 
 const env = process.env.NODE_ENV
-const sources = [`.env.${env}.local`, `.env.${env}`, ".env.local", ".env"] as const
+const sources = [
+  `.env.${env}.local`,
+  `.env.${env}`,
+  ".env.local",
+  ".env"
+] as const
 
 const loadedAny = sources.some(source => loadEnv(source))
 if (!loadedAny) {

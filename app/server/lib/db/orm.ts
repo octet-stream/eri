@@ -20,10 +20,10 @@ export type WithOrmCallback<TResult, TArgs extends unknown[]> = (
   ...args: TArgs
 ) => Promise<TResult>
 
-export const withOrm = <TResult, TArgs extends unknown[]>(
-  fn: WithOrmCallback<TResult, TArgs>
-) => async (...args: TArgs) => {
-  const orm = await getOrm()
+export const withOrm =
+  <TResult, TArgs extends unknown[]>(fn: WithOrmCallback<TResult, TArgs>) =>
+  async (...args: TArgs) => {
+    const orm = await getOrm()
 
-  return RequestContext.create(orm.em, () => fn(orm, ...args))
-}
+    return RequestContext.create(orm.em, () => fn(orm, ...args))
+  }

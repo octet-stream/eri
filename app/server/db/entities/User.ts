@@ -8,7 +8,7 @@ export interface UserInput {
   password: string
 }
 
-export interface UserBase extends DatabaseUser, UserInput { }
+export interface UserBase extends DatabaseUser, UserInput {}
 
 /**
  * Represents a user stored in database

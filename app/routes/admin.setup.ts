@@ -1,4 +1,4 @@
-import {json, redirect, ActionFunction} from "@remix-run/node"
+import {json, redirect, type ActionFunction} from "@remix-run/node"
 import {performMutation} from "remix-forms"
 
 import {AdminSetupInput} from "../server/zod/user/AdminSetupInput.js"

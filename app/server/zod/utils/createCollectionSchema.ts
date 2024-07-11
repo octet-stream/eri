@@ -6,9 +6,8 @@ import {z} from "zod"
  */
 export const createCollectionSchema = <T extends z.ZodRawShape>(
   schema: z.ZodObject<T>
-) => z
-  .instanceof(Collection)
-  .transform(async (value, ctx) => {
+) =>
+  z.instanceof(Collection).transform(async (value, ctx) => {
     const result = await z.array(schema).safeParseAsync(value.toArray())
 
     if (result.success) {

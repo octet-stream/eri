@@ -1,11 +1,7 @@
 import {test, expect, describe} from "vitest"
 import {format} from "date-fns"
 
-import {
-  formatSlugDate,
-  formatSlugName,
-  SLUG_DATE_FORMAT
-} from "./slug.js"
+import {formatSlugDate, formatSlugName, SLUG_DATE_FORMAT} from "./slug.js"
 
 describe(formatSlugDate.name, () => {
   test("Returns formatted date", () => {
