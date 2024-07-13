@@ -1,9 +1,10 @@
 import {vitePlugin as remix} from "@remix-run/dev"
 import {defineConfig} from "vite"
-import {build} from "esbuild"
 
 import devServer from "@hono/vite-dev-server"
 import tsconfigPaths from "vite-tsconfig-paths"
+
+import buildServer from "./vite/plugins/build-server.js"
 
 export default defineConfig({
   plugins: [
@@ -12,26 +13,8 @@ export default defineConfig({
       entry: "app/server/http/dev.ts",
       exclude: [/^\/(app)\/.+/, /^\/@.+$/, /^\/node_modules\/.*/]
     }),
-    remix({
-      serverBuildFile: "remix.js",
-      async buildEnd() {
-        try {
-          build({
-            outfile: "build/server/entry.hono.js",
-            entryPoints: ["app/server/http/prod.ts"],
-            external: ["./remix.js"],
-            platform: "node",
-            format: "esm",
-            packages: "external",
-            bundle: true,
-            logLevel: "info"
-          })
-        } catch (error) {
-          console.error(error)
-          process.exit(1)
-        }
-      }
-    }),
+    remix({serverBuildFile: "remix.js"}),
+    buildServer({remixBundleName: "./remix.js"}),
     tsconfigPaths()
   ],
   optimizeDeps: {
