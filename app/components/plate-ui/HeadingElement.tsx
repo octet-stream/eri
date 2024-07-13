@@ -19,12 +19,10 @@ const HeadingElementVariants = withVariants(PlateElement, headingVariants, [
   "isFirstBlock"
 ])
 
-/* eslint-disable @typescript-eslint/indent */
 type Props = Simplify<
   & ComponentProps<typeof Heading>
   & ComponentProps<typeof HeadingElementVariants>
 >
-/* eslint-enable @typescript-eslint/indent */
 
 export const HeadingElement = forwardRef<unknown, Props>(
   ({children, ...props}, ref) => {

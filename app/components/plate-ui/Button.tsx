@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
-
 import {cva, VariantProps} from "class-variance-authority"
 import {Slot} from "@radix-ui/react-slot"
 import {cn, withRef} from "@udecode/cn"

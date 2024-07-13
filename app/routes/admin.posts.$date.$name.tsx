@@ -31,5 +31,4 @@ export const handle: BreadcrumbHandle = {
 }
 
 // Re-exporting component from public page, because they're identical. This will be changed in a future.
-// eslint-disable-next-line no-restricted-exports
 export {default} from "./_blog.posts.$date.$name.jsx"

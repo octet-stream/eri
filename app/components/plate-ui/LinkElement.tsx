@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */ // Disabled because false-positive (PlateElement has asChild prop)
-
 import {PlateElement, useElement} from "@udecode/plate-common"
 import {TLinkElement, useLink} from "@udecode/plate-link"
 import {withRef} from "@udecode/cn"

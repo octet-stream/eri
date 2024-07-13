@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unknown-property */
-
 import {cn, createPrimitiveElement, withCn, withRef} from "@udecode/cn"
 import {type DialogProps} from "@radix-ui/react-dialog"
 import {Command as CommandPrimitive} from "cmdk"

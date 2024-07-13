@@ -150,10 +150,8 @@ export type SheetDescriptionRef = ElementRef<typeof Description>
 export type SheetDescriptionProps = ComponentPropsWithoutRef<typeof Description>
 
 export const SheetDescription = forwardRef<
-/* eslint-disable @typescript-eslint/indent */
   SheetDescriptionRef,
   SheetDescriptionProps
-/* eslint-enable @typescript-eslint/indent */
 >(
   ({className, ...props}, ref) => (
     <Description

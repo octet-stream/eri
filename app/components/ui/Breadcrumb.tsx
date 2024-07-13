@@ -23,10 +23,8 @@ export type BreadcrumbListRef = ElementRef<"ol">
 export type BreadcrumbListProps = ComponentPropsWithoutRef<"ol">
 
 export const BreadcrumbList = forwardRef<
-/* eslint-disable @typescript-eslint/indent */
   BreadcrumbListRef,
   BreadcrumbListProps
-/* eslint-enable @typescript-eslint/indent */
 >(
   ({className, ...props}, ref) => (
     <ol
@@ -48,10 +46,8 @@ export type BreadcrumbItemRef = ElementRef<"li">
 export type BreadcrumbItemProps = ComponentPropsWithoutRef<"li">
 
 export const BreadcrumbItem = forwardRef<
-/* eslint-disable @typescript-eslint/indent */
   BreadcrumbItemRef,
   BreadcrumbItemProps
-/* eslint-enable @typescript-eslint/indent */
 >(
   ({className, ...props}, ref) => (
     <li
@@ -72,10 +68,8 @@ export type BreadcrumbLinkProps = ComponentPropsWithoutRef<"a"> & {
 }
 
 export const BreadcrumbLink = forwardRef<
-/* eslint-disable @typescript-eslint/indent */
   BreadcrumbLinkRef,
   BreadcrumbLinkProps
-/* eslint-enable @typescript-eslint/indent */
 >(
   ({asChild, className, ...props}, ref) => {
     const Comp = asChild ? Slot : "a"
@@ -97,10 +91,8 @@ export type BreadcrumbPageRef = ElementRef<"span">
 export type BreadcrumbPageProps = ComponentPropsWithoutRef<"span">
 
 export const BreadcrumbPage = forwardRef<
-/* eslint-disable @typescript-eslint/indent */
   BreadcrumbPageRef,
   BreadcrumbPageProps
-/* eslint-enable @typescript-eslint/indent */
 >(
   ({className, ...props}, ref) => (
     <span
@@ -122,10 +114,8 @@ export type BreadcrumbSeparatorRef = ElementRef<"li">
 export type BreadcrumbSeparatorProps = ComponentPropsWithoutRef<"li">
 
 export const BreadcrumbSeparator = forwardRef<
-/* eslint-disable @typescript-eslint/indent */
   BreadcrumbSeparatorRef,
   BreadcrumbSeparatorProps
-/* eslint-enable @typescript-eslint/indent */
 >(({children, className, ...props}, ref) => (
   <li
     {...props}
@@ -146,10 +136,8 @@ export type BreadcrumbEllipsisRef = ElementRef<"span">
 export type BreadcrumbEllipsisProps = ComponentPropsWithoutRef<"span">
 
 export const BreadcrumbEllipsis = forwardRef<
-/* eslint-disable @typescript-eslint/indent */
 BreadcrumbEllipsisRef,
 BreadcrumbEllipsisProps
-/* eslint-enable @typescript-eslint/indent */
 >(({className, ...props}, ref) => (
   <span
     {...props}

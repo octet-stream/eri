@@ -6,8 +6,7 @@ import {createMiddleware} from "hono/factory"
 const viteDevServer =
   process.env.NODE_ENV === "production"
     ? undefined
-    : // eslint-disable-next-line import/no-extraneous-dependencies
-      await import("vite").then(vite =>
+    : await import("vite").then(vite =>
         vite.createServer({
           appType: "custom",
           server: {
@@ -36,6 +35,7 @@ export const remix = () =>
     const build = await importBuild()
 
     const middleware = remixHono({
+      // @ts-expect-error
       build,
       mode: process.env.NODE_ENV as Exclude<
         NodeJS.ProcessEnv["NODE_ENV"],

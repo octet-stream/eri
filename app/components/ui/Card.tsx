@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
-
 import type {HTMLAttributes} from "react"
 import {forwardRef} from "react"
 import {cn} from "@udecode/cn"
