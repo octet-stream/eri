@@ -8,5 +8,5 @@ serve(
     port: Number.parseInt(process.env.PORT || "", 10) || 3000
   },
 
-  info => console.log("Listening on http://localhost:%s", info.port)
+  ({port}) => console.log("Listening on http://localhost:%s", port)
 )
