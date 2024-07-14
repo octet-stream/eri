@@ -4,7 +4,7 @@ import {defineConfig} from "vite"
 import devServer from "@hono/vite-dev-server"
 import tsconfigPaths from "vite-tsconfig-paths"
 
-import buildServer from "./vite/plugins/build-server.js"
+import buildServer from "@eri-dev/vite-plugin-build-server"
 
 export default defineConfig({
   plugins: [
