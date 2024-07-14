@@ -1,7 +1,7 @@
 {
   "private": true,
   "type": "module",
-  "name": "@eri-dev/eri",
+  "name": "eri",
   "version": "0.1.0",
   "scripts": {
     "dev": "remix vite:dev",

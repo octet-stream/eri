@@ -5,8 +5,7 @@
   "files": ["lib"],
   "exports": "./lib/index.js",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w"
+    "build": "tsc"
   },
   "devDependencies": {
     "esbuild": "0.23.0"
