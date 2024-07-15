@@ -1,13 +1,8 @@
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+node_modules
 
 # testing
-/coverage
-
-# production
-/build
+coverage
 
 # misc
 .DS_Store
@@ -25,5 +20,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# Old source code
-/src
+# nx cache data
+/.nx

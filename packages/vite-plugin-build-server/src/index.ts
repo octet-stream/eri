@@ -45,6 +45,9 @@ function normalizeEntryPointFileName(
   return path
 }
 
+/**
+ * Builds Hono server for Remix integration in production
+ */
 export default function buildServer(options: BuildServerPluginOptions): Plugin {
   let config: ResolvedConfig | undefined
 

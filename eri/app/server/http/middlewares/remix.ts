@@ -35,7 +35,7 @@ export const remix = () =>
     const build = await importBuild()
 
     const middleware = remixHono({
-      // @ts-expect-error
+      // @ts-ignore
       build,
       mode: process.env.NODE_ENV as Exclude<
         NodeJS.ProcessEnv["NODE_ENV"],
