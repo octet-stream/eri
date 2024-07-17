@@ -9,7 +9,7 @@ type MigrationsModules = Record<
   Record<string, MigrationObject["class"]>
 >
 
-const modules = import.meta.glob("../../db/migrations/*.ts", {
+const modules = import.meta.glob("../../../db/migrations/*.ts", {
   eager: true
 }) as MigrationsModules
 
