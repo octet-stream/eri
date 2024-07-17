@@ -5,7 +5,7 @@ import devServer from "@hono/vite-dev-server"
 import tsconfigPaths from "vite-tsconfig-paths"
 
 import buildServer from "@eri-dev/vite-plugin-build-server"
-import buildMigrations from "@eri-dev/vite-plugin-build-migrations"
+import buildMigrations from "@eri-dev/vite-plugin-mikro-orm-config"
 
 export default defineConfig({
   plugins: [

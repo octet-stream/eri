@@ -267,12 +267,12 @@ importers:
         specifier: 3.23.8
         version: 3.23.8
     devDependencies:
-      '@eri-dev/vite-plugin-build-migrations':
-        specifier: workspace:*
-        version: link:../packages/vite-plugin-build-migrations
       '@eri-dev/vite-plugin-build-server':
         specifier: workspace:*
         version: link:../packages/vite-plugin-build-server
+      '@eri-dev/vite-plugin-mikro-orm-config':
+        specifier: workspace:*
+        version: link:../packages/vite-plugin-mikro-orm-config
       '@hono/vite-dev-server':
         specifier: 0.13.0
         version: 0.13.0(hono@4.4.13)
@@ -331,13 +331,13 @@ importers:
         specifier: 2.0.2
         version: 2.0.2(@types/node@20.14.10)
 
-  packages/vite-plugin-build-migrations: {}
-
   packages/vite-plugin-build-server:
     devDependencies:
       esbuild:
         specifier: 0.23.0
         version: 0.23.0
+
+  packages/vite-plugin-mikro-orm-config: {}
 
 packages:
 
