@@ -1,4 +1,5 @@
 {
+  "private": true,
   "type": "module",
   "name": "@eri-dev/vite-plugin-mikro-orm-config",
   "description": "Vite plugin that builds config and migrations for Mikro ORM",
