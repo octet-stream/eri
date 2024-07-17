@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "name": "@eri-dev/vite-plugin-build-migrations",
+  "description": "Vite plugin that builds config and migrations for Mikro ORM",
+  "files": ["lib"],
+  "exports": "./lib/index.js",
+  "scripts": {
+    "build": "tsc"
+  }
+}

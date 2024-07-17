@@ -1,6 +1,6 @@
 import {MikroORM, RequestContext} from "@mikro-orm/mysql"
 
-import {config} from "./config.js"
+import config from "./configs/base.js"
 
 let cache: Promise<MikroORM> | undefined
 
