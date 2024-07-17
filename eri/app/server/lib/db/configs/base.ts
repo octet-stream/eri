@@ -2,14 +2,13 @@ import {join, dirname} from "node:path"
 
 import {defineConfig} from "@mikro-orm/mysql"
 import {Migrator} from "@mikro-orm/migrations"
-import {SeedManager} from "@mikro-orm/seeder"
 
-import * as entities from "../../db/entities.js"
-import * as subscribers from "../../db/subscribers.js"
+import * as entities from "../../../db/entities.js"
+import * as subscribers from "../../../db/subscribers.js"
 
 const base = join(dirname(dirname(import.meta.dirname)), "db")
 
-export const config = defineConfig({
+const config = defineConfig({
   debug: ["development", "debug"].includes(process.env.NODE_ENV),
   dbName: process.env.DB_NAME,
   host: process.env.DB_HOST,
@@ -19,11 +18,10 @@ export const config = defineConfig({
   ensureDatabase: true,
   entities: Object.values(entities),
   subscribers: Object.values(subscribers).map(Subscriber => new Subscriber()),
-  extensions: [Migrator, SeedManager],
+  extensions: [Migrator],
   migrations: {
     path: join(base, "migrations")
-  },
-  seeder: {
-    path: join(base, "seeder")
   }
 })
+
+export default config

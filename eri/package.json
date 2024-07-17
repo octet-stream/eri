@@ -21,7 +21,7 @@
   "mikro-orm": {
     "useTsNode": true,
     "configPaths": [
-      "./app/server/lib/db/cli.ts"
+      "./app/server/lib/db/configs/dev.ts"
     ]
   },
   "dependencies": {
@@ -30,7 +30,6 @@
     "@mikro-orm/core": "6.2.9",
     "@mikro-orm/migrations": "6.2.9",
     "@mikro-orm/mysql": "6.2.9",
-    "@mikro-orm/seeder": "6.2.9",
     "@radix-ui/react-dialog": "1.1.1",
     "@radix-ui/react-dropdown-menu": "2.1.1",
     "@radix-ui/react-label": "2.1.0",
@@ -113,6 +112,7 @@
     "@types/react-dom": "18.3.0",
     "@types/validator": "13.11.10",
     "@eri-dev/vite-plugin-build-server": "workspace:*",
+    "@eri-dev/vite-plugin-mikro-orm-config": "workspace:*",
     "autoprefixer": "10.4.19",
     "postcss": "8.4.39",
     "tailwindcss": "3.4.4",

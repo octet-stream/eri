@@ -5,6 +5,7 @@ import devServer from "@hono/vite-dev-server"
 import tsconfigPaths from "vite-tsconfig-paths"
 
 import buildServer from "@eri-dev/vite-plugin-build-server"
+import buildMigrations from "@eri-dev/vite-plugin-mikro-orm-config"
 
 export default defineConfig({
   plugins: [
@@ -15,6 +16,7 @@ export default defineConfig({
     }),
     remix({serverBuildFile: "remix.js"}),
     buildServer({remixBundleName: "./remix.js"}),
+    buildMigrations({configEntry: "app/server/lib/db/configs/prod.ts"}),
     tsconfigPaths()
   ],
   optimizeDeps: {
