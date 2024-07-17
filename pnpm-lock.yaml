@@ -56,9 +56,6 @@ importers:
       '@mikro-orm/mysql':
         specifier: 6.2.9
         version: 6.2.9(@mikro-orm/core@6.2.9)
-      '@mikro-orm/seeder':
-        specifier: 6.2.9
-        version: 6.2.9(@mikro-orm/core@6.2.9)
       '@radix-ui/react-dialog':
         specifier: 1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1214,12 +1211,6 @@ packages:
 
   '@mikro-orm/mysql@6.2.9':
     resolution: {integrity: sha512-q9lYdxNekAXB9ys8SRijYf5dAMZ0/AZCwbzWjHlcFcUIf0+R1pUTZdnT6T0qDs+I7wjCwXt+EtWIh50CFGbxHA==}
-    engines: {node: '>= 18.12.0'}
-    peerDependencies:
-      '@mikro-orm/core': ^6.0.0
-
-  '@mikro-orm/seeder@6.2.9':
-    resolution: {integrity: sha512-lmuAe/yXIzjFuYpIxnkcCL0/ZZLXbhmcpdXeYhQW79rYZbZ1WMref9m5EwbOjFtHlrPn73OLSF9ZeXQcF4Rn0g==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@mikro-orm/core': ^6.0.0
@@ -6956,12 +6947,6 @@ snapshots:
       - sqlite3
       - supports-color
       - tedious
-
-  '@mikro-orm/seeder@6.2.9(@mikro-orm/core@6.2.9)':
-    dependencies:
-      '@mikro-orm/core': 6.2.9
-      fs-extra: 11.2.0
-      globby: 11.1.0
 
   '@node-rs/argon2-android-arm-eabi@1.7.0':
     optional: true
