@@ -59,7 +59,6 @@ export class MikroORMAdapter implements Adapter {
   > {
     const orm = await getOrm()
 
-    // TODO: Add proper error handling
     const session = await orm.em.findOne(Session, sessionId)
 
     return [session || null, session?.user || null]
