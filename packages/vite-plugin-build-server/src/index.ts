@@ -38,7 +38,7 @@ function normalizeEntryPointFileName(
 
   if (!path.startsWith(config.root)) {
     throw Error(
-      `Unable to resolve server entry poing: The path bust be within the project's root. Received: ${path}`
+      `Unable to resolve server entry point: The path bust be within the project's root. Received: ${path}`
     )
   }
 
