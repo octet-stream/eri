@@ -1,4 +1,5 @@
 {
+  "private": true,
   "type": "module",
   "name": "@eri-dev/vite-plugin-build-server",
   "description": "Vite plugin for Hono server compilation for Remix",
