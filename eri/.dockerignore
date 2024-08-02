@@ -1,16 +1,2 @@
-node_modules
-coverage
-.DS_Store
-
-*.tsbuildinfo
-
-/.github
-/.husky
-/.lintstagedrc.json
-
-# local env files
-.env*.local
-
 # Local build files
 /build
-/commitlint.config.ts

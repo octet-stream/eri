@@ -1,0 +1,18 @@
+node_modules
+coverage
+.DS_Store
+
+# Turbopack cache
+.turbo
+
+*.tsbuildinfo
+
+/.github
+/.husky
+/.lintstagedrc.json
+
+# local env files
+.env*.local
+
+# Configs
+/commitlint.config.ts
