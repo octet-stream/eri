@@ -20,5 +20,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# nx cache data
-/.nx
+# turborepo cache data
+.turbo
