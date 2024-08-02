@@ -30,6 +30,6 @@
   },
   "files": {
     "include": ["**/*.ts", "**/*.js"],
-    "ignore": ["node_modules", "coverage", "build"]
+    "ignore": ["node_modules", "coverage", "build", "**/*.d.ts"]
   }
 }
