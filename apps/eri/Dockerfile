@@ -44,13 +44,13 @@ FROM base as dist
 
 WORKDIR /usr/opt/eri
 
-COPY --from=build /usr/src/eri/eri/build eri/build
-COPY --from=build /usr/src/eri/eri/package.json eri/package.json
-COPY --from=deps-prod /usr/src/eri/eri/node_modules eri/node_modules
+COPY --from=build /usr/src/eri/apps/eri/build apps/eri/build
+COPY --from=build /usr/src/eri/apps/eri/package.json apps/eri/package.json
+COPY --from=deps-prod /usr/src/eri/apps/eri/node_modules apps/eri/node_modules
 COPY --from=deps-prod /usr/src/eri/node_modules node_modules
 COPY license license
 
-WORKDIR /usr/opt/eri/eri
+WORKDIR /usr/opt/eri/apps/eri
 
 EXPOSE 3000
 CMD ["pnpm", "start"]

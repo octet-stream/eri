@@ -3,8 +3,8 @@ import {useId} from "react"
 
 import {AdminSetupInput} from "../../../server/zod/user/AdminSetupInput.js"
 
-import {Input} from "../../../components/ui/Input.js"
-import {Label} from "../../../components/ui/Label.js"
+import {Input} from "../../../components/ui/Input.jsx"
+import {Label} from "../../../components/ui/Label.jsx"
 
 import {AuthForm} from "../components/AuthForm.jsx"
 

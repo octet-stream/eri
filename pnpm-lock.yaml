@@ -39,7 +39,7 @@ importers:
         specifier: 5.3.3
         version: 5.3.3(@types/node@20.14.10)
 
-  eri:
+  apps/eri:
     dependencies:
       '@hono/node-server':
         specifier: 1.12.0
@@ -272,10 +272,10 @@ importers:
     devDependencies:
       '@eri-dev/vite-plugin-build-server':
         specifier: workspace:*
-        version: link:../packages/vite-plugin-build-server
+        version: link:../../packages/vite-plugin-build-server
       '@eri-dev/vite-plugin-mikro-orm-config':
         specifier: workspace:*
-        version: link:../packages/vite-plugin-mikro-orm-config
+        version: link:../../packages/vite-plugin-mikro-orm-config
       '@hono/vite-dev-server':
         specifier: 0.13.0
         version: 0.13.0(hono@4.4.13)
