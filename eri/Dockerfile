@@ -2,36 +2,55 @@ FROM node:22-alpine as base
 
 RUN apk add --no-cache libc6-compat
 
+# Set paths for pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
+# Install pnpm and Turborepo
 RUN corepack enable
-COPY . /usr/src/eri
+
+# Set pwd for all further steps
 WORKDIR /usr/src/eri
 
-FROM base as deps-prod
+# Prepare repository for eri
+FROM base as repo
+RUN pnpm add -g turbo
+COPY . .
+RUN turbo prune eri --docker
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --filter eri --prod --frozen-lockfile --ignore-scripts
+# Prepare dependencies installation
+FROM base as deps-common
+COPY --from=repo /usr/src/eri/out/json/ .
 
-FROM base as deps-dev
+# Prepare production-only dependencies
+FROM deps-common as deps-prod
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --prod --frozen-lockfile --prefer-offline --ignore-scripts
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --frozen-lockfile
+# Prepare development-only
+FROM deps-common as deps-dev
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --frozen-lockfile --prefer-offline
 
 FROM base as build
+COPY --from=deps-dev /usr/src/eri/ .
+COPY --from=repo /usr/src/eri/out/full/ .
 
-COPY --from=deps-dev /usr/src/eri/node_modules /usr/src/eri/node_modules
+# These weren't copied by `turbo prune`
+COPY tsconfig.json tsconfig.json
+COPY biome.jsonc biome.jsonc
 
-RUN pnpm turbo build
+RUN pnpm turbo build --filter=eri
 
-FROM base as run
-
-RUN mkdir -p /usr/opt/eri
-
-COPY --from=build /usr/src/eri/eri/build /usr/opt/eri/build
-COPY --from=build /usr/src/eri/eri/package.json /usr/opt/eri/
-COPY --from=deps-prod /usr/src/eri/eri/node_modules /usr/opt/eri/node_modules
+FROM base as dist
 
 WORKDIR /usr/opt/eri
+
+COPY --from=build /usr/src/eri/eri/build eri/build
+COPY --from=build /usr/src/eri/eri/package.json eri/package.json
+COPY --from=deps-prod /usr/src/eri/eri/node_modules eri/node_modules
+COPY --from=deps-prod /usr/src/eri/node_modules node_modules
+COPY license license
+
+WORKDIR /usr/opt/eri/eri
 
 EXPOSE 3000
 CMD ["pnpm", "start"]
