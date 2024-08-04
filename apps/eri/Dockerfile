@@ -48,9 +48,8 @@ COPY --from=build /usr/src/eri/apps/eri/build apps/eri/build
 COPY --from=build /usr/src/eri/apps/eri/package.json apps/eri/package.json
 COPY --from=deps-prod /usr/src/eri/apps/eri/node_modules apps/eri/node_modules
 COPY --from=deps-prod /usr/src/eri/node_modules node_modules
+COPY --from=deps-prod /usr/src/eri/pnpm-workspace.yaml pnpm-workspace.yaml
 COPY license license
 
-WORKDIR /usr/opt/eri/apps/eri
-
 EXPOSE 3000
-CMD ["pnpm", "start"]
+CMD ["pnpm", "--filter", "eri", "start"]
