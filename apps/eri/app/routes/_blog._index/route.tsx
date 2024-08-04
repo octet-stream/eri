@@ -1,7 +1,7 @@
 import {type MetaFunction} from "@remix-run/node"
 import {useLoaderData} from "@remix-run/react"
 
-import {NoPosts} from "./components/NoPosts.js"
+import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
 import {PostsContext} from "./contexts/PostsContext.jsx"
 

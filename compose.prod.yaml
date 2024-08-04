@@ -1,5 +1,11 @@
 version: "3.8"
 
+volumes:
+  mysql:
+
+networks:
+  mysql:
+
 services:
   mysql:
     image: mysql:8-oracle
@@ -23,7 +29,9 @@ services:
   eri:
     depends_on:
       - mysql
-    build: .
+    build:
+      context: .
+      dockerfile: ./apps/eri/Dockerfile
     environment:
       DB_NAME:
       DB_HOST: mysql
@@ -31,15 +39,6 @@ services:
       DB_USER: root
       DB_PASSWORD:
     ports:
-      - "3000:3000"
+      - "3000"
     networks:
       - mysql
-
-volumes:
-  mysql:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
-
-networks:
-  mysql:

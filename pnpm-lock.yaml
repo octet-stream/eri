@@ -39,7 +39,7 @@ importers:
         specifier: 5.3.3
         version: 5.3.3(@types/node@20.14.10)
 
-  eri:
+  apps/eri:
     dependencies:
       '@hono/node-server':
         specifier: 1.12.0
@@ -260,6 +260,9 @@ importers:
       tailwind-merge:
         specifier: 2.4.0
         version: 2.4.0
+      ts-node:
+        specifier: 10.9.2
+        version: 10.9.2(@swc/core@1.5.29)(@types/node@20.14.10)(typescript@5.5.3)
       uuid:
         specifier: ^10.0.0
         version: 10.0.0
@@ -272,10 +275,10 @@ importers:
     devDependencies:
       '@eri-dev/vite-plugin-build-server':
         specifier: workspace:*
-        version: link:../packages/vite-plugin-build-server
+        version: link:../../packages/vite-plugin-build-server
       '@eri-dev/vite-plugin-mikro-orm-config':
         specifier: workspace:*
-        version: link:../packages/vite-plugin-mikro-orm-config
+        version: link:../../packages/vite-plugin-mikro-orm-config
       '@hono/vite-dev-server':
         specifier: 0.13.0
         version: 0.13.0(hono@4.4.13)
@@ -321,9 +324,6 @@ importers:
       tailwindcss-device:
         specifier: 0.3.0
         version: 0.3.0(postcss@8.4.39)(tailwindcss@3.4.4(ts-node@10.9.2(@swc/core@1.5.29)(@types/node@20.14.10)(typescript@5.5.3)))
-      ts-node:
-        specifier: 10.9.2
-        version: 10.9.2(@swc/core@1.5.29)(@types/node@20.14.10)(typescript@5.5.3)
       typescript:
         specifier: 5.5.3
         version: 5.5.3

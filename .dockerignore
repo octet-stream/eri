@@ -2,6 +2,9 @@ node_modules
 coverage
 .DS_Store
 
+# Turborepo cache
+.turbo
+
 *.tsbuildinfo
 
 /.github
@@ -11,6 +14,5 @@ coverage
 # local env files
 .env*.local
 
-# Local build files
-/build
+# Configs
 /commitlint.config.ts
