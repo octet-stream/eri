@@ -8,7 +8,7 @@
     "type": "git",
     "url": "octet-stream/eri"
   },
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@9.6.0",
   "engines": {
     "node": ">= 22"
   },

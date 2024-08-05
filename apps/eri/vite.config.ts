@@ -1,21 +1,19 @@
+import {devServer} from "react-router-hono-server/dev"
 import {vitePlugin as remix} from "@remix-run/dev"
+import {installGlobals} from "@remix-run/node"
 import {defineConfig} from "vite"
 
-import devServer from "@hono/vite-dev-server"
 import tsconfigPaths from "vite-tsconfig-paths"
-
-import buildServer from "@eri-dev/vite-plugin-build-server"
 import buildMigrations from "@eri-dev/vite-plugin-mikro-orm-config"
+
+installGlobals()
 
 export default defineConfig({
   plugins: [
-    devServer({
-      injectClientScript: false,
-      entry: "app/server/http/dev.ts",
-      exclude: [/^\/(app)\/.+/, /^\/@.+$/, /^\/node_modules\/.*/]
-    }),
-    remix({serverBuildFile: "remix.js"}),
-    buildServer({remixBundleName: "./remix.js"}),
+    // @ts-expect-error Igonre TS complaints about incompatible types for this plugin
+    devServer(),
+
+    remix(),
     buildMigrations({configEntry: "app/server/lib/db/configs/prod.ts"}),
     tsconfigPaths()
   ],
@@ -30,6 +28,9 @@ export default defineConfig({
       "@mikro-orm/migrations",
       "mysql2"
     ]
+  },
+  build: {
+    target: "esnext"
   },
   test: {
     include: ["**/*.test.ts?(x)"],
