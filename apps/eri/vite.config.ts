@@ -3,10 +3,7 @@ import {vitePlugin as remix} from "@remix-run/dev"
 import {installGlobals} from "@remix-run/node"
 import {defineConfig} from "vite"
 
-// import devServer from "@hono/vite-dev-server"
 import tsconfigPaths from "vite-tsconfig-paths"
-
-// import buildServer from "@eri-dev/vite-plugin-build-server"
 import buildMigrations from "@eri-dev/vite-plugin-mikro-orm-config"
 
 installGlobals()
