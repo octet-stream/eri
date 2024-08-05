@@ -276,15 +276,9 @@ importers:
         specifier: 3.23.8
         version: 3.23.8
     devDependencies:
-      '@eri-dev/vite-plugin-build-server':
-        specifier: workspace:*
-        version: link:../../packages/vite-plugin-build-server
       '@eri-dev/vite-plugin-mikro-orm-config':
         specifier: workspace:*
         version: link:../../packages/vite-plugin-mikro-orm-config
-      '@hono/vite-dev-server':
-        specifier: 0.13.0
-        version: 0.13.0(hono@4.4.13)
       '@remix-run/dev':
         specifier: 2.10.2
         version: 2.10.2(@remix-run/react@2.10.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.3))(@types/node@20.14.10)(ts-node@10.9.2(@swc/core@1.7.6)(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.10))
@@ -1130,12 +1124,6 @@ packages:
   '@hono/node-server@1.12.0':
     resolution: {integrity: sha512-e6oHjNiErRxsZRZBmc2KucuvY3btlO/XPncIpP2X75bRdTilF9GLjm3NHvKKunpJbbJJj31/FoPTksTf8djAVw==}
     engines: {node: '>=18.14.1'}
-
-  '@hono/vite-dev-server@0.13.0':
-    resolution: {integrity: sha512-Qy+wEMFb6sphFsOoCSVsgt0tM4rXdNs/9Y9OJSu5kjs+xqNoKzCTXahFQJQYXkQQ1RAOOZxJaPZfdomD14zmwA==}
-    engines: {node: '>=18.14.1'}
-    peerDependencies:
-      hono: '*'
 
   '@hono/vite-dev-server@0.13.1':
     resolution: {integrity: sha512-AK0yQkGwoQvcbf0MeBDDslVnVvzlKjAT00Z2A4Oqyh0RYhLQyCT1aSJzz3eZj7tYytG0B6EGt92DjrkB0tsy1A==}
@@ -6751,17 +6739,6 @@ snapshots:
   '@floating-ui/utils@0.2.4': {}
 
   '@hono/node-server@1.12.0': {}
-
-  '@hono/vite-dev-server@0.13.0(hono@4.4.13)':
-    dependencies:
-      '@hono/node-server': 1.12.0
-      hono: 4.4.13
-      miniflare: 3.20240712.0
-      minimatch: 9.0.5
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
 
   '@hono/vite-dev-server@0.13.1(hono@4.5.3)':
     dependencies:

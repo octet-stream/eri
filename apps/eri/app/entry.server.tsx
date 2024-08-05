@@ -15,6 +15,13 @@ import {isbot} from "isbot"
 
 import "./server/lib/env.js"
 
+export const server = await createHonoServer({
+  port: Number.parseInt(process.env.PORT || "", 10) || 3000,
+
+  listeningListener: ({port}) =>
+    console.log("🥕 Listening on http://localhost:%s", port)
+})
+
 const ABORT_DELAY = 5_000
 
 function handleBotRequest(
@@ -141,10 +148,3 @@ export default function handleRequest(
       remixContext
     )
 }
-
-export const server = await createHonoServer({
-  port: Number.parseInt(process.env.PORT || "", 10) || 3000,
-
-  listeningListener: ({port}) =>
-    console.log("🥕 Listening on http://localhost:%s", port)
-})
