@@ -9,6 +9,9 @@
       "suspicious": {
         "noExplicitAny": "off",
         "noConfusingVoidType": "off"
+      },
+      "style": {
+        "noParameterAssign": "off"
       }
     }
   },
@@ -29,7 +32,7 @@
     }
   },
   "files": {
-    "include": ["**/*.ts", "**/*.js"],
+    "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
     "ignore": ["node_modules", "coverage", "build", "**/*.d.ts"]
   }
 }

@@ -15,8 +15,14 @@ import {isbot} from "isbot"
 
 import "./server/lib/env.js"
 
+import {withOrm} from "./server/middlewares/withOrm.js"
+
 export const server = await createHonoServer({
   port: Number.parseInt(process.env.PORT || "", 10) || 3000,
+
+  configure(hono) {
+    hono.use(withOrm() as any) // FIXME: I guess types are incompatible between hono versions, I need to ask the maintainer to make hono a peer dependency
+  },
 
   listeningListener: ({port}) =>
     console.log("🥕 Listening on http://localhost:%s", port)
@@ -136,15 +142,15 @@ export default function handleRequest(
 ) {
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(
-      request,
-      responseStatusCode,
-      responseHeaders,
-      remixContext
-    )
+        request,
+        responseStatusCode,
+        responseHeaders,
+        remixContext
+      )
     : handleBrowserRequest(
-      request,
-      responseStatusCode,
-      responseHeaders,
-      remixContext
-    )
+        request,
+        responseStatusCode,
+        responseHeaders,
+        remixContext
+      )
 }

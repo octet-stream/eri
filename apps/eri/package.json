@@ -25,6 +25,8 @@
     ]
   },
   "dependencies": {
+    "@conform-to/react": "1.1.5",
+    "@conform-to/zod": "1.1.5",
     "@hono/node-server": "1.12.0",
     "@mikro-orm/cli": "6.3.3",
     "@mikro-orm/core": "6.3.3",
