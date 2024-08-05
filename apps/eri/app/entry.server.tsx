@@ -8,9 +8,12 @@ import {PassThrough} from "node:stream"
 
 import type {AppLoadContext, EntryContext} from "@remix-run/node"
 import {createReadableStreamFromReadable} from "@remix-run/node"
+import {createHonoServer} from "react-router-hono-server/node"
 import {renderToPipeableStream} from "react-dom/server"
 import {RemixServer} from "@remix-run/react"
 import {isbot} from "isbot"
+
+import "./server/lib/env.js"
 
 const ABORT_DELAY = 5_000
 
@@ -138,3 +141,10 @@ export default function handleRequest(
       remixContext
     )
 }
+
+export const server = await createHonoServer({
+  port: Number.parseInt(process.env.PORT || "", 10) || 3000,
+
+  listeningListener: ({port}) =>
+    console.log("🥕 Listening on http://localhost:%s", port)
+})
