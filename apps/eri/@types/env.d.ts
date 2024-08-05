@@ -12,6 +12,7 @@ namespace NodeJS {
 
     // Auth
     readonly AUTH_SECRET: string
+    readonly AUTH_SESSION_COOKIE_NAME?: string
 
     // Database
     readonly DB_NAME: string

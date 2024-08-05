@@ -1,6 +1,6 @@
 import {createCookie, type CookieSerializeOptions} from "@remix-run/node"
 
-import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
+import type {Maybe} from "../../../lib/types/Maybe.js"
 
 import {lucia} from "./lucia.js"
 import {ttl} from "./ttl.js"
@@ -30,9 +30,8 @@ export const serializeCookie = (sessionId: string) =>
 /**
  * Parses given `Cookie` header string. This utility supports signed cookies
  */
-export const parseCookie = (
-  value: MaybeNull<string>
-): Promise<MaybeNull<string>> => cookie.parse(value)
+export const parseCookie = (value: Maybe<string>): Promise<Maybe<string>> =>
+  cookie.parse(value ?? null)
 
 /**
  * Returns empty session cookie with maxAge set to 0.
