@@ -13,6 +13,8 @@
     "node": ">= 22"
   },
   "scripts": {
+    "demo.start": "docker compose -f compose.demo.yaml --env-file apps/eri/.env.demo.local up --wait -d",
+    "demo.stop": "docker compose -f compose.demo.yaml --env-file apps/eri/.env.demo.local down",
     "preinstall": "npx only-allow pnpm",
     "prepare": "npx is-in-ci || husky"
   },
