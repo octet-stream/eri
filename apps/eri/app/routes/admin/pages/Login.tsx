@@ -1,6 +1,7 @@
 import {useForm, getInputProps, getFormProps} from "@conform-to/react"
 import {parseWithZod, getZodConstraint} from "@conform-to/zod"
 import {useActionData, Form} from "@remix-run/react"
+import {cn} from "@udecode/cn"
 import type {FC} from "react"
 
 import {AdminLogInInput} from "../../../server/zod/user/AdminLogInInput.js"
@@ -24,6 +25,8 @@ export const AdminLoginPage: FC = () => {
   const [form, fields] = useForm({
     lastResult,
     constraint: getZodConstraint(AdminLogInInput),
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
 
     onValidate: ({formData}) =>
       parseWithZod(formData, {schema: AdminLogInInput})
@@ -48,6 +51,13 @@ export const AdminLoginPage: FC = () => {
               <Input
                 {...getInputProps(fields.email, {type: "email"})}
                 placeholder="me@example.com"
+                className={cn(
+                  "placeholder:lowercase",
+
+                  {
+                    "border-destructive": fields.email.errors
+                  }
+                )}
               />
             </div>
 
@@ -57,7 +67,13 @@ export const AdminLoginPage: FC = () => {
               <Input
                 {...getInputProps(fields.password, {type: "password"})}
                 placeholder="Your password"
-                className="placeholder:lowercase"
+                className={cn(
+                  "placeholder:lowercase",
+
+                  {
+                    "border-destructive": fields.password.errors
+                  }
+                )}
               />
             </div>
           </CardContent>
