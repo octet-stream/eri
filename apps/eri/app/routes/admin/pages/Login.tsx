@@ -44,6 +44,7 @@ export const AdminLoginPage: FC = () => {
           <CardContent className="grid gap-5">
             <div className="flex flex-col gap-2">
               <Label htmlFor={fields.email.id}>E-mail</Label>
+
               <Input
                 {...getInputProps(fields.email, {type: "email"})}
                 placeholder="me@example.com"
@@ -51,6 +52,8 @@ export const AdminLoginPage: FC = () => {
             </div>
 
             <div className="flex flex-col gap-2">
+              <Label htmlFor={fields.password.id}>Password</Label>
+
               <Input
                 {...getInputProps(fields.password, {type: "password"})}
                 placeholder="Your password"
