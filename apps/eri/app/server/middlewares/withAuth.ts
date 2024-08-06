@@ -1,7 +1,7 @@
 import {createMiddleware} from "hono/factory"
 
 import {User, Session} from "../db/entities.js"
-import {parseCookie} from "../lib/auth/cookie.js"
+import {parseCookie, serializeCookie} from "../lib/auth/cookie.js"
 import type {AuthContext} from "../lib/auth/Auth.js"
 import {lucia} from "../lib/auth/lucia.js"
 import {getOrm} from "../lib/db/orm.js"
@@ -30,4 +30,8 @@ export const withAuth = () =>
     ctx.set("auth", auth)
 
     await next()
+
+    if (session.fresh) {
+      ctx.header("set-cookie", await serializeCookie(session.id))
+    }
   })
