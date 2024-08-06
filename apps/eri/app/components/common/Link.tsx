@@ -13,9 +13,11 @@ export const Link = forwardRef<LinkRef, LinkProps>(
   ({className, children, ...props}, ref) => (
     <a
       {...props}
-
       ref={ref}
-      className={cn("font-medium text-primary underline decoration-primary underline-offset-4", className)}
+      className={cn(
+        "font-medium text-primary underline decoration-primary underline-offset-4",
+        className
+      )}
     >
       {children}
     </a>

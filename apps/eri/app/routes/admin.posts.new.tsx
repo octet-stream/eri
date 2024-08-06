@@ -1,4 +1,8 @@
-import {type ActionFunctionArgs, MetaFunction, redirect} from "@remix-run/node"
+import {
+  type ActionFunctionArgs,
+  type MetaFunction,
+  redirect
+} from "@remix-run/node"
 import type {FC} from "react"
 
 import {
@@ -30,11 +34,7 @@ export const meta: MetaFunction = () => [
 ]
 
 export const handle: BreadcrumbHandle = {
-  breadcrumb: () => (
-    <Breadcrumb>
-      New post
-    </Breadcrumb>
-  )
+  breadcrumb: () => <Breadcrumb>New post</Breadcrumb>
 }
 
 const AdminPostNewPage: FC = () => (

@@ -64,7 +64,7 @@ export type SheetContentRef = ElementRef<typeof Content>
 
 export interface SheetContentProps
   extends ComponentPropsWithoutRef<typeof Content>,
-  VariantProps<typeof sheetVariants> { }
+    VariantProps<typeof sheetVariants> {}
 
 export const SheetContent = forwardRef<SheetContentRef, SheetContentProps>(
   ({side = "left", className, children, ...props}, ref) => (
@@ -72,7 +72,6 @@ export const SheetContent = forwardRef<SheetContentRef, SheetContentProps>(
       <SheetOverlay />
       <Content
         {...props}
-
         ref={ref}
         className={cn(sheetVariants({side}), className)}
       >
@@ -96,7 +95,6 @@ export const SheetHeader = forwardRef<SheetHeaderRef, SheetContentProps>(
   ({className, ...props}, ref) => (
     <div
       {...props}
-
       ref={ref}
       className={cn(
         "flex flex-col space-y-2 text-center sm:text-left",
@@ -116,7 +114,6 @@ export const SheetFooter = forwardRef<SheetContentRef, SheetContentProps>(
   ({className, ...props}, ref) => (
     <div
       {...props}
-
       ref={ref}
       className={cn(
         "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
@@ -136,7 +133,6 @@ export const SheetTitle = forwardRef<SheetTitleRef, SheetTitleProps>(
   ({className, ...props}, ref) => (
     <Title
       {...props}
-
       ref={ref}
       className={cn("text-lg font-semibold text-foreground", className)}
     />
@@ -152,15 +148,12 @@ export type SheetDescriptionProps = ComponentPropsWithoutRef<typeof Description>
 export const SheetDescription = forwardRef<
   SheetDescriptionRef,
   SheetDescriptionProps
->(
-  ({className, ...props}, ref) => (
-    <Description
-      {...props}
-
-      ref={ref}
-      className={cn("text-sm text-muted-foreground", className)}
-    />
-  )
-)
+>(({className, ...props}, ref) => (
+  <Description
+    {...props}
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+  />
+))
 
 SheetDescription.displayName = Description.displayName

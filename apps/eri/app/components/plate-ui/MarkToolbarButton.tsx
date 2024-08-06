@@ -6,10 +6,13 @@ import {
 
 import {ToolbarButton} from "./Toolbar.jsx"
 
-export const MarkToolbarButton = withRef<typeof ToolbarButton, {
-  nodeType: string;
-  clear?: string | string[];
-}>(({clear, nodeType, ...rest}, ref) => {
+export const MarkToolbarButton = withRef<
+  typeof ToolbarButton,
+  {
+    nodeType: string
+    clear?: string | string[]
+  }
+>(({clear, nodeType, ...rest}, ref) => {
   const state = useMarkToolbarButtonState({clear, nodeType})
   const {props} = useMarkToolbarButton(state)
 

@@ -1,12 +1,8 @@
 import {focusEditor, toggleMark, useEditorRef} from "@udecode/plate-common"
 import {MARK_SUBSCRIPT, MARK_SUPERSCRIPT} from "@udecode/plate-basic-marks"
-import {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
+import type {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
 import type {FC} from "react"
-import {
-  MoreHorizontal,
-  Superscript,
-  Subscript
-} from "lucide-react"
+import {MoreHorizontal, Superscript, Subscript} from "lucide-react"
 
 import {
   DropdownMenu,

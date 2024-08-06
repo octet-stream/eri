@@ -7,13 +7,7 @@ import {
   MARK_UNDERLINE
 } from "@udecode/plate-basic-marks"
 import {useEditorReadOnly} from "@udecode/plate-common"
-import {
-  Bold,
-  Italic,
-  Underline,
-  Strikethrough,
-  Code
-} from "lucide-react"
+import {Bold, Italic, Underline, Strikethrough, Code} from "lucide-react"
 
 import {TurnIntoDropdownMenu} from "./TurnIntoDropdownMenu.jsx"
 import {InsertDropdownMenu} from "./InsertDropdownMenu.jsx"

@@ -5,11 +5,7 @@ import {Code} from "../common/Code.jsx"
 
 export const CodeLeaf = withRef<typeof PlateLeaf>(
   ({children, ...props}, ref) => (
-    <PlateLeaf
-      ref={ref}
-      asChild
-      {...props}
-    >
+    <PlateLeaf ref={ref} asChild {...props}>
       <Code>{children}</Code>
     </PlateLeaf>
   )

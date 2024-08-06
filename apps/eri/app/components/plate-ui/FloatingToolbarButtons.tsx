@@ -1,4 +1,4 @@
-import {Fragment, FC} from "react"
+import {Fragment, type FC} from "react"
 import {
   MARK_BOLD,
   MARK_CODE,
@@ -7,13 +7,7 @@ import {
   MARK_UNDERLINE
 } from "@udecode/plate-basic-marks"
 import {useEditorReadOnly} from "@udecode/plate-common"
-import {
-  Bold,
-  Italic,
-  Underline,
-  Strikethrough,
-  Code
-} from "lucide-react"
+import {Bold, Italic, Underline, Strikethrough, Code} from "lucide-react"
 
 import {MoreDropdownMenu} from "./MoreDropdownMenu.jsx"
 import {MarkToolbarButton} from "./MarkToolbarButton.jsx"

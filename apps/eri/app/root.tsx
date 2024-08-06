@@ -1,10 +1,4 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration
-} from "@remix-run/react"
+import {Links, Meta, Outlet, Scripts, ScrollRestoration} from "@remix-run/react"
 import type {FC, ReactNode} from "react"
 
 import "./tailwind.css"
@@ -24,9 +18,7 @@ export const Layout: FC<Props> = ({children}) => (
     </head>
 
     <body className="bg-background text-foreground">
-      <main className="w-screen min-h-dynamic-screen flex ">
-        {children}
-      </main>
+      <main className="w-screen min-h-dynamic-screen flex ">{children}</main>
 
       <ScrollRestoration />
 

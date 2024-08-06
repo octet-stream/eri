@@ -22,17 +22,14 @@ export const ContentEditor: FC = () => {
 
   return (
     <PostEditorField className="flex-1">
-      <Label>
-        Content
-      </Label>
+      <Label>Content</Label>
 
       <Controller
         name="content"
         control={control}
         render={({field: {name, value, onChange, onBlur}}) => {
-          const onDataChange = (
-            data: IPostContent
-          ) => onChange(JSON.stringify(data ?? []))
+          const onDataChange = (data: IPostContent) =>
+            onChange(JSON.stringify(data ?? []))
 
           return (
             <Fragment>

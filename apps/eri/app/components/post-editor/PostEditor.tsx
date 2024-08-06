@@ -6,13 +6,17 @@ import type {Replace} from "../../lib/types/Replace.js"
 
 import {PostEditorContext} from "./PostEditorContext.jsx"
 
-type Props<TSchema extends FormSchema> = Replace<FormProps<TSchema>, {
-  children: ReactNode
-}>
+type Props<TSchema extends FormSchema> = Replace<
+  FormProps<TSchema>,
+  {
+    children: ReactNode
+  }
+>
 
-export const PostEditor = <TSchema extends FormSchema>(
-  {children, ...props}: Props<TSchema>
-): ReactElement => (
+export const PostEditor = <TSchema extends FormSchema>({
+  children,
+  ...props
+}: Props<TSchema>): ReactElement => (
   <Form {...props} className="contents">
     {value => (
       <div className="flex flex-1 flex-col gap-4 min-w-0">

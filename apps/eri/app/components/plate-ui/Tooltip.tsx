@@ -22,25 +22,22 @@ export const TooltipContent = withCn(
 )
 
 export function withTooltip<
-  T extends ComponentType<any> | keyof HTMLElementTagNameMap,
+  T extends ComponentType<any> | keyof HTMLElementTagNameMap
 >(Component: T) {
   return forwardRef<
-  ElementRef<T>,
-  ComponentPropsWithoutRef<T> & {
-    tooltip?: ReactNode;
-    tooltipContentProps?: Omit<
-    ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
-    "children"
-    >;
-    tooltipProps?: Omit<
-    ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
-    "children"
-    >;
-  }
-  >((
-    {tooltip, tooltipContentProps, tooltipProps, ...props},
-    ref
-  ) => {
+    ElementRef<T>,
+    ComponentPropsWithoutRef<T> & {
+      tooltip?: ReactNode
+      tooltipContentProps?: Omit<
+        ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
+        "children"
+      >
+      tooltipProps?: Omit<
+        ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
+        "children"
+      >
+    }
+  >(({tooltip, tooltipContentProps, tooltipProps, ...props}, ref) => {
     const [mounted, setMounted] = useState(false)
 
     useEffect(() => {

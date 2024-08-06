@@ -1,7 +1,11 @@
-import {createLeafNodeMatcher, createLeafTransform, LeafTransform} from "slate-to-react"
-import {createElement, ReactNode, FC, type ReactElement} from "react"
+import {
+  createLeafNodeMatcher,
+  createLeafTransform,
+  type LeafTransform
+} from "slate-to-react"
+import {createElement, type ReactNode, type FC, type ReactElement} from "react"
 
-import {OAnyText} from "../../../server/zod/plate/common/AnyText.js"
+import type {OAnyText} from "../../../server/zod/plate/common/AnyText.js"
 
 import {Code} from "../../common/Code.jsx"
 import {Kbd} from "../../common/Kbd.jsx"
@@ -14,17 +18,19 @@ const combineMarks = (
   nodes: Nodes,
 
   {key, attributes, children}: TextProps
-) => nodes.reduce<ReactNode>(
-  (prev, next, index, {length}) => createElement(
-    next,
+) =>
+  nodes.reduce<ReactNode>(
+    (prev, next, index, {length}) =>
+      createElement(
+        next,
 
-    index + 1 === length ? {...attributes, key} : null,
+        index + 1 === length ? {...attributes, key} : null,
 
-    prev
-  ),
+        prev
+      ),
 
-  children
-) as ReactElement
+    children
+  ) as ReactElement
 
 export const isAnyText = createLeafNodeMatcher<OAnyText>(
   (node): node is OAnyText => typeof node.text === "string"

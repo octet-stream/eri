@@ -1,4 +1,4 @@
-import {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
+import type {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
 import {ELEMENT_BLOCKQUOTE} from "@udecode/plate-block-quote"
 import {
   collapseSelection,
@@ -6,20 +6,14 @@ import {
   focusEditor,
   isBlock,
   isCollapsed,
-  TElement,
+  type TElement,
   toggleNodeType,
   useEditorRef,
   useEditorSelector
 } from "@udecode/plate-common"
 import {ELEMENT_H1, ELEMENT_H2, ELEMENT_H3} from "@udecode/plate-heading"
 import {ELEMENT_PARAGRAPH} from "@udecode/plate-paragraph"
-import {
-  Pilcrow,
-  Heading1,
-  Heading2,
-  Heading3,
-  Quote
-} from "lucide-react"
+import {Pilcrow, Heading1, Heading2, Heading3, Quote} from "lucide-react"
 
 import {
   DropdownMenu,
@@ -87,8 +81,8 @@ export const TurnIntoDropdownMenu = (props: DropdownMenuProps) => {
       })
       if (entry) {
         return (
-          items.find(item => item.value === entry[0].type)?.value
-          ?? ELEMENT_PARAGRAPH
+          items.find(item => item.value === entry[0].type)?.value ??
+          ELEMENT_PARAGRAPH
         )
       }
     }

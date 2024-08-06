@@ -21,9 +21,9 @@ export const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
 
 export const DropdownMenuSubTrigger = withRef<
   typeof DropdownMenuPrimitive.SubTrigger,
-{
-  inset?: boolean;
-}
+  {
+    inset?: boolean
+  }
 >(({className, inset, children, ...props}, ref) => (
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
@@ -102,9 +102,9 @@ export const DropdownMenuCheckboxItem = withRef<
 
 export const DropdownMenuRadioItem = withRef<
   typeof DropdownMenuPrimitive.RadioItem,
-{
-  hideIcon?: boolean;
-}
+  {
+    hideIcon?: boolean
+  }
 >(({className, children, hideIcon, ...props}, ref) => (
   <DropdownMenuPrimitive.RadioItem
     ref={ref}

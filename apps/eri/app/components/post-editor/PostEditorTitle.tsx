@@ -21,13 +21,10 @@ export const PostEditorTitle = () => {
 
   return (
     <PostEditorField>
-      <Label htmlFor={id}>
-        Title
-      </Label>
+      <Label htmlFor={id}>Title</Label>
 
       <Textarea
         {...register("title")}
-
         id={id}
         className="resize-none"
         placeholder="What's your story?"

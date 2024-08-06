@@ -5,7 +5,5 @@ export interface PostFooterProps {
 }
 
 export const PostFooter: FC<PostFooterProps> = ({children}) => (
-  <div className="flex justify-end">
-    {children}
-  </div>
+  <div className="flex justify-end">{children}</div>
 )

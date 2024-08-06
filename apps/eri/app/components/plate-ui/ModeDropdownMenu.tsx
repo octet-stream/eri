@@ -1,5 +1,5 @@
-import {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
-import {Fragment, FC} from "react"
+import type {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
+import {Fragment, type FC} from "react"
 import {
   focusEditor,
   useEditorReadOnly,
