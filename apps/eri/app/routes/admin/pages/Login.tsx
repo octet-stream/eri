@@ -50,14 +50,9 @@ export const AdminLoginPage: FC = () => {
 
               <Input
                 {...getInputProps(fields.email, {type: "email"})}
+                errors={fields.email.errors}
                 placeholder="me@example.com"
-                className={cn(
-                  "placeholder:lowercase",
-
-                  {
-                    "border-destructive": fields.email.errors
-                  }
-                )}
+                className="placeholder:lowercase"
               />
             </div>
 
@@ -66,14 +61,9 @@ export const AdminLoginPage: FC = () => {
 
               <Input
                 {...getInputProps(fields.password, {type: "password"})}
+                errors={fields.password.errors}
                 placeholder="Your password"
-                className={cn(
-                  "placeholder:lowercase",
-
-                  {
-                    "border-destructive": fields.password.errors
-                  }
-                )}
+                className="placeholder:lowercase"
               />
             </div>
           </CardContent>

@@ -46,13 +46,16 @@ export const AdminSetupPage: FC = () => {
               <Label htmlFor={fields.email.id}>E-mail</Label>
               <Input
                 {...getInputProps(fields.email, {type: "email"})}
+                errors={fields.email.errors}
                 placeholder="me@example.com"
+                className="placeholder:lowercase"
               />
             </div>
 
             <div className="flex flex-col gap-2">
               <Input
                 {...getInputProps(fields.password, {type: "password"})}
+                errors={fields.password.errors}
                 placeholder="Your password"
                 className="placeholder:lowercase"
               />
