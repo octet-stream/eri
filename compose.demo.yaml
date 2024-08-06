@@ -1,5 +1,8 @@
 volumes:
   mysql:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
 
 networks:
   mysql:
@@ -26,17 +29,21 @@ services:
 
   eri:
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     build:
       context: .
       dockerfile: ./apps/eri/Dockerfile
-    environment:
+    environment: # empty values will bypass corresponding variables to app
       DB_NAME:
       DB_HOST: mysql
       DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD:
+      AUTH_SECRET:
+      AUTH_SESSION_COOKIE_NAME:
+    command: sh -c "pnpm --filter eri exec mikro-orm-esm schema:create -r && pnpm --filter eri run start"
     ports:
-      - "3000"
+      - "1337:3000"
     networks:
       - mysql
