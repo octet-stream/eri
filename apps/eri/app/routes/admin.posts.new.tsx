@@ -14,12 +14,15 @@ import {PostEditorContent} from "../components/post-editor/PostEditorContent.jsx
 import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 
-import {parseCookie, serializeCookie} from "../server/lib/auth/cookie.js"
-import {Post, User} from "../server/db/entities.js"
-import {lucia} from "../server/lib/auth/lucia.js"
+import {Post} from "../server/db/entities.js"
 import {getOrm} from "../server/lib/db/orm.js"
 
-export const action = async ({request}: ActionFunctionArgs) => {
+export const action = async ({
+  request,
+  context: {auth}
+}: ActionFunctionArgs) => {
+  const {user} = auth.getAuthContext()
+
   const submission = await parseWithZod(await request.formData(), {
     schema: PostCreateInput,
     async: true
@@ -29,22 +32,6 @@ export const action = async ({request}: ActionFunctionArgs) => {
     return submission.reply()
   }
 
-  // TODO: Add auth helpers
-  const sessionId = await parseCookie(request.headers.get("cookie"))
-
-  if (!sessionId) {
-    return redirect("/admin/posts/new", {
-      status: 401
-    })
-  }
-
-  const {session, user} = await lucia.validateSession(sessionId)
-  if (!(session || user)) {
-    return redirect("/admin/posts/new", {
-      status: 401
-    })
-  }
-
   const orm = await getOrm()
 
   const post = orm.em.create(
@@ -52,7 +39,7 @@ export const action = async ({request}: ActionFunctionArgs) => {
     {
       ...submission.value,
 
-      author: orm.em.getReference(User, user.id)
+      author: user
     },
 
     {
@@ -62,16 +49,7 @@ export const action = async ({request}: ActionFunctionArgs) => {
 
   await orm.em.flush()
 
-  return redirect(
-    `/admin/posts/${post.slug}`,
-    session.fresh
-      ? {
-          headers: {
-            "set-cookie": await serializeCookie(session.id)
-          }
-        }
-      : undefined
-  )
+  return redirect(`/admin/posts/${post.slug}`)
 }
 
 export const meta: MetaFunction = () => [
