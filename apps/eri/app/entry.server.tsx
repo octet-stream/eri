@@ -16,12 +16,20 @@ import {isbot} from "isbot"
 import "./server/lib/env.js"
 
 import {withOrm} from "./server/middlewares/withOrm.js"
+import {withAuth} from "./server/middlewares/withAuth.js"
+import {Auth} from "./server/lib/auth/Auth.js"
 
 export const server = await createHonoServer({
   port: Number.parseInt(process.env.PORT || "", 10) || 3000,
 
   configure(hono) {
-    hono.use(withOrm() as any) // FIXME: I guess types are incompatible between hono versions, I need to ask the maintainer to make hono a peer dependency
+    hono.use(withOrm()).use(withAuth())
+  },
+
+  async getLoadContext(ctx) {
+    return {
+      auth: new Auth(ctx)
+    }
   },
 
   listeningListener: ({port}) =>
