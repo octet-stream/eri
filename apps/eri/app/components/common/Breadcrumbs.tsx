@@ -68,12 +68,12 @@ export const Breadcrumbs: FC = () => {
     <UIBreadcrumb>
       <BreadcrumbList>
         {matches
-          .filter(match => match.handle && match.handle.breadcrumb)
-          .map((match, i, {length}) => (
+          .filter(match => match.handle?.breadcrumb)
+          .map((match, current, {length: total}) => (
             <BreadcrumbContext.Provider key={match.id} value={match}>
               <BreadcrumbItem>{match.handle.breadcrumb(match)}</BreadcrumbItem>
 
-              {i < length - 1 && <BreadcrumbSeparator />}
+              {current + 1 < total && <BreadcrumbSeparator />}
             </BreadcrumbContext.Provider>
           ))}
       </BreadcrumbList>
