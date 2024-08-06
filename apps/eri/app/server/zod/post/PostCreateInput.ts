@@ -5,6 +5,7 @@ import {PostContent} from "../plate/editors/PostContent.js"
 export const PostCreateInput = z.object({
   title: z.string().min(1).max(255),
   content: z.string().transform(async (value, ctx) => {
+    // TODO: Handle JSON.parse errors
     const result = await PostContent.safeParseAsync(JSON.parse(value || "[]"))
 
     if (result.success) {

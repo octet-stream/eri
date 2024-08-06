@@ -1,29 +1,30 @@
-import type {FormProps, FormSchema} from "remix-forms"
-import type {ReactElement, ReactNode} from "react"
+import {FormProvider, FormStateInput} from "@conform-to/react"
+import type {ComponentPropsWithoutRef, FC} from "react"
+import {type FormProps, Form} from "@remix-run/react"
+import {Slot} from "@radix-ui/react-slot"
 
-import {Form} from "../common/Form.jsx"
-import type {Replace} from "../../lib/types/Replace.js"
+import type {Simplify} from "../../lib/types/Simplify.js"
 
-import {PostEditorContext} from "./PostEditorContext.jsx"
+export interface PostEditorProps
+  extends Simplify<ComponentPropsWithoutRef<typeof FormProvider> & FormProps> {
+  asChild?: boolean
+}
 
-type Props<TSchema extends FormSchema> = Replace<
-  FormProps<TSchema>,
-  {
-    children: ReactNode
-  }
->
-
-export const PostEditor = <TSchema extends FormSchema>({
+export const PostEditor: FC<PostEditorProps> = ({
+  asChild,
+  context,
   children,
   ...props
-}: Props<TSchema>): ReactElement => (
-  <Form {...props} className="contents">
-    {value => (
-      <div className="flex flex-1 flex-col gap-4 min-w-0">
-        <PostEditorContext.Provider value={value}>
-          {children}
-        </PostEditorContext.Provider>
-      </div>
-    )}
-  </Form>
-)
+}) => {
+  const Element = asChild ? Slot : Form
+
+  return (
+    <FormProvider context={context}>
+      <Element {...props} className="flex flex-1 flex-col gap-4 min-w-0">
+        {children}
+      </Element>
+
+      <FormStateInput />
+    </FormProvider>
+  )
+}
