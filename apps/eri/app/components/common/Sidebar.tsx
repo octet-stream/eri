@@ -11,10 +11,13 @@ export interface SidebarProps {
 }
 
 const SidebarContent: FC<SidebarProps> = ({children, className}) => (
-  <aside className={cn("flex flex-col w-full post:w-[200px] laptop:px-5 shrink-0 text-sm", className)}>
-    <ol className="w-full flex flex-1 flex-col">
-      {children}
-    </ol>
+  <aside
+    className={cn(
+      "flex flex-col w-full post:w-[200px] laptop:px-5 shrink-0 text-sm",
+      className
+    )}
+  >
+    <ol className="w-full flex flex-1 flex-col">{children}</ol>
   </aside>
 )
 
@@ -25,9 +28,7 @@ export const Sidebar: FC<SidebarProps> = ({className, children}) => (
     </SidebarContent>
 
     <SheetContent>
-      <SidebarContent>
-        {children}
-      </SidebarContent>
+      <SidebarContent>{children}</SidebarContent>
     </SheetContent>
   </Fragment>
 )
@@ -37,9 +38,7 @@ export interface SidebarTriggerProps {
 }
 
 export const SidebarTrigger: FC<SidebarTriggerProps> = ({children}) => (
-  <SheetTrigger className="post:hidden">
-    {children}
-  </SheetTrigger>
+  <SheetTrigger className="post:hidden">{children}</SheetTrigger>
 )
 
 export interface SidebarItemProps {
@@ -55,15 +54,18 @@ export const SidebarItem: FC<SidebarItemProps> = ({
   className,
   children
 }) => (
-  <li className={cn("py-2.5 post:px-5 laptop:px-0 first:pt-5 last:pb-5 w-full", className)}>
+  <li
+    className={cn(
+      "py-2.5 post:px-5 laptop:px-0 first:pt-5 last:pb-5 w-full",
+      className
+    )}
+  >
     <SheetClose asChild>
       {/* FIXME: This component breaks in sidebar and I have no idea why */}
       <Link to={href} className="flex gap-3 items-center">
         <Icon size={20} />
 
-        <span>
-          {children}
-        </span>
+        <span>{children}</span>
       </Link>
     </SheetClose>
   </li>

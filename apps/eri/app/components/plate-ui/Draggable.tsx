@@ -1,62 +1,66 @@
-import {ClassNames, PlateElementProps, TEditor} from "@udecode/plate-common"
+import type {
+  ClassNames,
+  PlateElementProps,
+  TEditor
+} from "@udecode/plate-common"
 import {cn, withRef} from "@udecode/cn"
 import {
-  DragItemNode,
+  type DragItemNode,
   useDraggable,
   useDraggableState
 } from "@udecode/plate-dnd"
-import {DropTargetMonitor} from "react-dnd"
+import type {DropTargetMonitor} from "react-dnd"
 import {GripVertical} from "lucide-react"
 
 import {Tooltip, TooltipContent, TooltipTrigger} from "./Tooltip.jsx"
 
 export interface DraggableProps
   extends PlateElementProps,
-  ClassNames<{
-    /**
+    ClassNames<{
+      /**
        * Block and gutter.
        */
-    blockAndGutter: string;
+      blockAndGutter: string
 
-    /**
+      /**
        * Block.
        */
-    block: string;
+      block: string
 
-    /**
+      /**
        * Gutter at the left side of the editor.
        * It has the height of the block
        */
-    gutterLeft: string;
+      gutterLeft: string
 
-    /**
+      /**
        * Block toolbar wrapper in the gutter left.
        * It has the height of a line of the block.
        */
-    blockToolbarWrapper: string;
+      blockToolbarWrapper: string
 
-    /**
+      /**
        * Block toolbar in the gutter.
        */
-    blockToolbar: string;
+      blockToolbar: string
 
-    blockWrapper: string;
+      blockWrapper: string
 
-    /**
+      /**
        * Button to dnd the block, in the block toolbar.
        */
-    dragHandle: string;
+      dragHandle: string
 
-    /**
+      /**
        * Icon of the drag button, in the drag icon.
        */
-    dragIcon: string;
+      dragIcon: string
 
-    /**
+      /**
        * Show a dropline above or below the block when dragging a block.
        */
-    dropLine: string;
-  }> {
+      dropLine: string
+    }> {
   /**
    * Intercepts the drop handling.
    * If `false` is returned, the default drop behavior is called after.
@@ -65,12 +69,12 @@ export interface DraggableProps
   onDropHandler?: (
     editor: TEditor,
     props: {
-      monitor: DropTargetMonitor<DragItemNode, unknown>;
-      dragItem: DragItemNode;
-      nodeRef: any;
-      id: string;
+      monitor: DropTargetMonitor<DragItemNode, unknown>
+      dragItem: DragItemNode
+      nodeRef: any
+      id: string
     }
-  ) => boolean;
+  ) => boolean
 }
 
 const dragHandle = (
@@ -88,13 +92,8 @@ export const Draggable = withRef<"div", DraggableProps>(
 
     const state = useDraggableState({element, onDropHandler})
     const {dropLine, isDragging, isHovered} = state
-    const {
-      groupProps,
-      droplineProps,
-      gutterLeftProps,
-      previewRef,
-      handleRef
-    } = useDraggable(state)
+    const {groupProps, droplineProps, gutterLeftProps, previewRef, handleRef} =
+      useDraggable(state)
 
     return (
       <div

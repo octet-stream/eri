@@ -18,7 +18,7 @@ import {
 } from "./Command.jsx"
 import {Popover, PopoverContent, PopoverTrigger} from "./Popover.jsx"
 
-const languages: { value: string; label: string }[] = [
+const languages: {value: string; label: string}[] = [
   {value: "text", label: "Plain Text"},
   ...Object.entries({
     ...CODE_BLOCK_LANGUAGES_POPULAR,
@@ -48,8 +48,7 @@ export const CodeBlockCombobox: FC = () => {
           size="xs"
         >
           {state.value
-            ? languages.find(language => language.value === state.value)
-              ?.label
+            ? languages.find(language => language.value === state.value)?.label
             : "Plain Text"}
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>

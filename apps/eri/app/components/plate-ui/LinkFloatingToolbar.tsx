@@ -3,23 +3,18 @@ import {cn} from "@udecode/cn"
 import {
   flip,
   offset,
-  UseVirtualFloatingOptions
+  type UseVirtualFloatingOptions
 } from "@udecode/plate-floating"
 import {
   FloatingLinkUrlInput,
-  LinkFloatingToolbarState,
+  type LinkFloatingToolbarState,
   LinkOpenButton,
   useFloatingLinkEdit,
   useFloatingLinkEditState,
   useFloatingLinkInsert,
   useFloatingLinkInsertState
 } from "@udecode/plate-link"
-import {
-  Link2,
-  Link2Off,
-  Text,
-  ExternalLink
-} from "lucide-react"
+import {Link2, Link2Off, Text, ExternalLink} from "lucide-react"
 
 import {buttonVariants} from "./Button.jsx"
 import {inputVariants} from "./Input.jsx"
@@ -38,7 +33,7 @@ const floatingOptions: UseVirtualFloatingOptions = {
 }
 
 export interface LinkFloatingToolbarProps {
-  state?: LinkFloatingToolbarState;
+  state?: LinkFloatingToolbarState
 }
 
 export const LinkFloatingToolbar: FC<LinkFloatingToolbarProps> = ({state}) => {

@@ -10,18 +10,12 @@ const labelVariants = cva(
 
 export type LabelRef = ElementRef<typeof Root>
 
-export type LabelProps =
-  & ComponentPropsWithoutRef<typeof Root>
-  & VariantProps<typeof labelVariants>
+export type LabelProps = ComponentPropsWithoutRef<typeof Root> &
+  VariantProps<typeof labelVariants>
 
 export const Label = forwardRef<LabelRef, LabelProps>(
   ({className, ...props}, ref) => (
-    <Root
-      {...props}
-
-      ref={ref}
-      className={cn(labelVariants(), className)}
-    />
+    <Root {...props} ref={ref} className={cn(labelVariants(), className)} />
   )
 )
 

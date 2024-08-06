@@ -2,7 +2,7 @@ import * as ToolbarPrimitive from "@radix-ui/react-toolbar"
 
 import type {ComponentPropsWithoutRef, ElementRef} from "react"
 import {cn, withCn, withRef, withVariants} from "@udecode/cn"
-import {cva, VariantProps} from "class-variance-authority"
+import {cva, type VariantProps} from "class-variance-authority"
 import {Children, Fragment, forwardRef} from "react"
 import {ChevronDown} from "lucide-react"
 
@@ -57,66 +57,67 @@ const toolbarButtonVariants = cva(
 
 const ToolbarButton = withTooltip(
   forwardRef<
-  ElementRef<typeof ToolbarToggleItem>,
-  Omit<
-  ComponentPropsWithoutRef<typeof ToolbarToggleItem>,
-  "asChild" | "value"
-  > &
-  VariantProps<typeof toolbarButtonVariants> & {
-    pressed?: boolean;
-    isDropdown?: boolean;
-  }
+    ElementRef<typeof ToolbarToggleItem>,
+    Omit<
+      ComponentPropsWithoutRef<typeof ToolbarToggleItem>,
+      "asChild" | "value"
+    > &
+      VariantProps<typeof toolbarButtonVariants> & {
+        pressed?: boolean
+        isDropdown?: boolean
+      }
   >(
     (
       {className, variant, size, isDropdown, children, pressed, ...props},
       ref
-    ) => typeof pressed === "boolean" ? (
-      <ToolbarToggleGroup
-        type="single"
-        value="single"
-        disabled={props.disabled}
-      >
-        <ToolbarToggleItem
+    ) =>
+      typeof pressed === "boolean" ? (
+        <ToolbarToggleGroup
+          type="single"
+          value="single"
+          disabled={props.disabled}
+        >
+          <ToolbarToggleItem
+            ref={ref}
+            className={cn(
+              toolbarButtonVariants({
+                variant,
+                size
+              }),
+              isDropdown && "my-1 justify-between pr-1",
+              className
+            )}
+            value={pressed ? "single" : ""}
+            {...props}
+          >
+            {isDropdown ? (
+              <Fragment>
+                <div className="flex flex-1">{children}</div>
+                <div>
+                  <ChevronDown className="ml-0.5 size-4" data-icon />
+                </div>
+              </Fragment>
+            ) : (
+              children
+            )}
+          </ToolbarToggleItem>
+        </ToolbarToggleGroup>
+      ) : (
+        <ToolbarPrimitive.Button
           ref={ref}
           className={cn(
             toolbarButtonVariants({
               variant,
               size
             }),
-            isDropdown && "my-1 justify-between pr-1",
+            isDropdown && "pr-1",
             className
           )}
-          value={pressed ? "single" : ""}
           {...props}
         >
-          {isDropdown ? (
-            <Fragment>
-              <div className="flex flex-1">{children}</div>
-              <div>
-                <ChevronDown className="ml-0.5 size-4" data-icon />
-              </div>
-            </Fragment>
-          ) : (
-            children
-          )}
-        </ToolbarToggleItem>
-      </ToolbarToggleGroup>
-    ) : (
-      <ToolbarPrimitive.Button
-        ref={ref}
-        className={cn(
-          toolbarButtonVariants({
-            variant,
-            size
-          }),
-          isDropdown && "pr-1",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </ToolbarPrimitive.Button>
-    )
+          {children}
+        </ToolbarPrimitive.Button>
+      )
   )
 )
 ToolbarButton.displayName = "ToolbarButton"
@@ -128,9 +129,12 @@ export const ToolbarToggleItem = withVariants(
   ["variant", "size"]
 )
 
-export const ToolbarGroup = withRef<"div", {
-  noSeparator?: boolean;
-}>(({className, children, noSeparator}, ref) => {
+export const ToolbarGroup = withRef<
+  "div",
+  {
+    noSeparator?: boolean
+  }
+>(({className, children, noSeparator}, ref) => {
   const childArr = Children.map(children, c => c)
   if (!childArr || childArr.length === 0) return null
 

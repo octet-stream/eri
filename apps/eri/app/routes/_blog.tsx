@@ -7,11 +7,7 @@ import {
 } from "../components/common/Breadcrumbs.jsx"
 
 export const handle: BreadcrumbHandle = {
-  breadcrumb: () => (
-    <Breadcrumb href="/">
-      Blog
-    </Breadcrumb>
-  )
+  breadcrumb: () => <Breadcrumb href="/">Blog</Breadcrumb>
 }
 
 const MainLayout = () => (

@@ -23,11 +23,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => [
 ]
 
 export const handle: BreadcrumbHandle = {
-  breadcrumb: () => (
-    <Breadcrumb>
-      Post
-    </Breadcrumb>
-  )
+  breadcrumb: () => <Breadcrumb>Post</Breadcrumb>
 }
 
 // Re-exporting component from public page, because they're identical. This will be changed in a future.

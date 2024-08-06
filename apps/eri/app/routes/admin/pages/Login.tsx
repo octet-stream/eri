@@ -1,58 +1,79 @@
+import {useForm, getInputProps, getFormProps} from "@conform-to/react"
+import {parseWithZod, getZodConstraint} from "@conform-to/zod"
+import {useActionData, Form} from "@remix-run/react"
 import type {FC} from "react"
-import {useId} from "react"
 
 import {AdminLogInInput} from "../../../server/zod/user/AdminLogInInput.js"
 
 import {Input} from "../../../components/ui/Input.jsx"
 import {Label} from "../../../components/ui/Label.jsx"
+import {Button} from "../../../components/ui/Button.jsx"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter
+} from "../../../components/ui/Card.jsx"
 
-import {AuthForm} from "../components/AuthForm.jsx"
+import type {action} from "../../admin.login.js"
 
 export const AdminLoginPage: FC = () => {
-  const emailId = useId()
-  const passwordId = useId()
+  const lastResult = useActionData<typeof action>()
+  const [form, fields] = useForm({
+    lastResult,
+    constraint: getZodConstraint(AdminLogInInput),
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+
+    onValidate: ({formData}) =>
+      parseWithZod(formData, {schema: AdminLogInInput})
+  })
 
   return (
-    <AuthForm
-      schema={AdminLogInInput}
-      title="Login"
-      description="You need to log in to your account to access this page"
-      submitButtonText="Continue"
-      method="post"
-      action="/admin/login"
-    >
-      {({register}) => (
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={emailId}>
-              Email
-            </Label>
+    <div className="w-full p-5 mobile:w-[390px] m-auto">
+      <Form {...getFormProps(form)} method="post" action="/admin/login">
+        <Card>
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
 
-            <Input
-              required
-              id={emailId}
-              type="email"
-              placeholder="me@example.com"
+            <CardDescription>
+              You need to log in to your account to access this page
+            </CardDescription>
+          </CardHeader>
 
-              {...register("email")}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={passwordId}>
-              Password
-            </Label>
+          <CardContent className="grid gap-5">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor={fields.email.id}>E-mail</Label>
 
-            <Input
-              required
-              id={passwordId}
-              type="password"
-              placeholder="your password"
+              <Input
+                {...getInputProps(fields.email, {type: "email"})}
+                errors={fields.email.errors}
+                placeholder="me@example.com"
+                className="placeholder:lowercase"
+              />
+            </div>
 
-              {...register("password")}
-            />
-          </div>
-        </div>
-      )}
-    </AuthForm>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor={fields.password.id}>Password</Label>
+
+              <Input
+                {...getInputProps(fields.password, {type: "password"})}
+                errors={fields.password.errors}
+                placeholder="Your password"
+                className="placeholder:lowercase"
+              />
+            </div>
+          </CardContent>
+
+          <CardFooter>
+            <Button type="submit" className="w-full">
+              Log in
+            </Button>
+          </CardFooter>
+        </Card>
+      </Form>
+    </div>
   )
 }

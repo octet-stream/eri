@@ -46,18 +46,12 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({href, children}) => {
   if (location.pathname !== match.pathname && href) {
     return (
       <BreadcrumbLink asChild>
-        <Link to={href}>
-          {children}
-        </Link>
+        <Link to={href}>{children}</Link>
       </BreadcrumbLink>
     )
   }
 
-  return (
-    <BreadcrumbPage>
-      {children}
-    </BreadcrumbPage>
-  )
+  return <BreadcrumbPage>{children}</BreadcrumbPage>
 }
 
 /**
@@ -73,19 +67,15 @@ export const Breadcrumbs: FC = () => {
   return (
     <UIBreadcrumb>
       <BreadcrumbList>
-        {
-          matches
-            .filter(match => match.handle && match.handle.breadcrumb)
-            .map((match, i, {length}) => (
-              <BreadcrumbContext.Provider key={match.id} value={match}>
-                <BreadcrumbItem>
-                  {match.handle.breadcrumb(match)}
-                </BreadcrumbItem>
+        {matches
+          .filter(match => match.handle?.breadcrumb)
+          .map((match, current, {length: total}) => (
+            <BreadcrumbContext.Provider key={match.id} value={match}>
+              <BreadcrumbItem>{match.handle.breadcrumb(match)}</BreadcrumbItem>
 
-                {i < length - 1 && <BreadcrumbSeparator />}
-              </BreadcrumbContext.Provider>
-            ))
-        }
+              {current + 1 < total && <BreadcrumbSeparator />}
+            </BreadcrumbContext.Provider>
+          ))}
       </BreadcrumbList>
     </UIBreadcrumb>
   )

@@ -20,8 +20,7 @@ const HeadingElementVariants = withVariants(PlateElement, headingVariants, [
 ])
 
 type Props = Simplify<
-  & ComponentProps<typeof Heading>
-  & ComponentProps<typeof HeadingElementVariants>
+  ComponentProps<typeof Heading> & ComponentProps<typeof HeadingElementVariants>
 >
 
 export const HeadingElement = forwardRef<unknown, Props>(
@@ -31,14 +30,11 @@ export const HeadingElement = forwardRef<unknown, Props>(
     return (
       <HeadingElementVariants
         {...props}
-
         ref={ref}
         asChild
         isFirstBlock={element === editor.children[0]}
       >
-        <Heading>
-          {children}
-        </Heading>
+        <Heading>{children}</Heading>
       </HeadingElementVariants>
     )
   }

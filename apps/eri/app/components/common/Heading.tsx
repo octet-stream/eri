@@ -2,9 +2,7 @@ import {Box, withRef} from "@udecode/plate-common"
 import {cva} from "class-variance-authority"
 import {withVariants} from "@udecode/cn"
 
-import {
-  OHeadingLevels
-} from "../../server/zod/plate/common/HeadingLevels.js"
+import type {OHeadingLevels} from "../../server/zod/plate/common/HeadingLevels.js"
 
 const headingVariants = cva("", {
   variants: {
@@ -19,9 +17,7 @@ const headingVariants = cva("", {
   }
 })
 
-const HeadingElementVariants = withVariants(Box, headingVariants, [
-  "variant"
-])
+const HeadingElementVariants = withVariants(Box, headingVariants, ["variant"])
 
 /**
  * Common heading component.
@@ -33,16 +29,8 @@ export const Heading = withRef<typeof HeadingElementVariants>(
     const Element = variant || "h1"
 
     return (
-      <HeadingElementVariants
-        {...props}
-
-        ref={ref}
-        variant={variant}
-        asChild
-      >
-        <Element>
-          {children}
-        </Element>
+      <HeadingElementVariants {...props} ref={ref} variant={variant} asChild>
+        <Element>{children}</Element>
       </HeadingElementVariants>
     )
   }

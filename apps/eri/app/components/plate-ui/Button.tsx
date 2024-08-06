@@ -1,4 +1,4 @@
-import {cva, VariantProps} from "class-variance-authority"
+import {cva, type VariantProps} from "class-variance-authority"
 import {Slot} from "@radix-ui/react-slot"
 import {cn, withRef} from "@udecode/cn"
 
@@ -41,7 +41,7 @@ export const buttonVariants = cva(
 export const Button = withRef<
   "button",
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
+    asChild?: boolean
   }
 >(({className, isMenu, variant, size, asChild = false, ...props}, ref) => {
   const Element = asChild ? Slot : "button"
@@ -49,7 +49,6 @@ export const Button = withRef<
   return (
     <Element
       {...props}
-
       ref={ref}
       className={cn(buttonVariants({isMenu, variant, size, className}))}
     />

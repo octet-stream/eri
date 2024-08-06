@@ -1,4 +1,4 @@
-import {cva, VariantProps} from "class-variance-authority"
+import {cva, type VariantProps} from "class-variance-authority"
 import {Slot} from "@radix-ui/react-slot"
 import {forwardRef, type ReactNode} from "react"
 import {cn} from "@udecode/cn"
@@ -27,7 +27,6 @@ export const Alignment = forwardRef<any, AlignmentProps>(
     return (
       <Element
         {...props}
-
         ref={ref}
         className={cn(alignmentVariants({align, className}))}
       >

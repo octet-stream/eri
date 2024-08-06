@@ -15,7 +15,9 @@ export const login = procedure
   .mutation(async ({input, ctx: {orm}}) => {
     const user = await orm.em.findOneOrFail(
       User,
+
       {email: input.email},
+
       {
         populate: ["password"],
         failHandler() {

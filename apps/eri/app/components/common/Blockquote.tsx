@@ -13,7 +13,6 @@ export const Blockquote = forwardRef<BlockquoteRef, BlockquoteProps>(
   ({className, children, ...props}, ref) => (
     <blockquote
       {...props}
-
       ref={ref}
       className={cn("my-1 border-l-2 pl-6 italic", className)}
     >

@@ -15,8 +15,24 @@ import {isbot} from "isbot"
 
 import "./server/lib/env.js"
 
+import {withOrm} from "./server/middlewares/withOrm.js"
+import {withAuth} from "./server/middlewares/withAuth.js"
+import {Auth} from "./server/lib/auth/Auth.js"
+import {getOrm} from "./server/lib/db/orm.js"
+
 export const server = await createHonoServer({
   port: Number.parseInt(process.env.PORT || "", 10) || 3000,
+
+  configure(hono) {
+    hono.use(withOrm()).use(withAuth())
+  },
+
+  async getLoadContext(ctx) {
+    return {
+      auth: new Auth(ctx),
+      orm: await getOrm()
+    }
+  },
 
   listeningListener: ({port}) =>
     console.log("🥕 Listening on http://localhost:%s", port)
@@ -136,15 +152,15 @@ export default function handleRequest(
 ) {
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(
-      request,
-      responseStatusCode,
-      responseHeaders,
-      remixContext
-    )
+        request,
+        responseStatusCode,
+        responseHeaders,
+        remixContext
+      )
     : handleBrowserRequest(
-      request,
-      responseStatusCode,
-      responseHeaders,
-      remixContext
-    )
+        request,
+        responseStatusCode,
+        responseHeaders,
+        remixContext
+      )
 }

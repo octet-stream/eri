@@ -11,12 +11,7 @@ export type ParagraphProps = ComponentPropsWithoutRef<"p">
  */
 export const Paragraph = forwardRef<ParagraphRef, ParagraphProps>(
   ({className, children, ...props}, ref) => (
-    <p
-      {...props}
-
-      ref={ref}
-      className={cn("leading-7", className)}
-    >
+    <p {...props} ref={ref} className={cn("leading-7", className)}>
       {children}
     </p>
   )

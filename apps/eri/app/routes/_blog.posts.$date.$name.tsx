@@ -35,11 +35,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => [
 ]
 
 export const handle: BreadcrumbHandle = {
-  breadcrumb: () => (
-    <Breadcrumb>
-      Post
-    </Breadcrumb>
-  )
+  breadcrumb: () => <Breadcrumb>Post</Breadcrumb>
 }
 
 const PostViewPage: FC = () => {
@@ -48,9 +44,7 @@ const PostViewPage: FC = () => {
   return (
     <article>
       <div className="mb-5">
-        <CommonHeading variant="h1">
-          {post.title}
-        </CommonHeading>
+        <CommonHeading variant="h1">{post.title}</CommonHeading>
 
         <small className="text-muted-foreground">
           {format(post.createdAt, "MMMM do, y")}
