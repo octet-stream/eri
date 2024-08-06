@@ -1,8 +1,11 @@
-import {json, redirect, type ActionFunction} from "@remix-run/node"
-import {performMutation} from "remix-forms"
+import {redirect, type ActionFunction} from "@remix-run/node"
+import {parseWithZod} from "@conform-to/zod"
 
 import {AdminSetupInput} from "../server/zod/user/AdminSetupInput.js"
-import {mutations} from "../server/mutations.js"
+import {serializeCookie} from "../server/lib/auth/cookie.js"
+import {lucia} from "../server/lib/auth/lucia.js"
+import {getOrm} from "../server/lib/db/orm.js"
+import {User} from "../server/db/entities.js"
 
 export const loader = (): never => {
   throw new Response(null, {
@@ -11,30 +14,26 @@ export const loader = (): never => {
 }
 
 export const action: ActionFunction = async ({request}) => {
-  if (request.method.toLowerCase() !== "post") {
-    throw new Response(null, {
-      status: 405
-    })
-  }
-
-  const result = await performMutation({
-    request,
-    schema: AdminSetupInput,
-    mutation: mutations.admin.setup
+  const submission = await parseWithZod(await request.formData(), {
+    async: true,
+    schema: AdminSetupInput
   })
 
-  if (!result.success) {
-    throw json(result)
+  if (submission.status !== "success") {
+    return submission.reply()
   }
 
-  if (!(result.data instanceof Headers)) {
-    throw new Response(null, {
-      status: 500,
-      statusText: "Unable to set cookie for current user session"
-    })
-  }
+  const orm = await getOrm()
+  const user = new User(submission.value)
+
+  await orm.em.persistAndFlush(user)
+
+  const session = await lucia.createSession(user.id, {})
+  const cookie = await serializeCookie(session.id)
 
   return redirect("/admin", {
-    headers: result.data
+    headers: {
+      "set-cookie": cookie
+    }
   })
 }

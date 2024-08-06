@@ -1,12 +1,9 @@
-import {json, LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
+import {json, type LoaderFunctionArgs, type MetaFunction} from "@remix-run/node"
 import {useLoaderData, Outlet, Link} from "@remix-run/react"
 import {SquarePen, Menu} from "lucide-react"
 import type {FC} from "react"
 
-import {
-  parseCookie,
-  serializeCookie
-} from "../../server/lib/auth/cookie.js"
+import {parseCookie, serializeCookie} from "../../server/lib/auth/cookie.js"
 import {User} from "../../server/db/entities.js"
 import {withOrm} from "../../server/lib/db/orm.js"
 import {lucia} from "../../server/lib/auth/lucia.js"
@@ -27,20 +24,31 @@ import {AdminSetupPage} from "./pages/Setup.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
 
 type AdminData<TUser = never> =
-  | {hasAdminUser: boolean, isAuthorized: false}
-  | {hasAdminUser: true, isAuthorized: true, user: TUser}
+  | {hasAdminUser: boolean; isAuthorized: false}
+  | {hasAdminUser: true; isAuthorized: true; user: TUser}
 
 // FIXME: Remix runs loaders in parallel, so I need to improve admin workflow
 export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
-  const [admin] = await orm.em.find(User, {}, {
-    fields: ["id"],
-    limit: 1,
-    orderBy: {
-      createdAt: "asc"
-    }
-  })
+  const [admin] = await orm.em.find(
+    User,
 
-  if (!admin) {
+    {},
+
+    {
+      fields: ["id"],
+      limit: 1,
+      orderBy: {
+        createdAt: "asc"
+      }
+    }
+  )
+
+  // if (!admin) {
+  //   return json<AdminData>({hasAdminUser: false, isAuthorized: false})
+  // }
+
+  // ! Don't forget to remove this and uncomment the code from above :)
+  if (admin) {
     return json<AdminData>({hasAdminUser: false, isAuthorized: false})
   }
 
@@ -88,11 +96,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
 }
 
 export const handle: BreadcrumbHandle = {
-  breadcrumb: () => (
-    <Breadcrumb href="/admin">
-      Dashboard
-    </Breadcrumb>
-  )
+  breadcrumb: () => <Breadcrumb href="/admin">Dashboard</Breadcrumb>
 }
 
 const AdminLayout: FC = () => {
