@@ -24,6 +24,7 @@ export interface PostEditorContent {
 export const PostEditorContent: FC<PostEditorContent> = ({meta}) => {
   const control = useControl(meta)
 
+  // TODO: Support content returned from server
   const value = useMemo(
     () => (control.value ? JSON.parse(control.value as string) : undefined),
 
