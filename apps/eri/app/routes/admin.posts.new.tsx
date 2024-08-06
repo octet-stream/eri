@@ -15,11 +15,10 @@ import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 
 import {Post} from "../server/db/entities.js"
-import {getOrm} from "../server/lib/db/orm.js"
 
 export const action = async ({
   request,
-  context: {auth}
+  context: {auth, orm}
 }: ActionFunctionArgs) => {
   const {user} = auth.getAuthContext()
 
@@ -32,22 +31,9 @@ export const action = async ({
     return submission.reply()
   }
 
-  const orm = await getOrm()
+  const post = new Post({...submission.value, author: user})
 
-  const post = orm.em.create(
-    Post,
-    {
-      ...submission.value,
-
-      author: user
-    },
-
-    {
-      persist: true
-    }
-  )
-
-  await orm.em.flush()
+  await orm.em.persistAndFlush(post)
 
   return redirect(`/admin/posts/${post.slug}`)
 }

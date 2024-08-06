@@ -18,6 +18,7 @@ import "./server/lib/env.js"
 import {withOrm} from "./server/middlewares/withOrm.js"
 import {withAuth} from "./server/middlewares/withAuth.js"
 import {Auth} from "./server/lib/auth/Auth.js"
+import {getOrm} from "./server/lib/db/orm.js"
 
 export const server = await createHonoServer({
   port: Number.parseInt(process.env.PORT || "", 10) || 3000,
@@ -28,7 +29,8 @@ export const server = await createHonoServer({
 
   async getLoadContext(ctx) {
     return {
-      auth: new Auth(ctx)
+      auth: new Auth(ctx),
+      orm: await getOrm()
     }
   },
 
