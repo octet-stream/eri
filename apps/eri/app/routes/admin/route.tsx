@@ -43,12 +43,7 @@ export const loader = withOrm(async (orm, {request}: LoaderFunctionArgs) => {
     }
   )
 
-  // if (!admin) {
-  //   return json<AdminData>({hasAdminUser: false, isAuthorized: false})
-  // }
-
-  // ! Don't forget to remove this and uncomment the code from above :)
-  if (admin) {
+  if (!admin) {
     return json<AdminData>({hasAdminUser: false, isAuthorized: false})
   }
 
