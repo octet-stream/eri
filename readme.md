@@ -19,15 +19,16 @@ If none of these exists, then Eri will fallback to `process.env` object.
 1. First of all, you'll need to install MySQL;
 2. Then clone this repository `git clone git@github.com:octet-stream/eri.git`;
 3. When it's done, install dependencies using `pnpm install` command;
-4. Rename `.env.sample` file to either `.env.development.local` or `.env.local` and fill it with required configuration;
+4. Create either `.env.development.local` or `.env.local` and add required configuration;
 5. Now you are able to run dev server. To do so, run `pnpm dev` command;
 6. Open http://localhost:5173/admin and create admin account (if it doesn't exists).
 
 ## Production preview
 
-1. To build the project, run `pnpm turbo build`
-2. Once production build is finished, run `pnpm --filter eri start`
-3. Open http://localhost:3000/admin and create admin account (if it doesn't exists).
+1. Create either `.env.production.local` or `.env.local` and add required configuration;
+2. To build the project, run `pnpm turbo build`
+3. Once production build is finished, run `pnpm --filter eri start`
+4. Open http://localhost:3000/admin and create admin account (if it doesn't exists).
 
 ## Demo
 
