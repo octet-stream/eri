@@ -1,7 +1,7 @@
 import type {unstable_Loader as Loader} from "@remix-run/server-runtime"
 import {unstable_defineLoader as defineLoader} from "@remix-run/node"
 
-import {User} from "../../server/db/entities.js"
+import {User} from "../../db/entities.js"
 
 import {AdminLoaderErrorCode} from "./AdminLoaderErrorCode.js"
 

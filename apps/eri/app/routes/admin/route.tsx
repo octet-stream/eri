@@ -23,7 +23,7 @@ import {
 import {AdminLoginPage} from "./pages/Login.jsx"
 import {AdminSetupPage} from "./pages/Setup.jsx"
 
-import {AdminLoaderErrorCode} from "../../lib/admin/AdminLoaderErrorCode.js"
+import {AdminLoaderErrorCode} from "../../server/lib/admin/AdminLoaderErrorCode.js"
 
 export const ErrorBoundary = () => {
   const error = useRouteError()

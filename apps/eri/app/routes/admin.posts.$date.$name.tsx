@@ -1,12 +1,12 @@
-import {unstable_defineLoader as defineLoader} from "@remix-run/node"
 import type {
   MetaArgs_SingleFetch as MetaArgs,
   MetaDescriptor
 } from "@remix-run/react"
 
-import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
+import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 
+import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 
@@ -15,7 +15,7 @@ interface Params {
   name: string
 }
 
-export const loader = defineLoader(async ({params, context: {orm}}) => {
+export const loader = defineAdminLoader(async ({params, context: {orm}}) => {
   const {date, name} = params as unknown as Params
 
   const post = await orm.em.findOneOrFail(
