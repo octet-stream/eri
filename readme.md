@@ -29,6 +29,14 @@ If none of these exists, then Eri will fallback to `process.env` object.
 2. Once production build is finished, run `pnpm start`
 3. Open http://localhost:3000/admin and create admin account (if it doesn't exists).
 
+## Demo
+
+You can run demo application with non-persistent database in just a few steps:
+
+1. Create `.env.demo.local` file and fill it with required parameters
+2. Run `pnpm demo.start` command
+3. Open http://localhost:1337/admin to create admin account
+
 ## Commands
 
 List of available commands. These commands are accessible via pnpm.
@@ -39,11 +47,3 @@ List of available commands. These commands are accessible via pnpm.
 | `demo.stop`   | Stops demo application and removed container  |
 | `turbo dev`   | Starts all packages in dev mode               |
 | `turbo build` | Runs `build` script for all packages          |
-
-## Demo
-
-You can run demo application with non-persistent database in just a few steps:
-
-1. Create `.env.demo.local` file and fill it with required parameters
-2. Run `pnpm demo.start` command
-3. Open http://localhost:1337/admin to create admin account
