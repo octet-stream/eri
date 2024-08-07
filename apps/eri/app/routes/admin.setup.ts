@@ -1,11 +1,10 @@
 import {redirect, type ActionFunction} from "@remix-run/node"
 import {parseWithZod} from "@conform-to/zod"
 
-import {AdminSetupInput} from "../server/zod/user/AdminSetupInput.js"
-import {serializeCookie} from "../server/lib/auth/cookie.js"
-import {lucia} from "../server/lib/auth/lucia.js"
-import {getOrm} from "../server/lib/db/orm.js"
 import {User} from "../server/db/entities.js"
+import {lucia} from "../server/lib/auth/lucia.js"
+import {serializeCookie} from "../server/lib/auth/cookie.js"
+import {AdminSetupInput} from "../server/zod/user/AdminSetupInput.js"
 
 export const loader = (): never => {
   throw new Response(null, {
@@ -13,7 +12,7 @@ export const loader = (): never => {
   })
 }
 
-export const action: ActionFunction = async ({request}) => {
+export const action: ActionFunction = async ({request, context: {orm}}) => {
   const submission = await parseWithZod(await request.formData(), {
     async: true,
     schema: AdminSetupInput
@@ -23,7 +22,6 @@ export const action: ActionFunction = async ({request}) => {
     return submission.reply()
   }
 
-  const orm = await getOrm()
   const user = new User(submission.value)
 
   await orm.em.persistAndFlush(user)

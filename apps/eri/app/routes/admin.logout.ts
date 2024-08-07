@@ -1,9 +1,9 @@
-import {redirect, type ActionFunction} from "@remix-run/node"
+import {redirect, type ActionFunctionArgs} from "@remix-run/node"
 
 import {parseCookie, removeCookie} from "../server/lib/auth/cookie.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 
-export const loader: ActionFunction = async ({request}) => {
+export const loader = async ({request}: ActionFunctionArgs) => {
   const sessionId = await parseCookie(request.headers.get("cookie"))
 
   if (!sessionId) {
