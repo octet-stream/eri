@@ -1,22 +1,45 @@
-import type {LoaderFunctionArgs, MetaFunction} from "@remix-run/node"
+import {unstable_defineLoader as defineLoader} from "@remix-run/node"
+import type {
+  MetaArgs_SingleFetch as MetaArgs,
+  MetaDescriptor
+} from "@remix-run/react"
 
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 
-import {withTrpc} from "../server/trpc/withTrpc.js"
+import {PostOutput} from "../server/zod/post/PostOutput.js"
+import {Post} from "../server/db/entities.js"
 
 interface Params {
   date: string
   name: string
 }
 
-export const loader = withTrpc(async (trpc, {params}: LoaderFunctionArgs) => {
+export const loader = defineLoader(async ({params, context: {orm}}) => {
   const {date, name} = params as unknown as Params
 
-  return trpc.admin.posts.getBySlug({slug: [date, name].join("/")})
+  const post = await orm.em.findOneOrFail(
+    Post,
+
+    {
+      slug: [date, name].join("/")
+    },
+
+    {
+      populate: ["content"],
+      failHandler(): never {
+        throw new Response(null, {
+          status: 404,
+          statusText: "Unable to find post"
+        })
+      }
+    }
+  )
+
+  return PostOutput.parseAsync(post)
 })
 
-export const meta: MetaFunction<typeof loader> = ({data}) => [
+export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
   {
     title: data?.title
   }

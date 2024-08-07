@@ -1,11 +1,10 @@
-import type {SerializeFrom} from "@remix-run/node"
 import {createContext, useContext} from "react"
 
 import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
 
 import type {loader} from "../route.jsx"
 
-export type PostsContextData = SerializeFrom<typeof loader>
+export type PostsContextData = Awaited<ReturnType<typeof loader>>["page"]
 
 export const PostsContext = createContext<MaybeNull<PostsContextData>>(null)
 
