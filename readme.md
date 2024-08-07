@@ -2,7 +2,7 @@
 
 Minimalistic open source blog engine.
 
-This project built with [Remix](https://remix.run/), [Lucia](https://lucia-auth.com/), [MikroORM](https://mikro-orm.io/), [Tailwind](https://tailwindcss.com/docs) and [shadcn/ui](https://ui.shadcn.com/).
+This project built with [Remix](https://remix.run/), [Lucia](https://lucia-auth.com/), [Mikro ORM](https://mikro-orm.io/), [Tailwind](https://tailwindcss.com/docs) and [shadcn/ui](https://ui.shadcn.com/).
 
 ## Database schema setup
 
@@ -25,8 +25,8 @@ If none of these exists, then Eri will fallback to `process.env` object.
 
 ## Production preview
 
-1. To build the project, run `pnpm build`
-2. Once production build is finished, run `pnpm start`
+1. To build the project, run `pnpm turbo build`
+2. Once production build is finished, run `pnpm --filter eri start`
 3. Open http://localhost:3000/admin and create admin account (if it doesn't exists).
 
 ## Demo
