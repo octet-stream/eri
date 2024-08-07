@@ -1,9 +1,13 @@
-import {redirect, type ActionFunctionArgs} from "@remix-run/node"
+import {
+  redirect,
+  unstable_defineLoader as defineLoader,
+  unstable_defineAction as defineAction
+} from "@remix-run/node"
 
 import {parseCookie, removeCookie} from "../server/lib/auth/cookie.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 
-export const loader = async ({request}: ActionFunctionArgs) => {
+export const loader = defineLoader(async ({request}) => {
   const sessionId = await parseCookie(request.headers.get("cookie"))
 
   if (!sessionId) {
@@ -19,10 +23,10 @@ export const loader = async ({request}: ActionFunctionArgs) => {
       "set-cookie": await removeCookie()
     }
   })
-}
+})
 
-export const action = (): never => {
+export const action = defineAction((): never => {
   throw new Response(null, {
     status: 405
   })
-}
+})
