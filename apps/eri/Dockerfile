@@ -49,6 +49,8 @@ COPY --from=build /usr/src/eri/apps/eri/package.json apps/eri/package.json
 COPY --from=deps-prod /usr/src/eri/apps/eri/node_modules apps/eri/node_modules
 COPY --from=deps-prod /usr/src/eri/node_modules node_modules
 COPY --from=deps-prod /usr/src/eri/pnpm-workspace.yaml pnpm-workspace.yaml
+COPY apps/eri/tsconfig.json apps/eri/tsconfig.json
+COPY tsconfig.json tsconfig.json
 COPY license license
 
 EXPOSE 3000

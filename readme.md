@@ -31,16 +31,19 @@ If none of these exists, then Eri will fallback to `process.env` object.
 
 ## Commands
 
-| Name                | Description                                                     |
-|---------------------|-----------------------------------------------------------------|
-| `build`             | Builds project for production                                   |
-| `start`             | Starts production server                                        |
-| `dev`               | Starts Vite in dev mode                                         |
-| `dev.open`          | Starts Vite in dev mode and opens app in user's default browser |
-| `lint:types`        | Runs `tsc` to validate TypeScript types                         |
-| `test`              | Runs tests                                                      |
-| `test.compose.up`   | Starts `docker compose` with database for integration tests     |
-| `test.compose.down` | Stops `docker compose` for integration tests                    |
-| `report`            | Prints coverage report for tests                                |
-| `report.html`       | Outputs coverage report to html                                 |
-| `ci`                | Runs tests for CI                                               |
+List of available commands. These commands are accessible via pnpm.
+
+| Name          | Description                                   |
+|---------------|-----------------------------------------------|
+| `demo.start`  | Starts docker container with demo application |
+| `demo.stop`   | Stops demo application and removed container  |
+| `turbo dev`   | Starts all packages in dev mode               |
+| `turbo build` | Runs `build` script for all packages          |
+
+## Demo
+
+You can run demo application with non-persistent database in just a few steps:
+
+1. Create `.env.demo.local` file and fill it with required parameters
+2. Run `pnpm demo.start` command
+3. Open http://localhost:1337/admin to create admin account
