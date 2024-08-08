@@ -14,13 +14,12 @@ WORKDIR /usr/src/eri
 
 # Prepare repository for eri
 FROM base as repo
-RUN pnpm add -g turbo
 COPY . .
-RUN turbo prune eri --docker
 
 # Prepare dependencies installation
 FROM base as deps-common
-COPY --from=repo /usr/src/eri/out/json/ .
+COPY --from=repo /usr/src/eri/package.json .
+COPY --from=repo /usr/src/eri/pnpm-lock.yaml .
 
 # Prepare production-only dependencies
 FROM deps-common as deps-prod
@@ -31,27 +30,23 @@ FROM deps-common as deps-dev
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --frozen-lockfile --prefer-offline
 
 FROM base as build
+COPY --from=repo /usr/src/eri/ .
 COPY --from=deps-dev /usr/src/eri/ .
-COPY --from=repo /usr/src/eri/out/full/ .
 
-# These weren't copied by `turbo prune`
 COPY tsconfig.json tsconfig.json
 COPY biome.jsonc biome.jsonc
 
-RUN pnpm turbo build --filter=eri
+RUN pnpm build
 
 FROM base as dist
 
 WORKDIR /usr/opt/eri
 
-COPY --from=build /usr/src/eri/apps/eri/build apps/eri/build
-COPY --from=build /usr/src/eri/apps/eri/package.json apps/eri/package.json
-COPY --from=deps-prod /usr/src/eri/apps/eri/node_modules apps/eri/node_modules
+COPY --from=build /usr/src/eri/build build
+COPY --from=build /usr/src/eri/package.json package.json
 COPY --from=deps-prod /usr/src/eri/node_modules node_modules
-COPY --from=deps-prod /usr/src/eri/pnpm-workspace.yaml pnpm-workspace.yaml
-COPY apps/eri/tsconfig.json apps/eri/tsconfig.json
 COPY tsconfig.json tsconfig.json
 COPY license license
 
 EXPOSE 3000
-CMD ["pnpm", "--filter", "eri", "start"]
+CMD ["pnpm", "eri", "start"]

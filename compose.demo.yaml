@@ -33,7 +33,6 @@ services:
         condition: service_healthy
     build:
       context: .
-      dockerfile: ./apps/eri/Dockerfile
     environment: # empty values will bypass corresponding variables to app
       DB_NAME:
       DB_HOST: mysql
@@ -42,7 +41,7 @@ services:
       DB_PASSWORD:
       AUTH_SECRET:
       AUTH_SESSION_COOKIE_NAME:
-    command: sh -c "pnpm --filter eri exec mikro-orm-esm schema:create -r && pnpm --filter eri run start"
+    command: sh -c "pnpm mikro-orm-esm schema:create -r && pnpm start"
     ports:
       - "1337:3000"
     networks:

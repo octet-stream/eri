@@ -27,7 +27,7 @@ If none of these exists, then Eri will fallback to `process.env` object.
 
 1. Create either `.env.production.local` or `.env.local` and add required configuration;
 2. To build the project, run `pnpm turbo build`
-3. Once production build is finished, run `pnpm --filter eri start`
+3. Once production build is finished, run `pnpm start`
 4. Open http://localhost:3000/admin and create admin account (if it doesn't exists).
 
 ## Demo
@@ -42,9 +42,12 @@ You can run demo application with non-persistent database in just a few steps:
 
 List of available commands. These commands are accessible via pnpm.
 
-| Name          | Description                                   |
-|---------------|-----------------------------------------------|
-| `demo.start`  | Starts docker container with demo application |
-| `demo.stop`   | Stops demo application and removed container  |
-| `turbo dev`   | Starts all packages in dev mode               |
-| `turbo build` | Runs `build` script for all packages          |
+| Name                | Description                                                                                                                 |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `build`             | Builds project for production                                                                                               |
+| `start`             | Starts production server                                                                                                    |
+| `dev`               | Starts Vite in dev mode                                                                                                     |
+| `dev.open`          | Starts Vite in dev mode and opens app in user's default browser                                                             |
+| `demo.start`        | Starts docker container with demo application. If you want to rebuild the app's image, run this command with `--build` flag |
+| `demo.stop`         | Stops demo application and removed container                                                                                |
+| `lint.types`        | Runs `tsc` to validate TypeScript types                                                                                     |

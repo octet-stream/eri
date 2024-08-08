@@ -16,3 +16,6 @@ coverage
 
 # Configs
 /commitlint.config.ts
+
+# Local build files
+/build

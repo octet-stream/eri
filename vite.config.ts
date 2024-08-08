@@ -4,7 +4,6 @@ import {installGlobals} from "@remix-run/node"
 import {defineConfig} from "vite"
 
 import tsconfigPaths from "vite-tsconfig-paths"
-import buildMigrations from "@eri-dev/vite-plugin-mikro-orm-config"
 
 installGlobals({nativeFetch: true})
 
@@ -16,7 +15,6 @@ export default defineConfig({
         unstable_singleFetch: true
       }
     }),
-    buildMigrations({configEntry: "app/server/lib/db/configs/prod.ts"}) as any,
     tsconfigPaths()
   ],
   optimizeDeps: {
