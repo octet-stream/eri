@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "remix vite:dev",
     "dev.open": "remix vite:dev --open",
-    "build": "remix vite:build",
+    "build": "remix vite:build && vite -c vite.mikro-orm.config.ts build",
     "start": "NODE_ENV=production node ./build/server/index.js",
     "lint.types": "tsc --noEmit",
     "test.compose.up": "docker compose -f docker-compose.test.yml up --wait",
