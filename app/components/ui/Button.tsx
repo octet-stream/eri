@@ -1,6 +1,6 @@
 import {cva, type VariantProps} from "class-variance-authority"
+import {forwardRef, type ComponentPropsWithoutRef} from "react"
 import {Slot} from "@radix-ui/react-slot"
-import {forwardRef} from "react"
 import {cn} from "@udecode/cn"
 
 export const buttonVariants = cva(
@@ -23,29 +23,33 @@ export const buttonVariants = cva(
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10"
+      },
+      wide: {
+        true: "w-full"
       }
     },
     defaultVariants: {
       variant: "default",
-      size: "default"
+      size: "default",
+      wide: false
     }
   }
 )
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends ComponentPropsWithoutRef<"button">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({className, variant, size, asChild = false, ...props}, ref) => {
+  ({className, variant, wide, size, asChild = false, ...props}, ref) => {
     const Comp = asChild ? Slot : "button"
 
     return (
       <Comp
         {...props}
-        className={cn(buttonVariants({variant, size, className}))}
+        className={cn(buttonVariants({variant, size, wide, className}))}
         ref={ref}
       />
     )

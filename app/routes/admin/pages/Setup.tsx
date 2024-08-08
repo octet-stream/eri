@@ -63,7 +63,7 @@ export const AdminSetupPage: FC = () => {
           </CardContent>
 
           <CardFooter>
-            <Button type="submit" className="w-full">
+            <Button type="submit" wide>
               Sign up
             </Button>
           </CardFooter>

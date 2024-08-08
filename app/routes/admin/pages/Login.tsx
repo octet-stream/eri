@@ -68,7 +68,7 @@ export const AdminLoginPage: FC = () => {
           </CardContent>
 
           <CardFooter>
-            <Button type="submit" className="w-full">
+            <Button type="submit" wide>
               Log in
             </Button>
           </CardFooter>
