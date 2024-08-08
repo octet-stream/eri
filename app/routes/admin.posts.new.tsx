@@ -1,11 +1,7 @@
 import {useForm, getTextareaProps, getFormProps} from "@conform-to/react"
-import {
-  type MetaFunction,
-  unstable_defineAction as defineAction,
-  json
-} from "@remix-run/node"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import {redirect, useActionData} from "@remix-run/react"
+import {type MetaFunction, json} from "@remix-run/node"
 import type {FC} from "react"
 
 import {Button} from "../components/ui/Button.jsx"
@@ -18,29 +14,32 @@ import {PostEditorContent} from "../components/post-editor/PostEditorContent.jsx
 import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 
-import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
+import {defineAdminAction} from "../server/lib/admin/defineAdminAction.server.js"
+import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
 import {Post} from "../server/db/entities.js"
 
-export const loader = defineAdminLoader(async () => null)
+export const loader = noopAdminLoader
 
-export const action = defineAction(async ({request, context: {auth, orm}}) => {
-  const {user} = auth.getAuthContext()
+export const action = defineAdminAction(
+  async ({request, context: {auth, orm}}) => {
+    const {user} = auth.getAuthContext()
 
-  const submission = await parseWithZod(await request.formData(), {
-    schema: PostCreateInput,
-    async: true
-  })
+    const submission = await parseWithZod(await request.formData(), {
+      schema: PostCreateInput,
+      async: true
+    })
 
-  if (submission.status !== "success") {
-    return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
+    if (submission.status !== "success") {
+      return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
+    }
+
+    const post = orm.em.create(Post, {...submission.value, author: user})
+
+    await orm.em.persistAndFlush(post)
+
+    throw redirect(`/admin/posts/${post.slug}`)
   }
-
-  const post = orm.em.create(Post, {...submission.value, author: user})
-
-  await orm.em.persistAndFlush(post)
-
-  throw redirect(`/admin/posts/${post.slug}`)
-})
+)
 
 export const meta: MetaFunction = () => [
   {

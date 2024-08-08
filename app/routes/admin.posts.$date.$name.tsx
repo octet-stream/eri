@@ -6,7 +6,7 @@ import type {
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 
-import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
+import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.server.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 

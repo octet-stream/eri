@@ -4,7 +4,7 @@ import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
 import {PostsContext} from "./contexts/PostsContext.jsx"
 
-import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.js"
+import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.server.js"
 
 import {PostListInput} from "../../server/zod/post/PostListInput.js"
 import {
