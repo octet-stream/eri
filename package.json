@@ -17,8 +17,8 @@
     "dev.open": "remix vite:dev --open",
     "build": "remix vite:build && vite -c vite.mikro-orm.config.ts build",
     "start": "NODE_ENV=production node ./build/server/index.js",
-    "demo.start": "docker compose -f compose.demo.yaml --env-file apps/eri/.env.demo.local up --wait -d",
-    "demo.stop": "docker compose -f compose.demo.yaml --env-file apps/eri/.env.demo.local down",
+    "demo.start": "docker compose -f compose.demo.yaml --env-file .env.demo.local up --wait -d",
+    "demo.stop": "docker compose -f compose.demo.yaml --env-file .env.demo.local down",
     "lint.types": "tsc --noEmit",
     "prepare": "npx is-in-ci || husky",
     "preinstall": "npx only-allow pnpm"
@@ -26,7 +26,7 @@
   "mikro-orm": {
     "configPaths": [
       "./app/server/lib/db/configs/dev.ts",
-      "./build/server/db/mikro-orm.config.js"
+      "./build/db/mikro-orm.config.js"
     ]
   },
   "dependencies": {

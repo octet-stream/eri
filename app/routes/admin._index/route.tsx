@@ -43,7 +43,10 @@ export const loader = defineAdminLoader(async ({request, context: {orm}}) => {
     args
   } satisfies IPostListOutput)
 
-  if (output.current < 1 || output.pagesCount < output.current) {
+  if (
+    output.current < 1 ||
+    (output.pagesCount > 0 && output.pagesCount < output.current)
+  ) {
     throw new Response(null, {
       status: 404
     })

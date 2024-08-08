@@ -9,7 +9,7 @@ export default defineConfig({
     lib: {
       formats: ["es"],
       entry: {
-        "mikro-orm.config.js": "app/server/lib/db/configs/prod.ts"
+        "mikro-orm.config": "app/server/lib/db/configs/prod.ts"
       }
     }
   }
