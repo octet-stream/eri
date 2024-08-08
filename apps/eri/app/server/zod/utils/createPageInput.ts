@@ -27,7 +27,7 @@ export function createPageInput<T extends z.ZodRawShape = never>(
 
   const Current = z
     .union([z.number().int(), z.string().regex(/^-?[0-9]+$/)])
-    .optional()
+    .nullish()
     .transform(value => (value == null ? undefined : Number(value)))
 
   const LimitBase = z.number().int().positive()

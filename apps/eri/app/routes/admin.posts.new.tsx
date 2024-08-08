@@ -1,5 +1,9 @@
 import {useForm, getTextareaProps, getFormProps} from "@conform-to/react"
-import type {ActionFunctionArgs, MetaFunction} from "@remix-run/node"
+import {
+  type MetaFunction,
+  unstable_defineAction as defineAction,
+  json
+} from "@remix-run/node"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import {redirect, useActionData} from "@remix-run/react"
 import type {FC} from "react"
@@ -16,10 +20,7 @@ import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 
 import {Post} from "../server/db/entities.js"
 
-export const action = async ({
-  request,
-  context: {auth, orm}
-}: ActionFunctionArgs) => {
+export const action = defineAction(async ({request, context: {auth, orm}}) => {
   const {user} = auth.getAuthContext()
 
   const submission = await parseWithZod(await request.formData(), {
@@ -28,15 +29,15 @@ export const action = async ({
   })
 
   if (submission.status !== "success") {
-    return submission.reply()
+    return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
   }
 
-  const post = new Post({...submission.value, author: user})
+  const post = orm.em.create(Post, {...submission.value, author: user})
 
   await orm.em.persistAndFlush(post)
 
-  return redirect(`/admin/posts/${post.slug}`)
-}
+  throw redirect(`/admin/posts/${post.slug}`)
+})
 
 export const meta: MetaFunction = () => [
   {

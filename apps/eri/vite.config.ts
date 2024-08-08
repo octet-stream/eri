@@ -6,15 +6,17 @@ import {defineConfig} from "vite"
 import tsconfigPaths from "vite-tsconfig-paths"
 import buildMigrations from "@eri-dev/vite-plugin-mikro-orm-config"
 
-installGlobals()
+installGlobals({nativeFetch: true})
 
 export default defineConfig({
   plugins: [
-    // @ts-expect-error Igonre TS complaints about incompatible types for this plugin
     devServer(),
-
-    remix(),
-    buildMigrations({configEntry: "app/server/lib/db/configs/prod.ts"}),
+    remix({
+      future: {
+        unstable_singleFetch: true
+      }
+    }),
+    buildMigrations({configEntry: "app/server/lib/db/configs/prod.ts"}) as any,
     tsconfigPaths()
   ],
   optimizeDeps: {

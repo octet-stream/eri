@@ -1,4 +1,5 @@
 import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
+import type {Simplify} from "../../../lib/types/Simplify.js"
 
 import type {PageArgs} from "./PageArgs.js"
 
@@ -138,7 +139,7 @@ export class Page<T extends object> implements PageOutput<T> {
     return this.#prev
   }
 
-  toJSON(): PageOutput<T> {
+  toJSON(): Simplify<PageOutput<T>> {
     return {
       items: this.items,
       limit: this.limit,

@@ -1,4 +1,9 @@
-import {redirect, type ActionFunction} from "@remix-run/node"
+import {
+  json,
+  redirect,
+  unstable_defineLoader as defineLoader,
+  unstable_defineAction as defineAction
+} from "@remix-run/node"
 import {parseWithZod} from "@conform-to/zod"
 
 import {AdminLogInInput} from "../server/zod/user/AdminLogInInput.js"
@@ -7,20 +12,20 @@ import {password} from "../server/lib/auth/password.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 import {User} from "../server/db/entities.js"
 
-export const loader = (): never => {
+export const loader = defineLoader((): never => {
   throw new Response(null, {
     status: 404
   })
-}
+})
 
-export const action: ActionFunction = async ({request, context: {orm}}) => {
+export const action = defineAction(async ({request, context: {orm}}) => {
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminLogInInput,
     async: true
   })
 
   if (submission.status !== "success") {
-    return submission.reply()
+    return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
   }
 
   const user = await orm.em.findOneOrFail(
@@ -49,9 +54,9 @@ export const action: ActionFunction = async ({request, context: {orm}}) => {
   const session = await lucia.createSession(user.id, {})
   const cookie = await serializeCookie(session.id)
 
-  return redirect("/admin", {
+  throw redirect("/admin", {
     headers: {
       "set-cookie": cookie
     }
   })
-}
+})

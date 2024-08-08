@@ -1,11 +1,11 @@
 import type {z} from "zod"
 
-import {RecordSoft} from "../common/RecordSoft.js"
+import {Record} from "../common/Record.js"
 
 import {PostRecord} from "./PostRecord.js"
 
 export const PostBaseOutput = PostRecord.extend({
-  author: RecordSoft // TOOD: Add better validation for author
+  author: Record // TOOD: Add better validation for author
 })
 
 export type IPostBaseOutput = z.input<typeof PostBaseOutput>

@@ -1,8 +1,12 @@
-import type {LoaderFunctionArgs, MetaFunction} from "@remix-run/node"
+import {unstable_defineLoader as defineLoader} from "@remix-run/node"
 import {useLoaderData} from "@remix-run/react"
 import {SlateView} from "slate-to-react"
 import {format} from "date-fns"
 import type {FC} from "react"
+import type {
+  MetaArgs_SingleFetch as MetaArgs,
+  MetaDescriptor
+} from "@remix-run/react"
 
 import {
   Breadcrumb,
@@ -15,20 +19,39 @@ import {Paragraph} from "../components/slate-view/elements/Paragraph.jsx"
 import {Heading} from "../components/slate-view/elements/Heading.jsx"
 import {Text} from "../components/slate-view/leaves/Text.jsx"
 
-import {withTrpc} from "../server/trpc/withTrpc.js"
+import {PostOutput} from "../server/zod/post/PostOutput.js"
+import {Post} from "../server/db/entities.js"
 
 interface Params {
   date: string
   name: string
 }
 
-export const loader = withTrpc(async (trpc, {params}: LoaderFunctionArgs) => {
+export const loader = defineLoader(async ({params, context: {orm}}) => {
   const {date, name} = params as unknown as Params
 
-  return trpc.posts.getBySlug({slug: [date, name].join("/")})
+  const post = await orm.em.findOneOrFail(
+    Post,
+
+    {
+      slug: [date, name].join("/")
+    },
+
+    {
+      populate: ["content"],
+      failHandler(): never {
+        throw new Response(null, {
+          status: 404,
+          statusText: "Unable to find post"
+        })
+      }
+    }
+  )
+
+  return PostOutput.parseAsync(post)
 })
 
-export const meta: MetaFunction<typeof loader> = ({data}) => [
+export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
   {
     title: data?.title
   }
