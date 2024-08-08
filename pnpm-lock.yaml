@@ -68,9 +68,6 @@ importers:
       '@sindresorhus/slugify':
         specifier: 2.2.1
         version: 2.2.1
-      '@trpc/server':
-        specifier: ^10.45.2
-        version: 10.45.2
       '@udecode/cn':
         specifier: 33.0.0
         version: 33.0.0(@types/react@18.3.3)(class-variance-authority@0.7.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwind-merge@2.4.0)
@@ -146,9 +143,6 @@ importers:
       date-fns:
         specifier: 3.6.0
         version: 3.6.0
-      domain-functions:
-        specifier: 2.6.0
-        version: 2.6.0
       dotenv:
         specifier: 16.4.5
         version: 16.4.5
