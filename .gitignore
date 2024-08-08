@@ -25,3 +25,6 @@ yarn-error.log*
 
 # Turborepo output for `turbo prune <package>`
 /out
+
+# Build target
+/build
