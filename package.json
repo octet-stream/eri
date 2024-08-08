@@ -7,18 +7,19 @@
   "engines": {
     "node": ">= 22"
   },
+  "author": "Nick K. <io@octetstream.me>",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/octet-stream/eri.git"
+  },
   "scripts": {
     "dev": "remix vite:dev",
     "dev.open": "remix vite:dev --open",
     "build": "remix vite:build && vite -c vite.mikro-orm.config.ts build",
     "start": "NODE_ENV=production node ./build/server/index.js",
+    "demo.start": "docker compose -f compose.demo.yaml --env-file apps/eri/.env.demo.local up --wait -d",
+    "demo.stop": "docker compose -f compose.demo.yaml --env-file apps/eri/.env.demo.local down",
     "lint.types": "tsc --noEmit",
-    "test.compose.up": "docker compose -f docker-compose.test.yml up --wait",
-    "test.compose.down": "docker compose -f docker-compose.test.yml down",
-    "test": "pnpm test.compose.up && (vitest run ; pnpm test.compose.down)",
-    "report": "pnpm test.compose.up && (c8 vitest run ; pnpm test.compose.down)",
-    "report.html": "pnpm test.compose.up && ((c8 vitest run && c8 report --reporter=html) ; pnpm test.compose.down)",
-    "ci": "pnpm test.compose.up && ((c8 vitest run && c8 report --reporter=json) ; pnpm test.compose.down)",
     "prepare": "npx is-in-ci || husky",
     "preinstall": "npx only-allow pnpm"
   },
