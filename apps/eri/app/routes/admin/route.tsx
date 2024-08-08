@@ -25,7 +25,7 @@ import {AdminSetupPage} from "./pages/Setup.jsx"
 
 import {AdminLoaderErrorCode} from "../../server/lib/admin/AdminLoaderErrorCode.js"
 
-export const ErrorBoundary = () => {
+export const ErrorBoundary: FC = () => {
   const error = useRouteError()
 
   if (isRouteErrorResponse(error)) {
