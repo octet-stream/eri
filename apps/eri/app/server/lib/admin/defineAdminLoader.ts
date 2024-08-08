@@ -28,13 +28,13 @@ export const defineAdminLoader = <T extends Loader>(loader: T): T =>
 
     if (!admin) {
       throw new Response(AdminLoaderErrorCode.SETUP, {
-        status: 401
+        status: 200
       })
     }
 
     if (!auth.isAuthenticated()) {
       throw new Response(AdminLoaderErrorCode.LOGIN, {
-        status: 401
+        status: 200
       })
     }
 

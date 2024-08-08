@@ -28,16 +28,14 @@ import {AdminLoaderErrorCode} from "../../server/lib/admin/AdminLoaderErrorCode.
 export const ErrorBoundary = () => {
   const error = useRouteError()
 
-  if (!isRouteErrorResponse(error) || error.status !== 401) {
-    throw error
-  }
+  if (isRouteErrorResponse(error)) {
+    if (error.data === AdminLoaderErrorCode.SETUP) {
+      return <AdminSetupPage />
+    }
 
-  if (error.data === AdminLoaderErrorCode.SETUP) {
-    return <AdminSetupPage />
-  }
-
-  if (error.data === AdminLoaderErrorCode.LOGIN) {
-    return <AdminLoginPage />
+    if (error.data === AdminLoaderErrorCode.LOGIN) {
+      return <AdminLoginPage />
+    }
   }
 
   throw error
@@ -48,9 +46,9 @@ export const meta = ({error}: MetaArgs): MetaDescriptor[] => {
 
   if (isRouteErrorResponse(error)) {
     if (error.data === AdminLoaderErrorCode.SETUP) {
-      title = "Setup"
+      title = `Setup – ${title}`
     } else if (error.data === AdminLoaderErrorCode.LOGIN) {
-      title = "Login"
+      title = `Login – ${title}`
     }
   }
 
