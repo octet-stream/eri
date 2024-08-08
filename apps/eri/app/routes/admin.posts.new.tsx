@@ -32,7 +32,7 @@ export const action = defineAction(async ({request, context: {auth, orm}}) => {
     return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
   }
 
-  const post = new Post({...submission.value, author: user})
+  const post = orm.em.create(Post, {...submission.value, author: user})
 
   await orm.em.persistAndFlush(post)
 

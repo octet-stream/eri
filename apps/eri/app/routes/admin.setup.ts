@@ -27,7 +27,7 @@ export const action = defineAction(async ({request, context: {orm}}) => {
     return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
   }
 
-  const user = new User(submission.value)
+  const user = orm.em.create(User, submission.value)
 
   await orm.em.persistAndFlush(user)
 
