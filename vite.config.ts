@@ -12,7 +12,8 @@ export default defineConfig({
     devServer(),
     remix({
       future: {
-        unstable_singleFetch: true
+        unstable_singleFetch: true,
+        unstable_lazyRouteDiscovery: true
       }
     }),
     tsconfigPaths()
