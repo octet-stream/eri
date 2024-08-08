@@ -18,7 +18,10 @@ import {PostEditorContent} from "../components/post-editor/PostEditorContent.jsx
 import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 
+import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
 import {Post} from "../server/db/entities.js"
+
+export const loader = defineAdminLoader(async () => null)
 
 export const action = defineAction(async ({request, context: {auth, orm}}) => {
   const {user} = auth.getAuthContext()
