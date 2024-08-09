@@ -33,9 +33,6 @@ FROM base as build
 COPY --from=repo /usr/src/eri/ .
 COPY --from=deps-dev /usr/src/eri/ .
 
-COPY tsconfig.json tsconfig.json
-COPY biome.jsonc biome.jsonc
-
 RUN pnpm build
 
 FROM base as dist
