@@ -25,17 +25,24 @@ export function createPageInput<T extends z.ZodRawShape = never>(
 ) {
   const {maxLimit} = {...defaults, ...options}
 
-  const Current = z
-    .union([z.number().int(), z.string().regex(/^-?[0-9]+$/)])
+  const Page = z
+    .union([z.string(), z.number()])
     .nullish()
-    .transform(value => (value == null ? undefined : Number(value)))
+    .pipe(
+      z.coerce
+        .number()
+        .int()
+        .positive("Page number must be greater or equal 1")
+        .nullish()
+    )
+    .transform(value => (value == null ? undefined : value))
 
   const LimitBase = z.number().int().positive()
 
   const Limit = maxLimit ? LimitBase.max(maxLimit).default(maxLimit) : LimitBase
 
   const PageBaseInput = z
-    .object({current: Current, limit: Limit.optional()})
+    .object({page: Page, limit: Limit.optional()})
     .default(maxLimit ? {limit: maxLimit} : {})
 
   const PageInput = extensions
@@ -43,9 +50,9 @@ export function createPageInput<T extends z.ZodRawShape = never>(
     : PageBaseInput
 
   return PageInput.optional().transform(input => {
-    const {current, limit, ...fields} = input || {}
+    const {page, limit, ...fields} = input || {}
 
-    const args = new PageArgs({current, limit, maxLimit})
+    const args = new PageArgs({page, limit, maxLimit})
 
     return {...fields, args} as PageOutput<T>
   })

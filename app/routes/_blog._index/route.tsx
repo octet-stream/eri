@@ -16,19 +16,18 @@ import {
   type IPostListOutput
 } from "../../server/zod/post/PostListOutput.js"
 
+import {parsePageInput} from "../../server/zod/utils/parsePageInput.js"
+
 export const loader = defineLoader(async ({context: {orm}, request}) => {
   const search = new URL(request.url).searchParams
-  const input = await PostListInput.safeParseAsync({
-    current: search.get("page")
+  const {args} = await parsePageInput({
+    async: true,
+    schema: PostListInput,
+    input: {
+      page: search.get("page")
+    }
   })
 
-  if (!input.success) {
-    throw new Response(null, {
-      status: 404
-    })
-  }
-
-  const {args} = input.data
   const [items, count] = await orm.em.findAndCount(
     Post,
 
