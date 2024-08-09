@@ -1,11 +1,10 @@
 import type {z} from "zod"
 
-import {createPageOutput} from "../utils/createPageOutput.js"
+import {createPageOutput} from "../utils/pagination/createPageOutput.js"
 
-import {PostListInput} from "./PostListInput.js"
 import {PostBaseOutput} from "./PostBaseOutput.js"
 
-export const PostListOutput = createPageOutput(PostBaseOutput, PostListInput)
+export const PostListOutput = createPageOutput(PostBaseOutput)
 
 export type IPostListOutput = z.input<typeof PostListOutput>
 

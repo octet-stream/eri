@@ -1,11 +1,11 @@
-import type {MaybeUndefined} from "../../../lib/types/MaybeUndefined.js"
-import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
+import type {MaybeUndefined} from "../../../../lib/types/MaybeUndefined.js"
+import type {MaybeNull} from "../../../../lib/types/MaybeNull.js"
 
 export interface PageArgsInput {
   /**
    * The number of the current page.
    */
-  current?: number
+  page?: number
 
   /**
    * The items limmit per page.
@@ -30,10 +30,10 @@ export class PageArgs implements PageArgsInput {
   readonly #offset: MaybeUndefined<number>
 
   constructor(input: PageArgsInput = {}) {
-    let {current, limit, maxLimit} = input
+    let {page, limit, maxLimit} = input
 
     maxLimit ??= null
-    current ??= 1
+    page ??= 1
 
     // Defaults to the same value as maxLimit
     if (!limit && maxLimit != null) {
@@ -41,9 +41,9 @@ export class PageArgs implements PageArgsInput {
     }
 
     this.#limit = limit
-    this.#current = current
+    this.#current = page
     this.#maxLimit = maxLimit
-    this.#offset = limit ? limit * (current - 1) : undefined
+    this.#offset = limit ? limit * (page - 1) : undefined
   }
 
   get offset(): MaybeUndefined<number> {

@@ -10,25 +10,16 @@ import {PostsList} from "./components/PostsList.jsx"
 import {PostsContext} from "./contexts/PostsContext.jsx"
 
 import {Post} from "../../server/db/entities.js"
-import {PostListInput} from "../../server/zod/post/PostListInput.js"
-import {
-  PostListOutput,
-  type IPostListOutput
-} from "../../server/zod/post/PostListOutput.js"
+import {PostPage} from "../../server/zod/post/PostPage.js"
 
 export const loader = defineLoader(async ({context: {orm}, request}) => {
   const search = new URL(request.url).searchParams
-  const input = await PostListInput.safeParseAsync({
-    current: search.get("page")
+
+  const page = await PostPage.parseAsync({
+    page: search.get("page")
   })
 
-  if (!input.success) {
-    throw new Response(null, {
-      status: 404
-    })
-  }
-
-  const {args} = input.data
+  const {args} = page.params
   const [items, count] = await orm.em.findAndCount(
     Post,
 
@@ -40,23 +31,8 @@ export const loader = defineLoader(async ({context: {orm}, request}) => {
     }
   )
 
-  const output = await PostListOutput.parseAsync({
-    items,
-    count,
-    args
-  } satisfies IPostListOutput)
-
-  if (
-    output.current < 1 ||
-    (output.pagesCount > 0 && output.pagesCount < output.current)
-  ) {
-    throw new Response(null, {
-      status: 404
-    })
-  }
-
   return {
-    page: output,
+    page: await page.reply({items, count}),
     title: process.env.BLOG_NAME || "Eri's blog"
   }
 })

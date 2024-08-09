@@ -1,5 +1,5 @@
-import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
-import type {Simplify} from "../../../lib/types/Simplify.js"
+import type {MaybeNull} from "../../../../lib/types/MaybeNull.js"
+import type {Simplify} from "../../../../lib/types/Simplify.js"
 
 import type {PageArgs} from "./PageArgs.js"
 
@@ -89,6 +89,7 @@ export class Page<T extends object> implements PageOutput<T> {
   readonly #prev: MaybeNull<number>
 
   constructor({items, count, args}: PageOutputInput<T>) {
+    // console.log({current: args.current})
     this.#items = items
     this.#rowsCount = count
     this.#current = args.current
