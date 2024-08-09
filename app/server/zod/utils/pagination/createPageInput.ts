@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
+import type {MaybeNull} from "../../../../lib/types/MaybeNull.js"
 
 import {PageArgs} from "./PageArgs.js"
 

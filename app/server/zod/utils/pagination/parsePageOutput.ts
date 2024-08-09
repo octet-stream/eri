@@ -1,6 +1,6 @@
 import type {z} from "zod"
 
-import type {MaybePromise} from "../../../lib/types/MaybePromise.js"
+import type {MaybePromise} from "../../../../lib/types/MaybePromise.js"
 
 import type {DefaultPageOutput} from "./createPageOutput.js"
 

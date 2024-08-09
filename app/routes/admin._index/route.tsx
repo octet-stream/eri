@@ -10,8 +10,8 @@ import {PostListOutput} from "../../server/zod/post/PostListOutput.js"
 import {PostListInput} from "../../server/zod/post/PostListInput.js"
 import {Post} from "../../server/db/entities.js"
 
-import {parsePageInput} from "../../server/zod/utils/parsePageInput.js"
-import {parsePageOutput} from "../../server/zod/utils/parsePageOutput.js"
+import {parsePageInput} from "../../server/zod/utils/pagination/parsePageInput.js"
+import {parsePageOutput} from "../../server/zod/utils/pagination/parsePageOutput.js"
 
 export const loader = defineAdminLoader(async ({request, context: {orm}}) => {
   const search = new URL(request.url).searchParams
