@@ -11,22 +11,23 @@ import {PostsContext} from "./contexts/PostsContext.jsx"
 
 import {Post} from "../../server/db/entities.js"
 import {PostListInput} from "../../server/zod/post/PostListInput.js"
-import {
-  PostListOutput,
-  type IPostListOutput
-} from "../../server/zod/post/PostListOutput.js"
+import {PostListOutput} from "../../server/zod/post/PostListOutput.js"
 
 import {parsePageInput} from "../../server/zod/utils/parsePageInput.js"
+import {parsePageOutput} from "../../server/zod/utils/parsePageOutput.js"
 
 export const loader = defineLoader(async ({context: {orm}, request}) => {
   const search = new URL(request.url).searchParams
-  const {args} = await parsePageInput({
-    async: true,
-    schema: PostListInput,
-    input: {
+  const {args} = await parsePageInput(
+    PostListInput,
+    {
       page: search.get("page")
+    },
+
+    {
+      async: true
     }
-  })
+  )
 
   const [items, count] = await orm.em.findAndCount(
     Post,
@@ -39,20 +40,19 @@ export const loader = defineLoader(async ({context: {orm}, request}) => {
     }
   )
 
-  const output = await PostListOutput.parseAsync({
-    items,
-    count,
-    args
-  } satisfies IPostListOutput)
+  const output = await parsePageOutput(
+    PostListOutput,
 
-  if (
-    output.current < 1 ||
-    (output.pagesCount > 0 && output.pagesCount < output.current)
-  ) {
-    throw new Response(null, {
-      status: 404
-    })
-  }
+    {
+      items,
+      count,
+      args
+    },
+
+    {
+      async: true
+    }
+  )
 
   return {
     page: output,

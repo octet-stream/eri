@@ -1,31 +1,23 @@
 import {z} from "zod"
 
-import {type createPageInput, DefaultPageInput} from "./createPageInput.js"
+import {PageArgs} from "./PageArgs.js"
 import {Page} from "./Page.js"
 
 /**
  * Creates a `Page<T>` output with the list of items of type `T`
  */
-export const createPageOutput = <
-  TOutput extends z.ZodRawShape,
-  TInput extends ReturnType<typeof createPageInput>
->(
-  output: z.ZodObject<TOutput>,
-  input: TInput
+export const createPageOutput = <TOutput extends z.ZodRawShape>(
+  output: z.ZodObject<TOutput>
 ) =>
   z
     .object({
       items: z.array(output),
       count: z.number().int(),
-      args: input.transform(({args}) => args)
+      args: z.instanceof(PageArgs)
     })
     .transform(page => new Page(page).toJSON())
 
-export const DefaultPageOutput = createPageOutput(
-  z.object({}),
-
-  DefaultPageInput
-)
+export const DefaultPageOutput = createPageOutput(z.object({}))
 
 export type IDefaultPageOutput = z.input<typeof DefaultPageOutput>
 

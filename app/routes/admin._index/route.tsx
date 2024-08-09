@@ -6,26 +6,26 @@ import {PostsContext} from "./contexts/PostsContext.jsx"
 
 import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.server.js"
 
+import {PostListOutput} from "../../server/zod/post/PostListOutput.js"
 import {PostListInput} from "../../server/zod/post/PostListInput.js"
-import {
-  PostListOutput,
-  type IPostListOutput
-} from "../../server/zod/post/PostListOutput.js"
 import {Post} from "../../server/db/entities.js"
+
+import {parsePageInput} from "../../server/zod/utils/parsePageInput.js"
+import {parsePageOutput} from "../../server/zod/utils/parsePageOutput.js"
 
 export const loader = defineAdminLoader(async ({request, context: {orm}}) => {
   const search = new URL(request.url).searchParams
-  const input = await PostListInput.safeParseAsync({
-    current: search.get("page")
-  })
+  const {args} = await parsePageInput(
+    PostListInput,
+    {
+      page: search.get("page")
+    },
 
-  if (!input.success) {
-    throw new Response(null, {
-      status: 404
-    })
-  }
+    {
+      async: true
+    }
+  )
 
-  const {args} = input.data
   const [items, count] = await orm.em.findAndCount(
     Post,
 
@@ -37,20 +37,19 @@ export const loader = defineAdminLoader(async ({request, context: {orm}}) => {
     }
   )
 
-  const output = await PostListOutput.parseAsync({
-    items,
-    count,
-    args
-  } satisfies IPostListOutput)
+  const output = await parsePageOutput(
+    PostListOutput,
 
-  if (
-    output.current < 1 ||
-    (output.pagesCount > 0 && output.pagesCount < output.current)
-  ) {
-    throw new Response(null, {
-      status: 404
-    })
-  }
+    {
+      items,
+      count,
+      args
+    },
+
+    {
+      async: true
+    }
+  )
 
   return output
 })

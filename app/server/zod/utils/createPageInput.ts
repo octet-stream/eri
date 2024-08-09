@@ -34,8 +34,8 @@ export function createPageInput<T extends z.ZodRawShape = never>(
         .int()
         .positive("Page number must be greater or equal 1")
         .nullish()
+        .transform(value => (value == null ? undefined : value))
     )
-    .transform(value => (value == null ? undefined : value))
 
   const LimitBase = z.number().int().positive()
 

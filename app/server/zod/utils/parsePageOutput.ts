@@ -2,38 +2,46 @@ import type {z} from "zod"
 
 import type {MaybePromise} from "../../../lib/types/MaybePromise.js"
 
-import type {DefaultPageInput} from "./createPageInput.js"
+import type {DefaultPageOutput} from "./createPageOutput.js"
 
 function resolve<
-  TInput extends z.input<typeof DefaultPageInput>,
-  TOutput extends z.output<typeof DefaultPageInput>
+  TInput extends z.input<typeof DefaultPageOutput>,
+  TOutput extends z.output<typeof DefaultPageOutput>
 >(result: z.SafeParseReturnType<TInput, TOutput>): TOutput {
   if (!result.success) {
     throw Response.json(result.error.flatten(), {
+      status: 500
+    })
+  }
+
+  const {data} = result
+
+  if (data.pagesCount > 0 && data.current > data.pagesCount) {
+    throw new Response(null, {
       status: 404
     })
   }
 
-  return result.data
+  return data
 }
 
-export function parsePageInput<TSchema extends typeof DefaultPageInput>(
+export function parsePageOutput<TSchema extends typeof DefaultPageOutput>(
   schema: TSchema,
-  input: z.input<TSchema> | URLSearchParams,
+  input: z.input<TSchema>,
   options?: {
     async?: false
   }
 ): z.output<TSchema>
-export function parsePageInput<TSchema extends typeof DefaultPageInput>(
+export function parsePageOutput<TSchema extends typeof DefaultPageOutput>(
   schema: TSchema,
-  input: z.input<TSchema> | URLSearchParams,
+  input: z.input<TSchema>,
   options: {
     async: true
   }
 ): Promise<z.output<TSchema>>
-export function parsePageInput<TSchema extends typeof DefaultPageInput>(
+export function parsePageOutput<TSchema extends typeof DefaultPageOutput>(
   schema: TSchema,
-  input: z.input<TSchema> | URLSearchParams,
+  input: z.input<TSchema>,
   options?: {
     async?: boolean
   }
