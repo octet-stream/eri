@@ -19,6 +19,7 @@ import {Paragraph} from "../components/slate-view/elements/Paragraph.jsx"
 import {Heading} from "../components/slate-view/elements/Heading.jsx"
 import {Text} from "../components/slate-view/leaves/Text.jsx"
 
+import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 
@@ -48,7 +49,7 @@ export const loader = defineLoader(async ({params, context: {orm}}) => {
     }
   )
 
-  return PostOutput.parseAsync(post)
+  return parseOutput(PostOutput, post, {async: true})
 })
 
 export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [

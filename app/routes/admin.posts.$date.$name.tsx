@@ -7,6 +7,7 @@ import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 
 import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.server.js"
+import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 
@@ -36,7 +37,7 @@ export const loader = defineAdminLoader(async ({params, context: {orm}}) => {
     }
   )
 
-  return PostOutput.parseAsync(post)
+  return parseOutput(PostOutput, post, {async: true})
 })
 
 export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
