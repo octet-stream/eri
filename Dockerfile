@@ -2,11 +2,9 @@ FROM node:22-alpine as base
 
 RUN apk add --no-cache libc6-compat
 
-# Set paths for pnpm
+# Set up pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-
-# Install pnpm and Turborepo
 RUN corepack enable
 
 # Set pwd for all further steps
@@ -42,8 +40,6 @@ WORKDIR /usr/opt/eri
 COPY --from=build /usr/src/eri/build build
 COPY --from=build /usr/src/eri/package.json package.json
 COPY --from=deps-prod /usr/src/eri/node_modules node_modules
-COPY tsconfig.json tsconfig.json
-COPY license license
 
 EXPOSE 3000
 CMD ["pnpm", "eri", "start"]
