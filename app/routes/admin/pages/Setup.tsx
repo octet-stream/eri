@@ -53,6 +53,8 @@ export const AdminSetupPage: FC = () => {
             </div>
 
             <div className="flex flex-col gap-2">
+              <Label htmlFor={fields.password.id}>Password</Label>
+
               <Input
                 {...getInputProps(fields.password, {type: "password"})}
                 errors={fields.password.errors}
