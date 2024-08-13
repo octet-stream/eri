@@ -1,20 +1,14 @@
 import type {z} from "zod"
 
 import type {MaybePromise} from "../../../../lib/types/MaybePromise.js"
+import {resolveResult} from "../resolveResult.js"
 
 import type {DefaultPageInput} from "./createPageInput.js"
 
-function resolve<
-  TInput extends z.input<typeof DefaultPageInput>,
-  TOutput extends z.output<typeof DefaultPageInput>
->(result: z.SafeParseReturnType<TInput, TOutput>): TOutput {
-  if (!result.success) {
-    throw Response.json(result.error.flatten(), {
-      status: 404
-    })
-  }
-
-  return result.data
+function onError<TInput>(reason: z.SafeParseError<TInput>): never {
+  throw Response.json(reason.error.flatten(), {
+    status: 404
+  })
 }
 
 export function parsePageInput<TSchema extends typeof DefaultPageInput>(
@@ -39,8 +33,14 @@ export function parsePageInput<TSchema extends typeof DefaultPageInput>(
   }
 ): MaybePromise<z.output<TSchema>> {
   if (!options?.async) {
-    return resolve(schema.safeParse(input))
+    return resolveResult(schema.safeParse(input), {
+      onError
+    })
   }
 
-  return schema.safeParseAsync(input).then(result => resolve(result))
+  return schema.safeParseAsync(input).then(result =>
+    resolveResult(result, {
+      onError
+    })
+  )
 }

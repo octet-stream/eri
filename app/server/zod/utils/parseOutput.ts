@@ -2,17 +2,7 @@ import type {z} from "zod"
 
 import type {MaybePromise} from "../../../lib/types/MaybePromise.js"
 
-function resolve<TInput, TOutput>(
-  result: z.SafeParseReturnType<TInput, TOutput>
-): TOutput {
-  if (result.error) {
-    throw Response.json(result.error.flatten(), {
-      status: 500
-    })
-  }
-
-  return result.data
-}
+import {resolveResult} from "./resolveResult.js"
 
 export function parseOutput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
@@ -36,8 +26,8 @@ export function parseOutput<TSchema extends z.ZodTypeAny>(
   }
 ): MaybePromise<z.output<TSchema>> {
   if (!options?.async) {
-    return resolve(schema.safeParse(data))
+    return resolveResult(schema.safeParse(data))
   }
 
-  return schema.safeParseAsync(data).then(result => resolve(result))
+  return schema.safeParseAsync(data).then(result => resolveResult(result))
 }
