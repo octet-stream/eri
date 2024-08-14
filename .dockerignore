@@ -9,6 +9,7 @@ coverage
 
 /.github
 /.husky
+/.vscode
 /.lintstagedrc.json
 
 # local env files
