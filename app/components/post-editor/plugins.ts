@@ -52,7 +52,7 @@ import {
   createExitBreakPlugin,
   createSoftBreakPlugin
 } from "@udecode/plate-break"
-import {createComboboxPlugin} from "@udecode/plate-combobox"
+// import {createComboboxPlugin} from "@udecode/plate-combobox"
 import {createDndPlugin} from "@udecode/plate-dnd"
 import {createNodeIdPlugin} from "@udecode/plate-node-id"
 import {createResetNodePlugin} from "@udecode/plate-reset-node"
@@ -114,7 +114,7 @@ export const plugins = createPlugins(
         }
       }
     }),
-    createComboboxPlugin(),
+    // createComboboxPlugin(),
     createDndPlugin({
       options: {enableScroller: true}
     }),
