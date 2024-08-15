@@ -73,6 +73,7 @@ const AdminLayout: FC = () => (
             <Menu size={20} />
           </SidebarTrigger>
 
+          {/* FIXME: This should be configurable */}
           <div>Eri's blog</div>
 
           <div className="flex-1" />
