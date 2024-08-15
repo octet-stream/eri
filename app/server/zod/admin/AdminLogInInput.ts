@@ -1,8 +1,10 @@
 import {z} from "zod"
 
+import {AdminPassword} from "./AdminPassword.js"
+
 export const AdminLogInInput = z.object({
   email: z.string().email(),
-  password: z.string().min(8, "Password must be at least 8 characters long")
+  password: AdminPassword
 })
 
 export type IAdminLogInInput = z.input<typeof AdminLogInInput>

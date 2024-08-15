@@ -1,8 +1,12 @@
 import {z} from "zod"
 
-export const AdminUpdateInput = z.object({
-  email: z.string().email().optional()
-})
+import {AdminUpdateMainInfoInput} from "./AdminUpdateMainInfoInput.js"
+import {AdminUpdatePasswordInput} from "./AdminUpdatePasswordInput.js"
+
+export const AdminUpdateInput = z.discriminatedUnion("intent", [
+  AdminUpdateMainInfoInput,
+  AdminUpdatePasswordInput
+])
 
 export type IAdminUpdateInput = z.input<typeof AdminUpdateInput>
 
