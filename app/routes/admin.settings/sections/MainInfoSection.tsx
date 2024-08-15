@@ -11,6 +11,7 @@ import type {z} from "zod"
 
 import {Input} from "../../../components/ui/Input.jsx"
 import {Button} from "../../../components/ui/Button.jsx"
+import {Label} from "../../../components/ui/Label.jsx"
 import {
   Card,
   CardTitle,
@@ -46,7 +47,7 @@ export const MainInfoSection: FC = () => {
 
         <CardContent>
           <div className="grid gap-2">
-            <label htmlFor={fields.email.id}>E-mail</label>
+            <Label htmlFor={fields.email.id}>E-mail</Label>
 
             <Input
               {...getInputProps(fields.email, {type: "email"})}

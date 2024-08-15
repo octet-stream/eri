@@ -5,6 +5,7 @@ import type {FC} from "react"
 
 import {Input} from "../../../components/ui/Input.jsx"
 import {Button} from "../../../components/ui/Button.jsx"
+import {Label} from "../../../components/ui/Label.jsx"
 import {
   Card,
   CardTitle,
@@ -36,7 +37,7 @@ export const PasswordSection: FC = () => {
 
         <CardContent className="grid gap-5">
           <div className="grid gap-2">
-            <label htmlFor={fields.current.id}>Current password</label>
+            <Label htmlFor={fields.current.id}>Current password</Label>
 
             <Input
               {...getInputProps(fields.current, {type: "password"})}
@@ -45,7 +46,7 @@ export const PasswordSection: FC = () => {
           </div>
 
           <div className="grid gap-2">
-            <label htmlFor={fields.updated.id}>New password</label>
+            <Label htmlFor={fields.updated.id}>New password</Label>
 
             <Input
               {...getInputProps(fields.updated, {type: "password"})}
@@ -54,7 +55,7 @@ export const PasswordSection: FC = () => {
           </div>
 
           <div className="grid gap-2">
-            <label htmlFor={fields.confirm.id}>Confirm new password</label>
+            <Label htmlFor={fields.confirm.id}>Confirm new password</Label>
 
             <Input
               {...getInputProps(fields.confirm, {type: "password"})}
