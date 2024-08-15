@@ -7,18 +7,18 @@ import {
 import {parseCookie, removeCookie} from "../server/lib/auth/cookie.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 
-export const loader = defineLoader(async ({request}) => {
+export const loader = defineLoader(async ({request}): Promise<never> => {
   const sessionId = await parseCookie(request.headers.get("cookie"))
 
   if (!sessionId) {
-    return redirect("/admin", {
+    throw redirect("/admin", {
       status: 401
     })
   }
 
   await lucia.invalidateSession(sessionId)
 
-  return redirect("/admin", {
+  throw redirect("/admin", {
     headers: {
       "set-cookie": await removeCookie()
     }
