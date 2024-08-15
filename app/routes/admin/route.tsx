@@ -3,7 +3,8 @@ import {
   type MetaArgs_SingleFetch as MetaArgs,
   type MetaDescriptor,
   useRouteError,
-  isRouteErrorResponse
+  isRouteErrorResponse,
+  Link
 } from "@remix-run/react"
 import {
   SquarePen,
@@ -74,7 +75,7 @@ const AdminLayout: FC = () => (
           </SidebarTrigger>
 
           {/* FIXME: This should be configurable */}
-          <div>Eri's blog</div>
+          <Link to="/admin">Eri's blog</Link>
 
           <div className="flex-1" />
 
