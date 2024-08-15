@@ -1,5 +1,5 @@
 import {
-  redirect,
+  replace,
   json,
   unstable_defineLoader as defineLoader,
   unstable_defineAction as defineAction
@@ -34,7 +34,7 @@ export const action = defineAction(async ({request, context: {orm}}) => {
   const session = await lucia.createSession(user.id, {})
   const cookie = await serializeCookie(session.id)
 
-  return redirect("/admin", {
+  throw replace("/admin", {
     headers: {
       "set-cookie": cookie
     }

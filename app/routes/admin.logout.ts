@@ -1,5 +1,5 @@
 import {
-  redirect,
+  replace,
   unstable_defineLoader as defineLoader,
   unstable_defineAction as defineAction
 } from "@remix-run/node"
@@ -11,14 +11,14 @@ export const loader = defineLoader(async ({request}): Promise<never> => {
   const sessionId = await parseCookie(request.headers.get("cookie"))
 
   if (!sessionId) {
-    throw redirect("/admin", {
+    throw replace("/admin", {
       status: 401
     })
   }
 
   await lucia.invalidateSession(sessionId)
 
-  throw redirect("/admin", {
+  throw replace("/admin", {
     headers: {
       "set-cookie": await removeCookie()
     }

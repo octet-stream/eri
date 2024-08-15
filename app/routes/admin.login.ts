@@ -1,6 +1,6 @@
 import {
   json,
-  redirect,
+  replace,
   unstable_defineLoader as defineLoader,
   unstable_defineAction as defineAction
 } from "@remix-run/node"
@@ -38,7 +38,7 @@ export const action = defineAction(async ({request, context: {orm}}) => {
     {
       populate: ["password"],
       failHandler() {
-        throw redirect("/admin", {
+        throw replace("/admin", {
           status: 404
         })
       }
@@ -46,7 +46,7 @@ export const action = defineAction(async ({request, context: {orm}}) => {
   )
 
   if (!(await password.verify(user.password, submission.value.password))) {
-    throw redirect("/admin", {
+    throw replace("/admin", {
       status: 401
     })
   }
@@ -54,7 +54,7 @@ export const action = defineAction(async ({request, context: {orm}}) => {
   const session = await lucia.createSession(user.id, {})
   const cookie = await serializeCookie(session.id)
 
-  throw redirect("/admin", {
+  throw replace("/admin", {
     headers: {
       "set-cookie": cookie
     }
