@@ -6,7 +6,7 @@ import {
   useRouteError,
   isRouteErrorResponse
 } from "@remix-run/react"
-import {SquarePen, Menu} from "lucide-react"
+import {SquarePen, Menu, Settings2} from "lucide-react"
 import type {FC} from "react"
 
 import {
@@ -80,6 +80,10 @@ const AdminLayout: FC = () => (
         <Sidebar>
           <SidebarItem icon={SquarePen} href="/admin/posts/new">
             New post
+          </SidebarItem>
+
+          <SidebarItem icon={Settings2} href="/admin/settings">
+            Settings
           </SidebarItem>
         </Sidebar>
 

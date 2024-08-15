@@ -6,7 +6,7 @@ import {
 } from "@remix-run/node"
 import {parseWithZod} from "@conform-to/zod"
 
-import {AdminLogInInput} from "../server/zod/user/AdminLogInInput.js"
+import {AdminLogInInput} from "../server/zod/admin/AdminLogInInput.js"
 import {serializeCookie} from "../server/lib/auth/cookie.js"
 import {password} from "../server/lib/auth/password.js"
 import {lucia} from "../server/lib/auth/lucia.js"
