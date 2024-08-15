@@ -1,3 +1,4 @@
+import type {MetaDescriptor} from "@remix-run/react"
 import {parseWithZod} from "@conform-to/zod"
 import {json} from "@remix-run/node"
 import type {FC} from "react"
@@ -48,9 +49,15 @@ export const action = defineAdminAction(
 
     await orm.em.flush()
 
-    return json(submission.reply({resetForm: true}))
+    return json(submission.reply({resetForm: true})) // ! See https://github.com/edmundhung/conform/issues/628
   }
 )
+
+export const meta = (): MetaDescriptor[] => [
+  {
+    title: "Settings"
+  }
+]
 
 export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb>Settings</Breadcrumb>
