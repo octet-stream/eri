@@ -27,7 +27,8 @@ export const Sidebar: FC<SidebarProps> = ({className, children}) => (
       {children}
     </SidebarContent>
 
-    <SheetContent>
+    {/* FIXME: Hide sheet and overlay for big displays */}
+    <SheetContent className="flex flex-1">
       <SidebarContent>{children}</SidebarContent>
     </SheetContent>
   </Fragment>

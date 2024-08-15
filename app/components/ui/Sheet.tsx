@@ -66,6 +66,7 @@ export interface SheetContentProps
   extends ComponentPropsWithoutRef<typeof Content>,
     VariantProps<typeof sheetVariants> {}
 
+// TODO: Support <Slot /> in this component
 export const SheetContent = forwardRef<SheetContentRef, SheetContentProps>(
   ({side = "left", className, children, ...props}, ref) => (
     <SheetPortal>
