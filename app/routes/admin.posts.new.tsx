@@ -1,6 +1,6 @@
 import {useForm, getTextareaProps, getFormProps} from "@conform-to/react"
+import {replace, useActionData, generatePath} from "@remix-run/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
-import {redirect, useActionData} from "@remix-run/react"
 import {type MetaFunction, json} from "@remix-run/node"
 import type {FC} from "react"
 
@@ -37,7 +37,7 @@ export const action = defineAdminAction(
 
     await orm.em.persistAndFlush(post)
 
-    throw redirect(`/admin/posts/${post.slug}`)
+    throw replace(generatePath("/admin/posts/:slug", {slug: post.slug}))
   }
 )
 
