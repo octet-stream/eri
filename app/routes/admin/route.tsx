@@ -1,12 +1,17 @@
 import {
   Outlet,
-  Link,
   type MetaArgs_SingleFetch as MetaArgs,
   type MetaDescriptor,
   useRouteError,
   isRouteErrorResponse
 } from "@remix-run/react"
-import {SquarePen, Menu, Settings2} from "lucide-react"
+import {
+  SquarePen,
+  Menu,
+  Settings2,
+  LogOut,
+  SquareArrowOutUpRight
+} from "lucide-react"
 import type {FC} from "react"
 
 import {
@@ -65,14 +70,23 @@ const AdminLayout: FC = () => (
       <header className="border-b w-full">
         <div className="flex w-full p-5 gap-3 laptop:max-w-laptop mx-auto items-center">
           <SidebarTrigger>
-            <Menu />
+            <Menu size={20} />
           </SidebarTrigger>
+
+          <div>Eri's blog</div>
 
           <div className="flex-1" />
 
-          <Link to="/" className="font-normal text-foreground text-sm">
-            View blog
-          </Link>
+          <a
+            href="/"
+            target="_blank"
+            rel="noreferrer"
+            className="font-normal text-foreground text-sm flex gap-2 items-center"
+          >
+            <span>View blog</span>
+
+            <SquareArrowOutUpRight size={20} />
+          </a>
         </div>
       </header>
 
@@ -84,6 +98,12 @@ const AdminLayout: FC = () => (
 
           <SidebarItem icon={Settings2} href="/admin/settings">
             Settings
+          </SidebarItem>
+
+          <div className="flex flex-1" />
+
+          <SidebarItem icon={LogOut} href="/admin/logout">
+            Log out
           </SidebarItem>
         </Sidebar>
 
