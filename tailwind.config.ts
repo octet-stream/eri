@@ -13,7 +13,10 @@ const dynamicScreenHeight = "100dvh"
 const dynamicScreenKey = "dynamic-screen"
 
 export default {
-  content: ["**/*.tsx"],
+  content: {
+    relative: true,
+    files: ["app/**/*.tsx"]
+  },
   theme: {
     container: {
       center: true,

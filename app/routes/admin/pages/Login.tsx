@@ -3,7 +3,7 @@ import {parseWithZod, getZodConstraint} from "@conform-to/zod"
 import {useActionData, Form} from "@remix-run/react"
 import type {FC} from "react"
 
-import {AdminLogInInput} from "../../../server/zod/user/AdminLogInInput.js"
+import {AdminLogInInput} from "../../../server/zod/admin/AdminLogInInput.js"
 
 import {Input} from "../../../components/ui/Input.jsx"
 import {Label} from "../../../components/ui/Label.jsx"
