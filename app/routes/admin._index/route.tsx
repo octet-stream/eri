@@ -24,7 +24,10 @@ export const loader = defineAdminLoader(async ({request, context: {orm}}) => {
 
     {
       offset: args.offset,
-      limit: args.limit
+      limit: args.limit,
+      orderBy: {
+        createdAt: "desc"
+      }
     }
   )
 

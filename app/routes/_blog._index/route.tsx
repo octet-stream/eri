@@ -27,7 +27,10 @@ export const loader = defineLoader(async ({context: {orm}, request}) => {
 
     {
       offset: args.offset,
-      limit: args.limit
+      limit: args.limit,
+      orderBy: {
+        createdAt: "desc"
+      }
     }
   )
 
