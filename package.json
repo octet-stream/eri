@@ -50,6 +50,7 @@
     "@remix-run/react": "2.11.1",
     "@remix-run/server-runtime": "2.11.1",
     "@sindresorhus/slugify": "2.2.1",
+    "@tanstack/react-table": "8.20.1",
     "@udecode/cn": "33.0.0",
     "@udecode/plate-alignment": "36.0.11",
     "@udecode/plate-autoformat": "36.0.0",
