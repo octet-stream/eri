@@ -2,7 +2,7 @@
 
 Minimalistic open source blog engine.
 
-This project built with [Remix](https://remix.run/), [Lucia](https://lucia-auth.com/), [Mikro ORM](https://mikro-orm.io/), [Tailwind](https://tailwindcss.com/docs) and [shadcn/ui](https://ui.shadcn.com/).
+This project built with [Remix](https://remix.run/), [Hono](https://hono.dev), [Mikro ORM](https://mikro-orm.io/), [Lucia](https://lucia-auth.com/), [Tailwind CSS](https://tailwindcss.com/docs) and [shadcn/ui](https://ui.shadcn.com/).
 
 ## Database schema setup
 
