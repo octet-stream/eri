@@ -31,7 +31,6 @@ import {Button} from "../../../components/ui/Button.jsx"
 
 import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
 import type {loader} from "../route.jsx"
-import {cn} from "@udecode/cn"
 
 export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
 
