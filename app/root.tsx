@@ -3,6 +3,8 @@ import type {FC, ReactNode} from "react"
 
 import "./tailwind.css"
 
+import {Toaster} from "./components/ui/Toaster.jsx"
+
 interface Props {
   children: ReactNode
 }
@@ -19,6 +21,8 @@ export const Layout: FC<Props> = ({children}) => (
 
     <body className="bg-background text-foreground">
       <main className="w-screen min-h-dynamic-screen flex ">{children}</main>
+
+      <Toaster />
 
       <ScrollRestoration />
 

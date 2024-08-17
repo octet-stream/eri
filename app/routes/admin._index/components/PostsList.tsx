@@ -8,6 +8,7 @@ import {useLoaderData, generatePath, Link} from "@remix-run/react"
 import {SquareArrowOutUpRight, MoreVertical} from "lucide-react"
 import type {FC, MouseEventHandler} from "react"
 import {useEvent} from "react-use-event-hook"
+import {toast} from "sonner"
 
 import {
   Table,
@@ -98,13 +99,15 @@ const columns = [
     cell: ({row}) => {
       const {original: post} = row
 
-      const copyLink = useEvent<MouseEventHandler>(() => {
-        navigator.clipboard.writeText(
+      const copyLink = useEvent<MouseEventHandler>(async () => {
+        await navigator.clipboard.writeText(
           new URL(
             generatePath("/posts/:slug", {slug: post.slug}),
             window.location.href
           ).href
         )
+
+        toast.success("Link copied")
       })
 
       return (
