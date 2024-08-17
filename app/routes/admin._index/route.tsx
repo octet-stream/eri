@@ -41,11 +41,7 @@ const AdminDashboardPage = () => {
     return <NoPosts />
   }
 
-  return (
-    <PostsContext.Provider value={posts}>
-      <PostsList />
-    </PostsContext.Provider>
-  )
+  return <PostsList />
 }
 
 export default AdminDashboardPage
