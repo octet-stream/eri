@@ -52,6 +52,7 @@ const columns = [
         target="_blank"
         rel="noreferrer"
         href={generatePath("/admin/posts/:slug", {slug: ctx.getValue()})}
+        aria-label="Open post in a new tab"
       >
         <SquareArrowOutUpRight size={20} />
       </a>
@@ -69,48 +70,56 @@ export const PostsList: FC = () => {
   })
 
   return (
-    <div className="rounded-md border w-full">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map(group => (
-            <TableRow key={group.id}>
-              {group.headers.map(header => (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
-
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map(row => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+    <div className="w-full">
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map(group => (
+              <TableRow key={group.id}>
+                {group.headers.map(header => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
                 ))}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            ))}
+          </TableHeader>
+
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map(row => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   )
 }
