@@ -1,7 +1,6 @@
 import {unstable_defineLoader as defineLoader} from "@remix-run/node"
 import {useLoaderData} from "@remix-run/react"
 import {SlateView} from "slate-to-react"
-import {format} from "date-fns"
 import type {FC} from "react"
 import type {
   MetaArgs_SingleFetch as MetaArgs,
