@@ -5,8 +5,9 @@ import {
   createColumnHelper
 } from "@tanstack/react-table"
 import {useLoaderData, generatePath, Link} from "@remix-run/react"
-import {SquareArrowOutUpRight} from "lucide-react"
-import type {FC} from "react"
+import {SquareArrowOutUpRight, MoreVertical} from "lucide-react"
+import type {FC, MouseEventHandler} from "react"
+import {useEvent} from "react-use-event-hook"
 
 import {
   Table,
@@ -17,9 +18,19 @@ import {
   TableRow
 } from "../../../components/ui/Table.jsx"
 import {Checkbox} from "../../../components/ui/Checkbox.jsx"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuContent,
+  DropdownMenuSeparator
+} from "../../../components/ui/DropdownMenu.jsx"
+import {Button} from "../../../components/ui/Button.jsx"
 
 import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
 import type {loader} from "../route.jsx"
+import {cn} from "@udecode/cn"
 
 export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
 
@@ -60,9 +71,6 @@ const columns = [
       </Link>
     )
   }),
-  // {
-  //   id: "actions"
-  // },
   helper.accessor("createdAt", {
     id: "createdAt",
     enableHiding: false,
@@ -77,12 +85,61 @@ const columns = [
       <a
         target="_blank"
         rel="noreferrer"
-        href={generatePath("/admin/posts/:slug", {slug: ctx.getValue()})}
-        aria-label="Open post in a new tab"
+        href={generatePath("/posts/:slug", {slug: ctx.getValue()})}
+        aria-label="View post in blog"
       >
         <SquareArrowOutUpRight size={20} />
       </a>
     )
+  }),
+  helper.display({
+    id: "actions",
+    enableHiding: false,
+    cell: ({row}) => {
+      const {original: post} = row
+
+      const copyLink = useEvent<MouseEventHandler>(() => {
+        navigator.clipboard.writeText(
+          new URL(
+            generatePath("/posts/:slug", {slug: post.slug}),
+            window.location.href
+          ).href
+        )
+      })
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="p-0 w-10">
+              <span className="sr-only">Open menu</span>
+              <MoreVertical size={20} />
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem onClick={copyLink}>Copy link</DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+
+            <DropdownMenuItem>Mark as draft</DropdownMenuItem>
+
+            <DropdownMenuItem>Archive</DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem className="text-destructive focus:text-destructive">
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    }
   })
 ]
 
