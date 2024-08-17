@@ -2,6 +2,7 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
+  createColumnHelper,
   type ColumnDef
 } from "@tanstack/react-table"
 import {useLoaderData, generatePath} from "@remix-run/react"
@@ -19,37 +20,43 @@ import {
 
 import type {loader} from "../route.jsx"
 
-export type PostsListData = Awaited<ReturnType<typeof loader>>["items"]
+export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
 
-const columns: ColumnDef<PostsListData[number]>[] = [
+const helper = createColumnHelper<PostsListData>()
+
+const columns = [
   // {
   //   id: "select"
   // },
-  {
+  helper.accessor("title", {
     id: "title",
-    header: () => <div>Title</div>,
-    cell: ({row}) => (
-      <a href={generatePath("/admin/posts/:slug", {slug: row.original.slug})}>
-        {row.original.title}
+    header: () => "Title",
+    cell: ctx => (
+      <a
+        href={generatePath("/admin/posts/:slug", {
+          slug: ctx.row.getValue("slug")
+        })}
+      >
+        {ctx.getValue()}
       </a>
     )
-  },
+  }),
   // {
   //   id: "actions"
   // },
-  {
-    id: "link",
-    header: () => <div>Link</div>,
-    cell: ({row}) => (
+  helper.accessor("slug", {
+    id: "slug",
+    header: () => "Link",
+    cell: ctx => (
       <a
         target="_blank"
         rel="noreferrer"
-        href={generatePath("/admin/posts/:slug", {slug: row.original.slug})}
+        href={generatePath("/admin/posts/:slug", {slug: ctx.getValue()})}
       >
         <SquareArrowOutUpRight size={20} />
       </a>
     )
-  }
+  })
 ]
 
 export const PostsList: FC = () => {
