@@ -2,10 +2,9 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
-  createColumnHelper,
-  type ColumnDef
+  createColumnHelper
 } from "@tanstack/react-table"
-import {useLoaderData, generatePath} from "@remix-run/react"
+import {useLoaderData, generatePath, Link} from "@remix-run/react"
 import {SquareArrowOutUpRight} from "lucide-react"
 import type {FC} from "react"
 
@@ -19,6 +18,7 @@ import {
 } from "../../../components/ui/Table.jsx"
 
 import type {loader} from "../route.jsx"
+import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
 
 export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
 
@@ -30,23 +30,31 @@ const columns = [
   // },
   helper.accessor("title", {
     id: "title",
+    enableHiding: false,
     header: () => "Title",
     cell: ctx => (
-      <a
-        href={generatePath("/admin/posts/:slug", {
+      <Link
+        to={generatePath("/admin/posts/:slug", {
           slug: ctx.row.getValue("slug")
         })}
       >
         {ctx.getValue()}
-      </a>
+      </Link>
     )
   }),
   // {
   //   id: "actions"
   // },
+  helper.accessor("createdAt", {
+    id: "createdAt",
+    enableHiding: false,
+    header: () => "Created",
+    cell: ctx => formatPostDate(ctx.getValue())
+  }),
   helper.accessor("slug", {
     id: "slug",
-    header: () => "Link",
+    enableHiding: false,
+    header: () => null,
     cell: ctx => (
       <a
         target="_blank"
