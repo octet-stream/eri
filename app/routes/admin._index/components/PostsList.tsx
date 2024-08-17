@@ -16,18 +16,36 @@ import {
   TableCell,
   TableRow
 } from "../../../components/ui/Table.jsx"
+import {Checkbox} from "../../../components/ui/Checkbox.jsx"
 
-import type {loader} from "../route.jsx"
 import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
+import type {loader} from "../route.jsx"
 
 export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
 
 const helper = createColumnHelper<PostsListData>()
 
 const columns = [
-  // {
-  //   id: "select"
-  // },
+  helper.display({
+    id: "select",
+    header: ({table}) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all posts"
+      />
+    ),
+    cell: ({row}) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={value => row.toggleSelected(!!value)}
+        aria-label="Select post"
+      />
+    )
+  }),
   helper.accessor("title", {
     id: "title",
     enableHiding: false,

@@ -1,8 +1,8 @@
 import {useLoaderData} from "@remix-run/react"
+import type {FC} from "react"
 
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
-import {PostsContext} from "./contexts/PostsContext.jsx"
 
 import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.server.js"
 
@@ -34,14 +34,10 @@ export const loader = defineAdminLoader(async ({request, context: {orm}}) => {
   return page.reply({items, count})
 })
 
-const AdminDashboardPage = () => {
-  const posts = useLoaderData<typeof loader>()
+const AdminDashboardPage: FC = () => {
+  const {rowsCount} = useLoaderData<typeof loader>()
 
-  if (posts.rowsCount < 0) {
-    return <NoPosts />
-  }
-
-  return <PostsList />
+  return rowsCount > 0 ? <PostsList /> : <NoPosts />
 }
 
 export default AdminDashboardPage
