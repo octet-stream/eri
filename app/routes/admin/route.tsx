@@ -67,7 +67,7 @@ export const handle: BreadcrumbHandle = {
 
 const AdminLayout: FC = () => (
   <SidebarProvider>
-    <div className="w-full flex flex-col">
+    <div className="w-full">
       <header className="border-b w-full sticky top-0 z-50 bg-background">
         <div className="flex max-h-full w-full p-5 gap-3 laptop:max-w-laptop mx-auto items-center">
           <SidebarTrigger>
@@ -92,32 +92,28 @@ const AdminLayout: FC = () => (
         </div>
       </header>
 
-      <div className="flex-1">
-        <div className="w-full laptop:max-w-laptop mx-auto post:grid post:grid-flow-col post:grid-cols-[200px_minmax(0,1fr)] items-start">
-          <Sidebar>
-            <SidebarItem icon={SquarePen} href="/admin/posts/new">
-              New post
-            </SidebarItem>
+      <div className="w-full laptop:max-w-laptop mx-auto post:grid post:grid-flow-col post:grid-cols-[200px_minmax(0,1fr)] items-start">
+        <Sidebar>
+          <SidebarItem icon={SquarePen} href="/admin/posts/new">
+            New post
+          </SidebarItem>
 
-            <SidebarItem icon={Settings2} href="/admin/settings">
-              Settings
-            </SidebarItem>
+          <SidebarItem icon={Settings2} href="/admin/settings">
+            Settings
+          </SidebarItem>
 
-            <div className="flex flex-1" />
+          <div className="flex flex-1" />
 
-            <SidebarItem icon={LogOut} href="/admin/logout">
-              Log out
-            </SidebarItem>
-          </Sidebar>
+          <SidebarItem icon={LogOut} href="/admin/logout">
+            Log out
+          </SidebarItem>
+        </Sidebar>
 
-          {/* <div className="hidden post:block" /> */}
+        <div className="flex flex-col p-5 gap-5 h-full">
+          <Breadcrumbs />
 
-          <div className="flex flex-1 flex-col p-5 gap-5 min-w-0">
-            <Breadcrumbs />
-
-            <div className="flex flex-1">
-              <Outlet />
-            </div>
+          <div className="h-full">
+            <Outlet />
           </div>
         </div>
       </div>
