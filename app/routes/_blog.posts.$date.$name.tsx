@@ -1,7 +1,6 @@
 import {unstable_defineLoader as defineLoader} from "@remix-run/node"
 import {useLoaderData} from "@remix-run/react"
 import {SlateView} from "slate-to-react"
-import {format} from "date-fns"
 import type {FC} from "react"
 import type {
   MetaArgs_SingleFetch as MetaArgs,
@@ -19,6 +18,7 @@ import {Paragraph} from "../components/slate-view/elements/Paragraph.jsx"
 import {Heading} from "../components/slate-view/elements/Heading.jsx"
 import {Text} from "../components/slate-view/leaves/Text.jsx"
 
+import {formatPostDate} from "../lib/utils/formatPostDate.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
@@ -71,7 +71,7 @@ const PostViewPage: FC = () => {
         <CommonHeading variant="h1">{post.title}</CommonHeading>
 
         <small className="text-muted-foreground">
-          {format(post.createdAt, "MMMM do, y")}
+          {formatPostDate(post.createdAt)}
         </small>
       </div>
 
