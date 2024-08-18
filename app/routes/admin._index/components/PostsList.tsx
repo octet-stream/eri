@@ -5,7 +5,7 @@ import {
   createColumnHelper
 } from "@tanstack/react-table"
 import {useLoaderData, generatePath, Link} from "@remix-run/react"
-import {SquareArrowOutUpRight, MoreVertical} from "lucide-react"
+import {SquareArrowOutUpRight, MoreHorizontal} from "lucide-react"
 import type {FC, MouseEventHandler} from "react"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
@@ -88,7 +88,7 @@ const columns = [
         href={generatePath("/posts/:slug", {slug: ctx.getValue()})}
         aria-label="View post in blog"
       >
-        <SquareArrowOutUpRight size={20} />
+        <SquareArrowOutUpRight size={16} />
       </a>
     )
   }),
@@ -112,9 +112,9 @@ const columns = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="p-0 w-10">
+            <Button variant="ghost" className="p-0 h-8 w-8">
               <span className="sr-only">Open menu</span>
-              <MoreVertical size={20} />
+              <MoreHorizontal size={16} />
             </Button>
           </DropdownMenuTrigger>
 
