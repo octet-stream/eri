@@ -83,7 +83,7 @@ const AdminLayout: FC = () => (
             href="/"
             target="_blank"
             rel="noreferrer"
-            className="font-normal text-foreground text-sm flex gap-2 items-center"
+            className="font-normal text-foreground text-sm flex gap-3 items-center"
           >
             <span>View blog</span>
 
