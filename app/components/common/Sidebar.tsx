@@ -13,7 +13,7 @@ export interface SidebarProps {
 const SidebarContent: FC<SidebarProps> = ({children, className}) => (
   <aside
     className={cn(
-      "flex flex-col w-full post:w-[200px] laptop:px-5 shrink-0 text-sm",
+      "flex flex-col bg-background w-full post:w-[200px] sticky post:h-[calc(100dvh_-_65px)] post:top-[65px] laptop:px-5 shrink-0 text-sm",
       className
     )}
   >

@@ -67,9 +67,9 @@ export const handle: BreadcrumbHandle = {
 
 const AdminLayout: FC = () => (
   <SidebarProvider>
-    <div className="flex flex-1 flex-col w-full">
-      <header className="border-b w-full">
-        <div className="flex w-full p-5 gap-3 laptop:max-w-laptop mx-auto items-center">
+    <div className="w-full">
+      <header className="border-b w-full sticky top-0 z-50 bg-background">
+        <div className="flex max-h-full w-full p-5 gap-3 laptop:max-w-laptop mx-auto items-center">
           <SidebarTrigger>
             <Menu size={20} />
           </SidebarTrigger>
@@ -83,7 +83,7 @@ const AdminLayout: FC = () => (
             href="/"
             target="_blank"
             rel="noreferrer"
-            className="font-normal text-foreground text-sm flex gap-2 items-center"
+            className="font-normal text-foreground text-sm flex gap-3 items-center"
           >
             <span>View blog</span>
 
@@ -92,7 +92,7 @@ const AdminLayout: FC = () => (
         </div>
       </header>
 
-      <div className="flex flex-row flex-1 w-full laptop:max-w-laptop mx-auto">
+      <div className="w-full laptop:max-w-laptop mx-auto post:grid post:grid-flow-col post:grid-cols-[200px_minmax(0,1fr)] items-start">
         <Sidebar>
           <SidebarItem icon={SquarePen} href="/admin/posts/new">
             New post
@@ -109,10 +109,10 @@ const AdminLayout: FC = () => (
           </SidebarItem>
         </Sidebar>
 
-        <div className="flex flex-1 flex-col p-5 gap-5 min-w-0">
+        <div className="flex flex-col p-5 gap-5 h-full">
           <Breadcrumbs />
 
-          <div className="flex flex-1">
+          <div className="h-full">
             <Outlet />
           </div>
         </div>
