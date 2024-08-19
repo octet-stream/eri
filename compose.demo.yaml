@@ -33,7 +33,7 @@ services:
         condition: service_healthy
     build:
       context: .
-    environment: # empty values will bypass corresponding variables to app
+    environment: # Empty values will passthrough corresponding variables to app
       DB_NAME:
       DB_HOST: mysql
       DB_PORT: 3306

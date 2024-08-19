@@ -26,17 +26,19 @@ services:
 
   eri:
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     build:
       context: .
-      dockerfile: ./apps/eri/Dockerfile
-    environment:
+    environment: # Empty values will passthrough corresponding variables to app
       DB_NAME:
       DB_HOST: mysql
       DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD:
+      AUTH_SECRET:
+      AUTH_SESSION_COOKIE_NAME:
     ports:
-      - "3000"
+      - "1337:3000"
     networks:
       - mysql
