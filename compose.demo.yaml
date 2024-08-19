@@ -41,7 +41,7 @@ services:
       DB_PASSWORD:
       AUTH_SECRET:
       AUTH_SESSION_COOKIE_NAME:
-    command: sh -c "pnpm mikro-orm schema:create -r && pnpm start"
+    command: sh -c "npm exec mikro-orm schema:create -- -r && node --run start"
     ports:
       - "1337:3000"
     networks:
