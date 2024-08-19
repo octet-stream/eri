@@ -42,4 +42,4 @@ COPY --from=build /usr/src/eri/package.json package.json
 COPY --from=deps-prod /usr/src/eri/node_modules node_modules
 
 EXPOSE 3000
-CMD ["pnpm", "eri", "start"]
+CMD ["node", "--run", "start"]
