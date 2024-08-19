@@ -1,4 +1,6 @@
-FROM node:22-alpine as base
+FROM node:22-alpine as runtime
+
+FROM runtime as base
 
 RUN apk add --no-cache libc6-compat
 
@@ -33,7 +35,7 @@ COPY --from=deps-dev /usr/src/eri/ .
 
 RUN pnpm build
 
-FROM base as dist
+FROM runtime
 
 WORKDIR /usr/opt/eri
 
@@ -42,4 +44,4 @@ COPY --from=build /usr/src/eri/package.json package.json
 COPY --from=deps-prod /usr/src/eri/node_modules node_modules
 
 EXPOSE 3000
-CMD ["node", "--run", "start"]
+CMD ["node", "--no-warnings", "--run", "start"]
