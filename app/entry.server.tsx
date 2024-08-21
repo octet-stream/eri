@@ -11,6 +11,7 @@ import {createReadableStreamFromReadable} from "@remix-run/node"
 import {createHonoServer} from "react-router-hono-server/node"
 import {renderToPipeableStream} from "react-dom/server"
 import {RemixServer} from "@remix-run/react"
+import {csrf} from "hono/csrf"
 import {isbot} from "isbot"
 
 import "./server/lib/env.js"
@@ -24,7 +25,10 @@ export const server = await createHonoServer({
   port: Number.parseInt(process.env.PORT || "", 10) || 3000,
 
   configure(hono) {
-    hono.use(withOrm()).use(withAuth())
+    hono
+      .use(csrf()) // TODO: specify origin for production
+      .use(withOrm())
+      .use(withAuth())
   },
 
   async getLoadContext(ctx) {
