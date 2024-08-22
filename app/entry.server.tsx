@@ -14,7 +14,7 @@ import {RemixServer} from "@remix-run/react"
 import {csrf} from "hono/csrf"
 import {isbot} from "isbot"
 
-import "./server/lib/env.js"
+import config from "./server/lib/config.js"
 
 import {withOrm} from "./server/middlewares/withOrm.js"
 import {withAuth} from "./server/middlewares/withAuth.js"
@@ -22,7 +22,7 @@ import {Auth} from "./server/lib/auth/Auth.js"
 import {getOrm} from "./server/lib/db/orm.js"
 
 export const server = await createHonoServer({
-  port: Number.parseInt(process.env.PORT || "", 10) || 3000,
+  port: config.server.port,
 
   configure(hono) {
     hono

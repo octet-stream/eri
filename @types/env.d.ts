@@ -1,8 +1,4 @@
 namespace NodeJS {
-  interface Process {
-    loadEnvFile(path: string): void
-  }
-
   interface ProcessEnv {
     // Node.js
     readonly NODE_ENV: "production" | "development" | "test"

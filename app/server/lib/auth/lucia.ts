@@ -1,12 +1,14 @@
 import {Lucia} from "lucia"
 
+import config from "../config.js"
+
 import {MikroORMAdapter} from "./MikroORMAdapter.js"
 import {ttl} from "./ttl.js"
 
 export const lucia = new Lucia(new MikroORMAdapter(), {
   sessionExpiresIn: ttl,
   sessionCookie: {
-    name: process.env.AUTH_SESSION_COOKIE_NAME ?? "eri.sid", // TODO: Make session name configurable
+    name: config.auth.session.name,
     attributes: {
       secure: process.env.NODE_ENV === "production"
     }
