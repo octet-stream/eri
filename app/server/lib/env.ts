@@ -2,8 +2,10 @@ import {resolve} from "node:path"
 
 import pc from "picocolors"
 
+import {Env} from "./zod/Env.js"
+
 // @ts-expect-error Allow to override this readonly property here
-process.env.NODE_ENV ||= "development"
+process.env.NODE_ENV = Env.parse(process.env.NODE_ENV)
 
 function loadEnv(name: string): boolean {
   let hasFound = false

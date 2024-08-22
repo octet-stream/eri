@@ -9,6 +9,8 @@ import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
 import {PostsContext} from "./contexts/PostsContext.jsx"
 
+import config from "../../server/lib/config.js"
+
 import {Post} from "../../server/db/entities.js"
 import {PostPage} from "../../server/zod/post/PostPage.js"
 
@@ -36,7 +38,7 @@ export const loader = defineLoader(async ({context: {orm}, request}) => {
 
   return {
     page: await page.reply({items, count}),
-    title: process.env.BLOG_NAME || "Eri's blog"
+    title: config.app.name
   }
 })
 

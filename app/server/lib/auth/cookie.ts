@@ -2,12 +2,13 @@ import {createCookie, type CookieSerializeOptions} from "@remix-run/node"
 
 import type {Maybe} from "../../../lib/types/Maybe.js"
 
+import config from "../config.js"
+
 import {lucia} from "./lucia.js"
 import {ttl} from "./ttl.js"
 
 const cookie = createCookie(lucia.sessionCookieName, {
-  // TODO: Add zod validation for AUTH_SECRET parameter and make it required
-  secrets: process.env.AUTH_SECRET ? [process.env.AUTH_SECRET] : undefined
+  secrets: config.auth.secrets
 })
 
 const baseSerializeOptions: Omit<CookieSerializeOptions, "maxAge"> = {
