@@ -6,27 +6,25 @@ import type {
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 
+import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
 import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.server.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
+import {parseInput} from "../server/zod/utils/parseInput.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 
-interface Params {
-  date: string
-  name: string
-}
-
 export const loader = defineAdminLoader(async ({params, context: {orm}}) => {
-  const {date, name} = params as unknown as Params
+  const slug = await parseInput(PostSlug, params as IPostSlug, {async: true})
 
   const post = await orm.em.findOneOrFail(
     Post,
 
     {
-      slug: [date, name].join("/")
+      slug
     },
 
     {
+      filters: false, // Admin can see all posts
       populate: ["content"],
       failHandler(): never {
         throw new Response(null, {

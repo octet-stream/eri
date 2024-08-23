@@ -1,7 +1,7 @@
 import type {z} from "zod"
 
 export interface ResolveResultOptions<TInput> {
-  onError(reason: z.SafeParseError<TInput>): never
+  onError?(reason: z.SafeParseError<TInput>): never
 }
 
 function onErrorFallback<TInput>(reason: z.SafeParseError<TInput>): never {

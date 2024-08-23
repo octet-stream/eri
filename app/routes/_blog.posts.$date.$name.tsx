@@ -18,24 +18,21 @@ import {Paragraph} from "../components/slate-view/elements/Paragraph.jsx"
 import {Heading} from "../components/slate-view/elements/Heading.jsx"
 import {Text} from "../components/slate-view/leaves/Text.jsx"
 
-import {formatPostDate} from "../lib/utils/formatPostDate.js"
+import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
+import {formatPostDate} from "../lib/utils/formatPostDate.js"
+import {parseInput} from "../server/zod/utils/parseInput.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 
-interface Params {
-  date: string
-  name: string
-}
-
 export const loader = defineLoader(async ({params, context: {orm}}) => {
-  const {date, name} = params as unknown as Params
+  const slug = await parseInput(PostSlug, params as IPostSlug, {async: true})
 
   const post = await orm.em.findOneOrFail(
     Post,
 
     {
-      slug: [date, name].join("/")
+      slug
     },
 
     {
