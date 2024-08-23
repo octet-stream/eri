@@ -3,7 +3,7 @@ import {z} from "zod"
 export const PostSlug = z
   .object({
     date: z.string().date(),
-    name: z.string().min(8).max(252)
+    name: z.string().min(7).max(252)
   })
   .transform(({date, name}) => [date, name].join("/"))
 

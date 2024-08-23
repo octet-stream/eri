@@ -8,6 +8,7 @@ import {useLoaderData, generatePath, Link} from "@remix-run/react"
 import {SquareArrowOutUpRight, MoreHorizontal} from "lucide-react"
 import type {FC, MouseEventHandler} from "react"
 import {useEvent} from "react-use-event-hook"
+import {useMemo} from "react"
 import {toast} from "sonner"
 
 import {
@@ -36,6 +37,12 @@ export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
 
 const helper = createColumnHelper<PostsListData>()
 
+const createAdminPathname = (slug: string) =>
+  generatePath("/admin/posts/:slug", {slug})
+
+const createPublicPathname = (slug: string) =>
+  generatePath("/posts/:slug", {slug})
+
 const columns = [
   helper.display({
     id: "select",
@@ -62,11 +69,7 @@ const columns = [
     enableHiding: false,
     header: () => "Title",
     cell: ctx => (
-      <Link
-        to={generatePath("/admin/posts/:slug", {
-          slug: ctx.row.getValue("slug")
-        })}
-      >
+      <Link to={createAdminPathname(ctx.row.getValue("slug"))}>
         {ctx.getValue()}
       </Link>
     )
@@ -85,7 +88,7 @@ const columns = [
       <a
         target="_blank"
         rel="noreferrer"
-        href={generatePath("/posts/:slug", {slug: ctx.getValue()})}
+        href={generatePath("/admin/posts/:slug", {slug: ctx.getValue()})}
         aria-label="View post in blog"
       >
         <SquareArrowOutUpRight size={16} />
@@ -98,12 +101,15 @@ const columns = [
     cell: ({row}) => {
       const {original: post} = row
 
+      const publicPathname = useMemo(
+        () => createPublicPathname(post.slug),
+
+        [post.slug]
+      )
+
       const copyLink = useEvent<MouseEventHandler>(async () => {
         await navigator.clipboard.writeText(
-          new URL(
-            generatePath("/posts/:slug", {slug: post.slug}),
-            window.location.href
-          ).href
+          new URL(publicPathname, window.location.href).href
         )
 
         toast.success("Link copied")
@@ -122,6 +128,17 @@ const columns = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
             <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              asChild
+              className="w-full flex flex-row gap-2 items-center"
+            >
+              <a href={publicPathname} target="_blank" rel="noreferrer">
+                <span>View in blog</span>
+
+                <SquareArrowOutUpRight size={16} />
+              </a>
+            </DropdownMenuItem>
 
             <DropdownMenuItem onClick={copyLink}>Copy link</DropdownMenuItem>
 
