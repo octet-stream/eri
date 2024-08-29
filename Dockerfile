@@ -1,6 +1,6 @@
-FROM node:22-alpine as runtime
+FROM node:22-alpine AS runtime
 
-FROM runtime as base
+FROM runtime AS base
 
 RUN apk add --no-cache libc6-compat
 
@@ -13,23 +13,23 @@ RUN corepack enable
 WORKDIR /usr/src/eri
 
 # Prepare repository for eri
-FROM base as repo
+FROM base AS repo
 COPY . .
 
 # Prepare dependencies installation
-FROM base as deps-common
+FROM base AS deps-common
 COPY --from=repo /usr/src/eri/package.json .
 COPY --from=repo /usr/src/eri/pnpm-lock.yaml .
 
 # Prepare production-only dependencies
-FROM deps-common as deps-prod
+FROM deps-common AS deps-prod
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --prod --frozen-lockfile --prefer-offline --ignore-scripts
 
 # Prepare development-only
-FROM deps-common as deps-dev
+FROM deps-common AS deps-dev
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --frozen-lockfile --prefer-offline
 
-FROM base as build
+FROM base AS build
 COPY --from=repo /usr/src/eri/ .
 COPY --from=deps-dev /usr/src/eri/ .
 
