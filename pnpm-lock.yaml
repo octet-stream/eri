@@ -147,8 +147,8 @@ importers:
         specifier: 16.4.5
         version: 16.4.5
       hono:
-        specifier: 4.5.7
-        version: 4.5.7
+        specifier: 4.5.8
+        version: 4.5.8
       is-absolute-url:
         specifier: 4.0.1
         version: 4.0.1
@@ -199,7 +199,7 @@ importers:
         version: 3.39.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-hono-server:
         specifier: 0.0.4
-        version: 0.0.4(@remix-run/node@2.11.2(typescript@5.5.4))(hono@4.5.7)(remix-hono@0.0.16(typescript@5.5.4)(zod@3.23.8))(vite@5.4.2(@types/node@22.5.0))
+        version: 0.0.4(@remix-run/node@2.11.2(typescript@5.5.4))(hono@4.5.8)(remix-hono@0.0.16(typescript@5.5.4)(zod@3.23.8))(vite@5.4.2(@types/node@22.5.0))
       react-textarea-autosize:
         specifier: 8.5.3
         version: 8.5.3(@types/react@18.3.4)(react@18.3.1)
@@ -4269,8 +4269,8 @@ packages:
     resolution: {integrity: sha512-k2IguJfRgNCpDbAfpxk+o+fZBLFHl4+eIZUpjc1ItZWHeZ37SmT3efA1UpkIaC0hSf1NJg0E79/wWn6g9LQ4Cw==}
     engines: {node: '>=16.0.0'}
 
-  hono@4.5.7:
-    resolution: {integrity: sha512-7GeBa+zuZ6rXQEcsYvoAafLNgDr3IMxoMlU1JUc23Buy99FaUpjB0viKIFOsfnzMdEp7RhPL6uLYsVuddjdMvw==}
+  hono@4.5.8:
+    resolution: {integrity: sha512-pqpSlcdqGkpTTRpLYU1PnCz52gVr0zVR9H5GzMyJWuKQLLEBQxh96q45QizJ2PPX8NATtz2mu31/PKW/Jt+90Q==}
     engines: {node: '>=16.0.0'}
 
   hosted-git-info@6.1.1:
@@ -7362,10 +7362,10 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@hono/vite-dev-server@0.13.1(hono@4.5.7)':
+  '@hono/vite-dev-server@0.13.1(hono@4.5.8)':
     dependencies:
       '@hono/node-server': 1.12.1
-      hono: 4.5.7
+      hono: 4.5.8
       miniflare: 3.20240806.0
       minimatch: 9.0.5
     transitivePeerDependencies:
@@ -11307,7 +11307,7 @@ snapshots:
 
   hono@4.5.4: {}
 
-  hono@4.5.7: {}
+  hono@4.5.8: {}
 
   hosted-git-info@6.1.1:
     dependencies:
@@ -12881,12 +12881,12 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  react-router-hono-server@0.0.4(@remix-run/node@2.11.2(typescript@5.5.4))(hono@4.5.7)(remix-hono@0.0.16(typescript@5.5.4)(zod@3.23.8))(vite@5.4.2(@types/node@22.5.0)):
+  react-router-hono-server@0.0.4(@remix-run/node@2.11.2(typescript@5.5.4))(hono@4.5.8)(remix-hono@0.0.16(typescript@5.5.4)(zod@3.23.8))(vite@5.4.2(@types/node@22.5.0)):
     dependencies:
       '@hono/node-server': 1.12.1
-      '@hono/vite-dev-server': 0.13.1(hono@4.5.7)
+      '@hono/vite-dev-server': 0.13.1(hono@4.5.8)
       '@remix-run/node': 2.11.2(typescript@5.5.4)
-      hono: 4.5.7
+      hono: 4.5.8
       remix-hono: 0.0.16(typescript@5.5.4)(zod@3.23.8)
       vite: 5.4.2(@types/node@22.5.0)
     optionalDependencies:
@@ -13056,7 +13056,7 @@ snapshots:
   remix-hono@0.0.16(typescript@5.5.4)(zod@3.23.8):
     dependencies:
       '@remix-run/server-runtime': 2.11.2(typescript@5.5.4)
-      hono: 4.5.7
+      hono: 4.5.8
       pretty-cache-header: 1.0.0
     optionalDependencies:
       zod: 3.23.8
