@@ -55,8 +55,8 @@ jobs:
         with:
           title: Next release
           commit: Bump version
-          publish: pnpm changeset tag # This will create a new git tag
-          version: pnpm exec changeset version
+          publish: pnpm changeset tag
+          version: pnpm changeset version
 
     outputs:
       published: ${{steps.changesets.outputs.published}}
