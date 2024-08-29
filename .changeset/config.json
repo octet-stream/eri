@@ -3,6 +3,10 @@
   "access": "public",
   "baseBranch": "main",
   "commit": false,
+  "privatePackages": {
+    "tag": true,
+    "version": true
+  },
   "changelog": [
     "@changesets/changelog-github",
 
