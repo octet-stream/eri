@@ -1,11 +1,11 @@
-import {ELEMENT_CODE_LINE} from "@udecode/plate-code-block"
+import {CodeLinePlugin} from "@udecode/plate-code-block"
 import {z} from "zod"
 
 import {createElementType} from "../utils/createElementType.js"
 
 import {PlainText} from "./PlainText.js"
 
-export const ElementCodeLine = z.literal(ELEMENT_CODE_LINE)
+export const ElementCodeLine = z.literal(CodeLinePlugin.key)
 
 export const CodeLine = createElementType(
   ElementCodeLine,

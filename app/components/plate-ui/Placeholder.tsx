@@ -1,21 +1,22 @@
-import {Children, cloneElement} from "react"
+import React from "react"
+
 import {cn} from "@udecode/cn"
+import {ParagraphPlugin} from "@udecode/plate-common/react"
 import {
+  type PlaceholderProps,
   createNodeHOC,
   createNodesHOC,
-  type PlaceholderProps,
   usePlaceholderState
-} from "@udecode/plate-common"
-import {ELEMENT_H1} from "@udecode/plate-heading"
-import {ELEMENT_PARAGRAPH} from "@udecode/plate-paragraph"
+} from "@udecode/plate-common/react"
+import {HEADING_KEYS} from "@udecode/plate-heading"
 
 export const Placeholder = (props: PlaceholderProps) => {
-  const {children, placeholder, nodeProps} = props
+  const {children, nodeProps, placeholder} = props
 
   const {enabled} = usePlaceholderState(props)
 
-  return Children.map(children, child =>
-    cloneElement(child, {
+  return React.Children.map(children, child => {
+    return React.cloneElement(child, {
       className: child.props.className,
       nodeProps: {
         ...nodeProps,
@@ -26,25 +27,26 @@ export const Placeholder = (props: PlaceholderProps) => {
         placeholder
       }
     })
-  )
+  })
 }
 
 export const withPlaceholder = createNodeHOC(Placeholder)
+
 export const withPlaceholdersPrimitive = createNodesHOC(Placeholder)
 
-export const withPlaceholders = (components: unknown) =>
+export const withPlaceholders = (components: any) =>
   withPlaceholdersPrimitive(components, [
     {
-      key: ELEMENT_PARAGRAPH,
-      placeholder: "Type a paragraph",
       hideOnBlur: true,
+      key: ParagraphPlugin.key,
+      placeholder: "Type a paragraph",
       query: {
         maxLevel: 1
       }
     },
     {
-      key: ELEMENT_H1,
-      placeholder: "Untitled",
-      hideOnBlur: false
+      hideOnBlur: false,
+      key: HEADING_KEYS.h1,
+      placeholder: "Untitled"
     }
   ])

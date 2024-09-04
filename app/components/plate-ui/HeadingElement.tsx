@@ -1,40 +1,46 @@
-import {type ComponentProps, forwardRef} from "react"
-import {PlateElement} from "@udecode/plate-common"
-import {cva} from "class-variance-authority"
-import {withVariants} from "@udecode/cn"
+import React from "react"
 
-import type {Simplify} from "../../lib/types/Simplify.js"
-import {Heading} from "../common/Heading.jsx"
+import {withRef, withVariants} from "@udecode/cn"
+import {PlateElement} from "@udecode/plate-common/react"
+import {cva} from "class-variance-authority"
 
 const headingVariants = cva("", {
   variants: {
     isFirstBlock: {
-      true: "mt-0",
-      false: ""
+      false: "",
+      true: "mt-0"
+    },
+    variant: {
+      h1: "mb-1 mt-[2em] font-heading text-4xl font-bold",
+      h2: "mb-px mt-[1.4em] font-heading text-2xl font-semibold tracking-tight",
+      h3: "mb-px mt-[1em] font-heading text-xl font-semibold tracking-tight",
+      h4: "mt-[0.75em] font-heading text-lg font-semibold tracking-tight",
+      h5: "mt-[0.75em] text-lg font-semibold tracking-tight",
+      h6: "mt-[0.75em] text-base font-semibold tracking-tight"
     }
   }
 })
 
 const HeadingElementVariants = withVariants(PlateElement, headingVariants, [
-  "isFirstBlock"
+  "isFirstBlock",
+  "variant"
 ])
 
-type Props = Simplify<
-  ComponentProps<typeof Heading> & ComponentProps<typeof HeadingElementVariants>
->
+export const HeadingElement = withRef<typeof HeadingElementVariants>(
+  ({children, isFirstBlock, variant, ...props}, ref) => {
+    const {editor, element} = props
 
-export const HeadingElement = forwardRef<unknown, Props>(
-  ({children, ...props}, ref) => {
-    const {element, editor} = props
+    const Element = variant || "h2"
 
     return (
       <HeadingElementVariants
-        {...props}
-        ref={ref}
         asChild
         isFirstBlock={element === editor.children[0]}
+        ref={ref}
+        variant={variant}
+        {...props}
       >
-        <Heading>{children}</Heading>
+        <Element>{children}</Element>
       </HeadingElementVariants>
     )
   }

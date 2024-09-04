@@ -1,24 +1,17 @@
-import {
-  ELEMENT_H1,
-  ELEMENT_H2,
-  ELEMENT_H3,
-  ELEMENT_H4,
-  ELEMENT_H5,
-  ELEMENT_H6
-} from "@udecode/plate-heading"
+import {HEADING_KEYS} from "@udecode/plate-heading"
 import {z} from "zod"
 
-export const ElementH1 = z.literal(ELEMENT_H1)
+export const ElementH1 = z.literal(HEADING_KEYS.h1)
 
-export const ElementH2 = z.literal(ELEMENT_H2)
+export const ElementH2 = z.literal(HEADING_KEYS.h2)
 
-export const ElementH3 = z.literal(ELEMENT_H3)
+export const ElementH3 = z.literal(HEADING_KEYS.h3)
 
-export const ElementH4 = z.literal(ELEMENT_H4)
+export const ElementH4 = z.literal(HEADING_KEYS.h4)
 
-export const ElementH5 = z.literal(ELEMENT_H5)
+export const ElementH5 = z.literal(HEADING_KEYS.h5)
 
-export const ElementH6 = z.literal(ELEMENT_H6)
+export const ElementH6 = z.literal(HEADING_KEYS.h6)
 
 export const HeadingLevels = z.union([
   ElementH1,
