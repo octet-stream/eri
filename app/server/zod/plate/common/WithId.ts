@@ -1,24 +1,15 @@
 import {z} from "zod"
 
+import {createNodeId} from "../utils/nodeId.js"
 import {ID} from "../../common/ID.js"
 
+import {NodeId} from "./NodeId.js"
+
 export const WithId = z.object({
-  id: z
-    .string()
-    .optional()
-    .transform(async value => {
-      if (!value) {
-        return crypto.randomUUID()
-      }
-
-      const result = await ID.safeParseAsync(value)
-
-      if (result.success) {
-        return result.data
-      }
-
-      return crypto.randomUUID()
-    })
+  id: z.union([
+    NodeId.default(createNodeId),
+    ID.default(() => crypto.randomUUID()) // For backward compatibility
+  ])
 })
 
 export type IWithId = z.input<typeof WithId>

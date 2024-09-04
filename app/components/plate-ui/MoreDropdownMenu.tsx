@@ -1,8 +1,14 @@
-import {focusEditor, toggleMark, useEditorRef} from "@udecode/plate-common"
-import {MARK_SUBSCRIPT, MARK_SUPERSCRIPT} from "@udecode/plate-basic-marks"
+import React from "react"
+
 import type {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
-import type {FC} from "react"
-import {MoreHorizontal, Superscript, Subscript} from "lucide-react"
+
+import {
+  SubscriptPlugin,
+  SuperscriptPlugin
+} from "@udecode/plate-basic-marks/react"
+import {focusEditor, useEditorRef} from "@udecode/plate-common/react"
+
+import {Icons} from "./Icons.jsx"
 
 import {
   DropdownMenu,
@@ -13,7 +19,7 @@ import {
 } from "./DropdownMenu.jsx"
 import {ToolbarButton} from "./Toolbar.jsx"
 
-export const MoreDropdownMenu: FC<DropdownMenuProps> = props => {
+export function MoreDropdownMenu(props: DropdownMenuProps) {
   const editor = useEditorRef()
   const openState = useOpenState()
 
@@ -21,7 +27,7 @@ export const MoreDropdownMenu: FC<DropdownMenuProps> = props => {
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
         <ToolbarButton pressed={openState.open} tooltip="Insert">
-          <MoreHorizontal />
+          <Icons.more />
         </ToolbarButton>
       </DropdownMenuTrigger>
 
@@ -31,27 +37,27 @@ export const MoreDropdownMenu: FC<DropdownMenuProps> = props => {
       >
         <DropdownMenuItem
           onSelect={() => {
-            toggleMark(editor, {
-              key: MARK_SUBSCRIPT,
-              clear: MARK_SUPERSCRIPT
+            editor.tf.toggle.mark({
+              clear: [SubscriptPlugin.key, SuperscriptPlugin.key],
+              key: SuperscriptPlugin.key
             })
             focusEditor(editor)
           }}
         >
-          <Superscript className="mr-2 size-5" />
+          <Icons.superscript className="mr-2 size-5" />
           Superscript
           {/* (⌘+,) */}
         </DropdownMenuItem>
         <DropdownMenuItem
           onSelect={() => {
-            toggleMark(editor, {
-              key: MARK_SUPERSCRIPT,
-              clear: MARK_SUBSCRIPT
+            editor.tf.toggle.mark({
+              clear: [SuperscriptPlugin.key, SubscriptPlugin.key],
+              key: SubscriptPlugin.key
             })
             focusEditor(editor)
           }}
         >
-          <Subscript className="mr-2 size-5" />
+          <Icons.subscript className="mr-2 size-5" />
           Subscript
           {/* (⌘+.) */}
         </DropdownMenuItem>

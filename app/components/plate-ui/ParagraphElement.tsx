@@ -1,11 +1,4 @@
-import {PlateElement, withRef} from "@udecode/plate-common"
+import {PlateElement} from "@udecode/plate-common/react"
+import {withCn} from "@udecode/cn"
 
-import {Paragraph} from "../common/Paragraph.jsx"
-
-export const ParagraphElement = withRef<typeof PlateElement>(
-  ({children, ...props}, ref) => (
-    <PlateElement {...props} ref={ref} asChild>
-      <Paragraph>{children}</Paragraph>
-    </PlateElement>
-  )
-)
+export const ParagraphElement = withCn(PlateElement, "m-0 px-0 py-1")

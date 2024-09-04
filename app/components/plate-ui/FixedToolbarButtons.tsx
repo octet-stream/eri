@@ -1,23 +1,24 @@
-import {Fragment, type FC} from "react"
+import React from "react"
+
 import {
-  MARK_BOLD,
-  MARK_CODE,
-  MARK_ITALIC,
-  MARK_STRIKETHROUGH,
-  MARK_UNDERLINE
-} from "@udecode/plate-basic-marks"
-import {useEditorReadOnly} from "@udecode/plate-common"
-import {Bold, Italic, Underline, Strikethrough, Code} from "lucide-react"
+  BoldPlugin,
+  CodePlugin,
+  ItalicPlugin,
+  StrikethroughPlugin,
+  UnderlinePlugin
+} from "@udecode/plate-basic-marks/react"
+import {useEditorReadOnly} from "@udecode/plate-common/react"
+
+import {Icons} from "./Icons.jsx"
 
 import {TurnIntoDropdownMenu} from "./TurnIntoDropdownMenu.jsx"
 import {InsertDropdownMenu} from "./InsertDropdownMenu.jsx"
 import {MarkToolbarButton} from "./MarkToolbarButton.jsx"
-import {LinkToolbarButton} from "./LinkToolbarButton.jsx"
-import {MoreDropdownMenu} from "./MoreDropdownMenu.jsx"
 import {ToolbarGroup} from "./Toolbar.jsx"
 
-export const FixedToolbarButtons: FC = () => {
+export function FixedToolbarButtons() {
   const readOnly = useEditorReadOnly()
+
   return (
     <div className="w-full overflow-hidden">
       <div
@@ -27,47 +28,40 @@ export const FixedToolbarButtons: FC = () => {
         }}
       >
         {!readOnly && (
-          <Fragment>
+          <>
             <ToolbarGroup noSeparator>
               <InsertDropdownMenu />
-
               <TurnIntoDropdownMenu />
             </ToolbarGroup>
 
             <ToolbarGroup>
-              <MarkToolbarButton tooltip="Bold (⌘+B)" nodeType={MARK_BOLD}>
-                <Bold />
+              <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
+                <Icons.bold />
               </MarkToolbarButton>
-
-              <MarkToolbarButton tooltip="Italic (⌘+I)" nodeType={MARK_ITALIC}>
-                <Italic />
-              </MarkToolbarButton>
-
               <MarkToolbarButton
+                nodeType={ItalicPlugin.key}
+                tooltip="Italic (⌘+I)"
+              >
+                <Icons.italic />
+              </MarkToolbarButton>
+              <MarkToolbarButton
+                nodeType={UnderlinePlugin.key}
                 tooltip="Underline (⌘+U)"
-                nodeType={MARK_UNDERLINE}
               >
-                <Underline />
+                <Icons.underline />
               </MarkToolbarButton>
 
               <MarkToolbarButton
+                nodeType={StrikethroughPlugin.key}
                 tooltip="Strikethrough (⌘+⇧+M)"
-                nodeType={MARK_STRIKETHROUGH}
               >
-                <Strikethrough />
+                <Icons.strikethrough />
               </MarkToolbarButton>
-
-              <MarkToolbarButton tooltip="Code (⌘+E)" nodeType={MARK_CODE}>
-                <Code />
+              <MarkToolbarButton nodeType={CodePlugin.key} tooltip="Code (⌘+E)">
+                <Icons.code />
               </MarkToolbarButton>
             </ToolbarGroup>
-
-            <ToolbarGroup>
-              <LinkToolbarButton />
-
-              <MoreDropdownMenu />
-            </ToolbarGroup>
-          </Fragment>
+          </>
         )}
       </div>
     </div>

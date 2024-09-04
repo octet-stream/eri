@@ -1,16 +1,18 @@
+import React from "react"
+
 import {withRef} from "@udecode/cn"
 import {
   useMarkToolbarButton,
   useMarkToolbarButtonState
-} from "@udecode/plate-common"
+} from "@udecode/plate-common/react"
 
 import {ToolbarButton} from "./Toolbar.jsx"
 
 export const MarkToolbarButton = withRef<
   typeof ToolbarButton,
   {
-    nodeType: string
     clear?: string | string[]
+    nodeType: string
   }
 >(({clear, nodeType, ...rest}, ref) => {
   const state = useMarkToolbarButtonState({clear, nodeType})

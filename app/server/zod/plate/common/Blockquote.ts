@@ -1,11 +1,11 @@
-import {ELEMENT_BLOCKQUOTE} from "@udecode/plate-block-quote"
+import {BlockquotePlugin} from "@udecode/plate-block-quote"
 import {z} from "zod"
 
 import {createElementType} from "../utils/createElementType.js"
 
 import {PlainText} from "./PlainText.js"
 
-export const ElementBlockquote = z.literal(ELEMENT_BLOCKQUOTE)
+export const ElementBlockquote = z.literal(BlockquotePlugin.key)
 
 export const Blockquote = createElementType(
   ElementBlockquote,

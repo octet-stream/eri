@@ -1,11 +1,11 @@
-import {ELEMENT_CODE_BLOCK} from "@udecode/plate-code-block"
+import {CodeBlockPlugin} from "@udecode/plate-code-block"
 import {z} from "zod"
 
 import {CodeLine} from "./CodeLine.js"
 
 import {createElementType} from "../utils/createElementType.js"
 
-export const ElementCodeBlock = z.literal(ELEMENT_CODE_BLOCK)
+export const ElementCodeBlock = z.literal(CodeBlockPlugin.key)
 
 export const CodeBlock = createElementType(
   ElementCodeBlock,

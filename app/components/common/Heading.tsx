@@ -1,4 +1,4 @@
-import {Box, withRef} from "@udecode/plate-common"
+import {Box, withRef} from "@udecode/plate-common/react"
 import {cva} from "class-variance-authority"
 import {withVariants} from "@udecode/cn"
 

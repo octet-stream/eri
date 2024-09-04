@@ -1,17 +1,14 @@
-import * as TooltipPrimitive from "@radix-ui/react-tooltip"
+import React from "react"
 
-import type {
-  ComponentType,
-  ElementRef,
-  ComponentPropsWithoutRef,
-  ReactNode
-} from "react"
-import {forwardRef, useState, useEffect} from "react"
+import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 import {withCn, withProps} from "@udecode/cn"
 
 export const TooltipProvider = TooltipPrimitive.Provider
+
 export const Tooltip = TooltipPrimitive.Root
+
 export const TooltipTrigger = TooltipPrimitive.Trigger
+
 export const TooltipPortal = TooltipPrimitive.Portal
 
 export const TooltipContent = withCn(
@@ -22,25 +19,28 @@ export const TooltipContent = withCn(
 )
 
 export function withTooltip<
-  T extends ComponentType<any> | keyof HTMLElementTagNameMap
+  T extends React.ComponentType<any> | keyof HTMLElementTagNameMap
 >(Component: T) {
-  return forwardRef<
-    ElementRef<T>,
-    ComponentPropsWithoutRef<T> & {
-      tooltip?: ReactNode
+  return React.forwardRef<
+    React.ElementRef<T>,
+    {
+      tooltip?: React.ReactNode
       tooltipContentProps?: Omit<
-        ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
+        React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
         "children"
       >
       tooltipProps?: Omit<
-        ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
+        React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
         "children"
       >
-    }
-  >(({tooltip, tooltipContentProps, tooltipProps, ...props}, ref) => {
-    const [mounted, setMounted] = useState(false)
+    } & React.ComponentPropsWithoutRef<T>
+  >(function ExtendComponent(
+    {tooltip, tooltipContentProps, tooltipProps, ...props},
+    ref
+  ) {
+    const [mounted, setMounted] = React.useState(false)
 
-    useEffect(() => {
+    React.useEffect(() => {
       setMounted(true)
     }, [])
 

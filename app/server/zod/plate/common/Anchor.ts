@@ -1,11 +1,11 @@
-import {ELEMENT_LINK} from "@udecode/plate-link"
+import {LinkPlugin} from "@udecode/plate-link"
 import {z} from "zod"
 
 import {Text} from "./Text.js"
 
 import {createElementType} from "../utils/createElementType.js"
 
-export const ElementAnchor = z.literal(ELEMENT_LINK)
+export const ElementAnchor = z.literal(LinkPlugin.key)
 
 export const Anchor = createElementType(
   ElementAnchor,

@@ -1,52 +1,51 @@
-import {Fragment, type FC} from "react"
-import {
-  MARK_BOLD,
-  MARK_CODE,
-  MARK_ITALIC,
-  MARK_STRIKETHROUGH,
-  MARK_UNDERLINE
-} from "@udecode/plate-basic-marks"
-import {useEditorReadOnly} from "@udecode/plate-common"
-import {Bold, Italic, Underline, Strikethrough, Code} from "lucide-react"
+import React from "react"
 
-import {MoreDropdownMenu} from "./MoreDropdownMenu.jsx"
+import {
+  BoldPlugin,
+  CodePlugin,
+  ItalicPlugin,
+  StrikethroughPlugin,
+  UnderlinePlugin
+} from "@udecode/plate-basic-marks/react"
+import {useEditorReadOnly} from "@udecode/plate-common/react"
+
+import {Icons} from "./Icons.jsx"
+
 import {MarkToolbarButton} from "./MarkToolbarButton.jsx"
 import {TurnIntoDropdownMenu} from "./TurnIntoDropdownMenu.jsx"
 
-export const FloatingToolbarButtons: FC = () => {
+export function FloatingToolbarButtons() {
   const readOnly = useEditorReadOnly()
 
   return (
-    <Fragment>
+    <>
       {!readOnly && (
-        <Fragment>
+        <>
           <TurnIntoDropdownMenu />
 
-          <MarkToolbarButton nodeType={MARK_BOLD} tooltip="Bold (⌘+B)">
-            <Bold />
+          <MarkToolbarButton nodeType={BoldPlugin.key} tooltip="Bold (⌘+B)">
+            <Icons.bold />
           </MarkToolbarButton>
-          <MarkToolbarButton nodeType={MARK_ITALIC} tooltip="Italic (⌘+I)">
-            <Italic />
+          <MarkToolbarButton nodeType={ItalicPlugin.key} tooltip="Italic (⌘+I)">
+            <Icons.italic />
           </MarkToolbarButton>
           <MarkToolbarButton
-            nodeType={MARK_UNDERLINE}
+            nodeType={UnderlinePlugin.key}
             tooltip="Underline (⌘+U)"
           >
-            <Underline />
+            <Icons.underline />
           </MarkToolbarButton>
           <MarkToolbarButton
-            nodeType={MARK_STRIKETHROUGH}
+            nodeType={StrikethroughPlugin.key}
             tooltip="Strikethrough (⌘+⇧+M)"
           >
-            <Strikethrough />
+            <Icons.strikethrough />
           </MarkToolbarButton>
-          <MarkToolbarButton nodeType={MARK_CODE} tooltip="Code (⌘+E)">
-            <Code />
+          <MarkToolbarButton nodeType={CodePlugin.key} tooltip="Code (⌘+E)">
+            <Icons.code />
           </MarkToolbarButton>
-        </Fragment>
+        </>
       )}
-
-      <MoreDropdownMenu />
-    </Fragment>
+    </>
   )
 }

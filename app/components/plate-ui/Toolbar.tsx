@@ -1,10 +1,10 @@
-import * as ToolbarPrimitive from "@radix-ui/react-toolbar"
+import * as React from "react"
 
-import type {ComponentPropsWithoutRef, ElementRef} from "react"
+import * as ToolbarPrimitive from "@radix-ui/react-toolbar"
 import {cn, withCn, withRef, withVariants} from "@udecode/cn"
-import {cva, type VariantProps} from "class-variance-authority"
-import {Children, Fragment, forwardRef} from "react"
-import {ChevronDown} from "lucide-react"
+import {type VariantProps, cva} from "class-variance-authority"
+
+import {Icons} from "./Icons.jsx"
 
 import {Separator} from "./Separator.jsx"
 import {withTooltip} from "./Tooltip.jsx"
@@ -35,68 +35,69 @@ const toolbarButtonVariants = cva(
     "[&_svg:not([data-icon])]:size-5"
   ),
   {
+    defaultVariants: {
+      size: "sm",
+      variant: "default"
+    },
     variants: {
+      size: {
+        default: "h-10 px-3",
+        lg: "h-11 px-5",
+        sm: "h-9 px-2"
+      },
       variant: {
         default:
           "bg-transparent hover:bg-muted hover:text-muted-foreground aria-checked:bg-accent aria-checked:text-accent-foreground",
         outline:
           "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground"
-      },
-      size: {
-        default: "h-10 px-3",
-        sm: "h-9 px-2",
-        lg: "h-11 px-5"
       }
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "sm"
     }
   }
 )
 
 const ToolbarButton = withTooltip(
-  forwardRef<
-    ElementRef<typeof ToolbarToggleItem>,
-    Omit<
-      ComponentPropsWithoutRef<typeof ToolbarToggleItem>,
+  // eslint-disable-next-line react/display-name
+  React.forwardRef<
+    React.ElementRef<typeof ToolbarToggleItem>,
+    {
+      isDropdown?: boolean
+      pressed?: boolean
+    } & Omit<
+      React.ComponentPropsWithoutRef<typeof ToolbarToggleItem>,
       "asChild" | "value"
     > &
-      VariantProps<typeof toolbarButtonVariants> & {
-        pressed?: boolean
-        isDropdown?: boolean
-      }
+      VariantProps<typeof toolbarButtonVariants>
   >(
     (
-      {className, variant, size, isDropdown, children, pressed, ...props},
+      {children, className, isDropdown, pressed, size, variant, ...props},
       ref
-    ) =>
-      typeof pressed === "boolean" ? (
+    ) => {
+      return typeof pressed === "boolean" ? (
         <ToolbarToggleGroup
+          disabled={props.disabled}
           type="single"
           value="single"
-          disabled={props.disabled}
         >
           <ToolbarToggleItem
-            ref={ref}
             className={cn(
               toolbarButtonVariants({
-                variant,
-                size
+                size,
+                variant
               }),
               isDropdown && "my-1 justify-between pr-1",
               className
             )}
+            ref={ref}
             value={pressed ? "single" : ""}
             {...props}
           >
             {isDropdown ? (
-              <Fragment>
+              <>
                 <div className="flex flex-1">{children}</div>
                 <div>
-                  <ChevronDown className="ml-0.5 size-4" data-icon />
+                  <Icons.arrowDown className="ml-0.5 size-4" data-icon />
                 </div>
-              </Fragment>
+              </>
             ) : (
               children
             )}
@@ -104,23 +105,25 @@ const ToolbarButton = withTooltip(
         </ToolbarToggleGroup>
       ) : (
         <ToolbarPrimitive.Button
-          ref={ref}
           className={cn(
             toolbarButtonVariants({
-              variant,
-              size
+              size,
+              variant
             }),
             isDropdown && "pr-1",
             className
           )}
+          ref={ref}
           {...props}
         >
           {children}
         </ToolbarPrimitive.Button>
       )
+    }
   )
 )
 ToolbarButton.displayName = "ToolbarButton"
+
 export {ToolbarButton}
 
 export const ToolbarToggleItem = withVariants(
@@ -134,12 +137,13 @@ export const ToolbarGroup = withRef<
   {
     noSeparator?: boolean
   }
->(({className, children, noSeparator}, ref) => {
-  const childArr = Children.map(children, c => c)
+>(({children, className, noSeparator}, ref) => {
+  const childArr = React.Children.map(children, c => c)
+
   if (!childArr || childArr.length === 0) return null
 
   return (
-    <div ref={ref} className={cn("flex", className)}>
+    <div className={cn("flex", className)} ref={ref}>
       {!noSeparator && (
         <div className="h-full py-1">
           <Separator orientation="vertical" />
