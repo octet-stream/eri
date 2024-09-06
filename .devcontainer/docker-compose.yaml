@@ -3,6 +3,9 @@ volumes:
 
 services:
   eri:
+    depends_on:
+      db:
+        condition: service_healthy
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,9 +20,15 @@ services:
     network_mode: service:db
 
   db:
-    image: mariadb:latest
+    image: mariadb:lts
     restart: unless-stopped
     volumes:
       - db-data:/var/lib/mysql
     environment:
       MARIADB_ROOT_PASSWORD: mariadb_dev
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
