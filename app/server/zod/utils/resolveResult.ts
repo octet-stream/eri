@@ -5,7 +5,6 @@ export interface ResolveResultOptions<TInput> {
 }
 
 function onErrorFallback<TInput>(reason: z.SafeParseError<TInput>): never {
-  console.log(reason.error)
   throw Response.json(reason.error.flatten(), {
     status: 500
   })
