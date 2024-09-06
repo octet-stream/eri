@@ -5,7 +5,7 @@ import {
   Unique,
   ManyToOne,
   type Opt
-} from "@mikro-orm/mysql"
+} from "@mikro-orm/mariadb"
 
 import {formatSlug} from "../../lib/utils/slug.js"
 

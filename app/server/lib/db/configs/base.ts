@@ -1,6 +1,6 @@
-import {join, dirname} from "node:path"
+import {join} from "node:path"
 
-import {defineConfig} from "@mikro-orm/mysql"
+import {defineConfig} from "@mikro-orm/mariadb"
 import {Migrator} from "@mikro-orm/migrations"
 
 import * as entities from "../../../db/entities.js"
@@ -10,7 +10,7 @@ import appConfig from "../../config.js"
 
 const {orm} = appConfig
 
-const base = join(dirname(dirname(import.meta.dirname)), "db")
+const base = join(process.cwd(), "app", "server", "db")
 
 const config = defineConfig({
   ...orm,

@@ -1,4 +1,4 @@
-import {PrimaryKey} from "@mikro-orm/mysql"
+import {PrimaryKey} from "@mikro-orm/mariadb"
 import {v7 as uuidV7} from "uuid"
 
 /**

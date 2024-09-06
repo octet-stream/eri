@@ -1,4 +1,4 @@
-import {MikroORM, RequestContext} from "@mikro-orm/mysql"
+import {MikroORM, RequestContext} from "@mikro-orm/core"
 
 import config from "./configs/base.js"
 

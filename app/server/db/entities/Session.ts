@@ -5,7 +5,7 @@ import {
   JsonType,
   PrimaryKey,
   type Opt
-} from "@mikro-orm/mysql"
+} from "@mikro-orm/mariadb"
 import type {DatabaseSession, RegisteredDatabaseSessionAttributes} from "lucia"
 
 import {Record} from "./Record.js"

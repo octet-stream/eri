@@ -1,6 +1,6 @@
-import {RequestContext} from "@mikro-orm/mysql"
+import {RequestContext} from "@mikro-orm/mariadb"
+import type {MikroORM} from "@mikro-orm/mariadb"
 import {createMiddleware} from "hono/factory"
-import type {MikroORM} from "@mikro-orm/mysql"
 
 import {getOrm} from "../lib/db/orm.js"
 

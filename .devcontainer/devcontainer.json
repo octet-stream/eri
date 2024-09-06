@@ -1,0 +1,27 @@
+{
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "eri",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": false
+    }
+  },
+  "updateContentCommand": "corepack prepare && corepack enable && pnpm i",
+  "waitFor": "updateContentCommand",
+  "postStartCommand": "pnpm mikro-orm-esm schema:update -r", // Add proper schema migrations script
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "biomejs.biome",
+        "github.vscode-github-actions",
+        "bradlc.vscode-tailwindcss",
+        "orta.vscode-twoslash-queries",
+        "yoavbls.pretty-ts-errors",
+        "editorconfig.editorconfig",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "forwardPorts": [5173]
+}
