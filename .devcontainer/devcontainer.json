@@ -9,7 +9,7 @@
   },
   "updateContentCommand": "corepack prepare && corepack enable && pnpm i",
   "waitFor": "updateContentCommand",
-  "postStartCommand": "pnpm mikro-orm-esm schema:update -r", // Add proper schema migrations script
+  "postStartCommand": "pnpm mikro-orm-esm schema:update -r",
   "customizations": {
     "vscode": {
       "extensions": [

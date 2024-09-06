@@ -20,7 +20,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "length": 0,
+          "length": null,
           "mappedType": "datetime"
         },
         "updated_at": {
@@ -30,7 +30,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "length": 0,
+          "length": null,
           "mappedType": "datetime"
         },
         "removed_at": {
@@ -40,7 +40,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "length": 0,
+          "length": null,
           "default": "null",
           "mappedType": "datetime"
         },
@@ -51,6 +51,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": 255,
           "mappedType": "string"
         },
         "password": {
@@ -60,6 +61,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": 255,
           "mappedType": "string"
         },
         "attributes": {
@@ -69,6 +71,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": null,
           "mappedType": "json"
         }
       },
@@ -138,6 +141,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": 255,
           "mappedType": "string"
         },
         "created_at": {
@@ -147,7 +151,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "length": 0,
+          "length": null,
           "mappedType": "datetime"
         },
         "updated_at": {
@@ -157,7 +161,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "length": 0,
+          "length": null,
           "mappedType": "datetime"
         },
         "expires_at": {
@@ -167,7 +171,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "length": 0,
+          "length": null,
           "mappedType": "datetime"
         },
         "attributes": {
@@ -177,6 +181,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": null,
           "mappedType": "json"
         },
         "user_id": {
@@ -269,7 +274,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "length": 0,
+          "length": null,
           "mappedType": "datetime"
         },
         "updated_at": {
@@ -279,7 +284,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "length": 0,
+          "length": null,
           "mappedType": "datetime"
         },
         "removed_at": {
@@ -289,7 +294,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": true,
-          "length": 0,
+          "length": null,
           "default": "null",
           "mappedType": "datetime"
         },
@@ -300,6 +305,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": 255,
           "mappedType": "string"
         },
         "content": {
@@ -309,6 +315,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": null,
           "mappedType": "json"
         },
         "slug": {

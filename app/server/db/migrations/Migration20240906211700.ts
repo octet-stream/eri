@@ -1,7 +1,7 @@
 import {Migration} from "@mikro-orm/migrations"
 
-export class Migration20240717003333 extends Migration {
-  async up(): Promise<void> {
+export class Migration20240906211700 extends Migration {
+  override async up(): Promise<void> {
     this.addSql(
       "create table `user` (`id` varchar(36) not null, `created_at` datetime not null, `updated_at` datetime not null, `removed_at` datetime null default null, `email` varchar(255) not null, `password` varchar(255) not null, `attributes` json not null, primary key (`id`)) default character set utf8mb4 engine = InnoDB;"
     )
