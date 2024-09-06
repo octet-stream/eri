@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "node-terminal",
+      "request": "launch",
+      "name": "Start dev server",
+      "command": "pnpm dev"
+    }
+  ]
+}
