@@ -6,9 +6,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    build:
-      context: .
-      dockerfile: Dockerfile
+
+    image: mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
 
     volumes:
       - ../..:/workspaces:cached

@@ -1,14 +1,14 @@
 {
   "dockerComposeFile": "docker-compose.yaml",
   "service": "eri",
+  "remoteUser": "node",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "features": {
     "ghcr.io/devcontainers/features/git:1": {
       "ppa": false
     }
   },
-  "updateContentCommand": "corepack prepare && corepack enable && pnpm i",
-  "waitFor": "updateContentCommand",
+  "updateContentCommand": "sudo corepack prepare && sudo corepack enable && pnpm i --frozen-lockfile --prefer-offline",
   "postStartCommand": "pnpm mikro-orm-esm schema:update -r",
   "customizations": {
     "vscode": {
