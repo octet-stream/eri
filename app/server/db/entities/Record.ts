@@ -1,4 +1,4 @@
-import {Property, Index, type Opt} from "@mikro-orm/mysql"
+import {Property, Index, type Opt} from "@mikro-orm/mariadb"
 
 import {Node} from "./Node.js"
 

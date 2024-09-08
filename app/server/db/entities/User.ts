@@ -1,4 +1,10 @@
-import {Entity, Property, Unique, JsonType, type Hidden} from "@mikro-orm/mysql"
+import {
+  Entity,
+  Property,
+  Unique,
+  JsonType,
+  type Hidden
+} from "@mikro-orm/mariadb"
 import type {DatabaseUser, RegisteredDatabaseUserAttributes} from "lucia"
 
 import {RecordSoft} from "./RecordSoft.js"

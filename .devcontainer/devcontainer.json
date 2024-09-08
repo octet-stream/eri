@@ -1,0 +1,27 @@
+{
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "eri",
+  "remoteUser": "node",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": false
+    }
+  },
+  "updateContentCommand": "sudo corepack prepare && sudo corepack enable && pnpm i --frozen-lockfile --prefer-offline",
+  "postStartCommand": "pnpm mikro-orm-esm schema:update -r",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "biomejs.biome",
+        "github.vscode-github-actions",
+        "bradlc.vscode-tailwindcss",
+        "orta.vscode-twoslash-queries",
+        "yoavbls.pretty-ts-errors",
+        "editorconfig.editorconfig",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "forwardPorts": [5173]
+}

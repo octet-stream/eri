@@ -1,0 +1,33 @@
+volumes:
+  db-data:
+
+services:
+  eri:
+    depends_on:
+      db:
+        condition: service_healthy
+
+    image: mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
+
+    volumes:
+      - ../..:/workspaces:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+
+  db:
+    image: mariadb:lts
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: mariadb_dev
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3

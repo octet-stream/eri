@@ -1,7 +1,7 @@
 import type {FC} from "react"
 
 export const NoPosts: FC = () => (
-  <div className="flex flex-1 justify-center items-center">
-    <p className="text-sm text-muted-foreground">There are no posts yet</p>
+  <div className="flex w-full h-full justify-center items-center">
+    <p className="text-sm text-muted-foreground">No posts</p>
   </div>
 )
