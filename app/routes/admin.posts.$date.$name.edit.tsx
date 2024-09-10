@@ -32,6 +32,7 @@ import {Button} from "../components/ui/Button.jsx"
 import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.server.js"
 import {defineAdminAction} from "../server/lib/admin/defineAdminAction.server.js"
 import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
+import {matchesHttpMethods} from "../server/lib/utils/matchesHttpMethods.js"
 import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
 import {PostUpdateInput} from "../server/zod/post/PostUpdateInput.js"
 import {AdminPostOutput} from "../server/zod/admin/AdminPostOutput.js"
@@ -64,6 +65,12 @@ export const loader = defineAdminLoader(async ({params, context: {orm}}) => {
 })
 
 export const action = defineAdminAction(async ({request, context: {orm}}) => {
+  if (!matchesHttpMethods(request, "PATCH")) {
+    throw new Response(null, {
+      status: 405
+    })
+  }
+
   const submission = await parseWithZod(await request.formData(), {
     schema: PostUpdateInput,
     async: true
