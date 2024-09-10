@@ -1,4 +1,9 @@
-import type {EntityName, EventArgs, EventSubscriber} from "@mikro-orm/mariadb"
+import type {
+  EntityName,
+  FlushEventArgs,
+  EventSubscriber
+} from "@mikro-orm/mariadb"
+import {ChangeSetType} from "@mikro-orm/mariadb"
 import {assign} from "@mikro-orm/mariadb"
 
 import {Post, PostPrevKnownSlug} from "../entities.js"
@@ -9,18 +14,27 @@ export class PostSubscriber implements EventSubscriber<Post> {
     return [Post]
   }
 
-  async beforeUpdate(args: EventArgs<Post>): Promise<void> {
-    const {entity: post, changeSet, em} = args
+  async onFlush(args: FlushEventArgs): Promise<void> {
+    const {uow, em} = args
+    const changeSets = uow.getChangeSets()
 
-    if (!changeSet) {
-      return
-    }
+    const cs = changeSets.find(
+      cs => cs.type === ChangeSetType.UPDATE && cs.name === Post.name
+    )
 
-    const {payload} = changeSet
-    if (payload.title) {
-      const pks = em.create(PostPrevKnownSlug, {post})
+    // When `Post.title` changes:
+    // 1. Update `Post.slug`;
+    // 2. Add new `Post.pks` entry;
+    if (cs && (cs.payload as Partial<Post>)?.title) {
+      const post = cs.entity as Post
 
-      assign(post, {slug: formatSlug(post.title, post.updatedAt), pks})
+      const pks = em.create(PostPrevKnownSlug, {post}, {persist: true})
+
+      assign(post, {slug: formatSlug(post.title, post.updatedAt)})
+      post.pks.add(pks)
+
+      uow.computeChangeSet(pks)
+      uow.recomputeSingleChangeSet(cs.entity)
     }
   }
 }

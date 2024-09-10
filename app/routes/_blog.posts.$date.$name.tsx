@@ -67,7 +67,7 @@ const PostViewPage: FC = () => {
       <div className="mb-5">
         <CommonHeading variant="h1">{post.title}</CommonHeading>
 
-        <small className="text-muted-foreground">
+        <small className="text-muted-foreground" suppressHydrationWarning>
           {formatPostDate(post.createdAt)}
         </small>
       </div>

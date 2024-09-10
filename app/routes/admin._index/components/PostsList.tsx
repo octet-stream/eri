@@ -78,7 +78,9 @@ const columns = [
     id: "createdAt",
     enableHiding: false,
     header: () => "Created",
-    cell: ctx => formatPostDate(ctx.getValue())
+    cell: ctx => (
+      <span suppressHydrationWarning>{formatPostDate(ctx.getValue())}</span>
+    )
   }),
   helper.accessor("slug", {
     id: "slug",
@@ -144,7 +146,9 @@ const columns = [
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={`${createAdminPathname(post.slug)}/edit`}>Edit</Link>
+            </DropdownMenuItem>
 
             <DropdownMenuItem>Mark as draft</DropdownMenuItem>
 
