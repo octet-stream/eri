@@ -1,5 +1,15 @@
 # eri
 
+## 0.2.1
+
+### Patch Changes
+
+- [#81](https://github.com/octet-stream/eri/pull/81) [`1d783fa`](https://github.com/octet-stream/eri/commit/1d783fa1f147f4f16c2faf06059d538110245eb0) Thanks [@octet-stream](https://github.com/octet-stream)! - Update Plate dependencies
+
+- [#78](https://github.com/octet-stream/eri/pull/78) [`cb20529`](https://github.com/octet-stream/eri/commit/cb2052955c7218710ac86579477b98ea931aea22) Thanks [@octet-stream](https://github.com/octet-stream)! - Update Remix to latest version
+
+- [#80](https://github.com/octet-stream/eri/pull/80) [`229cc01`](https://github.com/octet-stream/eri/commit/229cc0106e3812aeeddd2cc1610cb018dbddb36b) Thanks [@octet-stream](https://github.com/octet-stream)! - Update other dependencies
+
 ## 0.2.0
 
 ### Minor Changes
