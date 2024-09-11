@@ -1,9 +1,6 @@
-import {unstable_defineLoader as defineLoader} from "@remix-run/node"
-import {
-  type MetaArgs_SingleFetch as MetaArgs,
-  type MetaDescriptor,
-  useLoaderData
-} from "@remix-run/react"
+import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
+import type {LoaderFunctionArgs} from "@remix-run/node"
+import {useLoaderData} from "@remix-run/react"
 
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
@@ -14,7 +11,7 @@ import config from "../../server/lib/config.js"
 import {Post} from "../../server/db/entities.js"
 import {PostPage} from "../../server/zod/post/PostPage.js"
 
-export const loader = defineLoader(async ({context: {orm}, request}) => {
+export const loader = async ({context: {orm}, request}: LoaderFunctionArgs) => {
   const search = new URL(request.url).searchParams
 
   const page = await PostPage.parseAsync({
@@ -40,7 +37,7 @@ export const loader = defineLoader(async ({context: {orm}, request}) => {
     page: await page.reply({items, count}),
     title: config.app.name
   }
-})
+}
 
 export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
   {

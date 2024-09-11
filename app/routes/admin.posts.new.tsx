@@ -14,7 +14,7 @@ import {PostEditorContent} from "../components/post-editor/PostEditorContent.jsx
 import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 
-import {defineAdminAction} from "../server/lib/admin/defineAdminAction.server.js"
+import {defineAdminAction} from "../server/lib/admin/defineAdminAction.js"
 import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
 import {Post} from "../server/db/entities.js"
 

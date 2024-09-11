@@ -1,13 +1,9 @@
-import {
-  replace,
-  unstable_defineLoader as defineLoader,
-  unstable_defineAction as defineAction
-} from "@remix-run/node"
+import {replace, type LoaderFunctionArgs} from "@remix-run/node"
 
 import {parseCookie, removeCookie} from "../server/lib/auth/cookie.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 
-export const loader = defineLoader(async ({request}): Promise<never> => {
+export const loader = async ({request}: LoaderFunctionArgs): Promise<never> => {
   const sessionId = await parseCookie(request.headers.get("cookie"))
 
   if (!sessionId) {
@@ -23,10 +19,10 @@ export const loader = defineLoader(async ({request}): Promise<never> => {
       "set-cookie": await removeCookie()
     }
   })
-})
+}
 
-export const action = defineAction((): never => {
+export const action = (): never => {
   throw new Response(null, {
     status: 405
   })
-})
+}

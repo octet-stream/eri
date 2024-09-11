@@ -8,8 +8,8 @@ import {
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
 
-import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.server.js"
-import {defineAdminAction} from "../../server/lib/admin/defineAdminAction.server.js"
+import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.js"
+import {defineAdminAction} from "../../server/lib/admin/defineAdminAction.js"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
 import {parseOutput} from "../../server/zod/utils/parseOutput.js"
 import {SessionUser} from "../../server/zod/admin/SessionUser.js"
@@ -31,7 +31,7 @@ export const action = defineAdminAction(
     })
 
     if (submission.status !== "success") {
-      return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
+      return submission.reply() // ! See https://github.com/edmundhung/conform/issues/628
     }
 
     const {user} = auth.getAuthContext()
@@ -49,7 +49,7 @@ export const action = defineAdminAction(
 
     await orm.em.flush()
 
-    return json(submission.reply({resetForm: true})) // ! See https://github.com/edmundhung/conform/issues/628
+    return submission.reply({resetForm: true}) // ! See https://github.com/edmundhung/conform/issues/628
   }
 )
 

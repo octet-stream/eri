@@ -1,11 +1,8 @@
-import {unstable_defineLoader as defineLoader} from "@remix-run/node"
+import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 import {useLoaderData, generatePath} from "@remix-run/react"
+import type {LoaderFunctionArgs} from "@remix-run/node"
 import {SlateView} from "slate-to-react"
 import type {FC} from "react"
-import type {
-  MetaArgs_SingleFetch as MetaArgs,
-  MetaDescriptor
-} from "@remix-run/react"
 
 import {
   Breadcrumb,
@@ -26,7 +23,7 @@ import {parseInput} from "../server/zod/utils/parseInput.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 
-export const loader = defineLoader(async event => {
+export const loader = async (event: LoaderFunctionArgs) => {
   await checkPksLoader({
     ...event,
 
@@ -62,7 +59,7 @@ export const loader = defineLoader(async event => {
   )
 
   return parseOutput(PostOutput, post, {async: true})
-})
+}
 
 export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
   {

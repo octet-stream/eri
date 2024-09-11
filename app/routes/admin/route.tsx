@@ -1,7 +1,5 @@
 import {
   Outlet,
-  type MetaArgs_SingleFetch as MetaArgs,
-  type MetaDescriptor,
   useRouteError,
   isRouteErrorResponse,
   Link
@@ -14,6 +12,7 @@ import {
   SquareArrowOutUpRight
 } from "lucide-react"
 import type {FC} from "react"
+import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 
 import {
   Breadcrumbs,
@@ -52,9 +51,9 @@ export const meta = ({error}: MetaArgs): MetaDescriptor[] => {
 
   if (isRouteErrorResponse(error)) {
     if (error.data === AdminLoaderErrorCode.SETUP) {
-      title = `Setup – ${title}`
+      title = `Setup - ${title}`
     } else if (error.data === AdminLoaderErrorCode.LOGIN) {
-      title = `Login – ${title}`
+      title = `Login - ${title}`
     }
   }
 

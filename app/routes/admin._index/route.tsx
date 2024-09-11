@@ -4,7 +4,7 @@ import type {FC} from "react"
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
 
-import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.server.js"
+import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.js"
 
 import {Post} from "../../server/db/entities.js"
 

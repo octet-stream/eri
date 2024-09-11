@@ -1,12 +1,9 @@
-import type {
-  MetaArgs_SingleFetch as MetaArgs,
-  MetaDescriptor
-} from "@remix-run/react"
+import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 import {generatePath} from "@remix-run/react"
 
 import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
-import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.server.js"
+import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {PostOutput} from "../server/zod/post/PostOutput.js"
