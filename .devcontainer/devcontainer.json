@@ -9,7 +9,7 @@
     }
   },
   "updateContentCommand": "sudo corepack prepare && sudo corepack enable && pnpm i --frozen-lockfile --prefer-offline",
-  "postStartCommand": "pnpm mikro-orm-esm schema:update -r",
+  "postCreateCommand": "pnpm mikro-orm-esm schema:update -r", // FIXME: I need a better way for creating schema. I think this command should run once and only when schema is out of sync with db
   "customizations": {
     "vscode": {
       "extensions": [

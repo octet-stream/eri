@@ -4,14 +4,17 @@ import {
   JsonType,
   Unique,
   ManyToOne,
-  type Opt
+  OneToMany,
+  Collection
 } from "@mikro-orm/mariadb"
+import type {Opt, Hidden} from "@mikro-orm/mariadb"
 
 import {formatSlug} from "../../lib/utils/slug.js"
 
 import type {OPostContent} from "../../zod/plate/editors/PostContent.js"
 import type {OPostCreateInput} from "../../zod/post/PostCreateInput.js"
 
+import {PostPrevKnownSlug} from "./PostPrevKnownSlug.js"
 import {RecordSoft} from "./RecordSoft.js"
 import {User} from "./User.js"
 
@@ -36,14 +39,15 @@ export class Post extends RecordSoft {
   /**
    * Human-readable, unique, URL-friendly identifier of the post
    */
-  @Property<Post>({
-    type: "varchar",
-    length: 512,
-
-    onUpdate: ({title, createdAt}) => formatSlug(title, createdAt)
-  })
+  @Property<Post>({type: "varchar", length: 512})
   @Unique()
   readonly slug!: Opt<string>
+
+  /**
+   * List of previously known post `slug`
+   */
+  @OneToMany(() => PostPrevKnownSlug, "post", {hidden: true})
+  readonly pks = new Collection<Hidden<PostPrevKnownSlug>, this>(this)
 
   /**
    * The author of the post

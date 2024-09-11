@@ -50,7 +50,7 @@ function handleBotRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  return new Promise((resolve, reject) => {
+  return new Promise<Response>((resolve, reject) => {
     let shellRendered = false
     const {pipe, abort} = renderToPipeableStream(
       <RemixServer
@@ -100,7 +100,7 @@ function handleBrowserRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  return new Promise((resolve, reject) => {
+  return new Promise<Response>((resolve, reject) => {
     let shellRendered = false
     const {pipe, abort} = renderToPipeableStream(
       <RemixServer
