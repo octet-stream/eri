@@ -7,13 +7,20 @@ import tsconfigPaths from "vite-tsconfig-paths"
 
 installGlobals({nativeFetch: true})
 
+declare module "@remix-run/server-runtime" {
+  interface Future {
+    unstable_singleFetch: true // 👈 this enables _types_ for single-fetch
+  }
+}
+
 export default defineConfig({
   plugins: [
     devServer(),
     remix({
       future: {
         unstable_singleFetch: true,
-        unstable_lazyRouteDiscovery: true
+        unstable_lazyRouteDiscovery: true,
+        unstable_optimizeDeps: true
       }
     }),
     tsconfigPaths()

@@ -1,15 +1,15 @@
-import type {unstable_Loader as Loader} from "@remix-run/server-runtime"
-import {unstable_defineLoader as defineLoader} from "@remix-run/node"
+import type {LoaderFunctionArgs} from "@remix-run/node"
 
+import type {Loader} from "../types/Loader.js"
 import {User} from "../../db/entities.js"
 
 import {AdminLoaderErrorCode} from "./AdminLoaderErrorCode.js"
 
 // TODO: Replace this with middlewares, once they arrive
 // ! Hope this one will not break, because I'm not fure if Remix's compiler relies on defineLoader function or route exports to extract loaders
-export const defineAdminLoader = <T extends Loader>(loader: T): T =>
-  // @ts-ignore I'll fix that later
-  defineLoader<T>(async event => {
+export const defineAdminLoader =
+  <TResult>(loader: Loader<TResult>) =>
+  async (event: LoaderFunctionArgs): Promise<TResult> => {
     const {auth, orm} = event.context
 
     const [admin] = await orm.em.find(
@@ -39,4 +39,4 @@ export const defineAdminLoader = <T extends Loader>(loader: T): T =>
     }
 
     return loader(event)
-  })
+  }

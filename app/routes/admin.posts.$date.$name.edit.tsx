@@ -1,12 +1,8 @@
-import type {
-  MetaArgs_SingleFetch as MetaArgs,
-  MetaDescriptor
-} from "@remix-run/react"
+import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 import {
   useLoaderData,
   useActionData,
   useNavigation,
-  json,
   redirect,
   generatePath
 } from "@remix-run/react"
@@ -29,8 +25,8 @@ import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {PostEditor} from "../components/post-editor/PostEditor.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
-import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.server.js"
-import {defineAdminAction} from "../server/lib/admin/defineAdminAction.server.js"
+import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
+import {defineAdminAction} from "../server/lib/admin/defineAdminAction.js"
 import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
 import {matchesHttpMethods} from "../server/lib/utils/matchesHttpMethods.js"
 import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
@@ -93,7 +89,7 @@ export const action = defineAdminAction(async ({request, context: {orm}}) => {
   })
 
   if (submission.status !== "success") {
-    return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
+    return submission.reply() // ! See https://github.com/edmundhung/conform/issues/628
   }
 
   const {id, ...fields} = submission.value

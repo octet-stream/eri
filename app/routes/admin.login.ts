@@ -1,9 +1,4 @@
-import {
-  json,
-  replace,
-  unstable_defineLoader as defineLoader,
-  unstable_defineAction as defineAction
-} from "@remix-run/node"
+import {replace, type ActionFunctionArgs} from "@remix-run/node"
 import {parseWithZod} from "@conform-to/zod"
 
 import {AdminLogInInput} from "../server/zod/admin/AdminLogInInput.js"
@@ -12,20 +7,20 @@ import {password} from "../server/lib/auth/password.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 import {User} from "../server/db/entities.js"
 
-export const loader = defineLoader((): never => {
+export const loader = (): never => {
   throw new Response(null, {
     status: 404
   })
-})
+}
 
-export const action = defineAction(async ({request, context: {orm}}) => {
+export const action = async ({request, context: {orm}}: ActionFunctionArgs) => {
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminLogInInput,
     async: true
   })
 
   if (submission.status !== "success") {
-    return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
+    return submission.reply() // ! See https://github.com/edmundhung/conform/issues/628
   }
 
   const user = await orm.em.findOneOrFail(
@@ -59,4 +54,4 @@ export const action = defineAction(async ({request, context: {orm}}) => {
       "set-cookie": cookie
     }
   })
-})
+}
