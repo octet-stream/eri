@@ -36,11 +36,27 @@ import {matchesHttpMethods} from "../server/lib/utils/matchesHttpMethods.js"
 import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
 import {PostUpdateInput} from "../server/zod/post/PostUpdateInput.js"
 import {AdminPostOutput} from "../server/zod/admin/AdminPostOutput.js"
+import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {Post} from "../server/db/entities.js"
 
-export const loader = defineAdminLoader(async ({params, context: {orm}}) => {
+export const loader = defineAdminLoader(async event => {
+  await checkPksLoader({
+    ...event,
+
+    context: {
+      ...event.context,
+
+      pksRedirect: slug => generatePath("/admin/posts/:slug/edit", {slug})
+    }
+  })
+
+  const {
+    params,
+    context: {orm}
+  } = event
+
   const slug = await parseInput(PostSlug, params as IPostSlug, {async: true})
   const post = await orm.em.findOneOrFail(
     Post,
