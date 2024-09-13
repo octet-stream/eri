@@ -1,5 +1,11 @@
 # eri
 
+## 0.2.2
+
+### Patch Changes
+
+- [#82](https://github.com/octet-stream/eri/pull/82) [`61890d6`](https://github.com/octet-stream/eri/commit/61890d6071d4d22417636996cb1ed5bf83c5da19) Thanks [@octet-stream](https://github.com/octet-stream)! - Bump dependencies
+
 ## 0.2.1
 
 ### Patch Changes
