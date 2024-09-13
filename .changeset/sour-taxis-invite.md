@@ -1,5 +1,0 @@
----
-"eri": patch
----
-
-Bump dependencies
