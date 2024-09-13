@@ -13,8 +13,8 @@ import {
   ImagePlugin,
   MediaEmbedPlugin,
   PlaceholderPlugin
-} from "@udecode/plate-media"
-import {TogglePlugin} from "@udecode/plate-toggle"
+} from "@udecode/plate-media/react"
+import {TogglePlugin} from "@udecode/plate-toggle/react"
 
 import {Draggable, type DraggableProps} from "./Draggable.jsx"
 

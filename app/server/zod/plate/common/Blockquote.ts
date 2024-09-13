@@ -1,4 +1,4 @@
-import {BlockquotePlugin} from "@udecode/plate-block-quote"
+import {BlockquotePlugin} from "@udecode/plate-block-quote/react"
 import {z} from "zod"
 
 import {createElementType} from "../utils/createElementType.js"

@@ -1,4 +1,4 @@
-import {ParagraphPlugin} from "@udecode/plate-common"
+import {ParagraphPlugin} from "@udecode/plate-common/react"
 import {z} from "zod"
 
 import {InlineDescendant} from "./InlineDescendant.js"

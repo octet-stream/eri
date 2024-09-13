@@ -1,4 +1,4 @@
-import {LinkPlugin} from "@udecode/plate-link"
+import {LinkPlugin} from "@udecode/plate-link/react"
 import {z} from "zod"
 
 import {Text} from "./Text.js"

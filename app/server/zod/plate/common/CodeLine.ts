@@ -1,4 +1,4 @@
-import {CodeLinePlugin} from "@udecode/plate-code-block"
+import {CodeLinePlugin} from "@udecode/plate-code-block/react"
 import {z} from "zod"
 
 import {createElementType} from "../utils/createElementType.js"

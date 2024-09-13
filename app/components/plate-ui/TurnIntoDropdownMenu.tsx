@@ -3,12 +3,8 @@ import React from "react"
 import type {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
 
 import {BlockquotePlugin} from "@udecode/plate-block-quote/react"
-import {
-  ParagraphPlugin,
-  collapseSelection,
-  getNodeEntries,
-  isBlock
-} from "@udecode/plate-common"
+import {collapseSelection, getNodeEntries, isBlock} from "@udecode/plate-common"
+import {ParagraphPlugin} from "@udecode/plate-common/react"
 import {
   focusEditor,
   useEditorRef,

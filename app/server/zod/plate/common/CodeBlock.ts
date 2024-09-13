@@ -1,4 +1,4 @@
-import {CodeBlockPlugin} from "@udecode/plate-code-block"
+import {CodeBlockPlugin} from "@udecode/plate-code-block/react"
 import {z} from "zod"
 
 import {CodeLine} from "./CodeLine.js"
