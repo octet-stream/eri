@@ -29,6 +29,12 @@
       "./build/db/mikro-orm.config.js"
     ]
   },
+  "pnpm": {
+    "supportedArchitectures": {
+      "os": ["darwin", "linux"],
+      "cpu": ["x64", "arm64"]
+    }
+  },
   "dependencies": {
     "@conform-to/react": "1.1.5",
     "@conform-to/zod": "1.1.5",
