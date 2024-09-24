@@ -4,9 +4,9 @@ import {generatePath} from "@remix-run/react"
 import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
 import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
+import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
-import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 
 export const loader = defineAdminLoader(async event => {
@@ -45,7 +45,7 @@ export const loader = defineAdminLoader(async event => {
     }
   )
 
-  return parseOutput(PostOutput, post, {async: true})
+  return parseOutput(PostOutputView, post, {async: true})
 })
 
 export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [

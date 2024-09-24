@@ -27,11 +27,11 @@ import {Button} from "../components/ui/Button.jsx"
 
 import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
 import {defineAdminAction} from "../server/lib/admin/defineAdminAction.js"
+import {AdminPostOutputEdit} from "../server/zod/admin/AdminPostOutputEdit.js"
 import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
 import {matchesHttpMethods} from "../server/lib/utils/matchesHttpMethods.js"
 import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
 import {PostUpdateInput} from "../server/zod/post/PostUpdateInput.js"
-import {AdminPostOutput} from "../server/zod/admin/AdminPostOutput.js"
 import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
@@ -73,7 +73,7 @@ export const loader = defineAdminLoader(async event => {
     }
   )
 
-  return parseOutput(AdminPostOutput, post, {async: true})
+  return parseOutput(AdminPostOutputEdit, post, {async: true})
 })
 
 export const action = defineAdminAction(async ({request, context: {orm}}) => {

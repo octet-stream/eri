@@ -1,26 +1,20 @@
 import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 import {useLoaderData, generatePath} from "@remix-run/react"
 import type {LoaderFunctionArgs} from "@remix-run/node"
-import {SlateView} from "slate-to-react"
 import type {FC} from "react"
 
 import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../components/common/Breadcrumbs.jsx"
-import {Anchor} from "../components/slate-view/elements/Anchor.jsx"
-import {Blockquote} from "../components/slate-view/elements/Blockquote.jsx"
 import {Heading as CommonHeading} from "../components/common/Heading.jsx"
-import {Paragraph} from "../components/slate-view/elements/Paragraph.jsx"
-import {Heading} from "../components/slate-view/elements/Heading.jsx"
-import {Text} from "../components/slate-view/leaves/Text.jsx"
 
 import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
+import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {formatPostDate} from "../lib/utils/formatPostDate.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
-import {PostOutput} from "../server/zod/post/PostOutput.js"
 import {Post} from "../server/db/entities.js"
 
 export const loader = async (event: LoaderFunctionArgs) => {
@@ -58,7 +52,7 @@ export const loader = async (event: LoaderFunctionArgs) => {
     }
   )
 
-  return parseOutput(PostOutput, post, {async: true})
+  return parseOutput(PostOutputView, post, {async: true})
 }
 
 export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
@@ -84,13 +78,8 @@ const PostViewPage: FC = () => {
         </small>
       </div>
 
-      <SlateView
-        nodes={post.content}
-        transforms={{
-          elements: [Paragraph, Anchor, Heading, Blockquote],
-          leaves: [Text]
-        }}
-      />
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: The content is serialized and sanitized by react-dom/server */}
+      <div dangerouslySetInnerHTML={{__html: post.content}} />
     </article>
   )
 }
