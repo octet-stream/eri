@@ -30,6 +30,7 @@ import {HEADING_KEYS} from "@udecode/plate-heading"
 import {DeletePlugin} from "@udecode/plate-select"
 import {KbdPlugin} from "@udecode/plate-kbd/react"
 
+import {LinkElement} from "../plate-ui/LinkElement.jsx"
 import {LinkFloatingToolbar} from "../plate-ui/LinkFloatingToolbar.jsx"
 import {BlockquoteElement} from "../plate-ui/BlockquoteElement.jsx"
 import {ParagraphElement} from "../plate-ui/ParagraphElement.jsx"
@@ -148,7 +149,7 @@ export const SHARED_OPTIONS = {
       // [CodeSyntaxPlugin.key]: CodeSyntaxLeaf,
       // [HorizontalRulePlugin.key]: HrElement,
       // [ImagePlugin.key]: ImageElement,
-      // [LinkPlugin.key]: LinkElement,
+      [LinkPlugin.key]: LinkElement,
       // [TogglePlugin.key]: ToggleElement,
       [HEADING_KEYS.h2]: withProps(HeadingElement, {variant: "h2"}),
       [HEADING_KEYS.h3]: withProps(HeadingElement, {variant: "h3"}),
@@ -172,10 +173,16 @@ export const SHARED_OPTIONS = {
   }
 } satisfies CreatePlateEditorOptions<Value, AnyPluginConfig>
 
-export const createPostContentEditor = <TValue extends Value = Value>(
-  value?: TValue
-) => createPlateEditor({...SHARED_OPTIONS, value})
+export const createPostContentEditor = <
+  TValue extends Value = Value,
+  TPluginConfig extends AnyPluginConfig = AnyPluginConfig
+>(
+  options?: CreatePlateEditorOptions<TValue, TPluginConfig>
+) => createPlateEditor({...SHARED_OPTIONS, ...options} as any)
 
-export const usePostContentEditor = <TValue extends Value = Value>(
-  value?: TValue
-) => usePlateEditor({...SHARED_OPTIONS, value})
+export const usePostContentEditor = <
+  TValue extends Value = Value,
+  TPluginConfig extends AnyPluginConfig = AnyPluginConfig
+>(
+  options?: CreatePlateEditorOptions<TValue, TPluginConfig>
+) => usePlateEditor({...SHARED_OPTIONS, ...options} as any)

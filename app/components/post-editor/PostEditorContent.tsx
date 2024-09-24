@@ -35,7 +35,7 @@ export const PostEditorContent: FC<PostEditorContent> = ({meta}) => {
     NonNullable<ComponentProps<typeof Plate>["onChange"]>
   >(({value}) => control.change(JSON.stringify(value)))
 
-  const editor = usePostContentEditor(value)
+  const editor = usePostContentEditor({value})
 
   return (
     <Fragment>

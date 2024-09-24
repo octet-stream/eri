@@ -31,8 +31,14 @@
   },
   "pnpm": {
     "supportedArchitectures": {
-      "os": ["darwin", "linux"],
-      "cpu": ["x64", "arm64"]
+      "os": [
+        "darwin",
+        "linux"
+      ],
+      "cpu": [
+        "x64",
+        "arm64"
+      ]
     }
   },
   "dependencies": {
@@ -74,6 +80,7 @@
     "@udecode/plate-heading": "38.0.1",
     "@udecode/plate-highlight": "38.0.1",
     "@udecode/plate-horizontal-rule": "38.0.1",
+    "@udecode/plate-html": "38.0.1",
     "@udecode/plate-kbd": "38.0.1",
     "@udecode/plate-link": "38.0.1",
     "@udecode/plate-list": "38.0.1",

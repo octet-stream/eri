@@ -7,7 +7,7 @@ import {cn} from "@udecode/cn"
 import {PlateContent} from "@udecode/plate-common/react"
 import {cva} from "class-variance-authority"
 
-const editorVariants = cva(
+export const editorVariants = cva(
   cn(
     "relative overflow-x-auto whitespace-pre-wrap break-words",
     "min-h-[80px] w-full rounded-md bg-background px-6 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none",
@@ -47,7 +47,7 @@ const editorVariants = cva(
 export type EditorProps = PlateContentProps &
   VariantProps<typeof editorVariants>
 
-const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
+export const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
   (
     {
       className,
@@ -84,6 +84,5 @@ const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
     )
   }
 )
-Editor.displayName = "Editor"
 
-export {Editor}
+Editor.displayName = "Editor"

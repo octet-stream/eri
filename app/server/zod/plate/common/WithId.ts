@@ -8,7 +8,7 @@ import {NodeId} from "./NodeId.js"
 
 export const WithId = z.object({
   id: NodeId.optional().transform(id => {
-    if (!id || validate(id)) {
+    if (!id || validate(id) || /^[0-9]+$/.test(id)) {
       return createNodeId()
     }
 
