@@ -1,5 +1,19 @@
 # eri
 
+## 0.3.0
+
+### Minor Changes
+
+- [#85](https://github.com/octet-stream/eri/pull/85) [`0ac5eb9`](https://github.com/octet-stream/eri/commit/0ac5eb976b506d035a8898bfca638fc20651985d) Thanks [@octet-stream](https://github.com/octet-stream)! - Improve consistency for post editor and views
+
+### Patch Changes
+
+- [#87](https://github.com/octet-stream/eri/pull/87) [`038138a`](https://github.com/octet-stream/eri/commit/038138a361b32949f350e4b2d4f029d642d2dea3) Thanks [@octet-stream](https://github.com/octet-stream)! - Remove old implementation of Post View
+
+- [#89](https://github.com/octet-stream/eri/pull/89) [`38a500e`](https://github.com/octet-stream/eri/commit/38a500ed8a102c9f39b032daeee5bfae544c89b4) Thanks [@octet-stream](https://github.com/octet-stream)! - Bump dependencies
+
+- [#89](https://github.com/octet-stream/eri/pull/89) [`38a500e`](https://github.com/octet-stream/eri/commit/38a500ed8a102c9f39b032daeee5bfae544c89b4) Thanks [@octet-stream](https://github.com/octet-stream)! - Remove unused `@remix-run/server-runtime` dependency
+
 ## 0.2.2
 
 ### Patch Changes
