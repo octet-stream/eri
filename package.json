@@ -20,7 +20,7 @@
     "demo.start": "docker compose -f compose.demo.yaml --env-file .env.demo.local up --wait -d",
     "demo.stop": "docker compose -f compose.demo.yaml --env-file .env.demo.local down",
     "lint.types": "tsc --noEmit",
-    "prepare": "npx --yes is-in-ci || husky",
+    "prepare": "node --no-warnings --experimental-strip-types .husky/install.ts",
     "preinstall": "npx --yes only-allow pnpm"
   },
   "mikro-orm": {
@@ -146,6 +146,7 @@
     "@types/validator": "13.12.2",
     "autoprefixer": "10.4.20",
     "husky": "9.1.6",
+    "is-in-ci": "1.0.0",
     "lint-staged": "15.2.10",
     "postcss": "8.4.47",
     "tailwindcss": "3.4.13",

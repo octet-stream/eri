@@ -18,16 +18,18 @@ COPY . .
 
 # Prepare dependencies installation
 FROM base AS deps-common
+
 COPY --from=repo /usr/src/eri/package.json .
 COPY --from=repo /usr/src/eri/pnpm-lock.yaml .
+COPY --from=repo /usr/src/eri/.husky/install.ts .husky/install.ts
 
 # Prepare production-only dependencies
 FROM deps-common AS deps-prod
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --prod --frozen-lockfile --prefer-offline --ignore-scripts
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store HUSKY=0 pnpm i --prod --frozen-lockfile --prefer-offline --ignore-scripts
 
 # Prepare development-only
 FROM deps-common AS deps-dev
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --frozen-lockfile --prefer-offline
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store HUSKY=0 pnpm i --frozen-lockfile --prefer-offline
 
 FROM base AS build
 COPY --from=repo /usr/src/eri/ .
