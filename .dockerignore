@@ -8,7 +8,6 @@ coverage
 *.tsbuildinfo
 
 /.github
-/.husky
 /.vscode
 /.lintstagedrc.json
 
