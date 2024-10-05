@@ -43,6 +43,7 @@ export default defineConfig({
   test: {
     include: ["**/*.test.ts?(x)"],
     exclude: ["e2e", "node_modules", "src"],
-    pool: "threads"
+    pool: "threads",
+    globalSetup: ["scripts/vitest/global-setup/db.ts"]
   }
 })

@@ -21,7 +21,7 @@ services:
       retries: 3
     ports:
       - target: 3306
-        published: ${DB_PORT}
+        published: 3308
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
