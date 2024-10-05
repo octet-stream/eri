@@ -285,6 +285,9 @@ importers:
       '@remix-run/dev':
         specifier: 2.12.1
         version: 2.12.1(@remix-run/react@2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.7.2)(ts-node@10.9.2(@types/node@22.7.2)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.8(@types/node@22.7.2))
+      '@remix-run/server-runtime':
+        specifier: 2.12.1
+        version: 2.12.1(typescript@5.6.2)
       '@tailwindcss/typography':
         specifier: 0.5.15
         version: 0.5.15(tailwindcss@3.4.13(ts-node@10.9.2(@types/node@22.7.2)(typescript@5.6.2)))

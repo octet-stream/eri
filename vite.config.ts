@@ -42,6 +42,7 @@ export default defineConfig({
   },
   test: {
     include: ["**/*.test.ts?(x)"],
-    exclude: ["e2e", "node_modules", "src"]
+    exclude: ["e2e", "node_modules", "src"],
+    pool: "threads"
   }
 })
