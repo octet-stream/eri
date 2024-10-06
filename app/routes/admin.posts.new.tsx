@@ -30,7 +30,7 @@ export const action = defineAdminAction(
     })
 
     if (submission.status !== "success") {
-      return json(submission.reply()) // ! See https://github.com/edmundhung/conform/issues/628
+      return submission.reply() // ! See https://github.com/edmundhung/conform/issues/628
     }
 
     const post = orm.em.create(Post, {...submission.value, author: user})

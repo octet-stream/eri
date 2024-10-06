@@ -17,6 +17,7 @@ export default defineConfig({
   plugins: [
     devServer(),
     remix({
+      ignoredRouteFiles: ["**/*.test.ts?(x)"],
       future: {
         unstable_singleFetch: true,
         unstable_lazyRouteDiscovery: true,
