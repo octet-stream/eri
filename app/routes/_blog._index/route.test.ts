@@ -101,50 +101,6 @@ describe("Loader", () => {
 
     describe("errors", () => {
       routeTest(
-        "throws 404 Response when page param is 0",
-
-        async ({loaderArgs}) => {
-          expect.hasAssertions()
-
-          const url = new URL(loaderArgs.request.url)
-          url.searchParams.set("page", "0")
-          loaderArgs.request = new Request(url)
-
-          try {
-            await loader(loaderArgs)
-          } catch (error) {
-            if (!(error instanceof Response)) {
-              throw error
-            }
-
-            expect(error.status).toBe(404)
-          }
-        }
-      )
-
-      routeTest(
-        "throws 404 Response when page param less than 0",
-
-        async ({loaderArgs}) => {
-          expect.hasAssertions()
-
-          const url = new URL(loaderArgs.request.url)
-          url.searchParams.set("page", "-124")
-          loaderArgs.request = new Request(url)
-
-          try {
-            await loader(loaderArgs)
-          } catch (error) {
-            if (!(error instanceof Response)) {
-              throw error
-            }
-
-            expect(error.status).toBe(404)
-          }
-        }
-      )
-
-      routeTest(
         "throws 404 Response when page is out of range",
 
         async ({loaderArgs}) => {
@@ -166,5 +122,51 @@ describe("Loader", () => {
         }
       )
     })
+  })
+
+  describe("common errors", () => {
+    routeTest(
+      "throws 404 Response when page param is 0",
+
+      async ({loaderArgs}) => {
+        expect.hasAssertions()
+
+        const url = new URL(loaderArgs.request.url)
+        url.searchParams.set("page", "0")
+        loaderArgs.request = new Request(url)
+
+        try {
+          await loader(loaderArgs)
+        } catch (error) {
+          if (!(error instanceof Response)) {
+            throw error
+          }
+
+          expect(error.status).toBe(404)
+        }
+      }
+    )
+
+    routeTest(
+      "throws 404 Response when page param less than 0",
+
+      async ({loaderArgs}) => {
+        expect.hasAssertions()
+
+        const url = new URL(loaderArgs.request.url)
+        url.searchParams.set("page", "-124")
+        loaderArgs.request = new Request(url)
+
+        try {
+          await loader(loaderArgs)
+        } catch (error) {
+          if (!(error instanceof Response)) {
+            throw error
+          }
+
+          expect(error.status).toBe(404)
+        }
+      }
+    )
   })
 })
