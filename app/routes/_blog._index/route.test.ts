@@ -4,6 +4,7 @@ import {faker} from "@faker-js/faker"
 import type {OrmTestContext} from "../../../scripts/vitest/fixtures/orm.js"
 import type {UserTestContext} from "../../../scripts/vitest/fixtures/user.js"
 import {routeTest} from "../../../scripts/vitest/fixtures/route.js"
+import {createNodeId} from "../../server/zod/plate/utils/nodeId.js"
 import {Post} from "../../server/db/entities.js"
 
 import {loader} from "./route.jsx"
@@ -39,11 +40,11 @@ describe("Loader", () => {
           title: faker.lorem.sentence({min: 3, max: 5}),
           content: [
             {
-              id: faker.string.nanoid(5),
+              id: createNodeId(),
               type: "p",
               children: [
                 {
-                  id: faker.string.nanoid(5),
+                  id: createNodeId(),
                   text: faker.lorem.paragraph()
                 }
               ]
