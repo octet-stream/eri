@@ -24,7 +24,9 @@ function loadEnv(name: string): boolean {
     const status = [!hasFound && "not", "found"].filter(Boolean).join(" ")
     const color = hasFound ? pc.green : pc.yellow
 
-    console.log("Load env from %s (%s)", path, color(status))
+    if (process.env.NODE_ENV !== "test") {
+      console.log("Load env from %s (%s)", path, color(status))
+    }
   }
 
   return hasFound

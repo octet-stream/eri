@@ -17,6 +17,7 @@ export default defineConfig({
   plugins: [
     devServer(),
     remix({
+      ignoredRouteFiles: ["**/*.test.ts?(x)"],
       future: {
         unstable_singleFetch: true,
         unstable_lazyRouteDiscovery: true,
@@ -42,6 +43,8 @@ export default defineConfig({
   },
   test: {
     include: ["**/*.test.ts?(x)"],
-    exclude: ["e2e", "node_modules", "src"]
+    exclude: ["e2e", "node_modules", "src"],
+    pool: "threads",
+    globalSetup: ["scripts/vitest/global-setup/db.ts"]
   }
 })

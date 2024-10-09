@@ -1,0 +1,30 @@
+name: eri_test
+
+volumes:
+  db:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+
+networks:
+  db:
+
+services:
+  db:
+    image: mariadb:lts
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - target: 3306
+        published: 3308
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - db
