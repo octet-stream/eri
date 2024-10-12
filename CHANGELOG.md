@@ -1,5 +1,15 @@
 # eri
 
+## 0.4.0
+
+### Minor Changes
+
+- [#96](https://github.com/octet-stream/eri/pull/96) [`439b233`](https://github.com/octet-stream/eri/commit/439b23383886faeabb5c60096abe14df0c794afe) Thanks [@octet-stream](https://github.com/octet-stream)! - Enable all Remix future flags
+
+### Patch Changes
+
+- [#94](https://github.com/octet-stream/eri/pull/94) [`be58258`](https://github.com/octet-stream/eri/commit/be582585d1ad89cf8cee098ed8cb9e6bb645c49e) Thanks [@octet-stream](https://github.com/octet-stream)! - Update dependencies
+
 ## 0.3.0
 
 ### Minor Changes
