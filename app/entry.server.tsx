@@ -42,7 +42,11 @@ export const server = await createHonoServer({
     console.log("🥕 Listening on http://localhost:%s", port)
 })
 
-const ABORT_DELAY = 5_000
+export const streamTimeout = 5_000
+
+// Automatically timeout the React renderer after 6 seconds, which ensures
+// React has enough time to flush down the rejected boundary contents
+const abortDelay = streamTimeout + 1_000
 
 function handleBotRequest(
   request: Request,
@@ -53,11 +57,7 @@ function handleBotRequest(
   return new Promise<Response>((resolve, reject) => {
     let shellRendered = false
     const {pipe, abort} = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
+      <RemixServer context={remixContext} url={request.url} />,
       {
         onAllReady() {
           shellRendered = true
@@ -80,7 +80,7 @@ function handleBotRequest(
         },
         onError(error: unknown) {
           responseStatusCode = 500
-          // Log streaming rendering errors from inside the shell.  Don't log
+          // Log streaming rendering errors from inside the shell. Don't log
           // errors encountered during initial shell rendering since they'll
           // reject and get logged in handleDocumentRequest.
           if (shellRendered) {
@@ -90,7 +90,7 @@ function handleBotRequest(
       }
     )
 
-    setTimeout(abort, ABORT_DELAY)
+    setTimeout(abort, abortDelay)
   })
 }
 
@@ -103,11 +103,7 @@ function handleBrowserRequest(
   return new Promise<Response>((resolve, reject) => {
     let shellRendered = false
     const {pipe, abort} = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
+      <RemixServer context={remixContext} url={request.url} />,
       {
         onShellReady() {
           shellRendered = true
@@ -130,7 +126,7 @@ function handleBrowserRequest(
         },
         onError(error: unknown) {
           responseStatusCode = 500
-          // Log streaming rendering errors from inside the shell.  Don't log
+          // Log streaming rendering errors from inside the shell. Don't log
           // errors encountered during initial shell rendering since they'll
           // reject and get logged in handleDocumentRequest.
           if (shellRendered) {
@@ -140,7 +136,7 @@ function handleBrowserRequest(
       }
     )
 
-    setTimeout(abort, ABORT_DELAY)
+    setTimeout(abort, abortDelay)
   })
 }
 
