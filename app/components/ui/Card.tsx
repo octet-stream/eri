@@ -1,6 +1,6 @@
+import {cn} from "@udecode/cn"
 import type {HTMLAttributes} from "react"
 import {forwardRef} from "react"
-import {cn} from "@udecode/cn"
 
 export const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({className, ...props}, ref) => (

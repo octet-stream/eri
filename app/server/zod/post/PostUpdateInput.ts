@@ -1,7 +1,7 @@
 import type {z} from "zod"
 
-import {PostCreateInput} from "./PostCreateInput.js"
 import {Node} from "../common/Node.js"
+import {PostCreateInput} from "./PostCreateInput.js"
 
 export const PostUpdateInput = Node.extend(PostCreateInput.partial().shape)
 

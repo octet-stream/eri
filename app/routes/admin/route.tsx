@@ -1,29 +1,29 @@
 import {
+  Link,
   Outlet,
-  useRouteError,
   isRouteErrorResponse,
-  Link
+  useRouteError
 } from "@remix-run/react"
+import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 import {
-  SquarePen,
+  LogOut,
   Menu,
   Settings2,
-  LogOut,
-  SquareArrowOutUpRight
+  SquareArrowOutUpRight,
+  SquarePen
 } from "lucide-react"
 import type {FC} from "react"
-import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 
 import {
-  Breadcrumbs,
   Breadcrumb,
-  type BreadcrumbHandle
+  type BreadcrumbHandle,
+  Breadcrumbs
 } from "../../components/common/Breadcrumbs.jsx"
 import {
-  SidebarProvider,
-  SidebarTrigger,
   Sidebar,
-  SidebarItem
+  SidebarItem,
+  SidebarProvider,
+  SidebarTrigger
 } from "../../components/common/Sidebar.jsx"
 import {AdminLoginPage} from "./pages/Login.jsx"
 import {AdminSetupPage} from "./pages/Setup.jsx"

@@ -1,4 +1,4 @@
-import {createCookie, type CookieSerializeOptions} from "@remix-run/node"
+import {type CookieSerializeOptions, createCookie} from "@remix-run/node"
 
 import type {Maybe} from "../../../lib/types/Maybe.js"
 

@@ -1,9 +1,9 @@
-import type {LoaderFunctionArgs, AppLoadContext} from "@remix-run/node"
+import type {AppLoadContext, LoaderFunctionArgs} from "@remix-run/node"
 import {replace} from "@remix-run/node"
 
-import {PostSlug, type IPostSlug} from "../zod/post/PostSlug.js"
-import {parseInput} from "../zod/utils/parseInput.js"
 import {PostPrevKnownSlug} from "../db/entities.js"
+import {type IPostSlug, PostSlug} from "../zod/post/PostSlug.js"
+import {parseInput} from "../zod/utils/parseInput.js"
 
 type CheckPksLoaderArgs = LoaderFunctionArgs & {
   context: AppLoadContext & {

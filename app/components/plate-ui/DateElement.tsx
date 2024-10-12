@@ -1,6 +1,6 @@
-import {PlateElement, findNodePath} from "@udecode/plate-common/react"
-import {setNodes} from "@udecode/plate-common"
 import {cn, withRef} from "@udecode/cn"
+import {setNodes} from "@udecode/plate-common"
+import {PlateElement, findNodePath} from "@udecode/plate-common/react"
 
 import {Calendar} from "./Calendar.jsx"
 import {Popover, PopoverContent, PopoverTrigger} from "./Popover.jsx"

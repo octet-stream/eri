@@ -1,7 +1,7 @@
-import {Entity, Property, ManyToOne, Unique, type Opt} from "@mikro-orm/mariadb"
+import {Entity, ManyToOne, type Opt, Property, Unique} from "@mikro-orm/mariadb"
 
-import {RecordSoft} from "./RecordSoft.js"
 import {Post} from "./Post.js"
+import {RecordSoft} from "./RecordSoft.js"
 
 @Entity()
 export class PostPrevKnownSlug extends RecordSoft {

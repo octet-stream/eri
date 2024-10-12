@@ -1,5 +1,5 @@
-import {forwardRef, type InputHTMLAttributes} from "react"
 import {cn} from "@udecode/cn"
+import {type InputHTMLAttributes, forwardRef} from "react"
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errors?: string[]

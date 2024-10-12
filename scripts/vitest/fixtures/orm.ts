@@ -1,5 +1,5 @@
-import {test, beforeAll, afterAll, beforeEach} from "vitest"
 import type {MikroORM} from "@mikro-orm/mariadb"
+import {afterAll, beforeAll, beforeEach, test} from "vitest"
 
 export interface OrmTestContext {
   orm: MikroORM

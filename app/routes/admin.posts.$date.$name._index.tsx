@@ -1,13 +1,13 @@
 import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 import {generatePath} from "@remix-run/react"
 
-import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
-import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
-import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
-import {PostOutputView} from "../server/zod/post/PostOutputView.js"
-import {parseOutput} from "../server/zod/utils/parseOutput.js"
-import {parseInput} from "../server/zod/utils/parseInput.js"
 import {Post} from "../server/db/entities.js"
+import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
+import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
+import {PostOutputView} from "../server/zod/post/PostOutputView.js"
+import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
+import {parseInput} from "../server/zod/utils/parseInput.js"
+import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
 export const loader = defineAdminLoader(async event => {
   await checkPksLoader({

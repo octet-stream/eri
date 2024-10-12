@@ -4,8 +4,8 @@ import {expect} from "vitest"
 import {routeTest} from "../../scripts/vitest/fixtures/route.js"
 import {createNodeId} from "../server/zod/plate/utils/nodeId.js"
 
-import {loader} from "./_blog.posts.$date.$name.jsx"
 import {Post} from "../server/db/entities.js"
+import {loader} from "./_blog.posts.$date.$name.jsx"
 
 routeTest("throws 404 response for unknown post", async ({loaderArgs}) => {
   expect.hasAssertions()

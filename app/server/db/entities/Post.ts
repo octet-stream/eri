@@ -1,13 +1,13 @@
 import {
+  Collection,
   Entity,
-  Property,
   JsonType,
-  Unique,
   ManyToOne,
   OneToMany,
-  Collection
+  Property,
+  Unique
 } from "@mikro-orm/mariadb"
-import type {Opt, Hidden} from "@mikro-orm/mariadb"
+import type {Hidden, Opt} from "@mikro-orm/mariadb"
 
 import {formatSlug} from "../../lib/utils/slug.js"
 

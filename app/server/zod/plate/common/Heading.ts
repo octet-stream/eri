@@ -1,7 +1,7 @@
 import {z} from "zod"
 
-import {InlineDescendant} from "./InlineDescendant.js"
 import {HeadingLevels} from "./HeadingLevels.js"
+import {InlineDescendant} from "./InlineDescendant.js"
 import {WithId} from "./WithId.js"
 
 export const Heading = WithId.extend({

@@ -1,34 +1,34 @@
+import {Link, generatePath, useLoaderData} from "@remix-run/react"
 import {
-  useReactTable,
-  getCoreRowModel,
+  createColumnHelper,
   flexRender,
-  createColumnHelper
+  getCoreRowModel,
+  useReactTable
 } from "@tanstack/react-table"
-import {useLoaderData, generatePath, Link} from "@remix-run/react"
-import {SquareArrowOutUpRight, MoreHorizontal} from "lucide-react"
+import {MoreHorizontal, SquareArrowOutUpRight} from "lucide-react"
 import type {FC, MouseEventHandler} from "react"
-import {useEvent} from "react-use-event-hook"
 import {useMemo} from "react"
+import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableCell,
-  TableRow
-} from "../../../components/ui/Table.jsx"
+import {Button} from "../../../components/ui/Button.jsx"
 import {Checkbox} from "../../../components/ui/Checkbox.jsx"
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
+  DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuContent,
-  DropdownMenuSeparator
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
 } from "../../../components/ui/DropdownMenu.jsx"
-import {Button} from "../../../components/ui/Button.jsx"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "../../../components/ui/Table.jsx"
 
 import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
 import type {loader} from "../route.jsx"

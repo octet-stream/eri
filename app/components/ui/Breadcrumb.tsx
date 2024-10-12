@@ -1,8 +1,8 @@
-import type {ComponentPropsWithoutRef, ReactNode, ElementRef} from "react"
-import {ChevronRight, MoreHorizontal} from "lucide-react"
 import {Slot} from "@radix-ui/react-slot"
-import {forwardRef} from "react"
 import {cn} from "@udecode/cn"
+import {ChevronRight, MoreHorizontal} from "lucide-react"
+import type {ComponentPropsWithoutRef, ElementRef, ReactNode} from "react"
+import {forwardRef} from "react"
 
 export type BreadcrumbRef = ElementRef<"nav">
 

@@ -1,9 +1,9 @@
 import {z} from "zod"
 
-import {RichText} from "./RichText.js"
 import {EmptyText} from "./EmptyText.js"
-import {PlainText} from "./PlainText.js"
 import {InlineCodeText} from "./InlineCodeText.js"
+import {PlainText} from "./PlainText.js"
+import {RichText} from "./RichText.js"
 
 // ! FIXME: Fix formatting validation - all marks are getting removed for some reason
 export const AnyText = z.union([EmptyText, InlineCodeText, RichText, PlainText])

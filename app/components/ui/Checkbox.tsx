@@ -1,8 +1,8 @@
-import type {ElementRef, ComponentPropsWithoutRef} from "react"
-import {Root, Indicator} from "@radix-ui/react-checkbox"
-import {Check} from "lucide-react"
-import {forwardRef} from "react"
+import {Indicator, Root} from "@radix-ui/react-checkbox"
 import {cn} from "@udecode/cn"
+import {Check} from "lucide-react"
+import type {ComponentPropsWithoutRef, ElementRef} from "react"
+import {forwardRef} from "react"
 
 export type CheckboxRef = ElementRef<typeof Root>
 

@@ -1,8 +1,8 @@
-import {test, expect} from "vitest"
+import {expect, test} from "vitest"
 
+import {PageArgs} from "./PageArgs.js"
 import {DefaultPageInput} from "./createPageInput.js"
 import {parsePageInput} from "./parsePageInput.js"
-import {PageArgs} from "./PageArgs.js"
 
 test("Returns default page input", () => {
   const actual = parsePageInput(DefaultPageInput, {})

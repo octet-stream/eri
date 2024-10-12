@@ -11,10 +11,10 @@ import {useEditorReadOnly} from "@udecode/plate-common/react"
 
 import {Icons} from "./Icons.jsx"
 
-import {TurnIntoDropdownMenu} from "./TurnIntoDropdownMenu.jsx"
 import {InsertDropdownMenu} from "./InsertDropdownMenu.jsx"
 import {MarkToolbarButton} from "./MarkToolbarButton.jsx"
 import {ToolbarGroup} from "./Toolbar.jsx"
+import {TurnIntoDropdownMenu} from "./TurnIntoDropdownMenu.jsx"
 
 export function FixedToolbarButtons() {
   const readOnly = useEditorReadOnly()

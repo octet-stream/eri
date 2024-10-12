@@ -1,8 +1,8 @@
-import type {KeyboardEventHandler} from "react"
-import {useEvent} from "react-use-event-hook"
 import {Slot} from "@radix-ui/react-slot"
-import {forwardRef} from "react"
 import {cn} from "@udecode/cn"
+import type {KeyboardEventHandler} from "react"
+import {forwardRef} from "react"
+import {useEvent} from "react-use-event-hook"
 
 import {Textarea} from "../ui/Textarea.jsx"
 import type {TextareaProps, TextareaRef} from "../ui/Textarea.jsx"

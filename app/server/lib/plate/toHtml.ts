@@ -1,6 +1,6 @@
 import type {PlateEditor} from "@udecode/plate-common/react"
-import {renderToStaticMarkup} from "react-dom/server"
 import {createElement} from "react"
+import {renderToStaticMarkup} from "react-dom/server"
 
 import {PlateView} from "../../../lib/plate/PlateView.jsx"
 

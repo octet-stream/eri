@@ -1,7 +1,7 @@
 import type {LoaderFunctionArgs} from "@remix-run/node"
 
-import type {Loader} from "../types/Loader.js"
 import {User} from "../../db/entities.js"
+import type {Loader} from "../types/Loader.js"
 
 import {AdminLoaderErrorCode} from "./AdminLoaderErrorCode.js"
 

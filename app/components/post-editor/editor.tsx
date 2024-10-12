@@ -1,43 +1,43 @@
-import {
-  createPlateEditor,
-  ParagraphPlugin,
-  PlateLeaf,
-  usePlateEditor,
-  type CreatePlateEditorOptions
-} from "@udecode/plate-common/react"
-import type {AnyPluginConfig, Value} from "@udecode/plate-common"
-import {BlockquotePlugin} from "@udecode/plate-block-quote/react"
-import {DndPlugin} from "@udecode/plate-dnd"
 import {withProps} from "@udecode/cn"
+import {AlignPlugin} from "@udecode/plate-alignment/react"
 import {
   BoldPlugin,
-  ItalicPlugin,
-  UnderlinePlugin,
-  StrikethroughPlugin,
   CodePlugin,
+  ItalicPlugin,
+  StrikethroughPlugin,
   SubscriptPlugin,
-  SuperscriptPlugin
+  SuperscriptPlugin,
+  UnderlinePlugin
 } from "@udecode/plate-basic-marks/react"
-import {AlignPlugin} from "@udecode/plate-alignment/react"
-import {LinkPlugin} from "@udecode/plate-link/react"
+import {BlockquotePlugin} from "@udecode/plate-block-quote/react"
 // import {AutoformatPlugin} from "@udecode/plate-autoformat"
 import {ExitBreakPlugin, SoftBreakPlugin} from "@udecode/plate-break/react"
-import {BlockSelectionPlugin} from "@udecode/plate-selection/react"
-import {HeadingPlugin} from "@udecode/plate-heading/react"
-import {ResetNodePlugin} from "@udecode/plate-reset-node/react"
-import {NodeIdPlugin} from "@udecode/plate-node-id"
+import type {AnyPluginConfig, Value} from "@udecode/plate-common"
+import {
+  type CreatePlateEditorOptions,
+  ParagraphPlugin,
+  PlateLeaf,
+  createPlateEditor,
+  usePlateEditor
+} from "@udecode/plate-common/react"
+import {DndPlugin} from "@udecode/plate-dnd"
 import {HEADING_KEYS} from "@udecode/plate-heading"
-import {DeletePlugin} from "@udecode/plate-select"
+import {HeadingPlugin} from "@udecode/plate-heading/react"
 import {KbdPlugin} from "@udecode/plate-kbd/react"
+import {LinkPlugin} from "@udecode/plate-link/react"
+import {NodeIdPlugin} from "@udecode/plate-node-id"
+import {ResetNodePlugin} from "@udecode/plate-reset-node/react"
+import {DeletePlugin} from "@udecode/plate-select"
+import {BlockSelectionPlugin} from "@udecode/plate-selection/react"
 
+import {BlockquoteElement} from "../plate-ui/BlockquoteElement.jsx"
+import {CodeLeaf} from "../plate-ui/CodeLeaf.jsx"
+import {HeadingElement} from "../plate-ui/HeadingElement.jsx"
+import {KbdLeaf} from "../plate-ui/KbdLeaf.jsx"
 import {LinkElement} from "../plate-ui/LinkElement.jsx"
 import {LinkFloatingToolbar} from "../plate-ui/LinkFloatingToolbar.jsx"
-import {BlockquoteElement} from "../plate-ui/BlockquoteElement.jsx"
 import {ParagraphElement} from "../plate-ui/ParagraphElement.jsx"
-import {HeadingElement} from "../plate-ui/HeadingElement.jsx"
 import {withDraggables} from "../plate-ui/withDraggables.jsx"
-import {CodeLeaf} from "../plate-ui/CodeLeaf.jsx"
-import {KbdLeaf} from "../plate-ui/KbdLeaf.jsx"
 
 import {createNodeId} from "../../server/zod/plate/utils/nodeId.js"
 

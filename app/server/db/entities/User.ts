@@ -1,9 +1,9 @@
 import {
   Entity,
-  Property,
-  Unique,
+  type Hidden,
   JsonType,
-  type Hidden
+  Property,
+  Unique
 } from "@mikro-orm/mariadb"
 import type {DatabaseUser, RegisteredDatabaseUserAttributes} from "lucia"
 

@@ -1,12 +1,12 @@
-import type {ElementRef, ComponentPropsWithoutRef} from "react"
-import {forwardRef} from "react"
 import {
-  Root,
-  Viewport,
-  ScrollAreaScrollbar,
   Corner,
-  ScrollAreaThumb
+  Root,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  Viewport
 } from "@radix-ui/react-scroll-area"
+import type {ComponentPropsWithoutRef, ElementRef} from "react"
+import {forwardRef} from "react"
 
 import {cn} from "@udecode/cn"
 

@@ -1,28 +1,28 @@
-import {useForm, getInputProps, getFormProps} from "@conform-to/react"
+import {getFormProps, getInputProps, useForm} from "@conform-to/react"
+import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import {
+  Form,
   useActionData,
   useLoaderData,
-  Form,
   useNavigation
 } from "@remix-run/react"
-import {parseWithZod, getZodConstraint} from "@conform-to/zod"
 import type {FC} from "react"
 import type {z} from "zod"
 
-import {Input} from "../../../components/ui/Input.jsx"
 import {Button} from "../../../components/ui/Button.jsx"
-import {Label} from "../../../components/ui/Label.jsx"
 import {
   Card,
-  CardTitle,
-  CardHeader,
   CardContent,
-  CardFooter
+  CardFooter,
+  CardHeader,
+  CardTitle
 } from "../../../components/ui/Card.jsx"
+import {Input} from "../../../components/ui/Input.jsx"
+import {Label} from "../../../components/ui/Label.jsx"
 
 import {AdminUpdateMainInfoInput} from "../../../server/zod/admin/AdminUpdateMainInfoInput.js"
 
-import type {loader, action} from "../route.jsx"
+import type {action, loader} from "../route.jsx"
 
 export const MainInfoSection: FC = () => {
   const defaultValue = useLoaderData<typeof loader>()

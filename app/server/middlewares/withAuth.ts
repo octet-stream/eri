@@ -1,8 +1,8 @@
 import {createMiddleware} from "hono/factory"
 
-import {User, Session} from "../db/entities.js"
-import {parseCookie, serializeCookie} from "../lib/auth/cookie.js"
+import {Session, User} from "../db/entities.js"
 import type {AuthContext} from "../lib/auth/Auth.js"
+import {parseCookie, serializeCookie} from "../lib/auth/cookie.js"
 import {lucia} from "../lib/auth/lucia.js"
 import {getOrm} from "../lib/db/orm.js"
 
