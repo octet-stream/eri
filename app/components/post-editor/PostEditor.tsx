@@ -1,7 +1,7 @@
 import {FormProvider, FormStateInput} from "@conform-to/react"
-import type {ComponentPropsWithoutRef, FC} from "react"
-import {type FormProps, Form} from "@remix-run/react"
 import {Slot} from "@radix-ui/react-slot"
+import {Form, type FormProps} from "@remix-run/react"
+import type {ComponentPropsWithoutRef, FC} from "react"
 
 import type {Simplify} from "../../lib/types/Simplify.js"
 

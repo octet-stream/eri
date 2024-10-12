@@ -1,6 +1,6 @@
-import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
-import {useLoaderData, generatePath} from "@remix-run/react"
 import type {LoaderFunctionArgs} from "@remix-run/node"
+import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
+import {generatePath, useLoaderData} from "@remix-run/react"
 import type {FC} from "react"
 
 import {
@@ -9,13 +9,13 @@ import {
 } from "../components/common/Breadcrumbs.jsx"
 import {Heading as CommonHeading} from "../components/common/Heading.jsx"
 
-import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
-import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
-import {PostOutputView} from "../server/zod/post/PostOutputView.js"
-import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import {formatPostDate} from "../lib/utils/formatPostDate.js"
-import {parseInput} from "../server/zod/utils/parseInput.js"
 import {Post} from "../server/db/entities.js"
+import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
+import {PostOutputView} from "../server/zod/post/PostOutputView.js"
+import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
+import {parseInput} from "../server/zod/utils/parseInput.js"
+import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
 export const loader = async (event: LoaderFunctionArgs) => {
   await checkPksLoader({

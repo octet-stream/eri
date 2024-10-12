@@ -1,7 +1,7 @@
 import type {z} from "zod"
 
-import {toHtml} from "../../lib/plate/toHtml.js"
 import {createPostContentEditor} from "../../../components/post-editor/editor.js"
+import {toHtml} from "../../lib/plate/toHtml.js"
 
 import {PostOutputBase} from "./PostOutputBase.js"
 

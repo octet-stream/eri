@@ -1,8 +1,8 @@
 import {z} from "zod"
 
-import {RichText} from "./RichText.js"
-import {PlainText} from "./PlainText.js"
 import {InlineCodeText} from "./InlineCodeText.js"
+import {PlainText} from "./PlainText.js"
+import {RichText} from "./RichText.js"
 
 export const Text = z.union([PlainText, InlineCodeText, RichText])
 

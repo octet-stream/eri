@@ -1,9 +1,9 @@
-import {Fragment, type FC, type ReactNode} from "react"
+import {type FC, Fragment, type ReactNode} from "react"
 import type {LucideIcon} from "lucide-react"
 import {Link} from "@remix-run/react"
 import {cn} from "@udecode/cn"
 
-import {SheetContent, SheetClose, SheetTrigger} from "../ui/Sheet.jsx"
+import {SheetClose, SheetContent, SheetTrigger} from "../ui/Sheet.jsx"
 
 export interface SidebarProps {
   className?: string

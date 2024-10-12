@@ -1,18 +1,18 @@
-import type {ElementRef, ComponentPropsWithoutRef} from "react"
-import {forwardRef} from "react"
 import {
-  Root,
-  Trigger,
-  Overlay,
   Close,
-  Portal,
-  Title,
+  Content,
   Description,
-  Content
+  Overlay,
+  Portal,
+  Root,
+  Title,
+  Trigger
 } from "@radix-ui/react-dialog"
-import {cva, type VariantProps} from "class-variance-authority"
-import {X} from "lucide-react"
 import {cn} from "@udecode/cn"
+import {type VariantProps, cva} from "class-variance-authority"
+import {X} from "lucide-react"
+import type {ComponentPropsWithoutRef, ElementRef} from "react"
+import {forwardRef} from "react"
 
 export const Sheet = Root
 

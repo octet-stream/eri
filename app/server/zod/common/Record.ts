@@ -1,7 +1,7 @@
 import type {z} from "zod"
 
-import {Node} from "./Node.js"
 import {CommonDates} from "./CommonDates.js"
+import {Node} from "./Node.js"
 
 export const Record = Node.merge(CommonDates)
 

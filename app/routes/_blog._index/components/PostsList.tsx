@@ -1,7 +1,7 @@
 import type {FC} from "react"
 
-import {usePostsContext} from "../contexts/PostsContext.jsx"
 import {PostContext} from "../contexts/PostContext.jsx"
+import {usePostsContext} from "../contexts/PostsContext.jsx"
 import {PostItem} from "./PostItem.jsx"
 
 export const PostsList: FC = () => {

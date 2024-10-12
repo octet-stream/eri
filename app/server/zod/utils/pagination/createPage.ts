@@ -1,7 +1,7 @@
 import type {z} from "zod"
 
-import type {DefaultPageOutput} from "./createPageOutput.js"
 import type {DefaultPageInput} from "./createPageInput.js"
+import type {DefaultPageOutput} from "./createPageOutput.js"
 
 import {parsePageInput} from "./parsePageInput.js"
 import {parsePageOutput} from "./parsePageOutput.js"

@@ -1,4 +1,4 @@
-import type {FC, ComponentPropsWithoutRef} from "react"
+import type {ComponentPropsWithoutRef, FC} from "react"
 import {Toaster as Sonner} from "sonner"
 
 export interface ToasterProps extends ComponentPropsWithoutRef<typeof Sonner> {}

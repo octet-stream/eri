@@ -1,8 +1,8 @@
 import type {Adapter, DatabaseSession, DatabaseUser} from "lucia"
 
-import {getOrm} from "../db/orm.js"
-import {User, Session} from "../../db/entities.js"
 import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
+import {Session, User} from "../../db/entities.js"
+import {getOrm} from "../db/orm.js"
 
 /**
  * Mikro ORM adapter for [lucia](https://lucia-auth.com)

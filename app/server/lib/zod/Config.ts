@@ -1,9 +1,9 @@
 import {z} from "zod"
 
-import {Server} from "./config/Server.js"
-import {Auth} from "./config/Auth.js"
 import {App} from "./config/App.js"
+import {Auth} from "./config/Auth.js"
 import {Orm} from "./config/Orm.js"
+import {Server} from "./config/Server.js"
 
 export const Config = z
   .object({

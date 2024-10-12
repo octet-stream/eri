@@ -1,18 +1,18 @@
-import {type FC, Fragment, useMemo, type ComponentProps} from "react"
-import {HTML5Backend} from "react-dnd-html5-backend"
-import {Plate} from "@udecode/plate-common/react"
-import {useEvent} from "react-use-event-hook"
-import {DndProvider} from "react-dnd"
 import {
   unstable_useControl as useControl,
   type useInputControl
 } from "@conform-to/react"
+import {Plate} from "@udecode/plate-common/react"
+import {type ComponentProps, type FC, Fragment, useMemo} from "react"
+import {DndProvider} from "react-dnd"
+import {HTML5Backend} from "react-dnd-html5-backend"
+import {useEvent} from "react-use-event-hook"
 
 import {Editor} from "../plate-ui/Editor.jsx"
 import {FixedToolbar} from "../plate-ui/FixedToolbar.jsx"
-import {FloatingToolbarButtons} from "../plate-ui/FloatingToolbarButtons.jsx"
 import {FixedToolbarButtons} from "../plate-ui/FixedToolbarButtons.jsx"
 import {FloatingToolbar} from "../plate-ui/FloatingToolbar.jsx"
+import {FloatingToolbarButtons} from "../plate-ui/FloatingToolbarButtons.jsx"
 import {TooltipProvider} from "../plate-ui/Tooltip.jsx"
 
 import {usePostContentEditor} from "./editor.js"

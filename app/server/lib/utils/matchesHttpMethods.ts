@@ -1,5 +1,5 @@
-import type {HttpMethods} from "../types/HttpMethods.js"
 import {toArray} from "../../../lib/utils/toArray.js"
+import type {HttpMethods} from "../types/HttpMethods.js"
 
 export const matchesHttpMethods = <
   TMatches extends HttpMethods | HttpMethods[]

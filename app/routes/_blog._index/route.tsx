@@ -1,5 +1,5 @@
-import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 import type {LoaderFunctionArgs} from "@remix-run/node"
+import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
 import {useLoaderData} from "@remix-run/react"
 
 import {NoPosts} from "./components/NoPosts.jsx"

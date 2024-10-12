@@ -1,9 +1,9 @@
 import {Outlet} from "@remix-run/react"
 
 import {
-  Breadcrumbs,
   Breadcrumb,
-  type BreadcrumbHandle
+  type BreadcrumbHandle,
+  Breadcrumbs
 } from "../components/common/Breadcrumbs.jsx"
 
 export const handle: BreadcrumbHandle = {

@@ -1,9 +1,9 @@
-import {replace, type ActionFunctionArgs} from "@remix-run/node"
 import {parseWithZod} from "@conform-to/zod"
+import {type ActionFunctionArgs, replace} from "@remix-run/node"
 
 import {User} from "../server/db/entities.js"
-import {lucia} from "../server/lib/auth/lucia.js"
 import {serializeCookie} from "../server/lib/auth/cookie.js"
+import {lucia} from "../server/lib/auth/lucia.js"
 import {AdminSetupInput} from "../server/zod/admin/AdminSetupInput.js"
 
 export const loader = (): never => {

@@ -1,5 +1,5 @@
-import {DayPicker} from "react-day-picker"
 import type * as React from "react"
+import {DayPicker} from "react-day-picker"
 
 import {cn} from "@udecode/cn"
 import {ChevronLeft, ChevronRight} from "lucide-react"

@@ -9,18 +9,20 @@ installGlobals({nativeFetch: true})
 
 declare module "@remix-run/server-runtime" {
   interface Future {
-    unstable_singleFetch: true // 👈 this enables _types_ for single-fetch
+    singleFetch: true // 👈 this enables _types_ for single-fetch
   }
 }
+
+const TESTS_SEARCH_PATTERN = "**/*.test.ts?(x)"
 
 export default defineConfig({
   plugins: [
     devServer(),
     remix({
-      ignoredRouteFiles: ["**/*.test.ts?(x)"],
+      ignoredRouteFiles: [TESTS_SEARCH_PATTERN],
       future: {
-        unstable_singleFetch: true,
-        unstable_lazyRouteDiscovery: true,
+        v3_singleFetch: true,
+        v3_lazyRouteDiscovery: true,
         unstable_optimizeDeps: true
       }
     }),
@@ -42,7 +44,7 @@ export default defineConfig({
     target: "esnext"
   },
   test: {
-    include: ["**/*.test.ts?(x)"],
+    include: [TESTS_SEARCH_PATTERN],
     exclude: ["e2e", "node_modules", "src"],
     pool: "threads",
     globalSetup: ["scripts/vitest/global-setup/db.ts"]

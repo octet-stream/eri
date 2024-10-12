@@ -2,10 +2,10 @@ import {Fragment} from "react"
 
 import type {DropdownMenuProps} from "@radix-ui/react-dropdown-menu"
 
-import {focusEditor, useEditorRef} from "@udecode/plate-common/react"
 import {BlockquotePlugin} from "@udecode/plate-block-quote/react"
-import {ParagraphPlugin} from "@udecode/plate-common/react"
 import {insertEmptyElement} from "@udecode/plate-common"
+import {focusEditor, useEditorRef} from "@udecode/plate-common/react"
+import {ParagraphPlugin} from "@udecode/plate-common/react"
 import {HEADING_KEYS} from "@udecode/plate-heading"
 
 import {Icons} from "./Icons.jsx"

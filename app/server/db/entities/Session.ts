@@ -1,10 +1,10 @@
 import {
   Entity,
-  Property,
-  ManyToOne,
   JsonType,
+  ManyToOne,
+  type Opt,
   PrimaryKey,
-  type Opt
+  Property
 } from "@mikro-orm/mariadb"
 import type {DatabaseSession, RegisteredDatabaseSessionAttributes} from "lucia"
 

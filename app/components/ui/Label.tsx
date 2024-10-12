@@ -1,8 +1,8 @@
-import type {ElementRef, ComponentPropsWithoutRef} from "react"
-import {cva, type VariantProps} from "class-variance-authority"
 import {Root} from "@radix-ui/react-label"
-import {forwardRef} from "react"
 import {cn} from "@udecode/cn"
+import {type VariantProps, cva} from "class-variance-authority"
+import type {ComponentPropsWithoutRef, ElementRef} from "react"
+import {forwardRef} from "react"
 
 const labelVariants = cva(
   "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

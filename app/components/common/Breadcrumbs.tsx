@@ -1,14 +1,14 @@
-import {Link, useMatches, useLocation, type UIMatch} from "@remix-run/react"
+import {Link, type UIMatch, useLocation, useMatches} from "@remix-run/react"
 import {createContext, useContext} from "react"
 import type {FC, ReactNode} from "react"
 
 import {
-  Breadcrumb as UIBreadcrumb,
-  BreadcrumbList,
-  BreadcrumbSeparator,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbPage
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  Breadcrumb as UIBreadcrumb
 } from "../ui/Breadcrumb.jsx"
 
 export interface BreadcrumbHandle {

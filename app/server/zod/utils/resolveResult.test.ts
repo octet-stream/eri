@@ -1,4 +1,4 @@
-import {test, expect, expectTypeOf, vi} from "vitest"
+import {expect, expectTypeOf, test, vi} from "vitest"
 import {z} from "zod"
 
 import {resolveResult} from "./resolveResult.js"

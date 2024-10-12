@@ -1,13 +1,13 @@
 import type {
   EntityName,
-  FlushEventArgs,
-  EventSubscriber
+  EventSubscriber,
+  FlushEventArgs
 } from "@mikro-orm/mariadb"
 import {ChangeSetType} from "@mikro-orm/mariadb"
 import {assign} from "@mikro-orm/mariadb"
 
-import {Post, PostPrevKnownSlug} from "../entities.js"
 import {formatSlug} from "../../lib/utils/slug.js"
+import {Post, PostPrevKnownSlug} from "../entities.js"
 
 export class PostSubscriber implements EventSubscriber<Post> {
   getSubscribedEntities(): EntityName<Post>[] {

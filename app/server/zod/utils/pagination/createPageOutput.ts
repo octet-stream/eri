@@ -1,7 +1,7 @@
 import {z} from "zod"
 
-import {PageArgs} from "./PageArgs.js"
 import {Page} from "./Page.js"
+import {PageArgs} from "./PageArgs.js"
 
 /**
  * Creates a `Page<T>` output with the list of items of type `T`
