@@ -7,9 +7,9 @@ import tsconfigPaths from "vite-tsconfig-paths"
 
 installGlobals({nativeFetch: true})
 
-declare module "@remix-run/server-runtime" {
+declare module "@remix-run/node" {
   interface Future {
-    singleFetch: true // 👈 this enables _types_ for single-fetch
+    v3_singleFetch: true // 👈 this enables _types_ for single-fetch
   }
 }
 
@@ -22,7 +22,10 @@ export default defineConfig({
       ignoredRouteFiles: [TESTS_SEARCH_PATTERN],
       future: {
         v3_singleFetch: true,
+        v3_fetcherPersist: true,
+        v3_throwAbortReason: true,
         v3_lazyRouteDiscovery: true,
+        v3_relativeSplatPath: true,
         unstable_optimizeDeps: true
       }
     }),
