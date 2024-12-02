@@ -1,5 +1,5 @@
-import {Outlet} from "@remix-run/react"
 import type {FC} from "react"
+import {Outlet} from "react-router"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"

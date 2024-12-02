@@ -1,8 +1,8 @@
 import {getFormProps, getTextareaProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
-import {type MetaFunction, json} from "@remix-run/node"
-import {generatePath, replace, useActionData} from "@remix-run/react"
 import type {FC} from "react"
+import type {MetaFunction} from "react-router"
+import {generatePath, replace, useActionData} from "react-router"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
@@ -17,6 +17,8 @@ import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {Post} from "../server/db/entities.js"
 import {defineAdminAction} from "../server/lib/admin/defineAdminAction.js"
 import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
+
+import type {Route} from "./+types/admin.posts.new.js"
 
 export const loader = noopAdminLoader
 
@@ -51,10 +53,9 @@ export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb>New post</Breadcrumb>
 }
 
-const AdminPostNewPage: FC = () => {
-  const lastResult = useActionData<typeof action>()
+const AdminPostNewPage: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm({
-    lastResult,
+    lastResult: actionData,
     constraint: getZodConstraint(ClientPostCreateInput),
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",

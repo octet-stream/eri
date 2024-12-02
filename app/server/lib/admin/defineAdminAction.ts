@@ -1,4 +1,4 @@
-import type {ActionFunctionArgs} from "@remix-run/node"
+import type {ActionFunctionArgs} from "react-router"
 import type {Action} from "../types/Action.js"
 
 // TODO: Replace this with middlewares, once they arrive

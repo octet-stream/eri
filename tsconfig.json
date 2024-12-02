@@ -2,7 +2,8 @@
   "include": [
     "@types/**/*.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "**/*.config.ts"
   ],
   "lib": [
     "dom",
@@ -25,7 +26,8 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "incremental": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "rootDirs": [".", "./.react-router/types"]
   },
   "ts-node": {
     "esm": true,

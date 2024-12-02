@@ -1,5 +1,5 @@
-import {useLoaderData} from "@remix-run/react"
 import type {FC} from "react"
+import {useLoaderData} from "react-router"
 
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"

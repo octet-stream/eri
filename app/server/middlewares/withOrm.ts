@@ -4,7 +4,7 @@ import {createMiddleware} from "hono/factory"
 
 import {getOrm} from "../lib/db/orm.js"
 
-declare module "@remix-run/node" {
+declare module "react-router" {
   interface AppLoadContext {
     /**
      * Mikro ORM instance

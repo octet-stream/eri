@@ -1,6 +1,6 @@
+import {cn} from "@udecode/cn"
 import type {ComponentPropsWithoutRef, ElementRef} from "react"
 import {forwardRef} from "react"
-import {cn} from "@udecode/cn"
 
 export type LinkRef = ElementRef<"a">
 

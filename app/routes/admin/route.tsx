@@ -1,11 +1,4 @@
 import {
-  Link,
-  Outlet,
-  isRouteErrorResponse,
-  useRouteError
-} from "@remix-run/react"
-import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
-import {
   LogOut,
   Menu,
   Settings2,
@@ -13,6 +6,8 @@ import {
   SquarePen
 } from "lucide-react"
 import type {FC} from "react"
+import {Link, Outlet, isRouteErrorResponse, useRouteError} from "react-router"
+import type {MetaArgs, MetaDescriptor} from "react-router"
 
 import {
   Breadcrumb,

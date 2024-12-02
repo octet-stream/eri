@@ -1,5 +1,5 @@
-import type {SerializeFrom} from "@remix-run/node"
 import {createContext, useContext} from "react"
+import type {SerializeFrom} from "react-router"
 
 import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
 

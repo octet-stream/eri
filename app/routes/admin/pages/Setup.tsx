@@ -1,7 +1,7 @@
 import {getFormProps, getInputProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
-import {Form, useActionData} from "@remix-run/react"
 import type {FC} from "react"
+import {Form, useActionData} from "react-router"
 
 import {AdminSetupInput} from "../../../server/zod/admin/AdminSetupInput.js"
 
