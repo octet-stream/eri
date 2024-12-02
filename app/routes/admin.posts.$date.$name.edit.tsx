@@ -6,15 +6,9 @@ import {
 } from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import {assign} from "@mikro-orm/mariadb"
-import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
-import {
-  generatePath,
-  redirect,
-  useActionData,
-  useLoaderData,
-  useNavigation
-} from "@remix-run/react"
 import type {FC} from "react"
+import type {MetaArgs, MetaDescriptor} from "react-router"
+import {generatePath, redirect, useNavigation} from "react-router"
 import type {z} from "zod"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
@@ -37,14 +31,17 @@ import {PostUpdateInput} from "../server/zod/post/PostUpdateInput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
-export const loader = defineAdminLoader(async event => {
+import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
+
+export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
   await checkPksLoader({
     ...event,
 
     context: {
       ...event.context,
 
-      pksRedirect: slug => generatePath("/admin/posts/:slug/edit", {slug})
+      pksRedirect: (slug: string) =>
+        generatePath("/admin/posts/:slug/edit", {slug})
     }
   })
 
@@ -53,7 +50,7 @@ export const loader = defineAdminLoader(async event => {
     context: {orm}
   } = event
 
-  const slug = await parseInput(PostSlug, params as IPostSlug, {async: true})
+  const slug = await parseInput(PostSlug, params, {async: true})
   const post = await orm.em.findOneOrFail(
     Post,
 
@@ -118,9 +115,9 @@ export const action = defineAdminAction(async ({request, context: {orm}}) => {
   throw redirect(generatePath("/admin/posts/:slug", {slug: post.slug}))
 })
 
-export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
+export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: `${data?.title} - Edit post`
+    title: `${data.title} - Edit post`
   }
 ]
 
@@ -128,14 +125,15 @@ export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb>Edit</Breadcrumb>
 }
 
-const AdminPostEditPage: FC = () => {
+const AdminPostEditPage: FC<Route.ComponentProps> = ({
+  loaderData,
+  actionData
+}) => {
   const navigation = useNavigation()
-  const defaultValue = useLoaderData<typeof loader>()
-  const lastResult = useActionData<typeof action>()
 
   const [form, fields] = useForm<z.input<typeof ClientPostUpdateInput>>({
-    defaultValue,
-    lastResult: navigation.state === "idle" ? lastResult : null,
+    defaultValue: loaderData,
+    lastResult: navigation.state === "idle" ? actionData : null,
     constraint: getZodConstraint(ClientPostUpdateInput),
     shouldValidate: "onBlur",
     shouldRevalidate: "onBlur",

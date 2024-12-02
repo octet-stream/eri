@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index 1fbd582bc3b653b1bf7eeaf7b48e846251ec3374..dfa6a877bcafb792479d5f40b91d6575428d6323 100644
+--- a/package.json
++++ b/package.json
+@@ -24,7 +24,7 @@
+   "exports": {
+     ".": {
+       "node": {
+-        "types": "./dist/production/index.d.ts",
++        "types": "./dist/production/index.d.mts",
+         "development": {
+           "module-sync": "./dist/development/index.mjs",
+           "default": "./dist/development/index.js"

@@ -1,4 +1,3 @@
-import {useLoaderData} from "@remix-run/react"
 import type {FC} from "react"
 
 import {NoPosts} from "./components/NoPosts.jsx"
@@ -10,32 +9,36 @@ import {Post} from "../../server/db/entities.js"
 
 import {PostPage} from "../../server/zod/post/PostPage.js"
 
-export const loader = defineAdminLoader(async ({request, context: {orm}}) => {
-  const search = new URL(request.url).searchParams
-  const page = await PostPage.parseAsync({
-    page: search.get("page")
-  })
+import type {Route} from "./+types/route.js"
 
-  const {args} = page.params
-  const [items, count] = await orm.em.findAndCount(
-    Post,
+export const loader = defineAdminLoader(
+  async ({request, context: {orm}}: Route.LoaderArgs) => {
+    const search = new URL(request.url).searchParams
+    const page = await PostPage.parseAsync({
+      page: search.get("page")
+    })
 
-    {},
+    const {args} = page.params
+    const [items, count] = await orm.em.findAndCount(
+      Post,
 
-    {
-      offset: args.offset,
-      limit: args.limit,
-      orderBy: {
-        createdAt: "desc"
+      {},
+
+      {
+        offset: args.offset,
+        limit: args.limit,
+        orderBy: {
+          createdAt: "desc"
+        }
       }
-    }
-  )
+    )
 
-  return page.reply({items, count})
-})
+    return page.reply({items, count})
+  }
+)
 
-const AdminDashboardPage: FC = () => {
-  const {rowsCount} = useLoaderData<typeof loader>()
+const AdminDashboardPage: FC<Route.ComponentProps> = ({loaderData}) => {
+  const {rowsCount} = loaderData
 
   return rowsCount > 0 ? <PostsList /> : <NoPosts />
 }

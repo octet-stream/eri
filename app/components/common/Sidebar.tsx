@@ -1,7 +1,7 @@
-import {type FC, Fragment, type ReactNode} from "react"
-import type {LucideIcon} from "lucide-react"
-import {Link} from "@remix-run/react"
 import {cn} from "@udecode/cn"
+import type {LucideIcon} from "lucide-react"
+import {type FC, Fragment, type ReactNode} from "react"
+import {Link} from "react-router"
 
 import {SheetClose, SheetContent, SheetTrigger} from "../ui/Sheet.jsx"
 

@@ -1,22 +1,23 @@
-import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
-import {generatePath} from "@remix-run/react"
+import {generatePath} from "react-router"
 
 import {Post} from "../server/db/entities.js"
 import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
 import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
-import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
+import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
-export const loader = defineAdminLoader(async event => {
+import type {Route} from "./+types/admin.posts.$date.$name._index.js"
+
+export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
   await checkPksLoader({
     ...event,
 
     context: {
       ...event.context,
 
-      pksRedirect: slug => generatePath("/admin/posts/:slug", {slug})
+      pksRedirect: (slug: string) => generatePath("/admin/posts/:slug", {slug})
     }
   })
 
@@ -25,7 +26,7 @@ export const loader = defineAdminLoader(async event => {
     context: {orm}
   } = event
 
-  const slug = await parseInput(PostSlug, params as IPostSlug, {async: true})
+  const slug = await parseInput(PostSlug, params, {async: true})
   const post = await orm.em.findOneOrFail(
     Post,
 
@@ -48,9 +49,9 @@ export const loader = defineAdminLoader(async event => {
   return parseOutput(PostOutputView, post, {async: true})
 })
 
-export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
+export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: data?.title
+    title: data.title
   }
 ]
 

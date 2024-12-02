@@ -1,5 +1,5 @@
-import type {AppLoadContext, LoaderFunctionArgs} from "@remix-run/node"
-import {replace} from "@remix-run/node"
+import type {AppLoadContext, LoaderFunctionArgs} from "react-router"
+import {replace} from "react-router"
 
 import {PostPrevKnownSlug} from "../db/entities.js"
 import {type IPostSlug, PostSlug} from "../zod/post/PostSlug.js"

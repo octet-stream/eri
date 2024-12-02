@@ -13,7 +13,7 @@ routeTest("throws 404 response for unknown post", async ({loaderArgs}) => {
   loaderArgs.params = {date: "2024-10-07", name: "test~123ab"}
 
   try {
-    await loader(loaderArgs)
+    await loader(loaderArgs as any)
   } catch (error) {
     if (!(error instanceof Response)) {
       throw error
@@ -50,7 +50,7 @@ routeTest(
     const [date, name] = post.slug.split("/")
     loaderArgs.params = {date, name}
 
-    const result = await loader(loaderArgs)
+    const result = await loader(loaderArgs as any)
 
     expect(result.id).toBe(post.id)
   }

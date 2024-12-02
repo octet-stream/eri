@@ -1,9 +1,11 @@
-import {type LoaderFunctionArgs, replace} from "@remix-run/node"
+import {replace} from "react-router"
 
 import {parseCookie, removeCookie} from "../server/lib/auth/cookie.js"
 import {lucia} from "../server/lib/auth/lucia.js"
 
-export const loader = async ({request}: LoaderFunctionArgs): Promise<never> => {
+import type {Route} from "./+types/admin.logout.js"
+
+export const loader = async ({request}: Route.LoaderArgs): Promise<never> => {
   const sessionId = await parseCookie(request.headers.get("cookie"))
 
   if (!sessionId) {

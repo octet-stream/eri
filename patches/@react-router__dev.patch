@@ -1,0 +1,44 @@
+diff --git a/dist/cli/index.js b/dist/cli/index.js
+index 266c57f73fe6197f5852aa9259013bac44b9b068..660e3625cc37a8532279088762ec2f0fb020f118 100644
+--- a/dist/cli/index.js
++++ b/dist/cli/index.js
+@@ -600,7 +600,7 @@ function generate(ctx, route) {
+     const indent = i === 0 ? "" : "  ".repeat(2);
+     let source = noExtension(rel);
+     if (!source.startsWith("../")) source = "./" + source;
+-    return `${indent}import type { Info as Parent${i} } from "${source}"`;
++    return `${indent}import type { Info as Parent${i} } from "${source}.js"`;
+   }).join("\n");
+   return import_dedent.default`
+     // React Router generated types for route:
+@@ -610,7 +610,7 @@ function generate(ctx, route) {
+ 
+     ${parentTypeImports}
+ 
+-    type Module = typeof import("../${Pathe2.filename(route.file)}")
++    type Module = typeof import("../${Pathe2.filename(route.file)}.js")
+ 
+     export type Info = {
+       parents: [${parents.map((_, i) => `Parent${i}`).join(", ")}],
+diff --git a/dist/vite.js b/dist/vite.js
+index f17d1b646ef92126c4b8367aad2483d52cc2b425..abff4850d4fa5e9b146b4bb2b336f00cc9041d87 100644
+--- a/dist/vite.js
++++ b/dist/vite.js
+@@ -641,7 +641,7 @@ function generate(ctx, route) {
+     const indent = i === 0 ? "" : "  ".repeat(2);
+     let source = noExtension(rel);
+     if (!source.startsWith("../")) source = "./" + source;
+-    return `${indent}import type { Info as Parent${i} } from "${source}"`;
++    return `${indent}import type { Info as Parent${i} } from "${source}.js"`;
+   }).join("\n");
+   return import_dedent.default`
+     // React Router generated types for route:
+@@ -651,7 +651,7 @@ function generate(ctx, route) {
+ 
+     ${parentTypeImports}
+ 
+-    type Module = typeof import("../${Pathe2.filename(route.file)}")
++    type Module = typeof import("../${Pathe2.filename(route.file)}.js")
+ 
+     export type Info = {
+       parents: [${parents.map((_, i) => `Parent${i}`).join(", ")}],

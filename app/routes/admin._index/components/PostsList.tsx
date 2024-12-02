@@ -1,4 +1,3 @@
-import {Link, generatePath, useLoaderData} from "@remix-run/react"
 import {
   createColumnHelper,
   flexRender,
@@ -8,6 +7,7 @@ import {
 import {MoreHorizontal, SquareArrowOutUpRight} from "lucide-react"
 import type {FC, MouseEventHandler} from "react"
 import {useMemo} from "react"
+import {Link, generatePath, useLoaderData} from "react-router"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 

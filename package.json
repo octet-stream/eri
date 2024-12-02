@@ -3,7 +3,7 @@
   "type": "module",
   "name": "eri",
   "version": "0.3.0",
-  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c",
+  "packageManager": "pnpm@9.14.4+sha512.c8180b3fbe4e4bca02c94234717896b5529740a6cbadf19fa78254270403ea2f27d4e1d46a08a0f56c89b63dc8ebfd3ee53326da720273794e6200fcf0d184ab",
   "engines": {
     "node": ">= 22"
   },
@@ -13,9 +13,9 @@
     "url": "git+ssh://git@github.com/octet-stream/eri.git"
   },
   "scripts": {
-    "dev": "remix vite:dev --host",
-    "dev.open": "remix vite:dev --open",
-    "build": "remix vite:build && vite -c vite.mikro-orm.config.ts build",
+    "dev": "react-router dev --host",
+    "dev.open": "react-router dev --open",
+    "build": "react-router build && vite -c vite.mikro-orm.config.ts build",
     "start": "NODE_ENV=production node ./build/server/index.js",
     "demo.start": "docker compose -f compose.demo.yaml --env-file .env.demo.local up --wait -d",
     "demo.stop": "docker compose -f compose.demo.yaml --env-file .env.demo.local down",
@@ -40,6 +40,13 @@
         "x64",
         "arm64"
       ]
+    },
+    "patchedDependencies": {
+      "@react-router/dev": "patches/@react-router__dev.patch",
+      "react-router": "patches/react-router.patch"
+    },
+    "overrides": {
+      "react-router-hono-server@2>hono": "$hono"
     }
   },
   "dependencies": {
@@ -60,8 +67,7 @@
     "@radix-ui/react-slot": "1.1.0",
     "@radix-ui/react-toolbar": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
-    "@remix-run/node": "2.13.1",
-    "@remix-run/react": "2.13.1",
+    "@react-router/node": "^7.0.0",
     "@sindresorhus/slugify": "2.2.1",
     "@tanstack/react-table": "8.20.5",
     "@udecode/cn": "38.0.1",
@@ -115,7 +121,8 @@
     "react-is": "18.3.1",
     "react-lite-youtube-embed": "2.4.0",
     "react-query": "3.39.3",
-    "react-router-hono-server": "0.2.0",
+    "react-router": "^7.0.0",
+    "react-router-hono-server": "2.1.2",
     "react-textarea-autosize": "8.5.4",
     "react-tweet": "3.2.1",
     "react-use-event-hook": "0.9.6",
@@ -137,7 +144,8 @@
     "@commitlint/config-conventional": "19.5.0",
     "@commitlint/types": "19.5.0",
     "@faker-js/faker": "9.0.3",
-    "@remix-run/dev": "2.13.1",
+    "@react-router/dev": "7.0.1",
+    "@react-router/fs-routes": "7.0.1",
     "@tailwindcss/typography": "0.5.15",
     "@types/is-hotkey": "0.1.10",
     "@types/node": "22.7.5",
@@ -157,7 +165,7 @@
     "tailwindcss-animate": "1.0.7",
     "tailwindcss-device": "0.3.0",
     "ts-node": "10.9.2",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "vite": "5.4.8",
     "vite-tsconfig-paths": "5.0.1",
     "vitest": "2.1.2"

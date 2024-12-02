@@ -1,4 +1,4 @@
-import {type CookieSerializeOptions, createCookie} from "@remix-run/node"
+import {type CookieSerializeOptions, createCookie} from "react-router"
 
 import type {Maybe} from "../../../lib/types/Maybe.js"
 

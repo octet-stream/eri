@@ -1,6 +1,4 @@
-import type {LoaderFunctionArgs} from "@remix-run/node"
-import type {MetaArgs, MetaDescriptor} from "@remix-run/react"
-import {useLoaderData} from "@remix-run/react"
+import type {FC} from "react"
 
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
@@ -11,7 +9,9 @@ import config from "../../server/lib/config.js"
 import {Post} from "../../server/db/entities.js"
 import {PostPage} from "../../server/zod/post/PostPage.js"
 
-export const loader = async ({context: {orm}, request}: LoaderFunctionArgs) => {
+import type {Route} from "./+types/route.js"
+
+export const loader = async ({context: {orm}, request}: Route.LoaderArgs) => {
   const search = new URL(request.url).searchParams
 
   const page = await PostPage.parseAsync({
@@ -39,15 +39,15 @@ export const loader = async ({context: {orm}, request}: LoaderFunctionArgs) => {
   }
 }
 
-export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
+export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: data?.title
+    title: data.title
   }
 ]
 
 // TODO: Implement posts list
-const HomePage = () => {
-  const {page} = useLoaderData<typeof loader>()
+const HomePage: FC<Route.ComponentProps> = ({loaderData}) => {
+  const {page} = loaderData
 
   if (page.rowsCount < 0) {
     return <NoPosts />

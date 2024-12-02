@@ -1,6 +1,6 @@
+import {withVariants} from "@udecode/cn"
 import {Box, withRef} from "@udecode/plate-common/react"
 import {cva} from "class-variance-authority"
-import {withVariants} from "@udecode/cn"
 
 import type {OHeadingLevels} from "../../server/zod/plate/common/HeadingLevels.js"
 

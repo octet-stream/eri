@@ -1,5 +1,5 @@
 import {parseWithZod} from "@conform-to/zod"
-import {type ActionFunctionArgs, replace} from "@remix-run/node"
+import {replace} from "react-router"
 
 import {User} from "../server/db/entities.js"
 import {serializeCookie} from "../server/lib/auth/cookie.js"
@@ -7,13 +7,15 @@ import {lucia} from "../server/lib/auth/lucia.js"
 import {password} from "../server/lib/auth/password.js"
 import {AdminLogInInput} from "../server/zod/admin/AdminLogInInput.js"
 
+import type {Route} from "./+types/admin.login.js"
+
 export const loader = (): never => {
   throw new Response(null, {
     status: 404
   })
 }
 
-export const action = async ({request, context: {orm}}: ActionFunctionArgs) => {
+export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminLogInInput,
     async: true

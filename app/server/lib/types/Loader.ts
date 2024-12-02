@@ -1,3 +1,5 @@
-import type {LoaderFunctionArgs} from "@remix-run/node"
+import type {LoaderFunctionArgs} from "react-router"
 
-export type Loader<TResult> = (event: LoaderFunctionArgs) => Promise<TResult>
+export type Loader<TResult, TEvent extends LoaderFunctionArgs> = (
+  event: TEvent
+) => Promise<TResult>

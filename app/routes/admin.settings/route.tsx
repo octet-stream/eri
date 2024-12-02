@@ -1,7 +1,6 @@
 import {parseWithZod} from "@conform-to/zod"
-import {json} from "@remix-run/node"
-import type {MetaDescriptor} from "@remix-run/react"
 import type {FC} from "react"
+import type {MetaDescriptor} from "react-router"
 
 import {
   Breadcrumb,
