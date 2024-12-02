@@ -6,8 +6,7 @@ import {
   SquarePen
 } from "lucide-react"
 import type {FC} from "react"
-import {Link, Outlet, isRouteErrorResponse, useRouteError} from "react-router"
-import type {MetaArgs, MetaDescriptor} from "react-router"
+import {Link, Outlet, isRouteErrorResponse} from "react-router"
 
 import {
   Breadcrumb,
@@ -25,9 +24,9 @@ import {AdminSetupPage} from "./pages/Setup.jsx"
 
 import {AdminLoaderErrorCode} from "../../server/lib/admin/AdminLoaderErrorCode.js"
 
-export const ErrorBoundary: FC = () => {
-  const error = useRouteError()
+import type {Route} from "./+types/route.js"
 
+export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({error}) => {
   if (isRouteErrorResponse(error)) {
     if (error.data === AdminLoaderErrorCode.SETUP) {
       return <AdminSetupPage />
@@ -41,7 +40,7 @@ export const ErrorBoundary: FC = () => {
   throw error
 }
 
-export const meta = ({error}: MetaArgs): MetaDescriptor[] => {
+export const meta: Route.MetaFunction = ({error}) => {
   let title = "Admin panel"
 
   if (isRouteErrorResponse(error)) {
@@ -59,7 +58,7 @@ export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb href="/admin">Dashboard</Breadcrumb>
 }
 
-const AdminLayout: FC = () => (
+const AdminLayout: FC<Route.ComponentProps> = () => (
   <SidebarProvider>
     <div className="w-full">
       <header className="border-b w-full sticky top-0 z-50 bg-background">

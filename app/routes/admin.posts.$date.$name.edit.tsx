@@ -8,13 +8,7 @@ import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import {assign} from "@mikro-orm/mariadb"
 import type {FC} from "react"
 import type {MetaArgs, MetaDescriptor} from "react-router"
-import {
-  generatePath,
-  redirect,
-  useActionData,
-  useLoaderData,
-  useNavigation
-} from "react-router"
+import {generatePath, redirect, useNavigation} from "react-router"
 import type {z} from "zod"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
@@ -39,7 +33,7 @@ import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
 import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
 
-export const loader = defineAdminLoader(async event => {
+export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
   await checkPksLoader({
     ...event,
 
@@ -56,7 +50,7 @@ export const loader = defineAdminLoader(async event => {
     context: {orm}
   } = event
 
-  const slug = await parseInput(PostSlug, params as IPostSlug, {async: true})
+  const slug = await parseInput(PostSlug, params, {async: true})
   const post = await orm.em.findOneOrFail(
     Post,
 
@@ -121,9 +115,9 @@ export const action = defineAdminAction(async ({request, context: {orm}}) => {
   throw redirect(generatePath("/admin/posts/:slug", {slug: post.slug}))
 })
 
-export const meta = ({data}: MetaArgs<typeof loader>): MetaDescriptor[] => [
+export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: `${data?.title} - Edit post`
+    title: `${data.title} - Edit post`
   }
 ]
 
