@@ -3,7 +3,7 @@ import type {Context} from "hono"
 import type {Maybe} from "../../../lib/types/Maybe.js"
 import type {Session, User} from "../../db/entities.js"
 
-declare module "@remix-run/node" {
+declare module "react-router" {
   interface AppLoadContext {
     /**
      * Auth context utilities

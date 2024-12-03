@@ -6,53 +6,60 @@ import {
   SquarePen
 } from "lucide-react"
 import type {FC} from "react"
-import {Link, Outlet, isRouteErrorResponse} from "react-router"
+import {Link, Outlet} from "react-router"
+
+import {
+  isAdminLoaderError,
+  AdminLoaderErrorCode
+} from "../server/lib/admin/adminLoaderError.js"
 
 import {
   Breadcrumb,
   type BreadcrumbHandle,
   Breadcrumbs
-} from "../../components/common/Breadcrumbs.jsx"
+} from "../components/common/Breadcrumbs.jsx"
 import {
   Sidebar,
   SidebarItem,
   SidebarProvider,
   SidebarTrigger
-} from "../../components/common/Sidebar.jsx"
-import {AdminLoginPage} from "./pages/Login.jsx"
-import {AdminSetupPage} from "./pages/Setup.jsx"
+} from "../components/common/Sidebar.jsx"
 
-import {AdminLoaderErrorCode} from "../../server/lib/admin/AdminLoaderErrorCode.js"
+import type {Route} from "./+types/admin.js"
 
-import type {Route} from "./+types/route.js"
+import {AdminSetupPage} from "./admin_.setup/AdminSetupPage.jsx"
+import {AdminLoginPage} from "./admin_.login/AdminLoginPage.jsx"
 
-export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({error}) => {
-  if (isRouteErrorResponse(error)) {
-    if (error.data === AdminLoaderErrorCode.SETUP) {
-      return <AdminSetupPage />
-    }
-
-    if (error.data === AdminLoaderErrorCode.LOGIN) {
-      return <AdminLoginPage />
-    }
+export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({
+  error,
+  params,
+  actionData
+}) => {
+  if (!isAdminLoaderError(error)) {
+    throw error
   }
 
-  throw error
-}
-
-export const meta: Route.MetaFunction = ({error}) => {
-  let title = "Admin panel"
-
-  if (isRouteErrorResponse(error)) {
-    if (error.data === AdminLoaderErrorCode.SETUP) {
-      title = `Setup - ${title}`
-    } else if (error.data === AdminLoaderErrorCode.LOGIN) {
-      title = `Login - ${title}`
-    }
+  // TODO: Fix matches for this error
+  if (error.data.code === AdminLoaderErrorCode.SETUP) {
+    return (
+      <AdminSetupPage
+        {...{loaderData: null, params, actionData, matches: [] as any}}
+      />
+    )
   }
 
-  return [{title}]
+  return (
+    <AdminLoginPage
+      {...{loaderData: null, params, actionData, matches: [] as any}}
+    />
+  )
 }
+
+export const meta: Route.MetaFunction = () => [
+  {
+    title: "Admin panel"
+  }
+]
 
 export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb href="/admin">Dashboard</Breadcrumb>

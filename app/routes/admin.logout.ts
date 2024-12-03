@@ -5,9 +5,15 @@ import {lucia} from "../server/lib/auth/lucia.js"
 
 import type {Route} from "./+types/admin.logout.js"
 
-export const loader = async ({request}: Route.LoaderArgs): Promise<never> => {
-  const sessionId = await parseCookie(request.headers.get("cookie"))
+export const loader = async ({
+  request,
+  context: {auth}
+}: Route.LoaderArgs): Promise<never> => {
+  if (!auth.isAuthenticated()) {
+    throw replace("/admin/login")
+  }
 
+  const sessionId = await parseCookie(request.headers.get("cookie"))
   if (!sessionId) {
     throw replace("/admin", {
       status: 401

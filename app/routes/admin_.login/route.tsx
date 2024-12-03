@@ -1,18 +1,21 @@
 import {parseWithZod} from "@conform-to/zod"
-import {replace} from "react-router"
+import {replace, data} from "react-router"
 
-import {User} from "../server/db/entities.js"
-import {serializeCookie} from "../server/lib/auth/cookie.js"
-import {lucia} from "../server/lib/auth/lucia.js"
-import {password} from "../server/lib/auth/password.js"
-import {AdminLogInInput} from "../server/zod/admin/AdminLogInInput.js"
+import {User} from "../../server/db/entities.js"
+import {serializeCookie} from "../../server/lib/auth/cookie.js"
+import {lucia} from "../../server/lib/auth/lucia.js"
+import {password} from "../../server/lib/auth/password.js"
+import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
-import type {Route} from "./+types/admin.login.js"
+import type {Route} from "./+types/route.js"
+import {AdminLoginPage} from "./AdminLoginPage.jsx"
 
-export const loader = (): never => {
-  throw new Response(null, {
-    status: 404
-  })
+export const loader = ({context: {auth}}: Route.LoaderArgs) => {
+  if (auth.isAuthenticated()) {
+    throw replace("/admin")
+  }
+
+  return null
 }
 
 export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
@@ -22,7 +25,9 @@ export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
   })
 
   if (submission.status !== "success") {
-    return submission.reply() // ! See https://github.com/edmundhung/conform/issues/628
+    return data(submission.reply(), {
+      status: 400
+    })
   }
 
   const user = await orm.em.findOneOrFail(
@@ -57,3 +62,11 @@ export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
     }
   })
 }
+
+export const meta: Route.MetaFunction = () => [
+  {
+    title: "Login"
+  }
+]
+
+export default AdminLoginPage
