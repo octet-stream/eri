@@ -5,10 +5,9 @@ import {
   useForm
 } from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
+import {generatePath, redirect, useNavigation} from "react-router"
 import {assign} from "@mikro-orm/mariadb"
 import type {FC} from "react"
-import type {MetaArgs, MetaDescriptor} from "react-router"
-import {generatePath, redirect, useNavigation} from "react-router"
 import type {z} from "zod"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
@@ -23,34 +22,31 @@ import {Post} from "../server/db/entities.js"
 import {defineAdminAction} from "../server/lib/admin/defineAdminAction.js"
 import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
 import {matchesHttpMethods} from "../server/lib/utils/matchesHttpMethods.js"
-import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {AdminPostOutputEdit} from "../server/zod/admin/AdminPostOutputEdit.js"
 import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
-import {type IPostSlug, PostSlug} from "../server/zod/post/PostSlug.js"
+import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {PostUpdateInput} from "../server/zod/post/PostUpdateInput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
+import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 
 import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
 
 export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
-  await checkPksLoader({
-    ...event,
-
-    context: {
-      ...event.context,
-
-      pksRedirect: (slug: string) =>
-        generatePath("/admin/posts/:slug/edit", {slug})
-    }
-  })
-
   const {
     params,
     context: {orm}
   } = event
 
   const slug = await parseInput(PostSlug, params, {async: true})
+
+  await checkPostPks({
+    event,
+    slug,
+    onRedirect: ({post}) =>
+      generatePath("/admin/posts/:slug/edit", {slug: post.slug})
+  })
+
   const post = await orm.em.findOneOrFail(
     Post,
 
