@@ -9,8 +9,6 @@ import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
 import type {Route} from "./+types/route.js"
 import {AdminSetupPage} from "./AdminSetupPage.jsx"
 
-// TODO: Throw 404 error if admin user exists
-
 export const loader = ({context: {auth}}: Route.LoaderArgs) => {
   if (auth.isAuthenticated()) {
     throw replace("/admin")
