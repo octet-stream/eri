@@ -2,31 +2,29 @@ import {generatePath} from "react-router"
 
 import {Post} from "../server/db/entities.js"
 import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
-import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
+import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 
 import type {Route} from "./+types/admin.posts.$date.$name._index.js"
 
 export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
-  await checkPksLoader({
-    ...event,
-
-    context: {
-      ...event.context,
-
-      pksRedirect: (slug: string) => generatePath("/admin/posts/:slug", {slug})
-    }
-  })
-
   const {
     params,
     context: {orm}
   } = event
 
   const slug = await parseInput(PostSlug, params, {async: true})
+
+  await checkPostPks({
+    event,
+    slug,
+    onRedirect: ({post}) =>
+      generatePath("/admin/posts/:slug", {slug: post.slug})
+  })
+
   const post = await orm.em.findOneOrFail(
     Post,
 

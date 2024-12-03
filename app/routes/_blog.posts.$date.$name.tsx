@@ -9,31 +9,28 @@ import {Heading as CommonHeading} from "../components/common/Heading.jsx"
 
 import {formatPostDate} from "../lib/utils/formatPostDate.js"
 import {Post} from "../server/db/entities.js"
-import {checkPksLoader} from "../server/loaders/checkPksLoader.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
+import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 
 import type {Route} from "./+types/_blog.posts.$date.$name.js"
 
 export const loader = async (event: Route.LoaderArgs) => {
-  await checkPksLoader({
-    ...event,
-
-    context: {
-      ...event.context,
-
-      pksRedirect: (slug: string) => generatePath("/posts/:slug", {slug})
-    }
-  })
-
   const {
     params,
     context: {orm}
   } = event
 
   const slug = await parseInput(PostSlug, params, {async: true})
+
+  await checkPostPks({
+    event,
+    slug,
+    onRedirect: ({post}) => generatePath("/posts/:slug", {slug: post.slug})
+  })
+
   const post = await orm.em.findOneOrFail(
     Post,
 
