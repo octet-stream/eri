@@ -41,12 +41,11 @@
         "arm64"
       ]
     },
-    "patchedDependencies": {
-      "@react-router/dev": "patches/@react-router__dev.patch",
-      "react-router": "patches/react-router.patch"
-    },
     "overrides": {
       "react-router-hono-server@2>hono": "$hono"
+    },
+    "patchedDependencies": {
+      "react-router": "patches/react-router.patch"
     }
   },
   "dependencies": {
@@ -67,7 +66,7 @@
     "@radix-ui/react-slot": "1.1.0",
     "@radix-ui/react-toolbar": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
-    "@react-router/node": "^7.0.0",
+    "@react-router/node": "^7.0.2",
     "@sindresorhus/slugify": "2.2.1",
     "@tanstack/react-table": "8.20.5",
     "@udecode/cn": "38.0.1",
@@ -102,7 +101,7 @@
     "cmdk": "1.0.0",
     "date-fns": "4.1.0",
     "dotenv": "16.4.5",
-    "hono": "4.6.4",
+    "hono": "4.6.12",
     "is-absolute-url": "4.0.1",
     "is-hotkey": "0.2.0",
     "isbot": "5.1.17",
@@ -121,7 +120,7 @@
     "react-is": "18.3.1",
     "react-lite-youtube-embed": "2.4.0",
     "react-query": "3.39.3",
-    "react-router": "^7.0.0",
+    "react-router": "^7.0.2",
     "react-router-hono-server": "2.1.2",
     "react-textarea-autosize": "8.5.4",
     "react-tweet": "3.2.1",
@@ -144,13 +143,13 @@
     "@commitlint/config-conventional": "19.5.0",
     "@commitlint/types": "19.5.0",
     "@faker-js/faker": "9.0.3",
-    "@react-router/dev": "7.0.1",
-    "@react-router/fs-routes": "7.0.1",
+    "@react-router/dev": "7.0.2",
+    "@react-router/fs-routes": "7.0.2",
     "@tailwindcss/typography": "0.5.15",
     "@types/is-hotkey": "0.1.10",
-    "@types/node": "22.7.5",
+    "@types/node": "22.10.1",
     "@types/prismjs": "1.26.4",
-    "@types/react": "18.3.11",
+    "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@types/uuid": "10.0.0",
     "@types/validator": "13.12.2",
