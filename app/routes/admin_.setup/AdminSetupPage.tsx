@@ -1,11 +1,11 @@
 import {getFormProps, getInputProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import {Form, useActionData} from "react-router"
+import {Form} from "react-router"
 
-import {AdminSetupInput} from "../../../server/zod/admin/AdminSetupInput.js"
+import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
 
-import {Button} from "../../../components/ui/Button.jsx"
+import {Button} from "../../components/ui/Button.jsx"
 import {
   Card,
   CardContent,
@@ -13,16 +13,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from "../../../components/ui/Card.jsx"
-import {Input} from "../../../components/ui/Input.jsx"
-import {Label} from "../../../components/ui/Label.jsx"
+} from "../../components/ui/Card.jsx"
+import {Input} from "../../components/ui/Input.jsx"
+import {Label} from "../../components/ui/Label.jsx"
 
-import type {action} from "../../admin.setup.js"
+import type {Route} from "./+types/route.js"
 
-export const AdminSetupPage: FC = () => {
-  const lastResult = useActionData<typeof action>()
+export const AdminSetupPage: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm({
-    lastResult,
+    lastResult: actionData,
     constraint: getZodConstraint(AdminSetupInput),
 
     onValidate: ({formData}) =>

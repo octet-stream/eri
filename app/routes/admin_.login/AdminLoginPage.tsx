@@ -1,11 +1,11 @@
 import {getFormProps, getInputProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import {Form, useActionData} from "react-router"
+import {Form} from "react-router"
 
-import {AdminLogInInput} from "../../../server/zod/admin/AdminLogInInput.js"
+import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
-import {Button} from "../../../components/ui/Button.jsx"
+import {Button} from "../../components/ui/Button.jsx"
 import {
   Card,
   CardContent,
@@ -13,16 +13,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from "../../../components/ui/Card.jsx"
-import {Input} from "../../../components/ui/Input.jsx"
-import {Label} from "../../../components/ui/Label.jsx"
+} from "../../components/ui/Card.jsx"
+import {Input} from "../../components/ui/Input.jsx"
+import {Label} from "../../components/ui/Label.jsx"
 
-import type {action} from "../../admin.login.js"
+import type {Route} from "./+types/route.js"
 
-export const AdminLoginPage: FC = () => {
-  const lastResult = useActionData<typeof action>()
+export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm({
-    lastResult,
+    lastResult: actionData,
     constraint: getZodConstraint(AdminLogInInput),
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
