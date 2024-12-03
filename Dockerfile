@@ -22,6 +22,7 @@ FROM base AS deps-common
 COPY --from=repo /usr/src/eri/package.json .
 COPY --from=repo /usr/src/eri/pnpm-lock.yaml .
 COPY --from=repo /usr/src/eri/.husky/install.ts .husky/install.ts
+COPY --from=repo /usr/src/eri/patches/ patches
 
 # Prepare production-only dependencies
 FROM deps-common AS deps-prod

@@ -1,5 +1,5 @@
 import type {FC} from "react"
-import {generatePath, useLoaderData} from "react-router"
+import {generatePath} from "react-router"
 
 import {
   Breadcrumb,
@@ -65,23 +65,19 @@ export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb>Post</Breadcrumb>
 }
 
-const PostViewPage: FC = () => {
-  const post = useLoaderData<typeof loader>()
+const PostViewPage: FC<Route.ComponentProps> = ({loaderData: post}) => (
+  <article>
+    <div className="mb-5">
+      <CommonHeading variant="h1">{post.title}</CommonHeading>
 
-  return (
-    <article>
-      <div className="mb-5">
-        <CommonHeading variant="h1">{post.title}</CommonHeading>
+      <small className="text-muted-foreground" suppressHydrationWarning>
+        {formatPostDate(post.createdAt)}
+      </small>
+    </div>
 
-        <small className="text-muted-foreground" suppressHydrationWarning>
-          {formatPostDate(post.createdAt)}
-        </small>
-      </div>
-
-      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: The content is serialized and sanitized by react-dom/server */}
-      <div dangerouslySetInnerHTML={{__html: post.content}} />
-    </article>
-  )
-}
+    {/* biome-ignore lint/security/noDangerouslySetInnerHtml: The content is serialized and sanitized by react-dom/server */}
+    <div dangerouslySetInnerHTML={{__html: post.content}} />
+  </article>
+)
 
 export default PostViewPage
