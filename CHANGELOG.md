@@ -1,5 +1,21 @@
 # eri
 
+## 0.4.0
+
+### Minor Changes
+
+- [#98](https://github.com/octet-stream/eri/pull/98) [`e5d6f98`](https://github.com/octet-stream/eri/commit/e5d6f9813e642da670a03f8eba1b8670dea5a154) Thanks [@octet-stream](https://github.com/octet-stream)! - Improve auth experience for admin panel
+
+- [#96](https://github.com/octet-stream/eri/pull/96) [`439b233`](https://github.com/octet-stream/eri/commit/439b23383886faeabb5c60096abe14df0c794afe) Thanks [@octet-stream](https://github.com/octet-stream)! - Enable all Remix future flags
+
+- [#97](https://github.com/octet-stream/eri/pull/97) [`2ca2dd3`](https://github.com/octet-stream/eri/commit/2ca2dd3ebca1dc078928248b2c7f5cc1949fd197) Thanks [@octet-stream](https://github.com/octet-stream)! - Migrate to React Router v7
+
+### Patch Changes
+
+- [#94](https://github.com/octet-stream/eri/pull/94) [`be58258`](https://github.com/octet-stream/eri/commit/be582585d1ad89cf8cee098ed8cb9e6bb645c49e) Thanks [@octet-stream](https://github.com/octet-stream)! - Update dependencies
+
+- [#100](https://github.com/octet-stream/eri/pull/100) [`1c31e83`](https://github.com/octet-stream/eri/commit/1c31e834e9c9ba46dece9213b404ba395e1e0e58) Thanks [@octet-stream](https://github.com/octet-stream)! - Improve API for pks checks
+
 ## 0.3.0
 
 ### Minor Changes
