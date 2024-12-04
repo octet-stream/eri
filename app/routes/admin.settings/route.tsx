@@ -1,6 +1,6 @@
 import {parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import type {MetaDescriptor} from "react-router"
+import {data, type MetaDescriptor} from "react-router"
 
 import {
   Breadcrumb,
@@ -30,7 +30,9 @@ export const action = defineAdminAction(
     })
 
     if (submission.status !== "success") {
-      return submission.reply() // ! See https://github.com/edmundhung/conform/issues/628
+      return data(submission.reply(), {
+        status: 422
+      })
     }
 
     const {user} = auth.getAuthContext()
@@ -48,7 +50,7 @@ export const action = defineAdminAction(
 
     await orm.em.flush()
 
-    return submission.reply({resetForm: true}) // ! See https://github.com/edmundhung/conform/issues/628
+    return submission.reply({resetForm: true})
   }
 )
 

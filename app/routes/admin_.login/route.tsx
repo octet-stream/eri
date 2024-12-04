@@ -26,11 +26,11 @@ export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
 
   if (submission.status !== "success") {
     return data(submission.reply(), {
-      status: 400
+      status: 422
     })
   }
 
-  const user = await orm.em.findOneOrFail(
+  const user = await orm.em.findOne(
     User,
 
     {
@@ -38,19 +38,36 @@ export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
     },
 
     {
-      populate: ["password"],
-      failHandler() {
-        throw replace("/admin", {
-          status: 404
-        })
-      }
+      populate: ["password"]
     }
   )
 
+  if (!user) {
+    return data(
+      submission.reply({
+        fieldErrors: {
+          email: ["Incorrect email"]
+        }
+      }),
+
+      {
+        status: 422
+      }
+    )
+  }
+
   if (!(await password.verify(user.password, submission.value.password))) {
-    throw replace("/admin", {
-      status: 401
-    })
+    return data(
+      submission.reply({
+        fieldErrors: {
+          password: ["Incorrect password"]
+        }
+      }),
+
+      {
+        status: 422
+      }
+    )
   }
 
   const session = await lucia.createSession(user.id, {})
