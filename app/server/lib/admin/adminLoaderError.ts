@@ -30,6 +30,6 @@ export const isAdminLoaderError = (error: unknown): error is AdminLoaderError =>
  */
 export function createAdminLoaderError(code: AdminLoaderErrorCode): never {
   throw Response.json({type: "admin", code} satisfies AdminLoaderErrorData, {
-    status: code === AdminLoaderErrorCode.SETUP ? 404 : 403
+    status: 401
   })
 }
