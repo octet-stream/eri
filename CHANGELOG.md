@@ -1,5 +1,11 @@
 # eri
 
+## 0.4.1
+
+### Patch Changes
+
+- [#101](https://github.com/octet-stream/eri/pull/101) [`b20f469`](https://github.com/octet-stream/eri/commit/b20f4698cec253f8b30176abb4d9d500c37dc40c) Thanks [@octet-stream](https://github.com/octet-stream)! - Use correct responses and status codes for every action. This will help browsers to display more informative errors, if any occurs during forms submission
+
 ## 0.4.0
 
 ### Minor Changes
