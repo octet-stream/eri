@@ -34,8 +34,8 @@ export const DropdownMenuSubTrigger = withRef<
 >(({children, className, inset, ...props}, ref) => (
   <DropdownMenuPrimitive.SubTrigger
     className={cn(
-      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
-      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-hidden focus:bg-accent data-[state=open]:bg-accent",
+      "data-disabled:pointer-events-none data-disabled:opacity-50",
       inset && "pl-8",
       className
     )}
@@ -69,8 +69,8 @@ export const DropdownMenuContent = withRef<
 
 const menuItemVariants = cva(
   cn(
-    "relative flex h-9 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors",
-    "focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+    "relative flex h-9 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors",
+    "focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50"
   ),
   {
     variants: {
@@ -92,7 +92,7 @@ export const DropdownMenuCheckboxItem = withRef<
 >(({children, className, ...props}, ref) => (
   <DropdownMenuPrimitive.CheckboxItem
     className={cn(
-      "relative flex select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
       "cursor-pointer",
       className
     )}
@@ -116,7 +116,7 @@ export const DropdownMenuRadioItem = withRef<
 >(({children, className, hideIcon, ...props}, ref) => (
   <DropdownMenuPrimitive.RadioItem
     className={cn(
-      "relative flex select-none items-center rounded-sm pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex select-none items-center rounded-sm pl-8 pr-2 text-sm outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
       "h-9 cursor-pointer px-2 data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground",
       className
     )}
