@@ -108,9 +108,15 @@ export const action = defineAdminAction(
     )
 
     if (!post) {
-      return submission.reply({
-        formErrors: ["Unable to find post"]
-      })
+      return data(
+        submission.reply({
+          formErrors: ["Unable to find post"]
+        }),
+
+        {
+          status: 404
+        }
+      )
     }
 
     assign(post, fields)
