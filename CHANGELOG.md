@@ -1,5 +1,11 @@
 # eri
 
+## 0.4.2
+
+### Patch Changes
+
+- [#103](https://github.com/octet-stream/eri/pull/103) [`15ef813`](https://github.com/octet-stream/eri/commit/15ef813039253782bd82d8e87f5cfb4705a1ef24) Thanks [@octet-stream](https://github.com/octet-stream)! - Set title for admin layout according to auth form that is displayed
+
 ## 0.4.1
 
 ### Patch Changes
