@@ -5,7 +5,7 @@ import {
   useForm
 } from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
-import {generatePath, redirect, useNavigation} from "react-router"
+import {data, generatePath, redirect, useNavigation} from "react-router"
 import {assign} from "@mikro-orm/mariadb"
 import type {FC} from "react"
 import type {z} from "zod"
@@ -69,47 +69,63 @@ export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
   return parseOutput(AdminPostOutputEdit, post, {async: true})
 })
 
-export const action = defineAdminAction(async ({request, context: {orm}}) => {
-  if (!matchesHttpMethods(request, "PATCH")) {
-    throw new Response(null, {
-      status: 405
-    })
-  }
+export const action = defineAdminAction(
+  async ({request, context: {orm}}: Route.ActionArgs) => {
+    if (!matchesHttpMethods(request, "PATCH")) {
+      throw Response.json(
+        {
+          formErrors: ["Incorrect HTTP method. Use PATCH method instead."]
+        },
 
-  const submission = await parseWithZod(await request.formData(), {
-    schema: PostUpdateInput,
-    async: true
-  })
-
-  if (submission.status !== "success") {
-    return submission.reply() // ! See https://github.com/edmundhung/conform/issues/628
-  }
-
-  const {id, ...fields} = submission.value
-
-  const post = await orm.em.findOneOrFail(
-    Post,
-
-    submission.value.id,
-
-    {
-      filters: false, // Admin can see all posts
-      populate: ["content", "pks"],
-      failHandler(): never {
-        throw new Response(null, {
-          status: 404,
-          statusText: "Unable to find post"
-        })
-      }
+        {
+          status: 405
+        }
+      )
     }
-  )
 
-  assign(post, fields)
+    const submission = await parseWithZod(await request.formData(), {
+      schema: PostUpdateInput,
+      async: true
+    })
 
-  await orm.em.flush()
+    if (submission.status !== "success") {
+      return data(submission.reply(), {
+        status: 422
+      })
+    }
 
-  throw redirect(generatePath("/admin/posts/:slug", {slug: post.slug}))
-})
+    const {id, ...fields} = submission.value
+
+    const post = await orm.em.findOne(
+      Post,
+
+      submission.value.id,
+
+      {
+        filters: false, // Admin can see all posts
+        populate: ["content", "pks"]
+      }
+    )
+
+    if (!post) {
+      return data(
+        submission.reply({
+          formErrors: ["Unable to find post"]
+        }),
+
+        {
+          status: 404
+        }
+      )
+    }
+
+    assign(post, fields)
+
+    await orm.em.flush()
+
+    throw redirect(generatePath("/admin/posts/:slug", {slug: post.slug}))
+  }
+)
 
 export const meta: Route.MetaFunction = ({data}) => [
   {

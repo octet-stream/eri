@@ -1,8 +1,8 @@
 import {getFormProps, getTextareaProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
-import type {FC} from "react"
+import {data, generatePath, replace} from "react-router"
 import type {MetaFunction} from "react-router"
-import {generatePath, replace, useActionData} from "react-router"
+import type {FC} from "react"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
@@ -32,7 +32,9 @@ export const action = defineAdminAction(
     })
 
     if (submission.status !== "success") {
-      return submission.reply() // ! See https://github.com/edmundhung/conform/issues/628
+      return data(submission.reply(), {
+        status: 422
+      })
     }
 
     const post = orm.em.create(Post, {...submission.value, author: user})
