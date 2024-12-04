@@ -1,5 +1,11 @@
 # eri
 
+## 0.5.1
+
+### Patch Changes
+
+- [#107](https://github.com/octet-stream/eri/pull/107) [`4fa43ed`](https://github.com/octet-stream/eri/commit/4fa43ed1f7030b03dcbf36765488a2da1e036323) Thanks [@octet-stream](https://github.com/octet-stream)! - Change response code in admin loader from `404` or `403` to `401`
+
 ## 0.5.0
 
 ### Minor Changes
