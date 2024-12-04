@@ -29,37 +29,49 @@ import type {Route} from "./+types/admin.js"
 
 import {AdminSetupPage} from "./admin_.setup/AdminSetupPage.jsx"
 import {AdminLoginPage} from "./admin_.login/AdminLoginPage.jsx"
+import {ADMIN_SETUP_PAGE_TITLE} from "./admin_.setup/title.js"
+import {ADMIN_LOGIN_PAGE_TITLE} from "./admin_.login/title.js"
 
 export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({
   error,
   params,
   actionData
 }) => {
-  if (!isAdminLoaderError(error)) {
-    throw error
+  if (isAdminLoaderError(error)) {
+    // TODO: Fix matches for this error
+    if (error.data.code === AdminLoaderErrorCode.SETUP) {
+      return (
+        <AdminSetupPage
+          {...{loaderData: null, params, actionData, matches: [] as any}}
+        />
+      )
+    }
+
+    if (error.data.code === AdminLoaderErrorCode.LOGIN) {
+      return (
+        <AdminLoginPage
+          {...{loaderData: null, params, actionData, matches: [] as any}}
+        />
+      )
+    }
   }
 
-  // TODO: Fix matches for this error
-  if (error.data.code === AdminLoaderErrorCode.SETUP) {
-    return (
-      <AdminSetupPage
-        {...{loaderData: null, params, actionData, matches: [] as any}}
-      />
-    )
-  }
-
-  return (
-    <AdminLoginPage
-      {...{loaderData: null, params, actionData, matches: [] as any}}
-    />
-  )
+  throw error
 }
 
-export const meta: Route.MetaFunction = () => [
-  {
-    title: "Admin panel"
+export const meta: Route.MetaFunction = ({error}) => {
+  let title = "Admin panel"
+
+  if (isAdminLoaderError(error)) {
+    if (error.data.code === AdminLoaderErrorCode.SETUP) {
+      title = ADMIN_SETUP_PAGE_TITLE
+    } else if (error.data.code === AdminLoaderErrorCode.LOGIN) {
+      title = ADMIN_LOGIN_PAGE_TITLE
+    }
   }
-]
+
+  return [{title}]
+}
 
 export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb href="/admin">Dashboard</Breadcrumb>
