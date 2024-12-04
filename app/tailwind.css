@@ -1,54 +1,134 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  @media (prefers-color-scheme: light) {
-    :root {
-      --background: 0 0% 100%;
-      --foreground: 20 14.3% 4.1%;
-      --card: 0 0% 100%;
-      --card-foreground: 20 14.3% 4.1%;
-      --popover: 0 0% 100%;
-      --popover-foreground: 20 14.3% 4.1%;
-      --primary: 24.6 95% 53.1%;
-      --primary-foreground: 60 9.1% 97.8%;
-      --secondary: 60 4.8% 95.9%;
-      --secondary-foreground: 24 9.8% 10%;
-      --muted: 60 4.8% 95.9%;
-      --muted-foreground: 25 5.3% 44.7%;
-      --accent: 60 4.8% 95.9%;
-      --accent-foreground: 24 9.8% 10%;
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 60 9.1% 97.8%;
-      --border: 20 5.9% 90%;
-      --input: 20 5.9% 90%;
-      --ring: 24.6 95% 53.1%;
-      --radius: 0.5rem;
+@plugin "tailwindcss-animate";
+
+@theme {
+  --breakpoint-mobile: 450px;
+  --breakpoint-laptop: 1024px;
+  --breakpoint-desktop: 1280px;
+  --breakpoint-post: 800px;
+
+  --min-width-dynamic-screen: 100dvw;
+
+  --width-dynamic-screen: 100dvw;
+  --width-mobile: 450px;
+  --width-laptop: 1024px;
+  --width-desktop: 1280px;
+  --width-post: 800px;
+
+  --container-dynamic-screen: 100dvw;
+  --container-mobile: 450px;
+  --container-laptop: 1024px;
+  --container-desktop: 1280px;
+  --container-post: 800px;
+
+  --min-height-dynamic-screen: 100dvh;
+
+  --height-dynamic-screen: 100dvh;
+
+  --max-height-dynamic-screen: 100dvh;
+
+  /* Colors (light) */
+  
+  --color-*: initial;
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(20 14.3% 4.1%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(20 14.3% 4.1%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(20 14.3% 4.1%);
+  --color-primary: hsl(24.6 95% 53.1%);
+  --color-primary-foreground: hsl(60 9.1% 97.8%);
+  --color-secondary: hsl(60 4.8% 95.9%);
+  --color-secondary-foreground: hsl(24 9.8% 10%);
+  --color-muted: hsl(60 4.8% 95.9%);
+  --color-muted-foreground: hsl(25 5.3% 44.7%);
+  --color-accent: hsl(60 4.8% 95.9%);
+  --color-accent-foreground: hsl(24 9.8% 10%);
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(60 9.1% 97.8%);
+  --color-border: hsl(20 5.9% 90%);
+  --color-input: hsl(20 5.9% 90%);
+  --color-ring: hsl(24.6 95% 53.1%);
+
+  --radius: 0.5rem;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
     }
   }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
 
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= theme(--breakpoint-mobile)) {
+    max-width: none;
+  }
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer base {
   @media (prefers-color-scheme: dark) {
     :root {
-      --background: 20 14.3% 4.1%;
-      --foreground: 60 9.1% 97.8%;
-      --card: 20 14.3% 4.1%;
-      --card-foreground: 60 9.1% 97.8%;
-      --popover: 20 14.3% 4.1%;
-      --popover-foreground: 60 9.1% 97.8%;
-      --primary: 20.5 90.2% 48.2%;
-      --primary-foreground: 60 9.1% 97.8%;
-      --secondary: 12 6.5% 15.1%;
-      --secondary-foreground: 60 9.1% 97.8%;
-      --muted: 12 6.5% 15.1%;
-      --muted-foreground: 24 5.4% 63.9%;
-      --accent: 12 6.5% 15.1%;
-      --accent-foreground: 60 9.1% 97.8%;
-      --destructive: 0 72.2% 50.6%;
-      --destructive-foreground: 60 9.1% 97.8%;
-      --border: 12 6.5% 15.1%;
-      --input: 12 6.5% 15.1%;
-      --ring: 20.5 90.2% 48.2%;
+      /* Colors overrides (dark) */
+      --color-background: hsl(20 14.3% 4.1%);
+      --color-foreground: hsl(60 9.1% 97.8%);
+      --color-card: hsl(20 14.3% 4.1%);
+      --color-card-foreground: hsl(60 9.1% 97.8%);
+      --color-popover: hsl(20 14.3% 4.1%);
+      --color-popover-foreground: hsl(60 9.1% 97.8%);
+      --color-primary: hsl(20.5 90.2% 48.2%);
+      --color-primary-foreground: hsl(60 9.1% 97.8%);
+      --color-secondary: hsl(12 6.5% 15.1%);
+      --color-secondary-foreground: hsl(60 9.1% 97.8%);
+      --color-muted: hsl(12 6.5% 15.1%);
+      --color-muted-foreground: hsl(24 5.4% 63.9%);
+      --color-accent: hsl(12 6.5% 15.1%);
+      --color-accent-foreground: hsl(60 9.1% 97.8%);
+      --color-destructive: hsl(0 72.2% 50.6%);
+      --color-destructive-foreground: hsl(60 9.1% 97.8%);
+      --color-border: hsl(12 6.5% 15.1%);
+      --color-input: hsl(12 6.5% 15.1%);
+      --color-ring: hsl(20.5 90.2% 48.2%);
     }
   }
 

@@ -5,10 +5,18 @@ import {Links, Meta, Outlet, Scripts, ScrollRestoration} from "react-router"
 import tailwindcss from "./tailwind.css?url"
 
 import {Toaster} from "./components/ui/Toaster.jsx"
+import type {Route} from "./+types/root.js"
 
 interface Props {
   children: ReactNode
 }
+
+export const links: Route.LinksFunction = () => [
+  {
+    rel: "stylesheet",
+    href: tailwindcss
+  }
+]
 
 export const Layout: FC<Props> = ({children}) => (
   <html lang="en">
@@ -16,8 +24,6 @@ export const Layout: FC<Props> = ({children}) => (
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <Meta />
-
-      <link rel="stylesheet" href={tailwindcss} />
 
       <Links />
     </head>
