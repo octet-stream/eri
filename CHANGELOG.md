@@ -1,5 +1,11 @@
 # eri
 
+## 0.5.0
+
+### Minor Changes
+
+- [#105](https://github.com/octet-stream/eri/pull/105) [`0cd47f4`](https://github.com/octet-stream/eri/commit/0cd47f4275b6d9ca5e6c0d51c9e204c49f41faeb) Thanks [@octet-stream](https://github.com/octet-stream)! - Migrate to Tailwind 4 beta
+
 ## 0.4.2
 
 ### Patch Changes
