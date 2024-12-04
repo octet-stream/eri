@@ -23,8 +23,6 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm({
     lastResult: actionData,
     constraint: getZodConstraint(AdminLogInInput),
-    shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
 
     onValidate: ({formData}) =>
       parseWithZod(formData, {schema: AdminLogInInput})

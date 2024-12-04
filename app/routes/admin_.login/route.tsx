@@ -9,6 +9,7 @@ import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
 import type {Route} from "./+types/route.js"
 import {AdminLoginPage} from "./AdminLoginPage.jsx"
+import {ADMIN_LOGIN_PAGE_TITLE} from "./title.js"
 
 export const loader = ({context: {auth}}: Route.LoaderArgs) => {
   if (auth.isAuthenticated()) {
@@ -82,7 +83,7 @@ export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
 
 export const meta: Route.MetaFunction = () => [
   {
-    title: "Login"
+    title: ADMIN_LOGIN_PAGE_TITLE
   }
 ]
 

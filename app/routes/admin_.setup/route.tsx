@@ -8,6 +8,7 @@ import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
 
 import type {Route} from "./+types/route.js"
 import {AdminSetupPage} from "./AdminSetupPage.jsx"
+import {ADMIN_SETUP_PAGE_TITLE} from "./title.js"
 
 export const loader = ({context: {auth}}: Route.LoaderArgs) => {
   if (auth.isAuthenticated()) {
@@ -45,7 +46,7 @@ export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
 
 export const meta: Route.MetaFunction = () => [
   {
-    title: "Create admin account"
+    title: ADMIN_SETUP_PAGE_TITLE
   }
 ]
 
