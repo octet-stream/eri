@@ -1,4 +1,4 @@
-import {auth} from "../server/lib/auth.js"
+import {auth} from "../server/lib/better-auth/auth.js"
 
 import type {Route} from "./+types/api.auth.$.js"
 

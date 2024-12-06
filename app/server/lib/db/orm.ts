@@ -4,8 +4,16 @@ import config from "./configs/base.js"
 
 let cache: Promise<MikroORM> | undefined
 
+export const orm = MikroORM.initSync(config)
+
+/**
+ * @deprecated - use `orm` object directly
+ */
 export const createOrm = () => MikroORM.init(config)
 
+/**
+ * @deprecated - use `orm` object directly
+ */
 export function getOrm(): Promise<MikroORM> {
   if (!cache) {
     cache = createOrm()
@@ -20,6 +28,9 @@ export type WithOrmCallback<TResult, TArgs extends unknown[]> = (
   ...args: TArgs
 ) => Promise<TResult>
 
+/**
+ * @deprecated - use `orm` object directly
+ */
 export const withOrm =
   <TResult, TArgs extends unknown[]>(fn: WithOrmCallback<TResult, TArgs>) =>
   async (...args: TArgs) => {

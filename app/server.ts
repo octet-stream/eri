@@ -3,12 +3,17 @@ import {createHonoServer} from "react-router-hono-server/node"
 import {csrf} from "hono/csrf"
 
 import {Auth} from "./server/lib/auth/Auth.js"
-import {getOrm} from "./server/lib/db/orm.js"
+import {orm} from "./server/lib/db/orm.js"
 import {withAuth} from "./server/middlewares/withAuth.js"
 import {withOrm} from "./server/middlewares/withOrm.js"
 
+import config from "./server/lib/config.js"
+
 export default await createHonoServer({
-  configure(hono) {
+  port: config.server.port,
+  async configure(hono) {
+    await orm.connect()
+
     hono
       .use(csrf()) // TODO: specify origin for production
       .use(withOrm())
@@ -18,7 +23,7 @@ export default await createHonoServer({
   async getLoadContext(ctx) {
     return {
       auth: new Auth(ctx),
-      orm: await getOrm()
+      orm
     }
   },
 

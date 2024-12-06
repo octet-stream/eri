@@ -250,6 +250,9 @@ importers:
       remix-hono:
         specifier: 0.0.16
         version: 0.0.16(typescript@5.7.2)(zod@3.23.8)
+      scule:
+        specifier: ^1.3.0
+        version: 1.3.0
       slate:
         specifier: 0.103.0
         version: 0.103.0
@@ -344,18 +347,12 @@ importers:
       is-inside-container:
         specifier: 1.0.0
         version: 1.0.0
-      jiti:
-        specifier: 2.4.1
-        version: 2.4.1
       lint-staged:
         specifier: 15.2.10
         version: 15.2.10
       postcss:
         specifier: 8.4.49
         version: 8.4.49
-      postcss-load-config:
-        specifier: 6.0.1
-        version: 6.0.1(jiti@2.4.1)(postcss@8.4.49)(yaml@2.6.1)
       tailwindcss:
         specifier: 4.0.0-beta.5
         version: 4.0.0-beta.5
@@ -4297,24 +4294,6 @@ packages:
     resolution: {integrity: sha512-M7LhCsdNbNgiLYiP4WjsfLUuFmCfnjdF6jKe2R9NKl4WFN+HZPGHJZ9lnLP7f9ZnKe3U9nuWD0szirmj+migUg==}
     engines: {node: '>=12.0.0'}
 
-  postcss-load-config@6.0.1:
-    resolution: {integrity: sha512-oPtTM4oerL+UXmx+93ytZVN82RrlY/wPUV8IeDxFrzIjXOLF1pN+EmKPLbubvKHT2HC20xXsCAH2Z+CKV6Oz/g==}
-    engines: {node: '>= 18'}
-    peerDependencies:
-      jiti: '>=1.21.0'
-      postcss: '>=8.0.9'
-      tsx: ^4.8.1
-      yaml: ^2.4.2
-    peerDependenciesMeta:
-      jiti:
-        optional: true
-      postcss:
-        optional: true
-      tsx:
-        optional: true
-      yaml:
-        optional: true
-
   postcss-selector-parser@6.0.10:
     resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
     engines: {node: '>=4'}
@@ -4667,6 +4646,9 @@ packages:
 
   scroll-into-view-if-needed@3.1.0:
     resolution: {integrity: sha512-49oNpRjWRvnU8NyGVmUaYG4jtTkNonFZI86MmGRDqBphEK2EXT9gdEUoQPZhuBM8yWHxCWbobltqYO5M4XrUvQ==}
+
+  scule@1.3.0:
+    resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
 
   selfsigned@2.4.1:
     resolution: {integrity: sha512-th5B4L2U+eGLq1TVh7zNRGBapioSORUeymIydxgFpwww9d2qyKvtuPU2jJuHvYAwwqi2Y596QBL3eEqcPEYL8Q==}
@@ -9234,14 +9216,6 @@ snapshots:
 
   pony-cause@2.1.11: {}
 
-  postcss-load-config@6.0.1(jiti@2.4.1)(postcss@8.4.49)(yaml@2.6.1):
-    dependencies:
-      lilconfig: 3.1.3
-    optionalDependencies:
-      jiti: 2.4.1
-      postcss: 8.4.49
-      yaml: 2.6.1
-
   postcss-selector-parser@6.0.10:
     dependencies:
       cssesc: 3.0.0
@@ -9597,6 +9571,8 @@ snapshots:
   scroll-into-view-if-needed@3.1.0:
     dependencies:
       compute-scroll-into-view: 3.1.0
+
+  scule@1.3.0: {}
 
   selfsigned@2.4.1:
     dependencies:
