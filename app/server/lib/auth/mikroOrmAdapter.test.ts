@@ -19,6 +19,16 @@ const auth = betterAuth({
   }
 })
 
+function createRandomUser() {
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
+  const name = [firstName, lastName].join(" ")
+  const email = faker.internet.email({firstName, lastName}).toLowerCase()
+  const password = faker.internet.password({length: 20})
+
+  return {email, name, password} as const
+}
+
 describe("Signup", () => {
   ormTest("Creates a user", async ({expect}) => {
     const firstName = faker.person.firstName()
@@ -57,19 +67,10 @@ describe("Signup", () => {
   })
 
   ormTest("Logins newly created user by default", async ({expect}) => {
-    const firstName = faker.person.firstName()
-    const lastName = faker.person.lastName()
-    const name = [firstName, lastName].join(" ")
-    const email = faker.internet.email({firstName, lastName}).toLowerCase()
-    const password = faker.internet.password({length: 20})
-
+    const body = createRandomUser()
     const response = await auth.api.signUpEmail({
       asResponse: true,
-      body: {
-        email,
-        name,
-        password
-      }
+      body
     })
 
     expect(response.headers.has("set-cookie")).toBe(true)
@@ -77,26 +78,17 @@ describe("Signup", () => {
 })
 
 ormTest("Can log in", async ({expect}) => {
-  const firstName = faker.person.firstName()
-  const lastName = faker.person.lastName()
-  const name = [firstName, lastName].join(" ")
-  const email = faker.internet.email({firstName, lastName}).toLowerCase()
-  const password = faker.internet.password({length: 20})
-
+  const body = createRandomUser()
   await auth.api.signUpEmail({
     asResponse: true,
-    body: {
-      name,
-      email,
-      password
-    }
+    body
   })
 
   const response = await auth.api.signInEmail({
     asResponse: true,
     body: {
-      email,
-      password
+      email: body.email,
+      password: body.password
     }
   })
 
@@ -104,19 +96,10 @@ ormTest("Can log in", async ({expect}) => {
 })
 
 ormTest("Returns session for current user", async ({expect}) => {
-  const firstName = faker.person.firstName()
-  const lastName = faker.person.lastName()
-  const name = [firstName, lastName].join(" ")
-  const email = faker.internet.email({firstName, lastName}).toLowerCase()
-  const password = faker.internet.password({length: 20})
-
+  const body = createRandomUser()
   const response = await auth.api.signUpEmail({
     asResponse: true,
-    body: {
-      name,
-      email,
-      password
-    }
+    body
   })
 
   const headers = new Headers()
