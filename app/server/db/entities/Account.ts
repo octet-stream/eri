@@ -42,7 +42,7 @@ export class Account extends Record {
   /**
    * The time when the verification request expires
    */
-  @Property({type: "datetime", nullable: true, default: null})
+  @Property<Account>({type: "datetime", nullable: true, default: null})
   refreshTokenExpiresAt?: Maybe<Opt<Date>>
 
   /**

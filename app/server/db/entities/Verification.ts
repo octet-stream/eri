@@ -19,6 +19,6 @@ export class Verification extends Record {
   /**
    * The time when the verification request expires
    */
-  @Property({type: "datetime"})
+  @Property<Verification>({type: "datetime"})
   expiresAt!: Date
 }

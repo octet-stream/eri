@@ -136,7 +136,7 @@ export function mikroOrmAdapter(orm: MikroORM) {
 
       return transformOutput(orm, entityName, entity) as any
     },
-    async findOne({model: entityName, where, select}) {
+    async findOne({model: entityName, where}) {
       entityName = normalizeEntityName(entityName)
 
       const entity = await orm.em.findOne(
@@ -147,7 +147,7 @@ export function mikroOrmAdapter(orm: MikroORM) {
       return (entity ? serialize(entity) : null) as any
     },
     async findMany({model: entityName, where, limit, offset, sortBy}) {
-      console.log({entityName, where, limit, offset, select, sortBy})
+      // console.log({entityName, where, limit, offset, select, sortBy})
       entityName = normalizeEntityName(entityName)
 
       const options: FindOptions<any> = {
