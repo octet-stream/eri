@@ -102,6 +102,7 @@
     "cmdk": "1.0.4",
     "date-fns": "4.1.0",
     "dotenv": "16.4.7",
+    "dset": "^3.1.4",
     "hono": "4.6.12",
     "is-absolute-url": "4.0.1",
     "is-hotkey": "0.2.0",

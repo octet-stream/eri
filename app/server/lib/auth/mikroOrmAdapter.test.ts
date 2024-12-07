@@ -56,7 +56,7 @@ describe("Signup", () => {
     expect(session).not.toBeNull()
   })
 
-  ormTest("Sets session cookie by default", async ({expect}) => {
+  ormTest("Logins newly created user by default", async ({expect}) => {
     const firstName = faker.person.firstName()
     const lastName = faker.person.lastName()
     const name = [firstName, lastName].join(" ")
@@ -76,7 +76,7 @@ describe("Signup", () => {
   })
 })
 
-ormTest.skip("Login", async () => {
+ormTest("Can log in", async ({expect}) => {
   const firstName = faker.person.firstName()
   const lastName = faker.person.lastName()
   const name = [firstName, lastName].join(" ")
@@ -92,10 +92,13 @@ ormTest.skip("Login", async () => {
     }
   })
 
-  // const response = await auth.api.signInEmail({
-  //   body: {
-  //     email,
-  //     password
-  //   }
-  // })
+  const response = await auth.api.signInEmail({
+    asResponse: true,
+    body: {
+      email,
+      password
+    }
+  })
+
+  expect(response.headers.has("set-cookie")).toBe(true)
 })
