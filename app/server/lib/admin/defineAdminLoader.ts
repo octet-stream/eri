@@ -1,13 +1,16 @@
 import type {LoaderFunctionArgs} from "react-router"
 
-import {User} from "../../db/entities.js"
+import {User, Session} from "../../db/entities.js"
 import type {Loader} from "../types/Loader.js"
 
-import type {SharedAdminContext} from "./SharedAdminContext.js"
+import type {AdminArgs, AdminViewer} from "./AdminArgs.js"
 import {
   createAdminLoaderError,
   AdminLoaderErrorCode
 } from "./adminLoaderError.js"
+
+export type AdminLoaderArgs<TEvent extends LoaderFunctionArgs> =
+  AdminArgs<TEvent>
 
 // TODO: Replace this with middlewares, once they arrive
 // ! Hope this one will not break, because I'm not fure if Remix's compiler relies on defineLoader function or route exports to extract loaders
@@ -25,7 +28,8 @@ export const defineAdminLoader =
     loader: Loader<TResult, TEvent>
   ) =>
   async (event: TEvent): Promise<TResult> => {
-    const {auth, orm} = event.context as SharedAdminContext
+    const {auth, orm} =
+      event.context as AdminLoaderArgs<LoaderFunctionArgs>["context"]
 
     const [admin] = await orm.em.find(
       User,
@@ -53,5 +57,18 @@ export const defineAdminLoader =
       createAdminLoaderError(AdminLoaderErrorCode.LOGIN)
     }
 
-    return loader(event)
+    const session = await orm.em
+      .getReference(Session, response.session.id, {
+        wrapped: true
+      })
+      .loadOrFail()
+
+    const viewer: AdminViewer = {
+      session,
+      user: session.user,
+      rawUser: response.user,
+      rawSession: response.session
+    }
+
+    return loader({...event, context: {...event.context, viewer}})
   }

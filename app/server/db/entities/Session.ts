@@ -6,7 +6,7 @@ import type {Maybe} from "../../../lib/types/Maybe.js"
 import {Record} from "./Record.js"
 import {User} from "./User.js"
 
-export interface DatabaseSession extends SessionSchema {}
+export interface DatabaseSession extends Omit<SessionSchema, "userId"> {}
 
 /**
  * Represents a session stored in a database
@@ -40,8 +40,4 @@ export class Session extends Record implements DatabaseSession {
    */
   @ManyToOne(() => User, {eager: true})
   user!: User
-
-  get userId(): Opt<string> {
-    return this.user.id
-  }
 }

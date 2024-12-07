@@ -63,8 +63,4 @@ export class Account extends Record {
    */
   @ManyToOne(() => User, {eager: true})
   user!: User
-
-  get userId() {
-    return this.user.id
-  }
 }

@@ -7,8 +7,14 @@ import {
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
 
-import {defineAdminAction} from "../../server/lib/admin/defineAdminAction.js"
-import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.js"
+import {
+  defineAdminAction,
+  type AdminActionArgs
+} from "../../server/lib/admin/defineAdminAction.js"
+import {
+  defineAdminLoader,
+  type AdminLoaderArgs
+} from "../../server/lib/admin/defineAdminLoader.js"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
 import {SessionUser} from "../../server/zod/admin/SessionUser.js"
 import {parseOutput} from "../../server/zod/utils/parseOutput.js"
@@ -16,14 +22,20 @@ import {parseOutput} from "../../server/zod/utils/parseOutput.js"
 import {MainInfoSection} from "./sections/MainInfoSection.jsx"
 import {PasswordSection} from "./sections/PasswordSection.jsx"
 
-export const loader = defineAdminLoader(async ({context: {auth}}) => {
-  const {user} = auth.getAuthContext()
+import type {Route} from "./+types/route.js"
 
-  return parseOutput(SessionUser, user, {async: true})
-})
+export const loader = defineAdminLoader(
+  async ({context: {viewer}}: AdminLoaderArgs<Route.LoaderArgs>) =>
+    parseOutput(SessionUser, viewer.user, {
+      async: true
+    })
+)
 
 export const action = defineAdminAction(
-  async ({request, context: {orm, auth}}) => {
+  async ({
+    request,
+    context: {orm, viewer, auth}
+  }: AdminActionArgs<Route.ActionArgs>) => {
     const submission = await parseWithZod(await request.formData(), {
       schema: AdminUpdateInput,
       async: true
@@ -35,22 +47,37 @@ export const action = defineAdminAction(
       })
     }
 
-    const {user} = auth.getAuthContext()
+    if (submission.value.intent === "password") {
+      if (submission.value.current !== submission.value.confirm) {
+        throw data(
+          submission.reply({
+            formErrors: [
+              "Current and confirmation passwords should be the same"
+            ]
+          }),
 
-    if (
-      submission.value.intent === "password" &&
-      submission.value.updated === submission.value.confirm
-    ) {
-      user.password = submission.value.updated
+          {
+            status: 422
+          }
+        )
+      }
+
+      await auth.api.changePassword({
+        body: {
+          currentPassword: submission.value.current,
+          newPassword: submission.value.updated
+        }
+      })
     } else if (submission.value.intent === "info") {
       const {intent: _, ...fields} = submission.value
 
-      orm.em.assign(user, fields)
+      orm.em.assign(viewer.user, fields)
+      await orm.em.flush()
     }
 
-    await orm.em.flush()
-
-    return submission.reply({resetForm: true})
+    return submission.reply({
+      resetForm: true
+    })
   }
 )
 

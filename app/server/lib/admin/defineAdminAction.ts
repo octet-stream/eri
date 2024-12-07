@@ -1,7 +1,12 @@
 import {data, type ActionFunctionArgs} from "react-router"
+
+import {User, Session} from "../../db/entities.js"
 import type {Action} from "../types/Action.js"
 
-import type {SharedAdminContext} from "./SharedAdminContext.js"
+import type {AdminArgs, AdminViewer} from "./AdminArgs.js"
+
+export type AdminActionArgs<TEvent extends ActionFunctionArgs> =
+  AdminArgs<TEvent>
 
 // TODO: Replace this with middlewares, once they arrive
 // ! Hope this one will not break, because I'm not fure if Remix's compiler relies on defineAction function or route exports to extract actions
@@ -10,7 +15,8 @@ export const defineAdminAction =
     action: Action<TResult, TEvent>
   ) =>
   async (event: TEvent): Promise<TResult> => {
-    const {auth} = event.context as SharedAdminContext
+    const {auth, orm} =
+      event.context as AdminArgs<ActionFunctionArgs>["context"]
 
     const response = await auth.api.getSession({
       headers: event.request.headers
@@ -22,5 +28,18 @@ export const defineAdminAction =
       })
     }
 
-    return action(event)
+    const session = await orm.em
+      .getReference(Session, response.session.id, {
+        wrapped: true
+      })
+      .loadOrFail()
+
+    const viewer: AdminViewer = {
+      session,
+      user: session.user,
+      rawUser: response.user,
+      rawSession: response.session
+    }
+
+    return action({...event, context: {...event.context, viewer}})
   }
