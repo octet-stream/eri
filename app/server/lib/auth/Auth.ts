@@ -1,54 +1,25 @@
-import type {Context} from "hono"
+import {betterAuth} from "better-auth"
 
-import type {Maybe} from "../../../lib/types/Maybe.js"
-import type {Session, User} from "../../db/entities.js"
+import {password} from "./password.js"
 
-declare module "react-router" {
-  interface AppLoadContext {
-    /**
-     * Auth context utilities
-     */
-    readonly auth: Auth<Context>
-  }
-}
+import config from "../config.js"
+import {orm} from "../db/orm.js"
 
-export interface AuthContext {
-  session: Session
-  user: User
-}
+import {mikroOrmAdapter} from "./mikroOrmAdapter.js"
 
-export class Auth<TContext extends Context> {
-  #context: TContext
-
-  constructor(context: TContext) {
-    this.#context = context
-  }
-
-  #getAuthContext(): Maybe<AuthContext> {
-    return this.#context.get("auth")
-  }
-
-  /**
-   * Checks if visitor is authenticated
-   */
-  isAuthenticated() {
-    return !!this.#getAuthContext()
-  }
-
-  /**
-   * Returns auth context for current Hono request.
-   *
-   * Throws 401 error if visitor is not authenticated
-   */
-  getAuthContext(): AuthContext {
-    const auth = this.#getAuthContext()
-
-    if (!auth) {
-      throw new Response(null, {
-        status: 401
-      })
+export const auth = betterAuth({
+  database: mikroOrmAdapter(orm),
+  secret: config.auth.secrets[0], // TODO: Update config tu replace `secrets` with `secret` (we use one secret anyway)
+  emailAndPassword: {
+    enabled: true,
+    password: {
+      // I would rather handle these in Mikro ORM Subscribers, but ok.
+      hash: input => password.hash(input),
+      verify: input => password.verify(input.hash, input.password)
     }
-
-    return auth
+  },
+  advanced: {
+    cookiePrefix: "eri", // TODO: Make this configurable
+    generateId: false // Handled by the ORM
   }
-}
+})

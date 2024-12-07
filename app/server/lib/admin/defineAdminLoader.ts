@@ -45,7 +45,11 @@ export const defineAdminLoader =
       createAdminLoaderError(AdminLoaderErrorCode.SETUP)
     }
 
-    if (!auth.isAuthenticated()) {
+    const response = await auth.api.getSession({
+      headers: event.request.headers
+    })
+
+    if (!response?.session) {
       createAdminLoaderError(AdminLoaderErrorCode.LOGIN)
     }
 

@@ -1,4 +1,4 @@
-import type {ActionFunctionArgs} from "react-router"
+import {data, type ActionFunctionArgs} from "react-router"
 import type {Action} from "../types/Action.js"
 
 import type {SharedAdminContext} from "./SharedAdminContext.js"
@@ -12,9 +12,13 @@ export const defineAdminAction =
   async (event: TEvent): Promise<TResult> => {
     const {auth} = event.context as SharedAdminContext
 
-    if (!auth.isAuthenticated()) {
-      throw new Response(null, {
-        status: 403
+    const response = await auth.api.getSession({
+      headers: event.request.headers
+    })
+
+    if (!response?.session) {
+      throw data(null, {
+        status: 401
       })
     }
 

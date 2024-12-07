@@ -1,24 +1,26 @@
 import {parseWithZod} from "@conform-to/zod"
 import {replace, data} from "react-router"
 
-import {User} from "../../server/db/entities.js"
-import {serializeCookie} from "../../server/lib/auth/cookie.js"
-import {lucia} from "../../server/lib/auth/lucia.js"
 import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
 
 import type {Route} from "./+types/route.js"
 import {AdminSetupPage} from "./AdminSetupPage.jsx"
 import {ADMIN_SETUP_PAGE_TITLE} from "./title.js"
 
-export const loader = ({context: {auth}}: Route.LoaderArgs) => {
-  if (auth.isAuthenticated()) {
+// TODO: Rewrite this loader with better-auth
+export const loader = async ({request, context: {auth}}: Route.LoaderArgs) => {
+  const response = await auth.api.getSession({
+    headers: request.headers
+  })
+
+  if (response?.session) {
     throw replace("/admin")
   }
 
   return null
 }
 
-export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
+export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminSetupInput,
     async: true
@@ -30,17 +32,13 @@ export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
     })
   }
 
-  const user = orm.em.create(User, submission.value)
-
-  await orm.em.persistAndFlush(user)
-
-  const session = await lucia.createSession(user.id, {})
-  const cookie = await serializeCookie(session.id)
+  const response = await auth.api.signUpEmail({
+    asResponse: true,
+    body: {...submission.value, name: ""}
+  })
 
   throw replace("/admin", {
-    headers: {
-      "set-cookie": cookie
-    }
+    headers: response.headers
   })
 }
 
