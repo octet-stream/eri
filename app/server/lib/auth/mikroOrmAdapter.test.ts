@@ -102,3 +102,30 @@ ormTest("Can log in", async ({expect}) => {
 
   expect(response.headers.has("set-cookie")).toBe(true)
 })
+
+ormTest("Returns session for current user", async ({expect}) => {
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
+  const name = [firstName, lastName].join(" ")
+  const email = faker.internet.email({firstName, lastName}).toLowerCase()
+  const password = faker.internet.password({length: 20})
+
+  const response = await auth.api.signUpEmail({
+    asResponse: true,
+    body: {
+      name,
+      email,
+      password
+    }
+  })
+
+  const headers = new Headers()
+
+  headers.set("cookie", response.headers.get("set-cookie") as string)
+
+  const result = await auth.api.getSession({
+    headers
+  })
+
+  expect(result).not.toBeNull()
+})

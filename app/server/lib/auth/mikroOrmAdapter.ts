@@ -304,14 +304,14 @@ export function mikroOrmAdapter(orm: MikroORM) {
 
       return rows.map(row => transformOutput(orm, entityName, row)) as any
     },
-    async update({model, where, update}) {
+    async update({model: entityName, where, update}) {
       return null
     },
-    async updateMany({model, where, update}) {
+    async updateMany({model: entityName, where, update}) {
       return 0
     },
-    async delete({model, where}) {},
-    async deleteMany({model, where}) {
+    async delete({model: entityName, where}) {},
+    async deleteMany({model: entityName, where}) {
       return 0
     }
   })
