@@ -1,20 +1,11 @@
-import {
-  Entity,
-  type Hidden,
-  JsonType,
-  Property,
-  Unique
-} from "@mikro-orm/mariadb"
-import type {DatabaseUser, RegisteredDatabaseUserAttributes} from "lucia"
+import {Entity, Property, Unique} from "@mikro-orm/mariadb"
+import type {User as UserSchema} from "better-auth"
 
 import {RecordSoft} from "./RecordSoft.js"
 
-export interface UserInput {
-  email: string
-  password: string
-}
+export interface UserBase extends Omit<UserSchema, "name"> {}
 
-export interface UserBase extends DatabaseUser, UserInput {}
+export type UserInput = Pick<UserBase, "email">
 
 /**
  * Represents a user stored in database
@@ -26,21 +17,8 @@ export class User extends RecordSoft implements UserBase {
    */
   @Property<User>({type: "varchar"})
   @Unique()
-  email: string
+  email!: string
 
-  /**
-   * User password
-   */
-  @Property<User>({type: "varchar", hidden: true, lazy: true})
-  password: Hidden<string>
-
-  @Property<User>({type: JsonType})
-  attributes: RegisteredDatabaseUserAttributes = {}
-
-  constructor(input: UserInput) {
-    super()
-
-    this.email = input.email
-    this.password = input.password
-  }
+  @Property<User>({type: "boolean", default: false, nullable: false})
+  emailVerified!: boolean
 }
