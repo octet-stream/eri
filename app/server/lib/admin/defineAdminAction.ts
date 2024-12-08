@@ -1,6 +1,6 @@
 import {data, type ActionFunctionArgs} from "react-router"
 
-import {User, Session} from "../../db/entities.js"
+import {Session} from "../../db/entities.js"
 import type {Action} from "../types/Action.js"
 
 import type {AdminArgs, AdminViewer} from "./AdminArgs.js"

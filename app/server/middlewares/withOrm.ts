@@ -4,14 +4,14 @@ import {createMiddleware} from "hono/factory"
 
 import {orm} from "../lib/db/orm.js"
 
-declare module "react-router" {
-  interface AppLoadContext {
-    /**
-     * Mikro ORM instance
-     */
-    readonly orm: MikroORM
-  }
-}
+// declare module "react-router" {
+//   interface AppLoadContext {
+//     /**
+//      * Mikro ORM instance
+//      */
+//     readonly orm: MikroORM
+//   }
+// }
 
 export const withOrm = () =>
   createMiddleware(async (ctx, next) => {

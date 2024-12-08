@@ -1,4 +1,8 @@
 import type {LoaderFunctionArgs} from "react-router"
+import type {
+  User as DatabaseUser,
+  Session as DatabaseSession
+} from "better-auth"
 
 import {User, Session} from "../../db/entities.js"
 import type {Loader} from "../types/Loader.js"
@@ -28,7 +32,7 @@ export const defineAdminLoader =
     loader: Loader<TResult, TEvent>
   ) =>
   async (event: TEvent): Promise<TResult> => {
-    const {auth, orm} =
+    const {auth, orm, resHeaders} =
       event.context as AdminLoaderArgs<LoaderFunctionArgs>["context"]
 
     const [admin] = await orm.em.find(
@@ -49,16 +53,24 @@ export const defineAdminLoader =
       createAdminLoaderError(AdminLoaderErrorCode.SETUP)
     }
 
-    const response = await auth.api.getSession({
+    // FIXME: Remove type casting when this fix is releases: https://github.com/better-auth/better-auth/pull/812
+    const response = (await auth.api.getSession({
+      asResponse: true,
       headers: event.request.headers
-    })
+    } as any)) as unknown as Response
 
-    if (!response?.session) {
+    // Note: in the actual result all Dates are serialized into string, so make sure to de-serialize them back
+    const result = (await response.json()) as {
+      user: DatabaseUser
+      session: DatabaseSession
+    }
+
+    if (!result?.session) {
       createAdminLoaderError(AdminLoaderErrorCode.LOGIN)
     }
 
     const session = await orm.em
-      .getReference(Session, response.session.id, {
+      .getReference(Session, result.session.id, {
         wrapped: true
       })
       .loadOrFail()
@@ -66,9 +78,17 @@ export const defineAdminLoader =
     const viewer: AdminViewer = {
       session,
       user: session.user,
-      rawUser: response.user,
-      rawSession: response.session
+      rawUser: result.user,
+      rawSession: result.session
     }
 
-    return loader({...event, context: {...event.context, viewer}})
+    try {
+      return await loader({...event, context: {...event.context, viewer}})
+    } finally {
+      const cookie = response.headers.get("set-cookie")
+
+      if (cookie) {
+        resHeaders.set("set-cookie", cookie)
+      }
+    }
   }
