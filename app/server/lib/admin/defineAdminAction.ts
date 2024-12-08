@@ -23,11 +23,10 @@ export const defineAdminAction =
     const {auth, orm} =
       event.context as AdminArgs<ActionFunctionArgs>["context"]
 
-    // FIXME: Remove type casting when this fix is releases: https://github.com/better-auth/better-auth/pull/812
-    const response = (await auth.api.getSession({
+    const response = await auth.api.getSession({
       asResponse: true,
       headers: event.request.headers
-    })) as unknown as Response
+    })
 
     // Note: in the actual result all Dates are serialized into string, so make sure to de-serialize them back
     const result = (await response.json()) as {

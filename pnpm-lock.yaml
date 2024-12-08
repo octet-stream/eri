@@ -161,8 +161,8 @@ importers:
         specifier: 38.0.1
         version: 38.0.1(@udecode/plate-common@38.0.6(@types/react@18.3.13)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.25.0)(slate-history@0.109.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.110.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(slate@0.103.0))(slate@0.103.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(slate-history@0.109.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.110.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(slate@0.103.0))(slate@0.103.0)
       better-auth:
-        specifier: ^1.0.11
-        version: 1.0.11
+        specifier: ^1.0.13
+        version: 1.0.13
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -2927,8 +2927,8 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  better-auth@1.0.11:
-    resolution: {integrity: sha512-w22k/LjO/4s/XhXQh5lFngOOeMNMxJ5CTgTEg2xzodSLqC8WROorxutQ7m/tRNcf+uRcdS3fRIbGRfkHInR+RQ==}
+  better-auth@1.0.13:
+    resolution: {integrity: sha512-kp3LGY9UyRfkTpuhz70k7SrMN0jcT8tFXWb6huA4DaSb51M/Vw3P3cV2auZy2K5J28VtbSI5mP3exm8BK5dZOA==}
 
   better-call@0.3.3-beta.4:
     resolution: {integrity: sha512-txigUTFsjOlE4dfkfhDhu6Gk0I1Xo3S4Nye+nfMKJXknb+WsymcWtqoRUSUGdhOMumM3LT9R3QttTUxwny9lWQ==}
@@ -7946,7 +7946,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  better-auth@1.0.11:
+  better-auth@1.0.13:
     dependencies:
       '@better-fetch/fetch': 1.1.12
       '@noble/ciphers': 0.6.0
