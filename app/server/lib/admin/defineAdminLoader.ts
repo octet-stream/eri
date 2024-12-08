@@ -12,6 +12,7 @@ import {
   createAdminLoaderError,
   AdminLoaderErrorCode
 } from "./adminLoaderError.js"
+import {updateCookie} from "./updateCookie.js"
 
 export type AdminLoaderArgs<TEvent extends LoaderFunctionArgs> =
   AdminArgs<TEvent>
@@ -82,13 +83,7 @@ export const defineAdminLoader =
       rawSession: result.session
     }
 
-    try {
-      return await loader({...event, context: {...event.context, viewer}})
-    } finally {
-      const cookie = response.headers.get("set-cookie")
-
-      if (cookie) {
-        resHeaders.set("set-cookie", cookie)
-      }
-    }
+    return updateCookie(event, response, () =>
+      loader({...event, context: {...event.context, viewer}})
+    )
   }
