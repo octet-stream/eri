@@ -31,39 +31,11 @@ function createRandomUser() {
 
 describe("Signup", () => {
   ormTest("Creates a user", async ({expect}) => {
-    const firstName = faker.person.firstName()
-    const lastName = faker.person.lastName()
-    const name = [firstName, lastName].join(" ")
-    const email = faker.internet.email({firstName, lastName}).toLowerCase()
-    const password = faker.internet.password({length: 20})
+    const body = createRandomUser()
 
-    const {user} = await auth.api.signUpEmail({
-      body: {
-        email,
-        name,
-        password
-      }
-    })
+    const user = await auth.api.signUpEmail({body})
 
-    expect(user.email).toBe(email)
-  })
-
-  ormTest("Creates a session", async ({expect}) => {
-    const firstName = faker.person.firstName()
-    const lastName = faker.person.lastName()
-    const name = [firstName, lastName].join(" ")
-    const email = faker.internet.email({firstName, lastName}).toLowerCase()
-    const password = faker.internet.password({length: 20})
-
-    const {session} = await auth.api.signUpEmail({
-      body: {
-        email,
-        name,
-        password
-      }
-    })
-
-    expect(session).not.toBeNull()
+    expect(user.email).toBe(body.email)
   })
 
   ormTest("Logins newly created user by default", async ({expect}) => {
