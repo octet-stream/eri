@@ -43,17 +43,32 @@ export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
       headers: response.headers
     })
   } catch (error) {
-    if (
-      error instanceof APIError &&
-      error.body.code === "INVALID_EMAIL_OR_PASSWORD"
-    ) {
+    if (!(error instanceof APIError)) {
+      throw error
+    }
+
+    if (error.body.code === "INVALID_EMAIL_OR_PASSWORD") {
       return data(
         submission.reply({
-          formErrors: [error.body.message || "Cannot log in"]
+          formErrors: ["Invalid email or password"]
         }),
 
         {
           status: 401
+        }
+      )
+    }
+
+    if (error.body.code === "INVALID_EMAIL") {
+      return data(
+        submission.reply({
+          fieldErrors: {
+            email: ["Invalid email"]
+          }
+        }),
+
+        {
+          status: 422
         }
       )
     }
