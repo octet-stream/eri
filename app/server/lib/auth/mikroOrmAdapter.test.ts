@@ -12,6 +12,7 @@ import {User} from "../../db/entities.js"
 import {orm} from "../db/orm.js"
 
 import {mikroOrmAdapter} from "./mikroOrmAdapter.js"
+import {describe} from "vitest"
 
 const adapter = mikroOrmAdapter(orm)({})
 
@@ -60,42 +61,132 @@ ormTest("Creates a record with referenced entity", async ({expect}) => {
   expect(actual.userId).toBe(user.id)
 })
 
-ormTest("Finds a record by id", async ({expect}) => {
-  const user = await adapter.create<UserInput, DatabaseUser>({
-    model: "user",
-    data: createRandomUser()
+describe("findOne", () => {
+  ormTest("Finds a record by id", async ({expect}) => {
+    const user = await adapter.create<UserInput, DatabaseUser>({
+      model: "user",
+      data: createRandomUser()
+    })
+
+    const actual = await adapter.findOne<DatabaseUser>({
+      model: "user",
+      where: [
+        {
+          field: "id",
+          value: user.id
+        }
+      ]
+    })
+
+    expect(actual?.id).toBe(user.id)
   })
 
-  const actual = await adapter.findOne<DatabaseUser>({
-    model: "user",
-    where: [
-      {
-        field: "id",
-        value: user.id
-      }
-    ]
-  })
+  ormTest("Finds a record without id", async ({expect}) => {
+    const user = await adapter.create<UserInput, DatabaseUser>({
+      model: "user",
+      data: createRandomUser()
+    })
 
-  expect(actual?.id).toBe(user.id)
+    const actual = await adapter.findOne<DatabaseUser>({
+      model: "user",
+      where: [
+        {
+          field: "email",
+          value: user.email
+        }
+      ]
+    })
+
+    expect(actual?.id).toBe(user.id)
+  })
 })
 
-ormTest("Finds a record without id", async ({expect}) => {
-  const user = await adapter.create<UserInput, DatabaseUser>({
-    model: "user",
-    data: createRandomUser()
+describe("findMany", () => {
+  ormTest("Finds many records", async ({expect}) => {
+    await adapter.create<UserInput, DatabaseUser>({
+      model: "user",
+      data: createRandomUser()
+    })
+
+    const actual = await adapter.findMany<User>({
+      model: "user"
+    })
+
+    expect(actual.length).toBe(1)
   })
 
-  const actual = await adapter.findOne<DatabaseUser>({
-    model: "user",
-    where: [
-      {
+  ormTest("Finds many statements with where statement", async ({expect}) => {
+    const user = await adapter.create<UserInput, DatabaseUser>({
+      model: "user",
+      data: createRandomUser()
+    })
+
+    const actual = await adapter.findMany<User>({
+      model: "user",
+      where: [
+        {
+          field: "id",
+          value: user.id
+        }
+      ]
+    })
+
+    expect(actual.length).toBe(1)
+  })
+
+  ormTest("Finxs records with in operator", async ({expect}) => {
+    const [user1, , user3] = await Promise.all([
+      adapter.create<UserInput, DatabaseUser>({
+        model: "user",
+        data: createRandomUser()
+      }),
+      adapter.create<UserInput, DatabaseUser>({
+        model: "user",
+        data: createRandomUser()
+      }),
+      adapter.create<UserInput, DatabaseUser>({
+        model: "user",
+        data: createRandomUser()
+      })
+    ])
+
+    const actual = await adapter.findMany<User>({
+      model: "user",
+      where: [
+        {
+          field: "id",
+          operator: "in",
+          value: [user1.id, user3.id]
+        }
+      ]
+    })
+
+    expect(actual.length).toBe(2)
+    expect(actual.map(user => user.id)).toEqual([user1.id, user3.id])
+  })
+
+  ormTest("Sorts the result according to sortBy value", async ({expect}) => {
+    const [user1, user2] = await Promise.all([
+      adapter.create<UserInput, DatabaseUser>({
+        model: "user",
+        data: {...createRandomUser(), email: "a@example.com"}
+      }),
+      adapter.create<UserInput, DatabaseUser>({
+        model: "user",
+        data: {...createRandomUser(), email: "b@example.com"}
+      })
+    ])
+
+    const actual = await adapter.findMany<User>({
+      model: "user",
+      sortBy: {
         field: "email",
-        value: user.email
+        direction: "desc"
       }
-    ]
-  })
+    })
 
-  expect(actual?.id).toBe(user.id)
+    expect(actual.map(({email}) => email)).toEqual([user2.email, user1.email])
+  })
 })
 
 ormTest("Updates existent entity", async ({expect}) => {
@@ -140,5 +231,5 @@ ormTest("Removes existent record by id", async ({expect}) => {
     ]
   })
 
-  expect(orm.em.findOne(User, user.id)).resolves.toBeNull()
+  await expect(orm.em.findOne(User, user.id)).resolves.toBeNull()
 })

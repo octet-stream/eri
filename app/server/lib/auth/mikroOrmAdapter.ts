@@ -67,7 +67,7 @@ function getFieldNameFromRelation(
 
   if (!field) {
     throw new BetterAuthError(
-      prefixErrorMessage("Cannot find field in for this relation")
+      prefixErrorMessage("Cannot find field for this relation")
     )
   }
 
