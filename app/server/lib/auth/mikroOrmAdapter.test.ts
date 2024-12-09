@@ -3,6 +3,7 @@ import type {
   Session as DatabaseSession
 } from "better-auth"
 import {nanoid} from "nanoid"
+import {NIL} from "uuid"
 
 import {faker} from "@faker-js/faker"
 
@@ -99,6 +100,24 @@ describe("findOne", () => {
 
     expect(actual?.id).toBe(user.id)
   })
+
+  ormTest(
+    "Returns null when accessing nonexistent records",
+
+    async ({expect}) => {
+      const actual = await adapter.findOne<User>({
+        model: "user",
+        where: [
+          {
+            field: "email",
+            value: "me@example.com"
+          }
+        ]
+      })
+
+      expect(actual).toBeNull()
+    }
+  )
 })
 
 describe("findMany", () => {
@@ -215,21 +234,39 @@ ormTest("Updates existent entity", async ({expect}) => {
   })
 })
 
-ormTest("Removes existent record by id", async ({expect}) => {
-  const user = await adapter.create<UserInput, DatabaseUser>({
-    model: "user",
-    data: createRandomUser()
+describe("delete", () => {
+  ormTest("Removes existent record by id", async ({expect}) => {
+    const user = await adapter.create<UserInput, DatabaseUser>({
+      model: "user",
+      data: createRandomUser()
+    })
+
+    await adapter.delete({
+      model: "user",
+      where: [
+        {
+          field: "id",
+          value: user.id
+        }
+      ]
+    })
+
+    await expect(orm.em.findOne(User, user.id)).resolves.toBeNull()
   })
 
-  await adapter.delete({
-    model: "user",
-    where: [
-      {
-        field: "id",
-        value: user.id
-      }
-    ]
-  })
+  ormTest(
+    "Does not throw an error when removing nonexistent record",
 
-  await expect(orm.em.findOne(User, user.id)).resolves.toBeNull()
+    async () => {
+      await adapter.delete({
+        model: "user",
+        where: [
+          {
+            field: "id",
+            value: NIL
+          }
+        ]
+      })
+    }
+  )
 })

@@ -297,12 +297,14 @@ export function mikroOrmAdapter(orm: MikroORM) {
     async delete({model: entityName, where}) {
       entityName = normalizeEntityName(entityName)
 
-      await orm.em.nativeDelete(
+      const entity = await orm.em.findOne(
         entityName,
         normalizeWhereClause(orm, entityName, where)
       )
 
-      orm.em.clear() // Clear IdentityMap
+      if (entity) {
+        await orm.em.removeAndFlush(entity)
+      }
     },
     async deleteMany({model: entityName, where}) {
       entityName = normalizeEntityName(entityName)
