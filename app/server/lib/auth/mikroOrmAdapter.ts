@@ -1,12 +1,7 @@
-import type {
-  EntityMetadata,
-  EntityProperty,
-  FindOptions,
-  MikroORM
-} from "@mikro-orm/core"
+import type {EntityProperty, FindOptions, MikroORM} from "@mikro-orm/core"
 import type {Adapter, BetterAuthOptions, Where} from "better-auth"
 import {serialize, ReferenceKind} from "@mikro-orm/core"
-import {pascalCase, camelCase, snakeCase} from "scule"
+import {pascalCase, camelCase} from "scule"
 import {BetterAuthError} from "better-auth"
 import {dset} from "dset"
 
