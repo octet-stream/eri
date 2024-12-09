@@ -21,4 +21,7 @@ export class User extends RecordSoft implements UserBase {
 
   @Property<User>({type: "boolean", default: false, nullable: false})
   emailVerified!: boolean
+
+  @Property<User>({type: "varchar", persist: false})
+  readonly name: string = ""
 }

@@ -36,56 +36,6 @@ function getEntityMetadata(orm: MikroORM, entityName: string) {
   return storage.get(entityName)
 }
 
-function mapRelationsFields(
-  orm: MikroORM,
-  metadata: EntityMetadata,
-  input: Record<string, any>
-) {
-  if (metadata.relations.length === 0) {
-    return []
-  }
-
-  const relations = metadata.relations.map(rel => {
-    if (rel.ownColumns.length > 1) {
-      throw new BetterAuthError(
-        prefixErrorMessage(
-          "Composite PKs resolution is not supported at this moment."
-        )
-      )
-    }
-
-    return {
-      name: rel.name,
-      fk: camelCase(rel.ownColumns[0]),
-      entity: rel.entity()
-    }
-  })
-
-  const fields = Object.fromEntries(
-    Object.entries(input).filter(([key]) =>
-      relations.some(({fk}) => fk === key)
-    )
-  )
-
-  return Object.fromEntries(
-    relations.map(({name, entity, fk}) => [
-      name,
-      orm.em.getReference(entity, fields[fk])
-    ])
-  )
-}
-
-function transformInput(
-  orm: MikroORM,
-  entityName: string,
-  input: Record<string, any>
-) {
-  const metadata = getEntityMetadata(orm, entityName)
-  const relationsFields = mapRelationsFields(orm, metadata, input)
-
-  return {...input, ...relationsFields}
-}
-
 function transformOutput(
   orm: MikroORM,
   entityName: string,
@@ -260,13 +210,27 @@ function normalizeWhereClause(
   return {}
 }
 
+function normalizeInput<T extends Record<string, any>>(
+  orm: MikroORM,
+  entityName: string,
+  input: T
+) {
+  const fields = {}
+  Object.entries(input).forEach(([key, value]) => {
+    const path = getFieldPath(orm, entityName, key)
+    dset(fields, path, value)
+  })
+
+  return fields
+}
+
 export function mikroOrmAdapter(orm: MikroORM) {
   const adapter = (_options: BetterAuthOptions): Adapter => ({
     id: "mikro-orm",
     async create({model: entityName, data}) {
       entityName = normalizeEntityName(entityName)
 
-      const input = transformInput(orm, entityName, data)
+      const input = normalizeInput(orm, entityName, data)
       const entity = orm.em.create(entityName, input)
 
       await orm.em.persistAndFlush(entity)
@@ -305,14 +269,57 @@ export function mikroOrmAdapter(orm: MikroORM) {
       return rows.map(row => transformOutput(orm, entityName, row)) as any
     },
     async update({model: entityName, where, update}) {
-      return null
+      entityName = normalizeEntityName(entityName)
+
+      const entity = await orm.em.findOne(
+        entityName,
+        normalizeWhereClause(orm, entityName, where)
+      )
+
+      // ! Not so sure if I should throw an error or just return null.
+      if (!entity) {
+        return null
+      }
+
+      orm.em.assign(entity, normalizeInput(orm, entityName, update))
+      await orm.em.flush()
+
+      return transformOutput(orm, entityName, entity) as any
     },
     async updateMany({model: entityName, where, update}) {
-      return 0
+      entityName = normalizeEntityName(entityName)
+
+      const affected = await orm.em.nativeUpdate(
+        entityName,
+        normalizeWhereClause(orm, entityName, where),
+        normalizeInput(orm, entityName, update)
+      )
+
+      orm.em.clear()
+
+      return affected
     },
-    async delete({model: entityName, where}) {},
+    async delete({model: entityName, where}) {
+      entityName = normalizeEntityName(entityName)
+
+      await orm.em.nativeDelete(
+        entityName,
+        normalizeWhereClause(orm, entityName, where)
+      )
+
+      orm.em.clear() // Clear IdentityMap
+    },
     async deleteMany({model: entityName, where}) {
-      return 0
+      entityName = normalizeEntityName(entityName)
+
+      const affected = await orm.em.nativeDelete(
+        entityName,
+        normalizeWhereClause(orm, entityName, where)
+      )
+
+      orm.em.clear() // Clear IdentityMap
+
+      return affected
     }
   })
 

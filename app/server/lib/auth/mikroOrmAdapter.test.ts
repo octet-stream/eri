@@ -1,86 +1,144 @@
-import {betterAuth} from "better-auth"
-import {describe} from "vitest"
+import type {
+  User as DatabaseUser,
+  Session as DatabaseSession
+} from "better-auth"
+import {nanoid} from "nanoid"
 
 import {faker} from "@faker-js/faker"
 
 import {ormTest} from "../../../../scripts/vitest/fixtures/orm.js"
 
+import {User} from "../../db/entities.js"
 import {orm} from "../db/orm.js"
 
 import {mikroOrmAdapter} from "./mikroOrmAdapter.js"
 
-const auth = betterAuth({
-  database: mikroOrmAdapter(orm),
-  emailAndPassword: {
-    enabled: true
-  },
-  advanced: {
-    generateId: false
-  }
-})
+const adapter = mikroOrmAdapter(orm)({})
 
-function createRandomUser() {
+interface UserInput {
+  email: string
+  name: string
+}
+
+interface SessionInput {
+  token: string
+  userId: string
+  expiresAt: Date
+}
+
+function createRandomUser(): UserInput {
   const firstName = faker.person.firstName()
   const lastName = faker.person.lastName()
   const name = [firstName, lastName].join(" ")
-  const email = faker.internet.email({firstName, lastName}).toLowerCase()
-  const password = faker.internet.password({length: 20})
+  const email = faker.internet.email({firstName, lastName})
 
-  return {email, name, password} as const
+  return {email, name}
 }
 
-describe("Signup", () => {
-  ormTest("Creates a user", async ({expect}) => {
-    const body = createRandomUser()
+ormTest("Creates a new record", async ({expect}) => {
+  const expected = createRandomUser()
+  const actual = await adapter.create({data: expected, model: "user"})
 
-    const user = await auth.api.signUpEmail({body})
-
-    expect(user.email).toBe(body.email)
-  })
-
-  ormTest("Logins newly created user by default", async ({expect}) => {
-    const body = createRandomUser()
-    const response = await auth.api.signUpEmail({
-      asResponse: true,
-      body
-    })
-
-    expect(response.headers.has("set-cookie")).toBe(true)
-  })
+  expect(actual.email).toBe(expected.email)
 })
 
-ormTest("Can log in", async ({expect}) => {
-  const body = createRandomUser()
-  await auth.api.signUpEmail({
-    asResponse: true,
-    body
+ormTest("Creates a record with referenced entity", async ({expect}) => {
+  const user = await adapter.create<UserInput, DatabaseUser>({
+    model: "user",
+    data: createRandomUser()
   })
 
-  const response = await auth.api.signInEmail({
-    asResponse: true,
-    body: {
-      email: body.email,
-      password: body.password
+  const actual = await adapter.create<SessionInput, DatabaseSession>({
+    model: "session",
+    data: {
+      token: nanoid(),
+      userId: user.id,
+      expiresAt: new Date()
     }
   })
 
-  expect(response.headers.has("set-cookie")).toBe(true)
+  expect(actual.userId).toBe(user.id)
 })
 
-ormTest("Returns session for current user", async ({expect}) => {
-  const body = createRandomUser()
-  const response = await auth.api.signUpEmail({
-    asResponse: true,
-    body
+ormTest("Finds a record by id", async ({expect}) => {
+  const user = await adapter.create<UserInput, DatabaseUser>({
+    model: "user",
+    data: createRandomUser()
   })
 
-  const headers = new Headers()
-
-  headers.set("cookie", response.headers.get("set-cookie") as string)
-
-  const result = await auth.api.getSession({
-    headers
+  const actual = await adapter.findOne<DatabaseUser>({
+    model: "user",
+    where: [
+      {
+        field: "id",
+        value: user.id
+      }
+    ]
   })
 
-  expect(result).not.toBeNull()
+  expect(actual?.id).toBe(user.id)
+})
+
+ormTest("Finds a record without id", async ({expect}) => {
+  const user = await adapter.create<UserInput, DatabaseUser>({
+    model: "user",
+    data: createRandomUser()
+  })
+
+  const actual = await adapter.findOne<DatabaseUser>({
+    model: "user",
+    where: [
+      {
+        field: "email",
+        value: user.email
+      }
+    ]
+  })
+
+  expect(actual?.id).toBe(user.id)
+})
+
+ormTest("Updates existent entity", async ({expect}) => {
+  const expected = faker.internet.email()
+  const user = await adapter.create<UserInput, DatabaseUser>({
+    model: "user",
+    data: createRandomUser()
+  })
+
+  const actual = await adapter.update<DatabaseUser>({
+    model: "user",
+    where: [
+      {
+        field: "id",
+        value: user.id
+      }
+    ],
+    update: {
+      email: expected
+    }
+  })
+
+  expect({id: actual?.id, email: actual?.email}).toEqual({
+    id: user.id,
+    email: expected
+  })
+})
+
+ormTest("Removes existent record by id", async ({expect}) => {
+  const user = await adapter.create<UserInput, DatabaseUser>({
+    model: "user",
+    data: createRandomUser()
+  })
+
+  await adapter.delete({
+    model: "user",
+    where: [
+      {
+        field: "id",
+        value: user.id
+      }
+    ]
+  })
+
+  expect(orm.em.findOne(User, user.id)).resolves.toBeNull()
 })
