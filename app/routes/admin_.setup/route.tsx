@@ -7,7 +7,6 @@ import type {Route} from "./+types/route.js"
 import {AdminSetupPage} from "./AdminSetupPage.jsx"
 import {ADMIN_SETUP_PAGE_TITLE} from "./title.js"
 
-// TODO: Rewrite this loader with better-auth
 export const loader = async ({request, context: {auth}}: Route.LoaderArgs) => {
   const response = await auth.api.getSession({
     headers: request.headers
