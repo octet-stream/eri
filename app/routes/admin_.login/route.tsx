@@ -1,6 +1,8 @@
 import {parseWithZod} from "@conform-to/zod"
 import {replace, data} from "react-router"
 
+import {APIError} from "better-auth/api"
+
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
 import type {Route} from "./+types/route.js"
@@ -31,14 +33,33 @@ export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
     })
   }
 
-  const response = await auth.api.signInEmail({
-    asResponse: true,
-    body: submission.value
-  })
+  try {
+    const response = await auth.api.signInEmail({
+      asResponse: true,
+      body: submission.value
+    })
 
-  throw replace("/admin", {
-    headers: response.headers
-  })
+    throw replace("/admin", {
+      headers: response.headers
+    })
+  } catch (error) {
+    if (
+      error instanceof APIError &&
+      error.body.code === "INVALID_EMAIL_OR_PASSWORD"
+    ) {
+      return data(
+        submission.reply({
+          formErrors: [error.body.message || "Cannot log in"]
+        }),
+
+        {
+          status: 401
+        }
+      )
+    }
+
+    throw error
+  }
 }
 
 export const meta: Route.MetaFunction = () => [
