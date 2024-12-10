@@ -313,7 +313,7 @@ describe("operators", () => {
           value: user.id
         },
         {
-          field: "name",
+          field: "email",
           connector: "OR",
           value: user.email
         }

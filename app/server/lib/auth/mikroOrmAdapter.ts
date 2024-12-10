@@ -103,16 +103,22 @@ function getFieldNameFromRelation(
  * @param orm - Mikro ORM instance
  * @param entityName - The name of the entity
  * @param fieldName - The field's name
+ * @param skipShadowProps - Whether or not skip Shadow Props (use it for where clause so Mikro ORM will not throw when accessing such props from database)
  *
  * @throws BetterAuthError when no such field exist on the `entity`
  * @throws BetterAuthError if complex primary key is discovered in `fieldName` relation
  */
-function getFieldPath(orm: MikroORM, entityName: string, fieldName: string) {
+function getFieldPath(
+  orm: MikroORM,
+  entityName: string,
+  fieldName: string,
+  skipShadowProps = false
+) {
   const metadata = getEntityMetadata(orm, entityName)
 
   const fieldMetadata = metadata.props.find(prop => {
     // Ignore Shadow Properties. See: https://mikro-orm.io/docs/serializing#shadow-properties
-    if (prop.persist === false) {
+    if (prop.persist === false && skipShadowProps) {
       return false
     }
 
@@ -228,7 +234,7 @@ function normalizeWhereClause(
       return {}
     }
 
-    const path = getFieldPath(orm, entityName, w.field)
+    const path = getFieldPath(orm, entityName, w.field, true)
 
     if (w.operator === "in") {
       return createWhereInClause(w.field, path, w.value)
