@@ -19,8 +19,14 @@ import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
 import {Post} from "../server/db/entities.js"
-import {defineAdminAction} from "../server/lib/admin/defineAdminAction.js"
-import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
+import {
+  defineAdminAction,
+  type AdminActionArgs
+} from "../server/lib/admin/defineAdminAction.js"
+import {
+  defineAdminLoader,
+  type AdminLoaderArgs
+} from "../server/lib/admin/defineAdminLoader.js"
 import {matchesHttpMethods} from "../server/lib/utils/matchesHttpMethods.js"
 import {AdminPostOutputEdit} from "../server/zod/admin/AdminPostOutputEdit.js"
 import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
@@ -32,45 +38,47 @@ import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 
 import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
 
-export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
-  const {
-    params,
-    context: {orm}
-  } = event
+export const loader = defineAdminLoader(
+  async (event: AdminLoaderArgs<Route.LoaderArgs>) => {
+    const {
+      params,
+      context: {orm}
+    } = event
 
-  const slug = await parseInput(PostSlug, params, {async: true})
+    const slug = await parseInput(PostSlug, params, {async: true})
 
-  await checkPostPks({
-    event,
-    slug,
-    onRedirect: ({post}) =>
-      generatePath("/admin/posts/:slug/edit", {slug: post.slug})
-  })
+    await checkPostPks({
+      event,
+      slug,
+      onRedirect: ({post}) =>
+        generatePath("/admin/posts/:slug/edit", {slug: post.slug})
+    })
 
-  const post = await orm.em.findOneOrFail(
-    Post,
+    const post = await orm.em.findOneOrFail(
+      Post,
 
-    {
-      slug
-    },
+      {
+        slug
+      },
 
-    {
-      filters: false, // Admin can see all posts
-      populate: ["content"],
-      failHandler(): never {
-        throw new Response(null, {
-          status: 404,
-          statusText: "Unable to find post"
-        })
+      {
+        filters: false, // Admin can see all posts
+        populate: ["content"],
+        failHandler(): never {
+          throw new Response(null, {
+            status: 404,
+            statusText: "Unable to find post"
+          })
+        }
       }
-    }
-  )
+    )
 
-  return parseOutput(AdminPostOutputEdit, post, {async: true})
-})
+    return parseOutput(AdminPostOutputEdit, post, {async: true})
+  }
+)
 
 export const action = defineAdminAction(
-  async ({request, context: {orm}}: Route.ActionArgs) => {
+  async ({request, context: {orm}}: AdminActionArgs<Route.ActionArgs>) => {
     if (!matchesHttpMethods(request, "PATCH")) {
       throw Response.json(
         {
