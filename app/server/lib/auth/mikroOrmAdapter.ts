@@ -5,8 +5,18 @@ import {pascalCase, camelCase} from "scule"
 import {BetterAuthError} from "better-auth"
 import {dset} from "dset"
 
+/**
+ * Normalizes given model `name` for Mikro ORM
+ *
+ * @param name - The name of the entity
+ */
 const normalizeEntityName = (name: string) => pascalCase(name)
 
+/**
+ * Prefixes given `error` message
+ *
+ * @param message - A message to add a prefix to
+ */
 const prefixErrorMessage = (message: string) => `Mikro ORM Adapter: ${message}`
 
 /**
@@ -31,7 +41,14 @@ function getEntityMetadata(orm: MikroORM, entityName: string) {
   return storage.get(entityName)
 }
 
-function transformOutput(
+/**
+ * Normalizes the Mikro ORM output for Better Auth
+ *
+ * @param orm - Mikro ORM instance
+ * @param entityName - The name of the entity
+ * @param output - The result of a Mikro ORM query
+ */
+function normalizeOutput(
   orm: MikroORM,
   entityName: string,
   output: Record<string, any>
@@ -59,6 +76,12 @@ function transformOutput(
   return Object.fromEntries([...filteredOutput, ...mappedOutput])
 }
 
+/**
+ * Returns name of the field from a relation
+ *
+ * @param fieldName - The name of the field
+ * @param property - Property metadata
+ */
 function getFieldNameFromRelation(
   fieldName: string,
   property: EntityProperty
@@ -74,10 +97,25 @@ function getFieldNameFromRelation(
   return camelCase(field)
 }
 
+/**
+ * Returns a path to a `field` reference.
+ *
+ * @param orm - Mikro ORM instance
+ * @param entityName - The name of the entity
+ * @param fieldName - The field's name
+ *
+ * @throws BetterAuthError when no such field exist on the `entity`
+ * @throws BetterAuthError if complex primary key is discovered in `fieldName` relation
+ */
 function getFieldPath(orm: MikroORM, entityName: string, fieldName: string) {
   const metadata = getEntityMetadata(orm, entityName)
 
   const fieldMetadata = metadata.props.find(prop => {
+    // Ignore Shadow Properties. See: https://mikro-orm.io/docs/serializing#shadow-properties
+    if (prop.persist === false) {
+      return false
+    }
+
     if (prop.kind === ReferenceKind.SCALAR && prop.name === fieldName) {
       return true
     }
@@ -107,7 +145,9 @@ function getFieldPath(orm: MikroORM, entityName: string, fieldName: string) {
   if (fieldMetadata.kind === ReferenceKind.MANY_TO_ONE) {
     if (fieldMetadata.referencedPKs.length > 1) {
       throw new BetterAuthError(
-        prefixErrorMessage("Complex primary keys are not supported")
+        prefixErrorMessage(
+          `The "${fieldName}" field references to a table "${fieldMetadata.name}" with complex primary key, which is not supported`
+        )
       )
     }
 
@@ -122,12 +162,55 @@ function getFieldPath(orm: MikroORM, entityName: string, fieldName: string) {
 }
 
 /**
+ * Creates a `where` clause with given params
+ *
+ * @param fieldName - The name of the field
+ * @param path - Path to the field reference
+ * @param value - Field's value
+ * @param op - Query operator
+ * @param target - Target object to assign the result to. The object will be *mutated*
+ */
+function createWhereClause(
+  path: Array<string | number>,
+  value: unknown,
+  op?: string,
+  target: Record<string, any> = {}
+): Record<string, any> {
+  dset(target, op == null || op === "eq" ? path : path.concat(op), value)
+
+  return target
+}
+
+/**
+ * Same as `createWhereClause`, but creates a statement with only `$in` operator and check if the `value` is an array.
+ *
+ * @param fieldName - The name of the field
+ * @param path - Path to the field reference
+ * @param value - Field's value
+ * @param target - Target object to assign the result to. The object will be *mutated*
+ */
+function createWhereInClause(
+  fieldName: string,
+  path: Array<string | number>,
+  value: unknown,
+  target?: Record<string, any>
+) {
+  if (!Array.isArray(value)) {
+    throw new BetterAuthError(
+      prefixErrorMessage(
+        `The value for the field "${fieldName}" must be an array when using the $in operator.`
+      )
+    )
+  }
+
+  return createWhereClause(path, value, "$in", target)
+}
+
+/**
  * Transfroms hiven list of Where clause(s) for Mikro ORM
  *
  * @param entityName - Entity name
  * @param where - A list where clause(s) to normalize
- *
- * @internal
  */
 function normalizeWhereClause(
   orm: MikroORM,
@@ -148,61 +231,50 @@ function normalizeWhereClause(
     const path = getFieldPath(orm, entityName, w.field)
 
     if (w.operator === "in") {
-      if (!Array.isArray(w.value)) {
-        throw new BetterAuthError(
-          prefixErrorMessage(
-            `The value for the field "${w.field}" must be an array when using the ${w.operator} operator.`
-          )
-        )
+      return createWhereInClause(w.field, path, w.value)
+    }
+
+    switch (w.operator) {
+      case "contains":
+        return createWhereClause(path, `%${w.value}%`, "$like")
+      case "starts_with":
+        return createWhereClause(path, `${w.value}%`, "$like")
+      case "ends_with":
+        return createWhereClause(path, `%${w.value}`, "$like")
+      // The next 5 case statemets are _expected_ to fall through so we can simplify and reuse the same logic for these operators
+      case "gt":
+      case "gte":
+      case "lt":
+      case "lte":
+      case "ne":
+        return createWhereClause(path, w.value, `$${w.operator}`)
+      default:
+        return createWhereClause(path, w.value)
+    }
+  }
+  const result: Record<string, any> = {}
+
+  where
+    .filter(({connector}) => !connector || connector === "AND")
+    .forEach(({field, operator, value}, index) => {
+      const path = ["$and", index].concat(getFieldPath(orm, entityName, field))
+
+      if (operator === "in") {
+        return createWhereInClause(field, path, value, result)
       }
 
-      const result = {}
+      return createWhereClause(path, value, "eq", result)
+    })
 
-      dset(result, path.concat("$in"), w.value)
+  where
+    .filter(({connector}) => connector === "OR")
+    .forEach(({field, value}, index) => {
+      const path = ["$and", index].concat(getFieldPath(orm, entityName, field))
 
-      return result
-    }
+      return createWhereClause(path, value, "eq", result)
+    })
 
-    if (w.operator === "contains") {
-      const result = {}
-
-      dset(result, path.concat("$like"), `%${w.value}%`)
-
-      return result
-    }
-
-    if (w.operator === "starts_with") {
-      const result = {}
-
-      dset(result, path.concat("$like"), `${w.value}%`)
-
-      return result
-    }
-
-    if (w.operator === "ends_with") {
-      const result = {}
-
-      dset(result, path.concat("$like"), `%${w.value}`)
-
-      return result
-    }
-
-    if (w.operator === "gt") {
-      const result = {}
-
-      dset(result, path.concat("$gt"), w.value)
-
-      return result
-    }
-
-    const result = {}
-
-    dset(result, path, w.value)
-
-    return result
-  }
-
-  return {}
+  return result
 }
 
 function normalizeInput<T extends Record<string, any>>(
@@ -230,7 +302,7 @@ export function mikroOrmAdapter(orm: MikroORM) {
 
       await orm.em.persistAndFlush(entity)
 
-      return transformOutput(orm, entityName, entity) as any
+      return normalizeOutput(orm, entityName, entity) as any
     },
     async findOne({model: entityName, where}) {
       entityName = normalizeEntityName(entityName)
@@ -240,7 +312,7 @@ export function mikroOrmAdapter(orm: MikroORM) {
         normalizeWhereClause(orm, entityName, where)
       )
 
-      return (entity ? transformOutput(orm, entityName, entity) : null) as any
+      return (entity ? normalizeOutput(orm, entityName, entity) : null) as any
     },
     async findMany({model: entityName, where, limit, offset, sortBy}) {
       entityName = normalizeEntityName(entityName)
@@ -261,7 +333,7 @@ export function mikroOrmAdapter(orm: MikroORM) {
         options
       )
 
-      return rows.map(row => transformOutput(orm, entityName, row)) as any
+      return rows.map(row => normalizeOutput(orm, entityName, row)) as any
     },
     async update({model: entityName, where, update}) {
       entityName = normalizeEntityName(entityName)
@@ -271,7 +343,6 @@ export function mikroOrmAdapter(orm: MikroORM) {
         normalizeWhereClause(orm, entityName, where)
       )
 
-      // ! Not so sure if I should throw an error or just return null.
       if (!entity) {
         return null
       }
@@ -279,7 +350,7 @@ export function mikroOrmAdapter(orm: MikroORM) {
       orm.em.assign(entity, normalizeInput(orm, entityName, update))
       await orm.em.flush()
 
-      return transformOutput(orm, entityName, entity) as any
+      return normalizeOutput(orm, entityName, entity) as any
     },
     async updateMany({model: entityName, where, update}) {
       entityName = normalizeEntityName(entityName)
@@ -314,7 +385,7 @@ export function mikroOrmAdapter(orm: MikroORM) {
         normalizeWhereClause(orm, entityName, where)
       )
 
-      orm.em.clear() // Clear IdentityMap
+      orm.em.clear() // This clears the IdentityMap
 
       return affected
     }
