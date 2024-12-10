@@ -1,6 +1,6 @@
 import {betterAuth} from "better-auth"
 
-import {password} from "./password.js"
+import {hash, verify} from "./password.js"
 
 import config from "../config.js"
 import {orm} from "../db/orm.js"
@@ -13,9 +13,8 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     password: {
-      // I would rather handle these in Mikro ORM Subscribers, but ok.
-      hash: input => password.hash(input),
-      verify: input => password.verify(input.hash, input.password)
+      hash: password => hash(password),
+      verify: ({hash, password}) => verify(hash, password)
     }
   },
   advanced: {

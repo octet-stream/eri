@@ -6,8 +6,7 @@ export default defineConfig({
   plugins: [reactRouterHonoServer(), reactRouter()],
   optimizeDeps: {
     exclude: [
-      "oslo",
-      "lucia",
+      "@node-rs/argon2",
       "@mikro-orm/core",
       "@mikro-orm/mysql",
       "@mikro-orm/knex",

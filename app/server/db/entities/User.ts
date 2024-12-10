@@ -24,4 +24,7 @@ export class User extends RecordSoft implements UserBase {
 
   @Property<User>({type: "varchar", persist: false})
   readonly name: string = ""
+
+  @Property<User>({type: "varchar", persist: false})
+  readonly image: string = ""
 }
