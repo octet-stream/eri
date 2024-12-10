@@ -1,7 +1,7 @@
 import {getFormProps, getInputProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
-import type {FC} from "react"
 import {Form} from "react-router"
+import type {FC} from "react"
 
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
@@ -29,8 +29,13 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
   })
 
   return (
-    <div className="w-full p-5 mobile:w-[390px] m-auto">
-      <Form {...getFormProps(form)} method="post" action="/admin/login">
+    <div className="w-full px-5 py-20 mobile:w-[390px] m-auto">
+      <Form
+        {...getFormProps(form)}
+        method="post"
+        action="/admin/login"
+        className="relative"
+      >
         <Card>
           <CardHeader>
             <CardTitle>Login</CardTitle>
@@ -46,7 +51,7 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
 
               <Input
                 {...getInputProps(fields.email, {type: "email"})}
-                errors={fields.email.errors}
+                errors={fields.email.errors || form.errors}
                 placeholder="me@example.com"
                 className="placeholder:lowercase"
               />
@@ -57,7 +62,7 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
 
               <Input
                 {...getInputProps(fields.password, {type: "password"})}
-                errors={fields.password.errors}
+                errors={fields.password.errors || form.errors}
                 placeholder="Your password"
                 className="placeholder:lowercase"
               />
@@ -70,6 +75,16 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
             </Button>
           </CardFooter>
         </Card>
+
+        {form.errors ? (
+          <ul className="absolute w-full text-center py-2">
+            {form.errors.map(error => (
+              <li key={error} className="text-destructive">
+                {error}
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </Form>
     </div>
   )

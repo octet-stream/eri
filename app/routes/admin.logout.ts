@@ -1,7 +1,4 @@
-import {replace} from "react-router"
-
-import {parseCookie, removeCookie} from "../server/lib/auth/cookie.js"
-import {lucia} from "../server/lib/auth/lucia.js"
+import {data, replace} from "react-router"
 
 import type {Route} from "./+types/admin.logout.js"
 
@@ -9,28 +6,18 @@ export const loader = async ({
   request,
   context: {auth}
 }: Route.LoaderArgs): Promise<never> => {
-  if (!auth.isAuthenticated()) {
-    throw replace("/admin/login")
-  }
-
-  const sessionId = await parseCookie(request.headers.get("cookie"))
-  if (!sessionId) {
-    throw replace("/admin", {
-      status: 401
-    })
-  }
-
-  await lucia.invalidateSession(sessionId)
+  const response = await auth.api.signOut({
+    asResponse: true,
+    headers: request.headers
+  })
 
   throw replace("/admin", {
-    headers: {
-      "set-cookie": await removeCookie()
-    }
+    headers: response.headers
   })
 }
 
 export const action = (): never => {
-  throw new Response(null, {
+  throw data(null, {
     status: 405
   })
 }
