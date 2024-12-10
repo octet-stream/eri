@@ -9,7 +9,7 @@ import {mikroOrmAdapter} from "./mikroOrmAdapter.js"
 
 export const auth = betterAuth({
   database: mikroOrmAdapter(orm),
-  secret: config.auth.secrets[0], // TODO: Update config tu replace `secrets` with `secret` (we use one secret anyway)
+  secret: config.auth.secret,
   emailAndPassword: {
     enabled: true,
     password: {

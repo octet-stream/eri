@@ -1,11 +1,11 @@
 import {z} from "zod"
 
-import {Secrets} from "./auth/Secrets.js"
+import {Secret} from "./auth/Secret.js"
 import {Session} from "./auth/Session.js"
 
 export const Auth = z
   .object({
-    secrets: Secrets,
+    secret: Secret,
     session: Session
   })
   .transform(value => Object.freeze(value))
