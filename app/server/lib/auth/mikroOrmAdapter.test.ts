@@ -320,6 +320,7 @@ describe("operators", () => {
       ]
     })
 
-    console.log(actual)
+    expect(actual.length).toBe(1)
+    expect(actual[0]).toMatchObject({id: user.id, email: user.email})
   })
 })
