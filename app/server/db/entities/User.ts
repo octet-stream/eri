@@ -1,4 +1,4 @@
-import {Entity, Property, Unique} from "@mikro-orm/mariadb"
+import {Entity, Property, Unique, type Opt} from "@mikro-orm/mariadb"
 import type {User as UserSchema} from "better-auth"
 
 import {RecordSoft} from "./RecordSoft.js"
@@ -20,11 +20,11 @@ export class User extends RecordSoft implements UserBase {
   email!: string
 
   @Property<User>({type: "boolean", default: false, nullable: false})
-  emailVerified!: boolean
+  emailVerified: Opt<boolean> = false
 
   @Property<User>({type: "varchar", persist: false})
-  readonly name: string = ""
+  readonly name: Opt<string> = ""
 
   @Property<User>({type: "varchar", persist: false})
-  readonly image: string = ""
+  readonly image: Opt<string> = ""
 }

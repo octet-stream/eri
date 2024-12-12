@@ -14,9 +14,13 @@ import {User} from "../../db/entities.js"
 import {orm} from "../db/orm.js"
 
 import {mikroOrmAdapter} from "./mikroOrmAdapter.js"
-import {describe} from "vitest"
+import {describe, expect} from "vitest"
 
-const adapter = mikroOrmAdapter(orm)({})
+const adapter = mikroOrmAdapter(orm)({
+  advanced: {
+    generateId: false
+  }
+})
 
 interface UserInput {
   email: string
@@ -38,37 +42,38 @@ function createRandomUser(): UserInput {
   return {email, name}
 }
 
-ormTest("Creates a new record", async ({expect}) => {
-  const expected = createRandomUser()
-  const actual = await adapter.create({data: expected, model: "user"})
+describe("create", () => {
+  ormTest("Creates a new record", async ({expect}) => {
+    const expected = createRandomUser()
+    const actual = await adapter.create({data: expected, model: "user"})
 
-  expect(actual.email).toBe(expected.email)
-})
-
-ormTest("Creates a record with referenced entity", async ({expect}) => {
-  const user = await adapter.create<UserInput, DatabaseUser>({
-    model: "user",
-    data: createRandomUser()
+    expect(actual.email).toBe(expected.email)
   })
 
-  const actual = await adapter.create<SessionInput, DatabaseSession>({
-    model: "session",
-    data: {
-      token: nanoid(),
-      userId: user.id,
-      expiresAt: new Date()
-    }
-  })
-
-  expect(actual.userId).toBe(user.id)
-})
-
-describe("findOne", () => {
-  ormTest("Finds a record by id", async ({expect}) => {
+  ormTest("Creates a record with referenced entity", async ({expect}) => {
     const user = await adapter.create<UserInput, DatabaseUser>({
       model: "user",
       data: createRandomUser()
     })
+
+    const actual = await adapter.create<SessionInput, DatabaseSession>({
+      model: "session",
+      data: {
+        token: nanoid(),
+        userId: user.id,
+        expiresAt: new Date()
+      }
+    })
+
+    expect(actual.userId).toBe(user.id)
+  })
+})
+
+describe("findOne", () => {
+  ormTest("Finds a record by id", async ({expect}) => {
+    const user = orm.em.create(User, createRandomUser())
+
+    await orm.em.persistAndFlush(user)
 
     const actual = await adapter.findOne<DatabaseUser>({
       model: "user",
@@ -84,10 +89,9 @@ describe("findOne", () => {
   })
 
   ormTest("Finds a record without id", async ({expect}) => {
-    const user = await adapter.create<UserInput, DatabaseUser>({
-      model: "user",
-      data: createRandomUser()
-    })
+    const user = orm.em.create(User, createRandomUser())
+
+    await orm.em.persistAndFlush(user)
 
     const actual = await adapter.findOne<DatabaseUser>({
       model: "user",
@@ -103,7 +107,7 @@ describe("findOne", () => {
   })
 
   ormTest(
-    "Returns null when accessing nonexistent records",
+    "Returns null when querying nonexistent record",
 
     async ({expect}) => {
       const actual = await adapter.findOne<User>({
@@ -123,10 +127,8 @@ describe("findOne", () => {
 
 describe("findMany", () => {
   ormTest("Finds many records", async ({expect}) => {
-    await adapter.create<UserInput, DatabaseUser>({
-      model: "user",
-      data: createRandomUser()
-    })
+    orm.em.create(User, createRandomUser(), {persist: true})
+    await orm.em.flush()
 
     const actual = await adapter.findMany<User>({
       model: "user"
@@ -136,10 +138,9 @@ describe("findMany", () => {
   })
 
   ormTest("Finds many statements with where statement", async ({expect}) => {
-    const user = await adapter.create<UserInput, DatabaseUser>({
-      model: "user",
-      data: createRandomUser()
-    })
+    const user = orm.em.create(User, createRandomUser())
+
+    await orm.em.persistAndFlush(user)
 
     const actual = await adapter.findMany<User>({
       model: "user",
@@ -154,17 +155,26 @@ describe("findMany", () => {
     expect(actual.length).toBe(1)
   })
 
-  ormTest("Sorts the result according to sortBy value", async ({expect}) => {
-    const [user1, user2] = await Promise.all([
-      adapter.create<UserInput, DatabaseUser>({
-        model: "user",
-        data: {...createRandomUser(), email: "a@example.com"}
-      }),
-      adapter.create<UserInput, DatabaseUser>({
-        model: "user",
-        data: {...createRandomUser(), email: "b@example.com"}
+  ormTest("Returns empty array if no records found", async () => {
+    await expect(
+      adapter.findMany<User>({
+        model: "user"
       })
-    ])
+    ).resolves.toEqual([])
+  })
+
+  ormTest("Sorts the result according to sortBy value", async ({expect}) => {
+    const users = ["a", "b"].map(value =>
+      orm.em.create(User, {
+        ...createRandomUser(),
+
+        email: `${value}@example.com`
+      })
+    )
+
+    await orm.em.persistAndFlush(users)
+
+    const [user1, user2] = users
 
     const actual = await adapter.findMany<User>({
       model: "user",
@@ -179,12 +189,11 @@ describe("findMany", () => {
 })
 
 ormTest("Updates existent entity", async ({expect}) => {
-  const expected = faker.internet.email()
-  const user = await adapter.create<UserInput, DatabaseUser>({
-    model: "user",
-    data: createRandomUser()
-  })
+  const user = orm.em.create(User, createRandomUser())
 
+  await orm.em.persistAndFlush(user)
+
+  const expected = faker.internet.email()
   const actual = await adapter.update<DatabaseUser>({
     model: "user",
     where: [
@@ -206,10 +215,9 @@ ormTest("Updates existent entity", async ({expect}) => {
 
 describe("delete", () => {
   ormTest("Removes existent record by id", async ({expect}) => {
-    const user = await adapter.create<UserInput, DatabaseUser>({
-      model: "user",
-      data: createRandomUser()
-    })
+    const user = orm.em.create(User, createRandomUser())
+
+    await orm.em.persistAndFlush(user)
 
     await adapter.delete({
       model: "user",
@@ -241,22 +249,42 @@ describe("delete", () => {
   )
 })
 
+describe("deleteMany", () => {
+  ormTest("deletes many records", async () => {
+    const users = Array.from({length: 3}, (_, index) =>
+      orm.em.create(User, {
+        ...createRandomUser(),
+
+        email: `delete-${index}@example.com`
+      })
+    )
+
+    await orm.em.persistAndFlush(users)
+
+    const actual = await adapter.deleteMany({
+      model: "user",
+      where: [
+        {
+          field: "email",
+          operator: "in",
+          value: users.map(({email}) => email)
+        }
+      ]
+    })
+
+    expect(actual).toBe(users.length)
+  })
+})
+
 describe("operators", () => {
   ormTest("Finds records with in operator", async ({expect}) => {
-    const [user1, , user3] = await Promise.all([
-      adapter.create<UserInput, DatabaseUser>({
-        model: "user",
-        data: createRandomUser()
-      }),
-      adapter.create<UserInput, DatabaseUser>({
-        model: "user",
-        data: createRandomUser()
-      }),
-      adapter.create<UserInput, DatabaseUser>({
-        model: "user",
-        data: createRandomUser()
-      })
-    ])
+    const users = Array.from({length: 3}, () =>
+      orm.em.create(User, createRandomUser())
+    )
+
+    await orm.em.persistAndFlush(users)
+
+    const [user1, , user3] = users
 
     const actual = await adapter.findMany<User>({
       model: "user",
@@ -299,10 +327,9 @@ describe("operators", () => {
   )
 
   ormTest("Finds records using or connector", async ({expect}) => {
-    const user = await adapter.create<UserInput, DatabaseUser>({
-      model: "user",
-      data: createRandomUser()
-    })
+    const user = orm.em.create(User, createRandomUser())
+
+    await orm.em.persistAndFlush(user)
 
     const actual = await adapter.findMany<User>({
       model: "user",
