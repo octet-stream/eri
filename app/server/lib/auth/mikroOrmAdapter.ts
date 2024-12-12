@@ -176,19 +176,25 @@ function createUtils(orm: MikroORM) {
    * @param entityName - The name of the entity
    * @param output - The result of a Mikro ORM query
    */
-  function normalizeOutput(entityName: string, output: Record<string, any>) {
+  function normalizeOutput(
+    entityName: string,
+    output: Record<string, any>,
+    select?: string[]
+  ) {
     const metadata = getEntityMetadata(entityName)
     output = serialize(output)
 
     const result: Record<string, any> = {}
-    Object.entries(output).forEach(([key, value]) => {
-      const path = getReferencedPropertyName(
-        entityName,
-        getPropertyMetadata(metadata, key)
-      )
-
-      dset(result, path, value)
-    })
+    Object.entries(output)
+      .map(([key, value]) => ({
+        path: getReferencedPropertyName(
+          entityName,
+          getPropertyMetadata(metadata, key)
+        ),
+        value
+      }))
+      .filter(({path}) => (select ? select.includes(path) : true))
+      .forEach(({path, value}) => dset(result, path, value))
 
     return result
   }
@@ -340,7 +346,7 @@ export function mikroOrmAdapter(orm: MikroORM) {
 
   const adapter = (options: BetterAuthOptions): Adapter => ({
     id: "mikro-orm",
-    async create({model, data}) {
+    async create({model, data, select}) {
       const entityName = normalizeEntityName(model)
 
       const input = normalizeInput(entityName, data)
@@ -356,9 +362,9 @@ export function mikroOrmAdapter(orm: MikroORM) {
 
       await orm.em.persistAndFlush(entity)
 
-      return normalizeOutput(entityName, entity) as any
+      return normalizeOutput(entityName, entity, select) as any
     },
-    async findOne({model: entityName, where}) {
+    async findOne({model: entityName, where, select}) {
       entityName = normalizeEntityName(entityName)
 
       const entity = await orm.em.findOne(
@@ -366,7 +372,11 @@ export function mikroOrmAdapter(orm: MikroORM) {
         normalizeWhereClauses(entityName, where)
       )
 
-      return (entity ? normalizeOutput(entityName, entity) : null) as any
+      if (!entity) {
+        return null
+      }
+
+      return normalizeOutput(entityName, entity, select) as any
     },
     async findMany({model: entityName, where, limit, offset, sortBy}) {
       entityName = normalizeEntityName(entityName)

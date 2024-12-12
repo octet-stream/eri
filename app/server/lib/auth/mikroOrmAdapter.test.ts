@@ -106,6 +106,25 @@ describe("findOne", () => {
     expect(actual?.id).toBe(user.id)
   })
 
+  ormTest("Returns only selected fields", async () => {
+    const user = orm.em.create(User, createRandomUser())
+
+    await orm.em.persistAndFlush(user)
+
+    const actual = await adapter.findOne({
+      model: "user",
+      where: [
+        {
+          field: "id",
+          value: user.id
+        }
+      ],
+      select: ["email"]
+    })
+
+    expect(actual).toEqual({email: user.email})
+  })
+
   ormTest(
     "Returns null when querying nonexistent record",
 
