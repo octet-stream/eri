@@ -1,10 +1,10 @@
 import {betterAuth} from "better-auth"
 
-import {hash, verify} from "./password.js"
-
 import config from "../config.js"
+
 import {orm} from "../db/orm.js"
 
+import {hash, verify} from "./password.js"
 import {mikroOrmAdapter} from "./mikroOrmAdapter.js"
 
 export const auth = betterAuth({
@@ -18,7 +18,7 @@ export const auth = betterAuth({
     }
   },
   advanced: {
-    cookiePrefix: "eri", // TODO: Make this configurable
+    cookiePrefix: config.auth.cookiePrefix,
     generateId: false // Handled by the ORM
   }
 })

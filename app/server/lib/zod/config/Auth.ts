@@ -1,12 +1,12 @@
 import {z} from "zod"
 
 import {Secret} from "./auth/Secret.js"
-import {Session} from "./auth/Session.js"
+import {CookiePrefix} from "./auth/CookiePrefix.js"
 
 export const Auth = z
   .object({
     secret: Secret,
-    session: Session
+    cookiePrefix: CookiePrefix
   })
   .transform(value => Object.freeze(value))
 

@@ -1,10 +1,10 @@
 import {z} from "zod"
 
-import {CookieName} from "./session/CookieName.js"
+import {CookiePrefix} from "./CookiePrefix.js"
 
 export const Session = z
   .object({
-    name: CookieName
+    cookiePrefix: CookiePrefix
   })
   .transform(value => Object.freeze(value))
 

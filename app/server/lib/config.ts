@@ -8,9 +8,7 @@ const config = Config.parse({
   },
   auth: {
     secret: process.env.AUTH_SECRET,
-    session: {
-      name: process.env.AUTH_SESSION_COOKIE_NAME
-    }
+    cookiePrefix: process.env.AUTH_COOKIE_PREFIX || undefined
   },
   server: {
     port: process.env.PORT || undefined
