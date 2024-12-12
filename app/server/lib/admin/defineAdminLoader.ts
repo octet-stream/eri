@@ -33,7 +33,7 @@ export const defineAdminLoader =
     loader: Loader<TResult, TEvent>
   ) =>
   async (event: TEvent): Promise<TResult> => {
-    const {auth, orm, resHeaders} =
+    const {auth, orm} =
       event.context as AdminLoaderArgs<LoaderFunctionArgs>["context"]
 
     const [admin] = await orm.em.find(
