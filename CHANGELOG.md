@@ -1,5 +1,11 @@
 # eri
 
+## 0.6.0
+
+### Minor Changes
+
+- [#109](https://github.com/octet-stream/eri/pull/109) [`9ba1c72`](https://github.com/octet-stream/eri/commit/9ba1c7287cd1a5471f6a0d61eebde489d5ce33e1) Thanks [@octet-stream](https://github.com/octet-stream)! - Migrate from [Lucia](https://lucia-auth.com/) to [Better Auth](https://www.better-auth.com/) to manage auth
+
 ## 0.5.1
 
 ### Patch Changes
