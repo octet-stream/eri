@@ -1,25 +1,27 @@
 import {parseWithZod} from "@conform-to/zod"
 import {replace, data} from "react-router"
 
-import {User} from "../../server/db/entities.js"
-import {serializeCookie} from "../../server/lib/auth/cookie.js"
-import {lucia} from "../../server/lib/auth/lucia.js"
-import {password} from "../../server/lib/auth/password.js"
+import {APIError} from "better-auth/api"
+
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
 import type {Route} from "./+types/route.js"
 import {AdminLoginPage} from "./AdminLoginPage.jsx"
 import {ADMIN_LOGIN_PAGE_TITLE} from "./title.js"
 
-export const loader = ({context: {auth}}: Route.LoaderArgs) => {
-  if (auth.isAuthenticated()) {
+export const loader = async ({request, context: {auth}}: Route.LoaderArgs) => {
+  const response = await auth.api.getSession({
+    headers: request.headers
+  })
+
+  if (response?.session) {
     throw replace("/admin")
   }
 
   return null
 }
 
-export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
+export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminLogInInput,
     async: true
@@ -31,54 +33,48 @@ export const action = async ({request, context: {orm}}: Route.ActionArgs) => {
     })
   }
 
-  const user = await orm.em.findOne(
-    User,
+  try {
+    const response = await auth.api.signInEmail({
+      asResponse: true,
+      body: submission.value
+    })
 
-    {
-      email: submission.value.email
-    },
-
-    {
-      populate: ["password"]
+    throw replace("/admin", {
+      headers: response.headers
+    })
+  } catch (error) {
+    if (!(error instanceof APIError)) {
+      throw error
     }
-  )
 
-  if (!user) {
-    return data(
-      submission.reply({
-        fieldErrors: {
-          email: ["Incorrect email"]
+    if (error.body.code === "INVALID_EMAIL_OR_PASSWORD") {
+      return data(
+        submission.reply({
+          formErrors: ["Invalid email or password"]
+        }),
+
+        {
+          status: 401
         }
-      }),
-
-      {
-        status: 422
-      }
-    )
-  }
-
-  if (!(await password.verify(user.password, submission.value.password))) {
-    return data(
-      submission.reply({
-        fieldErrors: {
-          password: ["Incorrect password"]
-        }
-      }),
-
-      {
-        status: 422
-      }
-    )
-  }
-
-  const session = await lucia.createSession(user.id, {})
-  const cookie = await serializeCookie(session.id)
-
-  throw replace("/admin", {
-    headers: {
-      "set-cookie": cookie
+      )
     }
-  })
+
+    if (error.body.code === "INVALID_EMAIL") {
+      return data(
+        submission.reply({
+          fieldErrors: {
+            email: ["Invalid email"]
+          }
+        }),
+
+        {
+          status: 422
+        }
+      )
+    }
+
+    throw error
+  }
 }
 
 export const meta: Route.MetaFunction = () => [

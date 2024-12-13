@@ -1,13 +1,21 @@
 import type {LoaderFunctionArgs} from "react-router"
+import type {
+  User as DatabaseUser,
+  Session as DatabaseSession
+} from "better-auth"
 
-import {User} from "../../db/entities.js"
+import {User, Session} from "../../db/entities.js"
 import type {Loader} from "../types/Loader.js"
 
-import type {SharedAdminContext} from "./SharedAdminContext.js"
+import type {AdminArgs, AdminViewer} from "./AdminArgs.js"
 import {
   createAdminLoaderError,
   AdminLoaderErrorCode
 } from "./adminLoaderError.js"
+import {updateCookie} from "./updateCookie.js"
+
+export type AdminLoaderArgs<TEvent extends LoaderFunctionArgs> =
+  AdminArgs<TEvent>
 
 // TODO: Replace this with middlewares, once they arrive
 // ! Hope this one will not break, because I'm not fure if Remix's compiler relies on defineLoader function or route exports to extract loaders
@@ -25,7 +33,8 @@ export const defineAdminLoader =
     loader: Loader<TResult, TEvent>
   ) =>
   async (event: TEvent): Promise<TResult> => {
-    const {auth, orm} = event.context as SharedAdminContext
+    const {auth, orm} =
+      event.context as AdminLoaderArgs<LoaderFunctionArgs>["context"]
 
     const [admin] = await orm.em.find(
       User,
@@ -45,9 +54,36 @@ export const defineAdminLoader =
       createAdminLoaderError(AdminLoaderErrorCode.SETUP)
     }
 
-    if (!auth.isAuthenticated()) {
+    // FIXME: Remove type casting when this fix is releases: https://github.com/better-auth/better-auth/pull/812
+    const response = (await auth.api.getSession({
+      asResponse: true,
+      headers: event.request.headers
+    } as any)) as unknown as Response
+
+    // Note: in the actual result all Dates are serialized into string, so make sure to de-serialize them back
+    const result = (await response.json()) as {
+      user: DatabaseUser
+      session: DatabaseSession
+    }
+
+    if (!result?.session) {
       createAdminLoaderError(AdminLoaderErrorCode.LOGIN)
     }
 
-    return loader(event)
+    const session = await orm.em
+      .getReference(Session, result.session.id, {
+        wrapped: true
+      })
+      .loadOrFail()
+
+    const viewer: AdminViewer = {
+      session,
+      user: session.user,
+      rawUser: result.user,
+      rawSession: result.session
+    }
+
+    return updateCookie(event, response, () =>
+      loader({...event, context: {...event.context, viewer}})
+    )
   }
