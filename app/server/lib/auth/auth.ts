@@ -1,3 +1,4 @@
+import {mikroOrmAdapter} from "better-auth-mikro-orm"
 import {betterAuth} from "better-auth"
 
 import config from "../config.js"
@@ -5,7 +6,6 @@ import config from "../config.js"
 import {orm} from "../db/orm.js"
 
 import {hash, verify} from "./password.js"
-import {mikroOrmAdapter} from "./mikroOrmAdapter.js"
 
 export const auth = betterAuth({
   database: mikroOrmAdapter(orm),
