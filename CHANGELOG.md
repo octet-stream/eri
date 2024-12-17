@@ -1,5 +1,11 @@
 # eri
 
+## 0.6.1
+
+### Patch Changes
+
+- [#111](https://github.com/octet-stream/eri/pull/111) [`7d7a357`](https://github.com/octet-stream/eri/commit/7d7a357b5567857c32241fd6f2d47c9aa2dd37e4) Thanks [@octet-stream](https://github.com/octet-stream)! - Replace internal mikroOrmAdapter with better-auth-mikro-orm package
+
 ## 0.6.0
 
 ### Minor Changes
