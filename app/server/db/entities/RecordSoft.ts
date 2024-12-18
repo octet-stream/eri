@@ -11,7 +11,7 @@ export abstract class RecordSoft extends Record {
   /**
    * The date and time the entity have been marked as removed
    */
-  @Property<RecordSoft>({type: "datetime", nullable: true, default: null})
+  @Property<RecordSoft>({type: "string", nullable: true, default: null})
   @Index()
   removedAt: MaybeNull<Opt<Date>> = null
 }

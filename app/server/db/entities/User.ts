@@ -15,16 +15,16 @@ export class User extends RecordSoft implements UserBase {
   /**
    * User email address
    */
-  @Property<User>({type: "varchar"})
+  @Property<User>({type: "string"})
   @Unique()
   email!: string
 
   @Property<User>({type: "boolean", default: false, nullable: false})
   emailVerified: Opt<boolean> = false
 
-  @Property<User>({type: "varchar", persist: false})
+  @Property<User>({type: "string", persist: false})
   readonly name: Opt<string> = ""
 
-  @Property<User>({type: "varchar", persist: false})
+  @Property<User>({type: "string", persist: false})
   readonly image: Opt<string> = ""
 }

@@ -13,7 +13,7 @@ export interface DatabaseSession extends Omit<SessionSchema, "userId"> {}
  */
 @Entity()
 export class Session extends Record implements DatabaseSession {
-  @Property<Session>({type: "varchar"})
+  @Property<Session>({type: "string"})
   @Unique()
   token!: string
 
@@ -26,13 +26,13 @@ export class Session extends Record implements DatabaseSession {
   /**
    * The IP address of the device
    */
-  @Property<Session>({type: "varchar", nullable: true, default: null})
+  @Property<Session>({type: "string", nullable: true, default: null})
   ipAddress?: Maybe<string> = null
 
   /**
    * The user agent information of the device
    */
-  @Property<Session>({type: "varchar", nullable: true, default: null})
+  @Property<Session>({type: "string", nullable: true, default: null})
   userAgent?: Maybe<string> = null
 
   /**

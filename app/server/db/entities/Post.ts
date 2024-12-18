@@ -30,7 +30,7 @@ export class Post extends RecordSoft {
   /**
    * Post title
    */
-  @Property<Post>({type: "varchar"})
+  @Property<Post>({type: "string"})
   title: string
 
   @Property<Post>({type: JsonType, lazy: true})
@@ -39,7 +39,7 @@ export class Post extends RecordSoft {
   /**
    * Human-readable, unique, URL-friendly identifier of the post
    */
-  @Property<Post>({type: "varchar", length: 512})
+  @Property<Post>({type: "string", length: 512})
   @Unique()
   readonly slug!: Opt<string>
 

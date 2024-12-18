@@ -7,13 +7,13 @@ export class Verification extends Record {
   /**
    * Unique identifier for each verification
    */
-  @Property<Verification>({type: "varchar"})
+  @Property<Verification>({type: "string"})
   identifier!: string
 
   /**
    * The value to be verified
    */
-  @Property<Verification>({type: "varchar"})
+  @Property<Verification>({type: "string"})
   value!: string
 
   /**
