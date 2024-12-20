@@ -1,5 +1,11 @@
 # eri
 
+## 0.6.2
+
+### Patch Changes
+
+- [#113](https://github.com/octet-stream/eri/pull/113) [`ab2da01`](https://github.com/octet-stream/eri/commit/ab2da01339c07cfe7a4887a2834e5bc4cbbed649) Thanks [@octet-stream](https://github.com/octet-stream)! - Update dependencies
+
 ## 0.6.1
 
 ### Patch Changes
