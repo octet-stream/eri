@@ -51,7 +51,6 @@
   "dependencies": {
     "@conform-to/react": "1.2.2",
     "@conform-to/zod": "1.2.2",
-    "@hono/node-server": "1.13.2",
     "@mikro-orm/cli": "6.4.1",
     "@mikro-orm/core": "6.4.1",
     "@mikro-orm/mariadb": "6.4.1",
@@ -127,7 +126,6 @@
     "react-textarea-autosize": "8.5.6",
     "react-tweet": "3.2.1",
     "react-use-event-hook": "0.9.6",
-    "remix-hono": "0.0.18",
     "slate": "0.103.0",
     "slate-history": "0.109.0",
     "slate-react": "0.110.1",
