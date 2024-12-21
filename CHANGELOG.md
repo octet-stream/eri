@@ -1,5 +1,11 @@
 # eri
 
+## 0.7.0
+
+### Minor Changes
+
+- [#116](https://github.com/octet-stream/eri/pull/116) [`dcb5ac6`](https://github.com/octet-stream/eri/commit/dcb5ac601e2167df59192dde56b870f932208baf) Thanks [@octet-stream](https://github.com/octet-stream)! - Add support for login with Passkeys
+
 ## 0.6.2
 
 ### Patch Changes
