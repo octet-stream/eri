@@ -1,6 +1,6 @@
+import {data, type MetaDescriptor} from "react-router"
 import {parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import {data, type MetaDescriptor} from "react-router"
 
 import {
   Breadcrumb,
@@ -21,14 +21,18 @@ import {parseOutput} from "../../server/zod/utils/parseOutput.js"
 
 import {MainInfoSection} from "./sections/MainInfoSection.jsx"
 import {PasswordSection} from "./sections/PasswordSection.jsx"
+import {PasskeySection} from "./sections/PasskeySection.jsx"
 
 import type {Route} from "./+types/route.js"
 
 export const loader = defineAdminLoader(
-  async ({context: {viewer}}: AdminLoaderArgs<Route.LoaderArgs>) =>
-    parseOutput(SessionUser, viewer.user, {
+  async ({context: {viewer}}: AdminLoaderArgs<Route.LoaderArgs>) => {
+    await viewer.user.passkeys.load()
+
+    return parseOutput(SessionUser, viewer.user, {
       async: true
     })
+  }
 )
 
 export const action = defineAdminAction(
@@ -95,6 +99,7 @@ const AdminSettingsPage: FC = () => (
   <div className="w-full flex flex-col gap-5">
     <MainInfoSection />
     <PasswordSection />
+    <PasskeySection />
   </div>
 )
 

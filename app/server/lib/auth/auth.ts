@@ -1,4 +1,5 @@
 import {mikroOrmAdapter} from "better-auth-mikro-orm"
+import {passkey} from "better-auth/plugins/passkey"
 import {betterAuth} from "better-auth"
 
 import config from "../config.js"
@@ -17,6 +18,10 @@ export const auth = betterAuth({
       verify: ({hash, password}) => verify(hash, password)
     }
   },
+  plugins: [
+    // TODO: Add configuration
+    passkey()
+  ],
   advanced: {
     cookiePrefix: config.auth.cookiePrefix,
     generateId: false // Handled by the ORM
