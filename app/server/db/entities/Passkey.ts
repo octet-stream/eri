@@ -8,7 +8,7 @@ export class Passkey extends Node {
   @Property({type: "datetime"})
   createdAt: Date = new Date()
 
-  @Property({type: "string"})
+  @Property({type: "string", nullable: true, default: null})
   name?: string
 
   @Property({type: "string"})

@@ -161,11 +161,11 @@ importers:
         specifier: 38.0.1
         version: 38.0.1(@udecode/plate-common@38.0.6(@types/react@19.0.2)(immer@10.1.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(scheduler@0.25.0)(slate-history@0.109.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.110.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(slate@0.103.0))(slate@0.103.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(slate-history@0.109.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.110.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(slate@0.103.0))(slate@0.103.0)
       better-auth:
-        specifier: 1.0.23-beta.6
-        version: 1.0.23-beta.6
+        specifier: 1.1.2-beta.3
+        version: 1.1.2-beta.3
       better-auth-mikro-orm:
         specifier: 0.1.1
-        version: 0.1.1(@mikro-orm/core@6.4.1)(better-auth@1.0.23-beta.6)
+        version: 0.1.1(@mikro-orm/core@6.4.1)(better-auth@1.1.2-beta.3)
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -2870,8 +2870,8 @@ packages:
       '@mikro-orm/core': ^6.0.0
       better-auth: ^1.0.0
 
-  better-auth@1.0.23-beta.6:
-    resolution: {integrity: sha512-i7rk7UBrWXCfa9aIMh/aPTdzSoFJn+xYEIO/EzNhQtGnE9B30IlrLyKzDoOszmc09/WUD1mBIDglwc0JC35KDQ==}
+  better-auth@1.1.2-beta.3:
+    resolution: {integrity: sha512-5a8JGy+knQUKDhRgs733NTaa0nxfOb+uGj19rBWWz7URQjbpbrWcXaU3APqi0gehutXQTqw5h8BoSJgNd0WXcQ==}
 
   better-call@0.3.3-beta.4:
     resolution: {integrity: sha512-txigUTFsjOlE4dfkfhDhu6Gk0I1Xo3S4Nye+nfMKJXknb+WsymcWtqoRUSUGdhOMumM3LT9R3QttTUxwny9lWQ==}
@@ -3013,10 +3013,6 @@ packages:
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
-
-  consola@3.3.0:
-    resolution: {integrity: sha512-kxltocVQCwQNFvw40dlVRYeAkAvtYjMFZYNlOcsF5wExPpGwPxMwgx4IfDJvBRPtBpnQwItd5WkTaR0ZwT/TmQ==}
-    engines: {node: ^14.18.0 || >=16.10.0}
 
   conventional-changelog-angular@7.0.0:
     resolution: {integrity: sha512-ROjNchA9LgfNMTTFSIWPzebCwOGFdgkEq45EnvvrmSLvCtAw0HSmrCs7/ty+wAeYUZyNay0YMUNYFTRL72PkBQ==}
@@ -7817,13 +7813,13 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  better-auth-mikro-orm@0.1.1(@mikro-orm/core@6.4.1)(better-auth@1.0.23-beta.6):
+  better-auth-mikro-orm@0.1.1(@mikro-orm/core@6.4.1)(better-auth@1.1.2-beta.3):
     dependencies:
       '@mikro-orm/core': 6.4.1
-      better-auth: 1.0.23-beta.6
+      better-auth: 1.1.2-beta.3
       dset: 3.1.4
 
-  better-auth@1.0.23-beta.6:
+  better-auth@1.1.2-beta.3:
     dependencies:
       '@better-auth/utils': 0.2.1
       '@better-fetch/fetch': 1.1.12
@@ -7832,7 +7828,6 @@ snapshots:
       '@simplewebauthn/browser': 10.0.0
       '@simplewebauthn/server': 10.0.1
       better-call: 0.3.3-beta.4
-      consola: 3.3.0
       defu: 6.1.4
       jose: 5.9.6
       kysely: 0.27.5
@@ -7994,8 +7989,6 @@ snapshots:
   compute-scroll-into-view@3.1.0: {}
 
   concat-map@0.0.1: {}
-
-  consola@3.3.0: {}
 
   conventional-changelog-angular@7.0.0:
     dependencies:
