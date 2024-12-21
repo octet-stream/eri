@@ -1,11 +1,17 @@
 import {getFormProps, getInputProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
-import {Form} from "react-router"
+import {Form, useNavigate} from "react-router"
+import {useEvent} from "react-use-event-hook"
+import {Fingerprint} from "lucide-react"
 import type {FC} from "react"
+import {toast} from "sonner"
 
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
+import {authClient} from "../../lib/auth.js"
+
 import {Button} from "../../components/ui/Button.jsx"
+import {Separator} from "../../components/ui/Separator.jsx"
 import {
   Card,
   CardContent,
@@ -26,6 +32,18 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
 
     onValidate: ({formData}) =>
       parseWithZod(formData, {schema: AdminLogInInput})
+  })
+
+  const navigate = useNavigate()
+
+  const logInWithPassKey = useEvent(async () => {
+    const response = await authClient.signIn.passkey()
+
+    if (response?.error) {
+      toast.error("Can't log in")
+    } else {
+      await navigate("/admin", {replace: true})
+    }
   })
 
   return (
@@ -69,9 +87,22 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
             </div>
           </CardContent>
 
-          <CardFooter>
+          <CardFooter className="flex-col gap-4">
             <Button type="submit" wide>
               Log in
+            </Button>
+
+            <Separator />
+
+            <Button
+              type="button"
+              wide
+              variant="secondary"
+              onClick={logInWithPassKey}
+            >
+              <Fingerprint />
+
+              <span>Use Passkey</span>
             </Button>
           </CardFooter>
         </Card>

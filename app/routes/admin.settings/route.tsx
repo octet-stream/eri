@@ -1,6 +1,6 @@
+import {data, type MetaDescriptor} from "react-router"
 import {parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import {data, type MetaDescriptor} from "react-router"
 
 import {
   Breadcrumb,

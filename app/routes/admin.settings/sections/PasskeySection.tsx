@@ -1,11 +1,11 @@
 import type {FC} from "react"
+import {toast} from "sonner"
 
 import {authClient} from "../../../lib/auth.js"
 
 import {Button} from "../../../components/ui/Button.jsx"
 import {
   Card,
-  CardContent,
   CardFooter,
   CardHeader,
   CardTitle
@@ -13,7 +13,11 @@ import {
 
 export const PasskeySection: FC = () => {
   const addPasskey = async () => {
-    await authClient.passkey.addPasskey()
+    const response = await authClient.passkey.addPasskey()
+
+    if (response?.error) {
+      toast.error("Can't add new passkey")
+    }
   }
 
   return (
@@ -21,8 +25,6 @@ export const PasskeySection: FC = () => {
       <CardHeader>
         <CardTitle>Passkeys</CardTitle>
       </CardHeader>
-
-      <CardContent>Add a passkey</CardContent>
 
       <CardFooter className="flex justify-end">
         <Button type="button" name="passkey" onClick={addPasskey}>

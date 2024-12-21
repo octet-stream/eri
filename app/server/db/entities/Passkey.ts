@@ -17,7 +17,7 @@ export class Passkey extends Node {
   @Property({type: "string"})
   credentialID!: string
 
-  @Property({type: "string"})
+  @Property({type: "integer", unsigned: true, default: 0})
   counter!: number
 
   @Property({type: "string"})
