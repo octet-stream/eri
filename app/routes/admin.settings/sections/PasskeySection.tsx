@@ -1,3 +1,4 @@
+import {useEvent} from "react-use-event-hook"
 import type {FC} from "react"
 import {toast} from "sonner"
 
@@ -12,13 +13,13 @@ import {
 } from "../../../components/ui/Card.jsx"
 
 export const PasskeySection: FC = () => {
-  const addPasskey = async () => {
+  const addPasskey = useEvent(async () => {
     const response = await authClient.passkey.addPasskey()
 
     if (response?.error) {
       toast.error("Can't add new passkey")
     }
-  }
+  })
 
   return (
     <Card>
