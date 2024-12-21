@@ -7,7 +7,7 @@ services:
       db_dev:
         condition: service_healthy
 
-    image: mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
+    build: .
 
     volumes:
       - ../..:/workspaces:cached
