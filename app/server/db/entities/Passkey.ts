@@ -1,6 +1,7 @@
-import {Entity, Property} from "@mikro-orm/mariadb"
+import {Entity, Property, ManyToOne} from "@mikro-orm/mariadb"
 
 import {Node} from "./Node.js"
+import {User} from "./User.js"
 
 @Entity()
 export class Passkey extends Node {
@@ -27,4 +28,7 @@ export class Passkey extends Node {
 
   @Property({type: "string"})
   transports!: string
+
+  @ManyToOne(() => User, {eager: true})
+  user!: string
 }
