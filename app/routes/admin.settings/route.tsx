@@ -1,5 +1,5 @@
-import {data, type MetaDescriptor} from "react-router"
 import {parseWithZod} from "@conform-to/zod"
+import {data} from "react-router"
 import type {FC} from "react"
 
 import {
