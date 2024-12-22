@@ -85,7 +85,7 @@ export const action = defineAdminAction(
   }
 )
 
-export const meta = (): MetaDescriptor[] => [
+export const meta: Route.MetaFunction = () => [
   {
     title: "Settings"
   }
@@ -95,7 +95,7 @@ export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb>Settings</Breadcrumb>
 }
 
-const AdminSettingsPage: FC = () => (
+const AdminSettingsPage: FC<Route.ComponentProps> = () => (
   <div className="w-full flex flex-col gap-5">
     <MainInfoSection />
     <PasswordSection />
