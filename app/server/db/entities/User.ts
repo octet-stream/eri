@@ -1,15 +1,15 @@
 import {
-  Entity,
-  Property,
-  Unique,
-  OneToMany,
   Collection,
-  type Opt
+  Entity,
+  OneToMany,
+  type Opt,
+  Property,
+  Unique
 } from "@mikro-orm/mariadb"
 import type {User as UserSchema} from "better-auth"
 
-import {RecordSoft} from "./RecordSoft.js"
 import {Passkey} from "./Passkey.js"
+import {RecordSoft} from "./RecordSoft.js"
 
 export interface UserBase extends Omit<UserSchema, "name"> {}
 

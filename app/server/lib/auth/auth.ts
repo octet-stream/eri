@@ -1,6 +1,6 @@
+import {betterAuth} from "better-auth"
 import {mikroOrmAdapter} from "better-auth-mikro-orm"
 import {passkey} from "better-auth/plugins/passkey"
-import {betterAuth} from "better-auth"
 
 import config from "../config.js"
 

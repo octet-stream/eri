@@ -1,4 +1,4 @@
-import {Entity, Property, ManyToOne, type Opt} from "@mikro-orm/mariadb"
+import {Entity, ManyToOne, type Opt, Property} from "@mikro-orm/mariadb"
 
 import type {Maybe} from "../../../lib/types/Maybe.js"
 

@@ -1,8 +1,8 @@
-import {data, type ActionFunctionArgs} from "react-router"
 import type {
-  User as DatabaseUser,
-  Session as DatabaseSession
+  Session as DatabaseSession,
+  User as DatabaseUser
 } from "better-auth"
+import {type ActionFunctionArgs, data} from "react-router"
 
 import {Session} from "../../db/entities.js"
 import type {Action} from "../types/Action.js"

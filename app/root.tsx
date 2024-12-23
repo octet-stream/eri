@@ -4,8 +4,8 @@ import {Links, Meta, Outlet, Scripts, ScrollRestoration} from "react-router"
 // For some reason the page flickers in dev mode if tailwind.css imported directly, so I'll just add it as a link
 import tailwindcss from "./tailwind.css?url"
 
-import {Toaster} from "./components/ui/Toaster.jsx"
 import type {Route} from "./+types/root.js"
+import {Toaster} from "./components/ui/Toaster.jsx"
 
 interface Props {
   children: ReactNode

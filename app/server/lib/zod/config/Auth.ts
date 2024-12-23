@@ -1,7 +1,7 @@
 import {z} from "zod"
 
-import {Secret} from "./auth/Secret.js"
 import {CookiePrefix} from "./auth/CookiePrefix.js"
+import {Secret} from "./auth/Secret.js"
 
 export const Auth = z
   .object({

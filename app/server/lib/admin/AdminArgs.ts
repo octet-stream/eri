@@ -1,13 +1,13 @@
-import type {LoaderFunctionArgs, ActionFunctionArgs} from "react-router"
 import type {
-  User as DatabaseUser,
-  Session as DatabaseSession
+  Session as DatabaseSession,
+  User as DatabaseUser
 } from "better-auth"
+import type {ActionFunctionArgs, LoaderFunctionArgs} from "react-router"
 
 import type {IsAny} from "../../../lib/types/IsAny.js"
 import type {Replace} from "../../../lib/types/Replace.js"
-import type {User, Session} from "../../db/entities.js"
 import type {Variables} from "../../../server.js"
+import type {Session, User} from "../../db/entities.js"
 
 export interface AdminViewer {
   /**

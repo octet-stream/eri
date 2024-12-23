@@ -1,5 +1,5 @@
-import {replace, type LoaderFunctionArgs} from "react-router"
-import type {MikroORM, Loaded} from "@mikro-orm/mariadb"
+import type {Loaded, MikroORM} from "@mikro-orm/mariadb"
+import {type LoaderFunctionArgs, replace} from "react-router"
 
 import {PostPrevKnownSlug} from "../../db/entities.js"
 import type {OPostSlug} from "../../zod/post/PostSlug.js"
