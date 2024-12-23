@@ -1,4 +1,4 @@
-import {isRouteErrorResponse, type ErrorResponse} from "react-router"
+import {type ErrorResponse, isRouteErrorResponse} from "react-router"
 
 export enum AdminLoaderErrorCode {
   SETUP = 0,

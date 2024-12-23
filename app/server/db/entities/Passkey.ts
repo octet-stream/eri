@@ -1,4 +1,4 @@
-import {Entity, Property, ManyToOne} from "@mikro-orm/mariadb"
+import {Entity, ManyToOne, Property} from "@mikro-orm/mariadb"
 
 import {Record} from "./Record.js"
 import {User} from "./User.js"

@@ -3,11 +3,11 @@ import {createHonoServer} from "react-router-hono-server/node"
 import type {Context} from "hono"
 import {csrf} from "hono/csrf"
 
+import type {auth} from "./server/lib/auth/auth.js"
 import {orm} from "./server/lib/db/orm.js"
 import {withAuth} from "./server/middlewares/withAuth.js"
-import {withResponseHeaders} from "./server/middlewares/withResponseHeaders.js"
 import {withOrm} from "./server/middlewares/withOrm.js"
-import type {auth} from "./server/lib/auth/auth.js"
+import {withResponseHeaders} from "./server/middlewares/withResponseHeaders.js"
 
 import config from "./server/lib/config.js"
 

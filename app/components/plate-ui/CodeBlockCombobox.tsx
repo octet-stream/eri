@@ -144,6 +144,7 @@ export function CodeBlockCombobox() {
         <Button
           aria-expanded={open}
           className="h-5 justify-between px-1 text-xs"
+          // biome-ignore lint/a11y/useSemanticElements: Looks like a false-positive to me (I don't think it should give an error with FCs, there's no way Biome knows what's inside)
           role="combobox"
           size="xs"
           variant="ghost"

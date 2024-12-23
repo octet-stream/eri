@@ -1,6 +1,6 @@
 import {parseWithZod} from "@conform-to/zod"
-import {data} from "react-router"
 import type {FC} from "react"
+import {data} from "react-router"
 
 import {
   Breadcrumb,
@@ -8,20 +8,20 @@ import {
 } from "../../components/common/Breadcrumbs.jsx"
 
 import {
-  defineAdminAction,
-  type AdminActionArgs
+  type AdminActionArgs,
+  defineAdminAction
 } from "../../server/lib/admin/defineAdminAction.js"
 import {
-  defineAdminLoader,
-  type AdminLoaderArgs
+  type AdminLoaderArgs,
+  defineAdminLoader
 } from "../../server/lib/admin/defineAdminLoader.js"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
 import {SessionUser} from "../../server/zod/admin/SessionUser.js"
 import {parseOutput} from "../../server/zod/utils/parseOutput.js"
 
 import {MainInfoSection} from "./sections/MainInfoSection.jsx"
-import {PasswordSection} from "./sections/PasswordSection.jsx"
 import {PasskeySection} from "./sections/PasskeySection.jsx"
+import {PasswordSection} from "./sections/PasswordSection.jsx"
 
 import type {Route} from "./+types/route.js"
 

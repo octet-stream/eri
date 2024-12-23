@@ -9,8 +9,8 @@ import type {FC} from "react"
 import {Link, Outlet} from "react-router"
 
 import {
-  isAdminLoaderError,
-  AdminLoaderErrorCode
+  AdminLoaderErrorCode,
+  isAdminLoaderError
 } from "../server/lib/admin/adminLoaderError.js"
 
 import {
@@ -27,10 +27,10 @@ import {
 
 import type {Route} from "./+types/admin.js"
 
-import {AdminSetupPage} from "./admin_.setup/AdminSetupPage.jsx"
 import {AdminLoginPage} from "./admin_.login/AdminLoginPage.jsx"
-import {ADMIN_SETUP_PAGE_TITLE} from "./admin_.setup/title.js"
 import {ADMIN_LOGIN_PAGE_TITLE} from "./admin_.login/title.js"
+import {AdminSetupPage} from "./admin_.setup/AdminSetupPage.jsx"
+import {ADMIN_SETUP_PAGE_TITLE} from "./admin_.setup/title.js"
 
 export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({
   error,

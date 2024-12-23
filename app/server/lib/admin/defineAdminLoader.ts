@@ -1,16 +1,16 @@
-import type {LoaderFunctionArgs} from "react-router"
 import type {
-  User as DatabaseUser,
-  Session as DatabaseSession
+  Session as DatabaseSession,
+  User as DatabaseUser
 } from "better-auth"
+import type {LoaderFunctionArgs} from "react-router"
 
-import {User, Session} from "../../db/entities.js"
+import {Session, User} from "../../db/entities.js"
 import type {Loader} from "../types/Loader.js"
 
 import type {AdminArgs, AdminViewer} from "./AdminArgs.js"
 import {
-  createAdminLoaderError,
-  AdminLoaderErrorCode
+  AdminLoaderErrorCode,
+  createAdminLoaderError
 } from "./adminLoaderError.js"
 import {updateCookie} from "./updateCookie.js"
 

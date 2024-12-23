@@ -9,11 +9,11 @@ import {Heading as CommonHeading} from "../components/common/Heading.jsx"
 
 import {formatPostDate} from "../lib/utils/formatPostDate.js"
 import {Post} from "../server/db/entities.js"
+import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
-import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 
 import type {Route} from "./+types/_blog.posts.$date.$name.js"
 

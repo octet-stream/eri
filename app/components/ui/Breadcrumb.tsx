@@ -84,6 +84,7 @@ export const BreadcrumbPage = forwardRef<
   BreadcrumbPageRef,
   BreadcrumbPageProps
 >(({className, ...props}, ref) => (
+  // biome-ignore lint/a11y/useFocusableInteractive: Disabled because this code is generated
   <span
     {...props}
     ref={ref}

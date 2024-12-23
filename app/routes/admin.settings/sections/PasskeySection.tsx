@@ -1,5 +1,5 @@
-import {useEvent} from "react-use-event-hook"
 import type {FC} from "react"
+import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
 import {authClient} from "../../../lib/auth.js"
