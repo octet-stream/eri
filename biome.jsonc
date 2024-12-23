@@ -1,5 +1,15 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  },
+  "files": {
+    "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
+    "ignore": ["**/*.d.ts"]
+  },
   "linter": {
     "rules": {
       "recommended": true,
@@ -38,9 +48,5 @@
     "linter": {
       "enabled": false
     }
-  },
-  "files": {
-    "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
-    "ignore": ["node_modules", "coverage", "build", "**/*.d.ts"]
   }
 }

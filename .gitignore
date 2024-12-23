@@ -22,12 +22,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# Turborepo cache data
-.turbo
-
-# Turborepo output for `turbo prune <package>`
-/out
-
 # Build target
 /build
 
