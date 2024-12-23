@@ -1,42 +1,37 @@
 import {cn} from "@udecode/cn"
-import type {HTMLAttributes} from "react"
-import {forwardRef} from "react"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
-export const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({className, ...props}, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-xs",
-        className
-      )}
-      {...props}
-    />
-  )
-)
+export type CardProps = ComponentProps<"div">
 
-Card.displayName = "Card"
-
-export const CardHeader = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({className, ...props}, ref) => (
+export const Card: FC<CardProps> = ({className, ...props}) => (
   <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    className={cn(
+      "rounded-lg border bg-card text-card-foreground shadow-xs",
+      className
+    )}
     {...props}
   />
-))
+)
 
-CardHeader.displayName = "CardHeader"
+export type CardRef = ComponentRef<typeof Card>
 
-export const CardTitle = forwardRef<
-  HTMLParagraphElement,
-  HTMLAttributes<HTMLHeadingElement>
->(({className, children, ...props}, ref) => (
+export type CardHeaderProps = ComponentProps<"div">
+
+export const CardHeader: FC<CardHeaderProps> = ({className, ...props}) => (
+  <div className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
+)
+
+export type CardHeaderRef = ComponentRef<typeof CardHeader>
+
+export type CardTitleProps = ComponentProps<"h3">
+
+export const CardTitle: FC<CardTitleProps> = ({
+  className,
+  children,
+  ...props
+}) => (
   <h3
     {...props}
-    ref={ref}
     className={cn(
       "text-2xl font-semibold leading-none tracking-tight",
       className
@@ -44,41 +39,33 @@ export const CardTitle = forwardRef<
   >
     {children}
   </h3>
-))
+)
 
-CardTitle.displayName = "CardTitle"
+export type CardTitleRef = ComponentRef<typeof CardTitle>
 
-export const CardDescription = forwardRef<
-  HTMLParagraphElement,
-  HTMLAttributes<HTMLParagraphElement>
->(({className, ...props}, ref) => (
-  <p
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
-))
+export type CardDescriptionProps = ComponentProps<"p">
 
-CardDescription.displayName = "CardDescription"
+export const CardDescription: FC<CardDescriptionProps> = ({
+  className,
+  ...props
+}) => (
+  <p className={cn("text-sm text-muted-foreground", className)} {...props} />
+)
 
-export const CardContent = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({className, ...props}, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-))
+export type CardDescriptionRef = ComponentRef<typeof CardDescription>
 
-CardContent.displayName = "CardContent"
+export type CardContentProps = ComponentProps<"div">
 
-export const CardFooter = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({className, ...props}, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
-    {...props}
-  />
-))
+export const CardContent: FC<CardContentProps> = ({className, ...props}) => (
+  <div className={cn("p-6 pt-0", className)} {...props} />
+)
 
-CardFooter.displayName = "CardFooter"
+export type CardContentRef = ComponentRef<typeof CardContent>
+
+export type CardFooterProps = ComponentProps<"div">
+
+export const CardFooter: FC<CardFooterProps> = ({className, ...props}) => (
+  <div className={cn("flex items-center p-6 pt-0", className)} {...props} />
+)
+
+export type CardFooterRef = ComponentRef<typeof CardFooter>

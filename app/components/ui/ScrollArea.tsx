@@ -5,34 +5,34 @@ import {
   ScrollAreaThumb,
   Viewport
 } from "@radix-ui/react-scroll-area"
-import type {ComponentPropsWithoutRef, ElementRef} from "react"
-import {forwardRef} from "react"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
 import {cn} from "@udecode/cn"
 
-export const ScrollArea = forwardRef<
-  ElementRef<typeof Root>,
-  ComponentPropsWithoutRef<typeof Root>
->(({className, children, ...props}, ref) => (
-  <Root
-    ref={ref}
-    className={cn("relative overflow-hidden", className)}
-    {...props}
-  >
+export type ScrollAreaProps = ComponentProps<typeof Root>
+
+export const ScrollArea: FC<ScrollAreaProps> = ({
+  className,
+  children,
+  ...props
+}) => (
+  <Root className={cn("relative overflow-hidden", className)} {...props}>
     <Viewport className="h-full w-full rounded-[inherit]">{children}</Viewport>
     <ScrollBar />
     <Corner />
   </Root>
-))
+)
 
-ScrollArea.displayName = Root.displayName
+export type ScrollAreaRef = ComponentRef<typeof Root>
 
-export const ScrollBar = forwardRef<
-  ElementRef<typeof ScrollAreaScrollbar>,
-  ComponentPropsWithoutRef<typeof ScrollAreaScrollbar>
->(({className, orientation = "vertical", ...props}, ref) => (
+export type ScrollBarProps = ComponentProps<typeof ScrollAreaScrollbar>
+
+export const ScrollBar: FC<ScrollBarProps> = ({
+  className,
+  orientation = "vertical",
+  ...props
+}) => (
   <ScrollAreaScrollbar
-    ref={ref}
     orientation={orientation}
     className={cn(
       "flex touch-none select-none transition-colors",
@@ -46,6 +46,6 @@ export const ScrollBar = forwardRef<
   >
     <ScrollAreaThumb className="relative flex-1 rounded-full bg-border" />
   </ScrollAreaScrollbar>
-))
+)
 
-ScrollBar.displayName = ScrollAreaScrollbar.displayName
+export type ScrollBarRef = ComponentRef<typeof ScrollAreaScrollbar>

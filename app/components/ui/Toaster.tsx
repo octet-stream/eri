@@ -1,7 +1,7 @@
-import type {ComponentPropsWithoutRef, FC} from "react"
+import type {ComponentProps, ComponentRef, FC} from "react"
 import {Toaster as Sonner} from "sonner"
 
-export interface ToasterProps extends ComponentPropsWithoutRef<typeof Sonner> {}
+export interface ToasterProps extends ComponentProps<typeof Sonner> {}
 
 // ! I have no idea, but without `!important` sonner theme breaks. I'll kepp it there untill I figure out what's going on here.
 export const Toaster: FC<ToasterProps> = props => (
@@ -21,3 +21,5 @@ export const Toaster: FC<ToasterProps> = props => (
     {...props}
   />
 )
+
+export type ToasterRef = ComponentRef<typeof Toaster>

@@ -1,5 +1,5 @@
 import {Root} from "@radix-ui/react-separator"
-import type {ComponentProps, FC} from "react"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
 import {cn} from "@udecode/cn"
 
@@ -9,11 +9,9 @@ export const Separator: FC<SeparatorProps> = ({
   className,
   orientation = "horizontal",
   decorative = true,
-  ref,
   ...props
 }) => (
   <Root
-    ref={ref}
     decorative={decorative}
     orientation={orientation}
     className={cn(
@@ -25,4 +23,4 @@ export const Separator: FC<SeparatorProps> = ({
   />
 )
 
-Separator.displayName = Root.displayName
+export type SeparatorRef = ComponentRef<typeof Separator>
