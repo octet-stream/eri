@@ -8,10 +8,6 @@ export interface OrmTestContext {
 }
 
 beforeAll(async () => {
-  // @ts-expect-error This is allowed so we can set unique name for test database
-  process.env.DB_NAME = `eri_test_${crypto.randomUUID()}`
-
-  orm.config.set("dbName", process.env.DB_NAME)
   orm.config.set("allowGlobalContext", true)
   await orm.connect()
 })
