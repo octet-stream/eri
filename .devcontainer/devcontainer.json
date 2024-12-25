@@ -1,4 +1,5 @@
 {
+  "name": "eri",
   "dockerComposeFile": "docker-compose.yaml",
   "service": "eri",
   "remoteUser": "node",
@@ -22,6 +23,5 @@
         "ms-azuretools.vscode-docker"
       ]
     }
-  },
-  "forwardPorts": [5173]
+  }
 }

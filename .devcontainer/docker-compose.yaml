@@ -1,6 +1,9 @@
 volumes:
   db_dev:
 
+networks:
+  db:
+
 services:
   eri:
     depends_on:
@@ -15,8 +18,10 @@ services:
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    network_mode: service:db_dev
+    ports:
+      - 3000
+    networks:
+      - db
   
   db_dev:
     image: mariadb:lts
@@ -31,3 +36,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    ports:
+      - "3308:3306"
+    networks:
+      - db
