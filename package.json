@@ -97,7 +97,7 @@
     "@udecode/plate-select": "38.0.1",
     "@udecode/plate-selection": "38.0.11",
     "@udecode/plate-toggle": "38.0.1",
-    "better-auth": "1.1.2-beta.3",
+    "better-auth": "1.1.3",
     "better-auth-mikro-orm": "0.1.1",
     "class-variance-authority": "0.7.1",
     "cmdk": "1.0.4",

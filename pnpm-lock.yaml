@@ -161,11 +161,11 @@ importers:
         specifier: 38.0.1
         version: 38.0.1(@udecode/plate-common@38.0.6(@types/react@19.0.2)(immer@10.1.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(scheduler@0.25.0)(slate-history@0.109.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.110.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(slate@0.103.0))(slate@0.103.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(slate-history@0.109.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.110.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(slate@0.103.0))(slate@0.103.0)
       better-auth:
-        specifier: 1.1.2-beta.3
-        version: 1.1.2-beta.3
+        specifier: 1.1.3
+        version: 1.1.3
       better-auth-mikro-orm:
         specifier: 0.1.1
-        version: 0.1.1(@mikro-orm/core@6.4.1)(better-auth@1.1.2-beta.3)
+        version: 0.1.1(@mikro-orm/core@6.4.1)(better-auth@1.1.3)
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -508,8 +508,8 @@ packages:
     resolution: {integrity: sha512-vN5p+1kl59GVKMvTHt55NzzmYVxprfJD+ql7U9NFIfKCBkYE55LYtS+WtPlaYOyzydrKI8Nezd+aZextrd+FMA==}
     engines: {node: '>=6.9.0'}
 
-  '@better-auth/utils@0.2.1':
-    resolution: {integrity: sha512-1PgLrNJY3FZfwz8g6puKrAS/WJW3LWuNlLSFFKrzDLrn69SPBCuCXUF3tY6c1gURLX6nHARH6yx3dVy9f298cg==}
+  '@better-auth/utils@0.2.2':
+    resolution: {integrity: sha512-YlOin3pX3sc8VPRdzCOWqz6uHKitwxm/k8p6/2I1JYI0hgMWmEqqismyvEjtOKoiSTnu1huwSq+yzcN7ehu59w==}
 
   '@better-fetch/fetch@1.1.12':
     resolution: {integrity: sha512-B3bfloI/2UBQWIATRN6qmlORrvx3Mp0kkNjmXLv0b+DtbtR+pP4/I5kQA/rDUv+OReLywCCldf6co4LdDmh8JA==}
@@ -1445,20 +1445,20 @@ packages:
     resolution: {integrity: sha512-gGq0NJkIGSwdbUt4yhdF8ZrmkGKVz9vAdVzpOfnom+V8PLSmSOVhZwbNvZZS1EYcJN5hzzKBxmmVVAInM6HQLg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@peculiar/asn1-android@2.3.13':
-    resolution: {integrity: sha512-0VTNazDGKrLS6a3BwTDZanqq6DR/I3SbvmDMuS8Be+OYpvM6x1SRDh9AGDsHVnaCOIztOspCPc6N1m+iUv1Xxw==}
+  '@peculiar/asn1-android@2.3.15':
+    resolution: {integrity: sha512-8U2TIj59cRlSXTX2d0mzUKP7whfWGFMzTeC3qPgAbccXFrPNZLaDhpNEdG5U2QZ/tBv/IHlCJ8s+KYXpJeop6w==}
 
-  '@peculiar/asn1-ecc@2.3.14':
-    resolution: {integrity: sha512-zWPyI7QZto6rnLv6zPniTqbGaLh6zBpJyI46r1yS/bVHJXT2amdMHCRRnbV5yst2H8+ppXG6uXu/M6lKakiQ8w==}
+  '@peculiar/asn1-ecc@2.3.15':
+    resolution: {integrity: sha512-/HtR91dvgog7z/WhCVdxZJ/jitJuIu8iTqiyWVgRE9Ac5imt2sT/E4obqIVGKQw7PIy+X6i8lVBoT6wC73XUgA==}
 
-  '@peculiar/asn1-rsa@2.3.13':
-    resolution: {integrity: sha512-wBNQqCyRtmqvXkGkL4DR3WxZhHy8fDiYtOjTeCd7SFE5F6GBeafw3EJ94PX/V0OJJrjQ40SkRY2IZu3ZSyBqcg==}
+  '@peculiar/asn1-rsa@2.3.15':
+    resolution: {integrity: sha512-p6hsanvPhexRtYSOHihLvUUgrJ8y0FtOM97N5UEpC+VifFYyZa0iZ5cXjTkZoDwxJ/TTJ1IJo3HVTB2JJTpXvg==}
 
-  '@peculiar/asn1-schema@2.3.13':
-    resolution: {integrity: sha512-3Xq3a01WkHRZL8X04Zsfg//mGaA21xlL4tlVn4v2xGT0JStiztATRkMwa5b+f/HXmY2smsiLXYK46Gwgzvfg3g==}
+  '@peculiar/asn1-schema@2.3.15':
+    resolution: {integrity: sha512-QPeD8UA8axQREpgR5UTAfu2mqQmm97oUqahDtNdBcfj3qAnoXzFdQW+aNf/tD2WVXF8Fhmftxoj0eMIT++gX2w==}
 
-  '@peculiar/asn1-x509@2.3.13':
-    resolution: {integrity: sha512-PfeLQl2skXmxX2/AFFCVaWU8U6FKW1Db43mgBhShCOFS1bVxqtvusq1hVjfuEcuSQGedrLdCSvTgabluwN/M9A==}
+  '@peculiar/asn1-x509@2.3.15':
+    resolution: {integrity: sha512-0dK5xqTqSLaxv1FHXIcd4Q/BZNuopg+u1l23hT9rOmQ1g4dNtw0g/RnEi+TboB0gOwGtrWn269v27cMgchFIIg==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -2160,15 +2160,12 @@ packages:
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
-  '@simplewebauthn/browser@10.0.0':
-    resolution: {integrity: sha512-hG0JMZD+LiLUbpQcAjS4d+t4gbprE/dLYop/CkE01ugU/9sKXflxV5s0DRjdz3uNMFecatRfb4ZLG3XvF8m5zg==}
+  '@simplewebauthn/browser@13.0.0':
+    resolution: {integrity: sha512-7d/+gxoFoDQxq2EkLl/PuTIQ/rnSrA3bmr8L2Ij7bRyicJoCJX/NDGUNExyctB9nSDrEkkcrJMDkwpCYOGU3Lg==}
 
-  '@simplewebauthn/server@10.0.1':
-    resolution: {integrity: sha512-djNWcRn+H+6zvihBFJSpG3fzb0NQS9c/Mw5dYOtZ9H+oDw8qn9Htqxt4cpqRvSOAfwqP7rOvE9rwqVaoGGc3hg==}
+  '@simplewebauthn/server@13.0.0':
+    resolution: {integrity: sha512-Tb3hJRpeT4cgT2uPORc465qu9LGXcDoIegFmkIgqw7XNZtsaoHzn3xI1DiFH7ukzs6JbhfQBRyY4rlfCdTwkNw==}
     engines: {node: '>=20.0.0'}
-
-  '@simplewebauthn/types@10.0.0':
-    resolution: {integrity: sha512-SFXke7xkgPRowY2E+8djKbdEznTVnD5R6GO7GPTthpHrokLvNKw8C3lFZypTxLI7KkCfGPfhtqB3d7OVGGa9jQ==}
 
   '@sindresorhus/merge-streams@4.0.0':
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
@@ -2863,8 +2860,8 @@ packages:
       '@mikro-orm/core': ^6.0.0
       better-auth: ^1.0.0
 
-  better-auth@1.1.2-beta.3:
-    resolution: {integrity: sha512-5a8JGy+knQUKDhRgs733NTaa0nxfOb+uGj19rBWWz7URQjbpbrWcXaU3APqi0gehutXQTqw5h8BoSJgNd0WXcQ==}
+  better-auth@1.1.3:
+    resolution: {integrity: sha512-8zUOd5zGAQLBJXupDiwAUzreLf2Msu1HVtkRWQk09hvHURZZIiuH8g48WIRXraNNoeqIA+bW70uap5Fxnj8d1w==}
 
   better-call@0.3.3-beta.4:
     resolution: {integrity: sha512-txigUTFsjOlE4dfkfhDhu6Gk0I1Xo3S4Nye+nfMKJXknb+WsymcWtqoRUSUGdhOMumM3LT9R3QttTUxwny9lWQ==}
@@ -3038,8 +3035,8 @@ packages:
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
 
-  cross-fetch@4.0.0:
-    resolution: {integrity: sha512-e4a5N8lVvuLgAWgnCrLr2PP0YyDOTHa9H/Rj54dirp61qXnNq46m82bRhNqIA5VccJtWBvPTFRV3TtvHUKPB1g==}
+  cross-fetch@4.1.0:
+    resolution: {integrity: sha512-uKm5PU+MHTootlWEY+mZ4vvXoCn4fLQxT9dSc1sXVMSFkINTJVN8cAQROpwcKm8bJ/c7rgZVIBWzH5T78sNZZw==}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -3487,10 +3484,6 @@ packages:
     resolution: {integrity: sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==}
     engines: {node: '>= 0.10'}
 
-  ipaddr.js@2.2.0:
-    resolution: {integrity: sha512-Ag3wB2o37wslZS19hZqorUnrnzSkpOVy+IiiDEiTqNubEYpYuHWIf6K4psgN2ZWKExS4xhVCrRVfb/wfW8fWJA==}
-    engines: {node: '>= 10'}
-
   is-absolute-url@4.0.1:
     resolution: {integrity: sha512-/51/TKE88Lmm7Gc4/8btclNXWS+g50wXhYJq8HWIBAGUBnoAdRu1aXeh364t/O7wXDAcTJDP8PNuNKWUDWie+A==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -3932,10 +3925,6 @@ packages:
     resolution: {integrity: sha512-Aooyr6MXU6HpvvWXKoVoXwKMs/KyVakWwg7xQfv5/S/RIgJMy0Ifa45H9qqYy7pTCszrHzP21Uk4PZq2HpEM8Q==}
     engines: {node: ^18 || >=20}
     hasBin: true
-
-  nanostores@0.11.3:
-    resolution: {integrity: sha512-TUes3xKIX33re4QzdxwZ6tdbodjmn3tWXCEc1uokiEmo14sI1EaGYNs2k3bU2pyyGNmBqFGAVl6jAGWd06AVIg==}
-    engines: {node: ^18.0.0 || >=20.0.0}
 
   node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
@@ -5332,7 +5321,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@better-auth/utils@0.2.1':
+  '@better-auth/utils@0.2.2':
     dependencies:
       uncrypto: 0.1.3
 
@@ -6222,37 +6211,36 @@ snapshots:
     dependencies:
       which: 3.0.1
 
-  '@peculiar/asn1-android@2.3.13':
+  '@peculiar/asn1-android@2.3.15':
     dependencies:
-      '@peculiar/asn1-schema': 2.3.13
+      '@peculiar/asn1-schema': 2.3.15
       asn1js: 3.0.5
       tslib: 2.8.1
 
-  '@peculiar/asn1-ecc@2.3.14':
+  '@peculiar/asn1-ecc@2.3.15':
     dependencies:
-      '@peculiar/asn1-schema': 2.3.13
-      '@peculiar/asn1-x509': 2.3.13
+      '@peculiar/asn1-schema': 2.3.15
+      '@peculiar/asn1-x509': 2.3.15
       asn1js: 3.0.5
       tslib: 2.8.1
 
-  '@peculiar/asn1-rsa@2.3.13':
+  '@peculiar/asn1-rsa@2.3.15':
     dependencies:
-      '@peculiar/asn1-schema': 2.3.13
-      '@peculiar/asn1-x509': 2.3.13
+      '@peculiar/asn1-schema': 2.3.15
+      '@peculiar/asn1-x509': 2.3.15
       asn1js: 3.0.5
       tslib: 2.8.1
 
-  '@peculiar/asn1-schema@2.3.13':
+  '@peculiar/asn1-schema@2.3.15':
     dependencies:
       asn1js: 3.0.5
       pvtsutils: 1.3.6
       tslib: 2.8.1
 
-  '@peculiar/asn1-x509@2.3.13':
+  '@peculiar/asn1-x509@2.3.15':
     dependencies:
-      '@peculiar/asn1-schema': 2.3.13
+      '@peculiar/asn1-schema': 2.3.15
       asn1js: 3.0.5
-      ipaddr.js: 2.2.0
       pvtsutils: 1.3.6
       tslib: 2.8.1
 
@@ -6929,25 +6917,20 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@simplewebauthn/browser@10.0.0':
-    dependencies:
-      '@simplewebauthn/types': 10.0.0
+  '@simplewebauthn/browser@13.0.0': {}
 
-  '@simplewebauthn/server@10.0.1':
+  '@simplewebauthn/server@13.0.0':
     dependencies:
       '@hexagon/base64': 1.1.28
       '@levischuck/tiny-cbor': 0.2.2
-      '@peculiar/asn1-android': 2.3.13
-      '@peculiar/asn1-ecc': 2.3.14
-      '@peculiar/asn1-rsa': 2.3.13
-      '@peculiar/asn1-schema': 2.3.13
-      '@peculiar/asn1-x509': 2.3.13
-      '@simplewebauthn/types': 10.0.0
-      cross-fetch: 4.0.0
+      '@peculiar/asn1-android': 2.3.15
+      '@peculiar/asn1-ecc': 2.3.15
+      '@peculiar/asn1-rsa': 2.3.15
+      '@peculiar/asn1-schema': 2.3.15
+      '@peculiar/asn1-x509': 2.3.15
+      cross-fetch: 4.1.0
     transitivePeerDependencies:
       - encoding
-
-  '@simplewebauthn/types@10.0.0': {}
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
@@ -7673,25 +7656,24 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  better-auth-mikro-orm@0.1.1(@mikro-orm/core@6.4.1)(better-auth@1.1.2-beta.3):
+  better-auth-mikro-orm@0.1.1(@mikro-orm/core@6.4.1)(better-auth@1.1.3):
     dependencies:
       '@mikro-orm/core': 6.4.1
-      better-auth: 1.1.2-beta.3
+      better-auth: 1.1.3
       dset: 3.1.4
 
-  better-auth@1.1.2-beta.3:
+  better-auth@1.1.3:
     dependencies:
-      '@better-auth/utils': 0.2.1
+      '@better-auth/utils': 0.2.2
       '@better-fetch/fetch': 1.1.12
       '@noble/ciphers': 0.6.0
       '@noble/hashes': 1.6.1
-      '@simplewebauthn/browser': 10.0.0
-      '@simplewebauthn/server': 10.0.1
+      '@simplewebauthn/browser': 13.0.0
+      '@simplewebauthn/server': 13.0.0
       better-call: 0.3.3-beta.4
       defu: 6.1.4
       jose: 5.9.6
       kysely: 0.27.5
-      nanostores: 0.11.3
       uncrypto: 0.1.3
       zod: 3.24.1
     transitivePeerDependencies:
@@ -7881,7 +7863,7 @@ snapshots:
 
   create-require@1.1.1: {}
 
-  cross-fetch@4.0.0:
+  cross-fetch@4.1.0:
     dependencies:
       node-fetch: 2.7.0
     transitivePeerDependencies:
@@ -8344,8 +8326,6 @@ snapshots:
 
   interpret@2.2.0: {}
 
-  ipaddr.js@2.2.0: {}
-
   is-absolute-url@4.0.1: {}
 
   is-arrayish@0.2.1: {}
@@ -8681,8 +8661,6 @@ snapshots:
   nanoid@3.3.8: {}
 
   nanoid@5.0.9: {}
-
-  nanostores@0.11.3: {}
 
   node-fetch@2.7.0:
     dependencies:
