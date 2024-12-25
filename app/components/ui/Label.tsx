@@ -1,22 +1,18 @@
 import {Root} from "@radix-ui/react-label"
 import {cn} from "@udecode/cn"
 import {type VariantProps, cva} from "class-variance-authority"
-import type {ComponentPropsWithoutRef, ElementRef} from "react"
-import {forwardRef} from "react"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
 const labelVariants = cva(
   "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 )
 
-export type LabelRef = ElementRef<typeof Root>
+export interface LabelProps
+  extends ComponentProps<typeof Root>,
+    VariantProps<typeof labelVariants> {}
 
-export type LabelProps = ComponentPropsWithoutRef<typeof Root> &
-  VariantProps<typeof labelVariants>
-
-export const Label = forwardRef<LabelRef, LabelProps>(
-  ({className, ...props}, ref) => (
-    <Root {...props} ref={ref} className={cn(labelVariants(), className)} />
-  )
+export const Label: FC<LabelProps> = ({className, ref, ...props}) => (
+  <Root {...props} ref={ref} className={cn(labelVariants(), className)} />
 )
 
-Label.displayName = Root.displayName
+export type LabelRef = ComponentRef<typeof Label>

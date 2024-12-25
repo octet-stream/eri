@@ -1,147 +1,112 @@
-import type {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  HtmlHTMLAttributes
-} from "react"
-import {forwardRef} from "react"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
 import {cn} from "@udecode/cn"
 
-export type TableRef = ElementRef<"table">
+export interface TableProps extends ComponentProps<"table"> {}
 
-export interface TableProps extends ComponentPropsWithoutRef<"table"> {}
-
-export const Table = forwardRef<TableRef, TableProps>(
-  ({className, ...props}, ref) => (
-    <div className="relative w-full overflow-auto">
-      <table
-        ref={ref}
-        className={cn("w-full caption-bottom text-sm", className)}
-        {...props}
-      />
-    </div>
-  )
-)
-
-Table.displayName = "Table"
-
-export type TableHeaderRef = ElementRef<"thead">
-
-export interface TableHeaderProps extends ComponentPropsWithoutRef<"thead"> {}
-
-export const TableHeader = forwardRef<TableHeaderRef, TableHeaderProps>(
-  ({className, ...props}, ref) => (
-    <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
-  )
-)
-
-TableHeader.displayName = "TableHeader"
-
-export type TableBodyRef = ElementRef<"tbody">
-
-export interface TableBodyProps extends ComponentPropsWithoutRef<"tbody"> {}
-
-export const TableBody = forwardRef<TableBodyRef, TableBodyProps>(
-  ({className, ...props}, ref) => (
-    <tbody
+export const Table: FC<TableProps> = ({className, ref, ...props}) => (
+  <div className="relative w-full overflow-auto">
+    <table
       ref={ref}
-      className={cn("[&_tr:last-child]:border-0", className)}
+      className={cn("w-full caption-bottom text-sm", className)}
       {...props}
     />
-  )
+  </div>
 )
 
-TableBody.displayName = "TableBody"
+export type TableRef = ComponentRef<typeof Table>
 
-export type TableFooterRef = ElementRef<"tfoot">
+export interface TableHeaderProps extends ComponentProps<"thead"> {}
 
-export interface TableFooterProps extends ComponentPropsWithoutRef<"tfoot"> {}
-
-export const TableFooter = forwardRef<TableFooterRef, TableHeaderProps>(
-  ({className, ...props}, ref) => (
-    <tfoot
-      ref={ref}
-      className={cn(
-        "border-t bg-muted/50 font-medium last:[&>tr]:border-b-0",
-        className
-      )}
-      {...props}
-    />
-  )
+export const TableHeader: FC<TableHeaderProps> = ({
+  className,
+  ref,
+  ...props
+}) => (
+  <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
 )
 
-TableFooter.displayName = "TableFooter"
+export type TableHeaderRef = ComponentRef<"thead">
 
-export type TableRowRef = ElementRef<"tr">
+export interface TableBodyProps extends ComponentProps<"tbody"> {}
 
-export interface TableRowProps extends ComponentPropsWithoutRef<"tr"> {}
-
-export const TableRow = forwardRef<TableRowRef, TableRowProps>(
-  ({className, ...props}, ref) => (
-    <tr
-      ref={ref}
-      className={cn(
-        "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
-        className
-      )}
-      {...props}
-    />
-  )
+export const TableBody: FC<TableBodyProps> = ({className, ref, ...props}) => (
+  <tbody
+    ref={ref}
+    className={cn("[&_tr:last-child]:border-0", className)}
+    {...props}
+  />
 )
 
-TableRow.displayName = "TableRow"
+export type TableBodyRef = ComponentRef<typeof TableBody>
 
-export type TableHeadRef = ElementRef<"th">
+export interface TableFooterProps extends ComponentProps<"tfoot"> {}
 
-export interface TableHeadProps extends ComponentPropsWithoutRef<"th"> {}
-
-export const TableHead = forwardRef<TableHeadRef, TableHeadProps>(
-  ({className, ...props}, ref) => (
-    <th
-      ref={ref}
-      className={cn(
-        "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
-        className
-      )}
-      {...props}
-    />
-  )
+export const TableFooter: FC<TableFooterProps> = ({
+  className,
+  ref,
+  ...props
+}) => (
+  <tfoot
+    ref={ref}
+    className={cn(
+      "border-t bg-muted/50 font-medium last:[&>tr]:border-b-0",
+      className
+    )}
+    {...props}
+  />
 )
 
-TableHead.displayName = "TableHead"
+export type TableFooterRef = ComponentRef<"tfoot">
 
-export type TableCellRef = ElementRef<"td">
+export interface TableRowProps extends ComponentProps<"tr"> {}
 
-export interface TableCellProps extends ComponentPropsWithoutRef<"td"> {}
-
-export const TableCell = forwardRef<TableCellRef, TableCellProps>(
-  ({className, ...props}, ref) => (
-    <td
-      ref={ref}
-      className={cn(
-        "p-4 align-middle [&:has([role=checkbox])]:pr-0",
-        className
-      )}
-      {...props}
-    />
-  )
+export const TableRow: FC<TableRowProps> = ({className, ref, ...props}) => (
+  <tr
+    ref={ref}
+    className={cn(
+      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+      className
+    )}
+    {...props}
+  />
 )
 
-TableCell.displayName = "TableCell"
+export type TableRowRef = ComponentRef<"tr">
 
-export type TableCaptionRef = HTMLTableCaptionElement
+export interface TableHeadProps extends ComponentProps<"th"> {}
 
-export interface TableCaptionProps
-  extends HtmlHTMLAttributes<TableCaptionRef> {}
-
-export const TableCaption = forwardRef<TableCaptionRef, TableCaptionProps>(
-  ({className, ...props}, ref) => (
-    <caption
-      ref={ref}
-      className={cn("mt-4 text-sm text-muted-foreground", className)}
-      {...props}
-    />
-  )
+export const TableHead: FC<TableHeadProps> = ({className, ref, ...props}) => (
+  <th
+    ref={ref}
+    className={cn(
+      "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
+      className
+    )}
+    {...props}
+  />
 )
 
-TableCaption.displayName = "TableCaption"
+export type TableHeadRef = ComponentRef<"th">
+
+export interface TableCellProps extends ComponentProps<"td"> {}
+
+export const TableCell: FC<TableCellProps> = ({className, ...props}) => (
+  <td
+    className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
+    {...props}
+  />
+)
+
+export type TableCellRef = ComponentRef<"td">
+
+export interface TableCaptionProps extends ComponentProps<"caption"> {}
+
+export const TableCaption: FC<TableCaptionProps> = ({className, ...props}) => (
+  <caption
+    className={cn("mt-4 text-sm text-muted-foreground", className)}
+    {...props}
+  />
+)
+
+export type TableCaptionRef = ComponentRef<typeof TableCaption>

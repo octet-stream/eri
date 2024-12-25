@@ -11,8 +11,7 @@ import {
 import {cn} from "@udecode/cn"
 import {type VariantProps, cva} from "class-variance-authority"
 import {X} from "lucide-react"
-import type {ComponentPropsWithoutRef, ElementRef} from "react"
-import {forwardRef} from "react"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
 export const Sheet = Root
 
@@ -22,24 +21,19 @@ export const SheetClose = Close
 
 export const SheetPortal = Portal
 
-export type SheetOverlayRef = ElementRef<typeof Overlay>
+export type SheetOverlayRef = ComponentRef<typeof Overlay>
 
-export type SheetOverlayProps = ComponentPropsWithoutRef<typeof Overlay>
+export type SheetOverlayProps = ComponentProps<typeof Overlay>
 
-export const SheetOverlay = forwardRef<SheetOverlayRef, SheetOverlayProps>(
-  ({className, ...props}, ref) => (
-    <Overlay
-      className={cn(
-        "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-        className
-      )}
-      {...props}
-      ref={ref}
-    />
-  )
+export const SheetOverlay: FC<SheetOverlayProps> = ({className, ...props}) => (
+  <Overlay
+    className={cn(
+      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      className
+    )}
+    {...props}
+  />
 )
-
-SheetOverlay.displayName = Overlay.displayName
 
 const sheetVariants = cva(
   "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
@@ -60,101 +54,80 @@ const sheetVariants = cva(
   }
 )
 
-export type SheetContentRef = ElementRef<typeof Content>
-
 export interface SheetContentProps
-  extends ComponentPropsWithoutRef<typeof Content>,
+  extends ComponentProps<typeof Content>,
     VariantProps<typeof sheetVariants> {}
 
 // TODO: Support <Slot /> in this component
-export const SheetContent = forwardRef<SheetContentRef, SheetContentProps>(
-  ({side = "left", className, children, ...props}, ref) => (
-    <SheetPortal>
-      <SheetOverlay />
-      <Content
-        {...props}
-        ref={ref}
-        className={cn(sheetVariants({side}), className)}
-      >
-        {children}
-        <Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </Close>
-      </Content>
-    </SheetPortal>
-  )
+export const SheetContent: FC<SheetContentProps> = ({
+  side = "left",
+  className,
+  children,
+  ...props
+}) => (
+  <SheetPortal>
+    <SheetOverlay />
+    <Content {...props} className={cn(sheetVariants({side}), className)}>
+      {children}
+      <Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+        <X className="h-4 w-4" />
+        <span className="sr-only">Close</span>
+      </Close>
+    </Content>
+  </SheetPortal>
 )
 
-SheetContent.displayName = Content.displayName
+export type SheetContentRef = ComponentRef<typeof SheetContent>
 
-export type SheetHeaderRef = ElementRef<"div">
+export type SheetHeaderProps = ComponentProps<"div">
 
-export type SheetHeaderProps = ComponentPropsWithoutRef<"div">
-
-export const SheetHeader = forwardRef<SheetHeaderRef, SheetContentProps>(
-  ({className, ...props}, ref) => (
-    <div
-      {...props}
-      ref={ref}
-      className={cn(
-        "flex flex-col space-y-2 text-center sm:text-left",
-        className
-      )}
-    />
-  )
+export const SheetHeader: FC<SheetHeaderProps> = ({className, ...props}) => (
+  <div
+    {...props}
+    className={cn(
+      "flex flex-col space-y-2 text-center sm:text-left",
+      className
+    )}
+  />
 )
 
-SheetHeader.displayName = "SheetHeader"
+export type SheetHeaderRef = ComponentRef<typeof SheetHeader>
 
-export type SheetFooterRef = ElementRef<"div">
+export type SheetFooterProps = ComponentProps<"div">
 
-export type SheetFooterProps = ComponentPropsWithoutRef<"div">
-
-export const SheetFooter = forwardRef<SheetContentRef, SheetContentProps>(
-  ({className, ...props}, ref) => (
-    <div
-      {...props}
-      ref={ref}
-      className={cn(
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-        className
-      )}
-    />
-  )
+export const SheetFooter: FC<SheetFooterProps> = ({className, ...props}) => (
+  <div
+    {...props}
+    className={cn(
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      className
+    )}
+  />
 )
 
-SheetFooter.displayName = "SheetFooter"
+export type SheetFooterRef = ComponentRef<typeof SheetFooter>
 
-export type SheetTitleRef = ElementRef<typeof Title>
+export type SheetTitleProps = ComponentProps<typeof Title>
 
-export type SheetTitleProps = ComponentPropsWithoutRef<typeof Title>
-
-export const SheetTitle = forwardRef<SheetTitleRef, SheetTitleProps>(
-  ({className, ...props}, ref) => (
-    <Title
-      {...props}
-      ref={ref}
-      className={cn("text-lg font-semibold text-foreground", className)}
-    />
-  )
+export const SheetTitle: FC<SheetTitleProps> = ({className, ...props}) => (
+  <Title
+    {...props}
+    className={cn("text-lg font-semibold text-foreground", className)}
+  />
 )
 
-SheetTitle.displayName = Title.displayName
+export type SheetTitleRef = ComponentRef<typeof SheetTitle>
 
-export type SheetDescriptionRef = ElementRef<typeof Description>
+export type SheetDescriptionProps = ComponentProps<typeof Description>
 
-export type SheetDescriptionProps = ComponentPropsWithoutRef<typeof Description>
-
-export const SheetDescription = forwardRef<
-  SheetDescriptionRef,
-  SheetDescriptionProps
->(({className, ...props}, ref) => (
+export const SheetDescription: FC<SheetDescriptionProps> = ({
+  className,
+  ...props
+}) => (
   <Description
     {...props}
-    ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
   />
-))
+)
 
-SheetDescription.displayName = Description.displayName
+export type SheetDescriptionRef = ComponentRef<typeof SheetDescription>
