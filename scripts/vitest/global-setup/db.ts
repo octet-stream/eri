@@ -14,10 +14,10 @@ async function setup() {
   // @ts-expect-error
   process.env.DB_PORT = "3308"
 
-  await $`docker compose -f compose.test.yaml up --wait --build`
+  await $`docker compose --env-file .env.test.local -f compose.test.yaml up --wait --build`
 
   return async function teardown() {
-    await $`docker compose -f compose.test.yaml down`
+    await $`docker compose --env-file .env.test.local -f compose.test.yaml down`
   }
 }
 
