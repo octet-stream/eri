@@ -38,7 +38,7 @@ Alternatively you can use [Devcontainers CLI](https://github.com/devcontainers/c
 2. Open the project's root in your terminal;
 3. Run the `devcontainer up --workspace-folder .` command. This will spin up a docker container for local development. Note that to install dependencies and run npm scripts (via pnpm) you'll need to use Devcontainer CLI.
 
-Checkout VSCode documentation to learn more: https://code.visualstudio.com/docs/devcontainers/containers
+Check out VSCode documentation to learn more: https://code.visualstudio.com/docs/devcontainers/containers
 
 ## Production preview
 
