@@ -1,5 +1,11 @@
 # eri
 
+## 0.7.2
+
+### Patch Changes
+
+- [#123](https://github.com/octet-stream/eri/pull/123) [`6ee35da`](https://github.com/octet-stream/eri/commit/6ee35dad8f260c6b113f9d5992a910fe6fa7596e) Thanks [@octet-stream](https://github.com/octet-stream)! - Bump better-auth-mikro-orm
+
 ## 0.7.1
 
 ### Patch Changes
