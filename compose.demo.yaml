@@ -41,7 +41,7 @@ services:
       DB_USER: root
       DB_PASSWORD:
       AUTH_SECRET:
-      AUTH_SESSION_COOKIE_NAME:
+      AUTH_COOKIE_PREFIX:
     command: sh -c "npm exec mikro-orm schema:create -- -r && node --run start"
     ports:
       - "3000:3000"
