@@ -33,13 +33,7 @@ export const loader = async ({context: {orm}, request}: Route.LoaderArgs) => {
   return page.reply({items, count})
 }
 
-// TODO: Implement posts list
-const HomePage: FC<Route.ComponentProps> = ({loaderData: page}) => {
-  if (page.rowsCount < 0) {
-    return <NoPosts />
-  }
-
-  return <PostsList />
-}
+const HomePage: FC<Route.ComponentProps> = ({loaderData: page}) =>
+  page.rowsCount > 0 ? <PostsList /> : <NoPosts />
 
 export default HomePage
