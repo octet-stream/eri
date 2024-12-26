@@ -2,9 +2,6 @@ import type {FC} from "react"
 
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
-import {PostsContext} from "./contexts/PostsContext.jsx"
-
-import config from "../../server/lib/config.js"
 
 import {Post} from "../../server/db/entities.js"
 import {PostPage} from "../../server/zod/post/PostPage.js"
@@ -33,31 +30,10 @@ export const loader = async ({context: {orm}, request}: Route.LoaderArgs) => {
     }
   )
 
-  return {
-    page: await page.reply({items, count}),
-    title: config.app.name
-  }
+  return page.reply({items, count})
 }
 
-export const meta: Route.MetaFunction = ({data}) => [
-  {
-    title: data.title
-  }
-]
-
-// TODO: Implement posts list
-const HomePage: FC<Route.ComponentProps> = ({loaderData}) => {
-  const {page} = loaderData
-
-  if (page.rowsCount < 0) {
-    return <NoPosts />
-  }
-
-  return (
-    <PostsContext.Provider value={page}>
-      <PostsList />
-    </PostsContext.Provider>
-  )
-}
+const HomePage: FC<Route.ComponentProps> = ({loaderData: page}) =>
+  page.rowsCount > 0 ? <PostsList /> : <NoPosts />
 
 export default HomePage

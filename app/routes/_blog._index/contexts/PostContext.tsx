@@ -1,18 +1,17 @@
-import {createContext, useContext} from "react"
-import type {SerializeFrom} from "react-router"
+import {createContext, use} from "react"
 
 import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
 
 import type {loader} from "../route.jsx"
 
 export type PostContextData = NonNullable<
-  SerializeFrom<typeof loader>["page"]["items"][number]
+  Awaited<ReturnType<typeof loader>>["items"][number]
 >
 
 export const PostContext = createContext<MaybeNull<PostContextData>>(null)
 
 export function usePostContext(): PostContextData {
-  const context = useContext(PostContext)
+  const context = use(PostContext)
 
   if (!context) {
     throw new Error("Unable to find PostContext")
