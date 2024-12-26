@@ -53,7 +53,9 @@ You can run demo application with non-persistent database in just a few steps:
 
 1. Create `.env.demo.local` file and fill it with required parameters
 2. Run `pnpm demo.start` command
-3. Open http://localhost:1337/admin to create admin account
+3. Open http://localhost:3000/admin to create admin account
+
+Note that the demo lives in-memory, so when use stop it via `pnpm demo.stop` command you'll loose the data from this demo.
 
 ## Commands
 
