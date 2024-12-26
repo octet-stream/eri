@@ -1,5 +1,15 @@
 # eri
 
+## 0.7.1
+
+### Patch Changes
+
+- [#119](https://github.com/octet-stream/eri/pull/119) [`f2c0380`](https://github.com/octet-stream/eri/commit/f2c0380c9cb3d6b2ffab785b77e80800fcef0499) Thanks [@octet-stream](https://github.com/octet-stream)! - Bump better-auth to latest stable version
+
+- [#119](https://github.com/octet-stream/eri/pull/119) [`f2c0380`](https://github.com/octet-stream/eri/commit/f2c0380c9cb3d6b2ffab785b77e80800fcef0499) Thanks [@octet-stream](https://github.com/octet-stream)! - Remove forwardRef from shadcn/ui components
+
+- [#122](https://github.com/octet-stream/eri/pull/122) [`661477e`](https://github.com/octet-stream/eri/commit/661477edb93a804f4a20351d358104adb3d6e17c) Thanks [@octet-stream](https://github.com/octet-stream)! - Improve the way the app's name is exposed to client for default title
+
 ## 0.7.0
 
 ### Minor Changes
