@@ -1,6 +1,8 @@
 import type {FC, ReactNode} from "react"
 import {Links, Meta, Outlet, Scripts, ScrollRestoration} from "react-router"
 
+import config from "./server/lib/config.js"
+
 // For some reason the page flickers in dev mode if tailwind.css imported directly, so I'll just add it as a link
 import tailwindcss from "./tailwind.css?url"
 
@@ -11,10 +13,18 @@ interface Props {
   children: ReactNode
 }
 
+export const loader = () => ({title: config.app.name}) // Expose the app's name to root layout
+
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: tailwindcss
+  }
+]
+
+export const meta: Route.MetaFunction = ({data}) => [
+  {
+    title: data.title // Set default title to the app's name
   }
 ]
 
