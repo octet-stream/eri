@@ -6,7 +6,7 @@ import {createRoutesStub} from "react-router"
 
 import {AdminLoginPage} from "../../../../app/routes/admin_.login/AdminLoginPage.jsx"
 
-test("disaplys login form", async () => {
+test("displays login form", async () => {
   const Stub = createRoutesStub([
     {
       path: "/",
