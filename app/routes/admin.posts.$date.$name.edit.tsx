@@ -28,7 +28,7 @@ import {
   defineAdminLoader
 } from "../server/lib/admin/defineAdminLoader.js"
 import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
-import {matchesHttpMethods} from "../server/lib/utils/matchesHttpMethods.js"
+import {matchHttpMethods} from "../server/lib/utils/matchHttpMethods.js"
 import {AdminPostOutputEdit} from "../server/zod/admin/AdminPostOutputEdit.js"
 import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
@@ -79,7 +79,7 @@ export const loader = defineAdminLoader(
 
 export const action = defineAdminAction(
   async ({request, context: {orm}}: AdminActionArgs<Route.ActionArgs>) => {
-    if (!matchesHttpMethods(request, "PATCH")) {
+    if (!matchHttpMethods(request, "PATCH")) {
       throw Response.json(
         {
           formErrors: ["Incorrect HTTP method. Use PATCH method instead."]

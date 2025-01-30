@@ -11,8 +11,7 @@ export interface UserTestContext {
 export const userTest = ormTest.extend<UserTestContext>({
   async user({orm}, use) {
     const user = orm.em.create(User, {
-      email: faker.internet.email(),
-      password: faker.internet.password({length: 10})
+      email: faker.internet.email()
     })
 
     await orm.em.persistAndFlush(user)

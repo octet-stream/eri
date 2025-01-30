@@ -1,6 +1,6 @@
 import {$} from "execa"
 
-import {isDevContainer} from "../../utils/isDevContainer.js"
+import {isDevContainer} from "../utils/isDevContainer.js"
 
 async function setup() {
   // Skip docker compose setup and point to local database instead
