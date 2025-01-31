@@ -30,14 +30,21 @@ const createStubRouteArgs =
     ({
       request: request ?? new Request("http://localhost"),
       context: {
-        ...context,
         resHeaders: new Headers(),
         auth,
-        orm
+        orm,
+
+        ...context
       },
       params: params ?? ({} as TParams)
-    }) as any
+    }) as any // TypeScript complains about the type, but everything is ok in practice
 
+/**
+ * Creates stub arguments for `loader`
+ */
 export const createStubLoaderArgs = createStubRouteArgs<LoaderFunctionArgs>()
 
+/**
+ * Creates stub arguments for `action`
+ */
 export const createStubActionArgs = createStubRouteArgs<ActionFunctionArgs>()

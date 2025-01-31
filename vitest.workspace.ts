@@ -10,7 +10,7 @@ export default defineWorkspace([
       name: "Node.js",
       include: ["tests/node/**/*.test.ts?(x)"],
       globalSetup: ["tests/setup/docker.ts"],
-      setupFiles: ["tests/setup/dbName.ts", "tests/setup/orm.ts"]
+      setupFiles: ["tests/setup/dbName.ts"]
     }
   },
   {
