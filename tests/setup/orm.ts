@@ -1,4 +1,4 @@
-import {afterAll, beforeAll, beforeEach, test} from "vitest"
+import {afterAll, beforeAll, beforeEach} from "vitest"
 
 import {orm} from "../../app/server/lib/db/orm.js"
 

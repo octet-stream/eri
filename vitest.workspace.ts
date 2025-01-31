@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react"
 export default defineWorkspace([
   {
     extends: "vitest.config.ts",
+    plugins: [react()],
     test: {
       name: "Node.js",
       include: ["tests/node/**/*.test.ts?(x)"],
