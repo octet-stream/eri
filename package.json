@@ -3,7 +3,7 @@
   "type": "module",
   "name": "eri",
   "version": "0.7.2",
-  "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf",
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
   "engines": {
     "node": ">= 22"
   },
@@ -21,6 +21,7 @@
     "demo.stop": "docker compose -f compose.demo.yaml --env-file .env.demo.local down",
     "lint.types": "tsc --noEmit",
     "test": "vitest run",
+    "test.browser": "vitest --workspace=vitest.workspace.ts",
     "prepare": "node --no-warnings --experimental-strip-types .husky/install.ts",
     "preinstall": "npx --yes only-allow pnpm"
   },
@@ -153,12 +154,15 @@
     "@types/react-dom": "19.0.3",
     "@types/uuid": "10.0.0",
     "@types/validator": "13.12.2",
+    "@vitejs/plugin-react": "4.3.4",
+    "@vitest/browser": "3.0.4",
     "@vitest/ui": "3.0.4",
     "autoprefixer": "10.4.20",
     "execa": "9.5.2",
     "husky": "9.1.7",
     "is-in-ci": "1.0.0",
     "is-inside-container": "1.0.0",
+    "playwright": "1.50.1",
     "postcss": "8.5.1",
     "react-router-devtools": "1.1.0",
     "tailwindcss": "4.0.0",
@@ -166,6 +170,7 @@
     "ts-node": "10.9.2",
     "typescript": "5.7.3",
     "vite": "6.0.11",
-    "vitest": "3.0.4"
+    "vitest": "3.0.4",
+    "vitest-browser-react": "0.0.4"
   }
 }

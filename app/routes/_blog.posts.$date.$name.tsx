@@ -1,5 +1,5 @@
 import type {FC} from "react"
-import {generatePath} from "react-router"
+import {data, generatePath} from "react-router"
 
 import {
   Breadcrumb,
@@ -41,7 +41,7 @@ export const loader = async (event: Route.LoaderArgs) => {
     {
       populate: ["content"],
       failHandler(): never {
-        throw new Response(null, {
+        throw data(null, {
           status: 404,
           statusText: "Unable to find post"
         })

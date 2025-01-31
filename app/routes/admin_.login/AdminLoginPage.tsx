@@ -64,7 +64,7 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
           </CardHeader>
 
           <CardContent className="grid gap-5">
-            <div className="flex flex-col gap-2">
+            <fieldset className="flex flex-col gap-2">
               <Label htmlFor={fields.email.id}>E-mail</Label>
 
               <Input
@@ -73,9 +73,9 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
                 placeholder="me@example.com"
                 className="placeholder:lowercase"
               />
-            </div>
+            </fieldset>
 
-            <div className="flex flex-col gap-2">
+            <fieldset className="flex flex-col gap-2">
               <Label htmlFor={fields.password.id}>Password</Label>
 
               <Input
@@ -84,7 +84,7 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
                 placeholder="Your password"
                 className="placeholder:lowercase"
               />
-            </div>
+            </fieldset>
           </CardContent>
 
           <CardFooter className="flex-col gap-4">

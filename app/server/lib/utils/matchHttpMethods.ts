@@ -1,9 +1,7 @@
 import {toArray} from "../../../lib/utils/toArray.js"
 import type {HttpMethods} from "../types/HttpMethods.js"
 
-export const matchesHttpMethods = <
-  TMatches extends HttpMethods | HttpMethods[]
->(
+export const matchHttpMethods = <TMatches extends HttpMethods | HttpMethods[]>(
   request: Request,
   matches: TMatches
 ): boolean =>

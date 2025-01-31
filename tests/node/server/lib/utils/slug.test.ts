@@ -1,10 +1,14 @@
 import {format} from "date-fns"
 import {describe, expect, test} from "vitest"
 
-import {SLUG_DATE_FORMAT, formatSlugDate, formatSlugName} from "./slug.js"
+import {
+  SLUG_DATE_FORMAT,
+  formatSlugDate,
+  formatSlugName
+} from "../../../../../app/server/lib/utils/slug.js"
 
 describe(formatSlugDate.name, () => {
-  test("Returns formatted date", () => {
+  test("formats date", () => {
     const now = new Date()
 
     const expected = format(now, SLUG_DATE_FORMAT)
@@ -15,31 +19,31 @@ describe(formatSlugDate.name, () => {
 })
 
 describe(formatSlugName.name, () => {
-  test("Returns formatted name", () => {
+  test("formats name", () => {
     const actual = formatSlugName("Hello-world")
 
     expect(actual).toBe("hello-world")
   })
 
-  test("Replaces colon symbol with the word", () => {
+  test("replaces colon symbols", () => {
     const actual = formatSlugName("Hello:world")
 
     expect(actual).toBe("hello-colon-world")
   })
 
-  test("Replaces @ (at) symbol with the word", () => {
+  test("replaces '@' symbols", () => {
     const actual = formatSlugName("Hello@world")
 
     expect(actual).toBe("hello-at-world")
   })
 
-  test("Replaces comma symbol with the word", () => {
+  test("replaces comma symbols", () => {
     const actual = formatSlugName("Hello,world")
 
     expect(actual).toBe("hello-comma-world")
   })
 
-  test("Replaces period symbol with the word", () => {
+  test("replaces period symbold", () => {
     const actual = formatSlugName("Hello.world")
 
     expect(actual).toBe("hello-period-world")

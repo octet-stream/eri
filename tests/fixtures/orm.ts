@@ -1,7 +1,7 @@
-import type {MikroORM} from "@mikro-orm/core"
+import type {MikroORM} from "@mikro-orm/mariadb"
 import {afterAll, beforeAll, beforeEach, test} from "vitest"
 
-import {orm} from "../../../app/server/lib/db/orm.js"
+import {orm} from "../../app/server/lib/db/orm.js"
 
 export interface OrmTestContext {
   orm: MikroORM
@@ -9,6 +9,7 @@ export interface OrmTestContext {
 
 beforeAll(async () => {
   orm.config.set("allowGlobalContext", true)
+  await orm.getSchemaGenerator().ensureDatabase()
   await orm.connect()
 })
 
@@ -17,7 +18,7 @@ afterAll(async () => {
   await orm.close()
 })
 
-beforeEach<OrmTestContext>(async ({orm}) => {
+beforeEach(async () => {
   await orm.getSchemaGenerator().refreshDatabase()
 })
 
@@ -32,3 +33,5 @@ export const ormTest = test.extend<OrmTestContext>({
     }
   ]
 })
+
+export {ormTest as test}
