@@ -34,7 +34,7 @@ describe("loader", () => {
         email: faker.internet.exampleEmail()
       })
 
-      const posts = new Array(200).fill(undefined).map(() =>
+      const posts = Array.from({length: 200}, () =>
         orm.em.create(Post, {
           author: user,
           title: faker.lorem.sentence({min: 3, max: 5}),
