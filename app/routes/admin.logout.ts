@@ -2,6 +2,7 @@ import {data, replace} from "react-router"
 
 import type {Route} from "./+types/admin.logout.js"
 
+// TODO: Rewrite as action
 export const loader = async ({
   request,
   context: {auth}

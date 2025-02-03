@@ -54,11 +54,10 @@ export const defineAdminLoader =
       createAdminLoaderError(AdminLoaderErrorCode.SETUP)
     }
 
-    // FIXME: Remove type casting when this fix is releases: https://github.com/better-auth/better-auth/pull/812
-    const response = (await auth.api.getSession({
+    const response = await auth.api.getSession({
       asResponse: true,
       headers: event.request.headers
-    } as any)) as unknown as Response
+    })
 
     // Note: in the actual result all Dates are serialized into string, so make sure to de-serialize them back
     const result = (await response.json()) as {
