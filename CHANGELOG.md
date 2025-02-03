@@ -1,5 +1,11 @@
 # eri
 
+## 0.8.0
+
+### Minor Changes
+
+- [#126](https://github.com/octet-stream/eri/pull/126) [`81af3d9`](https://github.com/octet-stream/eri/commit/81af3d9476250d8fa1aa33729c8e4f6148ba5cef) Thanks [@octet-stream](https://github.com/octet-stream)! - Rewrite logout route as action
+
 ## 0.7.2
 
 ### Patch Changes
