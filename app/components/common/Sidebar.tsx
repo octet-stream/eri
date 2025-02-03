@@ -2,7 +2,6 @@ import {Slot} from "@radix-ui/react-slot"
 import {cn} from "@udecode/cn"
 import type {LucideIcon} from "lucide-react"
 import {type ComponentProps, type FC, Fragment, type ReactNode} from "react"
-import {Link} from "react-router"
 
 import {SheetClose, SheetContent, SheetTrigger} from "../ui/Sheet.jsx"
 
