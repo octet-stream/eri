@@ -3,16 +3,16 @@ import {expect} from "vitest"
 
 import {auth} from "../../../app/server/lib/auth/auth.js"
 import {test} from "../../fixtures/admin.js"
-import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.js"
+import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 import {getCookies} from "../../utils/getCookies.js"
 
-import {loader} from "../../../app/routes/admin.logout.js"
+import {action} from "../../../app/routes/admin.logout.js"
 
 test("throws redirect response", async ({admin}) => {
   expect.hasAssertions()
 
   try {
-    await loader(createStubLoaderArgs({request: admin.request}))
+    await action(createStubActionArgs({request: admin.request}))
   } catch (error) {
     const response = error as Response
 
@@ -25,7 +25,7 @@ test("resets session cookie", async ({admin}) => {
   expect.hasAssertions()
 
   try {
-    await loader(createStubLoaderArgs({request: admin.request}))
+    await action(createStubActionArgs({request: admin.request}))
   } catch (error) {
     const response = error as Response
 

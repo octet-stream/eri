@@ -1,6 +1,7 @@
+import {Slot} from "@radix-ui/react-slot"
 import {cn} from "@udecode/cn"
 import type {LucideIcon} from "lucide-react"
-import {type FC, Fragment, type ReactNode} from "react"
+import {type ComponentProps, type FC, Fragment, type ReactNode} from "react"
 import {Link} from "react-router"
 
 import {SheetClose, SheetContent, SheetTrigger} from "../ui/Sheet.jsx"
@@ -42,34 +43,76 @@ export const SidebarTrigger: FC<SidebarTriggerProps> = ({children}) => (
   <SheetTrigger className="post:hidden">{children}</SheetTrigger>
 )
 
-export interface SidebarItemProps {
-  icon: LucideIcon
+interface SidebarLinkItemProps extends ComponentProps<"a"> {
   href: string
+  children: ReactNode
+  asChild?: boolean
+}
+
+const SidebarLinkItem: FC<SidebarLinkItemProps> = ({asChild, ...props}) => {
+  const Element = asChild ? Slot : "a"
+
+  return <Element {...props} />
+}
+
+export interface SidebarButtonItemProps {
+  href?: never
+  children: ReactNode
+  asChild?: boolean
+}
+
+export const SidebarButtonItem: FC<SidebarButtonItemProps> = ({
+  asChild,
+  ...props
+}) => {
+  const Element = asChild ? Slot : "button"
+
+  return <Element {...props} />
+}
+
+export interface SidebarItemBaseProps {
+  icon: LucideIcon
   className?: string
   children: ReactNode
+  asChild?: boolean
 }
+
+export type SidebarItemProps = SidebarItemBaseProps &
+  (SidebarButtonItemProps | SidebarLinkItemProps)
 
 export const SidebarItem: FC<SidebarItemProps> = ({
   icon: Icon,
-  href,
   className,
-  children
-}) => (
-  <li
-    className={cn(
-      "py-2.5 post:px-5 laptop:px-0 first:pt-5 last:pb-5 w-full",
-      className
-    )}
-  >
-    <SheetClose asChild>
-      {/* FIXME: This component breaks in sidebar and I have no idea why */}
-      <Link to={href} className="flex gap-3 items-center">
-        <Icon size={20} />
+  href,
+  ...props
+}) => {
+  return (
+    <li
+      className={cn(
+        "py-2.5 post:px-5 laptop:px-0 first:pt-5 last:pb-5 w-full",
+        className
+      )}
+    >
+      <SheetClose asChild>
+        {/* FIXME: This component breaks in sidebar and I have no idea why */}
+        {/* <Link to={href} className="flex gap-3 items-center">
+          <Icon size={20} />
 
-        <span>{children}</span>
-      </Link>
-    </SheetClose>
-  </li>
-)
+          <Element {...props}>{children}</Element>
+        </Link> */}
+
+        <div className="flex gap-3 items-center">
+          <Icon size={20} />
+
+          {href ? (
+            <SidebarLinkItem {...props} href={href} />
+          ) : (
+            <SidebarButtonItem {...props} />
+          )}
+        </div>
+      </SheetClose>
+    </li>
+  )
+}
 
 export {Sheet as SidebarProvider} from "../ui/Sheet.jsx"

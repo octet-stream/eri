@@ -1,12 +1,11 @@
-import {data, replace} from "react-router"
+import {replace} from "react-router"
 
 import type {Route} from "./+types/admin.logout.js"
 
-// TODO: Rewrite as action
-export const loader = async ({
+export const action = async ({
   request,
   context: {auth}
-}: Route.LoaderArgs): Promise<never> => {
+}: Route.ActionArgs): Promise<never> => {
   const response = await auth.api.signOut({
     asResponse: true,
     headers: request.headers
@@ -14,11 +13,5 @@ export const loader = async ({
 
   throw replace("/admin", {
     headers: response.headers
-  })
-}
-
-export const action = (): never => {
-  throw data(null, {
-    status: 405
   })
 }
