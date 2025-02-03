@@ -94,13 +94,6 @@ export const SidebarItem: FC<SidebarItemProps> = ({
       )}
     >
       <SheetClose asChild>
-        {/* FIXME: This component breaks in sidebar and I have no idea why */}
-        {/* <Link to={href} className="flex gap-3 items-center">
-          <Icon size={20} />
-
-          <Element {...props}>{children}</Element>
-        </Link> */}
-
         <div className="flex gap-3 items-center">
           <Icon size={20} />
 
