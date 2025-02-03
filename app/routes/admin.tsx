@@ -116,8 +116,10 @@ const AdminLayout: FC<Route.ComponentProps> = () => (
 
           <div className="flex flex-1" />
 
-          <SidebarItem icon={LogOut} href="/admin/logout">
-            Log out
+          <SidebarItem icon={LogOut} asChild>
+            <form action="/admin/logout" method="post">
+              <button type="submit">Log out</button>
+            </form>
           </SidebarItem>
         </Sidebar>
 
