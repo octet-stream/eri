@@ -78,9 +78,13 @@ export const loader = defineAdminLoader(
 )
 
 export const action = defineAdminAction(
-  async ({request, context: {orm}}: AdminActionArgs<Route.ActionArgs>) => {
+  async ({
+    request,
+    params,
+    context: {orm}
+  }: AdminActionArgs<Route.ActionArgs>) => {
     if (!matchHttpMethods(request, "PATCH")) {
-      throw Response.json(
+      throw data(
         {
           formErrors: ["Incorrect HTTP method. Use PATCH method instead."]
         },
@@ -90,6 +94,40 @@ export const action = defineAdminAction(
         }
       )
     }
+
+    const slug = await parseInput(PostSlug, params, {
+      async: true,
+      onError(error) {
+        throw data(error.error.flatten(), {
+          status: 404
+        })
+      }
+    })
+
+    const post = await orm.em.findOneOrFail(
+      Post,
+
+      {
+        slug
+      },
+
+      {
+        filters: false, // Admin can see all posts
+        populate: ["content", "pks"],
+        failHandler() {
+          throw data(
+            {
+              formErrors: ["Unable to find post"]
+            },
+
+            {
+              status: 404,
+              statusText: "Unable to find post"
+            }
+          )
+        }
+      }
+    )
 
     const submission = await parseWithZod(await request.formData(), {
       schema: PostUpdateInput,
@@ -102,32 +140,7 @@ export const action = defineAdminAction(
       })
     }
 
-    const {id, ...fields} = submission.value
-
-    const post = await orm.em.findOne(
-      Post,
-
-      submission.value.id,
-
-      {
-        filters: false, // Admin can see all posts
-        populate: ["content", "pks"]
-      }
-    )
-
-    if (!post) {
-      return data(
-        submission.reply({
-          formErrors: ["Unable to find post"]
-        }),
-
-        {
-          status: 404
-        }
-      )
-    }
-
-    assign(post, fields)
+    orm.em.assign(post, submission.value)
 
     await orm.em.flush()
 
@@ -169,11 +182,6 @@ const AdminPostEditPage: FC<Route.ComponentProps> = ({
       method="patch"
       className="contents"
     >
-      <input
-        {...getInputProps(fields.id, {type: "hidden"})}
-        key={fields.id.key}
-      />
-
       <PostEditorTitle
         {...getTextareaProps(fields.title)}
         key={fields.title.key}
