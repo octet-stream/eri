@@ -14,10 +14,11 @@ describe("action", () => {
 
     try {
       await action(createStubActionArgs({request: admin.request}))
-    } catch (error) {
-      const response = error as Response
+    } catch (response) {
+      if (!(response instanceof Response)) {
+        throw response
+      }
 
-      expect(response).toBeInstanceOf(Response)
       expect(response.status).toBe(302)
     }
   })
@@ -27,8 +28,10 @@ describe("action", () => {
 
     try {
       await action(createStubActionArgs({request: admin.request}))
-    } catch (error) {
-      const response = error as Response
+    } catch (response) {
+      if (!(response instanceof Response)) {
+        throw response
+      }
 
       expect(response.headers.has("set-cookie")).toBe(true)
 

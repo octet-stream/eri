@@ -23,7 +23,7 @@ describe("loader", () => {
         })
       )
     } catch (error) {
-      const actual = error as DataWithResponseInit<null>
+      const actual = error as DataWithResponseInit<never>
 
       expect(actual.data).toBeNull()
       expect(actual.init?.statusText).toBe("Unable to find post")

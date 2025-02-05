@@ -7,6 +7,8 @@ import {action} from "../../../app/routes/admin_.login/route.jsx"
 
 describe("action", () => {
   test("redirects to /admin on success", async ({admin}) => {
+    expect.hasAssertions()
+
     const form = new FormData()
 
     form.set("email", admin.viewer.email)

@@ -17,8 +17,10 @@ describe("loader", () => {
   test("throws 401 for unauthorized access", async () => {
     try {
       await loader(createStubLoaderArgs())
-    } catch (error) {
-      const response = error as Response
+    } catch (response) {
+      if (!(response instanceof Response)) {
+        throw response
+      }
 
       expect(response.status).toBe(401)
     }
@@ -104,8 +106,10 @@ describe("action", () => {
 
     try {
       await action(createStubActionArgs({request}))
-    } catch (error) {
-      const response = error as Response
+    } catch (response) {
+      if (!(response instanceof Response)) {
+        throw response
+      }
 
       const location = response.headers.get("location")
 
@@ -146,8 +150,10 @@ describe("action", () => {
 
     try {
       await action(createStubActionArgs({request}))
-    } catch (error) {
-      const response = error as Response
+    } catch (response) {
+      if (!(response instanceof Response)) {
+        throw response
+      }
 
       const location = response.headers.get("location")
 

@@ -106,7 +106,7 @@ describe("action", () => {
     try {
       await action(createStubActionArgs({request}))
     } catch (error) {
-      const response = error as DataWithResponseInit<null>
+      const response = error as DataWithResponseInit<never>
 
       expect(response.init?.status).toBe(405)
     }
