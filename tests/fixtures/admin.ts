@@ -9,6 +9,7 @@ interface AdminParams {
   session: Session
   viewer: User
   request: Request
+  password: string
 }
 
 export interface AdminTestContext {
@@ -17,11 +18,12 @@ export interface AdminTestContext {
 
 export const adminTest = ormTest.extend<AdminTestContext>({
   async admin({orm}, use) {
+    const password = faker.internet.password({length: 12})
     const response = await auth.api.signUpEmail({
       asResponse: true,
       body: {
         email: faker.internet.exampleEmail(),
-        password: faker.internet.password({length: 12}),
+        password,
         name: ""
       }
     })
@@ -38,6 +40,7 @@ export const adminTest = ormTest.extend<AdminTestContext>({
 
     await use({
       session,
+      password,
       viewer: session.user,
       request: new Request("http://localhost", {headers})
     })
