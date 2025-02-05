@@ -1,5 +1,5 @@
 import type {SetCookie} from "cookie-es"
-import {expect} from "vitest"
+import {describe, expect} from "vitest"
 
 import {auth} from "../../../app/server/lib/auth/auth.js"
 import {test} from "../../fixtures/admin.js"
@@ -8,35 +8,40 @@ import {getCookies} from "../../utils/getCookies.js"
 
 import {action} from "../../../app/routes/admin.logout.js"
 
-test("throws redirect response", async ({admin}) => {
-  expect.hasAssertions()
+describe("action", () => {
+  test("throws redirect response", async ({admin}) => {
+    expect.hasAssertions()
 
-  try {
-    await action(createStubActionArgs({request: admin.request}))
-  } catch (error) {
-    const response = error as Response
+    try {
+      await action(createStubActionArgs({request: admin.request}))
+    } catch (response) {
+      if (!(response instanceof Response)) {
+        throw response
+      }
 
-    expect(response).toBeInstanceOf(Response)
-    expect(response.status).toBe(302)
-  }
-})
+      expect(response.status).toBe(302)
+    }
+  })
 
-test("resets session cookie", async ({admin}) => {
-  expect.hasAssertions()
+  test("resets session cookie", async ({admin}) => {
+    expect.hasAssertions()
 
-  try {
-    await action(createStubActionArgs({request: admin.request}))
-  } catch (error) {
-    const response = error as Response
+    try {
+      await action(createStubActionArgs({request: admin.request}))
+    } catch (response) {
+      if (!(response instanceof Response)) {
+        throw response
+      }
 
-    expect(response.headers.has("set-cookie")).toBe(true)
+      expect(response.headers.has("set-cookie")).toBe(true)
 
-    const cookies = getCookies(response.headers)
-    const ctx = await auth.$context
+      const cookies = getCookies(response.headers)
+      const ctx = await auth.$context
 
-    expect(cookies.get(ctx.authCookies.sessionToken.name)).toMatchObject({
-      maxAge: 0,
-      value: ""
-    } satisfies Partial<SetCookie>)
-  }
+      expect(cookies.get(ctx.authCookies.sessionToken.name)).toMatchObject({
+        maxAge: 0,
+        value: ""
+      } satisfies Partial<SetCookie>)
+    }
+  })
 })
