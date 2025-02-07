@@ -16,7 +16,7 @@ import {
   defineAdminLoader
 } from "../../server/lib/admin/defineAdminLoader.js"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
-import {SessionUser} from "../../server/zod/admin/SessionUser.js"
+import {SessionUserOutput} from "../../server/zod/admin/SessionUserOutput.js"
 import {parseOutput} from "../../server/zod/utils/parseOutput.js"
 
 import {MainInfoSection} from "./sections/MainInfoSection.jsx"
@@ -29,7 +29,7 @@ export const loader = defineAdminLoader(
   async ({context: {viewer}}: AdminLoaderArgs<Route.LoaderArgs>) => {
     await viewer.user.passkeys.load()
 
-    return parseOutput(SessionUser, viewer.user, {
+    return parseOutput(SessionUserOutput, viewer.user, {
       async: true
     })
   }
