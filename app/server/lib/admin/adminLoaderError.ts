@@ -1,4 +1,4 @@
-import {type ErrorResponse, isRouteErrorResponse} from "react-router"
+import {type ErrorResponse, data, isRouteErrorResponse} from "react-router"
 
 export enum AdminLoaderErrorCode {
   SETUP = 0,
@@ -29,7 +29,7 @@ export const isAdminLoaderError = (error: unknown): error is AdminLoaderError =>
  * Creates admin loader error
  */
 export function createAdminLoaderError(code: AdminLoaderErrorCode): never {
-  throw Response.json({type: "admin", code} satisfies AdminLoaderErrorData, {
+  throw data({type: "admin", code} satisfies AdminLoaderErrorData, {
     status: 401
   })
 }

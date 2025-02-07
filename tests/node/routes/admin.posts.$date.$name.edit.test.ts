@@ -3,13 +3,17 @@ import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-ro
 import {describe, expect} from "vitest"
 
 import {adminTest} from "../../fixtures/admin.js"
+import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 
 import {Post} from "../../../app/server/db/entities.js"
 import {formatSlugName} from "../../../app/server/lib/utils/slug.js"
 import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
 
-import {action} from "../../../app/routes/admin.posts.$date.$name.edit.jsx"
+import {
+  action,
+  loader
+} from "../../../app/routes/admin.posts.$date.$name.edit.jsx"
 
 interface PostEditTestContext {
   post: Post
@@ -38,6 +42,8 @@ const test = adminTest.extend<PostEditTestContext>({
     await use(post)
   }
 })
+
+createAdminAuthLoaderSuite(loader)
 
 describe("action", () => {
   test("redirects back to post", async ({post, admin}) => {

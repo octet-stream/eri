@@ -2,10 +2,8 @@ import {faker} from "@faker-js/faker"
 import {describe, expect} from "vitest"
 
 import {test} from "../../fixtures/admin.js"
-import {
-  createStubActionArgs,
-  createStubLoaderArgs
-} from "../../utils/createStubRouteArgs.js"
+import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
+import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 
 import type {IPostContent} from "../../../app/server/zod/plate/editors/PostContent.js"
 import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
@@ -13,19 +11,7 @@ import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
 import {action, loader} from "../../../app/routes/admin.posts.new.jsx"
 import {Post} from "../../../app/server/db/entities.js"
 
-describe("loader", () => {
-  test("throws 401 for unauthorized access", async () => {
-    try {
-      await loader(createStubLoaderArgs())
-    } catch (response) {
-      if (!(response instanceof Response)) {
-        throw response
-      }
-
-      expect(response.status).toBe(401)
-    }
-  })
-})
+createAdminAuthLoaderSuite(loader)
 
 describe("action", () => {
   test("returns error when called with empty form", async ({admin}) => {
