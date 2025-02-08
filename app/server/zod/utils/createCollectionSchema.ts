@@ -19,4 +19,6 @@ export const createCollectionSchema = <T extends z.ZodRawShape>(
       for (const error of result.error.errors) {
         ctx.addIssue(error)
       }
+
+      return z.NEVER
     })

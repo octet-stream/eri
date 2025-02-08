@@ -97,7 +97,7 @@ const columns = [
 ]
 
 export const PasskeyTable: FC = () => {
-  const {passkeys: data} = useLoaderData<Required<PageData>>()
+  const {passkeys: data} = useLoaderData<PageData>()
 
   const table = useReactTable({
     data,
@@ -140,8 +140,12 @@ export const PasskeyTable: FC = () => {
           ))
         ) : (
           <TableRow>
-            <TableCell colSpan={columns.length} className="h-24 text-center">
-              No results
+            <TableCell
+              colSpan={columns.length}
+              className="h-24 text-center text-muted-foreground"
+            >
+              No passkeys found. You can create one by clicking on the "+"
+              button
             </TableCell>
           </TableRow>
         )}
