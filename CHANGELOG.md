@@ -1,5 +1,11 @@
 # eri
 
+## 0.9.0
+
+### Minor Changes
+
+- [#129](https://github.com/octet-stream/eri/pull/129) [`651f86e`](https://github.com/octet-stream/eri/commit/651f86e905fef44c2f9cfab8c91be18545a847d5) Thanks [@octet-stream](https://github.com/octet-stream)! - Add view table for passkeys on settings page
+
 ## 0.8.0
 
 ### Minor Changes
