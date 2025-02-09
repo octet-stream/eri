@@ -36,9 +36,7 @@ export const action = defineAdminAction(
     })
 
     if (submission.status !== "success") {
-      return data(submission.reply(), {
-        status: 422
-      })
+      return data(submission.reply(), 422)
     }
 
     const post = orm.em.create(Post, {...submission.value, author: viewer.user})

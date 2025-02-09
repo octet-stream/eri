@@ -28,9 +28,7 @@ export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
   })
 
   if (submission.status !== "success") {
-    return data(submission.reply(), {
-      status: 422
-    })
+    return data(submission.reply(), 422)
   }
 
   try {

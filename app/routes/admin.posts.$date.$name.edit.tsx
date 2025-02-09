@@ -1,4 +1,9 @@
-import {getFormProps, getTextareaProps, useForm} from "@conform-to/react"
+import {
+  type SubmissionResult,
+  getFormProps,
+  getTextareaProps,
+  useForm
+} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
 import {data, generatePath, redirect, useNavigation} from "react-router"
@@ -56,12 +61,12 @@ export const loader = defineAdminLoader(
       },
 
       {
-        filters: false, // Admin can see all posts
+        filters: false, // Admin can see and edit all posts
         populate: ["content"],
         failHandler(): never {
-          throw new Response(null, {
+          throw data(null, {
             status: 404,
-            statusText: "Unable to find post"
+            statusText: "Unble to find post"
           })
         }
       }
@@ -80,8 +85,10 @@ export const action = defineAdminAction(
     if (!matchHttpMethods(request, "PATCH")) {
       throw data(
         {
-          formErrors: ["Incorrect HTTP method. Use PATCH method instead."]
-        },
+          error: {
+            "": ["Incorrect HTTP method. Use PATCH method instead."]
+          }
+        } satisfies SubmissionResult,
 
         {
           status: 405
@@ -92,9 +99,7 @@ export const action = defineAdminAction(
     const slug = await parseInput(PostSlug, params, {
       async: true,
       onError(error) {
-        throw data(error.error.flatten(), {
-          status: 404
-        })
+        throw data(error.error.flatten(), 404) // The slug is malformed, so return 404
       }
     })
 
@@ -111,8 +116,10 @@ export const action = defineAdminAction(
         failHandler() {
           throw data(
             {
-              formErrors: ["Unable to find post"]
-            },
+              error: {
+                "": ["Unable to find post"] // The empty key means we return form error for conform
+              }
+            } satisfies SubmissionResult,
 
             {
               status: 404,
@@ -129,9 +136,7 @@ export const action = defineAdminAction(
     })
 
     if (submission.status !== "success") {
-      return data(submission.reply(), {
-        status: 422
-      })
+      return data(submission.reply(), 422)
     }
 
     orm.em.assign(post, submission.value)
