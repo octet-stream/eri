@@ -7,6 +7,10 @@ RUN apk add --no-cache libc6-compat
 # Set up pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+
+# Temporarily fix for: https://github.com/nodejs/corepack/issues/612
+RUN npm i -g corepack@latest
+
 RUN corepack enable
 
 # Set pwd for all further steps
