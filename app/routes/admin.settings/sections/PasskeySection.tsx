@@ -7,10 +7,13 @@ import {authClient} from "../../../lib/auth.js"
 import {Button} from "../../../components/ui/Button.jsx"
 import {
   Card,
+  CardContent,
   CardFooter,
   CardHeader,
   CardTitle
 } from "../../../components/ui/Card.jsx"
+
+import {PasskeyTable} from "./PasskeyTable.jsx"
 
 export const PasskeySection: FC = () => {
   const addPasskey = useEvent(async () => {
@@ -26,6 +29,10 @@ export const PasskeySection: FC = () => {
       <CardHeader>
         <CardTitle>Passkeys</CardTitle>
       </CardHeader>
+
+      <CardContent>
+        <PasskeyTable />
+      </CardContent>
 
       <CardFooter className="flex justify-end">
         <Button type="button" name="passkey" onClick={addPasskey}>

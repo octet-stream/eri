@@ -16,20 +16,21 @@ import {
   defineAdminLoader
 } from "../../server/lib/admin/defineAdminLoader.js"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
-import {SessionUser} from "../../server/zod/admin/SessionUser.js"
+import {SessionUserOutput} from "../../server/zod/admin/SessionUserOutput.js"
 import {parseOutput} from "../../server/zod/utils/parseOutput.js"
 
 import {MainInfoSection} from "./sections/MainInfoSection.jsx"
 import {PasskeySection} from "./sections/PasskeySection.jsx"
 import {PasswordSection} from "./sections/PasswordSection.jsx"
 
+import type {MaybeUndefined} from "../../lib/types/MaybeUndefined.js"
 import type {Route} from "./+types/route.js"
 
 export const loader = defineAdminLoader(
   async ({context: {viewer}}: AdminLoaderArgs<Route.LoaderArgs>) => {
     await viewer.user.passkeys.load()
 
-    return parseOutput(SessionUser, viewer.user, {
+    return parseOutput(SessionUserOutput, viewer.user, {
       async: true
     })
   }
@@ -40,15 +41,15 @@ export const action = defineAdminAction(
     request,
     context: {orm, viewer, auth}
   }: AdminActionArgs<Route.ActionArgs>) => {
+    let headers: MaybeUndefined<Headers>
+
     const submission = await parseWithZod(await request.formData(), {
       schema: AdminUpdateInput,
       async: true
     })
 
     if (submission.status !== "success") {
-      return data(submission.reply(), {
-        status: 422
-      })
+      return data(submission.reply(), 422)
     }
 
     if (submission.value.intent === "password") {
@@ -66,12 +67,15 @@ export const action = defineAdminAction(
         )
       }
 
-      await auth.api.changePassword({
+      const response = await auth.api.changePassword({
+        asResponse: true,
         body: {
           currentPassword: submission.value.current,
           newPassword: submission.value.updated
         }
       })
+
+      headers = response.headers
     } else if (submission.value.intent === "info") {
       const {intent: _, ...fields} = submission.value
 
@@ -79,9 +83,15 @@ export const action = defineAdminAction(
       await orm.em.flush()
     }
 
-    return submission.reply({
-      resetForm: true
-    })
+    return data(
+      submission.reply({
+        resetForm: true
+      }),
+
+      {
+        headers
+      }
+    )
   }
 )
 
