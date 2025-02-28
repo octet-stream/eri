@@ -1,12 +1,11 @@
 import {createContext, useContext} from "react"
-import type {SerializeFrom} from "react-router"
 
 import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
 
-import type {loader} from "../route.jsx"
+import type {Route} from "../+types/route.js"
 
 export type PostContextData = NonNullable<
-  SerializeFrom<typeof loader>["items"][number]
+  Route.ComponentProps["loaderData"]["items"][number]
 >
 
 export const PostContext = createContext<MaybeNull<PostContextData>>(null)

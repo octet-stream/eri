@@ -6,6 +6,7 @@ import {PostContent} from "./PostContent.js"
 
 export const PostContentEditor = createEditorType(PostContent)
 
+// @ts-expect-error
 export type IPostContentEditor = z.input<typeof PostContentEditor>
 
 export type OPostContentEditor = z.output<typeof PostContentEditor>

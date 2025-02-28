@@ -3,11 +3,16 @@ import {data, replace} from "react-router"
 
 import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
 
+import type {ContextFix} from "../../server/lib/types/ContextFix.js"
+
 import type {Route} from "./+types/route.js"
 import {AdminSetupPage} from "./AdminSetupPage.jsx"
 import {ADMIN_SETUP_PAGE_TITLE} from "./title.js"
 
-export const loader = async ({request, context: {auth}}: Route.LoaderArgs) => {
+export const loader = async ({
+  request,
+  context: {auth}
+}: ContextFix<Route.LoaderArgs>) => {
   const response = await auth.api.getSession({
     headers: request.headers
   })
@@ -19,7 +24,10 @@ export const loader = async ({request, context: {auth}}: Route.LoaderArgs) => {
   return null
 }
 
-export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
+export const action = async ({
+  request,
+  context: {auth}
+}: ContextFix<Route.ActionArgs>) => {
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminSetupInput,
     async: true

@@ -6,7 +6,7 @@ import {
 } from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import {data, generatePath, redirect, useNavigation} from "react-router"
+import {type Params, data, href, redirect, useNavigation} from "react-router"
 import type {z} from "zod"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
@@ -28,6 +28,7 @@ import {
 } from "../server/lib/admin/defineAdminLoader.js"
 import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {matchHttpMethods} from "../server/lib/utils/matchHttpMethods.js"
+import {slugToParams} from "../server/lib/utils/slug.js"
 import {AdminPostOutputEdit} from "../server/zod/admin/AdminPostOutputEdit.js"
 import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
@@ -50,7 +51,7 @@ export const loader = defineAdminLoader(
       event,
       slug,
       onRedirect: ({post}) =>
-        generatePath("/admin/posts/:slug/edit", {slug: post.slug})
+        href("/admin/posts/:date/:name/edit", slugToParams(post.slug))
     })
 
     const post = await orm.em.findOneOrFail(
@@ -143,7 +144,7 @@ export const action = defineAdminAction(
 
     await orm.em.flush()
 
-    throw redirect(generatePath("/admin/posts/:slug", {slug: post.slug}))
+    throw redirect(href("/admin/posts/:date/:name", slugToParams(post.slug)))
   }
 )
 

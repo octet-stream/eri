@@ -1,4 +1,4 @@
-import {generatePath} from "react-router"
+import {href} from "react-router"
 
 import {Post} from "../server/db/entities.js"
 import {
@@ -6,6 +6,7 @@ import {
   defineAdminLoader
 } from "../server/lib/admin/defineAdminLoader.js"
 import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
+import {slugToParams} from "../server/lib/utils/slug.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
@@ -26,7 +27,7 @@ export const loader = defineAdminLoader(
       event,
       slug,
       onRedirect: ({post}) =>
-        generatePath("/admin/posts/:slug", {slug: post.slug})
+        href("/admin/posts/:date/:name", slugToParams(post.slug))
     })
 
     const post = await orm.em.findOneOrFail(

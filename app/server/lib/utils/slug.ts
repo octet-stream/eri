@@ -6,10 +6,17 @@ import slugify from "@sindresorhus/slugify"
 import validator from "validator"
 
 import type {RawDate} from "../../../lib/types/RawDate.js"
+import type {IPostSlug, OPostSlug} from "../../zod/post/PostSlug.js"
 
 export const SLUG_DATE_FORMAT = "yyyy-MM-dd"
 
 export const SLUG_NAME_VALID_REGEXPR = /^[a-z0-9-]+~[a-zA-Z0-9]{5}$/
+
+export function slugToParams(value: OPostSlug): IPostSlug {
+  const [date, name] = value.split("/")
+
+  return {date, name}
+}
 
 /**
  * Checks if given slug `date` string has valid format
@@ -82,7 +89,7 @@ export const isSlugNameValid = (name: string): boolean =>
  * ```
  */
 export function isSlugValid(slug: string): boolean {
-  const [date, name] = slug.split("/")
+  const {date, name} = slugToParams(slug)
 
   return isSlugDateValid(date) && isSlugNameValid(name)
 }

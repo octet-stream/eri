@@ -1,7 +1,7 @@
 import {getFormProps, getTextareaProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import {data, generatePath, replace} from "react-router"
+import {data, href, replace} from "react-router"
 import type {MetaFunction} from "react-router"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
@@ -21,6 +21,7 @@ import {
 } from "../server/lib/admin/defineAdminAction.js"
 import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
 
+import {slugToParams} from "../server/lib/utils/slug.js"
 import type {Route} from "./+types/admin.posts.new.js"
 
 export const loader = noopAdminLoader
@@ -43,7 +44,7 @@ export const action = defineAdminAction(
 
     await orm.em.persistAndFlush(post)
 
-    throw replace(generatePath("/admin/posts/:slug", {slug: post.slug}))
+    throw replace(href("/admin/posts/:date/:name", slugToParams(post.slug)))
   }
 )
 
