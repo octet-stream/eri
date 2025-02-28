@@ -1,9 +1,10 @@
 {
   "include": [
     "@types/**/*.d.ts",
+    ".react-router/types/**/*",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.config.ts"
+    "**/*.config.ts",
   ],
   "lib": [
     "dom",

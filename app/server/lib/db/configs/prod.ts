@@ -1,6 +1,6 @@
 import {parse} from "node:path"
 
-import type {MigrationObject} from "@mikro-orm/mysql"
+import type {MigrationObject} from "@mikro-orm/mariadb"
 
 import promise from "./dev.js"
 

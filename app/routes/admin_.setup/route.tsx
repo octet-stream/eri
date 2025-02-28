@@ -3,6 +3,8 @@ import {data, replace} from "react-router"
 
 import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
 
+import type {ContextFix} from "../../server/lib/types/ContextFix.js"
+
 import type {Route} from "./+types/route.js"
 import {AdminSetupPage} from "./AdminSetupPage.jsx"
 import {ADMIN_SETUP_PAGE_TITLE} from "./title.js"

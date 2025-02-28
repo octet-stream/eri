@@ -1,3 +1,5 @@
+import "react-router" // For `AppLoadContext` augmentation
+
 import {createHonoServer} from "react-router-hono-server/node"
 
 import type {Context} from "hono"
@@ -21,8 +23,17 @@ export interface Env {
   Variables: Variables
 }
 
+// For `AppLoadContext` augmentation
 declare module "react-router" {
   interface AppLoadContext extends Readonly<Variables> {}
+
+  interface LoaderFunctionArgs {
+    context: AppLoadContext
+  }
+
+  interface ActionFunctionArgs {
+    context: AppLoadContext
+  }
 }
 
 export default await createHonoServer<Env>({

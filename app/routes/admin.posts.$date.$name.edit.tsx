@@ -6,7 +6,7 @@ import {
 } from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import {data, generatePath, redirect, useNavigation} from "react-router"
+import {data, href, redirect, useNavigation} from "react-router"
 import type {z} from "zod"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
@@ -18,16 +18,11 @@ import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
 import {Post} from "../server/db/entities.js"
-import {
-  type AdminActionArgs,
-  defineAdminAction
-} from "../server/lib/admin/defineAdminAction.js"
-import {
-  type AdminLoaderArgs,
-  defineAdminLoader
-} from "../server/lib/admin/defineAdminLoader.js"
+import {defineAdminAction} from "../server/lib/admin/defineAdminAction.js"
+import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
 import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {matchHttpMethods} from "../server/lib/utils/matchHttpMethods.js"
+import {slugToParams} from "../server/lib/utils/slug.js"
 import {AdminPostOutputEdit} from "../server/zod/admin/AdminPostOutputEdit.js"
 import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
@@ -37,51 +32,45 @@ import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
 import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
 
-export const loader = defineAdminLoader(
-  async (event: AdminLoaderArgs<Route.LoaderArgs>) => {
-    const {
-      params,
-      context: {orm}
-    } = event
-
-    const slug = await parseInput(PostSlug, params, {async: true})
-
-    await checkPostPks({
-      event,
-      slug,
-      onRedirect: ({post}) =>
-        generatePath("/admin/posts/:slug/edit", {slug: post.slug})
-    })
-
-    const post = await orm.em.findOneOrFail(
-      Post,
-
-      {
-        slug
-      },
-
-      {
-        filters: false, // Admin can see and edit all posts
-        populate: ["content"],
-        failHandler(): never {
-          throw data(null, {
-            status: 404,
-            statusText: "Unble to find post"
-          })
-        }
-      }
-    )
-
-    return parseOutput(AdminPostOutputEdit, post, {async: true})
-  }
-)
-
-export const action = defineAdminAction(
-  async ({
-    request,
+export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
+  const {
     params,
     context: {orm}
-  }: AdminActionArgs<Route.ActionArgs>) => {
+  } = event
+
+  const slug = await parseInput(PostSlug, params, {async: true})
+
+  await checkPostPks({
+    event,
+    slug,
+    onRedirect: ({post}) =>
+      href("/admin/posts/:date/:name/edit", slugToParams(post.slug))
+  })
+
+  const post = await orm.em.findOneOrFail(
+    Post,
+
+    {
+      slug
+    },
+
+    {
+      filters: false, // Admin can see and edit all posts
+      populate: ["content"],
+      failHandler(): never {
+        throw data(null, {
+          status: 404,
+          statusText: "Unble to find post"
+        })
+      }
+    }
+  )
+
+  return parseOutput(AdminPostOutputEdit, post, {async: true})
+})
+
+export const action = defineAdminAction(
+  async ({request, params, context: {orm}}: Route.ActionArgs) => {
     if (!matchHttpMethods(request, "PATCH")) {
       throw data(
         {
@@ -143,7 +132,7 @@ export const action = defineAdminAction(
 
     await orm.em.flush()
 
-    throw redirect(generatePath("/admin/posts/:slug", {slug: post.slug}))
+    throw redirect(href("/admin/posts/:date/:name", slugToParams(post.slug)))
   }
 )
 

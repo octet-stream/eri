@@ -7,7 +7,7 @@ import {
 import {MoreHorizontal, SquareArrowOutUpRight} from "lucide-react"
 import type {FC, MouseEventHandler} from "react"
 import {useMemo} from "react"
-import {Link, generatePath, useLoaderData} from "react-router"
+import {Link, href, useLoaderData} from "react-router"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
@@ -31,6 +31,7 @@ import {
 } from "../../../components/ui/Table.jsx"
 
 import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
+import {slugToParams} from "../../../server/lib/utils/slug.js"
 import type {loader} from "../route.jsx"
 
 export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
@@ -38,10 +39,10 @@ export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
 const helper = createColumnHelper<PostsListData>()
 
 const createAdminPathname = (slug: string) =>
-  generatePath("/admin/posts/:slug", {slug})
+  href("/admin/posts/:date/:name", slugToParams(slug))
 
 const createPublicPathname = (slug: string) =>
-  generatePath("/posts/:slug", {slug})
+  href("/posts/:date/:name", slugToParams(slug))
 
 const columns = [
   helper.display({
@@ -90,7 +91,7 @@ const columns = [
       <a
         target="_blank"
         rel="noreferrer"
-        href={generatePath("/admin/posts/:slug", {slug: ctx.getValue()})}
+        href={createAdminPathname(ctx.getValue())}
         aria-label="View post in blog"
       >
         <SquareArrowOutUpRight size={16} />
