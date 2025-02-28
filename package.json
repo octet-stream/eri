@@ -44,6 +44,9 @@
     },
     "overrides": {
       "react-router-hono-server@2>hono": "$hono"
+    },
+    "patchedDependencies": {
+      "react-router": "patches/react-router.patch"
     }
   },
   "dependencies": {

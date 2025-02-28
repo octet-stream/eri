@@ -3,10 +3,7 @@ import type {FC} from "react"
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
 
-import {
-  type AdminLoaderArgs,
-  defineAdminLoader
-} from "../../server/lib/admin/defineAdminLoader.js"
+import {defineAdminLoader} from "../../server/lib/admin/defineAdminLoader.js"
 
 import {Post} from "../../server/db/entities.js"
 
@@ -15,7 +12,7 @@ import {PostPage} from "../../server/zod/post/PostPage.js"
 import type {Route} from "./+types/route.js"
 
 export const loader = defineAdminLoader(
-  async ({request, context: {orm}}: AdminLoaderArgs<Route.LoaderArgs>) => {
+  async ({request, context: {orm}}: Route.LoaderArgs) => {
     const search = new URL(request.url).searchParams
     const page = await PostPage.parseAsync({
       page: search.get("page")

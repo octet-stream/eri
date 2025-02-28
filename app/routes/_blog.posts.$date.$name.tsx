@@ -9,7 +9,6 @@ import {Heading as CommonHeading} from "../components/common/Heading.jsx"
 
 import {formatPostDate} from "../lib/utils/formatPostDate.js"
 import {Post} from "../server/db/entities.js"
-import type {ContextFix} from "../server/lib/types/ContextFix.js"
 import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
@@ -18,7 +17,7 @@ import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
 import type {Route} from "./+types/_blog.posts.$date.$name.js"
 
-export const loader = async (event: ContextFix<Route.LoaderArgs>) => {
+export const loader = async (event: Route.LoaderArgs) => {
   const {
     params,
     context: {orm}

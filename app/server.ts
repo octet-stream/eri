@@ -26,6 +26,14 @@ export interface Env {
 // For `AppLoadContext` augmentation
 declare module "react-router" {
   interface AppLoadContext extends Readonly<Variables> {}
+
+  interface LoaderFunctionArgs {
+    context: AppLoadContext
+  }
+
+  interface ActionFunctionArgs {
+    context: AppLoadContext
+  }
 }
 
 export default await createHonoServer<Env>({

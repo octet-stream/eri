@@ -3,17 +3,13 @@ import {data, replace} from "react-router"
 
 import {APIError} from "better-auth/api"
 
-import type {ContextFix} from "../../server/lib/types/ContextFix.js"
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
 import type {Route} from "./+types/route.js"
 import {AdminLoginPage} from "./AdminLoginPage.jsx"
 import {ADMIN_LOGIN_PAGE_TITLE} from "./title.js"
 
-export const loader = async ({
-  request,
-  context: {auth}
-}: ContextFix<Route.LoaderArgs>) => {
+export const loader = async ({request, context: {auth}}: Route.LoaderArgs) => {
   const response = await auth.api.getSession({
     headers: request.headers
   })
@@ -25,10 +21,7 @@ export const loader = async ({
   return null
 }
 
-export const action = async ({
-  request,
-  context: {auth}
-}: ContextFix<Route.ActionArgs>) => {
+export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminLogInInput,
     async: true
