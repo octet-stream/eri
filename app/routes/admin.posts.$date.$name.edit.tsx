@@ -18,8 +18,7 @@ import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
 import {Post} from "../server/db/entities.js"
-import {defineAdminAction} from "../server/lib/admin/defineAdminAction.js"
-import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
+import {withAdmin} from "../server/lib/admin/withAdmin.js"
 import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {matchHttpMethods} from "../server/lib/utils/matchHttpMethods.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
@@ -30,13 +29,12 @@ import {PostUpdateInput} from "../server/zod/post/PostUpdateInput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
+import {serverContext} from "../server/contexts/server.js"
 import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
 
-export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
-  const {
-    params,
-    context: {orm}
-  } = event
+export const loader = withAdmin(async (event: Route.LoaderArgs) => {
+  const {params, context} = event
+  const {orm} = context.get(serverContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
 
@@ -69,8 +67,10 @@ export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
   return parseOutput(AdminPostOutputEdit, post, {async: true})
 })
 
-export const action = defineAdminAction(
-  async ({request, params, context: {orm}}: Route.ActionArgs) => {
+export const action = withAdmin(
+  async ({request, params, context}: Route.ActionArgs) => {
+    const {orm} = context.get(serverContext)
+
     if (!matchHttpMethods(request, "PATCH")) {
       throw data(
         {

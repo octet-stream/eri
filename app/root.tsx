@@ -24,7 +24,7 @@ export const links: Route.LinksFunction = () => [
 
 export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: data.title // Set default title to the app's name
+    title: data?.title ?? "Blog" // Set default title to the app's name
   }
 ]
 

@@ -1,3 +1,3 @@
-import {defineAdminLoader} from "./defineAdminLoader.js"
+import {withAdmin} from "./withAdmin.js"
 
-export const noopAdminLoader = defineAdminLoader(async () => null)
+export const noopAdminLoader = withAdmin(async () => null)

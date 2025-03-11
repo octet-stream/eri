@@ -1,19 +1,21 @@
-import type {Loaded, MikroORM} from "@mikro-orm/mariadb"
-import {type LoaderFunctionArgs, replace} from "react-router"
+import type {Loaded} from "@mikro-orm/mariadb"
+import {
+  type LoaderFunctionArgs,
+  type unstable_RouterContextProvider as RouterContextProvider,
+  replace
+} from "react-router"
 
+import {serverContext} from "../../../server/contexts/server.js"
 import {PostPrevKnownSlug} from "../../db/entities.js"
 import type {OPostSlug} from "../../zod/post/PostSlug.js"
-
-interface CheckPostPksContext {
-  orm: MikroORM
-}
+import type {Replace} from "../types/Replace.js"
 
 export type CheckPksOnRedirectCallback = (
   pks: Loaded<PostPrevKnownSlug, never, "id" | "post.slug", never>
 ) => string
 
 export interface CheckPostPksParams {
-  event: LoaderFunctionArgs
+  event: Replace<LoaderFunctionArgs, {context: RouterContextProvider}>
   slug: OPostSlug
   onRedirect: CheckPksOnRedirectCallback
 }
@@ -26,7 +28,7 @@ export async function checkPostPks({
   slug,
   onRedirect
 }: CheckPostPksParams): Promise<void> {
-  const {orm} = event.context as CheckPostPksContext
+  const {orm} = event.context.get(serverContext)
 
   const pks = await orm.em.findOne(
     PostPrevKnownSlug,

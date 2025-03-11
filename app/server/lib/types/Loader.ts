@@ -1,5 +1,17 @@
-import type {LoaderFunctionArgs} from "react-router"
+import type {
+  LoaderFunctionArgs,
+  unstable_RouterContextProvider as RouterContextProvider
+} from "react-router"
 
-export type Loader<TResult, TEvent extends LoaderFunctionArgs> = (
-  event: TEvent
+import type {Replace} from "./Replace.js"
+
+export type LoaderArgs = Replace<
+  LoaderFunctionArgs,
+  {
+    context: RouterContextProvider
+  }
+>
+
+export type Loader<TResult, TArgs extends LoaderArgs> = (
+  args: TArgs
 ) => Promise<TResult>

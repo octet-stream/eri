@@ -7,14 +7,9 @@ import {
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
 
-import {
-  type AdminActionArgs,
-  defineAdminAction
-} from "../../server/lib/admin/defineAdminAction.js"
-import {
-  type AdminLoaderArgs,
-  defineAdminLoader
-} from "../../server/lib/admin/defineAdminLoader.js"
+import {adminContext} from "../../server/contexts/admin.js"
+import {serverContext} from "../../server/contexts/server.js"
+import {withAdmin} from "../../server/lib/admin/withAdmin.js"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
 import {SessionUserOutput} from "../../server/zod/admin/SessionUserOutput.js"
 import {parseOutput} from "../../server/zod/utils/parseOutput.js"
@@ -26,21 +21,20 @@ import {PasswordSection} from "./sections/PasswordSection.jsx"
 import type {MaybeUndefined} from "../../lib/types/MaybeUndefined.js"
 import type {Route} from "./+types/route.js"
 
-export const loader = defineAdminLoader(
-  async ({context: {viewer}}: AdminLoaderArgs<Route.LoaderArgs>) => {
-    await viewer.user.passkeys.load()
+export const loader = withAdmin(async ({context}: Route.LoaderArgs) => {
+  const {user} = context.get(adminContext)
 
-    return parseOutput(SessionUserOutput, viewer.user, {
-      async: true
-    })
-  }
-)
+  await user.passkeys.load()
 
-export const action = defineAdminAction(
-  async ({
-    request,
-    context: {orm, viewer, auth}
-  }: AdminActionArgs<Route.ActionArgs>) => {
+  return parseOutput(SessionUserOutput, user, {
+    async: true
+  })
+})
+
+export const action = withAdmin(
+  async ({request, context}: Route.ActionArgs) => {
+    const {user} = context.get(adminContext)
+    const {orm, auth} = context.get(serverContext)
     let headers: MaybeUndefined<Headers>
 
     const submission = await parseWithZod(await request.formData(), {
@@ -79,7 +73,7 @@ export const action = defineAdminAction(
     } else if (submission.value.intent === "info") {
       const {intent: _, ...fields} = submission.value
 
-      orm.em.assign(viewer.user, fields)
+      orm.em.assign(user, fields)
       await orm.em.flush()
     }
 

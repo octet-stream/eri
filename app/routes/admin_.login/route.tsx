@@ -5,11 +5,14 @@ import {APIError} from "better-auth/api"
 
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
+import {serverContext} from "../../server/contexts/server.js"
 import type {Route} from "./+types/route.js"
 import {AdminLoginPage} from "./AdminLoginPage.jsx"
 import {ADMIN_LOGIN_PAGE_TITLE} from "./title.js"
 
-export const loader = async ({request, context: {auth}}: Route.LoaderArgs) => {
+export const loader = async ({request, context}: Route.LoaderArgs) => {
+  const {auth} = context.get(serverContext)
+
   const response = await auth.api.getSession({
     headers: request.headers
   })
@@ -21,7 +24,9 @@ export const loader = async ({request, context: {auth}}: Route.LoaderArgs) => {
   return null
 }
 
-export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
+export const action = async ({request, context}: Route.ActionArgs) => {
+  const {auth} = context.get(serverContext)
+
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminLogInInput,
     async: true
@@ -45,7 +50,7 @@ export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
       throw error
     }
 
-    if (error.body.code === "INVALID_EMAIL_OR_PASSWORD") {
+    if (error.body?.code === "INVALID_EMAIL_OR_PASSWORD") {
       return data(
         submission.reply({
           formErrors: ["Invalid email or password"]
@@ -57,7 +62,7 @@ export const action = async ({request, context: {auth}}: Route.ActionArgs) => {
       )
     }
 
-    if (error.body.code === "INVALID_EMAIL") {
+    if (error.body?.code === "INVALID_EMAIL") {
       return data(
         submission.reply({
           fieldErrors: {

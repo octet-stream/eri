@@ -2,39 +2,33 @@ import type {
   Session as DatabaseSession,
   User as DatabaseUser
 } from "better-auth"
-import type {LoaderFunctionArgs} from "react-router"
 
+import {serverContext} from "../../contexts/server.js"
 import {Session, User} from "../../db/entities.js"
-import type {Loader} from "../types/Loader.js"
+import type {Action, ActionArgs} from "../types/Action.js"
+import type {Loader, LoaderArgs} from "../types/Loader.js"
 
-import type {AdminArgs, AdminViewer} from "./AdminArgs.js"
+import {adminContext} from "../../contexts/admin.js"
 import {
   AdminLoaderErrorCode,
   createAdminLoaderError
 } from "./adminLoaderError.js"
-import {updateCookie} from "./updateCookie.js"
 
-export type AdminLoaderArgs<TEvent extends LoaderFunctionArgs> =
-  AdminArgs<TEvent>
-
-// TODO: Replace this with middlewares, once they arrive
-// ! Hope this one will not break, because I'm not fure if Remix's compiler relies on defineLoader function or route exports to extract loaders
 /**
- * Defines protected admin loader for given function.
+ * Defines protected admin loader/action for given function.
  *
- * This decorator wraps a `loader` function and checks if:
+ * This decorator wraps a `loader` or `action` function and checks if:
  *  * there's admin user - otherwise the visitor will be prompted to admin account setup;
  *  * whether the visitor is authenticated - otherwise the visitor will be prompted into the login form;
  *
  * @param loader - a function to wrap into admin priviligies checks
  */
-export const defineAdminLoader =
-  <TResult, TEvent extends LoaderFunctionArgs>(
-    loader: Loader<TResult, TEvent>
+export const withAdmin =
+  <TResult, TArgs extends LoaderArgs | ActionArgs>(
+    fn: Loader<TResult, TArgs> | Action<TResult, TArgs>
   ) =>
-  async (event: TEvent): Promise<TResult> => {
-    const {auth, orm} =
-      event.context as AdminLoaderArgs<LoaderFunctionArgs>["context"]
+  async (args: TArgs): Promise<TResult> => {
+    const {auth, orm} = args.context.get(serverContext)
 
     const [admin] = await orm.em.find(
       User,
@@ -56,7 +50,7 @@ export const defineAdminLoader =
 
     const response = await auth.api.getSession({
       asResponse: true,
-      headers: event.request.headers
+      headers: args.request.headers
     })
 
     // Note: in the actual result all Dates are serialized into string, so make sure to de-serialize them back
@@ -75,14 +69,22 @@ export const defineAdminLoader =
       })
       .loadOrFail()
 
-    const viewer: AdminViewer = {
+    args.context.set(adminContext, {
       session,
       user: session.user,
       rawUser: result.user,
       rawSession: result.session
-    }
+    })
 
-    return updateCookie(event, response, () =>
-      loader({...event, context: {...event.context, viewer}})
-    )
+    try {
+      return await fn(args)
+    } finally {
+      const cookie = response.headers.get("set-cookie")
+
+      if (cookie) {
+        const {resHeaders} = args.context.get(serverContext)
+
+        resHeaders.set("set-cookie", cookie)
+      }
+    }
   }

@@ -1,7 +1,7 @@
-import {href} from "react-router"
+import {data, href} from "react-router"
 
 import {Post} from "../server/db/entities.js"
-import {defineAdminLoader} from "../server/lib/admin/defineAdminLoader.js"
+import {withAdmin} from "../server/lib/admin/withAdmin.js"
 import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
@@ -9,13 +9,12 @@ import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
+import {serverContext} from "../server/contexts/server.js"
 import type {Route} from "./+types/admin.posts.$date.$name._index.js"
 
-export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
-  const {
-    params,
-    context: {orm}
-  } = event
+export const loader = withAdmin(async (event: Route.LoaderArgs) => {
+  const {params, context} = event
+  const {orm} = context.get(serverContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
 
@@ -37,7 +36,7 @@ export const loader = defineAdminLoader(async (event: Route.LoaderArgs) => {
       filters: false, // Admin can see all posts
       populate: ["content"],
       failHandler(): never {
-        throw new Response(null, {
+        throw data(null, {
           status: 404,
           statusText: "Unable to find post"
         })
