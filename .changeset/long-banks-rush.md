@@ -2,4 +2,4 @@
 "eri": patch
 ---
 
-Fix docker image for multiplatform
+Fix docker image for multi platform
