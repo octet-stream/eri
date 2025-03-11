@@ -1,5 +1,11 @@
 # eri
 
+## 0.10.1
+
+### Patch Changes
+
+- [#135](https://github.com/octet-stream/eri/pull/135) [`830be1a`](https://github.com/octet-stream/eri/commit/830be1afbbd8f1e6351dcc9e2c2547e019b4dc6b) Thanks [@octet-stream](https://github.com/octet-stream)! - Fix docker image for multi platform
+
 ## 0.10.0
 
 ### Minor Changes
