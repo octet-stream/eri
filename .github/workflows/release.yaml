@@ -84,9 +84,6 @@ jobs:
       fail-fast: true
       matrix:
         package: ${{fromJson(needs.release.outputs.packages)}}
-        platform:
-          - linux/amd64
-          - linux/arm64
 
     steps:
       - name: Checkout
@@ -122,6 +119,6 @@ jobs:
         with:
           push: true
           context: .
-          platforms: ${{matrix.platform}}
+          platforms: linux/amd64,linux/arm64
           tags: ${{steps.meta.outputs.tags}}
           labels: ${{steps.meta.outputs.labels}}
