@@ -1,5 +1,11 @@
 # eri
 
+## 0.10.0
+
+### Minor Changes
+
+- [#133](https://github.com/octet-stream/eri/pull/133) [`df41a0f`](https://github.com/octet-stream/eri/commit/df41a0f42add19c4fb925e31b4e5c9ee29607262) Thanks [@octet-stream](https://github.com/octet-stream)! - Move loaders and actions to new context
+
 ## 0.9.0
 
 ### Minor Changes
