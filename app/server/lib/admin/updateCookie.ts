@@ -1,9 +1,11 @@
-import type {ActionFunctionArgs, LoaderFunctionArgs} from "react-router"
-
 import type {AdminArgs} from "./AdminArgs.js"
 
+import {serverContext} from "../../contexts/server.js"
+import type {ActionArgs} from "../types/Action.js"
+import type {LoaderArgs} from "../types/Loader.js"
+
 export async function updateCookie<TResult>(
-  event: LoaderFunctionArgs | ActionFunctionArgs,
+  args: LoaderArgs | ActionArgs,
   response: Response,
   fn: () => Promise<TResult>
 ): Promise<TResult> {
@@ -13,9 +15,7 @@ export async function updateCookie<TResult>(
     const cookie = response.headers.get("set-cookie")
 
     if (cookie) {
-      const {resHeaders} = event.context as AdminArgs<
-        ActionFunctionArgs | LoaderFunctionArgs
-      >["context"]
+      const {resHeaders} = args.context.get(serverContext)
 
       resHeaders.set("set-cookie", cookie)
     }

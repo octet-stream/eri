@@ -8,6 +8,7 @@ import {
 import {Heading as CommonHeading} from "../components/common/Heading.jsx"
 
 import {formatPostDate} from "../lib/utils/formatPostDate.js"
+import {serverContext} from "../server/contexts/server.js"
 import {Post} from "../server/db/entities.js"
 import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
@@ -18,10 +19,8 @@ import {parseOutput} from "../server/zod/utils/parseOutput.js"
 import type {Route} from "./+types/_blog.posts.$date.$name.js"
 
 export const loader = async (event: Route.LoaderArgs) => {
-  const {
-    params,
-    context: {orm}
-  } = event
+  const {params, context} = event
+  const {orm} = context.get(serverContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
 

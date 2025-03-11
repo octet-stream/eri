@@ -1,31 +1,15 @@
-import type {
-  AppLoadContext,
-  UNSAFE_DataWithResponseInit as DataWithResponseInit,
-  LoaderFunctionArgs
-} from "react-router"
+import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
 import {describe, expect} from "vitest"
 
 import {adminTest} from "../fixtures/admin.js"
 import {ormTest} from "../fixtures/orm.js"
 import {createStubLoaderArgs} from "../utils/createStubRouteArgs.js"
 
-import type {Replace} from "../../app/lib/types/Replace.js"
-import type {Variables} from "../../app/server.js"
-import type {AdminViewerContext} from "../../app/server/lib/admin/AdminArgs.js"
 import {
   AdminLoaderErrorCode,
   type AdminLoaderErrorData
 } from "../../app/server/lib/admin/adminLoaderError.js"
-
-type ValidAdminLoaderArgs = Replace<
-  LoaderFunctionArgs,
-  {
-    params: any // We don't care about params, so we can relax this type
-    context: Variables & AppLoadContext & AdminViewerContext
-  }
->
-
-type ValidAdminLoader = (event: ValidAdminLoaderArgs) => unknown
+import type {Loader} from "../../app/server/lib/types/Loader.js"
 
 /**
  * Creates a test suite for loaders that require admin authorization.
@@ -33,7 +17,7 @@ type ValidAdminLoader = (event: ValidAdminLoaderArgs) => unknown
  *
  * @param loader - a loader to run tests for
  */
-export const createAdminAuthLoaderSuite = (loader: ValidAdminLoader) =>
+export const createAdminAuthLoaderSuite = (loader: Loader<any, any>) =>
   describe("admin auth loader", () => {
     ormTest("throws 401 with setup code", async () => {
       expect.hasAssertions()

@@ -15,22 +15,21 @@ import {PostEditorContent} from "../components/post-editor/PostEditorContent.jsx
 import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
 
 import {Post} from "../server/db/entities.js"
-import {
-  type AdminActionArgs,
-  defineAdminAction
-} from "../server/lib/admin/defineAdminAction.js"
 import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
+import {withAdmin} from "../server/lib/admin/withAdmin.js"
 
+import {adminContext} from "../server/contexts/admin.js"
+import {serverContext} from "../server/contexts/server.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
 import type {Route} from "./+types/admin.posts.new.js"
 
 export const loader = noopAdminLoader
 
-export const action = defineAdminAction(
-  async ({
-    request,
-    context: {viewer, orm}
-  }: AdminActionArgs<Route.ActionArgs>) => {
+export const action = withAdmin(
+  async ({request, context}: Route.ActionArgs) => {
+    const {orm} = context.get(serverContext)
+    const {user} = context.get(adminContext)
+
     const submission = await parseWithZod(await request.formData(), {
       schema: PostCreateInput,
       async: true
@@ -40,7 +39,7 @@ export const action = defineAdminAction(
       return data(submission.reply(), 422)
     }
 
-    const post = orm.em.create(Post, {...submission.value, author: viewer.user})
+    const post = orm.em.create(Post, {...submission.value, author: user})
 
     await orm.em.persistAndFlush(post)
 
