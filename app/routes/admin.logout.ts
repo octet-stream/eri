@@ -1,13 +1,13 @@
 import {replace} from "react-router"
 
-import {serverContext} from "../server/contexts/server.js"
+import {authContext} from "../server/contexts/auth.js"
 import type {Route} from "./+types/admin.logout.js"
 
 export const action = async ({
   request,
   context
 }: Route.ActionArgs): Promise<never> => {
-  const {auth} = context.get(serverContext)
+  const auth = context.get(authContext)
 
   const response = await auth.api.signOut({
     asResponse: true,

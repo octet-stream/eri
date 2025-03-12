@@ -3,14 +3,14 @@ import type {FC} from "react"
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
 
-import {serverContext} from "../../server/contexts/server.js"
+import {ormContext} from "../../server/contexts/orm.js"
 import {Post} from "../../server/db/entities.js"
 import {PostPage} from "../../server/zod/post/PostPage.js"
 
 import type {Route} from "./+types/route.js"
 
 export const loader = async ({context, request}: Route.LoaderArgs) => {
-  const {orm} = context.get(serverContext)
+  const orm = context.get(ormContext)
 
   const search = new URL(request.url).searchParams
   const page = await PostPage.parseAsync({

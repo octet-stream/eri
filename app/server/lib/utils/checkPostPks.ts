@@ -5,7 +5,7 @@ import {
   replace
 } from "react-router"
 
-import {serverContext} from "../../../server/contexts/server.js"
+import {ormContext} from "../../../server/contexts/orm.js"
 import {PostPrevKnownSlug} from "../../db/entities.js"
 import type {OPostSlug} from "../../zod/post/PostSlug.js"
 import type {Replace} from "../types/Replace.js"
@@ -28,7 +28,7 @@ export async function checkPostPks({
   slug,
   onRedirect
 }: CheckPostPksParams): Promise<void> {
-  const {orm} = event.context.get(serverContext)
+  const orm = event.context.get(ormContext)
 
   const pks = await orm.em.findOne(
     PostPrevKnownSlug,

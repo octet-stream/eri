@@ -9,12 +9,14 @@ import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
-import {serverContext} from "../server/contexts/server.js"
+import {ormContext} from "../server/contexts/orm.js"
+
 import type {Route} from "./+types/admin.posts.$date.$name._index.js"
 
 export const loader = withAdmin(async (event: Route.LoaderArgs) => {
   const {params, context} = event
-  const {orm} = context.get(serverContext)
+
+  const orm = context.get(ormContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
 

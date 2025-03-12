@@ -27,3 +27,5 @@ export const auth = betterAuth({
     generateId: false // Handled by the ORM
   }
 })
+
+export type Auth = typeof auth

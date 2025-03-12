@@ -29,12 +29,13 @@ import {PostUpdateInput} from "../server/zod/post/PostUpdateInput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
-import {serverContext} from "../server/contexts/server.js"
+import {ormContext} from "../server/contexts/orm.js"
 import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
 
 export const loader = withAdmin(async (event: Route.LoaderArgs) => {
   const {params, context} = event
-  const {orm} = context.get(serverContext)
+
+  const orm = context.get(ormContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
 
@@ -69,7 +70,7 @@ export const loader = withAdmin(async (event: Route.LoaderArgs) => {
 
 export const action = withAdmin(
   async ({request, params, context}: Route.ActionArgs) => {
-    const {orm} = context.get(serverContext)
+    const orm = context.get(ormContext)
 
     if (!matchHttpMethods(request, "PATCH")) {
       throw data(

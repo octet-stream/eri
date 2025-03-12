@@ -19,7 +19,7 @@ import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
 import {withAdmin} from "../server/lib/admin/withAdmin.js"
 
 import {adminContext} from "../server/contexts/admin.js"
-import {serverContext} from "../server/contexts/server.js"
+import {ormContext} from "../server/contexts/orm.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
 import type {Route} from "./+types/admin.posts.new.js"
 
@@ -27,8 +27,8 @@ export const loader = noopAdminLoader
 
 export const action = withAdmin(
   async ({request, context}: Route.ActionArgs) => {
-    const {orm} = context.get(serverContext)
-    const {user} = context.get(adminContext)
+    const admin = context.get(adminContext)
+    const orm = context.get(ormContext)
 
     const submission = await parseWithZod(await request.formData(), {
       schema: PostCreateInput,
@@ -39,7 +39,7 @@ export const action = withAdmin(
       return data(submission.reply(), 422)
     }
 
-    const post = orm.em.create(Post, {...submission.value, author: user})
+    const post = orm.em.create(Post, {...submission.value, author: admin.user})
 
     await orm.em.persistAndFlush(post)
 

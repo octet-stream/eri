@@ -5,13 +5,13 @@ import {APIError} from "better-auth/api"
 
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
-import {serverContext} from "../../server/contexts/server.js"
+import {authContext} from "../../server/contexts/auth.js"
 import type {Route} from "./+types/route.js"
 import {AdminLoginPage} from "./AdminLoginPage.jsx"
 import {ADMIN_LOGIN_PAGE_TITLE} from "./title.js"
 
 export const loader = async ({request, context}: Route.LoaderArgs) => {
-  const {auth} = context.get(serverContext)
+  const auth = context.get(authContext)
 
   const response = await auth.api.getSession({
     headers: request.headers
@@ -25,7 +25,7 @@ export const loader = async ({request, context}: Route.LoaderArgs) => {
 }
 
 export const action = async ({request, context}: Route.ActionArgs) => {
-  const {auth} = context.get(serverContext)
+  const auth = context.get(authContext)
 
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminLogInInput,
