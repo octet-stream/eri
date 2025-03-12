@@ -3,7 +3,7 @@ import type {FC} from "react"
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
 
-import {serverContext} from "../../server/contexts/server.js"
+import {ormContext} from "../../server/contexts/orm.js"
 import {withAdmin} from "../../server/lib/admin/withAdmin.js"
 
 import {Post} from "../../server/db/entities.js"
@@ -14,7 +14,7 @@ import type {Route} from "./+types/route.js"
 
 export const loader = withAdmin(
   async ({request, context}: Route.LoaderArgs) => {
-    const {orm} = context.get(serverContext)
+    const orm = context.get(ormContext)
 
     const search = new URL(request.url).searchParams
     const page = await PostPage.parseAsync({

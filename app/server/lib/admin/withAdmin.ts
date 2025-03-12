@@ -3,12 +3,15 @@ import type {
   User as DatabaseUser
 } from "better-auth"
 
-import {serverContext} from "../../contexts/server.js"
 import {Session, User} from "../../db/entities.js"
 import type {Action, ActionArgs} from "../types/Action.js"
 import type {Loader, LoaderArgs} from "../types/Loader.js"
 
 import {adminContext} from "../../contexts/admin.js"
+import {authContext} from "../../contexts/auth.js"
+import {ormContext} from "../../contexts/orm.js"
+import {resHeadersContext} from "../../contexts/resHeaders.js"
+
 import {
   AdminLoaderErrorCode,
   createAdminLoaderError
@@ -28,7 +31,9 @@ export const withAdmin =
     fn: Loader<TResult, TArgs> | Action<TResult, TArgs>
   ) =>
   async (args: TArgs): Promise<TResult> => {
-    const {auth, orm} = args.context.get(serverContext)
+    const orm = args.context.get(ormContext)
+    const auth = args.context.get(authContext)
+    const resHeaders = args.context.get(resHeadersContext)
 
     const [admin] = await orm.em.find(
       User,
@@ -82,8 +87,6 @@ export const withAdmin =
       const cookie = response.headers.get("set-cookie")
 
       if (cookie) {
-        const {resHeaders} = args.context.get(serverContext)
-
         resHeaders.set("set-cookie", cookie)
       }
     }

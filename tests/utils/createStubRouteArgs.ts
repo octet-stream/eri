@@ -6,7 +6,9 @@ import {orm} from "../../app/server/lib/db/orm.js"
 import type {ActionArgs} from "../../app/server/lib/types/Action.js"
 import type {LoaderArgs} from "../../app/server/lib/types/Loader.js"
 
-import {serverContext} from "../../app/server/contexts/server.js"
+import {authContext} from "../../app/server/contexts/auth.js"
+import {ormContext} from "../../app/server/contexts/orm.js"
+import {resHeadersContext} from "../../app/server/contexts/resHeaders.js"
 
 interface CreateStubRouteArgsInput<
   TParams extends Record<string, unknown> = Record<string, unknown>
@@ -28,7 +30,11 @@ const createStubRouteArgs =
       params: TParams
     }
   > => {
-    context.set(serverContext, {orm, auth, resHeaders: new Headers()})
+    const headers = new Headers()
+
+    context.set(ormContext, orm)
+    context.set(authContext, auth)
+    context.set(resHeadersContext, headers)
 
     return {
       request: request ?? new Request("http://localhost"),

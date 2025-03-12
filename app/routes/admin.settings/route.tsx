@@ -7,12 +7,14 @@ import {
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
 
-import {adminContext} from "../../server/contexts/admin.js"
-import {serverContext} from "../../server/contexts/server.js"
 import {withAdmin} from "../../server/lib/admin/withAdmin.js"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
 import {SessionUserOutput} from "../../server/zod/admin/SessionUserOutput.js"
 import {parseOutput} from "../../server/zod/utils/parseOutput.js"
+
+import {adminContext} from "../../server/contexts/admin.js"
+import {authContext} from "../../server/contexts/auth.js"
+import {ormContext} from "../../server/contexts/orm.js"
 
 import {MainInfoSection} from "./sections/MainInfoSection.jsx"
 import {PasskeySection} from "./sections/PasskeySection.jsx"
@@ -33,8 +35,10 @@ export const loader = withAdmin(async ({context}: Route.LoaderArgs) => {
 
 export const action = withAdmin(
   async ({request, context}: Route.ActionArgs) => {
-    const {user} = context.get(adminContext)
-    const {orm, auth} = context.get(serverContext)
+    const admin = context.get(adminContext)
+    const orm = context.get(ormContext)
+    const auth = context.get(authContext)
+
     let headers: MaybeUndefined<Headers>
 
     const submission = await parseWithZod(await request.formData(), {
@@ -73,7 +77,7 @@ export const action = withAdmin(
     } else if (submission.value.intent === "info") {
       const {intent: _, ...fields} = submission.value
 
-      orm.em.assign(user, fields)
+      orm.em.assign(admin.user, fields)
       await orm.em.flush()
     }
 
