@@ -12,13 +12,13 @@ function onError<TInput>(reason: z.SafeParseError<TInput>): never {
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
   data: z.input<TSchema> | URLSearchParams,
-  options?: ResolveResultOptions<z.input<TSchema>> & {async: true}
-): MaybePromise<z.output<TSchema>>
+  options: ResolveResultOptions<z.input<TSchema>> & {async: true}
+): Promise<z.output<TSchema>>
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
   data: z.input<TSchema> | URLSearchParams,
   options?: ResolveResultOptions<z.input<TSchema>> & {async?: false}
-): MaybePromise<z.output<TSchema>>
+): z.output<TSchema>
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
   data: z.input<TSchema> | URLSearchParams,
