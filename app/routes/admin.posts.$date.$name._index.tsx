@@ -1,8 +1,7 @@
-import {data, href} from "react-router"
+import {data} from "react-router"
 
 import {Post} from "../server/db/entities.js"
 import {withAdmin} from "../server/lib/admin/withAdmin.js"
-import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
@@ -19,14 +18,6 @@ export const loader = withAdmin(async (event: Route.LoaderArgs) => {
   const orm = context.get(ormContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
-
-  await checkPostPks({
-    event,
-    slug,
-    onRedirect: ({post}) =>
-      href("/admin/posts/:date/:name", slugToParams(post.slug))
-  })
-
   const post = await orm.em.findOneOrFail(
     Post,
 

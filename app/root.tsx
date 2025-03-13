@@ -1,5 +1,12 @@
 import type {FC, ReactNode} from "react"
-import {Links, Meta, Outlet, Scripts, ScrollRestoration} from "react-router"
+import {
+  Links,
+  Meta,
+  type unstable_MiddlewareFunction as MiddlewareFunction,
+  Outlet,
+  Scripts,
+  ScrollRestoration
+} from "react-router"
 
 import config from "./server/lib/config.js"
 
@@ -9,9 +16,16 @@ import tailwindcss from "./tailwind.css?url"
 import type {Route} from "./+types/root.js"
 import {Toaster} from "./components/ui/Toaster.jsx"
 
+import {withCheckPostPks} from "./server/middlewares/router/withCheckPostPks.js"
+
 interface Props {
   children: ReactNode
 }
+
+// TODO: Rename this to `middleware` when RR changes the export name
+export const unstable_middleware = [
+  withCheckPostPks()
+] satisfies MiddlewareFunction[]
 
 export const loader = () => ({title: config.app.name}) // Expose the app's name to root layout
 

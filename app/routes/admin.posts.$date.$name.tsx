@@ -1,5 +1,8 @@
 import type {FC} from "react"
-import {Outlet} from "react-router"
+import {
+  type unstable_MiddlewareFunction as MiddlewareFunction,
+  Outlet
+} from "react-router"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
