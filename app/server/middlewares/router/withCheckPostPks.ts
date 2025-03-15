@@ -16,7 +16,6 @@ const valid = ["admin", "_blog"]
 
 const isApplicable = (value?: string) => valid.some(id => value?.startsWith(id))
 
-// ! HAZARD WARNING: if middleware or loader/action throws non-response error, it will lead to some weird error in conjunction with the actual error, I need to report this to RR team
 export const withCheckPostPks =
   (): MiddlewareFunction =>
   async ({context, request, params}, next) => {
