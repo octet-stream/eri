@@ -16,6 +16,10 @@ const valid = ["admin", "_blog"]
 
 const isApplicable = (value?: string) => valid.some(id => value?.startsWith(id))
 
+/**
+ * Checks whether the `slug` of the current requested post matches any Post Previously Known Slug,
+ * and if so, it redirects to the current address using permanent HTTP redirect (with 301 status code) and RR `replace` utility.
+ */
 export const withCheckPostPks =
   (): MiddlewareFunction =>
   async ({context, request}, next) => {
