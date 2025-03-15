@@ -7,15 +7,17 @@ import {csrf} from "hono/csrf"
 
 import type {auth} from "./server/lib/auth/auth.js"
 import {orm} from "./server/lib/db/orm.js"
-import {withAuth} from "./server/middlewares/withAuth.js"
-import {withOrm} from "./server/middlewares/withOrm.js"
-import {withResponseHeaders} from "./server/middlewares/withResponseHeaders.js"
+import {withAuth} from "./server/middlewares/hono/withAuth.js"
+import {withOrm} from "./server/middlewares/hono/withOrm.js"
+import {withResponseHeaders} from "./server/middlewares/hono/withResponseHeaders.js"
 
 import {authContext} from "./server/contexts/auth.js"
+import {matchesContext} from "./server/contexts/matches.js"
 import {ormContext} from "./server/contexts/orm.js"
 import {resHeadersContext} from "./server/contexts/resHeaders.js"
 
 import config from "./server/lib/config.js"
+import {getRouteMatches} from "./server/lib/utils/routes.js"
 
 export interface Variables {
   orm: typeof orm
@@ -39,12 +41,20 @@ export default await createHonoServer<Env>({
       .use(withAuth())
   },
 
-  async getLoadContext(ctx: Context<Env>) {
+  async getLoadContext(ctx: Context<Env>, options) {
     const context: InitialContext = new Map()
 
     context.set(authContext, ctx.var.auth)
     context.set(ormContext, ctx.var.orm)
     context.set(resHeadersContext, ctx.var.resHeaders)
+
+    const matches = getRouteMatches(
+      options.build.routes,
+      ctx.req.url,
+      options.build.basename
+    )
+
+    context.set(matchesContext, matches ?? [])
 
     return context
   },

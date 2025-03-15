@@ -9,7 +9,6 @@ import {Heading as CommonHeading} from "../components/common/Heading.jsx"
 
 import {formatPostDate} from "../lib/utils/formatPostDate.js"
 import {Post} from "../server/db/entities.js"
-import {checkPostPks} from "../server/lib/utils/checkPostPks.js"
 import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
@@ -25,13 +24,6 @@ export const loader = async (event: Route.LoaderArgs) => {
   const orm = context.get(ormContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
-
-  await checkPostPks({
-    event,
-    slug,
-    onRedirect: ({post}) => generatePath("/posts/:slug", {slug: post.slug})
-  })
-
   const post = await orm.em.findOneOrFail(
     Post,
 

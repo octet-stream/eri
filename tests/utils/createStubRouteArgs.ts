@@ -52,3 +52,7 @@ export const createStubLoaderArgs = createStubRouteArgs<LoaderArgs>()
  * Creates stub arguments for `action`
  */
 export const createStubActionArgs = createStubRouteArgs<ActionArgs>()
+
+export const createStubMiddlewareArgs = createStubRouteArgs<
+  LoaderArgs | ActionArgs
+>()
