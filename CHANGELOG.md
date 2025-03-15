@@ -1,5 +1,13 @@
 # eri
 
+## 0.11.0
+
+### Minor Changes
+
+- [#138](https://github.com/octet-stream/eri/pull/138) [`9b9f59b`](https://github.com/octet-stream/eri/commit/9b9f59b71234b0f5fce168ed3b3268aadfbe0039) Thanks [@octet-stream](https://github.com/octet-stream)! - Improve pks handling using React Router middlewares.
+  This should make it available in HTTP methods other than just GET.
+  The middleware is registered globally in `root.tsx` so no need to use it in-place anymore.
+
 ## 0.10.1
 
 ### Patch Changes
