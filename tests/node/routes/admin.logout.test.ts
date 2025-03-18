@@ -1,5 +1,5 @@
 import type {SetCookie} from "cookie-es"
-import {describe, expect} from "vitest"
+import {expect, suite} from "vitest"
 
 import {auth} from "../../../app/server/lib/auth/auth.js"
 import {test} from "../../fixtures/admin.js"
@@ -8,7 +8,7 @@ import {getCookies} from "../../utils/getCookies.js"
 
 import {action} from "../../../app/routes/admin.logout.js"
 
-describe("action", () => {
+suite("action", () => {
   test("throws redirect response", async ({admin}) => {
     expect.hasAssertions()
 

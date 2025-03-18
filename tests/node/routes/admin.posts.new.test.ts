@@ -1,5 +1,5 @@
 import {faker} from "@faker-js/faker"
-import {describe, expect} from "vitest"
+import {expect, suite} from "vitest"
 
 import {test} from "../../fixtures/admin.js"
 import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
@@ -13,7 +13,7 @@ import {Post} from "../../../app/server/db/entities.js"
 
 createAdminAuthLoaderSuite(loader)
 
-describe("action", () => {
+suite("action", () => {
   test("returns error when called with empty form", async ({admin}) => {
     const form = new FormData()
 

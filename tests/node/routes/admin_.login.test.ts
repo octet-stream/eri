@@ -1,11 +1,11 @@
-import {describe, expect} from "vitest"
+import {expect, suite} from "vitest"
 
 import {test} from "../../fixtures/admin.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 
 import {action} from "../../../app/routes/admin_.login/route.jsx"
 
-describe("action", () => {
+suite("action", () => {
   test("redirects to /admin on success", async ({admin}) => {
     expect.hasAssertions()
 

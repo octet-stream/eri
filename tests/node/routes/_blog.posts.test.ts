@@ -1,5 +1,5 @@
 import {faker} from "@faker-js/faker"
-import {beforeEach, describe, expect} from "vitest"
+import {beforeEach, expect, suite} from "vitest"
 
 import {type OrmTestContext, test} from "../../fixtures/orm.js"
 import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.js"
@@ -9,8 +9,8 @@ import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
 
 import {loader} from "../../../app/routes/_blog._index/route.jsx"
 
-describe("loader", () => {
-  describe("no data", async () => {
+suite("loader", () => {
+  suite("no data", async () => {
     test("returns empty page", async () => {
       const page = await loader(createStubLoaderArgs())
 
@@ -28,7 +28,7 @@ describe("loader", () => {
     })
   })
 
-  describe("with data", () => {
+  suite("with data", () => {
     beforeEach<OrmTestContext>(async ({orm}) => {
       const user = orm.em.create(User, {
         email: faker.internet.exampleEmail()
@@ -112,7 +112,7 @@ describe("loader", () => {
       expect(page.prev).toBe(1)
     })
 
-    describe("errors", () => {
+    suite("errors", () => {
       test("throws 404 Response when page is out of range", async () => {
         expect.hasAssertions()
 
@@ -132,7 +132,7 @@ describe("loader", () => {
     })
   })
 
-  describe("common errors", () => {
+  suite("common errors", () => {
     test("throws 404 Response when page param is 0", async () => {
       expect.hasAssertions()
 

@@ -1,6 +1,6 @@
 import {faker} from "@faker-js/faker"
 import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
-import {describe, expect} from "vitest"
+import {expect, suite} from "vitest"
 
 import {test} from "../../fixtures/orm.js"
 import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.js"
@@ -9,7 +9,7 @@ import {loader} from "../../../app/routes/_blog.posts.$date.$name.jsx"
 import {Post, User} from "../../../app/server/db/entities.js"
 import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
 
-describe("loader", () => {
+suite("loader", () => {
   test("throws when post cannot be found", async () => {
     expect.hasAssertions()
 

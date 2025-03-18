@@ -1,6 +1,6 @@
 import {faker} from "@faker-js/faker"
 import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
-import {describe, expect} from "vitest"
+import {expect, suite} from "vitest"
 
 import {adminTest} from "../../fixtures/admin.js"
 import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
@@ -45,7 +45,7 @@ const test = adminTest.extend<PostEditTestContext>({
 
 createAdminAuthLoaderSuite(loader)
 
-describe("action", () => {
+suite("action", () => {
   test("redirects back to post", async ({post, admin}) => {
     expect.hasAssertions()
 

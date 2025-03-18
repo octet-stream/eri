@@ -1,5 +1,5 @@
 import {format} from "date-fns"
-import {describe, expect, test} from "vitest"
+import {expect, suite, test} from "vitest"
 
 import {
   SLUG_DATE_FORMAT,
@@ -7,7 +7,7 @@ import {
   formatSlugName
 } from "../../../../../app/server/lib/utils/slug.js"
 
-describe(formatSlugDate.name, () => {
+suite(formatSlugDate.name, () => {
   test("formats date", () => {
     const now = new Date()
 
@@ -18,7 +18,7 @@ describe(formatSlugDate.name, () => {
   })
 })
 
-describe(formatSlugName.name, () => {
+suite(formatSlugName.name, () => {
   test("formats name", () => {
     const actual = formatSlugName("Hello-world")
 

@@ -1,5 +1,5 @@
 import {faker} from "@faker-js/faker"
-import {describe, expect} from "vitest"
+import {expect, suite} from "vitest"
 
 import {test} from "../../fixtures/orm.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
@@ -8,7 +8,7 @@ import {User} from "../../../app/server/db/entities.js"
 
 import {action} from "../../../app/routes/admin_.setup/route.jsx"
 
-describe("action", () => {
+suite("action", () => {
   test("redirects to /admin upon success", async () => {
     expect.hasAssertions()
 

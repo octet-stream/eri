@@ -1,5 +1,5 @@
 import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
-import {describe, expect} from "vitest"
+import {expect, suite} from "vitest"
 
 import {adminTest} from "../fixtures/admin.js"
 import {ormTest} from "../fixtures/orm.js"
@@ -18,7 +18,7 @@ import type {Loader} from "../../app/server/lib/types/Loader.js"
  * @param loader - a loader to run tests for
  */
 export const createAdminAuthLoaderSuite = (loader: Loader<any, any>) =>
-  describe("admin auth loader", () => {
+  suite("admin auth loader", () => {
     ormTest("throws 401 with setup code", async () => {
       expect.hasAssertions()
 
