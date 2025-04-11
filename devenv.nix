@@ -10,6 +10,8 @@
 {
   cachix.enable = false;
 
+  packages = with pkgs; [ docker ];
+
   dotenv = {
     enable = true;
     filename = [
