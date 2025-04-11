@@ -9,7 +9,7 @@ overrides:
 
 patchedDependencies:
   react-router:
-    hash: fy2r6f56qfxejkc6wwx3hgt2rm
+    hash: 5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927
     path: patches/react-router.patch
 
 importers:
@@ -69,7 +69,7 @@ importers:
         version: 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-router/node':
         specifier: 7.0.2
-        version: 7.0.2(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)
+        version: 7.0.2(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)
       '@sindresorhus/slugify':
         specifier: 2.2.1
         version: 2.2.1
@@ -231,10 +231,10 @@ importers:
         version: 3.39.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-router:
         specifier: 7.3.0
-        version: 7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-router-hono-server:
         specifier: 2.11.0
-        version: 2.11.0(@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)))(@types/react@19.0.10)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+        version: 2.11.0(@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)))(@types/react@19.0.10)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
       react-textarea-autosize:
         specifier: 8.5.7
         version: 8.5.7(@types/react@19.0.10)(react@19.0.0)
@@ -292,10 +292,10 @@ importers:
         version: 9.6.0
       '@react-router/dev':
         specifier: 7.3.0
-        version: 7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+        version: 7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
       '@react-router/fs-routes':
         specifier: 7.3.0
-        version: 7.3.0(@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)))(typescript@5.8.2)
+        version: 7.3.0(@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)))(typescript@5.8.2)
       '@tailwindcss/postcss':
         specifier: 4.0.12
         version: 4.0.12
@@ -358,7 +358,7 @@ importers:
         version: 8.5.3
       react-router-devtools:
         specifier: 1.1.6
-        version: 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+        version: 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
       tailwindcss:
         specifier: 4.0.12
         version: 4.0.12
@@ -7111,7 +7111,7 @@ snapshots:
 
   '@react-dnd/shallowequal@4.0.2': {}
 
-  '@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))':
+  '@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))':
     dependencies:
       '@babel/core': 7.26.9
       '@babel/generator': 7.26.9
@@ -7122,7 +7122,7 @@ snapshots:
       '@babel/traverse': 7.26.9
       '@babel/types': 7.26.9
       '@npmcli/package-json': 4.0.1
-      '@react-router/node': 7.3.0(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)
+      '@react-router/node': 7.3.0(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)
       arg: 5.0.2
       babel-dead-code-elimination: 1.0.9
       chokidar: 4.0.3
@@ -7136,7 +7136,7 @@ snapshots:
       picocolors: 1.1.1
       prettier: 2.8.8
       react-refresh: 0.14.2
-      react-router: 7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       semver: 7.7.1
       set-cookie-parser: 2.7.1
       valibot: 0.41.0(typescript@5.8.2)
@@ -7160,27 +7160,27 @@ snapshots:
       - tsx
       - yaml
 
-  '@react-router/fs-routes@7.3.0(@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)))(typescript@5.8.2)':
+  '@react-router/fs-routes@7.3.0(@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)))(typescript@5.8.2)':
     dependencies:
-      '@react-router/dev': 7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+      '@react-router/dev': 7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
       minimatch: 9.0.5
     optionalDependencies:
       typescript: 5.8.2
 
-  '@react-router/node@7.0.2(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)':
+  '@react-router/node@7.0.2(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
-      react-router: 7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       source-map-support: 0.5.21
       stream-slice: 0.1.2
       undici: 6.21.1
     optionalDependencies:
       typescript: 5.8.2
 
-  '@react-router/node@7.3.0(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)':
+  '@react-router/node@7.3.0(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
-      react-router: 7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       source-map-support: 0.5.21
       stream-slice: 0.1.2
       undici: 6.21.1
@@ -9523,7 +9523,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.10
 
-  react-router-devtools@1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)):
+  react-router-devtools@1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)):
     dependencies:
       '@babel/core': 7.26.9
       '@babel/generator': 7.26.9
@@ -9543,7 +9543,7 @@ snapshots:
       react-diff-viewer-continued: 4.0.5(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-dom: 19.0.0(react@19.0.0)
       react-hotkeys-hook: 4.6.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react-router: 7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-tooltip: 5.28.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       vite: 6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)
     optionalDependencies:
@@ -9556,22 +9556,22 @@ snapshots:
       - '@types/react-dom'
       - supports-color
 
-  react-router-hono-server@2.11.0(@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)))(@types/react@19.0.10)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)):
+  react-router-hono-server@2.11.0(@react-router/dev@7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)))(@types/react@19.0.10)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)):
     dependencies:
       '@drizzle-team/brocli': 0.11.0
       '@hono/node-server': 1.13.8(hono@4.7.4)
       '@hono/node-ws': 1.1.0(@hono/node-server@1.13.8(hono@4.7.4))(hono@4.7.4)
       '@hono/vite-dev-server': 0.17.0(hono@4.7.4)
-      '@react-router/dev': 7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+      '@react-router/dev': 7.3.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
       '@types/react': 19.0.10
       hono: 4.7.4
-      react-router: 7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       vite: 6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  react-router@7.3.0(patch_hash=fy2r6f56qfxejkc6wwx3hgt2rm)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-router@7.3.0(patch_hash=5ef2d2f331883e050bec6d0c35a978fcd4161df3c4636df717d96ae4a0d6a927)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@types/cookie': 0.6.0
       cookie: 1.0.2
