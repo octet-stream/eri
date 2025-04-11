@@ -18,14 +18,18 @@ If none of these exists, then Eri will fallback to `process.env` object.
 
 There's two ways to set up the project for local development: You can either install dependencies manually on your machine, or you can use Devcontainers
 
-### Manual setup
+### Devenv (Nix)
 
-1. First of all, you'll need to install MariaDB;
-2. Then clone this repository `git clone git@github.com:octet-stream/eri.git`;
-3. When it's done, install dependencies using `pnpm install` command;
-4. Create either `.env.development.local` or `.env.local` and add required configuration;
-5. Now you are able to run dev server. To do so, run `pnpm dev` command;
-6. Open http://localhost:5173/admin and create admin account (if it doesn't exists).
+Before you begin, you'll need to install [Nix](https://nixos.org/) and [devenv](https://devenv.sh/) following their [instructions](https://devenv.sh/getting-started/#installation).
+Optionally you can install [direnv](https://direnv.net/)
+
+1. Activate shell either via:
+  * *Dir*env: `direnv allow`
+  * *Dev*env: `devenv shell`
+2. Start MariaDB server: `devenv up` - this will start services in the foreground. If you wish run services in the background, use `-d` flag like this: `devenv up -d`
+3. To start dev server, run following command: `pnpm dev`
+
+If you wish to stop services, run `devenv processes down`
 
 ### Devcontainers
 
@@ -39,6 +43,15 @@ Alternatively you can use [Devcontainers CLI](https://github.com/devcontainers/c
 3. Run the `devcontainer up --workspace-folder .` command. This will spin up a docker container for local development. Note that to install dependencies and run npm scripts (via pnpm) you'll need to use Devcontainer CLI.
 
 Check out VSCode documentation to learn more: https://code.visualstudio.com/docs/devcontainers/containers
+
+### Manual setup
+
+1. First of all, you'll need to install MariaDB;
+2. Then clone this repository `git clone git@github.com:octet-stream/eri.git`;
+3. When it's done, install dependencies using `pnpm install` command;
+4. Create either `.env.development.local` or `.env.local` and add required configuration;
+5. Now you are able to run dev server. To do so, run `pnpm dev` command;
+6. Open http://localhost:5173/admin and create admin account (if it doesn't exists).
 
 ## Production preview
 
