@@ -12,7 +12,7 @@ async function setup() {
   // @ts-expect-error
   process.env.DB_HOST = "localhost"
   // @ts-expect-error
-  process.env.DB_PORT = "3308"
+  process.env.DB_PORT = "3308" // TODO: Use random port
 
   await $`docker compose --env-file .env.test.local -f compose.test.yaml up --wait --build`
 
