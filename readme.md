@@ -24,8 +24,8 @@ Before you begin, you'll need to install [Nix](https://nixos.org/) and [devenv](
 Optionally you can install [direnv](https://direnv.net/)
 
 1. Activate shell either via:
-  * *Dir*env: `direnv allow`
-  * *Dev*env: `devenv shell`
+   - *Dir*env: `direnv allow`
+   - *Dev*env: `devenv shell`
 2. Start MariaDB server: `devenv up` - this will start services in the foreground. If you wish run services in the background, use `-d` flag like this: `devenv up -d`
 3. To start dev server, run following command: `pnpm dev`
 
