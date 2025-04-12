@@ -53,7 +53,10 @@
 
   services.mysql = {
     enable = true;
-    settings.mysqld.port = lib.toInt config.env.DB_PORT;
+    settings.mysqld = {
+      port = lib.toInt config.env.DB_PORT;
+      bind_address = "127.0.0.1";
+    };
     initialDatabases = [ { name = config.env.DB_NAME; } ];
     ensureUsers = [
       {
