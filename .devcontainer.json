@@ -1,0 +1,20 @@
+{
+  "containerEnv": {
+    "COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "biomejs.biome",
+        "editorconfig.editorconfig",
+        "github.vscode-github-actions",
+        "redhat.vscode-yaml",
+        "pinage404.nix-extension-pack",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  },
+  "image": "ghcr.io/cachix/devenv:v1.4",
+  "overrideCommand": false,
+  "updateContentCommand": "echo \"Devenv started\""
+}

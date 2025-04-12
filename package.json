@@ -47,7 +47,12 @@
     },
     "patchedDependencies": {
       "react-router": "patches/react-router.patch"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "esbuild",
+      "msw"
+    ]
   },
   "dependencies": {
     "@conform-to/react": "1.2.2",
