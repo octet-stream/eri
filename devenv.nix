@@ -10,7 +10,32 @@
 {
   cachix.enable = false;
 
-  packages = with pkgs; [ docker ];
+  packages = with pkgs; [
+    docker
+    nixd
+    nixfmt-rfc-style
+  ];
+
+  devcontainer = {
+    enable = true;
+    settings = {
+      image = "ghcr.io/cachix/devenv:v1.4";
+      updateContentCommand = "echo \"Devenv started\""; # Default command takes too much time to run, skipping it for now
+
+      containerEnv = {
+        COREPACK_ENABLE_DOWNLOAD_PROMPT = "0";
+      };
+
+      customizations.vscode.extensions = [
+        "biomejs.biome"
+        "editorconfig.editorconfig"
+        "github.vscode-github-actions"
+        "redhat.vscode-yaml"
+        "pinage404.nix-extension-pack"
+        "bradlc.vscode-tailwindcss"
+      ];
+    };
+  };
 
   dotenv = {
     enable = true;
@@ -47,8 +72,8 @@
   '';
 
   # https://devenv.sh/tests/
-  # enterTest = ''
-  #   echo "Running tests"
-  #   git --version | grep --color=auto "${pkgs.git.version}"
-  # '';
+  enterTest = ''
+    echo "Running tests"
+    git --version | grep --color=auto "${pkgs.git.version}"
+  '';
 }
