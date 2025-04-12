@@ -1,4 +1,7 @@
 {
+  // TS settings
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "[typescript][typescriptreact][javascript][jsonc][json]": {
     "editor.defaultFormatter": "biomejs.biome",
     "editor.formatOnSave": true,
@@ -6,14 +9,23 @@
       "quickfix.biome": "explicit"
     }
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  // Nix formatter
+  "[nix]": {
+    "editor.defaultFormatter": "jnoortheen.nix-ide",
+    "editor.formatOnSave": true
+  },
+
+  // Tailwindcss settings
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["c[nx]\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
   "tailwindCSS.emmetCompletions": true,
+
+  // File associations overrides
   "files.associations": {
-    "tailwind.css": "tailwindcss"
+    "tailwind.css": "tailwindcss",
+    "devenv.lock": "json"
   }
 }
