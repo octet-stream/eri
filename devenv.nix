@@ -57,13 +57,15 @@
       port = lib.toInt config.env.DB_PORT;
       bind_address = "127.0.0.1";
     };
+
     initialDatabases = [ { name = config.env.DB_NAME; } ];
+
     ensureUsers = [
       {
         name = config.env.DB_USER;
         password = config.env.DB_PASSWORD; # FIXME: Devenv ignores this on v1.3 for some reason
         ensurePermissions = {
-          "${config.env.DB_USER}.*" = "ALL PRIVILEGES";
+          "${config.env.DB_NAME}.*" = "ALL PRIVILEGES";
         };
       }
     ];
