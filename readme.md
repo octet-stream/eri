@@ -62,7 +62,7 @@ Check out VSCode documentation to learn more: https://code.visualstudio.com/docs
 ## Production preview
 
 1. Create either `.env.production.local` or `.env.local` and add required configuration;
-2. To build the project, run `pnpm turbo build`
+2. To build the project, run `pnpm build`
 3. Once production build is finished, run `pnpm start`
 4. Open http://localhost:3000/admin and create admin account (if it doesn't exists).
 
