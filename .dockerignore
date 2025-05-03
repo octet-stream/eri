@@ -2,14 +2,16 @@ node_modules
 coverage
 .DS_Store
 
-# Turborepo cache
-.turbo
-
 *.tsbuildinfo
 
+/.changeset
+/.direnv
+/.devenv
 /.github
+/.pnpm-store
+/.react-router
+/.tsimp
 /.vscode
-/.lintstagedrc.json
 
 # local env files
 .env*.local
