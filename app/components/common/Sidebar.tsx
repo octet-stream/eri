@@ -2,6 +2,7 @@ import {Slot} from "@radix-ui/react-slot"
 import {cn} from "@udecode/cn"
 import type {LucideIcon} from "lucide-react"
 import {type ComponentProps, type FC, Fragment, type ReactNode} from "react"
+import {Link} from "react-router"
 
 import {SheetClose, SheetContent, SheetTrigger} from "../ui/Sheet.jsx"
 
@@ -42,20 +43,18 @@ export const SidebarTrigger: FC<SidebarTriggerProps> = ({children}) => (
   <SheetTrigger className="post:hidden">{children}</SheetTrigger>
 )
 
-interface SidebarLinkItemProps extends ComponentProps<"a"> {
-  href: string
-  children: ReactNode
+interface SidebarLinkItemProps extends ComponentProps<typeof Link> {
   asChild?: boolean
 }
 
 const SidebarLinkItem: FC<SidebarLinkItemProps> = ({asChild, ...props}) => {
-  const Element = asChild ? Slot : "a"
+  const Element = asChild ? Slot : Link
 
   return <Element {...props} />
 }
 
 export interface SidebarButtonItemProps {
-  href?: never
+  to?: never
   children: ReactNode
   asChild?: boolean
 }
@@ -82,7 +81,7 @@ export type SidebarItemProps = SidebarItemBaseProps &
 export const SidebarItem: FC<SidebarItemProps> = ({
   icon: Icon,
   className,
-  href,
+  to,
   ...props
 }) => {
   return (
@@ -96,8 +95,8 @@ export const SidebarItem: FC<SidebarItemProps> = ({
         <div className="flex gap-3 items-center">
           <Icon size={20} />
 
-          {href ? (
-            <SidebarLinkItem {...props} href={href} />
+          {to ? (
+            <SidebarLinkItem {...props} to={to} />
           ) : (
             <SidebarButtonItem {...props} />
           )}
