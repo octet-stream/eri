@@ -121,7 +121,9 @@ export const action = withAdmin(
       return data(submission.reply(), 422)
     }
 
-    orm.em.assign(post, submission.value)
+    const {title, content} = submission.value
+
+    orm.em.assign(post, {title: title.textContent, content: content.toJSON()})
 
     await orm.em.flush()
 
