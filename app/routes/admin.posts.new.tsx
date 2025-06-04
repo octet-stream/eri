@@ -1,11 +1,7 @@
 import {getFormProps, getInputProps, useForm} from "@conform-to/react"
 import {parseWithZod} from "@conform-to/zod"
-import {getSchema} from "@tiptap/core"
-import {Node} from "@tiptap/pm/model"
 import type {FC} from "react"
 import {Form, data, href, replace} from "react-router"
-
-import {z} from "zod"
 
 import {
   Breadcrumb,
@@ -13,41 +9,20 @@ import {
 } from "../components/common/Breadcrumbs.jsx"
 import {Editor} from "../components/tiptap/Editor.jsx"
 import {EditorContent} from "../components/tiptap/EditorContent.jsx"
-import {extensions} from "../components/tiptap/extensions.js"
 import {Button} from "../components/ui/Button.jsx"
 
 import {adminContext} from "../server/contexts/admin.js"
 import {ormContext} from "../server/contexts/orm.js"
+import {Post} from "../server/db/entities.js"
 import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
 import {withAdmin} from "../server/lib/admin/withAdmin.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
+import {
+  type IPostCreateInput,
+  PostCreateInput
+} from "../server/zod/post/PostCreateInput.js"
 
-import {Post} from "../server/db/entities.js"
 import type {Route} from "./+types/admin.posts.new.js"
-
-// TODO: Move to server/zod/post
-const PostCreateInput = z
-  .object({
-    content: z.string()
-  })
-  .transform((value, ctx) => {
-    const schema = getSchema(extensions)
-    const nodes = Node.fromJSON(schema, JSON.parse(value.content)) // TODO: Improve and unify validation for post content
-    const title = nodes.content.firstChild
-
-    if (!title?.textContent || nodes.childCount < 2) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Post must have title and content"
-      })
-
-      return z.NEVER
-    }
-
-    return {title, content: nodes}
-  })
-
-type IPostCreateInput = z.input<typeof PostCreateInput>
 
 export const loader = noopAdminLoader
 

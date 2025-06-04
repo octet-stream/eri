@@ -1,22 +1,30 @@
 import {z} from "zod"
 
-import {PostContent} from "../plate/editors/PostContent.js"
+import {getSchema} from "@tiptap/core"
+import {Node} from "@tiptap/pm/model"
 
-export const PostCreateInput = z.object({
-  title: z.string().min(1).max(255),
-  content: z.string().transform(async (value, ctx) => {
-    // TODO: Handle JSON.parse errors
-    const result = await PostContent.safeParseAsync(JSON.parse(value || "[]"))
+import {extensions} from "../../../components/tiptap/extensions.js"
 
-    if (result.success) {
-      return result.data
+export const PostCreateInput = z
+  .object({
+    content: z.string()
+  })
+  .transform((value, ctx) => {
+    const schema = getSchema(extensions)
+    const nodes = Node.fromJSON(schema, JSON.parse(value.content)) // TODO: Improve and unify validation for post content
+    const title = nodes.content.firstChild
+
+    if (!title?.textContent || nodes.childCount < 2) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Post must have title and content"
+      })
+
+      return z.NEVER
     }
 
-    result.error.issues.forEach(issue => ctx.addIssue(issue))
-
-    return z.NEVER
+    return {title, content: nodes}
   })
-})
 
 export type IPostCreateInput = z.input<typeof PostCreateInput>
 

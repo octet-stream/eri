@@ -2,7 +2,7 @@ import type {z} from "zod"
 
 import {PostCreateInput} from "./PostCreateInput.js"
 
-export const PostUpdateInput = PostCreateInput.partial()
+export const PostUpdateInput = PostCreateInput
 
 export type IPostUpdateInput = z.input<typeof PostUpdateInput>
 
