@@ -1,18 +1,27 @@
 import type {z} from "zod"
 
-import {createPostContentEditor} from "../../../components/post-editor/editor.js"
-import {toHtml} from "../../lib/plate/toHtml.js"
+import {Fragment} from "@tiptap/pm/model"
+import {renderToHTMLString} from "@tiptap/static-renderer"
 
-import {PostOutputBase} from "./PostOutputBase.js"
+import {extensions} from "../../../components/tiptap/extensions.js"
 
-export const PostOutputView = PostOutputBase.transform(
-  ({content, ...post}) => ({
+import {PostOutput} from "./PostOutput.js"
+
+export const PostOutputView = PostOutput.transform(({content, ...post}) => {
+  return {
     ...post,
 
-    content: toHtml(createPostContentEditor({value: content}))
-  })
-)
+    // TODO: This can backfire badly if ProseMirror or tiptap will do validation here :D
+    // TODO: I need to loosen schema for this output, I think
+    content: renderToHTMLString({
+      extensions,
+      content: content
+        .copy(Fragment.fromArray(content.children.slice(1))) // Strip post title node from the view
+        .toJSON()
+    })
+  }
+})
 
 export type IPostOutputView = z.input<typeof PostOutputView>
 
-export type OPostOutputBase = z.output<typeof PostOutputView>
+export type OPostOutput = z.output<typeof PostOutputView>

@@ -4,7 +4,7 @@ import {cva} from "class-variance-authority"
 
 import type {OHeadingLevels} from "../../server/zod/plate/common/HeadingLevels.js"
 
-const headingVariants = cva("", {
+export const headingVariants = cva("", {
   variants: {
     variant: {
       h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",

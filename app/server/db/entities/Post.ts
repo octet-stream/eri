@@ -8,10 +8,10 @@ import {
   Unique
 } from "@mikro-orm/mariadb"
 import type {Hidden, Opt} from "@mikro-orm/mariadb"
+import type {JSONContent} from "@tiptap/core"
 
 import {formatSlug} from "../../lib/utils/slug.js"
 
-import type {OPostContent} from "../../zod/plate/editors/PostContent.js"
 import type {OPostCreateInput} from "../../zod/post/PostCreateInput.js"
 
 import {PostPrevKnownSlug} from "./PostPrevKnownSlug.js"
@@ -34,7 +34,7 @@ export class Post extends RecordSoft {
   title: string
 
   @Property<Post>({type: JsonType, lazy: true})
-  content: OPostContent
+  content: JSONContent
 
   /**
    * Human-readable, unique, URL-friendly identifier of the post
