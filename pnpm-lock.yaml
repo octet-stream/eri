@@ -166,6 +166,9 @@ importers:
       lucide-react:
         specifier: 0.487.0
         version: 0.487.0(react@19.1.0)
+      markdown-it:
+        specifier: 14.1.0
+        version: 14.1.0
       nanoid:
         specifier: 5.1.5
         version: 5.1.5
@@ -263,6 +266,9 @@ importers:
       '@types/is-hotkey':
         specifier: 0.1.10
         version: 0.1.10
+      '@types/markdown-it':
+        specifier: 14.1.2
+        version: 14.1.2
       '@types/node':
         specifier: 22.15.3
         version: 22.15.3

@@ -1,4 +1,9 @@
-import {getFormProps, getInputProps, useForm} from "@conform-to/react"
+import {
+  getFormProps,
+  getInputProps,
+  getTextareaProps,
+  useForm
+} from "@conform-to/react"
 import {parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
 import {data, href, replace} from "react-router"
@@ -8,6 +13,7 @@ import {
   type BreadcrumbHandle
 } from "../components/common/Breadcrumbs.jsx"
 import {Editor} from "../components/tiptap/Editor.jsx"
+import {EditorFallback} from "../components/tiptap/EditorFallback.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
 import {adminContext} from "../server/contexts/admin.js"
@@ -67,7 +73,11 @@ const Tiptap: FC<Route.ComponentProps> = ({actionData}) => {
 
   return (
     <EditorForm method="post" {...getFormProps(form)}>
-      <Editor {...getInputProps(fields.content, {type: "text"})} />
+      <div className="row-span-full">
+        <Editor {...getInputProps(fields.content, {type: "text"})} />
+
+        <EditorFallback />
+      </div>
 
       <div>
         <Button>Create</Button>

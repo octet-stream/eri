@@ -17,27 +17,25 @@ export const Editor: FC<EditorProps> = ({children, ...meta}) => {
   )
 
   return (
-    <div className="row-span-full">
-      <EditorProvider
-        extensions={extensions}
-        content={content}
-        immediatelyRender={false}
-        shouldRerenderOnTransaction={false}
-        editorContainerProps={{
-          className: "h-full"
-        }}
-        editorProps={{
-          attributes: {
-            class:
-              "w-full h-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          }
-        }}
-      >
-        {children}
-        <EditorBubbleMenu />
+    <EditorProvider
+      extensions={extensions}
+      content={content}
+      immediatelyRender={false}
+      shouldRerenderOnTransaction={false}
+      editorContainerProps={{
+        className: "h-full"
+      }}
+      editorProps={{
+        attributes: {
+          class:
+            "w-full h-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        }
+      }}
+    >
+      {children}
+      <EditorBubbleMenu />
 
-        <EditorContent {...meta} />
-      </EditorProvider>
-    </div>
+      <EditorContent {...meta} />
+    </EditorProvider>
   )
 }
