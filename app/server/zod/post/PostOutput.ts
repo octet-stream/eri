@@ -12,7 +12,6 @@ import {PostBaseOutput} from "./PostBaseOutput.js"
 const schema = getSchema(extensions)
 
 export const PostOutput = PostBaseOutput.extend({
-  // TODO: Improve and unify validation for post content
   content: AnyObject.transform(value => Node.fromJSON(schema, value))
 })
 

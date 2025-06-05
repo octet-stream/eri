@@ -1,30 +1,43 @@
 import {EditorProvider} from "@tiptap/react"
-import type {FC, ReactNode} from "react"
+import {type FC, type ReactNode, useMemo} from "react"
 
 import {EditorBubbleMenu} from "./EditorBubbleMenu.jsx"
+import {EditorContent, type EditorContentProps} from "./EditorContent.jsx"
 import {extensions} from "./extensions.js"
 
-export interface EditorProps {
+export interface EditorProps extends EditorContentProps {
   children?: ReactNode
+  defaultValue?: string
 }
 
-export const Editor: FC<EditorProps> = ({children}) => (
-  <EditorProvider
-    extensions={extensions}
-    immediatelyRender={false}
-    shouldRerenderOnTransaction={false}
-    editorContainerProps={{
-      className: "h-full"
-    }}
-    editorProps={{
-      attributes: {
-        class:
-          "w-full h-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      }
-    }}
-  >
-    {children}
+export const Editor: FC<EditorProps> = ({children, ...meta}) => {
+  const content = useMemo(
+    () => (meta.defaultValue ? JSON.parse(meta.defaultValue) : undefined),
+    [meta.defaultValue]
+  )
 
-    <EditorBubbleMenu />
-  </EditorProvider>
-)
+  return (
+    <div className="row-span-full">
+      <EditorProvider
+        extensions={extensions}
+        content={content}
+        immediatelyRender={false}
+        shouldRerenderOnTransaction={false}
+        editorContainerProps={{
+          className: "h-full"
+        }}
+        editorProps={{
+          attributes: {
+            class:
+              "w-full h-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          }
+        }}
+      >
+        {children}
+        <EditorBubbleMenu />
+
+        <EditorContent {...meta} />
+      </EditorProvider>
+    </div>
+  )
+}

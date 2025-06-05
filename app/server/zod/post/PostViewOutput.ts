@@ -7,7 +7,7 @@ import {extensions} from "../../../components/tiptap/extensions.js"
 
 import {PostOutput} from "./PostOutput.js"
 
-export const PostOutputView = PostOutput.transform(({content, ...post}) => {
+export const PostViewOutput = PostOutput.transform(({content, ...post}) => {
   return {
     ...post,
 
@@ -22,6 +22,6 @@ export const PostOutputView = PostOutput.transform(({content, ...post}) => {
   }
 })
 
-export type IPostOutputView = z.input<typeof PostOutputView>
+export type IPostViewOutput = z.input<typeof PostViewOutput>
 
-export type OPostOutput = z.output<typeof PostOutputView>
+export type OPostOutput = z.output<typeof PostViewOutput>

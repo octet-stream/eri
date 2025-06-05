@@ -1,16 +1,12 @@
 import {data} from "react-router"
 
-import {renderToHTMLString} from "@tiptap/static-renderer"
-
 import {ormContext} from "../server/contexts/orm.js"
 import {Post} from "../server/db/entities.js"
 import {withAdmin} from "../server/lib/admin/withAdmin.js"
-import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
+import {PostViewOutput} from "../server/zod/post/PostViewOutput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
-
-import {extensions} from "../components/tiptap/extensions.js"
 
 import type {Route} from "./+types/admin.posts.$date.$name._index.js"
 
@@ -39,8 +35,7 @@ export const loader = withAdmin(async (event: Route.LoaderArgs) => {
     }
   )
 
-  // @ts-ignore-error This will be fixed soon
-  return parseOutput(PostOutputView, post, {async: true})
+  return parseOutput(PostViewOutput, post, {async: true})
 })
 
 export const meta: Route.MetaFunction = ({data}) => [

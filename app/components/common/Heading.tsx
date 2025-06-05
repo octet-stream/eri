@@ -1,7 +1,7 @@
-import {withVariants} from "@udecode/cn"
-import {Box, withRef} from "@udecode/plate-common/react"
-import {cva} from "class-variance-authority"
+import {type VariantProps, cva} from "class-variance-authority"
+import type {ComponentProps, FC} from "react"
 
+import {cn} from "../../lib/utils/cn.js"
 import type {OHeadingLevels} from "../../server/zod/plate/common/HeadingLevels.js"
 
 export const headingVariants = cva("", {
@@ -17,23 +17,28 @@ export const headingVariants = cva("", {
   }
 })
 
-const HeadingElementVariants = withVariants(Box, headingVariants, ["variant"])
+export interface HeadingProps
+  extends ComponentProps<"h1">,
+    VariantProps<typeof headingVariants> {}
 
 /**
  * Common heading component.
  *
  * Renders specific tag depending on the `variant` property
  */
-export const Heading = withRef<typeof HeadingElementVariants>(
-  ({variant, children, ...props}, ref) => {
-    const Element = variant || "h1"
+export const Heading: FC<HeadingProps> = ({
+  variant,
+  className,
+  children,
+  ...props
+}) => {
+  const Element = variant || "h1"
 
-    return (
-      <HeadingElementVariants {...props} ref={ref} variant={variant} asChild>
-        <Element>{children}</Element>
-      </HeadingElementVariants>
-    )
-  }
-)
+  return (
+    <Element {...props} className={cn(headingVariants({variant}), className)}>
+      {children}
+    </Element>
+  )
+}
 
 Heading.displayName = "Heading"

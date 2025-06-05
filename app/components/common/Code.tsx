@@ -1,6 +1,7 @@
-import {cn} from "@udecode/cn"
 import type {ComponentPropsWithoutRef, ElementRef} from "react"
 import {forwardRef} from "react"
+
+import {cn} from "../../lib/utils/cn.js"
 
 export type CodeRef = ElementRef<"code">
 

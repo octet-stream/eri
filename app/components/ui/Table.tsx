@@ -1,6 +1,6 @@
 import type {ComponentProps, ComponentRef, FC} from "react"
 
-import {cn} from "@udecode/cn"
+import {cn} from "../../lib/utils/cn.js"
 
 export interface TableProps extends ComponentProps<"table"> {}
 

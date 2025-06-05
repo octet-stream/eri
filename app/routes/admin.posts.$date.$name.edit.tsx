@@ -1,33 +1,33 @@
 import {
   type SubmissionResult,
   getFormProps,
-  getTextareaProps,
+  getInputProps,
   useForm
 } from "@conform-to/react"
-import {getZodConstraint, parseWithZod} from "@conform-to/zod"
+import {parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
-import {data, href, redirect, useNavigation} from "react-router"
-import type {z} from "zod"
+import {Form, data, href, redirect, useNavigation} from "react-router"
 
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 
-import {PostEditor} from "../components/post-editor/PostEditor.jsx"
-import {PostEditorContent} from "../components/post-editor/PostEditorContent.jsx"
-import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
+import {Editor} from "../components/tiptap/Editor.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
 import {Post} from "../server/db/entities.js"
 import {withAdmin} from "../server/lib/admin/withAdmin.js"
 import {matchHttpMethods} from "../server/lib/utils/matchHttpMethods.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
-import {AdminPostOutputEdit} from "../server/zod/admin/AdminPostOutputEdit.js"
-import {ClientPostUpdateInput} from "../server/zod/post/ClientPostUpdateInput.js"
+import {
+  AdminPostInput,
+  type IAdminPostInput
+} from "../server/zod/admin/AdminPostInput.js"
+import {AdminPostUpdateOutput} from "../server/zod/admin/AdminPostUpdateOutput.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
-import {PostUpdateInput} from "../server/zod/post/PostUpdateInput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
+import {EditorForm} from "../components/tiptap/EditorForm.jsx"
 import {ormContext} from "../server/contexts/orm.js"
 import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
 
@@ -57,7 +57,7 @@ export const loader = withAdmin(async (event: Route.LoaderArgs) => {
     }
   )
 
-  return parseOutput(AdminPostOutputEdit, post, {async: true})
+  return parseOutput(AdminPostUpdateOutput, post, {async: true})
 })
 
 export const action = withAdmin(
@@ -113,7 +113,7 @@ export const action = withAdmin(
     )
 
     const submission = await parseWithZod(await request.formData(), {
-      schema: PostUpdateInput,
+      schema: AdminPostInput,
       async: true
     })
 
@@ -147,35 +147,19 @@ const AdminPostEditPage: FC<Route.ComponentProps> = ({
 }) => {
   const navigation = useNavigation()
 
-  const [form, fields] = useForm<z.input<typeof ClientPostUpdateInput>>({
+  const [form, fields] = useForm<IAdminPostInput>({
     defaultValue: loaderData,
-    lastResult: navigation.state === "idle" ? actionData : null,
-    constraint: getZodConstraint(ClientPostUpdateInput),
-    shouldValidate: "onBlur",
-    shouldRevalidate: "onBlur",
-
-    onValidate: ({formData}) =>
-      parseWithZod(formData, {schema: ClientPostUpdateInput})
+    lastResult: navigation.state === "idle" ? actionData : null
   })
 
   return (
-    <PostEditor
-      {...getFormProps(form)}
-      context={form.context}
-      method="patch"
-      className="contents"
-    >
-      <PostEditorTitle
-        {...getTextareaProps(fields.title)}
-        key={fields.title.key}
-      />
+    <EditorForm {...getFormProps(form)} method="patch">
+      <Editor {...getInputProps(fields.content, {type: "text"})} />
 
-      <PostEditorContent meta={fields.content} key={fields.content.key} />
-
-      <div className="flex justify-end">
-        <Button type="submit">Save</Button>
+      <div>
+        <Button>Save</Button>
       </div>
-    </PostEditor>
+    </EditorForm>
   )
 }
 
