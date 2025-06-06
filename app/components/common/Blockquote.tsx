@@ -1,25 +1,25 @@
-import type {ComponentPropsWithoutRef, ElementRef} from "react"
-import {forwardRef} from "react"
+import {cva} from "class-variance-authority"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
 import {cn} from "../../lib/utils/cn.js"
 
-export type BlockquoteRef = ElementRef<"blockquote">
+export type BlockquoteRef = ComponentRef<"blockquote">
 
-export type BlockquoteProps = ComponentPropsWithoutRef<"blockquote">
+export type BlockquoteProps = ComponentProps<"blockquote">
+
+export const blockquoteVariants = cva("my-1 border-l-2 pl-6 italic")
 
 /**
  * Styled `<blockquote>` component
  */
-export const Blockquote = forwardRef<BlockquoteRef, BlockquoteProps>(
-  ({className, children, ...props}, ref) => (
-    <blockquote
-      {...props}
-      ref={ref}
-      className={cn("my-1 border-l-2 pl-6 italic", className)}
-    >
-      {children}
-    </blockquote>
-  )
+export const Blockquote: FC<BlockquoteProps> = ({
+  className,
+  children,
+  ...props
+}) => (
+  <blockquote {...props} className={cn(blockquoteVariants(), className)}>
+    {children}
+  </blockquote>
 )
 
 Blockquote.displayName = "Blockquote"

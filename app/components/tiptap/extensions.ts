@@ -5,15 +5,17 @@ import {Placeholder} from "@tiptap/extensions"
 import {BubbleMenu} from "@tiptap/extension-bubble-menu"
 
 import {Bold} from "@tiptap/extension-bold"
-import {Code} from "@tiptap/extension-code"
 import {Italic} from "@tiptap/extension-italic"
 import {Link} from "@tiptap/extension-link"
 import {Strike} from "@tiptap/extension-strike"
 import {Subscript} from "@tiptap/extension-subscript"
 import {Superscript} from "@tiptap/extension-superscript"
 
+import {Blockquote} from "./extensions/Blockquote.jsx"
 import {Heading} from "./extensions/Heading.jsx"
 import {Paragraph} from "./extensions/Paragraph.jsx"
+
+import {InlineCode} from "./extensions/InlineCode.jsx"
 
 export const PostDocument = Document.extend({
   content: "heading block*"
@@ -28,6 +30,7 @@ export const extensions = [
   // Blocks
   Heading,
   Paragraph,
+  Blockquote,
 
   // Marks
   Bold,
@@ -35,7 +38,7 @@ export const extensions = [
   Strike,
   Subscript,
   Superscript,
-  Code,
+  InlineCode,
   Link,
 
   // Functional
