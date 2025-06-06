@@ -142,9 +142,11 @@ const AdminPostEditPage: FC<Route.ComponentProps> = ({
 
   return (
     <EditorForm {...getFormProps(form)} method="post">
-      <Editor {...getInputProps(fields.content, {type: "text"})} />
+      <div className="row-span-full">
+        <Editor {...getInputProps(fields.content, {type: "text"})} />
 
-      <EditorFallback {...getTextareaProps(fields.markdown)} />
+        <EditorFallback {...getTextareaProps(fields.markdown)} />
+      </div>
 
       <div>
         <Button>Save</Button>
