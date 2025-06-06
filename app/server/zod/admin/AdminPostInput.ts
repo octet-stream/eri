@@ -70,6 +70,25 @@ const md = new MarkdownParser(schema, MarkdownIt("commonmark", {html: false}), {
   code_inline: {mark: "code", noCloseToken: true}
 })
 
+const AdminPostEditorInput = z.object({
+  fallback: z
+    .string()
+    .optional()
+    .pipe(z.coerce.boolean().default(false))
+    .pipe(z.literal(false).default(false)),
+  content: z.string().min(1)
+})
+
+const AdminPostFallbackInput = z.object({
+  fallback: z.string().pipe(z.coerce.boolean()).pipe(z.literal(true)),
+  markdown: z.string().min(1)
+})
+
+const AdminPostEitherInput = z.union([
+  AdminPostEditorInput,
+  AdminPostFallbackInput
+])
+
 const AdminPostInputOutput = z.object({
   title: z.instanceof(Node),
   content: z.instanceof(Node)
@@ -124,18 +143,14 @@ function parseFromJsonString(
   return z.NEVER
 }
 
-export const AdminPostInput = z
-  .object({
-    format: z.literal("markdown").optional(),
-    content: z.string()
-  })
-  .transform((value, ctx) => {
-    const parser =
-      value.format === "markdown" ? parseFromMarkdown : parseFromJsonString
+export const AdminPostInput = AdminPostEitherInput.transform((value, ctx) => {
+  console.log(value)
+  if (value.fallback) {
+    return parseFromMarkdown(value.markdown, ctx)
+  }
 
-    return parser(value.content, ctx)
-  })
-  .pipe(AdminPostInputOutput)
+  return parseFromJsonString(value.content, ctx)
+}).pipe(AdminPostInputOutput)
 
 export type IAdminPostInput = z.input<typeof AdminPostInput>
 

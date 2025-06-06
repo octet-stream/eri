@@ -1,4 +1,9 @@
-import {getFormProps, getInputProps, useForm} from "@conform-to/react"
+import {
+  getFormProps,
+  getInputProps,
+  getTextareaProps,
+  useForm
+} from "@conform-to/react"
 import {parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
 import {data, href, replace} from "react-router"
@@ -36,7 +41,7 @@ export const action = withAdmin(
     })
 
     if (submission.status !== "success") {
-      throw data(submission.reply(), 422)
+      return data(submission.reply(), 422)
     }
 
     const {title, content} = submission.value
@@ -71,7 +76,7 @@ const Tiptap: FC<Route.ComponentProps> = ({actionData}) => {
       <div className="row-span-full">
         <Editor {...getInputProps(fields.content, {type: "text"})} />
 
-        <EditorFallback />
+        <EditorFallback {...getTextareaProps(fields.markdown)} />
       </div>
 
       <div>

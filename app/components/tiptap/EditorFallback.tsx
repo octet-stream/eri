@@ -25,6 +25,6 @@ export const EditorFallback: FC<EditorFallbackProps> = ({
       )}
     />
 
-    <input type="hidden" name="format" value={format} />
+    <input type="hidden" name="fallback" value="true" />
   </noscript>
 )

@@ -65,7 +65,7 @@ export const action = withAdmin(
     const orm = context.get(ormContext)
 
     if (!matchHttpMethods(request, "PATCH")) {
-      throw data(
+      return data(
         {
           error: {
             "": ["Incorrect HTTP method. Use PATCH method instead."]
