@@ -2,6 +2,7 @@ import {
   type SubmissionResult,
   getFormProps,
   getInputProps,
+  getTextareaProps,
   useForm
 } from "@conform-to/react"
 import {parseWithZod} from "@conform-to/zod"
@@ -12,6 +13,7 @@ import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 
 import {Editor} from "../components/tiptap/Editor.jsx"
+import {EditorFallback} from "../components/tiptap/EditorFallback.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
 import {Post} from "../server/db/entities.js"
@@ -63,20 +65,6 @@ export const loader = withAdmin(async (event: Route.LoaderArgs) => {
 export const action = withAdmin(
   async ({request, params, context}: Route.ActionArgs) => {
     const orm = context.get(ormContext)
-
-    if (!matchHttpMethods(request, "PATCH")) {
-      return data(
-        {
-          error: {
-            "": ["Incorrect HTTP method. Use PATCH method instead."]
-          }
-        } satisfies SubmissionResult,
-
-        {
-          status: 405
-        }
-      )
-    }
 
     const slug = await parseInput(PostSlug, params, {
       async: true,
@@ -153,8 +141,10 @@ const AdminPostEditPage: FC<Route.ComponentProps> = ({
   })
 
   return (
-    <EditorForm {...getFormProps(form)} method="patch">
+    <EditorForm {...getFormProps(form)} method="post">
       <Editor {...getInputProps(fields.content, {type: "text"})} />
+
+      <EditorFallback {...getTextareaProps(fields.markdown)} />
 
       <div>
         <Button>Save</Button>
