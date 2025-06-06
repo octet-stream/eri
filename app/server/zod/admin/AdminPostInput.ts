@@ -144,7 +144,6 @@ function parseFromJsonString(
 }
 
 export const AdminPostInput = AdminPostEitherInput.transform((value, ctx) => {
-  console.log(value)
   if (value.fallback) {
     return parseFromMarkdown(value.markdown, ctx)
   }

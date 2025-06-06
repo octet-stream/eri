@@ -15,13 +15,14 @@ import {Blockquote} from "./extensions/Blockquote.jsx"
 import {Heading} from "./extensions/Heading.jsx"
 import {Paragraph} from "./extensions/Paragraph.jsx"
 
+import type {AnyExtension} from "@tiptap/core"
 import {InlineCode} from "./extensions/InlineCode.jsx"
 
 export const PostDocument = Document.extend({
   content: "heading block*"
 })
 
-export const extensions = [
+export const extensions: AnyExtension[] = [
   // Misc
   PostDocument,
   Text,
@@ -30,7 +31,7 @@ export const extensions = [
   // Blocks
   Heading,
   Paragraph,
-  Blockquote,
+  Blockquote as any, // FIXME: Figure out why the types are incompatible
 
   // Marks
   Bold,
