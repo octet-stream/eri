@@ -1,6 +1,6 @@
 import {Document} from "@tiptap/extension-document"
 import {Text} from "@tiptap/extension-text"
-import {Placeholder} from "@tiptap/extensions"
+import {Placeholder, UndoRedo} from "@tiptap/extensions"
 
 import {BubbleMenu} from "@tiptap/extension-bubble-menu"
 
@@ -24,9 +24,10 @@ export const PostDocument = Document.extend({
 
 export const extensions: AnyExtension[] = [
   // Misc
+  UndoRedo,
+  Placeholder.configure({placeholder: "Write something..."}),
   PostDocument,
   Text,
-  Placeholder.configure({placeholder: "Write something..."}),
 
   // Blocks
   Heading,
