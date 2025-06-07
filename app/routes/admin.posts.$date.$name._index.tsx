@@ -40,7 +40,7 @@ export const loader = withAdmin(async (event: Route.LoaderArgs) => {
 
 export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: data.title
+    title: data?.title
   }
 ]
 

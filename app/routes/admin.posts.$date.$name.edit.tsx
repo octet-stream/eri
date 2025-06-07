@@ -18,7 +18,6 @@ import {Button} from "../components/ui/Button.jsx"
 
 import {Post} from "../server/db/entities.js"
 import {withAdmin} from "../server/lib/admin/withAdmin.js"
-import {matchHttpMethods} from "../server/lib/utils/matchHttpMethods.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
 import {
   AdminPostInput,
@@ -39,7 +38,6 @@ export const loader = withAdmin(async (event: Route.LoaderArgs) => {
   const orm = context.get(ormContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
-
   const post = await orm.em.findOneOrFail(
     Post,
 
@@ -121,7 +119,7 @@ export const action = withAdmin(
 
 export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: `${data.title} - Edit post`
+    title: data ? `${data.title} - Edit post` : undefined
   }
 ]
 
