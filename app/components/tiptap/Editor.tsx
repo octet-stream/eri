@@ -18,7 +18,7 @@ export const Editor: FC<EditorProps> = ({children, ...meta}) => {
 
   return (
     <EditorProvider
-      extensions={extensions as any}
+      extensions={extensions}
       content={content}
       immediatelyRender={false}
       shouldRerenderOnTransaction={false}
@@ -27,6 +27,7 @@ export const Editor: FC<EditorProps> = ({children, ...meta}) => {
       }}
       editorProps={{
         attributes: {
+          role: "textbox",
           class:
             "w-full h-0 min-h-full overflow-y-scroll rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         }
