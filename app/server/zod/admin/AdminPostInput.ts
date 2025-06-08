@@ -11,7 +11,7 @@ import {Node} from "@tiptap/pm/model"
 
 import {MarkdownParser} from "@tiptap/pm/markdown"
 
-import {extensions} from "../../../components/tiptap/extensions.js"
+import {extensions} from "../../../components/post-editor/extensions.js"
 
 const schema = getSchema(extensions)
 

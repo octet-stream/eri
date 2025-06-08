@@ -3,7 +3,7 @@ import type {z} from "zod"
 import {getSchema} from "@tiptap/core"
 import {Node} from "@tiptap/pm/model"
 
-import {extensions} from "../../../components/tiptap/extensions.js"
+import {extensions} from "../../../components/post-editor/extensions.js"
 
 import {AnyObject} from "../common/AnyObject.js"
 

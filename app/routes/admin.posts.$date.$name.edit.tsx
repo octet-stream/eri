@@ -12,8 +12,8 @@ import {data, href, redirect, useNavigation} from "react-router"
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 
-import {Editor} from "../components/tiptap/Editor.jsx"
-import {EditorFallback} from "../components/tiptap/EditorFallback.jsx"
+import {Editor} from "../components/post-editor/Editor.jsx"
+import {EditorFallback} from "../components/post-editor/EditorFallback.jsx"
 import {Button} from "../components/ui/Button.jsx"
 
 import {Post} from "../server/db/entities.js"
@@ -28,7 +28,7 @@ import {PostSlug} from "../server/zod/post/PostSlug.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
-import {EditorForm} from "../components/tiptap/EditorForm.jsx"
+import {EditorForm} from "../components/post-editor/EditorForm.jsx"
 import {ormContext} from "../server/contexts/orm.js"
 import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
 

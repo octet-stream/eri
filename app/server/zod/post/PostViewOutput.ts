@@ -3,7 +3,7 @@ import type {z} from "zod"
 import {Fragment} from "@tiptap/pm/model"
 import {renderToHTMLString} from "@tiptap/static-renderer"
 
-import {extensions} from "../../../components/tiptap/extensions.js"
+import {extensions} from "../../../components/post-editor/extensions.js"
 
 import {PostOutput} from "./PostOutput.js"
 
