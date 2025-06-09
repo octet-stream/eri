@@ -1,0 +1,16 @@
+diff --git a/dist/index.js b/dist/index.js
+index 6a136237407815dadb4fbc10ea24921b91b95b6d..be6027b7fe8cd7b8f9e54bff633d1f6f21e99501 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -180,10 +180,10 @@ var FloatingMenuView = class {
+   hide() {
+     this.element.style.visibility = "hidden";
+     this.element.style.opacity = "0";
+-    this.element.remove();
+   }
+   destroy() {
+     this.hide();
++    this.element.remove();
+     this.element.removeEventListener("mousedown", this.mousedownHandler, { capture: true });
+     this.editor.off("focus", this.focusHandler);
+     this.editor.off("blur", this.blurHandler);

@@ -50,7 +50,10 @@
       "@tailwindcss/oxide",
       "esbuild",
       "msw"
-    ]
+    ],
+    "patchedDependencies": {
+      "@tiptap/extension-floating-menu": "patches/@tiptap__extension-floating-menu.patch"
+    }
   },
   "dependencies": {
     "@conform-to/react": "1.6.1",
@@ -66,6 +69,7 @@
     "@radix-ui/react-label": "2.1.7",
     "@radix-ui/react-popover": "1.1.14",
     "@radix-ui/react-scroll-area": "1.2.9",
+    "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-separator": "1.1.7",
     "@radix-ui/react-slot": "1.2.3",
     "@radix-ui/react-toolbar": "1.1.10",
@@ -79,6 +83,7 @@
     "@tiptap/extension-bubble-menu": "3.0.0-beta.7",
     "@tiptap/extension-code": "3.0.0-beta.7",
     "@tiptap/extension-document": "3.0.0-beta.7",
+    "@tiptap/extension-floating-menu": "3.0.0-beta.7",
     "@tiptap/extension-heading": "3.0.0-beta.7",
     "@tiptap/extension-italic": "3.0.0-beta.7",
     "@tiptap/extension-link": "3.0.0-beta.7",
@@ -113,7 +118,6 @@
     "react-hot-toast": "2.5.2",
     "react-is": "19.1.0",
     "react-lite-youtube-embed": "2.4.0",
-    "react-query": "3.39.3",
     "react-router": "7.6.2",
     "react-router-hono-server": "2.13.0",
     "react-textarea-autosize": "8.5.9",

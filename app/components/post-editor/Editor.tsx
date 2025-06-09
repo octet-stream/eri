@@ -3,6 +3,7 @@ import {type FC, type ReactNode, useMemo} from "react"
 
 import {EditorBubbleMenu} from "./EditorBubbleMenu.jsx"
 import {EditorContent, type EditorContentProps} from "./EditorContent.jsx"
+import {FloatingToolbar} from "./FloatingToolbar.jsx"
 import {extensions} from "./extensions.js"
 
 export interface EditorProps extends EditorContentProps {
@@ -35,6 +36,8 @@ export const Editor: FC<EditorProps> = ({children, ...meta}) => {
     >
       {children}
       <EditorBubbleMenu />
+
+      <FloatingToolbar />
 
       <EditorContent {...meta} />
     </EditorProvider>
