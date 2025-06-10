@@ -3,6 +3,8 @@ import type {FC} from "react"
 import {unstable_RouterContextProvider as RouteContextProvider} from "react-router"
 import {expect, suite, vi} from "vitest"
 
+import dedent from "dedent"
+
 import {adminTest} from "../../../../fixtures/admin.js"
 import {createStubMiddlewareArgs} from "../../../../utils/createStubRouteArgs.js"
 import {noopFunction} from "../../../../utils/noopFunction.js"
@@ -13,7 +15,10 @@ import {
   type ServerRouteManifest,
   getRouteMatches
 } from "../../../../../app/server/lib/utils/routes.js"
-import {createNodeId} from "../../../../../app/server/zod/plate/utils/nodeId.js"
+import {
+  AdminPostInput,
+  type IAdminPostInput
+} from "../../../../../app/server/zod/admin/AdminPostInput.js"
 
 import {withCheckPostPks} from "../../../../../app/server/middlewares/router/withCheckPostPks.js"
 
@@ -38,21 +43,19 @@ interface PostEditTestContext {
 
 const test = adminTest.extend<PostEditTestContext>({
   async post({orm, admin}, use) {
+    const input = AdminPostInput.parse({
+      fallback: "true",
+      markdown: dedent`
+        # ${faker.lorem.sentence({min: 3, max: 4})}
+
+        ${faker.lorem.paragraph()}
+      `
+    } satisfies IAdminPostInput)
+
     const post = orm.em.create(Post, {
       author: admin.viewer,
-      title: faker.lorem.sentence({min: 3, max: 5}),
-      content: [
-        {
-          id: createNodeId(),
-          type: "p",
-          children: [
-            {
-              id: createNodeId(),
-              text: faker.lorem.paragraph()
-            }
-          ]
-        }
-      ]
+      title: input.title.textContent,
+      content: input.content.toJSON()
     })
 
     await orm.em.persistAndFlush(post)

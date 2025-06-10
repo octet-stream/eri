@@ -305,6 +305,9 @@ importers:
       cookie-es:
         specifier: 1.2.2
         version: 1.2.2
+      dedent:
+        specifier: 1.6.0
+        version: 1.6.0(babel-plugin-macros@3.1.0)
       execa:
         specifier: 9.5.2
         version: 9.5.2

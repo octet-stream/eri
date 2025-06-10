@@ -19,7 +19,9 @@ afterAll(async () => {
 })
 
 beforeEach(async () => {
-  await orm.getSchemaGenerator().refreshDatabase()
+  const generator = orm.getSchemaGenerator()
+  await generator.dropSchema({dropForeignKeys: true, dropMigrationsTable: true})
+  await generator.createSchema()
 })
 
 export const ormTest = test.extend<OrmTestContext>({

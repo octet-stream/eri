@@ -23,7 +23,7 @@ services:
       - target: 3306
         published: 3308
     environment:
-      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
     volumes:
       - db:/var/lib/mysql
     networks:

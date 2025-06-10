@@ -1,4 +1,6 @@
+import {readFile} from "node:fs/promises"
 import {resolve} from "node:path"
+import {parseEnv} from "node:util"
 
 import pc from "picocolors"
 
@@ -7,12 +9,21 @@ import {Env} from "./zod/Env.js"
 // @ts-expect-error Allow to override this readonly property here
 process.env.NODE_ENV = Env.parse(process.env.NODE_ENV)
 
-function loadEnv(name: string): boolean {
+async function loadEnv(name: string): Promise<boolean> {
   let hasFound = false
 
   const path = resolve(name)
   try {
-    process.loadEnvFile(path)
+    const envs = parseEnv(await readFile(path, "utf-8"))
+
+    Object.entries(envs).forEach(([key, value]) => {
+      if (
+        !(key in process.env) ||
+        (process.env.NODE_ENV === "test" && process.env.IN_NIX_SHELL)
+      ) {
+        process.env[key] = value
+      }
+    })
 
     hasFound = true
   } catch (error) {
@@ -25,7 +36,7 @@ function loadEnv(name: string): boolean {
     const color = hasFound ? pc.green : pc.yellow
 
     if (process.env.NODE_ENV !== "test") {
-      console.log("Load env from %s (%s)", path, color(status))
+      console.log(`Load env from ${path} (${color(status)})`)
     }
   }
 
@@ -40,7 +51,14 @@ const sources = [
   ".env"
 ] as const
 
-const loadedAny = sources.some(source => loadEnv(source))
+let loadedAny = false
+for (const source of sources) {
+  if (await loadEnv(source)) {
+    loadedAny = true
+    break
+  }
+}
+
 if (!loadedAny) {
   console.info("No .env files found. Fallback to process.env object.")
 }

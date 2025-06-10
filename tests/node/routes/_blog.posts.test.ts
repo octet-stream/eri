@@ -1,11 +1,13 @@
 import {faker} from "@faker-js/faker"
 import {beforeEach, expect, suite} from "vitest"
 
+import dedent from "dedent"
+
 import {type OrmTestContext, test} from "../../fixtures/orm.js"
 import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.js"
 
 import {Post, User} from "../../../app/server/db/entities.js"
-import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
+import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.js"
 
 import {loader} from "../../../app/routes/_blog._index/route.jsx"
 
@@ -34,22 +36,20 @@ suite("loader", () => {
         email: faker.internet.exampleEmail()
       })
 
+      const input = AdminPostInput.parse({
+        fallback: "true",
+        markdown: dedent`
+          # ${faker.lorem.sentence({min: 3, max: 4})}
+  
+          ${faker.lorem.paragraph()}
+        `
+      })
+
       const posts = Array.from({length: 200}, () =>
         orm.em.create(Post, {
           author: user,
-          title: faker.lorem.sentence({min: 3, max: 5}),
-          content: [
-            {
-              id: createNodeId(),
-              type: "p",
-              children: [
-                {
-                  id: createNodeId(),
-                  text: faker.lorem.paragraph()
-                }
-              ]
-            }
-          ]
+          title: input.title.textContent,
+          content: input.content.toJSON()
         })
       )
 
