@@ -106,11 +106,11 @@ const AdminLayout: FC<Route.ComponentProps> = () => (
 
       <div className="w-full laptop:max-w-laptop mx-auto post:grid post:grid-flow-col post:grid-cols-[200px_minmax(0,1fr)] items-start">
         <Sidebar>
-          <SidebarItem icon={SquarePen} href="/admin/posts/new">
+          <SidebarItem icon={SquarePen} to="/admin/posts/new">
             New post
           </SidebarItem>
 
-          <SidebarItem icon={Settings2} href="/admin/settings">
+          <SidebarItem icon={Settings2} to="/admin/settings">
             Settings
           </SidebarItem>
 

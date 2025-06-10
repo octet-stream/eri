@@ -4,11 +4,11 @@ import {
   getCoreRowModel,
   useReactTable
 } from "@tanstack/react-table"
-import {cn} from "@udecode/cn"
 import {MoreHorizontal} from "lucide-react"
 import type {FC} from "react"
 import {useLoaderData} from "react-router"
 
+import {cn} from "../../../lib/utils/cn.js"
 import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
 import type {OPasskeyOutput} from "../../../server/zod/admin/PasskeyOutput.js"
 

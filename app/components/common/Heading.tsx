@@ -1,15 +1,15 @@
-import {withVariants} from "@udecode/cn"
-import {Box, withRef} from "@udecode/plate-common/react"
-import {cva} from "class-variance-authority"
+import {type VariantProps, cva} from "class-variance-authority"
+import type {ComponentProps, FC} from "react"
 
+import {cn} from "../../lib/utils/cn.js"
 import type {OHeadingLevels} from "../../server/zod/plate/common/HeadingLevels.js"
 
-const headingVariants = cva("", {
+export const headingVariants = cva("", {
   variants: {
     variant: {
-      h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
-      h2: "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
-      h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
+      h1: "scroll-m-20 text-4xl font-extrabold tracking-tight text-balance",
+      h2: "mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0",
+      h3: "mt-8 scroll-m-20 text-2xl font-semibold tracking-tight",
       h4: "scroll-m-20 text-xl font-semibold tracking-tight",
       h5: "scroll-m-20 text-lg font-semibold tracking-tight",
       h6: "scroll-m-20 text-base font-semibold tracking-tight"
@@ -17,23 +17,28 @@ const headingVariants = cva("", {
   }
 })
 
-const HeadingElementVariants = withVariants(Box, headingVariants, ["variant"])
+export interface HeadingProps
+  extends ComponentProps<"h1">,
+    VariantProps<typeof headingVariants> {}
 
 /**
  * Common heading component.
  *
  * Renders specific tag depending on the `variant` property
  */
-export const Heading = withRef<typeof HeadingElementVariants>(
-  ({variant, children, ...props}, ref) => {
-    const Element = variant || "h1"
+export const Heading: FC<HeadingProps> = ({
+  variant,
+  className,
+  children,
+  ...props
+}) => {
+  const Element = variant || "h1"
 
-    return (
-      <HeadingElementVariants {...props} ref={ref} variant={variant} asChild>
-        <Element>{children}</Element>
-      </HeadingElementVariants>
-    )
-  }
-)
+  return (
+    <Element {...props} className={cn(headingVariants({variant}), className)}>
+      {children}
+    </Element>
+  )
+}
 
 Heading.displayName = "Heading"

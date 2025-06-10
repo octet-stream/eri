@@ -1,7 +1,8 @@
 import {Indicator, Root} from "@radix-ui/react-checkbox"
-import {cn} from "@udecode/cn"
 import {Check} from "lucide-react"
 import type {ComponentProps, ComponentRef, FC} from "react"
+
+import {cn} from "../../lib/utils/cn.js"
 
 export type CheckboxProps = ComponentProps<typeof Root>
 

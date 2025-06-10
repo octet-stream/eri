@@ -2,12 +2,14 @@ import {faker} from "@faker-js/faker"
 import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
 import {expect, suite} from "vitest"
 
+import dedent from "dedent"
+
 import {test} from "../../fixtures/orm.js"
 import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.js"
 
 import {loader} from "../../../app/routes/_blog.posts.$date.$name.jsx"
 import {Post, User} from "../../../app/server/db/entities.js"
-import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
+import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.js"
 
 suite("loader", () => {
   test("throws when post cannot be found", async () => {
@@ -36,21 +38,19 @@ suite("loader", () => {
       email: faker.internet.email()
     })
 
+    const input = AdminPostInput.parse({
+      fallback: "true",
+      markdown: dedent`
+        # ${faker.lorem.sentence({min: 3, max: 4})}
+
+        ${faker.lorem.paragraph()}
+      `
+    })
+
     const post = orm.em.create(Post, {
       author: user,
-      title: faker.lorem.sentence({min: 3, max: 4}),
-      content: [
-        {
-          id: createNodeId(),
-          type: "p",
-          children: [
-            {
-              id: createNodeId(),
-              text: faker.lorem.paragraph()
-            }
-          ]
-        }
-      ]
+      title: input.title.textContent,
+      content: input.content.toJSON()
     })
 
     await orm.em.persistAndFlush(post)

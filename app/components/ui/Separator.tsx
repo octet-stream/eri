@@ -1,7 +1,7 @@
 import {Root} from "@radix-ui/react-separator"
 import type {ComponentProps, ComponentRef, FC} from "react"
 
-import {cn} from "@udecode/cn"
+import {cn} from "../../lib/utils/cn.js"
 
 export type SeparatorProps = ComponentProps<typeof Root>
 

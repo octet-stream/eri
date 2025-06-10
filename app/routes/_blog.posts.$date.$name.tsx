@@ -1,5 +1,5 @@
 import type {FC} from "react"
-import {data, generatePath} from "react-router"
+import {data} from "react-router"
 
 import {
   Breadcrumb,
@@ -9,8 +9,8 @@ import {Heading as CommonHeading} from "../components/common/Heading.jsx"
 
 import {formatPostDate} from "../lib/utils/formatPostDate.js"
 import {Post} from "../server/db/entities.js"
-import {PostOutputView} from "../server/zod/post/PostOutputView.js"
 import {PostSlug} from "../server/zod/post/PostSlug.js"
+import {PostViewOutput} from "../server/zod/post/PostViewOutput.js"
 import {parseInput} from "../server/zod/utils/parseInput.js"
 import {parseOutput} from "../server/zod/utils/parseOutput.js"
 
@@ -42,12 +42,12 @@ export const loader = async (event: Route.LoaderArgs) => {
     }
   )
 
-  return parseOutput(PostOutputView, post, {async: true})
+  return parseOutput(PostViewOutput, post, {async: true})
 }
 
 export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: data.title
+    title: data?.title
   }
 ]
 

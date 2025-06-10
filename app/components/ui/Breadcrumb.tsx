@@ -1,8 +1,8 @@
 import {Slot} from "@radix-ui/react-slot"
-import {cn} from "@udecode/cn"
 import {ChevronRight, MoreHorizontal} from "lucide-react"
 import type {ComponentProps, ComponentRef, FC, ReactNode} from "react"
-import {forwardRef} from "react"
+
+import {cn} from "../../lib/utils/cn.js"
 
 export interface BreadcrumbProps extends ComponentProps<"nav"> {
   separator?: ReactNode

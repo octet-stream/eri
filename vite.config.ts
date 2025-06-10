@@ -10,5 +10,10 @@ export default defineConfig({
   },
   build: {
     target: "esnext"
+  },
+  resolve: {
+    alias: {
+      "@tiptap/core/jsx-dev-runtime": "@tiptap/core/jsx-runtime"
+    }
   }
 })

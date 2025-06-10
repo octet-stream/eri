@@ -7,7 +7,7 @@ import {
 } from "@radix-ui/react-scroll-area"
 import type {ComponentProps, ComponentRef, FC} from "react"
 
-import {cn} from "@udecode/cn"
+import {cn} from "../../lib/utils/cn.js"
 
 export type ScrollAreaProps = ComponentProps<typeof Root>
 

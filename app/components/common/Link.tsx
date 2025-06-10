@@ -1,27 +1,23 @@
-import {cn} from "@udecode/cn"
-import type {ComponentPropsWithoutRef, ElementRef} from "react"
-import {forwardRef} from "react"
+import {cva} from "class-variance-authority"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
-export type LinkRef = ElementRef<"a">
+import {cn} from "../../lib/utils/cn.js"
 
-export type LinkProps = ComponentPropsWithoutRef<"a">
+export type LinkRef = ComponentRef<"a">
+
+export type LinkProps = ComponentProps<"a">
+
+export const linkVariants = cva(
+  "font-medium text-primary underline decoration-primary underline-offset-4"
+)
 
 /**
  * Styled anchor `<a>` element
  */
-export const Link = forwardRef<LinkRef, LinkProps>(
-  ({className, children, ...props}, ref) => (
-    <a
-      {...props}
-      ref={ref}
-      className={cn(
-        "font-medium text-primary underline decoration-primary underline-offset-4",
-        className
-      )}
-    >
-      {children}
-    </a>
-  )
+export const Link: FC<LinkProps> = ({className, children, ...props}) => (
+  <a {...props} className={cn(linkVariants(), className)}>
+    {children}
+  </a>
 )
 
 Link.displayName = "Link"

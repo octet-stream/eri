@@ -5,9 +5,12 @@ import {test} from "../../fixtures/admin.js"
 import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 
-import type {IPostContent} from "../../../app/server/zod/plate/editors/PostContent.js"
-import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
+import {
+  AdminPostInput,
+  type IAdminPostInput
+} from "../../../app/server/zod/admin/AdminPostInput.js"
 
+import dedent from "dedent"
 import {action, loader} from "../../../app/routes/admin.posts.new.jsx"
 import {Post} from "../../../app/server/db/entities.js"
 
@@ -25,28 +28,20 @@ suite("action", () => {
     const payload = await action(createStubActionArgs({request}))
 
     expect(payload.init?.status).toBe(422)
-    expect(Object.keys(payload.data.error ?? {})).toEqual(["title", "content"])
+    expect(Object.keys(payload.data.error ?? {})).toEqual([""]) // The formError returned as "" by conform
   })
 
   test("redirects when post is created", async ({admin}) => {
     const form = new FormData()
 
-    form.set("title", faker.lorem.sentence({min: 3, max: 5}))
+    form.set("fallback", "true")
     form.set(
-      "content",
+      "markdown",
+      dedent`
+        # ${faker.lorem.sentence({min: 3, max: 4})}
 
-      JSON.stringify([
-        {
-          id: createNodeId(),
-          type: "p",
-          children: [
-            {
-              id: createNodeId(),
-              text: faker.lorem.paragraph()
-            }
-          ]
-        }
-      ] satisfies IPostContent)
+        ${faker.lorem.paragraph()}
+      `
     )
 
     const request = new Request(admin.request, {
@@ -67,22 +62,14 @@ suite("action", () => {
   test("location matches created post slug", async ({admin, orm}) => {
     const form = new FormData()
 
-    form.set("title", faker.lorem.sentence({min: 3, max: 5}))
+    form.set("fallback", "true")
     form.set(
-      "content",
+      "markdown",
+      dedent`
+        # ${faker.lorem.sentence({min: 3, max: 4})}
 
-      JSON.stringify([
-        {
-          id: createNodeId(),
-          type: "p",
-          children: [
-            {
-              id: createNodeId(),
-              text: faker.lorem.paragraph()
-            }
-          ]
-        }
-      ] satisfies IPostContent)
+        ${faker.lorem.paragraph()}
+      `
     )
 
     const request = new Request(admin.request, {
@@ -112,25 +99,21 @@ suite("action", () => {
   test("created post has correct title and content", async ({admin, orm}) => {
     const form = new FormData()
 
-    const title = faker.lorem.sentence({min: 3, max: 5})
-    const content: IPostContent = [
-      {
-        id: createNodeId(),
-        type: "p",
-        children: [
-          {
-            id: createNodeId(),
-            text: faker.lorem.paragraph()
-          }
-        ]
-      }
-    ]
+    const input = AdminPostInput.parse({
+      fallback: "true",
+      markdown: dedent`
+        # ${faker.lorem.sentence({min: 3, max: 4})}
 
-    form.set("title", title)
-    form.set("content", JSON.stringify(content))
+        ${faker.lorem.paragraph()}
+      `
+    } satisfies IAdminPostInput)
+
+    const title = input.title.textContent
+
+    form.set("content", JSON.stringify(input.content))
 
     const request = new Request(admin.request, {
-      method: "post",
+      method: "POST",
       body: form
     })
 
@@ -149,7 +132,7 @@ suite("action", () => {
       const slug = location?.replace(/^\/admin\/posts\//, "")
       const post = await orm.em.findOne(Post, {slug}, {populate: ["content"]})
 
-      expect(post).toMatchObject({title, content})
+      expect(post).toMatchObject({title, content: input.content.toJSON()})
     }
   })
 })

@@ -1,27 +1,23 @@
-import {cn} from "@udecode/cn"
-import type {ComponentPropsWithoutRef, ElementRef} from "react"
-import {forwardRef} from "react"
+import {cva} from "class-variance-authority"
+import type {ComponentProps, ComponentRef, FC} from "react"
 
-export type CodeRef = ElementRef<"code">
+import {cn} from "../../lib/utils/cn.js"
 
-export type CodeProps = ComponentPropsWithoutRef<"code">
+export type CodeRef = ComponentRef<"code">
+
+export type CodeProps = ComponentProps<"code">
+
+export const codeVariants = cva(
+  "whitespace-pre-wrap rounded-md bg-muted px-[0.3em] py-[0.2em] font-mono text-sm"
+)
 
 /**
  * Styled inline `<code>` element
  */
-export const Code = forwardRef<CodeRef, CodeProps>(
-  ({className, children, ...props}, ref) => (
-    <code
-      {...props}
-      ref={ref}
-      className={cn(
-        "whitespace-pre-wrap rounded-md bg-muted px-[0.3em] py-[0.2em] font-mono text-sm",
-        className
-      )}
-    >
-      {children}
-    </code>
-  )
+export const Code: FC<CodeProps> = ({className, children, ...props}) => (
+  <code {...props} className={cn(codeVariants(), className)}>
+    {children}
+  </code>
 )
 
 Code.displayName = "Code"

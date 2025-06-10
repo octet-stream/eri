@@ -142,3 +142,14 @@
     @apply border-border;
   }
 }
+
+/* TODO: Split this code from main css file */
+/* Tiptap */
+/* Placeholder */
+.tiptap p.is-empty::before {
+  color: theme(--color-muted-foreground);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

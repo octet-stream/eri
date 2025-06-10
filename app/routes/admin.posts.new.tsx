@@ -1,26 +1,33 @@
-import {getFormProps, getTextareaProps, useForm} from "@conform-to/react"
-import {getZodConstraint, parseWithZod} from "@conform-to/zod"
+import {
+  getFormProps,
+  getInputProps,
+  getTextareaProps,
+  useForm
+} from "@conform-to/react"
+import {parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
 import {data, href, replace} from "react-router"
-import type {MetaFunction} from "react-router"
 
-import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
-import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
+import {
+  Breadcrumb,
+  type BreadcrumbHandle
+} from "../components/common/Breadcrumbs.jsx"
+import {Editor} from "../components/post-editor/Editor.jsx"
+import {EditorFallback} from "../components/post-editor/EditorFallback.jsx"
 import {Button} from "../components/ui/Button.jsx"
-import {ClientPostCreateInput} from "../server/zod/post/ClientPostCreateInput.js"
-import {PostCreateInput} from "../server/zod/post/PostCreateInput.js"
-
-import {PostEditor} from "../components/post-editor/PostEditor.jsx"
-import {PostEditorContent} from "../components/post-editor/PostEditorContent.jsx"
-import {PostEditorTitle} from "../components/post-editor/PostEditorTitle.jsx"
-
-import {Post} from "../server/db/entities.js"
-import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
-import {withAdmin} from "../server/lib/admin/withAdmin.js"
 
 import {adminContext} from "../server/contexts/admin.js"
 import {ormContext} from "../server/contexts/orm.js"
+import {Post} from "../server/db/entities.js"
+import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
+import {withAdmin} from "../server/lib/admin/withAdmin.js"
 import {slugToParams} from "../server/lib/utils/slug.js"
+import {
+  AdminPostInput,
+  type IAdminPostInput
+} from "../server/zod/admin/AdminPostInput.js"
+
+import {EditorForm} from "../components/post-editor/EditorForm.jsx"
 import type {Route} from "./+types/admin.posts.new.js"
 
 export const loader = noopAdminLoader
@@ -29,17 +36,21 @@ export const action = withAdmin(
   async ({request, context}: Route.ActionArgs) => {
     const admin = context.get(adminContext)
     const orm = context.get(ormContext)
-
-    const submission = await parseWithZod(await request.formData(), {
-      schema: PostCreateInput,
-      async: true
+    const submission = parseWithZod(await request.formData(), {
+      schema: AdminPostInput
     })
 
     if (submission.status !== "success") {
       return data(submission.reply(), 422)
     }
 
-    const post = orm.em.create(Post, {...submission.value, author: admin.user})
+    const {title, content} = submission.value
+
+    const post = orm.em.create(Post, {
+      author: admin.user,
+      title: title.textContent,
+      content: content.toJSON()
+    })
 
     await orm.em.persistAndFlush(post)
 
@@ -47,7 +58,7 @@ export const action = withAdmin(
   }
 )
 
-export const meta: MetaFunction = () => [
+export const meta: Route.MetaFunction = () => [
   {
     title: "New post"
   }
@@ -57,36 +68,22 @@ export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb>New post</Breadcrumb>
 }
 
-const AdminPostNewPage: FC<Route.ComponentProps> = ({actionData}) => {
-  const [form, fields] = useForm({
-    lastResult: actionData,
-    constraint: getZodConstraint(ClientPostCreateInput),
-    shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
-
-    onValidate: ({formData}) =>
-      parseWithZod(formData, {schema: ClientPostCreateInput})
-  })
+const Tiptap: FC<Route.ComponentProps> = ({actionData}) => {
+  const [form, fields] = useForm<IAdminPostInput>({lastResult: actionData})
 
   return (
-    <PostEditor
-      {...getFormProps(form)}
-      context={form.context}
-      method="post"
-      className="contents"
-    >
-      <PostEditorTitle
-        {...getTextareaProps(fields.title)}
-        key={fields.title.key}
-      />
+    <EditorForm method="post" {...getFormProps(form)}>
+      <div className="row-span-full">
+        <Editor {...getInputProps(fields.content, {type: "text"})} />
 
-      <PostEditorContent meta={fields.content} key={fields.content.key} />
-
-      <div className="flex justify-end">
-        <Button type="submit">Create post</Button>
+        <EditorFallback {...getTextareaProps(fields.markdown)} />
       </div>
-    </PostEditor>
+
+      <div>
+        <Button>Create</Button>
+      </div>
+    </EditorForm>
   )
 }
 
-export default AdminPostNewPage
+export default Tiptap

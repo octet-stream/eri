@@ -8,10 +8,11 @@ import {
   Title,
   Trigger
 } from "@radix-ui/react-dialog"
-import {cn} from "@udecode/cn"
 import {type VariantProps, cva} from "class-variance-authority"
 import {X} from "lucide-react"
 import type {ComponentProps, ComponentRef, FC} from "react"
+
+import {cn} from "../../lib/utils/cn.js"
 
 export const Sheet = Root
 

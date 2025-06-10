@@ -15,9 +15,10 @@ import {
   SubTrigger,
   Trigger
 } from "@radix-ui/react-dropdown-menu"
-import {cn} from "@udecode/cn"
 import {Check, ChevronRight, Circle} from "lucide-react"
 import type {ComponentProps, ComponentRef, FC} from "react"
+
+import {cn} from "../../lib/utils/cn.js"
 
 interface WithInset {
   inset?: boolean

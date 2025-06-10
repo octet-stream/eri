@@ -1,14 +1,18 @@
 import {faker} from "@faker-js/faker"
-import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
+import {getSchema} from "@tiptap/core"
+import {Node} from "@tiptap/pm/model"
 import {expect, suite} from "vitest"
+
+import dedent from "dedent"
 
 import {adminTest} from "../../fixtures/admin.js"
 import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 
+import {extensions} from "../../../app/components/post-editor/extensions.js"
 import {Post} from "../../../app/server/db/entities.js"
 import {formatSlugName} from "../../../app/server/lib/utils/slug.js"
-import {createNodeId} from "../../../app/server/zod/plate/utils/nodeId.js"
+import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.js"
 
 import {
   action,
@@ -19,23 +23,23 @@ interface PostEditTestContext {
   post: Post
 }
 
+const schema = getSchema(extensions)
+
 const test = adminTest.extend<PostEditTestContext>({
   async post({orm, admin}, use) {
+    const input = AdminPostInput.parse({
+      fallback: "true",
+      markdown: dedent`
+        # ${faker.lorem.sentence({min: 3, max: 4})}
+
+        ${faker.lorem.paragraph()}
+      `
+    })
+
     const post = orm.em.create(Post, {
       author: admin.viewer,
-      title: faker.lorem.sentence({min: 3, max: 5}),
-      content: [
-        {
-          id: createNodeId(),
-          type: "p",
-          children: [
-            {
-              id: createNodeId(),
-              text: faker.lorem.paragraph()
-            }
-          ]
-        }
-      ]
+      title: input.title.textContent,
+      content: input.content.toJSON()
     })
 
     await orm.em.persistAndFlush(post)
@@ -49,9 +53,13 @@ suite("action", () => {
   test("redirects back to post", async ({post, admin}) => {
     expect.hasAssertions()
 
+    const form = new FormData()
+
+    form.set("content", JSON.stringify(post.content))
+
     const request = new Request(admin.request, {
-      method: "patch".toUpperCase(), // undici warns this method being in lowercase, so I just quickly put this call here
-      body: new FormData()
+      method: "POST", // undici warns this method being in lowercase
+      body: form
     })
 
     const [date, name] = post.slug.split("/")
@@ -71,13 +79,30 @@ suite("action", () => {
   test("updates post title", async ({post, admin, orm}) => {
     expect.hasAssertions()
 
-    const title = "Testing, testing, 1, 2, 3"
+    const title = schema.text("Testing, testing, 1, 2, 3")
     const form = new FormData()
 
-    form.set("title", title)
+    const node = Node.fromJSON(schema, post.content)
+
+    form.set(
+      "content",
+
+      // TODO: Find better way to override document
+      JSON.stringify(
+        node
+          .copy(
+            node.content.replaceChild(
+              0,
+
+              schema.node("heading", null, title)
+            )
+          )
+          .toJSON()
+      )
+    )
 
     const request = new Request(admin.request, {
-      method: "patch".toUpperCase(), // undici warns this method being in lowercase, so I just quickly put this call here
+      method: "POST", // undici warns this method being in lowercase
       body: form
     })
 
@@ -92,29 +117,13 @@ suite("action", () => {
 
       const updated = await orm.em.refresh(post)
 
-      expect(updated?.title).toBe(title)
-      expect(updated?.slug.includes(`/${formatSlugName(title)}~`)).toBe(true) // Slug should be updated with title
+      expect(updated?.title).toBe(title.textContent)
+      expect(
+        updated?.slug.includes(`/${formatSlugName(title.textContent)}~`)
+      ).toBe(true) // Slug should be updated with title
       expect(response.headers.get("location")).toBe(
         `/admin/posts/${updated?.slug ?? ""}` // Should redirect with updated slug
       )
-    }
-  })
-
-  test("throws 405 error when called with unsupported method", async ({
-    admin
-  }) => {
-    expect.hasAssertions()
-
-    const request = new Request(admin.request, {
-      method: "post" // undici warns this method being in lowercase, so I just quickly put this call here
-    })
-
-    try {
-      await action(createStubActionArgs({request}))
-    } catch (error) {
-      const response = error as DataWithResponseInit<never>
-
-      expect(response.init?.status).toBe(405)
     }
   })
 })

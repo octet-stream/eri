@@ -1,5 +1,6 @@
-import {cn} from "@udecode/cn"
 import type {ComponentProps, FC} from "react"
+
+import {cn} from "../../lib/utils/cn.js"
 
 export interface InputProps extends ComponentProps<"input"> {
   errors?: string[]

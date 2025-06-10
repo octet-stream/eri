@@ -18,9 +18,9 @@
 
   // Tailwindcss settings
   "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["c[nx]\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+    "class:\\s*?[\"'`]([^\"'`]*).*?,"
   ],
+  "tailwindCSS.classFunctions": ["c[nx]", "cva"],
   "tailwindCSS.emmetCompletions": true,
 
   // File associations overrides
