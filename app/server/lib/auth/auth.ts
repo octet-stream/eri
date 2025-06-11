@@ -24,7 +24,9 @@ export const auth = betterAuth({
   ],
   advanced: {
     cookiePrefix: config.auth.cookiePrefix,
-    generateId: false // Handled by the ORM
+    database: {
+      generateId: false // Handled by the ORM
+    }
   }
 })
 
