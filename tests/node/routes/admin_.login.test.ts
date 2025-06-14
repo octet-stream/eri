@@ -1,7 +1,9 @@
 import {expect, suite} from "vitest"
 
+import {auth} from "../../../app/server/lib/auth/auth.js"
 import {test} from "../../fixtures/admin.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
+import {getCookies} from "../../utils/getCookies.js"
 
 import {action} from "../../../app/routes/admin_.login/route.jsx"
 
@@ -28,6 +30,38 @@ suite("action", () => {
 
       expect(response.status).toBe(302)
       expect(response.headers.get("location")).toBe("/admin")
+    }
+  })
+
+  test("returns session cookie", async ({admin}) => {
+    expect.hasAssertions()
+
+    const ctx = await auth.$context
+
+    const expected = ctx.authCookies.sessionToken.name
+
+    const form = new FormData()
+
+    form.set("email", admin.viewer.email)
+    form.set("password", admin.password)
+
+    const request = new Request("http://localhost", {
+      method: "post",
+      body: form
+    })
+
+    try {
+      await action(createStubActionArgs({request}))
+    } catch (response) {
+      if (!(response instanceof Response)) {
+        throw response
+      }
+
+      expect(response.headers.has("set-cookie")).toBe(true)
+
+      const actual = getCookies(response.headers)
+
+      expect(actual.has(expected)).toBe(true)
     }
   })
 

@@ -153,7 +153,7 @@
     "@vitest/browser": "3.2.2",
     "@vitest/ui": "3.2.2",
     "autoprefixer": "10.4.21",
-    "cookie-es": "1.2.2",
+    "cookie-es": "2.0.0",
     "dedent": "1.6.0",
     "execa": "9.5.2",
     "husky": "9.1.7",
