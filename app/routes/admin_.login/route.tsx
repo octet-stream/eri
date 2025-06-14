@@ -1,8 +1,6 @@
 import {parseWithZod} from "@conform-to/zod"
 import {data, replace} from "react-router"
 
-import {APIError} from "better-auth/api"
-
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
 
 import {authContext} from "../../server/contexts/auth.js"
@@ -36,48 +34,54 @@ export const action = async ({request, context}: Route.ActionArgs) => {
     return data(submission.reply(), 422)
   }
 
-  try {
-    const response = await auth.api.signInEmail({
-      asResponse: true,
-      body: submission.value
-    })
+  const response = await auth.api.signInEmail({
+    asResponse: true,
+    body: submission.value
+  })
 
+  if (response.status === 200) {
     throw replace("/admin", {
       headers: response.headers
     })
-  } catch (error) {
-    if (!(error instanceof APIError)) {
-      throw error
-    }
-
-    if (error.body?.code === "INVALID_EMAIL_OR_PASSWORD") {
-      return data(
-        submission.reply({
-          formErrors: ["Invalid email or password"]
-        }),
-
-        {
-          status: 401
-        }
-      )
-    }
-
-    if (error.body?.code === "INVALID_EMAIL") {
-      return data(
-        submission.reply({
-          fieldErrors: {
-            email: ["Invalid email"]
-          }
-        }),
-
-        {
-          status: 422
-        }
-      )
-    }
-
-    throw error
   }
+
+  if (response.status !== 401) {
+    throw response
+  }
+
+  const body = (await response.json()) as {code: string; message: string}
+
+  if (body.code === "INVALID_EMAIL_OR_PASSWORD") {
+    return data(
+      submission.reply({
+        formErrors: ["Invalid email or password"]
+      }),
+
+      401
+    )
+  }
+
+  if (body.code === "INVALID_EMAIL") {
+    return data(
+      submission.reply({
+        fieldErrors: {
+          email: ["Ivalid email"]
+        }
+      })
+    )
+  }
+
+  if (body.code === "INVALID_PASSWORD") {
+    return data(
+      submission.reply({
+        fieldErrors: {
+          passowrd: ["Invalid password"]
+        }
+      })
+    )
+  }
+
+  throw response
 }
 
 export const meta: Route.MetaFunction = () => [
