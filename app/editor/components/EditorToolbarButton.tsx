@@ -2,11 +2,11 @@ import type {ComponentProps, FC} from "react"
 
 import {cn} from "../../lib/utils/cn.js"
 
-export interface ToolbarButtonProps extends ComponentProps<"button"> {
+export interface EditorToolbarButtonProps extends ComponentProps<"button"> {
   active?: boolean
 }
 
-export const ToolbarButton: FC<ToolbarButtonProps> = ({
+export const EditorToolbarButton: FC<EditorToolbarButtonProps> = ({
   children,
   className,
   active = false,

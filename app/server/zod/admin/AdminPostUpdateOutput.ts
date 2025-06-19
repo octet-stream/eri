@@ -1,7 +1,7 @@
 import {renderToMarkdown} from "@tiptap/static-renderer/pm/markdown"
 import type {z} from "zod"
 
-import {extensions} from "../../../components/post-editor/extensions.js"
+import {extensions} from "../../../components/post-editor/PostEditor.jsx"
 import {PostOutput} from "../post/PostOutput.js"
 
 export const AdminPostUpdateOutput = PostOutput.transform(

@@ -9,7 +9,7 @@ import {getSchema} from "@tiptap/core"
 import {MarkdownParser} from "@tiptap/pm/markdown"
 import {Node} from "@tiptap/pm/model"
 
-import {extensions} from "../../../components/post-editor/extensions.js"
+import {extensions} from "../../../components/post-editor/PostEditor.jsx"
 
 const schema = getSchema(extensions)
 
