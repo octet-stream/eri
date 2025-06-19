@@ -8,14 +8,14 @@ import {Heading as HeadingBase} from "@tiptap/extension-heading"
 import {headingVariants} from "../../components/common/Heading.jsx"
 import {cn} from "../../lib/utils/cn.js"
 
-type Levels = 1 | 2 | 3 | 4
+export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6
 
-export const Heading = HeadingBase.configure({
-  levels: [1, 2, 3, 4]
-}).extend({
+export const Heading = HeadingBase.extend({
   renderHTML({node, HTMLAttributes}) {
     const hasLevel = this.options.levels.includes(node.attrs.level)
-    const level: Levels = hasLevel ? node.attrs.level : this.options.levels[0]
+    const level: HeadingLevels = hasLevel
+      ? node.attrs.level
+      : this.options.levels[0]
 
     const Element = `h${level}` as const
     const variant = headingVariants({variant: Element})

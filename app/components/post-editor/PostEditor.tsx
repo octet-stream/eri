@@ -16,12 +16,13 @@ import {
   type EditorContentProps
 } from "../../editor/components/EditorContent.jsx"
 import {Blockquote} from "../../editor/extensions/Blockquote.jsx"
-import {Heading} from "../../editor/extensions/Heading.jsx"
 import {InlineCode} from "../../editor/extensions/InlineCode.jsx"
 import {Paragraph} from "../../editor/extensions/Paragraph.jsx"
+import {PostHeading} from "./extensions/PostHeading.jsx"
+import {PostTitle} from "./extensions/PostTitle.jsx"
 
 export const PostDocument = Document.extend({
-  content: "heading block*"
+  content: "title block*"
 })
 
 export const extensions: AnyExtension[] = [
@@ -31,7 +32,8 @@ export const extensions: AnyExtension[] = [
   Text,
 
   // Blocks
-  Heading,
+  PostTitle,
+  PostHeading,
   Paragraph,
   Blockquote,
 
