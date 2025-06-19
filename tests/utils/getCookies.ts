@@ -1,4 +1,4 @@
-import {type SetCookie, parseSetCookie} from "cookie-es"
+import {parseSetCookie, type SetCookie} from "cookie-es"
 
 export function getCookies(headers: Headers): Map<string, SetCookie> {
   const cookies = new Map<string, SetCookie>()

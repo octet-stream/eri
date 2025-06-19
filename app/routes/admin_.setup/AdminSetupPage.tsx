@@ -3,8 +3,6 @@ import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
 import {Form} from "react-router"
 
-import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
-
 import {Button} from "../../components/ui/Button.jsx"
 import {
   Card,
@@ -16,6 +14,7 @@ import {
 } from "../../components/ui/Card.jsx"
 import {Input} from "../../components/ui/Input.jsx"
 import {Label} from "../../components/ui/Label.jsx"
+import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
 
 import type {Route} from "./+types/route.js"
 

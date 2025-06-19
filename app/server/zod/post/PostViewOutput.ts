@@ -1,7 +1,6 @@
-import type {z} from "zod"
-
 import {Fragment} from "@tiptap/pm/model"
 import {renderToHTMLString} from "@tiptap/static-renderer"
+import type {z} from "zod"
 
 import {extensions} from "../../../components/post-editor/extensions.js"
 

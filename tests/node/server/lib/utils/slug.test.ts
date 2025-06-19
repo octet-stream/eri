@@ -2,9 +2,9 @@ import {format} from "date-fns"
 import {expect, suite, test} from "vitest"
 
 import {
-  SLUG_DATE_FORMAT,
   formatSlugDate,
-  formatSlugName
+  formatSlugName,
+  SLUG_DATE_FORMAT
 } from "../../../../../app/server/lib/utils/slug.js"
 
 suite(formatSlugDate.name, () => {

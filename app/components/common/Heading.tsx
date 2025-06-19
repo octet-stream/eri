@@ -1,8 +1,9 @@
-import {type VariantProps, cva} from "class-variance-authority"
+import {cva, type VariantProps} from "class-variance-authority"
 import type {ComponentProps, FC} from "react"
 
 import {cn} from "../../lib/utils/cn.js"
-import type {OHeadingLevels} from "../../server/zod/plate/common/HeadingLevels.js"
+
+export type HeadingLevels = `h${1 | 2 | 3 | 4 | 5 | 6}`
 
 export const headingVariants = cva("", {
   variants: {
@@ -13,7 +14,7 @@ export const headingVariants = cva("", {
       h4: "scroll-m-20 text-xl font-semibold tracking-tight",
       h5: "scroll-m-20 text-lg font-semibold tracking-tight",
       h6: "scroll-m-20 text-base font-semibold tracking-tight"
-    } satisfies Record<OHeadingLevels, string>
+    } satisfies Record<HeadingLevels, string>
   }
 })
 

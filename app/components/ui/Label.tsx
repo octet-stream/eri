@@ -1,5 +1,5 @@
 import {Root} from "@radix-ui/react-label"
-import {type VariantProps, cva} from "class-variance-authority"
+import {cva, type VariantProps} from "class-variance-authority"
 import type {ComponentProps, ComponentRef, FC} from "react"
 
 import {cn} from "../../lib/utils/cn.js"

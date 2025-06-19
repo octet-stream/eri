@@ -14,8 +14,8 @@ import {
 } from "../components/common/Breadcrumbs.jsx"
 import {Editor} from "../components/post-editor/Editor.jsx"
 import {EditorFallback} from "../components/post-editor/EditorFallback.jsx"
+import {EditorForm} from "../components/post-editor/EditorForm.jsx"
 import {Button} from "../components/ui/Button.jsx"
-
 import {adminContext} from "../server/contexts/admin.js"
 import {ormContext} from "../server/contexts/orm.js"
 import {Post} from "../server/db/entities.js"
@@ -26,8 +26,6 @@ import {
   AdminPostInput,
   type IAdminPostInput
 } from "../server/zod/admin/AdminPostInput.js"
-
-import {EditorForm} from "../components/post-editor/EditorForm.jsx"
 import type {Route} from "./+types/admin.posts.new.js"
 
 export const loader = noopAdminLoader

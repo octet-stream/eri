@@ -1,3 +1,4 @@
+import type {Hidden, Opt} from "@mikro-orm/mariadb"
 import {
   Collection,
   Entity,
@@ -7,7 +8,6 @@ import {
   Property,
   Unique
 } from "@mikro-orm/mariadb"
-import type {Hidden, Opt} from "@mikro-orm/mariadb"
 import type {JSONContent} from "@tiptap/core"
 
 import {formatSlug} from "../../lib/utils/slug.js"

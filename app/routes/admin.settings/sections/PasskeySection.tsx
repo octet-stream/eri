@@ -2,8 +2,6 @@ import type {FC} from "react"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
-import {authClient} from "../../../lib/auth.js"
-
 import {Button} from "../../../components/ui/Button.jsx"
 import {
   Card,
@@ -12,6 +10,7 @@ import {
   CardHeader,
   CardTitle
 } from "../../../components/ui/Card.jsx"
+import {authClient} from "../../../lib/auth.js"
 
 import {PasskeyTable} from "./PasskeyTable.jsx"
 

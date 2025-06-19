@@ -1,12 +1,10 @@
 import type {SetCookie} from "cookie-es"
 import {expect, suite} from "vitest"
-
+import {action} from "../../../app/routes/admin.logout.js"
 import {auth} from "../../../app/server/lib/auth/auth.js"
 import {test} from "../../fixtures/admin.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 import {getCookies} from "../../utils/getCookies.js"
-
-import {action} from "../../../app/routes/admin.logout.js"
 
 suite("action", () => {
   test("throws redirect response", async ({admin}) => {

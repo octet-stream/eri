@@ -1,5 +1,3 @@
-import type {FC} from "react"
-
 import {useCurrentEditor, useEditorState} from "@tiptap/react"
 import {BubbleMenu} from "@tiptap/react/menus"
 import {
@@ -10,6 +8,7 @@ import {
   Subscript,
   Superscript
 } from "lucide-react"
+import type {FC} from "react"
 import {useEvent} from "react-use-event-hook"
 
 import {ToolbarButton} from "./ToolbarButton.jsx"

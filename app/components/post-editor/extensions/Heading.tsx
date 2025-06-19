@@ -1,12 +1,12 @@
 /** @jsxImportSource @tiptap/core */
 
-import {mergeAttributes} from "@tiptap/core"
 // Based on https://github.com/ueberdosis/tiptap/blob/4f498944b507d03da967c5d6462f72d02422fcb4/packages/extension-heading/src/heading.ts
+
+import {mergeAttributes} from "@tiptap/core"
 import {Heading as HeadingBase} from "@tiptap/extension-heading"
 
-import {headingVariants} from "../../common/Heading.jsx"
-
 import {cn} from "../../../lib/utils/cn.js"
+import {headingVariants} from "../../common/Heading.jsx"
 
 type Levels = 1 | 2 | 3 | 4
 

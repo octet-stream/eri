@@ -6,22 +6,18 @@ import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
-
+import type {MaybeUndefined} from "../../lib/types/MaybeUndefined.js"
+import {adminContext} from "../../server/contexts/admin.js"
+import {authContext} from "../../server/contexts/auth.js"
+import {ormContext} from "../../server/contexts/orm.js"
 import {withAdmin} from "../../server/lib/admin/withAdmin.js"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
 import {SessionUserOutput} from "../../server/zod/admin/SessionUserOutput.js"
 import {parseOutput} from "../../server/zod/utils/parseOutput.js"
-
-import {adminContext} from "../../server/contexts/admin.js"
-import {authContext} from "../../server/contexts/auth.js"
-import {ormContext} from "../../server/contexts/orm.js"
-
+import type {Route} from "./+types/route.js"
 import {MainInfoSection} from "./sections/MainInfoSection.jsx"
 import {PasskeySection} from "./sections/PasskeySection.jsx"
 import {PasswordSection} from "./sections/PasswordSection.jsx"
-
-import type {MaybeUndefined} from "../../lib/types/MaybeUndefined.js"
-import type {Route} from "./+types/route.js"
 
 export const loader = withAdmin(async ({context}: Route.LoaderArgs) => {
   const {user} = context.get(adminContext)

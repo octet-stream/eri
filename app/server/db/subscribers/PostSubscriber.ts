@@ -3,8 +3,7 @@ import type {
   EventSubscriber,
   FlushEventArgs
 } from "@mikro-orm/mariadb"
-import {ChangeSetType} from "@mikro-orm/mariadb"
-import {assign} from "@mikro-orm/mariadb"
+import {assign, ChangeSetType} from "@mikro-orm/mariadb"
 
 import {formatSlug} from "../../lib/utils/slug.js"
 import {Post, PostPrevKnownSlug} from "../entities.js"

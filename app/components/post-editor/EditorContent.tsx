@@ -1,10 +1,9 @@
-import {useCurrentEditor} from "@tiptap/react"
-import {type FC, useEffect} from "react"
-
 import {
   unstable_useControl as useControl,
   type useInputControl
 } from "@conform-to/react"
+import {useCurrentEditor} from "@tiptap/react"
+import {type FC, useEffect} from "react"
 
 type BaseProps = Omit<Parameters<typeof useInputControl<string>>[0], "formId">
 

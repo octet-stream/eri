@@ -1,7 +1,6 @@
-import {type FC, useMemo} from "react"
-
 import {useCurrentEditor, useEditorState} from "@tiptap/react"
 import {FloatingMenu} from "@tiptap/react/menus"
+import {type FC, useMemo} from "react"
 import {useEvent} from "react-use-event-hook"
 
 import {

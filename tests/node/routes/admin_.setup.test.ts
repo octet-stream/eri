@@ -1,12 +1,9 @@
 import {faker} from "@faker-js/faker"
 import {expect, suite} from "vitest"
-
+import {action} from "../../../app/routes/admin_.setup/route.jsx"
+import {User} from "../../../app/server/db/entities.js"
 import {test} from "../../fixtures/orm.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
-
-import {User} from "../../../app/server/db/entities.js"
-
-import {action} from "../../../app/routes/admin_.setup/route.jsx"
 
 suite("action", () => {
   test("redirects to /admin upon success", async () => {

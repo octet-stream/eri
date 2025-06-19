@@ -1,15 +1,13 @@
 // Based on https://github.com/ProseMirror/prosemirror-markdown/blob/d671c2305446248f2c1138ea355b6c7e0bafc1f7/src/from_markdown.ts
 
-import {z} from "zod"
-
 import MarkdownIt from "markdown-it"
+import {z} from "zod"
 
 // import type Token from "markdown-it/lib/token.mjs"
 
 import {getSchema} from "@tiptap/core"
-import {Node} from "@tiptap/pm/model"
-
 import {MarkdownParser} from "@tiptap/pm/markdown"
+import {Node} from "@tiptap/pm/model"
 
 import {extensions} from "../../../components/post-editor/extensions.js"
 

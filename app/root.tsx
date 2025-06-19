@@ -7,16 +7,12 @@ import {
   Scripts,
   ScrollRestoration
 } from "react-router"
-
-import config from "./server/lib/config.js"
-
-// For some reason the page flickers in dev mode if tailwind.css imported directly, so I'll just add it as a link
-import tailwindcss from "./tailwind.css?url"
-
 import type {Route} from "./+types/root.js"
 import {Toaster} from "./components/ui/Toaster.jsx"
-
+import config from "./server/lib/config.js"
 import {withCheckPostPks} from "./server/middlewares/router/withCheckPostPks.js"
+// For some reason the page flickers in dev mode if tailwind.css imported directly, so I'll just add it as a link
+import tailwindcss from "./tailwind.css?url"
 
 interface Props {
   children: ReactNode
@@ -38,7 +34,7 @@ export const links: Route.LinksFunction = () => [
 
 export const meta: Route.MetaFunction = ({data}) => [
   {
-    title: data.title // Set default title to the app's name
+    title: data?.title // Set default title to the app's name
   }
 ]
 

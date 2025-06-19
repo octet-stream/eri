@@ -1,8 +1,7 @@
 import type {SubmissionResult} from "@conform-to/react"
+import {createRoutesStub} from "react-router"
 import {expect, test} from "vitest"
 import {render} from "vitest-browser-react"
-
-import {createRoutesStub} from "react-router"
 
 import {AdminLoginPage} from "../../../../app/routes/admin_.login/AdminLoginPage.jsx"
 

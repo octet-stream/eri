@@ -1,7 +1,6 @@
-import type {z} from "zod"
-
 import {getSchema} from "@tiptap/core"
 import {Node} from "@tiptap/pm/model"
+import type {z} from "zod"
 
 import {extensions} from "../../../components/post-editor/extensions.js"
 

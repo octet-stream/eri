@@ -1,23 +1,19 @@
 import {faker} from "@faker-js/faker"
 import {getSchema} from "@tiptap/core"
 import {Node} from "@tiptap/pm/model"
-import {expect, suite} from "vitest"
-
 import dedent from "dedent"
-
-import {adminTest} from "../../fixtures/admin.js"
-import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
-
+import {expect, suite} from "vitest"
 import {extensions} from "../../../app/components/post-editor/extensions.js"
-import {Post} from "../../../app/server/db/entities.js"
-import {formatSlugName} from "../../../app/server/lib/utils/slug.js"
-import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.js"
-
 import {
   action,
   loader
 } from "../../../app/routes/admin.posts.$date.$name.edit.jsx"
+import {Post} from "../../../app/server/db/entities.js"
+import {formatSlugName} from "../../../app/server/lib/utils/slug.js"
+import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.js"
+import {adminTest} from "../../fixtures/admin.js"
+import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
+import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 
 interface PostEditTestContext {
   post: Post

@@ -9,11 +9,6 @@ import type {FC} from "react"
 import {Link, Outlet} from "react-router"
 
 import {
-  AdminLoaderErrorCode,
-  isAdminLoaderError
-} from "../server/lib/admin/adminLoaderError.js"
-
-import {
   Breadcrumb,
   type BreadcrumbHandle,
   Breadcrumbs
@@ -24,6 +19,10 @@ import {
   SidebarProvider,
   SidebarTrigger
 } from "../components/common/Sidebar.jsx"
+import {
+  AdminLoaderErrorCode,
+  isAdminLoaderError
+} from "../server/lib/admin/adminLoaderError.js"
 
 import type {Route} from "./+types/admin.js"
 

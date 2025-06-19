@@ -1,15 +1,13 @@
 import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
 import {expect, suite} from "vitest"
-
-import {adminTest} from "../fixtures/admin.js"
-import {ormTest} from "../fixtures/orm.js"
-import {createStubLoaderArgs} from "../utils/createStubRouteArgs.js"
-
 import {
   AdminLoaderErrorCode,
   type AdminLoaderErrorData
 } from "../../app/server/lib/admin/adminLoaderError.js"
 import type {Loader} from "../../app/server/lib/types/Loader.js"
+import {adminTest} from "../fixtures/admin.js"
+import {ormTest} from "../fixtures/orm.js"
+import {createStubLoaderArgs} from "../utils/createStubRouteArgs.js"
 
 /**
  * Creates a test suite for loaders that require admin authorization.

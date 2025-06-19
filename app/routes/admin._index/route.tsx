@@ -1,16 +1,12 @@
 import type {FC} from "react"
 
+import {ormContext} from "../../server/contexts/orm.js"
+import {Post} from "../../server/db/entities.js"
+import {withAdmin} from "../../server/lib/admin/withAdmin.js"
+import {PostPage} from "../../server/zod/post/PostPage.js"
+import type {Route} from "./+types/route.js"
 import {NoPosts} from "./components/NoPosts.jsx"
 import {PostsList} from "./components/PostsList.jsx"
-
-import {ormContext} from "../../server/contexts/orm.js"
-import {withAdmin} from "../../server/lib/admin/withAdmin.js"
-
-import {Post} from "../../server/db/entities.js"
-
-import {PostPage} from "../../server/zod/post/PostPage.js"
-
-import type {Route} from "./+types/route.js"
 
 export const loader = withAdmin(
   async ({request, context}: Route.LoaderArgs) => {

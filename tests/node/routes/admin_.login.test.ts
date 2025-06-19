@@ -1,11 +1,9 @@
 import {expect, suite} from "vitest"
-
+import {action} from "../../../app/routes/admin_.login/route.jsx"
 import {auth} from "../../../app/server/lib/auth/auth.js"
 import {test} from "../../fixtures/admin.js"
 import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
 import {getCookies} from "../../utils/getCookies.js"
-
-import {action} from "../../../app/routes/admin_.login/route.jsx"
 
 suite("action", () => {
   test("redirects to /admin on success", async ({admin}) => {

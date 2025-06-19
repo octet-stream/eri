@@ -1,4 +1,4 @@
-import {Entity, ManyToOne, type Opt, Property, Unique} from "@mikro-orm/mariadb"
+import {Entity, ManyToOne, Property, Unique} from "@mikro-orm/mariadb"
 import type {Session as SessionSchema} from "better-auth"
 
 import type {Maybe} from "../../../lib/types/Maybe.js"

@@ -1,4 +1,4 @@
-import {type Options, hash as _hash, verify as _verify} from "@node-rs/argon2"
+import {hash as _hash, verify as _verify, type Options} from "@node-rs/argon2"
 
 const normalize = (input: string) => input.normalize("NFKC")
 
