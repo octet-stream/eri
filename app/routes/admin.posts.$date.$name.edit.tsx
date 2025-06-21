@@ -11,11 +11,11 @@ import {data, href, redirect, useNavigation} from "react-router"
 
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
 import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
-
-import {Editor} from "../components/post-editor/Editor.jsx"
-import {EditorFallback} from "../components/post-editor/EditorFallback.jsx"
-import {EditorForm} from "../components/post-editor/EditorForm.jsx"
+import {PostEditor} from "../components/post-editor/PostEditor.jsx"
+import {PostEditorFieldset} from "../components/post-editor/PostEditorFieldset.jsx"
+import {PostEditorForm} from "../components/post-editor/PostEditorForm.jsx"
 import {Button} from "../components/ui/Button.jsx"
+import {EditorContentFallback} from "../editor/components/EditorContentFallback.jsx"
 import {ormContext} from "../server/contexts/orm.js"
 import {Post} from "../server/db/entities.js"
 import {withAdmin} from "../server/lib/admin/withAdmin.js"
@@ -137,17 +137,17 @@ const AdminPostEditPage: FC<Route.ComponentProps> = ({
   })
 
   return (
-    <EditorForm {...getFormProps(form)} method="post">
-      <div className="row-span-full">
-        <Editor {...getInputProps(fields.content, {type: "text"})} />
+    <PostEditorForm {...getFormProps(form)} method="post">
+      <PostEditorFieldset>
+        <PostEditor {...getInputProps(fields.content, {type: "text"})} />
 
-        <EditorFallback {...getTextareaProps(fields.markdown)} />
-      </div>
+        <EditorContentFallback {...getTextareaProps(fields.markdown)} />
+      </PostEditorFieldset>
 
       <div>
         <Button>Save</Button>
       </div>
-    </EditorForm>
+    </PostEditorForm>
   )
 }
 

@@ -12,10 +12,11 @@ import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../components/common/Breadcrumbs.jsx"
-import {Editor} from "../components/post-editor/Editor.jsx"
-import {EditorFallback} from "../components/post-editor/EditorFallback.jsx"
-import {EditorForm} from "../components/post-editor/EditorForm.jsx"
+import {PostEditor} from "../components/post-editor/PostEditor.jsx"
+import {PostEditorFieldset} from "../components/post-editor/PostEditorFieldset.jsx"
+import {PostEditorForm} from "../components/post-editor/PostEditorForm.jsx"
 import {Button} from "../components/ui/Button.jsx"
+import {EditorContentFallback} from "../editor/components/EditorContentFallback.jsx"
 import {adminContext} from "../server/contexts/admin.js"
 import {ormContext} from "../server/contexts/orm.js"
 import {Post} from "../server/db/entities.js"
@@ -70,17 +71,17 @@ const Tiptap: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm<IAdminPostInput>({lastResult: actionData})
 
   return (
-    <EditorForm method="post" {...getFormProps(form)}>
-      <div className="row-span-full">
-        <Editor {...getInputProps(fields.content, {type: "text"})} />
+    <PostEditorForm method="post" {...getFormProps(form)}>
+      <PostEditorFieldset>
+        <PostEditor {...getInputProps(fields.content, {type: "text"})} />
 
-        <EditorFallback {...getTextareaProps(fields.markdown)} />
-      </div>
+        <EditorContentFallback {...getTextareaProps(fields.markdown)} />
+      </PostEditorFieldset>
 
       <div>
         <Button>Create</Button>
       </div>
-    </EditorForm>
+    </PostEditorForm>
   )
 }
 
