@@ -10,10 +10,7 @@ export const PostEditorForm: FC<FormProps> = ({
 }) => (
   <Form
     {...props}
-    className={cn(
-      "h-full max-h-full grid grid-flow-row grid-rows-2 gap-5",
-      className
-    )}
+    className={cn("h-full max-h-full flex flex-col flex-1 gap-5", className)}
   >
     {children}
   </Form>

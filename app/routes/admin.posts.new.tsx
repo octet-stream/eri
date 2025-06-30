@@ -72,15 +72,19 @@ const Tiptap: FC<Route.ComponentProps> = ({actionData}) => {
 
   return (
     <PostEditorForm method="post" {...getFormProps(form)}>
+      <div className="flex flex-row items-center">
+        <div>Toolbar will be here</div>
+
+        <div className="flex-1" />
+
+        <Button>Create</Button>
+      </div>
+
       <PostEditorFieldset>
         <PostEditor {...getInputProps(fields.content, {type: "text"})} />
 
         <EditorContentFallback {...getTextareaProps(fields.markdown)} />
       </PostEditorFieldset>
-
-      <div>
-        <Button>Create</Button>
-      </div>
     </PostEditorForm>
   )
 }
