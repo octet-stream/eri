@@ -67,7 +67,7 @@ export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb>New post</Breadcrumb>
 }
 
-const Tiptap: FC<Route.ComponentProps> = ({actionData}) => {
+const AdminPostNewPage: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm<IAdminPostInput>({lastResult: actionData})
 
   return (
@@ -89,4 +89,4 @@ const Tiptap: FC<Route.ComponentProps> = ({actionData}) => {
   )
 }
 
-export default Tiptap
+export default AdminPostNewPage
