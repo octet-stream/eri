@@ -3,8 +3,8 @@
 import {mergeAttributes} from "@tiptap/core"
 import {Blockquote as BlockquoteBase} from "@tiptap/extension-blockquote"
 
-import {cn} from "../../../lib/utils/cn.js"
-import {blockquoteVariants} from "../../common/Blockquote.jsx"
+import {blockquoteVariants} from "../../components/common/Blockquote.jsx"
+import {cn} from "../../lib/utils/cn.js"
 
 export const Blockquote = BlockquoteBase.extend({
   renderHTML({HTMLAttributes}) {
