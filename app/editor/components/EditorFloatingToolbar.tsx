@@ -1,4 +1,4 @@
-import {useCurrentEditor, useEditorState} from "@tiptap/react"
+import {useEditorState} from "@tiptap/react"
 import {FloatingMenu} from "@tiptap/react/menus"
 import {type FC, useMemo} from "react"
 import {useEvent} from "react-use-event-hook"
@@ -9,10 +9,12 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "../ui/Select.jsx"
+} from "../../components/ui/Select.jsx"
 
-export const FloatingToolbar: FC = () => {
-  const {editor} = useCurrentEditor()
+import {useEditorContext} from "./EditorContext.jsx"
+
+export const EditorFloatingToolbar: FC = () => {
+  const editor = useEditorContext()
 
   const state = useEditorState({
     editor,
@@ -45,7 +47,7 @@ export const FloatingToolbar: FC = () => {
     editor.chain().focus().setParagraph().run()
   })
 
-  return editor ? (
+  return (
     <FloatingMenu
       shouldShow={null}
       editor={editor}
@@ -70,5 +72,5 @@ export const FloatingToolbar: FC = () => {
         </SelectContent>
       </Select>
     </FloatingMenu>
-  ) : null
+  )
 }
