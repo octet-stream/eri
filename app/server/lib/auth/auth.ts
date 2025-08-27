@@ -27,6 +27,9 @@ export const auth = betterAuth({
     database: {
       generateId: false // Handled by the ORM
     }
+  },
+  telemetry: {
+    enabled: false
   }
 })
 
