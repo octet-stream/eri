@@ -1,6 +1,5 @@
-import type {Context} from "hono"
 import {csrf} from "hono/csrf"
-import type {unstable_InitialContext as InitialContext} from "react-router"
+import {unstable_RouterContextProvider as RouterContextProvider} from "react-router"
 import {createHonoServer} from "react-router-hono-server/node"
 import {authContext} from "./server/contexts/auth.js"
 import {matchesContext} from "./server/contexts/matches.js"
@@ -36,8 +35,8 @@ export default await createHonoServer<Env>({
       .use(withAuth())
   },
 
-  async getLoadContext(ctx: Context<Env>, options) {
-    const context: InitialContext = new Map()
+  async getLoadContext(ctx, options) {
+    const context = new RouterContextProvider()
 
     context.set(authContext, ctx.var.auth)
     context.set(ormContext, ctx.var.orm)
