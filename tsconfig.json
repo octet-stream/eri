@@ -19,17 +19,20 @@
     "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
+    "incremental": true,
+    "rootDirs": [".", "./.react-router/types"],
+    
+    // Modules
     "module": "node16",
     "moduleResolution": "node16",
+    "moduleDetection": "force",
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "moduleDetection": "force",
-    "incremental": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
-    "rootDirs": [".", "./.react-router/types"],
-    "verbatimModuleSyntax": true
+    "forceConsistentCasingInFileNames": true
   },
   "ts-node": {
     "esm": true,
