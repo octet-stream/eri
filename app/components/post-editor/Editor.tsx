@@ -1,10 +1,10 @@
 import {EditorProvider} from "@tiptap/react"
 import {type FC, type ReactNode, useMemo} from "react"
 
-import {EditorBubbleMenu} from "./EditorBubbleMenu.jsx"
-import {EditorContent, type EditorContentProps} from "./EditorContent.jsx"
-import {extensions} from "./extensions.js"
-import {FloatingToolbar} from "./FloatingToolbar.jsx"
+import {EditorBubbleMenu} from "./EditorBubbleMenu.tsx"
+import {EditorContent, type EditorContentProps} from "./EditorContent.tsx"
+import {extensions} from "./extensions.ts"
+import {FloatingToolbar} from "./FloatingToolbar.tsx"
 
 export interface EditorProps extends EditorContentProps {
   children?: ReactNode

@@ -1,8 +1,8 @@
 import {z} from "zod"
 
-import type {MaybeNull} from "../../../../lib/types/MaybeNull.js"
+import type {MaybeNull} from "../../../../lib/types/MaybeNull.ts"
 
-import {PageArgs} from "./PageArgs.js"
+import {PageArgs} from "./PageArgs.ts"
 
 export interface CreatePageInputOptions {
   maxLimit?: MaybeNull<number>

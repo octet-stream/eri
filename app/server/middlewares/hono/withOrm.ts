@@ -1,7 +1,7 @@
 import {RequestContext} from "@mikro-orm/mariadb"
 import {createMiddleware} from "hono/factory"
 
-import {orm} from "../../lib/db/orm.js"
+import {orm} from "../../lib/db/orm.ts"
 
 export const withOrm = () =>
   createMiddleware(async (ctx, next) => {

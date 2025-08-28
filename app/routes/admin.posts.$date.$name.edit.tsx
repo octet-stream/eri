@@ -9,26 +9,26 @@ import {parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
 import {data, href, redirect, useNavigation} from "react-router"
 
-import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
-import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
+import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.tsx"
+import {Breadcrumb} from "../components/common/Breadcrumbs.tsx"
 
-import {Editor} from "../components/post-editor/Editor.jsx"
-import {EditorFallback} from "../components/post-editor/EditorFallback.jsx"
-import {EditorForm} from "../components/post-editor/EditorForm.jsx"
-import {Button} from "../components/ui/Button.jsx"
-import {ormContext} from "../server/contexts/orm.js"
-import {Post} from "../server/db/entities.js"
-import {withAdmin} from "../server/lib/admin/withAdmin.js"
-import {slugToParams} from "../server/lib/utils/slug.js"
+import {Editor} from "../components/post-editor/Editor.tsx"
+import {EditorFallback} from "../components/post-editor/EditorFallback.tsx"
+import {EditorForm} from "../components/post-editor/EditorForm.tsx"
+import {Button} from "../components/ui/Button.tsx"
+import {ormContext} from "../server/contexts/orm.ts"
+import {Post} from "../server/db/entities.ts"
+import {withAdmin} from "../server/lib/admin/withAdmin.ts"
+import {slugToParams} from "../server/lib/utils/slug.ts"
 import {
   AdminPostInput,
   type IAdminPostInput
 } from "../server/zod/admin/AdminPostInput.js"
-import {AdminPostUpdateOutput} from "../server/zod/admin/AdminPostUpdateOutput.js"
-import {PostSlug} from "../server/zod/post/PostSlug.js"
-import {parseInput} from "../server/zod/utils/parseInput.js"
-import {parseOutput} from "../server/zod/utils/parseOutput.js"
-import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
+import {AdminPostUpdateOutput} from "../server/zod/admin/AdminPostUpdateOutput.ts"
+import {PostSlug} from "../server/zod/post/PostSlug.ts"
+import {parseInput} from "../server/zod/utils/parseInput.ts"
+import {parseOutput} from "../server/zod/utils/parseOutput.ts"
+import type {Route} from "./+types/admin.posts.$date.$name.edit.ts"
 
 export const loader = withAdmin(async (event: Route.LoaderArgs) => {
   const {params, context} = event

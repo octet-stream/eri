@@ -1,6 +1,6 @@
 import type {z} from "zod"
 
-import {Port} from "../../common/Port.js"
+import {Port} from "../../common/Port.ts"
 
 export const DatabasePort = Port.default(3306)
 

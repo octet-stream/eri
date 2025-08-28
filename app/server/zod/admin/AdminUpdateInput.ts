@@ -1,7 +1,7 @@
 import {z} from "zod"
 
-import {AdminUpdateMainInfoInput} from "./AdminUpdateMainInfoInput.js"
-import {AdminUpdatePasswordInput} from "./AdminUpdatePasswordInput.js"
+import {AdminUpdateMainInfoInput} from "./AdminUpdateMainInfoInput.ts"
+import {AdminUpdatePasswordInput} from "./AdminUpdatePasswordInput.ts"
 
 export const AdminUpdateInput = z.discriminatedUnion("intent", [
   AdminUpdateMainInfoInput,

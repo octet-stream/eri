@@ -1,9 +1,9 @@
 import {Entity, ManyToOne, type Opt, Property} from "@mikro-orm/mariadb"
 
-import type {Maybe} from "../../../lib/types/Maybe.js"
+import type {Maybe} from "../../../lib/types/Maybe.ts"
 
-import {Record} from "./Record.js"
-import {User} from "./User.js"
+import {Record} from "./Record.ts"
+import {User} from "./User.ts"
 
 @Entity()
 export class Account extends Record {

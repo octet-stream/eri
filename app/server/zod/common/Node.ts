@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {ID} from "./ID.js"
+import {ID} from "./ID.ts"
 
 export const Node = z.object({
   id: ID

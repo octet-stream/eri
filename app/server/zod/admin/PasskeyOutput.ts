@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {Record} from "../common/Record.js"
+import {Record} from "../common/Record.ts"
 
 export const PasskeyOutput = Record.extend({
   id: z.string().min(1), // Passkey ignores id type

@@ -1,10 +1,10 @@
 import {z} from "zod"
-import {DatabaseHost} from "./orm/DatabaseHost.js"
-import {DatabaseName} from "./orm/DatabaseName.js"
-import {DatabasePort} from "./orm/DatabasePort.js"
-import {DatabaseUserName} from "./orm/DatabaseUserName.js"
-import {DatabaseUserPassword} from "./orm/DatabaseUserPassword.js"
-import {Debug} from "./orm/Debug.js"
+import {DatabaseHost} from "./orm/DatabaseHost.ts"
+import {DatabaseName} from "./orm/DatabaseName.ts"
+import {DatabasePort} from "./orm/DatabasePort.ts"
+import {DatabaseUserName} from "./orm/DatabaseUserName.ts"
+import {DatabaseUserPassword} from "./orm/DatabaseUserPassword.ts"
+import {Debug} from "./orm/Debug.ts"
 
 export const Orm = z
   .object({

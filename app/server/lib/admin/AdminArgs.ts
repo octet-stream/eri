@@ -4,10 +4,10 @@ import type {
 } from "better-auth"
 import type {ActionFunctionArgs, LoaderFunctionArgs} from "react-router"
 
-import type {IsAny} from "../../../lib/types/IsAny.js"
-import type {Replace} from "../../../lib/types/Replace.js"
-import type {Variables} from "../../../server.js"
-import type {Session, User} from "../../db/entities.js"
+import type {IsAny} from "../../../lib/types/IsAny.ts"
+import type {Replace} from "../../../lib/types/Replace.ts"
+import type {Variables} from "../../../server.ts"
+import type {Session, User} from "../../db/entities.ts"
 
 export interface AdminViewer {
   /**

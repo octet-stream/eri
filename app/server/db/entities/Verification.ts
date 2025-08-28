@@ -1,6 +1,6 @@
 import {Entity, Property} from "@mikro-orm/mariadb"
 
-import {Record} from "./Record.js"
+import {Record} from "./Record.ts"
 
 @Entity()
 export class Verification extends Record {

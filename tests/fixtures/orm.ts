@@ -1,7 +1,7 @@
 import type {MikroORM} from "@mikro-orm/mariadb"
 import {afterAll, beforeAll, beforeEach, test} from "vitest"
 
-import {orm} from "../../app/server/lib/db/orm.js"
+import {orm} from "../../app/server/lib/db/orm.ts"
 
 export interface OrmTestContext {
   orm: MikroORM

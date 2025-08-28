@@ -1,10 +1,10 @@
 import type {z} from "zod"
 
-import type {DefaultPageInput} from "./createPageInput.js"
-import type {DefaultPageOutput} from "./createPageOutput.js"
+import type {DefaultPageInput} from "./createPageInput.ts"
+import type {DefaultPageOutput} from "./createPageOutput.ts"
 
-import {parsePageInput} from "./parsePageInput.js"
-import {parsePageOutput} from "./parsePageOutput.js"
+import {parsePageInput} from "./parsePageInput.ts"
+import {parsePageOutput} from "./parsePageOutput.ts"
 
 export const createPage = <
   TInputSchema extends typeof DefaultPageInput,

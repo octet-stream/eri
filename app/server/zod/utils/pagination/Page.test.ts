@@ -1,7 +1,7 @@
 import {describe, expect, test} from "vitest"
 
-import {Page} from "./Page.js"
-import {PageArgs} from "./PageArgs.js"
+import {Page} from "./Page.ts"
+import {PageArgs} from "./PageArgs.ts"
 
 interface Note {
   id: string

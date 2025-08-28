@@ -11,7 +11,7 @@ import {
 import type {FC} from "react"
 import {useEvent} from "react-use-event-hook"
 
-import {ToolbarButton} from "./ToolbarButton.jsx"
+import {ToolbarButton} from "./ToolbarButton.tsx"
 
 export const EditorBubbleMenu: FC = () => {
   const {editor} = useCurrentEditor()

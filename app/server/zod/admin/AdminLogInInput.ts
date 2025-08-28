@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {AdminPassword} from "./AdminPassword.js"
+import {AdminPassword} from "./AdminPassword.ts"
 
 export const AdminLogInInput = z.object({
   email: z.string().email(),

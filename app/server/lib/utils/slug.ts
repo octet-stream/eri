@@ -4,8 +4,8 @@ import {customAlphabet, urlAlphabet} from "nanoid"
 
 import validator from "validator"
 
-import type {RawDate} from "../../../lib/types/RawDate.js"
-import type {IPostSlug, OPostSlug} from "../../zod/post/PostSlug.js"
+import type {RawDate} from "../../../lib/types/RawDate.ts"
+import type {IPostSlug, OPostSlug} from "../../zod/post/PostSlug.ts"
 
 export const SLUG_DATE_FORMAT = "yyyy-MM-dd"
 

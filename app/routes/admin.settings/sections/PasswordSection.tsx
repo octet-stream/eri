@@ -3,7 +3,7 @@ import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
 import {Form, useActionData} from "react-router"
 
-import {Button} from "../../../components/ui/Button.jsx"
+import {Button} from "../../../components/ui/Button.tsx"
 import {
   Card,
   CardContent,
@@ -11,12 +11,12 @@ import {
   CardHeader,
   CardTitle
 } from "../../../components/ui/Card.jsx"
-import {Input} from "../../../components/ui/Input.jsx"
-import {Label} from "../../../components/ui/Label.jsx"
+import {Input} from "../../../components/ui/Input.tsx"
+import {Label} from "../../../components/ui/Label.tsx"
 
-import {AdminUpdatePasswordInput} from "../../../server/zod/admin/AdminUpdatePasswordInput.js"
+import {AdminUpdatePasswordInput} from "../../../server/zod/admin/AdminUpdatePasswordInput.ts"
 
-import type {action} from "../route.jsx"
+import type {action} from "../route.tsx"
 
 export const PasswordSection: FC = () => {
   const lastResult = useActionData<typeof action>()

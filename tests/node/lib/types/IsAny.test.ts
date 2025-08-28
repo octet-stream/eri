@@ -1,6 +1,6 @@
 import {expectTypeOf, test} from "vitest"
 
-import type {IsAny} from "../../../../app/lib/types/IsAny.js"
+import type {IsAny} from "../../../../app/lib/types/IsAny.ts"
 
 test("returns true for type 'any'", () => {
   expectTypeOf<IsAny<any>>().toEqualTypeOf<true>()

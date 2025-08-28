@@ -7,10 +7,11 @@ import {
   Scripts,
   ScrollRestoration
 } from "react-router"
-import type {Route} from "./+types/root.js"
-import {Toaster} from "./components/ui/Toaster.jsx"
-import config from "./server/lib/config.js"
-import {withCheckPostPks} from "./server/middlewares/router/withCheckPostPks.js"
+
+import type {Route} from "./+types/root.ts"
+import {Toaster} from "./components/ui/Toaster.tsx"
+import config from "./server/lib/config.ts"
+import {withCheckPostPks} from "./server/middlewares/router/withCheckPostPks.ts"
 // For some reason the page flickers in dev mode if tailwind.css imported directly, so I'll just add it as a link
 import tailwindcss from "./tailwind.css?url"
 

@@ -3,17 +3,17 @@ import {getSchema} from "@tiptap/core"
 import {Node} from "@tiptap/pm/model"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
-import {extensions} from "../../../app/components/post-editor/extensions.js"
+import {extensions} from "../../../app/components/post-editor/extensions.ts"
 import {
   action,
   loader
 } from "../../../app/routes/admin.posts.$date.$name.edit.jsx"
-import {Post} from "../../../app/server/db/entities.js"
-import {formatSlugName} from "../../../app/server/lib/utils/slug.js"
-import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.js"
-import {adminTest} from "../../fixtures/admin.js"
-import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
+import {Post} from "../../../app/server/db/entities.ts"
+import {formatSlugName} from "../../../app/server/lib/utils/slug.ts"
+import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
+import {adminTest} from "../../fixtures/admin.ts"
+import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.ts"
+import {createStubActionArgs} from "../../utils/createStubRouteArgs.ts"
 
 interface PostEditTestContext {
   post: Post

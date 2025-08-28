@@ -1,8 +1,8 @@
 import type {z} from "zod"
 
-import type {MaybePromise} from "../../../../lib/types/MaybePromise.js"
+import type {MaybePromise} from "../../../../lib/types/MaybePromise.ts"
 
-import type {DefaultPageOutput} from "./createPageOutput.js"
+import type {DefaultPageOutput} from "./createPageOutput.ts"
 
 function resolve<
   TInput extends z.input<typeof DefaultPageOutput>,

@@ -1,16 +1,16 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
-import {action, loader} from "../../../app/routes/admin.posts.new.jsx"
-import {Post} from "../../../app/server/db/entities.js"
+import {action, loader} from "../../../app/routes/admin.posts.new.tsx"
+import {Post} from "../../../app/server/db/entities.ts"
 
 import {
   AdminPostInput,
   type IAdminPostInput
 } from "../../../app/server/zod/admin/AdminPostInput.js"
-import {test} from "../../fixtures/admin.js"
-import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.js"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.js"
+import {test} from "../../fixtures/admin.ts"
+import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.ts"
+import {createStubActionArgs} from "../../utils/createStubRouteArgs.ts"
 
 createAdminAuthLoaderSuite(loader)
 

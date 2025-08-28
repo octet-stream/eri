@@ -1,13 +1,13 @@
 import {unstable_RouterContextProvider as RouterContextProvider} from "react-router"
 
-import type {Replace} from "../../app/lib/types/Replace.js"
-import {authContext} from "../../app/server/contexts/auth.js"
-import {ormContext} from "../../app/server/contexts/orm.js"
-import {resHeadersContext} from "../../app/server/contexts/resHeaders.js"
-import {auth} from "../../app/server/lib/auth/auth.js"
-import {orm} from "../../app/server/lib/db/orm.js"
-import type {ActionArgs} from "../../app/server/lib/types/Action.js"
-import type {LoaderArgs} from "../../app/server/lib/types/Loader.js"
+import type {Replace} from "../../app/lib/types/Replace.ts"
+import {authContext} from "../../app/server/contexts/auth.ts"
+import {ormContext} from "../../app/server/contexts/orm.ts"
+import {resHeadersContext} from "../../app/server/contexts/resHeaders.ts"
+import {auth} from "../../app/server/lib/auth/auth.ts"
+import {orm} from "../../app/server/lib/db/orm.ts"
+import type {ActionArgs} from "../../app/server/lib/types/Action.ts"
+import type {LoaderArgs} from "../../app/server/lib/types/Loader.ts"
 
 interface CreateStubRouteArgsInput<
   TParams extends Record<string, unknown> = Record<string, unknown>

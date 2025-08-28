@@ -1,14 +1,14 @@
 import {data} from "react-router"
 
-import {ormContext} from "../server/contexts/orm.js"
-import {Post} from "../server/db/entities.js"
-import {withAdmin} from "../server/lib/admin/withAdmin.js"
-import {PostSlug} from "../server/zod/post/PostSlug.js"
-import {PostViewOutput} from "../server/zod/post/PostViewOutput.js"
-import {parseInput} from "../server/zod/utils/parseInput.js"
-import {parseOutput} from "../server/zod/utils/parseOutput.js"
+import {ormContext} from "../server/contexts/orm.ts"
+import {Post} from "../server/db/entities.ts"
+import {withAdmin} from "../server/lib/admin/withAdmin.ts"
+import {PostSlug} from "../server/zod/post/PostSlug.ts"
+import {PostViewOutput} from "../server/zod/post/PostViewOutput.ts"
+import {parseInput} from "../server/zod/utils/parseInput.ts"
+import {parseOutput} from "../server/zod/utils/parseOutput.ts"
 
-import type {Route} from "./+types/admin.posts.$date.$name._index.js"
+import type {Route} from "./+types/admin.posts.$date.$name._index.ts"
 
 export const loader = withAdmin(async (event: Route.LoaderArgs) => {
   const {params, context} = event

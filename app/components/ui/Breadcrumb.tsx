@@ -2,7 +2,7 @@ import {Slot} from "@radix-ui/react-slot"
 import {ChevronRight, MoreHorizontal} from "lucide-react"
 import type {ComponentProps, ComponentRef, FC, ReactNode} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export interface BreadcrumbProps extends ComponentProps<"nav"> {
   separator?: ReactNode
@@ -73,6 +73,7 @@ export const BreadcrumbPage: FC<BreadcrumbPageProps> = ({
   ...props
 }) => (
   // biome-ignore lint/a11y/useFocusableInteractive: Disabled because this code is generated
+  // biome-ignore lint/a11y/useSemanticElements: Same reason
   <span
     {...props}
     role="link"

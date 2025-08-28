@@ -1,6 +1,6 @@
 import type {z} from "zod"
 
-import {createPageInput} from "../utils/pagination/createPageInput.js"
+import {createPageInput} from "../utils/pagination/createPageInput.ts"
 
 export const PostListInput = createPageInput({maxLimit: 100})
 

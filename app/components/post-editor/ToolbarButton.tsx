@@ -1,6 +1,6 @@
 import type {ComponentProps, FC} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export interface ToolbarButtonProps extends ComponentProps<"button"> {
   active?: boolean

@@ -2,11 +2,11 @@ import {betterAuth} from "better-auth"
 import {passkey} from "better-auth/plugins/passkey"
 import {mikroOrmAdapter} from "better-auth-mikro-orm"
 
-import config from "../config.js"
+import config from "../config.ts"
 
-import {orm} from "../db/orm.js"
+import {orm} from "../db/orm.ts"
 
-import {hash, verify} from "./password.js"
+import {hash, verify} from "./password.ts"
 
 export const auth = betterAuth({
   database: mikroOrmAdapter(orm),

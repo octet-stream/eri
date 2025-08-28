@@ -1,8 +1,8 @@
 import {createContext, useContext} from "react"
 
-import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
+import type {MaybeNull} from "../../../lib/types/MaybeNull.ts"
 
-import type {loader} from "../route.jsx"
+import type {loader} from "../route.tsx"
 
 export type PostsContextData = Awaited<ReturnType<typeof loader>>["page"]
 

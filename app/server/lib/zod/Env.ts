@@ -1,6 +1,6 @@
 import type {z} from "zod"
 
-import {NodeEnv} from "./common/NodeEnv.js"
+import {NodeEnv} from "./common/NodeEnv.ts"
 
 export const Env = NodeEnv.default("development")
 

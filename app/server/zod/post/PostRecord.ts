@@ -1,8 +1,8 @@
 import type {z} from "zod"
 
-import {RecordSoft} from "../common/RecordSoft.js"
+import {RecordSoft} from "../common/RecordSoft.ts"
 
-import {PostBase} from "./PostBase.js"
+import {PostBase} from "./PostBase.ts"
 
 export const PostRecord = RecordSoft.merge(PostBase)
 
