@@ -4,7 +4,7 @@ import type {FC} from "react"
 import {Form, useActionData, useLoaderData, useNavigation} from "react-router"
 import type {z} from "zod"
 
-import {Button} from "../../../components/ui/Button.jsx"
+import {Button} from "../../../components/ui/Button.tsx"
 import {
   Card,
   CardContent,
@@ -12,12 +12,12 @@ import {
   CardHeader,
   CardTitle
 } from "../../../components/ui/Card.jsx"
-import {Input} from "../../../components/ui/Input.jsx"
-import {Label} from "../../../components/ui/Label.jsx"
+import {Input} from "../../../components/ui/Input.tsx"
+import {Label} from "../../../components/ui/Label.tsx"
 
-import {AdminUpdateMainInfoInput} from "../../../server/zod/admin/AdminUpdateMainInfoInput.js"
+import {AdminUpdateMainInfoInput} from "../../../server/zod/admin/AdminUpdateMainInfoInput.ts"
 
-import type {action, loader} from "../route.jsx"
+import type {action, loader} from "../route.tsx"
 
 export const MainInfoSection: FC = () => {
   const defaultValue = useLoaderData<typeof loader>()

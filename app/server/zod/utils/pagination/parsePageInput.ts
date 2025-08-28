@@ -1,9 +1,9 @@
 import type {z} from "zod"
 
-import type {MaybePromise} from "../../../../lib/types/MaybePromise.js"
-import {resolveResult} from "../resolveResult.js"
+import type {MaybePromise} from "../../../../lib/types/MaybePromise.ts"
+import {resolveResult} from "../resolveResult.ts"
 
-import type {DefaultPageInput} from "./createPageInput.js"
+import type {DefaultPageInput} from "./createPageInput.ts"
 
 function onError<TInput>(reason: z.SafeParseError<TInput>): never {
   throw Response.json(reason.error.flatten(), {

@@ -1,6 +1,6 @@
 import {createMiddleware} from "hono/factory"
 
-import {auth} from "../../lib/auth/auth.js"
+import {auth} from "../../lib/auth/auth.ts"
 
 export const withAuth = () =>
   createMiddleware(async (ctx, next) => {

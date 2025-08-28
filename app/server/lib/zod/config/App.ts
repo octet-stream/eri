@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {Name} from "./app/Name.js"
+import {Name} from "./app/Name.ts"
 
 export const App = z
   .object({

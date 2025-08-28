@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {AdminLogInInput} from "./AdminLogInInput.js"
+import {AdminLogInInput} from "./AdminLogInInput.ts"
 
 export const AdminSetupInput = z.object({
   ...AdminLogInInput.shape

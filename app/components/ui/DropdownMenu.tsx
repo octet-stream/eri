@@ -18,7 +18,7 @@ import {
 import {Check, ChevronRight, Circle} from "lucide-react"
 import type {ComponentProps, ComponentRef, FC} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 interface WithInset {
   inset?: boolean

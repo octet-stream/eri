@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {DateTime} from "./DateTime.js"
+import {DateTime} from "./DateTime.ts"
 
 export const CommonDates = z.object({
   createdAt: DateTime,

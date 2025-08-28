@@ -1,7 +1,7 @@
-import type {MaybeNull} from "../../../../lib/types/MaybeNull.js"
-import type {Simplify} from "../../../../lib/types/Simplify.js"
+import type {MaybeNull} from "../../../../lib/types/MaybeNull.ts"
+import type {Simplify} from "../../../../lib/types/Simplify.ts"
 
-import type {PageArgs} from "./PageArgs.js"
+import type {PageArgs} from "./PageArgs.ts"
 
 export interface PageOutputInput<T extends object> {
   /**

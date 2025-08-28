@@ -6,18 +6,18 @@ import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../../components/common/Breadcrumbs.jsx"
-import type {MaybeUndefined} from "../../lib/types/MaybeUndefined.js"
-import {adminContext} from "../../server/contexts/admin.js"
-import {authContext} from "../../server/contexts/auth.js"
-import {ormContext} from "../../server/contexts/orm.js"
-import {withAdmin} from "../../server/lib/admin/withAdmin.js"
-import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.js"
-import {SessionUserOutput} from "../../server/zod/admin/SessionUserOutput.js"
-import {parseOutput} from "../../server/zod/utils/parseOutput.js"
-import type {Route} from "./+types/route.js"
-import {MainInfoSection} from "./sections/MainInfoSection.jsx"
-import {PasskeySection} from "./sections/PasskeySection.jsx"
-import {PasswordSection} from "./sections/PasswordSection.jsx"
+import type {MaybeUndefined} from "../../lib/types/MaybeUndefined.ts"
+import {adminContext} from "../../server/contexts/admin.ts"
+import {authContext} from "../../server/contexts/auth.ts"
+import {ormContext} from "../../server/contexts/orm.ts"
+import {withAdmin} from "../../server/lib/admin/withAdmin.ts"
+import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.ts"
+import {SessionUserOutput} from "../../server/zod/admin/SessionUserOutput.ts"
+import {parseOutput} from "../../server/zod/utils/parseOutput.ts"
+import type {Route} from "./+types/route.ts"
+import {MainInfoSection} from "./sections/MainInfoSection.tsx"
+import {PasskeySection} from "./sections/PasskeySection.tsx"
+import {PasswordSection} from "./sections/PasswordSection.tsx"
 
 export const loader = withAdmin(async ({context}: Route.LoaderArgs) => {
   const {user} = context.get(adminContext)

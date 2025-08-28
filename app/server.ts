@@ -1,18 +1,18 @@
-import type {Context} from "hono"
 import {csrf} from "hono/csrf"
-import type {unstable_InitialContext as InitialContext} from "react-router"
+import {unstable_RouterContextProvider as RouterContextProvider} from "react-router"
 import {createHonoServer} from "react-router-hono-server/node"
-import {authContext} from "./server/contexts/auth.js"
-import {matchesContext} from "./server/contexts/matches.js"
-import {ormContext} from "./server/contexts/orm.js"
-import {resHeadersContext} from "./server/contexts/resHeaders.js"
-import type {auth} from "./server/lib/auth/auth.js"
-import config from "./server/lib/config.js"
-import {orm} from "./server/lib/db/orm.js"
-import {getRouteMatches} from "./server/lib/utils/routes.js"
-import {withAuth} from "./server/middlewares/hono/withAuth.js"
-import {withOrm} from "./server/middlewares/hono/withOrm.js"
-import {withResponseHeaders} from "./server/middlewares/hono/withResponseHeaders.js"
+
+import {authContext} from "./server/contexts/auth.ts"
+import {matchesContext} from "./server/contexts/matches.ts"
+import {ormContext} from "./server/contexts/orm.ts"
+import {resHeadersContext} from "./server/contexts/resHeaders.ts"
+import type {auth} from "./server/lib/auth/auth.ts"
+import config from "./server/lib/config.ts"
+import {orm} from "./server/lib/db/orm.ts"
+import {getRouteMatches} from "./server/lib/utils/routes.ts"
+import {withAuth} from "./server/middlewares/hono/withAuth.ts"
+import {withOrm} from "./server/middlewares/hono/withOrm.ts"
+import {withResponseHeaders} from "./server/middlewares/hono/withResponseHeaders.ts"
 
 export interface Variables {
   orm: typeof orm
@@ -36,8 +36,8 @@ export default await createHonoServer<Env>({
       .use(withAuth())
   },
 
-  async getLoadContext(ctx: Context<Env>, options) {
-    const context: InitialContext = new Map()
+  async getLoadContext(ctx, options) {
+    const context = new RouterContextProvider()
 
     context.set(authContext, ctx.var.auth)
     context.set(ormContext, ctx.var.orm)

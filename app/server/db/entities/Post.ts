@@ -10,11 +10,11 @@ import {
 } from "@mikro-orm/mariadb"
 import type {JSONContent} from "@tiptap/core"
 
-import {formatSlug} from "../../lib/utils/slug.js"
+import {formatSlug} from "../../lib/utils/slug.ts"
 
-import {PostPrevKnownSlug} from "./PostPrevKnownSlug.js"
-import {RecordSoft} from "./RecordSoft.js"
-import {User} from "./User.js"
+import {PostPrevKnownSlug} from "./PostPrevKnownSlug.ts"
+import {RecordSoft} from "./RecordSoft.ts"
+import {User} from "./User.ts"
 
 export interface PostInput {
   title: string

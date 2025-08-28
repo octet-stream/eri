@@ -2,13 +2,13 @@ import type {
   Session as DatabaseSession,
   User as DatabaseUser
 } from "better-auth"
-import {adminContext} from "../../contexts/admin.js"
-import {authContext} from "../../contexts/auth.js"
-import {ormContext} from "../../contexts/orm.js"
-import {resHeadersContext} from "../../contexts/resHeaders.js"
-import {Session, User} from "../../db/entities.js"
-import type {Action, ActionArgs} from "../types/Action.js"
-import type {Loader, LoaderArgs} from "../types/Loader.js"
+import {adminContext} from "../../contexts/admin.ts"
+import {authContext} from "../../contexts/auth.ts"
+import {ormContext} from "../../contexts/orm.ts"
+import {resHeadersContext} from "../../contexts/resHeaders.ts"
+import {Session, User} from "../../db/entities.ts"
+import type {Action, ActionArgs} from "../types/Action.ts"
+import type {Loader, LoaderArgs} from "../types/Loader.ts"
 
 import {
   AdminLoaderErrorCode,

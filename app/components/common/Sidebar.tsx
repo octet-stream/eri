@@ -3,8 +3,8 @@ import type {LucideIcon} from "lucide-react"
 import {type ComponentProps, type FC, Fragment, type ReactNode} from "react"
 import {Link} from "react-router"
 
-import {cn} from "../../lib/utils/cn.js"
-import {SheetClose, SheetContent, SheetTrigger} from "../ui/Sheet.jsx"
+import {cn} from "../../lib/utils/cn.ts"
+import {SheetClose, SheetContent, SheetTrigger} from "../ui/Sheet.tsx"
 
 export interface SidebarProps {
   className?: string

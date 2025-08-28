@@ -1,11 +1,11 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import {beforeEach, expect, suite} from "vitest"
-import {loader} from "../../../app/routes/_blog._index/route.jsx"
-import {Post, User} from "../../../app/server/db/entities.js"
-import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.js"
-import {type OrmTestContext, test} from "../../fixtures/orm.js"
-import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.js"
+import {loader} from "../../../app/routes/_blog._index/route.tsx"
+import {Post, User} from "../../../app/server/db/entities.ts"
+import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
+import {type OrmTestContext, test} from "../../fixtures/orm.ts"
+import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.ts"
 
 suite("loader", () => {
   suite("no data", async () => {

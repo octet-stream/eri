@@ -2,9 +2,9 @@ import {Fragment} from "@tiptap/pm/model"
 import {renderToHTMLString} from "@tiptap/static-renderer"
 import type {z} from "zod"
 
-import {extensions} from "../../../components/post-editor/extensions.js"
+import {extensions} from "../../../components/post-editor/extensions.ts"
 
-import {PostOutput} from "./PostOutput.js"
+import {PostOutput} from "./PostOutput.ts"
 
 export const PostViewOutput = PostOutput.transform(({content, ...post}) => {
   return {

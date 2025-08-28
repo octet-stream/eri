@@ -1,8 +1,8 @@
 import {createContext, useContext} from "react"
 
-import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
+import type {MaybeNull} from "../../../lib/types/MaybeNull.ts"
 
-import type {Route} from "../+types/route.js"
+import type {Route} from "../+types/route.ts"
 
 export type PostContextData = NonNullable<
   Route.ComponentProps["loaderData"]["items"][number]

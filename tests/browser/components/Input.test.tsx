@@ -1,7 +1,7 @@
 import {expect, test} from "vitest"
 import {render} from "vitest-browser-react"
 
-import {Input} from "../../../app/components/ui/Input.jsx"
+import {Input} from "../../../app/components/ui/Input.tsx"
 
 test("highlights errors", async () => {
   const screen = render(

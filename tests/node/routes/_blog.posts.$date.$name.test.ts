@@ -2,11 +2,11 @@ import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
 import {expect, suite} from "vitest"
-import {loader} from "../../../app/routes/_blog.posts.$date.$name.jsx"
-import {Post, User} from "../../../app/server/db/entities.js"
-import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.js"
-import {test} from "../../fixtures/orm.js"
-import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.js"
+import {loader} from "../../../app/routes/_blog.posts.$date.$name.tsx"
+import {Post, User} from "../../../app/server/db/entities.ts"
+import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
+import {test} from "../../fixtures/orm.ts"
+import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.ts"
 
 suite("loader", () => {
   test("throws when post cannot be found", async () => {

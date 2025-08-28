@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {ServerPort} from "./server/ServerPort.js"
+import {ServerPort} from "./server/ServerPort.ts"
 
 export const Server = z
   .object({

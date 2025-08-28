@@ -12,21 +12,21 @@ import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../components/common/Breadcrumbs.jsx"
-import {Editor} from "../components/post-editor/Editor.jsx"
-import {EditorFallback} from "../components/post-editor/EditorFallback.jsx"
-import {EditorForm} from "../components/post-editor/EditorForm.jsx"
-import {Button} from "../components/ui/Button.jsx"
-import {adminContext} from "../server/contexts/admin.js"
-import {ormContext} from "../server/contexts/orm.js"
-import {Post} from "../server/db/entities.js"
-import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
-import {withAdmin} from "../server/lib/admin/withAdmin.js"
-import {slugToParams} from "../server/lib/utils/slug.js"
+import {Editor} from "../components/post-editor/Editor.tsx"
+import {EditorFallback} from "../components/post-editor/EditorFallback.tsx"
+import {EditorForm} from "../components/post-editor/EditorForm.tsx"
+import {Button} from "../components/ui/Button.tsx"
+import {adminContext} from "../server/contexts/admin.ts"
+import {ormContext} from "../server/contexts/orm.ts"
+import {Post} from "../server/db/entities.ts"
+import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.ts"
+import {withAdmin} from "../server/lib/admin/withAdmin.ts"
+import {slugToParams} from "../server/lib/utils/slug.ts"
 import {
   AdminPostInput,
   type IAdminPostInput
 } from "../server/zod/admin/AdminPostInput.js"
-import type {Route} from "./+types/admin.posts.new.js"
+import type {Route} from "./+types/admin.posts.new.ts"
 
 export const loader = noopAdminLoader
 

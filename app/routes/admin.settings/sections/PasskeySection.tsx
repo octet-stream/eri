@@ -2,7 +2,7 @@ import type {FC} from "react"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
-import {Button} from "../../../components/ui/Button.jsx"
+import {Button} from "../../../components/ui/Button.tsx"
 import {
   Card,
   CardContent,
@@ -10,9 +10,9 @@ import {
   CardHeader,
   CardTitle
 } from "../../../components/ui/Card.jsx"
-import {authClient} from "../../../lib/auth.js"
+import {authClient} from "../../../lib/auth.ts"
 
-import {PasskeyTable} from "./PasskeyTable.jsx"
+import {PasskeyTable} from "./PasskeyTable.tsx"
 
 export const PasskeySection: FC = () => {
   const addPasskey = useEvent(async () => {

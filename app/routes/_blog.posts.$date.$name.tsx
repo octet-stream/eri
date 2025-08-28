@@ -5,17 +5,17 @@ import {
   Breadcrumb,
   type BreadcrumbHandle
 } from "../components/common/Breadcrumbs.jsx"
-import {Heading as CommonHeading} from "../components/common/Heading.jsx"
+import {Heading as CommonHeading} from "../components/common/Heading.tsx"
 
-import {formatPostDate} from "../lib/utils/formatPostDate.js"
-import {ormContext} from "../server/contexts/orm.js"
-import {Post} from "../server/db/entities.js"
-import {PostSlug} from "../server/zod/post/PostSlug.js"
-import {PostViewOutput} from "../server/zod/post/PostViewOutput.js"
-import {parseInput} from "../server/zod/utils/parseInput.js"
-import {parseOutput} from "../server/zod/utils/parseOutput.js"
+import {formatPostDate} from "../lib/utils/formatPostDate.ts"
+import {ormContext} from "../server/contexts/orm.ts"
+import {Post} from "../server/db/entities.ts"
+import {PostSlug} from "../server/zod/post/PostSlug.ts"
+import {PostViewOutput} from "../server/zod/post/PostViewOutput.ts"
+import {parseInput} from "../server/zod/utils/parseInput.ts"
+import {parseOutput} from "../server/zod/utils/parseOutput.ts"
 
-import type {Route} from "./+types/_blog.posts.$date.$name.js"
+import type {Route} from "./+types/_blog.posts.$date.$name.ts"
 
 export const loader = async (event: Route.LoaderArgs) => {
   const {params, context} = event

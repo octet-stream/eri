@@ -3,7 +3,7 @@ import type {
   unstable_RouterContextProvider as RouterContextProvider
 } from "react-router"
 
-import type {Replace} from "./Replace.js"
+import type {Replace} from "./Replace.ts"
 
 export type ActionArgs = Replace<
   ActionFunctionArgs,

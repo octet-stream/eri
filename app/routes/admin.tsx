@@ -24,12 +24,12 @@ import {
   isAdminLoaderError
 } from "../server/lib/admin/adminLoaderError.js"
 
-import type {Route} from "./+types/admin.js"
+import type {Route} from "./+types/admin.ts"
 
-import {AdminLoginPage} from "./admin_.login/AdminLoginPage.jsx"
-import {ADMIN_LOGIN_PAGE_TITLE} from "./admin_.login/title.js"
-import {AdminSetupPage} from "./admin_.setup/AdminSetupPage.jsx"
-import {ADMIN_SETUP_PAGE_TITLE} from "./admin_.setup/title.js"
+import {AdminLoginPage} from "./admin_.login/AdminLoginPage.tsx"
+import {ADMIN_LOGIN_PAGE_TITLE} from "./admin_.login/title.ts"
+import {AdminSetupPage} from "./admin_.setup/AdminSetupPage.tsx"
+import {ADMIN_SETUP_PAGE_TITLE} from "./admin_.setup/title.ts"
 
 export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({
   error,

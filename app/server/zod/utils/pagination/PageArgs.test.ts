@@ -1,6 +1,6 @@
 import {describe, expect, test} from "vitest"
 
-import {PageArgs} from "./PageArgs.js"
+import {PageArgs} from "./PageArgs.ts"
 
 describe("constructor", () => {
   test("returns args with default values", () => {

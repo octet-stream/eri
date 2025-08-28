@@ -1,7 +1,7 @@
 import type {z} from "zod"
 
-import type {MaybePromise} from "../../../lib/types/MaybePromise.js"
-import {type ResolveResultOptions, resolveResult} from "./resolveResult.js"
+import type {MaybePromise} from "../../../lib/types/MaybePromise.ts"
+import {type ResolveResultOptions, resolveResult} from "./resolveResult.ts"
 
 function onError<TInput>(reason: z.SafeParseError<TInput>): never {
   throw Response.json(reason.error.flatten(), {

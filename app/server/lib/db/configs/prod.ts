@@ -2,7 +2,7 @@ import {parse} from "node:path"
 
 import type {MigrationObject} from "@mikro-orm/mariadb"
 
-import promise from "./dev.js"
+import promise from "./dev.ts"
 
 type MigrationsModules = Record<
   string,

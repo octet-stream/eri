@@ -1,6 +1,6 @@
 import "./env.js"
 
-import {Config, type IConfig} from "./zod/Config.js"
+import {Config, type IConfig} from "./zod/Config.ts"
 
 const config = Config.parse({
   app: {

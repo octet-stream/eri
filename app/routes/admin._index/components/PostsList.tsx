@@ -11,8 +11,8 @@ import {href, Link, useLoaderData} from "react-router"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
-import {Button} from "../../../components/ui/Button.jsx"
-import {Checkbox} from "../../../components/ui/Checkbox.jsx"
+import {Button} from "../../../components/ui/Button.tsx"
+import {Checkbox} from "../../../components/ui/Checkbox.tsx"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,9 +30,9 @@ import {
   TableRow
 } from "../../../components/ui/Table.jsx"
 
-import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
-import {slugToParams} from "../../../server/lib/utils/slug.js"
-import type {loader} from "../route.jsx"
+import {formatPostDate} from "../../../lib/utils/formatPostDate.ts"
+import {slugToParams} from "../../../server/lib/utils/slug.ts"
+import type {loader} from "../route.tsx"
 
 export type PostsListData = Awaited<ReturnType<typeof loader>>["items"][number]
 

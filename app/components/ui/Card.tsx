@@ -1,6 +1,6 @@
 import type {ComponentProps, ComponentRef, FC} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export type CardProps = ComponentProps<"div">
 

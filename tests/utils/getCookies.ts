@@ -6,7 +6,9 @@ export function getCookies(headers: Headers): Map<string, SetCookie> {
   headers
     .getSetCookie()
     .map(cookie => parseSetCookie(cookie))
-    .forEach(cookie => cookies.set(cookie.name, cookie))
+    .forEach(cookie => {
+      cookies.set(cookie.name, cookie)
+    })
 
   return cookies
 }

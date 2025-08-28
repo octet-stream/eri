@@ -1,8 +1,8 @@
 import type {z} from "zod"
 
-import {Node} from "../common/Node.js"
+import {Node} from "../common/Node.ts"
 
-import {PostBase} from "./PostBase.js"
+import {PostBase} from "./PostBase.ts"
 
 export const PostNode = Node.merge(PostBase)
 

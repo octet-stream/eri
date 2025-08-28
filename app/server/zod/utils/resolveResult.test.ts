@@ -1,7 +1,7 @@
 import {expect, expectTypeOf, test, vi} from "vitest"
 import {z} from "zod"
 
-import {resolveResult} from "./resolveResult.js"
+import {resolveResult} from "./resolveResult.ts"
 
 test("Returns the result", () => {
   const expected: string = "Hello, world!"

@@ -1,5 +1,5 @@
-import type {MaybeNull} from "../../../../lib/types/MaybeNull.js"
-import type {MaybeUndefined} from "../../../../lib/types/MaybeUndefined.js"
+import type {MaybeNull} from "../../../../lib/types/MaybeNull.ts"
+import type {MaybeUndefined} from "../../../../lib/types/MaybeUndefined.ts"
 
 export interface PageArgsInput {
   /**

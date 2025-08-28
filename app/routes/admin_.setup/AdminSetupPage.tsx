@@ -3,7 +3,7 @@ import {getZodConstraint, parseWithZod} from "@conform-to/zod"
 import type {FC} from "react"
 import {Form} from "react-router"
 
-import {Button} from "../../components/ui/Button.jsx"
+import {Button} from "../../components/ui/Button.tsx"
 import {
   Card,
   CardContent,
@@ -12,11 +12,11 @@ import {
   CardHeader,
   CardTitle
 } from "../../components/ui/Card.jsx"
-import {Input} from "../../components/ui/Input.jsx"
-import {Label} from "../../components/ui/Label.jsx"
-import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
+import {Input} from "../../components/ui/Input.tsx"
+import {Label} from "../../components/ui/Label.tsx"
+import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.ts"
 
-import type {Route} from "./+types/route.js"
+import type {Route} from "./+types/route.ts"
 
 export const AdminSetupPage: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm({

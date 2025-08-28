@@ -1,6 +1,6 @@
 import {MikroORM, RequestContext} from "@mikro-orm/mariadb"
 
-import config from "./configs/base.js"
+import config from "./configs/base.ts"
 
 let cache: Promise<MikroORM> | undefined
 

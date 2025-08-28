@@ -1,6 +1,6 @@
 import {expect, test} from "vitest"
 
-import {matchHttpMethods} from "../../../../../app/server/lib/utils/matchHttpMethods.js"
+import {matchHttpMethods} from "../../../../../app/server/lib/utils/matchHttpMethods.ts"
 
 test("returns true when Request matches given http method", () => {
   const request = new Request("http://localhost", {method: "post"})

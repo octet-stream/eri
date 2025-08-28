@@ -1,6 +1,6 @@
 import {expect, test} from "vitest"
 
-import {toArray} from "../../../../app/lib/utils/toArray.js"
+import {toArray} from "../../../../app/lib/utils/toArray.ts"
 
 test("creates array from given argument", () => {
   const input = 42

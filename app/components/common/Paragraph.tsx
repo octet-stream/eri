@@ -2,7 +2,7 @@ import {cva} from "class-variance-authority"
 import type {ComponentPropsWithoutRef, ElementRef} from "react"
 import {forwardRef} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export type ParagraphRef = ElementRef<"p">
 

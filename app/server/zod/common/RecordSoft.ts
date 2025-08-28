@@ -1,7 +1,7 @@
 import type {z} from "zod"
 
-import {DateTime} from "./DateTime.js"
-import {Record} from "./Record.js"
+import {DateTime} from "./DateTime.ts"
+import {Record} from "./Record.ts"
 
 export const RecordSoft = Record.extend({
   removedAt: DateTime.nullable()
