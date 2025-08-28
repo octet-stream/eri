@@ -10,9 +10,7 @@ import {parseOutput} from "../server/zod/utils/parseOutput.ts"
 
 import type {Route} from "./+types/admin.posts.$date.$name._index.ts"
 
-export const loader = withAdmin(async (event: Route.LoaderArgs) => {
-  const {params, context} = event
-
+export const loader = withAdmin(async ({params, context}: Route.LoaderArgs) => {
   const orm = context.get(ormContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
@@ -38,9 +36,9 @@ export const loader = withAdmin(async (event: Route.LoaderArgs) => {
   return parseOutput(PostViewOutput, post, {async: true})
 })
 
-export const meta: Route.MetaFunction = ({data}) => [
+export const meta: Route.MetaFunction = ({loaderData}) => [
   {
-    title: data?.title
+    title: loaderData.title
   }
 ]
 

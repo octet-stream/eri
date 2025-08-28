@@ -115,9 +115,9 @@ export const action = withAdmin(
   }
 )
 
-export const meta: Route.MetaFunction = ({data}) => [
+export const meta: Route.MetaFunction = ({loaderData}) => [
   {
-    title: data ? `${data.title} - Edit post` : undefined
+    title: loaderData ? `${loaderData.title} - Edit post` : undefined
   }
 ]
 

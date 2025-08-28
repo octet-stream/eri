@@ -1,10 +1,13 @@
-import type {z} from "zod"
+import {z} from "zod"
 
 import {Node} from "../common/Node.ts"
 
 import {PostBase} from "./PostBase.ts"
 
-export const PostNode = Node.merge(PostBase)
+export const PostNode = z.object({
+  ...Node.shape,
+  ...PostBase.shape
+})
 
 export type IPostNode = z.input<typeof PostNode>
 

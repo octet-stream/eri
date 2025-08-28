@@ -16,8 +16,8 @@ export const createCollectionSchema = <T extends z.ZodRawShape>(
         return result.data
       }
 
-      for (const error of result.error.errors) {
-        ctx.addIssue(error)
+      for (const error of result.error.issues) {
+        ctx.addIssue(error as any) // FIXME: Find better solution later
       }
 
       return z.NEVER

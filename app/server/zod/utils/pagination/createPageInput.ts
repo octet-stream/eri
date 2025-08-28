@@ -28,14 +28,8 @@ export function createPageInput<T extends z.ZodRawShape = never>(
   const Page = z
     .union([z.string(), z.number()])
     .nullish()
-    .pipe(
-      z.coerce
-        .number()
-        .int()
-        .positive("Page number must be greater or equal 1")
-        .nullish()
-        .transform(value => (value == null ? undefined : value))
-    )
+    .pipe(z.coerce.number())
+    .transform(value => (value == null ? undefined : value))
 
   const LimitBase = z.number().int().positive()
 
@@ -43,7 +37,7 @@ export function createPageInput<T extends z.ZodRawShape = never>(
 
   const PageBaseInput = z
     .object({page: Page, limit: Limit.optional()})
-    .default(maxLimit ? {limit: maxLimit} : {})
+    .default({limit: maxLimit || undefined, page: 1})
 
   const PageInput = extensions
     ? z.intersection(extensions, PageBaseInput)

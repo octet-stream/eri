@@ -3,7 +3,7 @@ import {z} from "zod"
 import {AdminPassword} from "./AdminPassword.ts"
 
 export const AdminLogInInput = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: AdminPassword
 })
 
