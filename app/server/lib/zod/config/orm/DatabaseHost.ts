@@ -3,8 +3,9 @@ import {z} from "zod"
 export const DatabaseHost = z
   .union([
     z.literal("localhost"),
-    z.string().ip(),
-    z.string().url(),
+    z.ipv4(),
+    z.ipv6(),
+    z.url(),
     z
       .string()
       .min(3)

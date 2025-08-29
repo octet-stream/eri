@@ -1,5 +1,5 @@
 import {getFormProps, getInputProps, useForm} from "@conform-to/react"
-import {getZodConstraint, parseWithZod} from "@conform-to/zod"
+import {getZodConstraint, parseWithZod} from "@conform-to/zod/v4"
 import type {FC} from "react"
 import {Form, useActionData, useLoaderData, useNavigation} from "react-router"
 import type {z} from "zod"

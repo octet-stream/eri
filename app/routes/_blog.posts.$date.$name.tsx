@@ -4,7 +4,7 @@ import {data} from "react-router"
 import {
   Breadcrumb,
   type BreadcrumbHandle
-} from "../components/common/Breadcrumbs.jsx"
+} from "../components/common/Breadcrumbs.tsx"
 import {Heading as CommonHeading} from "../components/common/Heading.tsx"
 
 import {formatPostDate} from "../lib/utils/formatPostDate.ts"
