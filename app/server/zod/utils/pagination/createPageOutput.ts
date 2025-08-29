@@ -17,7 +17,9 @@ export const createPageOutput = <TOutput extends z.ZodRawShape>(
     })
     .transform(page => new Page(page).toJSON())
 
-export const DefaultPageOutput = createPageOutput(z.object({}))
+export const DefaultPageOutput = createPageOutput(
+  z.object({} as Record<string, any>)
+)
 
 export type IDefaultPageOutput = z.input<typeof DefaultPageOutput>
 

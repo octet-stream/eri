@@ -4,7 +4,7 @@ import {
   getTextareaProps,
   useForm
 } from "@conform-to/react"
-import {parseWithZod} from "@conform-to/zod"
+import {parseWithZod} from "@conform-to/zod/v4"
 import type {FC} from "react"
 import {data, href, replace} from "react-router"
 

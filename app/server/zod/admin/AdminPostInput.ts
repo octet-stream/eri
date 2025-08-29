@@ -72,8 +72,9 @@ const AdminPostEditorInput = z.object({
   fallback: z
     .string()
     .optional()
-    .pipe(z.coerce.boolean().default(false))
-    .pipe(z.literal(false).default(false)),
+    .pipe(z.coerce.boolean())
+    .pipe(z.literal(false))
+    .default(false),
   content: z.string().min(1)
 })
 

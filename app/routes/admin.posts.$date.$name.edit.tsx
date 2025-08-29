@@ -5,7 +5,7 @@ import {
   type SubmissionResult,
   useForm
 } from "@conform-to/react"
-import {parseWithZod} from "@conform-to/zod"
+import {parseWithZod} from "@conform-to/zod/v4"
 import type {FC} from "react"
 import {data, href, redirect, useNavigation} from "react-router"
 
@@ -115,9 +115,9 @@ export const action = withAdmin(
   }
 )
 
-export const meta: Route.MetaFunction = ({data}) => [
+export const meta: Route.MetaFunction = ({loaderData}) => [
   {
-    title: data ? `${data.title} - Edit post` : undefined
+    title: loaderData ? `${loaderData.title} - Edit post` : undefined
   }
 ]
 

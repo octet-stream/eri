@@ -32,8 +32,8 @@ export class PageArgs implements PageArgsInput {
   constructor(input: PageArgsInput = {}) {
     let {page, limit, maxLimit} = input
 
-    maxLimit ??= null
-    page ??= 1
+    maxLimit ||= null
+    page ||= 1
 
     // Defaults to the same value as maxLimit
     if (!limit && maxLimit != null) {
@@ -43,6 +43,7 @@ export class PageArgs implements PageArgsInput {
     this.#limit = limit
     this.#current = page
     this.#maxLimit = maxLimit
+
     this.#offset = limit ? limit * (page - 1) : undefined
   }
 

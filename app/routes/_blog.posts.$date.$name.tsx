@@ -4,7 +4,7 @@ import {data} from "react-router"
 import {
   Breadcrumb,
   type BreadcrumbHandle
-} from "../components/common/Breadcrumbs.jsx"
+} from "../components/common/Breadcrumbs.tsx"
 import {Heading as CommonHeading} from "../components/common/Heading.tsx"
 
 import {formatPostDate} from "../lib/utils/formatPostDate.ts"
@@ -17,9 +17,7 @@ import {parseOutput} from "../server/zod/utils/parseOutput.ts"
 
 import type {Route} from "./+types/_blog.posts.$date.$name.ts"
 
-export const loader = async (event: Route.LoaderArgs) => {
-  const {params, context} = event
-
+export const loader = async ({params, context}: Route.LoaderArgs) => {
   const orm = context.get(ormContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
@@ -44,9 +42,9 @@ export const loader = async (event: Route.LoaderArgs) => {
   return parseOutput(PostViewOutput, post, {async: true})
 }
 
-export const meta: Route.MetaFunction = ({data}) => [
+export const meta: Route.MetaFunction = ({loaderData}) => [
   {
-    title: data?.title
+    title: loaderData.title
   }
 ]
 
