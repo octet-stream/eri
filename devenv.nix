@@ -3,14 +3,10 @@
 
 {
   pkgs,
-  inputs,
   config,
   lib,
   ...
 }:
-let
-  pkgsUnstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
-in
 {
   cachix.enable = false;
 
@@ -51,7 +47,7 @@ in
 
   languages.javascript = {
     enable = true;
-    package = pkgsUnstable.nodejs_24; # FIXME: This can be removed once https://github.com/NixOS/nixpkgs/issues/423244 resolved -_-
+    package = pkgs.nodejs_24;
     corepack.enable = true;
   };
 
