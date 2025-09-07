@@ -13,7 +13,7 @@
     "url": "git+ssh://git@github.com/octet-stream/eri.git"
   },
   "scripts": {
-    "dev": "react-router dev --host --port 3000",
+    "dev": "react-router dev --port 3000",
     "dev.open": "react-router dev --open",
     "build": "react-router build && vite -c vite.mikro-orm.config.ts build",
     "start": "NODE_ENV=production node ./build/server/index.js",

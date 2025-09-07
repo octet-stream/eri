@@ -20,7 +20,7 @@
     enable = true;
     settings = {
       image = "ghcr.io/cachix/devenv:v1.4";
-      updateContentCommand = "echo \"Devenv started\""; # Default command takes too much time to run, skipping it for now
+      updateContentCommand = "devenv test -v";
 
       containerEnv = {
         COREPACK_ENABLE_DOWNLOAD_PROMPT = "0";
@@ -70,6 +70,15 @@
       }
     ];
   };
+
+  processes = {
+    server.exec = "pnpm dev";
+  };
+
+  enterTest = "
+    wait_for_port 3000
+    curl -s -o /dev/null -w \"%{http_code} %{content_type}\" http://localhost:3000 | grep \"200 text/html\"
+  ";
 
   # Install dependencies when shell is activated
   enterShell = ''
