@@ -75,13 +75,15 @@
     server.exec = "pnpm dev";
   };
 
+  tasks = {
+    "pnpm:install" = {
+      exec = "pnpm install --frozen-lockfile";
+      before = [ "devenv:enterShell" ];
+    };
+  };
+
   enterTest = "
     wait_for_port 3000
     curl -s -o /dev/null -w \"%{http_code} %{content_type}\" http://localhost:3000 | grep \"200 text/html\"
   ";
-
-  # Install dependencies when shell is activated
-  enterShell = ''
-    pnpm i --frozen-lockfile
-  '';
 }
