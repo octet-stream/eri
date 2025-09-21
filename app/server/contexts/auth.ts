@@ -1,4 +1,4 @@
-import {unstable_createContext as createContext} from "react-router"
+import {createContext} from "react-router"
 
 import type {Auth} from "../lib/auth/auth.ts"
 

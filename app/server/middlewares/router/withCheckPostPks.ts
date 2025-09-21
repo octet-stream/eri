@@ -1,4 +1,4 @@
-import type {unstable_MiddlewareFunction as MiddlewareFunction} from "react-router"
+import type {MiddlewareFunction} from "react-router"
 import {generatePath, replace} from "react-router"
 
 import {matchesContext} from "../../contexts/matches.ts"

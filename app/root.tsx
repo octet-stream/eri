@@ -2,7 +2,7 @@ import type {FC, ReactNode} from "react"
 import {
   Links,
   Meta,
-  type unstable_MiddlewareFunction as MiddlewareFunction,
+  type MiddlewareFunction,
   Outlet,
   Scripts,
   ScrollRestoration
@@ -19,10 +19,9 @@ interface Props {
   children: ReactNode
 }
 
-// TODO: Rename this to `middleware` when RR changes the export name
-export const unstable_middleware = [
+export const middleware = [
   withCheckPostPks()
-] satisfies MiddlewareFunction[]
+] satisfies MiddlewareFunction<any>[]
 
 export const loader = () => ({title: config.app.name}) // Expose the app's name to root layout
 
