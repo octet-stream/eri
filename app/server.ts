@@ -1,5 +1,5 @@
 import {csrf} from "hono/csrf"
-import {unstable_RouterContextProvider as RouterContextProvider} from "react-router"
+import {RouterContextProvider} from "react-router"
 import {createHonoServer} from "react-router-hono-server/node"
 
 import {authContext} from "./server/contexts/auth.ts"
