@@ -32,9 +32,9 @@ export const links: Route.LinksFunction = () => [
   }
 ]
 
-export const meta: Route.MetaFunction = ({data}) => [
+export const meta: Route.MetaFunction = ({loaderData}) => [
   {
-    title: data?.title // Set default title to the app's name
+    title: loaderData?.title // Set default title to the app's name
   }
 ]
 
