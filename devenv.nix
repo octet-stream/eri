@@ -72,13 +72,39 @@
   };
 
   processes = {
-    server.exec = "pnpm dev";
+    server = {
+      exec = "pnpm dev";
+      process-compose = {
+        depends_on.mysql.condition = "process_healthy";
+        readiness_probe = {
+          exec.command = "curl -s -o /dev/null -w \"%{http_code} %{content_type}\" http://localhost:3000 | grep \"200 text/html\"";
+          initial_delay_seconds = 2;
+          period_seconds = 10;
+          success_threshold = 1;
+          failure_threshold = 5;
+        };
+      };
+    };
+
+    mysql.process-compose.readiness_probe = {
+      exec.command = "${config.services.mysql.package}/bin/mysqladmin ping -u root";
+      initial_delay_seconds = 2;
+      period_seconds = 10;
+      success_threshold = 1;
+      failure_threshold = 5;
+    };
   };
 
   tasks = {
     "pnpm:install" = {
       exec = "pnpm install --frozen-lockfile";
       before = [ "devenv:enterShell" ];
+    };
+
+    "db:migrations:up" = {
+      exec = "pnpm mikro-orm-esm migration:up";
+      status = "pnpm mikro-orm-esm migration:check";
+      before = [ "devenv:processes:server" ];
     };
   };
 
