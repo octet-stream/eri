@@ -103,7 +103,6 @@
 
     "db:migrations:up" = {
       exec = "pnpm mikro-orm-esm migration:up";
-      status = "pnpm mikro-orm-esm migration:check";
       before = [ "devenv:processes:server" ];
     };
   };
