@@ -51,24 +51,37 @@
     corepack.enable = true;
   };
 
-  services.mysql = {
-    enable = true;
-    settings.mysqld = {
-      port = lib.toInt config.env.DB_PORT;
-      bind_address = "127.0.0.1";
+  services = {
+    mysql = {
+      enable = true;
+      settings.mysqld = {
+        port = lib.toInt config.env.DB_PORT;
+        bind_address = "127.0.0.1";
+      };
+
+      initialDatabases = [ { name = config.env.DB_NAME; } ];
+
+      ensureUsers = [
+        {
+          name = config.env.DB_USER;
+          password = config.env.DB_PASSWORD;
+          ensurePermissions = {
+            "${config.env.DB_NAME}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
-    initialDatabases = [ { name = config.env.DB_NAME; } ];
-
-    ensureUsers = [
-      {
-        name = config.env.DB_USER;
-        password = config.env.DB_PASSWORD; # FIXME: Devenv ignores this on v1.3 for some reason
-        ensurePermissions = {
-          "${config.env.DB_NAME}.*" = "ALL PRIVILEGES";
-        };
-      }
-    ];
+    caddy = {
+      enable = true;
+      email = config.env.DEVENV_CADDY_EMAIL;
+      virtualHosts."eri.localhost" = {
+        serverAliases = [ "www.eri.localhost" ];
+        extraConfig = ''
+          reverse_proxy localhost:3000
+        '';
+      };
+    };
   };
 
   processes = {
@@ -93,6 +106,8 @@
       success_threshold = 1;
       failure_threshold = 5;
     };
+
+    caddy.process-compose.depends_on.server.condition = "process_healthy";
   };
 
   tasks = {
