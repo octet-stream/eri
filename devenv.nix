@@ -90,7 +90,7 @@
       process-compose = {
         depends_on.mysql.condition = "process_healthy";
         readiness_probe = {
-          exec.command = "curl -s -o /dev/null -w \"%{http_code} %{content_type}\" http://localhost:3000 | grep \"200 text/html\"";
+          exec.command = "curl -sf http://localhost:3000/health";
           initial_delay_seconds = 2;
           period_seconds = 10;
           success_threshold = 1;
@@ -124,6 +124,6 @@
 
   enterTest = "
     wait_for_port 3000
-    curl -s -o /dev/null -w \"%{http_code} %{content_type}\" http://localhost:3000 | grep \"200 text/html\"
+    curl -sf http://localhost:3000/health
   ";
 }
