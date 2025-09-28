@@ -48,6 +48,12 @@ export class Passkey extends Record {
   transports!: string
 
   /**
+   * Authenticator's Attestation GUID indicating the type of the authenticator
+   */
+  @Property({type: "string", nullable: true})
+  aaguid?: string
+
+  /**
    * The user associated with the passkey
    */
   @ManyToOne(() => User, {eager: true})
