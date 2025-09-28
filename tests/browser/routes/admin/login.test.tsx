@@ -3,7 +3,7 @@ import {createRoutesStub} from "react-router"
 import {expect, test} from "vitest"
 import {render} from "vitest-browser-react"
 
-import {AdminLoginPage} from "../../../../app/routes/admin_.login/AdminLoginPage.jsx"
+import {AdminLoginPage} from "../../../../app/routes/admin_.login/AdminLoginPage.tsx"
 
 test("displays login form", async () => {
   const Stub = createRoutesStub([

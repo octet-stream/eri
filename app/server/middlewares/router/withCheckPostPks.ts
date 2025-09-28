@@ -1,13 +1,13 @@
-import type {unstable_MiddlewareFunction as MiddlewareFunction} from "react-router"
+import type {MiddlewareFunction} from "react-router"
 import {generatePath, replace} from "react-router"
 
-import {matchesContext} from "../../contexts/matches.js"
-import {ormContext} from "../../contexts/orm.js"
+import {matchesContext} from "../../contexts/matches.ts"
+import {ormContext} from "../../contexts/orm.ts"
 
-import {PostPrevKnownSlug} from "../../db/entities.js"
-import {getCurrentRoteFromMatches} from "../../lib/utils/routes.js"
-import {slugToParams} from "../../lib/utils/slug.js"
-import {PostSlug} from "../../zod/post/PostSlug.js"
+import {PostPrevKnownSlug} from "../../db/entities.ts"
+import {getCurrentRoteFromMatches} from "../../lib/utils/routes.ts"
+import {slugToParams} from "../../lib/utils/slug.ts"
+import {PostSlug} from "../../zod/post/PostSlug.ts"
 
 const valid = ["admin", "_blog"]
   .map(prefix => `${prefix}.posts.$date.$name`)

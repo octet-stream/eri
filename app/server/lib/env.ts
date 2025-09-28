@@ -4,7 +4,7 @@ import {parseEnv} from "node:util"
 
 import pc from "picocolors"
 
-import {Env} from "./zod/Env.js"
+import {Env} from "./zod/Env.ts"
 
 // @ts-expect-error Allow to override this readonly property here
 process.env.NODE_ENV = Env.parse(process.env.NODE_ENV)

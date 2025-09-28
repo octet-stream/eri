@@ -16,5 +16,5 @@
   },
   "image": "ghcr.io/cachix/devenv:v1.4",
   "overrideCommand": false,
-  "updateContentCommand": "echo \"Devenv started\""
+  "updateContentCommand": "devenv test -v"
 }

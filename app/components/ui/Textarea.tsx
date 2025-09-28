@@ -1,7 +1,7 @@
 import type {ComponentProps, ComponentRef, FC} from "react"
 import AutosizableTextarea from "react-textarea-autosize"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export type TextareaProps = ComponentProps<typeof AutosizableTextarea>
 

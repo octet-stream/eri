@@ -6,7 +6,7 @@ import {Migrator} from "@mikro-orm/migrations"
 import * as entities from "../../../db/entities.js"
 import * as subscribers from "../../../db/subscribers.js"
 
-import appConfig from "../../config.js"
+import appConfig from "../../config.ts"
 
 const {orm} = appConfig
 

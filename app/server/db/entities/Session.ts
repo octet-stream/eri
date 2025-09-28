@@ -1,10 +1,10 @@
 import {Entity, ManyToOne, Property, Unique} from "@mikro-orm/mariadb"
 import type {Session as SessionSchema} from "better-auth"
 
-import type {Maybe} from "../../../lib/types/Maybe.js"
+import type {Maybe} from "../../../lib/types/Maybe.ts"
 
-import {Record} from "./Record.js"
-import {User} from "./User.js"
+import {Record} from "./Record.ts"
+import {User} from "./User.ts"
 
 export interface DatabaseSession extends Omit<SessionSchema, "userId"> {}
 

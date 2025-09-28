@@ -4,10 +4,10 @@ import {
   AdminLoaderErrorCode,
   type AdminLoaderErrorData
 } from "../../app/server/lib/admin/adminLoaderError.js"
-import type {Loader} from "../../app/server/lib/types/Loader.js"
-import {adminTest} from "../fixtures/admin.js"
-import {ormTest} from "../fixtures/orm.js"
-import {createStubLoaderArgs} from "../utils/createStubRouteArgs.js"
+import type {Loader} from "../../app/server/lib/types/Loader.ts"
+import {adminTest} from "../fixtures/admin.ts"
+import {ormTest} from "../fixtures/orm.ts"
+import {createStubLoaderArgs} from "../utils/createStubRouteArgs.ts"
 
 /**
  * Creates a test suite for loaders that require admin authorization.

@@ -1,10 +1,10 @@
-import type {z} from "zod"
+import {z} from "zod"
 
-import type {MaybePromise} from "../../../lib/types/MaybePromise.js"
-import {type ResolveResultOptions, resolveResult} from "./resolveResult.js"
+import type {MaybePromise} from "../../../lib/types/MaybePromise.ts"
+import {type ResolveResultOptions, resolveResult} from "./resolveResult.ts"
 
-function onError<TInput>(reason: z.SafeParseError<TInput>): never {
-  throw Response.json(reason.error.flatten(), {
+function onError<TOutput>(reason: z.ZodSafeParseError<TOutput>): never {
+  throw Response.json(z.treeifyError(reason.error), {
     status: 404
   })
 }
@@ -12,17 +12,17 @@ function onError<TInput>(reason: z.SafeParseError<TInput>): never {
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
   data: z.input<TSchema> | URLSearchParams,
-  options: ResolveResultOptions<z.input<TSchema>> & {async: true}
+  options: ResolveResultOptions<z.output<TSchema>> & {async: true}
 ): Promise<z.output<TSchema>>
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
   data: z.input<TSchema> | URLSearchParams,
-  options?: ResolveResultOptions<z.input<TSchema>> & {async?: false}
+  options?: ResolveResultOptions<z.output<TSchema>> & {async?: false}
 ): z.output<TSchema>
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
   data: z.input<TSchema> | URLSearchParams,
-  options: ResolveResultOptions<z.input<TSchema>> & {async?: boolean} = {}
+  options: ResolveResultOptions<z.output<TSchema>> & {async?: boolean} = {}
 ): MaybePromise<z.output<TSchema>> {
   const {async, ...rest} = options
 

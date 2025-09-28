@@ -1,9 +1,12 @@
-import type {z} from "zod"
+import {z} from "zod"
 
-import {CommonDates} from "./CommonDates.js"
-import {Node} from "./Node.js"
+import {CommonDates} from "./CommonDates.ts"
+import {Node} from "./Node.ts"
 
-export const Record = Node.merge(CommonDates)
+export const Record = z.object({
+  ...Node.shape,
+  ...CommonDates.shape
+})
 
 export type IRecord = z.input<typeof Record>
 

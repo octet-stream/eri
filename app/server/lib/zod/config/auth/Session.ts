@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {CookiePrefix} from "./CookiePrefix.js"
+import {CookiePrefix} from "./CookiePrefix.ts"
 
 export const Session = z
   .object({

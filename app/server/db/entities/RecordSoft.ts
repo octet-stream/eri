@@ -1,8 +1,8 @@
 import {Index, type Opt, Property} from "@mikro-orm/mariadb"
 
-import type {MaybeNull} from "../../../lib/types/MaybeNull.js"
+import type {MaybeNull} from "../../../lib/types/MaybeNull.ts"
 
-import {Record} from "./Record.js"
+import {Record} from "./Record.ts"
 
 /**
  * Represents soft-removable database entity

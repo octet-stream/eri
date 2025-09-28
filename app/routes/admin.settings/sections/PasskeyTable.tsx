@@ -8,7 +8,7 @@ import {MoreHorizontal} from "lucide-react"
 import type {FC} from "react"
 import {useLoaderData} from "react-router"
 
-import {Button} from "../../../components/ui/Button.jsx"
+import {Button} from "../../../components/ui/Button.tsx"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,11 +25,11 @@ import {
   TableHeader,
   TableRow
 } from "../../../components/ui/Table.jsx"
-import {cn} from "../../../lib/utils/cn.js"
-import {formatPostDate} from "../../../lib/utils/formatPostDate.js"
-import type {OPasskeyOutput} from "../../../server/zod/admin/PasskeyOutput.js"
+import {cn} from "../../../lib/utils/cn.ts"
+import {formatPostDate} from "../../../lib/utils/formatPostDate.ts"
+import type {OPasskeyOutput} from "../../../server/zod/admin/PasskeyOutput.ts"
 
-import type {Route} from "../+types/route.js"
+import type {Route} from "../+types/route.ts"
 
 type PageData = Route.ComponentProps["loaderData"]
 

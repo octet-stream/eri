@@ -8,8 +8,8 @@ import {
 } from "@mikro-orm/mariadb"
 import type {User as UserSchema} from "better-auth"
 
-import {Passkey} from "./Passkey.js"
-import {RecordSoft} from "./RecordSoft.js"
+import {Passkey} from "./Passkey.ts"
+import {RecordSoft} from "./RecordSoft.ts"
 
 export interface UserBase extends Omit<UserSchema, "name"> {}
 

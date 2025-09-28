@@ -3,14 +3,10 @@
 
 {
   pkgs,
-  inputs,
   config,
   lib,
   ...
 }:
-let
-  pkgsUnstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
-in
 {
   cachix.enable = false;
 
@@ -24,7 +20,7 @@ in
     enable = true;
     settings = {
       image = "ghcr.io/cachix/devenv:v1.4";
-      updateContentCommand = "echo \"Devenv started\""; # Default command takes too much time to run, skipping it for now
+      updateContentCommand = "devenv test -v";
 
       containerEnv = {
         COREPACK_ENABLE_DOWNLOAD_PROMPT = "0";
@@ -51,32 +47,83 @@ in
 
   languages.javascript = {
     enable = true;
-    package = pkgsUnstable.nodejs_24; # FIXME: This can be removed once https://github.com/NixOS/nixpkgs/issues/423244 resolved -_-
+    package = pkgs.nodejs_24;
     corepack.enable = true;
   };
 
-  services.mysql = {
-    enable = true;
-    settings.mysqld = {
-      port = lib.toInt config.env.DB_PORT;
-      bind_address = "127.0.0.1";
+  services = {
+    mysql = {
+      enable = true;
+      settings.mysqld = {
+        port = lib.toInt config.env.DB_PORT;
+        bind_address = "127.0.0.1";
+      };
+
+      initialDatabases = [ { name = config.env.DB_NAME; } ];
+
+      ensureUsers = [
+        {
+          name = config.env.DB_USER;
+          password = config.env.DB_PASSWORD;
+          ensurePermissions = {
+            "${config.env.DB_NAME}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
-    initialDatabases = [ { name = config.env.DB_NAME; } ];
-
-    ensureUsers = [
-      {
-        name = config.env.DB_USER;
-        password = config.env.DB_PASSWORD; # FIXME: Devenv ignores this on v1.3 for some reason
-        ensurePermissions = {
-          "${config.env.DB_NAME}.*" = "ALL PRIVILEGES";
-        };
-      }
-    ];
+    caddy = {
+      enable = true;
+      email = config.env.DEVENV_CADDY_EMAIL;
+      virtualHosts."eri.localhost" = {
+        serverAliases = [ "www.eri.localhost" ];
+        extraConfig = ''
+          reverse_proxy localhost:3000
+        '';
+      };
+    };
   };
 
-  # Install dependencies when shell is activated
-  enterShell = ''
-    pnpm i --frozen-lockfile
-  '';
+  processes = {
+    server = {
+      exec = "pnpm dev";
+      process-compose = {
+        depends_on.mysql.condition = "process_healthy";
+        readiness_probe = {
+          exec.command = "curl -sf http://localhost:3000/health";
+          initial_delay_seconds = 2;
+          period_seconds = 10;
+          success_threshold = 1;
+          failure_threshold = 5;
+        };
+      };
+    };
+
+    mysql.process-compose.readiness_probe = {
+      exec.command = "${config.services.mysql.package}/bin/mysqladmin ping -u root";
+      initial_delay_seconds = 2;
+      period_seconds = 10;
+      success_threshold = 1;
+      failure_threshold = 5;
+    };
+
+    caddy.process-compose.depends_on.server.condition = "process_healthy";
+  };
+
+  tasks = {
+    "pnpm:install" = {
+      exec = "pnpm install --frozen-lockfile";
+      before = [ "devenv:enterShell" ];
+    };
+
+    "db:migrations:up" = {
+      exec = "pnpm mikro-orm-esm migration:up";
+      before = [ "devenv:processes:server" ];
+    };
+  };
+
+  enterTest = "
+    wait_for_port 3000
+    curl -sf http://localhost:3000/health
+  ";
 }

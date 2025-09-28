@@ -1,9 +1,9 @@
 import {faker} from "@faker-js/faker"
 
-import {Session, type User} from "../../app/server/db/entities.js"
-import {auth} from "../../app/server/lib/auth/auth.js"
+import {Session, type User} from "../../app/server/db/entities.ts"
+import {auth} from "../../app/server/lib/auth/auth.ts"
 
-import {ormTest} from "./orm.js"
+import {ormTest} from "./orm.ts"
 
 interface AdminParams {
   session: Session

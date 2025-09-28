@@ -1,12 +1,12 @@
 import {getFormProps, getInputProps, useForm} from "@conform-to/react"
-import {getZodConstraint, parseWithZod} from "@conform-to/zod"
+import {getZodConstraint, parseWithZod} from "@conform-to/zod/v4"
 import {Fingerprint} from "lucide-react"
 import type {FC} from "react"
 import {Form, useNavigate} from "react-router"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
-import {Button} from "../../components/ui/Button.jsx"
+import {Button} from "../../components/ui/Button.tsx"
 import {
   Card,
   CardContent,
@@ -15,13 +15,13 @@ import {
   CardHeader,
   CardTitle
 } from "../../components/ui/Card.jsx"
-import {Input} from "../../components/ui/Input.jsx"
-import {Label} from "../../components/ui/Label.jsx"
-import {Separator} from "../../components/ui/Separator.jsx"
-import {authClient} from "../../lib/auth.js"
-import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.js"
+import {Input} from "../../components/ui/Input.tsx"
+import {Label} from "../../components/ui/Label.tsx"
+import {Separator} from "../../components/ui/Separator.tsx"
+import {authClient} from "../../lib/auth.ts"
+import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.ts"
 
-import type {Route} from "./+types/route.js"
+import type {Route} from "./+types/route.ts"
 
 export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm({

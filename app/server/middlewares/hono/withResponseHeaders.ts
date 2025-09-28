@@ -1,6 +1,6 @@
 import {createMiddleware} from "hono/factory"
 
-import type {Env} from "../../../server.js"
+import type {Env} from "../../../server.ts"
 
 export const withResponseHeaders = () =>
   createMiddleware<Env>(async (ctx, next) => {

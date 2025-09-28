@@ -1,7 +1,7 @@
 import type {ComponentPropsWithoutRef, ComponentRef} from "react"
 import {forwardRef} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export type KbdRef = ComponentRef<"kbd">
 

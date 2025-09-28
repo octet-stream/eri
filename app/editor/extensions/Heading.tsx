@@ -5,8 +5,8 @@
 import {mergeAttributes} from "@tiptap/core"
 import {Heading as HeadingBase} from "@tiptap/extension-heading"
 
-import {headingVariants} from "../../components/common/Heading.jsx"
-import {cn} from "../../lib/utils/cn.js"
+import {headingVariants} from "../../components/common/Heading.tsx"
+import {cn} from "../../lib/utils/cn.ts"
 
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6
 

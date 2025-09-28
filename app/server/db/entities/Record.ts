@@ -1,6 +1,6 @@
 import {Index, type Opt, Property} from "@mikro-orm/mariadb"
 
-import {Node} from "./Node.js"
+import {Node} from "./Node.ts"
 
 /**
  * Represents abstract base database entity with comman dates

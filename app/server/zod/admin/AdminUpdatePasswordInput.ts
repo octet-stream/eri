@@ -1,6 +1,6 @@
 import {z} from "zod"
 
-import {AdminPassword} from "./AdminPassword.js"
+import {AdminPassword} from "./AdminPassword.ts"
 
 export const AdminUpdatePasswordInput = z.object({
   intent: z.literal("password"),

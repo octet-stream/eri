@@ -1,8 +1,8 @@
 import type {z} from "zod"
 
-import type {MaybePromise} from "../../../lib/types/MaybePromise.js"
+import type {MaybePromise} from "../../../lib/types/MaybePromise.ts"
 
-import {resolveResult} from "./resolveResult.js"
+import {resolveResult} from "./resolveResult.ts"
 
 export function parseOutput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,

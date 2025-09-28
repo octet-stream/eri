@@ -1,1 +1,1 @@
-export {PostSubscriber} from "./subscribers/PostSubscriber.js"
+export {PostSubscriber} from "./subscribers/PostSubscriber.ts"

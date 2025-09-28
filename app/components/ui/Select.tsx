@@ -18,7 +18,7 @@ import {
 import {CheckIcon, ChevronDownIcon, ChevronUpIcon} from "lucide-react"
 import type {ComponentProps, FC} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export const Select: FC<ComponentProps<typeof Root>> = props => (
   <Root data-slot="select" {...props} />

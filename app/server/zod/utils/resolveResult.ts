@@ -1,25 +1,25 @@
-import type {z} from "zod"
+import {z} from "zod"
 
-export interface ResolveResultOptions<TInput> {
-  onError?(reason: z.SafeParseError<TInput>): never
+export interface ResolveResultOptions<TOutput> {
+  onError?(reason: z.ZodSafeParseError<TOutput>): never
 }
 
-function onErrorFallback<TInput>(reason: z.SafeParseError<TInput>): never {
-  throw Response.json(reason.error.flatten(), {
+function onErrorFallback<TOutput>(reason: z.ZodSafeParseError<TOutput>): never {
+  throw Response.json(z.flattenError(reason.error), {
     status: 500
   })
 }
 
-export const resolveResult = <TInput, TOutput>(
-  result: z.SafeParseReturnType<TInput, TOutput>,
-  options?: ResolveResultOptions<TInput>
+export const resolveResult = <TOutput>(
+  result: z.ZodSafeParseResult<TOutput>,
+  options?: ResolveResultOptions<TOutput>
 ): TOutput => {
   if (result.success) {
     return result.data
   }
 
   if (typeof options?.onError === "function") {
-    options.onError(result)
+    options.onError(result as any)
   }
 
   onErrorFallback(result)

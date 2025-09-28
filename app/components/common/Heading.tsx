@@ -1,7 +1,7 @@
 import {cva, type VariantProps} from "class-variance-authority"
 import type {ComponentProps, FC} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export type HeadingLevels = `h${1 | 2 | 3 | 4 | 5 | 6}`
 

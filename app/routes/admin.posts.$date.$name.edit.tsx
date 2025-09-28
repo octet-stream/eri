@@ -5,30 +5,31 @@ import {
   type SubmissionResult,
   useForm
 } from "@conform-to/react"
-import {parseWithZod} from "@conform-to/zod"
+import {parseWithZod} from "@conform-to/zod/v4"
 import type {FC} from "react"
 import {data, href, redirect, useNavigation} from "react-router"
 
-import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.jsx"
-import {Breadcrumb} from "../components/common/Breadcrumbs.jsx"
-import {PostEditor} from "../components/post-editor/PostEditor.jsx"
-import {PostEditorFieldset} from "../components/post-editor/PostEditorFieldset.jsx"
-import {PostEditorForm} from "../components/post-editor/PostEditorForm.jsx"
-import {Button} from "../components/ui/Button.jsx"
-import {EditorContentFallback} from "../editor/components/EditorContentFallback.jsx"
-import {ormContext} from "../server/contexts/orm.js"
-import {Post} from "../server/db/entities.js"
-import {withAdmin} from "../server/lib/admin/withAdmin.js"
-import {slugToParams} from "../server/lib/utils/slug.js"
+import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.tsx"
+import {Breadcrumb} from "../components/common/Breadcrumbs.tsx"
+import {PostEditor} from "../components/post-editor/PostEditor.tsx"
+import {PostEditorFieldset} from "../components/post-editor/PostEditorFieldset.tsx"
+import {PostEditorForm} from "../components/post-editor/PostEditorForm.tsx"
+import {Button} from "../components/ui/Button.tsx"
+import {EditorContentFallback} from "../editor/components/EditorContentFallback.tsx"
+import {ormContext} from "../server/contexts/orm.ts"
+import {Post} from "../server/db/entities.ts"
+import {withAdmin} from "../server/lib/admin/withAdmin.ts"
+import {slugToParams} from "../server/lib/utils/slug.ts"
+
 import {
   AdminPostInput,
   type IAdminPostInput
-} from "../server/zod/admin/AdminPostInput.js"
-import {AdminPostUpdateOutput} from "../server/zod/admin/AdminPostUpdateOutput.js"
-import {PostSlug} from "../server/zod/post/PostSlug.js"
-import {parseInput} from "../server/zod/utils/parseInput.js"
-import {parseOutput} from "../server/zod/utils/parseOutput.js"
-import type {Route} from "./+types/admin.posts.$date.$name.edit.js"
+} from "../server/zod/admin/AdminPostInput.ts"
+import {AdminPostUpdateOutput} from "../server/zod/admin/AdminPostUpdateOutput.ts"
+import {PostSlug} from "../server/zod/post/PostSlug.ts"
+import {parseInput} from "../server/zod/utils/parseInput.ts"
+import {parseOutput} from "../server/zod/utils/parseOutput.ts"
+import type {Route} from "./+types/admin.posts.$date.$name.edit.ts"
 
 export const loader = withAdmin(async (event: Route.LoaderArgs) => {
   const {params, context} = event
@@ -115,9 +116,9 @@ export const action = withAdmin(
   }
 )
 
-export const meta: Route.MetaFunction = ({data}) => [
+export const meta: Route.MetaFunction = ({loaderData}) => [
   {
-    title: data ? `${data.title} - Edit post` : undefined
+    title: loaderData ? `${loaderData.title} - Edit post` : undefined
   }
 ]
 

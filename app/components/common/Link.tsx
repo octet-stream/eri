@@ -1,7 +1,7 @@
 import {cva} from "class-variance-authority"
 import type {ComponentProps, ComponentRef, FC} from "react"
 
-import {cn} from "../../lib/utils/cn.js"
+import {cn} from "../../lib/utils/cn.ts"
 
 export type LinkRef = ComponentRef<"a">
 

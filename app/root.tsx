@@ -2,15 +2,16 @@ import type {FC, ReactNode} from "react"
 import {
   Links,
   Meta,
-  type unstable_MiddlewareFunction as MiddlewareFunction,
+  type MiddlewareFunction,
   Outlet,
   Scripts,
   ScrollRestoration
 } from "react-router"
-import type {Route} from "./+types/root.js"
-import {Toaster} from "./components/ui/Toaster.jsx"
-import config from "./server/lib/config.js"
-import {withCheckPostPks} from "./server/middlewares/router/withCheckPostPks.js"
+
+import type {Route} from "./+types/root.ts"
+import {Toaster} from "./components/ui/Toaster.tsx"
+import config from "./server/lib/config.ts"
+import {withCheckPostPks} from "./server/middlewares/router/withCheckPostPks.ts"
 // For some reason the page flickers in dev mode if tailwind.css imported directly, so I'll just add it as a link
 import tailwindcss from "./tailwind.css?url"
 
@@ -18,10 +19,9 @@ interface Props {
   children: ReactNode
 }
 
-// TODO: Rename this to `middleware` when RR changes the export name
-export const unstable_middleware = [
+export const middleware = [
   withCheckPostPks()
-] satisfies MiddlewareFunction[]
+] satisfies MiddlewareFunction<any>[]
 
 export const loader = () => ({title: config.app.name}) // Expose the app's name to root layout
 
@@ -32,9 +32,9 @@ export const links: Route.LinksFunction = () => [
   }
 ]
 
-export const meta: Route.MetaFunction = ({data}) => [
+export const meta: Route.MetaFunction = ({loaderData}) => [
   {
-    title: data?.title // Set default title to the app's name
+    title: loaderData?.title // Set default title to the app's name
   }
 ]
 

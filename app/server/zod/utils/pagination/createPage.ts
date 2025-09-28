@@ -1,10 +1,10 @@
 import type {z} from "zod"
 
-import type {DefaultPageInput} from "./createPageInput.js"
-import type {DefaultPageOutput} from "./createPageOutput.js"
+import type {DefaultPageInput} from "./createPageInput.ts"
+import type {DefaultPageOutput} from "./createPageOutput.ts"
 
-import {parsePageInput} from "./parsePageInput.js"
-import {parsePageOutput} from "./parsePageOutput.js"
+import {parsePageInput} from "./parsePageInput.ts"
+import {parsePageOutput} from "./parsePageOutput.ts"
 
 export const createPage = <
   TInputSchema extends typeof DefaultPageInput,
@@ -30,11 +30,12 @@ export const createPage = <
     return {
       params,
       reply: input =>
-        parsePageOutput(schemas.output, {...input, args: params.args})
+        parsePageOutput(schemas.output, {...input, args: params.args} as any) // FIXME: This type is broken
     }
   },
   parseAsync: async input => {
     const params = await parsePageInput(schemas.input, input, {async: true})
+
     return {
       params,
       reply: input =>
@@ -45,7 +46,7 @@ export const createPage = <
             ...input,
 
             args: params.args
-          },
+          } as any, // FIXME: This type is broken
 
           {
             async: true

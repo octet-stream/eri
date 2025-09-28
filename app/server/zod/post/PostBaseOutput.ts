@@ -1,8 +1,8 @@
 import type {z} from "zod"
 
-import {Record} from "../common/Record.js"
+import {Record} from "../common/Record.ts"
 
-import {PostRecord} from "./PostRecord.js"
+import {PostRecord} from "./PostRecord.ts"
 
 export const PostBaseOutput = PostRecord.extend({
   author: Record // TOOD: Add better validation for author

@@ -1,12 +1,12 @@
-import {parseWithZod} from "@conform-to/zod"
+import {parseWithZod} from "@conform-to/zod/v4"
 import {data, replace} from "react-router"
 
-import {authContext} from "../../server/contexts/auth.js"
-import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.js"
+import {authContext} from "../../server/contexts/auth.ts"
+import {AdminSetupInput} from "../../server/zod/admin/AdminSetupInput.ts"
 
-import type {Route} from "./+types/route.js"
-import {AdminSetupPage} from "./AdminSetupPage.jsx"
-import {ADMIN_SETUP_PAGE_TITLE} from "./title.js"
+import type {Route} from "./+types/route.ts"
+import {AdminSetupPage} from "./AdminSetupPage.tsx"
+import {ADMIN_SETUP_PAGE_TITLE} from "./title.ts"
 
 export const loader = async ({request, context}: Route.LoaderArgs) => {
   const auth = context.get(authContext)

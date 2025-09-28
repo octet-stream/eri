@@ -1,6 +1,6 @@
 import {format} from "date-fns"
 
-import type {RawDate} from "../types/RawDate.js"
+import type {RawDate} from "../types/RawDate.ts"
 
 export const POST_DATE_PATTERN = "MMMM do, y"
 

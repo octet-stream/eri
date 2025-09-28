@@ -1,7 +1,7 @@
 import {Entity, ManyToOne, Property} from "@mikro-orm/mariadb"
 
-import {Record} from "./Record.js"
-import {User} from "./User.js"
+import {Record} from "./Record.ts"
+import {User} from "./User.ts"
 
 @Entity()
 export class Passkey extends Record {

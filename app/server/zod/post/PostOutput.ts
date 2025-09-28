@@ -2,11 +2,11 @@ import {getSchema} from "@tiptap/core"
 import {Node} from "@tiptap/pm/model"
 import type {z} from "zod"
 
-import {extensions} from "../../../components/post-editor/PostEditor.jsx"
+import {extensions} from "../../../components/post-editor/PostEditor.tsx"
 
-import {AnyObject} from "../common/AnyObject.js"
+import {AnyObject} from "../common/AnyObject.ts"
 
-import {PostBaseOutput} from "./PostBaseOutput.js"
+import {PostBaseOutput} from "./PostBaseOutput.ts"
 
 const schema = getSchema(extensions)
 

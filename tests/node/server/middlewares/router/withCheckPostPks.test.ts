@@ -3,20 +3,20 @@ import dedent from "dedent"
 import type {FC} from "react"
 import {unstable_RouterContextProvider as RouteContextProvider} from "react-router"
 import {expect, suite, vi} from "vitest"
-import {matchesContext} from "../../../../../app/server/contexts/matches.js"
-import {Post} from "../../../../../app/server/db/entities.js"
+import {matchesContext} from "../../../../../app/server/contexts/matches.ts"
+import {Post} from "../../../../../app/server/db/entities.ts"
 import {
   getRouteMatches,
   type ServerRouteManifest
 } from "../../../../../app/server/lib/utils/routes.js"
-import {withCheckPostPks} from "../../../../../app/server/middlewares/router/withCheckPostPks.js"
+import {withCheckPostPks} from "../../../../../app/server/middlewares/router/withCheckPostPks.ts"
 import {
   AdminPostInput,
   type IAdminPostInput
 } from "../../../../../app/server/zod/admin/AdminPostInput.js"
-import {adminTest} from "../../../../fixtures/admin.js"
-import {createStubMiddlewareArgs} from "../../../../utils/createStubRouteArgs.js"
-import {noopFunction} from "../../../../utils/noopFunction.js"
+import {adminTest} from "../../../../fixtures/admin.ts"
+import {createStubMiddlewareArgs} from "../../../../utils/createStubRouteArgs.ts"
+import {noopFunction} from "../../../../utils/noopFunction.ts"
 
 const NoopComponent: FC = () => null
 

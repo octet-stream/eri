@@ -9,7 +9,7 @@ import {getSchema} from "@tiptap/core"
 import {MarkdownParser} from "@tiptap/pm/markdown"
 import {Node} from "@tiptap/pm/model"
 
-import {extensions} from "../../../components/post-editor/PostEditor.jsx"
+import {extensions} from "../../../components/post-editor/PostEditor.tsx"
 
 const schema = getSchema(extensions)
 
@@ -72,8 +72,9 @@ const AdminPostEditorInput = z.object({
   fallback: z
     .string()
     .optional()
-    .pipe(z.coerce.boolean().default(false))
-    .pipe(z.literal(false).default(false)),
+    .pipe(z.coerce.boolean())
+    .pipe(z.literal(false))
+    .default(false),
   content: z.string().min(1)
 })
 

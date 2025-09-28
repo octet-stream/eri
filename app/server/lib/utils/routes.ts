@@ -1,7 +1,7 @@
 // Based on: https://github.com/remix-run/react-router/blob/04a62722fea11baa9ccea682879e530791e28c00/packages/react-router/lib/server-runtime/routes.ts#L19-L56
 
 import {matchRoutes, type ServerBuild} from "react-router"
-import type {Simplify} from "../../../lib/types/Simplify.js"
+import type {Simplify} from "../../../lib/types/Simplify.ts"
 
 export type ServerRouteManifest = ServerBuild["routes"]
 

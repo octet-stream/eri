@@ -1,11 +1,11 @@
 import type {FC} from "react"
 
-import {ormContext} from "../../server/contexts/orm.js"
-import {Post} from "../../server/db/entities.js"
-import {PostPage} from "../../server/zod/post/PostPage.js"
-import type {Route} from "./+types/route.js"
-import {NoPosts} from "./components/NoPosts.jsx"
-import {PostsList} from "./components/PostsList.jsx"
+import {ormContext} from "../../server/contexts/orm.ts"
+import {Post} from "../../server/db/entities.ts"
+import {PostPage} from "../../server/zod/post/PostPage.ts"
+import type {Route} from "./+types/route.ts"
+import {NoPosts} from "./components/NoPosts.tsx"
+import {PostsList} from "./components/PostsList.tsx"
 
 export const loader = async ({context, request}: Route.LoaderArgs) => {
   const orm = context.get(ormContext)

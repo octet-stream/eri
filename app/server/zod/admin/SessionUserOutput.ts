@@ -1,12 +1,12 @@
 import {z} from "zod"
 
-import {Node} from "../common/Node.js"
-import {createCollectionSchema} from "../utils/createCollectionSchema.js"
+import {Node} from "../common/Node.ts"
+import {createCollectionSchema} from "../utils/createCollectionSchema.ts"
 
-import {PasskeyOutput} from "./PasskeyOutput.js"
+import {PasskeyOutput} from "./PasskeyOutput.ts"
 
 export const SessionUserOutput = Node.extend({
-  email: z.string().email(),
+  email: z.email(),
   passkeys: createCollectionSchema(PasskeyOutput)
 })
 

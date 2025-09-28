@@ -4,30 +4,32 @@ import {
   getTextareaProps,
   useForm
 } from "@conform-to/react"
-import {parseWithZod} from "@conform-to/zod"
+import {parseWithZod} from "@conform-to/zod/v4"
 import type {FC} from "react"
 import {data, href, replace} from "react-router"
 
 import {
   Breadcrumb,
   type BreadcrumbHandle
-} from "../components/common/Breadcrumbs.jsx"
-import {PostEditor} from "../components/post-editor/PostEditor.jsx"
-import {PostEditorFieldset} from "../components/post-editor/PostEditorFieldset.jsx"
-import {PostEditorForm} from "../components/post-editor/PostEditorForm.jsx"
-import {Button} from "../components/ui/Button.jsx"
-import {EditorContentFallback} from "../editor/components/EditorContentFallback.jsx"
-import {adminContext} from "../server/contexts/admin.js"
-import {ormContext} from "../server/contexts/orm.js"
-import {Post} from "../server/db/entities.js"
-import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.js"
-import {withAdmin} from "../server/lib/admin/withAdmin.js"
-import {slugToParams} from "../server/lib/utils/slug.js"
+} from "../components/common/Breadcrumbs.tsx"
+
+import {PostEditor} from "../components/post-editor/PostEditor.tsx"
+import {PostEditorFieldset} from "../components/post-editor/PostEditorFieldset.tsx"
+import {PostEditorForm} from "../components/post-editor/PostEditorForm.tsx"
+import {Button} from "../components/ui/Button.tsx"
+import {EditorContentFallback} from "../editor/components/EditorContentFallback.tsx"
+import {adminContext} from "../server/contexts/admin.ts"
+import {ormContext} from "../server/contexts/orm.ts"
+import {Post} from "../server/db/entities.ts"
+import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.ts"
+import {withAdmin} from "../server/lib/admin/withAdmin.ts"
+import {slugToParams} from "../server/lib/utils/slug.ts"
+
 import {
   AdminPostInput,
   type IAdminPostInput
-} from "../server/zod/admin/AdminPostInput.js"
-import type {Route} from "./+types/admin.posts.new.js"
+} from "../server/zod/admin/AdminPostInput.ts"
+import type {Route} from "./+types/admin.posts.new.ts"
 
 export const loader = noopAdminLoader
 

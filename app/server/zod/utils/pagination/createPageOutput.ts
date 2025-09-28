@@ -1,7 +1,7 @@
 import {z} from "zod"
 
-import {Page} from "./Page.js"
-import {PageArgs} from "./PageArgs.js"
+import {Page} from "./Page.ts"
+import {PageArgs} from "./PageArgs.ts"
 
 /**
  * Creates a `Page<T>` output with the list of items of type `T`
@@ -17,7 +17,9 @@ export const createPageOutput = <TOutput extends z.ZodRawShape>(
     })
     .transform(page => new Page(page).toJSON())
 
-export const DefaultPageOutput = createPageOutput(z.object({}))
+export const DefaultPageOutput = createPageOutput(
+  z.object({} as Record<string, any>)
+)
 
 export type IDefaultPageOutput = z.input<typeof DefaultPageOutput>
 

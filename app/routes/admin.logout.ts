@@ -1,7 +1,7 @@
 import {replace} from "react-router"
 
-import {authContext} from "../server/contexts/auth.js"
-import type {Route} from "./+types/admin.logout.js"
+import {authContext} from "../server/contexts/auth.ts"
+import type {Route} from "./+types/admin.logout.ts"
 
 export const action = async ({
   request,
