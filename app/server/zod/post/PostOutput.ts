@@ -2,7 +2,7 @@ import {getSchema} from "@tiptap/core"
 import {Node} from "@tiptap/pm/model"
 import type {z} from "zod"
 
-import {extensions} from "../../../components/post-editor/extensions.ts"
+import {extensions} from "../../../components/post-editor/PostEditor.tsx"
 
 import {AnyObject} from "../common/AnyObject.ts"
 

@@ -2,12 +2,13 @@ import type {ComponentProps, FC} from "react"
 
 import {cn} from "../../lib/utils/cn.ts"
 
-export interface EditorFallbackProps extends ComponentProps<"textarea"> {}
+export interface EditorContentFallbackProps
+  extends ComponentProps<"textarea"> {}
 
 /**
  * Renders static editor _when_ JavaScript is disabled on the client by wrapping the editor into `<noscript>` tag
  */
-export const EditorFallback: FC<EditorFallbackProps> = ({
+export const EditorContentFallback: FC<EditorContentFallbackProps> = ({
   className,
 
   ...props

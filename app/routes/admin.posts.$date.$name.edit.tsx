@@ -11,19 +11,20 @@ import {data, href, redirect, useNavigation} from "react-router"
 
 import type {BreadcrumbHandle} from "../components/common/Breadcrumbs.tsx"
 import {Breadcrumb} from "../components/common/Breadcrumbs.tsx"
-
-import {Editor} from "../components/post-editor/Editor.tsx"
-import {EditorFallback} from "../components/post-editor/EditorFallback.tsx"
-import {EditorForm} from "../components/post-editor/EditorForm.tsx"
+import {PostEditor} from "../components/post-editor/PostEditor.tsx"
+import {PostEditorFieldset} from "../components/post-editor/PostEditorFieldset.tsx"
+import {PostEditorForm} from "../components/post-editor/PostEditorForm.tsx"
 import {Button} from "../components/ui/Button.tsx"
+import {EditorContentFallback} from "../editor/components/EditorContentFallback.tsx"
 import {ormContext} from "../server/contexts/orm.ts"
 import {Post} from "../server/db/entities.ts"
 import {withAdmin} from "../server/lib/admin/withAdmin.ts"
 import {slugToParams} from "../server/lib/utils/slug.ts"
+
 import {
   AdminPostInput,
   type IAdminPostInput
-} from "../server/zod/admin/AdminPostInput.js"
+} from "../server/zod/admin/AdminPostInput.ts"
 import {AdminPostUpdateOutput} from "../server/zod/admin/AdminPostUpdateOutput.ts"
 import {PostSlug} from "../server/zod/post/PostSlug.ts"
 import {parseInput} from "../server/zod/utils/parseInput.ts"
@@ -137,17 +138,17 @@ const AdminPostEditPage: FC<Route.ComponentProps> = ({
   })
 
   return (
-    <EditorForm {...getFormProps(form)} method="post">
-      <div className="row-span-full">
-        <Editor {...getInputProps(fields.content, {type: "text"})} />
+    <PostEditorForm {...getFormProps(form)} method="post">
+      <PostEditorFieldset>
+        <PostEditor {...getInputProps(fields.content, {type: "text"})} />
 
-        <EditorFallback {...getTextareaProps(fields.markdown)} />
-      </div>
+        <EditorContentFallback {...getTextareaProps(fields.markdown)} />
+      </PostEditorFieldset>
 
       <div>
         <Button>Save</Button>
       </div>
-    </EditorForm>
+    </PostEditorForm>
   )
 }
 

@@ -3,7 +3,7 @@
 import {mergeAttributes} from "@tiptap/core"
 import {Paragraph as ParagraphBase} from "@tiptap/extension-paragraph"
 
-import {paragraphVariants} from "../../common/Paragraph.tsx"
+import {paragraphVariants} from "../../components/common/Paragraph.tsx"
 
 export const Paragraph = ParagraphBase.extend({
   renderHTML({HTMLAttributes}) {

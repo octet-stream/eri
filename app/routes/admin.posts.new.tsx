@@ -11,21 +11,24 @@ import {data, href, replace} from "react-router"
 import {
   Breadcrumb,
   type BreadcrumbHandle
-} from "../components/common/Breadcrumbs.jsx"
-import {Editor} from "../components/post-editor/Editor.tsx"
-import {EditorFallback} from "../components/post-editor/EditorFallback.tsx"
-import {EditorForm} from "../components/post-editor/EditorForm.tsx"
+} from "../components/common/Breadcrumbs.tsx"
+
+import {PostEditor} from "../components/post-editor/PostEditor.tsx"
+import {PostEditorFieldset} from "../components/post-editor/PostEditorFieldset.tsx"
+import {PostEditorForm} from "../components/post-editor/PostEditorForm.tsx"
 import {Button} from "../components/ui/Button.tsx"
+import {EditorContentFallback} from "../editor/components/EditorContentFallback.tsx"
 import {adminContext} from "../server/contexts/admin.ts"
 import {ormContext} from "../server/contexts/orm.ts"
 import {Post} from "../server/db/entities.ts"
 import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.ts"
 import {withAdmin} from "../server/lib/admin/withAdmin.ts"
 import {slugToParams} from "../server/lib/utils/slug.ts"
+
 import {
   AdminPostInput,
   type IAdminPostInput
-} from "../server/zod/admin/AdminPostInput.js"
+} from "../server/zod/admin/AdminPostInput.ts"
 import type {Route} from "./+types/admin.posts.new.ts"
 
 export const loader = noopAdminLoader
@@ -66,22 +69,26 @@ export const handle: BreadcrumbHandle = {
   breadcrumb: () => <Breadcrumb>New post</Breadcrumb>
 }
 
-const Tiptap: FC<Route.ComponentProps> = ({actionData}) => {
+const AdminPostNewPage: FC<Route.ComponentProps> = ({actionData}) => {
   const [form, fields] = useForm<IAdminPostInput>({lastResult: actionData})
 
   return (
-    <EditorForm method="post" {...getFormProps(form)}>
-      <div className="row-span-full">
-        <Editor {...getInputProps(fields.content, {type: "text"})} />
+    <PostEditorForm method="post" {...getFormProps(form)}>
+      <div className="flex flex-row items-center">
+        <div>Toolbar will be here</div>
 
-        <EditorFallback {...getTextareaProps(fields.markdown)} />
-      </div>
+        <div className="flex-1" />
 
-      <div>
         <Button>Create</Button>
       </div>
-    </EditorForm>
+
+      <PostEditorFieldset>
+        <PostEditor {...getInputProps(fields.content, {type: "text"})} />
+
+        <EditorContentFallback {...getTextareaProps(fields.markdown)} />
+      </PostEditorFieldset>
+    </PostEditorForm>
   )
 }
 
-export default Tiptap
+export default AdminPostNewPage
