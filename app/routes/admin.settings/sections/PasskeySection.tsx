@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle
 } from "../../../components/ui/Card.jsx"
-import {authClient} from "../../../lib/auth.ts"
+import {authClient} from "../../../lib/auth/client.ts"
 
 import {PasskeyTable} from "./PasskeyTable.tsx"
 
