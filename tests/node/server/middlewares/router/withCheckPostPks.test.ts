@@ -1,7 +1,7 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import type {FC} from "react"
-import {unstable_RouterContextProvider as RouteContextProvider} from "react-router"
+import {RouterContextProvider} from "react-router"
 import {expect, suite, vi} from "vitest"
 import {matchesContext} from "../../../../../app/server/contexts/matches.ts"
 import {Post} from "../../../../../app/server/db/entities.ts"
@@ -16,7 +16,7 @@ import {
 } from "../../../../../app/server/zod/admin/AdminPostInput.js"
 import {adminTest} from "../../../../fixtures/admin.ts"
 import {createStubMiddlewareArgs} from "../../../../utils/createStubRouteArgs.ts"
-import {noopFunction} from "../../../../utils/noopFunction.ts"
+import {asyncNoopFunction} from "../../../../utils/noopFunction.ts"
 
 const NoopComponent: FC = () => null
 
@@ -29,7 +29,7 @@ interface PostEditTestContext {
   /**
    * Provides context with empty route matches.
    */
-  context: RouteContextProvider
+  context: RouterContextProvider
 
   /**
    * Provides set of default routes
@@ -95,7 +95,7 @@ const test = adminTest.extend<PostEditTestContext>({
   },
 
   async context({task: _}, use) {
-    const context = new RouteContextProvider()
+    const context = new RouterContextProvider()
 
     context.set(matchesContext, [])
 
@@ -173,7 +173,7 @@ suite("redirects", () => {
       await middleware(
         createStubMiddlewareArgs({request, context}),
 
-        noopFunction
+        asyncNoopFunction
       )
     } catch (error) {
       if (!(error instanceof Response)) {
@@ -204,7 +204,7 @@ suite("redirects", () => {
       await middleware(
         createStubMiddlewareArgs({request, context}),
 
-        noopFunction
+        asyncNoopFunction
       )
     } catch (error) {
       if (!(error instanceof Response)) {

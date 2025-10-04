@@ -1,4 +1,4 @@
-import {unstable_RouterContextProvider as RouterContextProvider} from "react-router"
+import {RouterContextProvider} from "react-router"
 
 import type {Replace} from "../../app/lib/types/Replace.ts"
 import {authContext} from "../../app/server/contexts/auth.ts"
