@@ -1,24 +1,39 @@
-import {href, redirect} from "react-router"
+import {parseWithZod} from "@conform-to/zod/v4"
+import {data, href, redirect} from "react-router"
 
 import {ormContext} from "../server/contexts/orm.ts"
 import {Post} from "../server/db/entities.ts"
 import {withAdmin} from "../server/lib/admin/withAdmin.ts"
-import {PostSlug} from "../server/zod/post/PostSlug.ts"
-import {parseInput} from "../server/zod/utils/parseInput.ts"
-
+import {AdminPostRemoveInput} from "../server/zod/admin/AdminPostRemoveInput.ts"
 import type {Route} from "./+types/admin.posts.$date.$name.remove.ts"
 
-export const action = withAdmin(async ({context, params}: Route.ActionArgs) => {
-  const slug = await parseInput(PostSlug, params, {async: true})
+export const action = withAdmin(
+  async ({context, params, request}: Route.ActionArgs) => {
+    const form = await request.formData()
 
-  const orm = context.get(ormContext)
+    Object.entries(params).forEach(([key, value]) => void form.set(key, value))
 
-  const post = await orm.em.findOneOrFail(Post, {slug})
+    const submission = await parseWithZod(form, {
+      schema: AdminPostRemoveInput,
+      async: true
+    })
 
-  // Mark post as removed
-  post.removedAt = new Date()
+    if (submission.status !== "success") {
+      throw data(submission.reply(), 422)
+    }
 
-  await orm.em.flush()
+    const orm = context.get(ormContext)
+    const post = await orm.em.findOneOrFail(Post, {slug: submission.value.slug})
 
-  throw redirect(href("/admin"))
-})
+    // The post can be removed permanently if this parameter is set to true, otherwise falling back to the default behaviour (soft removal)
+    if (submission.value.permanent) {
+      orm.em.remove(post)
+    } else {
+      post.removedAt = new Date()
+    }
+
+    await orm.em.flush()
+
+    throw redirect(href("/admin"))
+  }
+)
