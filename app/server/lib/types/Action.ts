@@ -1,7 +1,4 @@
-import type {
-  ActionFunctionArgs,
-  unstable_RouterContextProvider as RouterContextProvider
-} from "react-router"
+import type {ActionFunctionArgs, RouterContextProvider} from "react-router"
 
 import type {Replace} from "./Replace.ts"
 
