@@ -4,7 +4,7 @@ import type {MaybeNull} from "../../../lib/types/MaybeNull.ts"
 
 import type {loader} from "../route.tsx"
 
-export type PostsContextData = Awaited<ReturnType<typeof loader>>["items"]
+export type PostsContextData = Awaited<ReturnType<typeof loader>>
 
 export const PostsContext = createContext<MaybeNull<PostsContextData>>(null)
 
