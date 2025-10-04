@@ -2,7 +2,7 @@ import {getFormProps, getInputProps, useForm} from "@conform-to/react"
 import {getZodConstraint, parseWithZod} from "@conform-to/zod/v4"
 import {Fingerprint} from "lucide-react"
 import type {FC} from "react"
-import {Form, useNavigate} from "react-router"
+import {Form, href, useNavigate} from "react-router"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
@@ -18,7 +18,8 @@ import {
 import {Input} from "../../components/ui/Input.tsx"
 import {Label} from "../../components/ui/Label.tsx"
 import {Separator} from "../../components/ui/Separator.tsx"
-import {authClient} from "../../lib/auth.ts"
+import {authClient} from "../../lib/auth/client.ts"
+import {usePasskeyAutofill} from "../../lib/auth/hooks/usePasskeyAutofill.ts"
 import {AdminLogInInput} from "../../server/zod/admin/AdminLogInInput.ts"
 
 import type {Route} from "./+types/route.ts"
@@ -34,13 +35,15 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
 
   const navigate = useNavigate()
 
+  usePasskeyAutofill("/admin")
+
   const logInWithPassKey = useEvent(async () => {
     const response = await authClient.signIn.passkey()
 
     if (response?.error) {
       toast.error("Can't log in")
     } else {
-      await navigate("/admin", {replace: true})
+      await navigate(href("/admin"), {replace: true})
     }
   })
 
@@ -70,6 +73,7 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
                 errors={fields.email.errors || form.errors}
                 placeholder="me@example.com"
                 className="placeholder:lowercase"
+                autoComplete="email webauthn"
               />
             </fieldset>
 
@@ -81,6 +85,7 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
                 errors={fields.password.errors || form.errors}
                 placeholder="Your password"
                 className="placeholder:lowercase"
+                autoComplete="current-password webauthn"
               />
             </fieldset>
           </CardContent>
