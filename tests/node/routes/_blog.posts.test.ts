@@ -129,8 +129,7 @@ suite("loader", () => {
   })
 
   suite("common errors", () => {
-    // FIXME: I've changed validation and now I have to fix the regression
-    test.fails("throws 404 Response when page param is 0", async () => {
+    test("throws 404 Response when page param is 0", async () => {
       expect.hasAssertions()
 
       const url = new URL("http://localhost")
@@ -147,8 +146,7 @@ suite("loader", () => {
       }
     })
 
-    // FIXME: I've changed validation and now I have to fix the regression
-    test.fails("throws 404 Response when page param less than 0", async () => {
+    test("throws 404 Response when page param less than 0", async () => {
       expect.hasAssertions()
 
       const url = new URL("http://localhost")

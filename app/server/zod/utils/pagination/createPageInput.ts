@@ -25,31 +25,46 @@ export function createPageInput<T extends z.ZodRawShape = never>(
 ) {
   const {maxLimit} = {...defaults, ...options}
 
-  const Page = z
-    .union([z.string(), z.number()])
-    .nullish()
-    .pipe(z.coerce.number())
-    .transform(value => (value == null ? undefined : value))
-
   const LimitBase = z.number().int().positive()
 
   const Limit = maxLimit ? LimitBase.max(maxLimit).default(maxLimit) : LimitBase
 
-  const PageBaseInput = z
-    .object({page: Page, limit: Limit.optional()})
-    .default({limit: maxLimit || undefined, page: 1})
+  const Page = z
+    .union([z.string(), z.number()])
+    .nullish()
+    .pipe(
+      z.coerce
+        .number<string | number>()
+        .int()
+        .positive("Page number must be greater or equal 1")
+        .nullish()
+        .transform(value => (value == null ? undefined : value))
+    )
 
-  const PageInput = extensions
+  const PageBaseInput = z.object({page: Page, limit: Limit.optional()})
+
+  const PageInputWithExtensions = extensions
     ? z.intersection(extensions, PageBaseInput)
     : PageBaseInput
 
-  return PageInput.optional().transform(input => {
-    const {page, limit, ...fields} = input || {}
+  const PageInputSearchParams = z
+    .instanceof(URLSearchParams)
+    .transform((input): Record<string, any> => Object.fromEntries(input))
+    .pipe(PageInputWithExtensions)
 
-    const args = new PageArgs({page, limit, maxLimit})
+  const PageInput = z
+    .union([PageInputSearchParams, PageInputWithExtensions])
+    .default({limit: maxLimit || undefined, page: 1})
+    .optional()
+    .transform(input => {
+      const {page, limit, ...fields} = input || {}
 
-    return {...fields, args} as PageOutput<T>
-  })
+      const args = new PageArgs({page, limit, maxLimit})
+
+      return {...fields, args} as PageOutput<T>
+    })
+
+  return PageInput
 }
 
 /**

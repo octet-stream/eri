@@ -4,7 +4,7 @@ export const DatabaseUserPassword = z
   .string()
   .min(8)
   .optional()
-  .superRefine((value, ctx): value is NonNullable<typeof value> => {
+  .transform((value, ctx): NonNullable<typeof value> => {
     if (!value && process.env.NODE_ENV !== "test") {
       ctx.addIssue({
         code: z.ZodIssueCode.invalid_type,
@@ -12,9 +12,11 @@ export const DatabaseUserPassword = z
         received: "undefined",
         message: "Required"
       })
+
+      return z.NEVER
     }
 
-    return z.NEVER
+    return value as any // This is expected
   })
 
 export type IDatabaseUserPassword = z.input<typeof DatabaseUserPassword>
