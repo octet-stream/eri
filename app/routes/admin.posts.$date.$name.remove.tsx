@@ -11,7 +11,9 @@ export const action = withAdmin(
   async ({context, params, request}: Route.ActionArgs) => {
     const form = await request.formData()
 
-    Object.entries(params).forEach(([key, value]) => void form.set(key, value))
+    Object.entries(params).forEach(
+      ([key, value]) => void form.set(`slug.${key}`, value)
+    )
 
     const submission = await parseWithZod(form, {
       schema: AdminPostRemoveInput,

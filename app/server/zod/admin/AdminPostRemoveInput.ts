@@ -4,7 +4,10 @@ import {PostSlug} from "../post/PostSlug.ts"
 
 export const AdminPostRemoveInput = z.object({
   slug: PostSlug,
-  permanent: z.boolean().optional()
+  permanent: z
+    .union([z.string(), z.boolean()])
+    .pipe(z.coerce.boolean<string | boolean>())
+    .optional()
 })
 
 export type IAdminPostRemoveInput = z.input<typeof AdminPostRemoveInput>
