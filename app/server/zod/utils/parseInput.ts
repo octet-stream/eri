@@ -11,17 +11,17 @@ function onError<TOutput>(reason: z.ZodSafeParseError<TOutput>): never {
 
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
-  data: z.input<TSchema> | URLSearchParams,
+  data: z.input<TSchema> | URLSearchParams | FormData,
   options: ResolveResultOptions<z.output<TSchema>> & {async: true}
 ): Promise<z.output<TSchema>>
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
-  data: z.input<TSchema> | URLSearchParams,
+  data: z.input<TSchema> | URLSearchParams | FormData,
   options?: ResolveResultOptions<z.output<TSchema>> & {async?: false}
 ): z.output<TSchema>
 export function parseInput<TSchema extends z.ZodTypeAny>(
   schema: TSchema,
-  data: z.input<TSchema> | URLSearchParams,
+  data: z.input<TSchema> | URLSearchParams | FormData,
   options: ResolveResultOptions<z.output<TSchema>> & {async?: boolean} = {}
 ): MaybePromise<z.output<TSchema>> {
   const {async, ...rest} = options
