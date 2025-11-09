@@ -31,8 +31,10 @@
         "editorconfig.editorconfig"
         "github.vscode-github-actions"
         "redhat.vscode-yaml"
-        "pinage404.nix-extension-pack"
+        "jnoortheen.nix-ide"
         "bradlc.vscode-tailwindcss"
+        "yoavbls.pretty-ts-errors"
+        "orta.vscode-twoslash-queries"
       ];
     };
   };
