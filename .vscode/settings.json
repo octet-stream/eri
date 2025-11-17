@@ -28,6 +28,5 @@
   "files.associations": {
     "tailwind.css": "tailwindcss",
     "devenv.lock": "json"
-  },
-  "oxc.enable": true
+  }
 }
