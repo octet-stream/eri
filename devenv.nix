@@ -14,6 +14,8 @@
     docker
     nixd
     nixfmt-rfc-style
+    corepack_24
+    curl
   ];
 
   devcontainer = {
@@ -88,11 +90,11 @@
 
   processes = {
     server = {
-      exec = "pnpm dev";
+      exec = "${pkgs.corepack_24}/bin/pnpm dev";
       process-compose = {
         depends_on.mysql.condition = "process_healthy";
         readiness_probe = {
-          exec.command = "curl -sf http://localhost:3000/health";
+          exec.command = "${pkgs.curl}/bin/curl -sf http://localhost:3000/health";
           initial_delay_seconds = 2;
           period_seconds = 10;
           success_threshold = 1;
@@ -114,12 +116,12 @@
 
   tasks = {
     "pnpm:install" = {
-      exec = "pnpm install --frozen-lockfile";
+      exec = "${pkgs.corepack_24}/bin/pnpm install --frozen-lockfile";
       before = [ "devenv:enterShell" ];
     };
 
     "db:migrations:up" = {
-      exec = "pnpm mikro-orm-esm migration:up";
+      exec = "${pkgs.corepack_24}/bin/pnpm mikro-orm-esm migration:up";
       before = [ "devenv:processes:server" ];
     };
   };
