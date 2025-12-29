@@ -14,7 +14,6 @@
     docker
     nixd
     nixfmt-rfc-style
-    corepack_24
     curl
   ];
 
