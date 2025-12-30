@@ -1,5 +1,17 @@
 # eri
 
+## 0.12.0
+
+### Minor Changes
+
+- [#146](https://github.com/octet-stream/eri/pull/146) [`dc85b36`](https://github.com/octet-stream/eri/commit/dc85b36e4dc9de99a5176258aa4011a937358ef9) Thanks [@octet-stream](https://github.com/octet-stream)! - Switch from Plate to Tiptap and add fallback editor when JS disabled
+
+- [#154](https://github.com/octet-stream/eri/pull/154) [`e2e0539`](https://github.com/octet-stream/eri/commit/e2e053958db1ba12736e39457e6925661ae8199d) Thanks [@octet-stream](https://github.com/octet-stream)! - Support autofill for Passkeys
+
+### Patch Changes
+
+- [#160](https://github.com/octet-stream/eri/pull/160) [`ceac7f7`](https://github.com/octet-stream/eri/commit/ceac7f70e5a398f24a13133accd89f0e4c139f63) Thanks [@octet-stream](https://github.com/octet-stream)! - Improved intents resolution for settings page
+
 ## 0.11.0
 
 ### Minor Changes
