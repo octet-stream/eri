@@ -45,7 +45,7 @@ export const action = withAdmin(
       return data(submission.reply(), 422)
     }
 
-    const headers = await match(submission.value)
+    return match(submission.value)
       .when(
         input => input.intent === "password" && input.updated !== input.confirm,
 
@@ -73,25 +73,15 @@ export const action = withAdmin(
           }
         })
 
-        return headers
+        return data(submission.reply({resetForm: true}), {headers})
       })
       .with({intent: "info"}, async ({intent: _, ...fields}) => {
         orm.em.assign(admin.user, fields)
         await orm.em.flush()
 
-        return undefined
+        return submission.reply()
       })
       .exhaustive()
-
-    return data(
-      submission.reply({
-        resetForm: true
-      }),
-
-      {
-        headers
-      }
-    )
   }
 )
 
