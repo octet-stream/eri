@@ -92,6 +92,10 @@
       exec = "${pkgs.corepack_24}/bin/pnpm dev";
       process-compose = {
         depends_on.mysql.condition = "process_healthy";
+        availability = {
+          restart = "on_failure";
+          max_restarts = 10;
+        };
         readiness_probe = {
           exec.command = "${pkgs.curl}/bin/curl -sf http://localhost:3000/health";
           initial_delay_seconds = 2;
