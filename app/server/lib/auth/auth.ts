@@ -1,5 +1,5 @@
+import {passkey} from "@better-auth/passkey"
 import {betterAuth} from "better-auth"
-import {passkey} from "better-auth/plugins/passkey"
 import {mikroOrmAdapter} from "better-auth-mikro-orm"
 
 import config from "../config.ts"
