@@ -29,5 +29,26 @@
     "tailwind.css": "tailwindcss",
     "devenv.lock": "json"
   },
-  "oxc.enable": true
+  "oxc.enable": true,
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/*.code-search": true,
+    "**/.devenv": true,
+    "**/.direnv": true,
+    "**/.tsimp": true,
+    ".devcontainer.json": true,
+    ".devenv.flake.nix": true
+  },
+
+  "files.readonlyInclude": {
+    "**/.react-router/types/**": true,
+    "**/.devenv/**": true,
+    "**/.direnv/**": true,
+    "**/.tsimp/**": true,
+    ".devcontainer.json": true,
+    ".devenv.flake.nix": true,
+    "tsconfig.tsbuildinfo": true
+  }
 }
