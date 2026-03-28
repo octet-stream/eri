@@ -87,6 +87,8 @@
     };
   };
 
+  process.manager.implementation = "process-compose";
+
   processes = {
     server = {
       exec = "${pkgs.corepack_24}/bin/pnpm dev";
