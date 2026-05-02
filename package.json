@@ -58,8 +58,8 @@
   },
   "dependencies": {
     "@better-auth/passkey": "1.6.9",
-    "@conform-to/react": "1.15.1",
-    "@conform-to/zod": "1.15.1",
+    "@conform-to/react": "1.19.1",
+    "@conform-to/zod": "1.19.1",
     "@mikro-orm/cli": "7.0.13",
     "@mikro-orm/core": "7.0.13",
     "@mikro-orm/mariadb": "7.0.13",
@@ -130,7 +130,7 @@
     "ts-pattern": "5.9.0",
     "uuid": "13.0.0",
     "validator": "13.15.26",
-    "zod": "4.4.1"
+    "zod": "4.4.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.13",

@@ -107,6 +107,10 @@
       };
     };
 
+    # ! Not sure is overriding this option will fix weird port allocation behaviour in devenv.
+    # ! If not I should debug the problem and open issue
+    mysql.ports.main.allocate = lib.toInt config.env.DB_PORT;
+
     mysql.process-compose.readiness_probe = {
       exec.command = "${config.services.mysql.package}/bin/mysqladmin ping -u root";
       initial_delay_seconds = 2;

@@ -34,8 +34,11 @@ export const action = withAdmin(
   async ({request, context}: Route.ActionArgs) => {
     const admin = context.get(adminContext)
     const orm = context.get(ormContext)
-    const submission = parseWithZod(await request.formData(), {
-      schema: AdminPostInput
+    const form = await request.formData()
+
+    const submission = parseWithZod(form, {
+      schema: AdminPostInput,
+      disableAutoCoercion: true // Having this option disabled seem to break the input
     })
 
     if (submission.status !== "success") {

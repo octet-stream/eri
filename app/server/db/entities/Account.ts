@@ -53,6 +53,9 @@ export const AccountSchema = defineEntity({
      */
     password: p.string().nullable(),
 
+    /**
+     * The ID token returned from the provider
+     */
     idToken: p.string().nullable(),
 
     /**

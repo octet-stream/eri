@@ -12,10 +12,29 @@ export const UserSchema = defineEntity({
   name: "User",
   extends: RecordSoft,
   properties: {
+    /**
+     * User's email address for communication and login
+     */
     email: p.string(),
+
+    /**
+     * Whether the user's email is verified
+     */
     emailVerified: p.boolean().default(false),
+
+    /**
+     * @deprecated Usused and non-persistent field, but required by Better Auth for some reason
+     */
     name: p.string().persist(false).default(""),
+
+    /**
+     * @deprecated Usused and non-persistent field, but required by Better Auth for some reason
+     */
     image: p.string().persist(false).default(""),
+
+    /**
+     * List of passkeys created by the user
+     */
     passkeys: () => p.oneToMany(Passkey).mappedBy(passkey => passkey.user)
   } satisfies EntityShape<UserBase, keyof RecordSoft>,
   uniques: [
