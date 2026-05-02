@@ -26,7 +26,6 @@ suite("action", () => {
     const actual = await orm.em.refreshOrFail(admin.viewer)
 
     expect(actual.email).toBe(expectedEmail)
-
     // Also check if headers updated
     expect(response.init?.headers).toBeDefined()
     expect(new Headers(response.init?.headers).has("set-cookie")).toBe(true)

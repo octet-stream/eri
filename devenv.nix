@@ -17,6 +17,9 @@
     curl
   ];
 
+  # This probably breaks database configuration lol
+  # env.BETTER_AUTH_URL = "https://eri.localhost";
+
   devcontainer = {
     enable = true;
     settings = {
@@ -122,7 +125,7 @@
     };
 
     "db:migrations:up" = {
-      exec = "${pkgs.corepack_24}/bin/pnpm mikro-orm-esm migration:up";
+      exec = "${pkgs.corepack_24}/bin/pnpm mikro-orm migration:up";
       before = [ "devenv:processes:server" ];
     };
   };

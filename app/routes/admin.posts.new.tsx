@@ -50,7 +50,7 @@ export const action = withAdmin(
       content: content.toJSON()
     })
 
-    await orm.em.persistAndFlush(post)
+    await orm.em.persist(post).flush()
 
     throw replace(href("/admin/posts/:date/:name", slugToParams(post.slug)))
   }

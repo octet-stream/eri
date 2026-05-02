@@ -13,7 +13,7 @@ test("displays login form", async () => {
     }
   ])
 
-  const screen = render(<Stub initialEntries={["/"]} />)
+  const screen = await render(<Stub initialEntries={["/"]} />)
 
   await expect.element(screen.getByText("Login")).toBeVisible()
 })
@@ -26,7 +26,7 @@ test("has active Log in button", async () => {
     }
   ])
 
-  const screen = render(<Stub initialEntries={["/"]} />)
+  const screen = await render(<Stub initialEntries={["/"]} />)
 
   await expect
     .element(screen.getByRole("button", {name: "Log in"}))
@@ -41,7 +41,7 @@ test("has active Passkey button", async () => {
     }
   ])
 
-  const screen = render(<Stub initialEntries={["/"]} />)
+  const screen = await render(<Stub initialEntries={["/"]} />)
 
   await expect
     .element(screen.getByRole("button", {name: "Use Passkey"}))
@@ -68,7 +68,7 @@ test.skip("hightlight input errors", async () => {
     }
   ])
 
-  const screen = render(<Stub initialEntries={["/"]} />)
+  const screen = await render(<Stub initialEntries={["/"]} />)
 
   await screen.getByRole("button", {name: "Log in"}).click()
 

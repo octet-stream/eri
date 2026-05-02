@@ -1,10 +1,17 @@
 import {MikroORM, RequestContext} from "@mikro-orm/mariadb"
 
+import type {Simplify} from "../../../lib/types/Simplify.ts"
+
 import config from "./configs/base.ts"
 
 let cache: Promise<MikroORM> | undefined
 
-export const orm = MikroORM.initSync(config)
+export type EntityShape<
+  T extends {[x: PropertyKey]: any},
+  O extends PropertyKey = never
+> = Simplify<Omit<Record<keyof T | (string & {}), any>, O>>
+
+export const orm = new MikroORM(config)
 
 /**
  * @deprecated - use `orm` object directly

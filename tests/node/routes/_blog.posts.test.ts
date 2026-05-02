@@ -49,7 +49,7 @@ suite("loader", () => {
         })
       )
 
-      await orm.em.persistAndFlush(posts)
+      await orm.em.persist(posts).flush()
     })
 
     test("returns first page by default", async () => {

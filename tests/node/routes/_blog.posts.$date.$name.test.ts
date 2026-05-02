@@ -50,7 +50,7 @@ suite("loader", () => {
       content: input.content.toJSON()
     })
 
-    await orm.em.persistAndFlush(post)
+    await orm.em.persist(post).flush()
 
     const [date, name] = post.slug.split("/")
 
