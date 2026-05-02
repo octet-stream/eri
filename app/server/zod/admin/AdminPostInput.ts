@@ -1,6 +1,7 @@
 // Based on https://github.com/ProseMirror/prosemirror-markdown/blob/d671c2305446248f2c1138ea355b6c7e0bafc1f7/src/from_markdown.ts
 
 import MarkdownIt from "markdown-it"
+import {match, P} from "ts-pattern"
 import {z} from "zod"
 
 // import type Token from "markdown-it/lib/token.mjs"
@@ -104,7 +105,7 @@ function parseFromMarkdown(
   const title = node.content.firstChild
   if (!title?.textContent || node.childCount < 2) {
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Post must have title and content"
     })
 
@@ -124,7 +125,7 @@ function parseFromJsonString(
     const title = node.content.firstChild
     if (!title?.textContent || node.childCount < 2) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message: "Post must have title and content"
       })
 
@@ -134,7 +135,7 @@ function parseFromJsonString(
     return {content: node, title}
   } catch (error) {
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: `Can't parse post content: ${error}`
     })
   }
@@ -142,13 +143,15 @@ function parseFromJsonString(
   return z.NEVER
 }
 
-export const AdminPostInput = AdminPostEitherInput.transform((value, ctx) => {
-  if (value.fallback) {
-    return parseFromMarkdown(value.markdown, ctx)
-  }
+export const AdminPostInput = AdminPostEitherInput.transform((value, ctx) =>
+  match(value)
+    .with(
+      {fallback: P.when((value): value is true => !!value)},
 
-  return parseFromJsonString(value.content, ctx)
-}).pipe(AdminPostInputOutput)
+      ({markdown}) => parseFromMarkdown(markdown, ctx)
+    )
+    .otherwise(({content}) => parseFromJsonString(content, ctx))
+)
 
 export type IAdminPostInput = z.input<typeof AdminPostInput>
 

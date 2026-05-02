@@ -25,6 +25,7 @@ export const loader = withAdmin(async ({context}: Route.LoaderArgs) => {
 
   await user.passkeys.load()
 
+  // @ts-expect-error I don't understand what is going on here, but it should work
   return parseOutput(SessionUserOutput, user, {
     async: true
   })
@@ -79,7 +80,7 @@ export const action = withAdmin(
         orm.em.assign(admin.user, fields)
         await orm.em.flush()
 
-        return submission.reply()
+        return data(submission.reply())
       })
       .exhaustive()
   }

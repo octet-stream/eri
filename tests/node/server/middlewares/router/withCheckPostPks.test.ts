@@ -54,7 +54,7 @@ const test = adminTest.extend<PostEditTestContext>({
       content: input.content.toJSON()
     })
 
-    await orm.em.persistAndFlush(post)
+    await orm.em.persist(post).flush()
     await use(post)
   },
 

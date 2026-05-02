@@ -1,4 +1,5 @@
 import type {FC} from "react"
+import {useRevalidator} from "react-router"
 import {useEvent} from "react-use-event-hook"
 import {toast} from "sonner"
 
@@ -15,12 +16,16 @@ import {authClient} from "../../../lib/auth/client.ts"
 import {PasskeyTable} from "./PasskeyTable.tsx"
 
 export const PasskeySection: FC = () => {
+  const revalidator = useRevalidator()
+
   const addPasskey = useEvent(async () => {
     const response = await authClient.passkey.addPasskey()
 
     if (response?.error) {
       toast.error("Can't add new passkey")
     }
+
+    await revalidator.revalidate()
   })
 
   return (

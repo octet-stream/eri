@@ -1,66 +1,70 @@
-import {Entity, ManyToOne, type Opt, Property} from "@mikro-orm/mariadb"
-
-import type {Maybe} from "../../../lib/types/Maybe.ts"
-
+import {defineEntity, p} from "@mikro-orm/mariadb"
+import type {Account as BAAccount} from "better-auth"
+import type {EntityShape} from "../../lib/db/orm.ts"
 import {Record} from "./Record.ts"
 import {User} from "./User.ts"
 
-@Entity()
-export class Account extends Record {
-  /**
-   * The id of the account as provided by the SSO or equal to userId for credential accounts
-   */
-  @Property<Account>({type: "string"})
-  accountId!: string
+type DatabaseAccount = Omit<BAAccount, "userId">
 
-  /**
-   * The id of the provider
-   */
-  @Property<Account>({type: "string"})
-  providerId!: string
+export const AccountSchema = defineEntity({
+  name: "Account",
+  extends: Record,
+  properties: {
+    /**
+     * The id of the account as provided by the SSO or equal to userId for credential accounts
+     */
+    accountId: p.string(),
 
-  /**
-   * The access token of the account.
-   * Returned by the provider
-   */
-  @Property<Account>({type: "string", nullable: true, default: null})
-  accessToken?: Maybe<Opt<string>>
+    /**
+     * The id of the provider
+     */
+    providerId: p.string(),
 
-  /**
-   * The refresh token of the account.
-   * Returned by the provider
-   */
-  @Property<Account>({type: "string", nullable: true, default: null})
-  refreshToken?: Maybe<Opt<string>>
+    /**
+     * The access token of the account.
+     * Returned by the provider
+     */
+    accessToken: p.string().nullable(),
 
-  /**
-   * The time when the verification request expires
-   */
-  @Property<Account>({type: "datetime", nullable: true, default: null})
-  accessTokenExpiresAt?: Maybe<Opt<Date>>
+    /**
+     * The refresh token of the account.
+     * Returned by the provider
+     */
+    refreshToken: p.string().nullable(),
 
-  /**
-   * The time when the verification request expires
-   */
-  @Property<Account>({type: "datetime", nullable: true, default: null})
-  refreshTokenExpiresAt?: Maybe<Opt<Date>>
+    /**
+     * The time when the verification request expires
+     */
+    accessTokenExpiresAt: p.datetime().nullable(),
 
-  /**
-   * The scope of the account. Returned by the provider
-   */
-  @Property<Account>({type: "string", nullable: true, default: null})
-  scope?: Maybe<Opt<string>>
+    /**
+     * The time when the verification request expires
+     */
+    refreshTokenExpiresAt: p.datetime().nullable(),
 
-  /**
-   * The password of the account.
-   * Mainly used for email and password authentication
-   */
-  @Property<Account>({type: "string", nullable: true, default: null})
-  password?: Maybe<Opt<string>>
+    /**
+     * The scope of the account. Returned by the provider
+     */
+    scope: p.string().nullable(),
 
-  /**
-   * User associated with the account
-   */
-  @ManyToOne(() => User, {eager: true})
-  user!: User
-}
+    /**
+     * The password of the account.
+     * Mainly used for email and password authentication
+     */
+    password: p.string().nullable(),
+
+    /**
+     * The ID token returned from the provider
+     */
+    idToken: p.string().nullable(),
+
+    /**
+     * User associated with the account
+     */
+    user: () => p.manyToOne(User).eager(true)
+  } satisfies EntityShape<DatabaseAccount, keyof Record>
+})
+
+export class Account extends AccountSchema.class {}
+
+AccountSchema.setClass(Account)

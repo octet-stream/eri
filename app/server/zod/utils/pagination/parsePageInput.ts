@@ -33,13 +33,11 @@ export function parsePageInput<TSchema extends typeof DefaultPageInput>(
   }
 ): MaybePromise<z.output<TSchema>> {
   if (!options?.async) {
-    // @ts-expect-error Fix this later
     return resolveResult(schema.safeParse(input), {
       onError
     })
   }
 
-  // @ts-expect-error Fix this later
   return schema.safeParseAsync(input).then(result =>
     resolveResult(result, {
       onError

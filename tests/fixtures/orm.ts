@@ -9,19 +9,18 @@ export interface OrmTestContext {
 
 beforeAll(async () => {
   orm.config.set("allowGlobalContext", true)
-  await orm.getSchemaGenerator().ensureDatabase()
+  await orm.schema.ensureDatabase()
   await orm.connect()
 })
 
 afterAll(async () => {
-  await orm.getSchemaGenerator().dropDatabase()
+  await orm.schema.dropDatabase()
   await orm.close()
 })
 
 beforeEach(async () => {
-  const generator = orm.getSchemaGenerator()
-  await generator.dropSchema({dropForeignKeys: true, dropMigrationsTable: true})
-  await generator.createSchema()
+  await orm.schema.drop({dropForeignKeys: true, dropMigrationsTable: true})
+  await orm.schema.create()
 })
 
 export const ormTest = test.extend<OrmTestContext>({
