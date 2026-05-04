@@ -1,4 +1,4 @@
-import {defineEntity, OptionalProps, p} from "@mikro-orm/mariadb"
+import {defineEntity, OptionalProps, p} from "@mikro-orm/core"
 
 import {Post} from "./Post.ts"
 import {RecordSoft} from "./RecordSoft.ts"

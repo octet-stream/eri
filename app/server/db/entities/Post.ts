@@ -1,4 +1,4 @@
-import {defineEntity, OptionalProps, p} from "@mikro-orm/mariadb"
+import {defineEntity, OptionalProps, p} from "@mikro-orm/core"
 import type {JSONContent} from "@tiptap/core"
 
 import {PostPrevKnownSlug} from "./PostPrevKnownSlug.ts"

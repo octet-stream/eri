@@ -25,6 +25,11 @@
     "prepare": "node --no-warnings --experimental-strip-types .husky/install.ts",
     "preinstall": "pnpm dlx only-allow pnpm"
   },
+  "imports": {
+    "#app/*": [
+      "./app/*"
+    ]
+  },
   "mikro-orm": {
     "configPaths": [
       "./app/server/lib/db/configs/dev.ts",
@@ -62,6 +67,7 @@
     "@conform-to/zod": "1.19.1",
     "@mikro-orm/cli": "7.0.13",
     "@mikro-orm/core": "7.0.13",
+    "@mikro-orm/libsql": "7.0.13",
     "@mikro-orm/mariadb": "7.0.13",
     "@mikro-orm/migrations": "7.0.13",
     "@node-rs/argon2": "2.0.2",
@@ -170,7 +176,7 @@
     "tinyexec": "1.0.2",
     "ts-node": "10.9.2",
     "tsimp": "2.0.12",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "vite": "7.3.1",
     "vitest": "4.0.16",
     "vitest-browser-react": "2.0.2"

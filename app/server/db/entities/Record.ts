@@ -1,4 +1,4 @@
-import {defineEntity, p} from "@mikro-orm/mariadb"
+import {defineEntity, p} from "@mikro-orm/core"
 
 import {Node} from "./Node.ts"
 

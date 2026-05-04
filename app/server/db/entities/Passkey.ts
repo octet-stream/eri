@@ -1,5 +1,5 @@
 import type {Passkey as BAPasskey} from "@better-auth/passkey"
-import {defineEntity, p} from "@mikro-orm/mariadb"
+import {defineEntity, p} from "@mikro-orm/core"
 import type {Simplify} from "../../../lib/types/Simplify.ts"
 import type {EntityShape} from "../../lib/db/orm.ts"
 import {Record} from "./Record.ts"

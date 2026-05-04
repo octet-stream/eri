@@ -1,4 +1,4 @@
-import {defineEntity, p} from "@mikro-orm/mariadb"
+import {defineEntity, p} from "@mikro-orm/core"
 import {v7 as uuidV7} from "uuid"
 
 export const NodeSchema = defineEntity({

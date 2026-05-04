@@ -1,19 +1,15 @@
 import {parse} from "node:path"
 
-import type {MigrationObject} from "@mikro-orm/mariadb"
+import type {Constructor, MigrationObject} from "@mikro-orm/mariadb"
+import type {Migration} from "@mikro-orm/migrations"
 
-import promise from "./dev.ts"
-
-type MigrationsModules = Record<
-  string,
-  Record<string, MigrationObject["class"]>
->
+type MigrationsModules = Record<string, Record<string, Constructor<Migration>>>
 
 const modules = import.meta.glob("../../../db/migrations/*.ts", {
   eager: true
 }) as MigrationsModules
 
-const migrationsList = Object.entries(modules).map<MigrationObject>(
+const migrations = Object.entries(modules).map<MigrationObject>(
   ([path, mod]) => {
     const {name} = parse(path)
 
@@ -21,6 +17,6 @@ const migrationsList = Object.entries(modules).map<MigrationObject>(
   }
 )
 
-export default promise.then(
-  config => ({...config, migrations: {migrationsList}}) satisfies typeof config
+export default import("#app/server/lib/db/configs/libsql.ts").then(
+  ({createLibsqlConfig}) => createLibsqlConfig({migrations})
 )

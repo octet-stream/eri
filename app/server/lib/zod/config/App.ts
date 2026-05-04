@@ -4,6 +4,9 @@ import {Name} from "./app/Name.ts"
 
 export const App = z
   .object({
+    /**
+     * Name of the application
+     */
     name: Name
   })
   .transform(value => Object.freeze(value))

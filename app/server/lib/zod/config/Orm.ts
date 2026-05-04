@@ -1,19 +1,21 @@
 import {z} from "zod"
-import {DatabaseHost} from "./orm/DatabaseHost.ts"
-import {DatabaseName} from "./orm/DatabaseName.ts"
-import {DatabasePort} from "./orm/DatabasePort.ts"
-import {DatabaseUserName} from "./orm/DatabaseUserName.ts"
-import {DatabaseUserPassword} from "./orm/DatabaseUserPassword.ts"
+
 import {Debug} from "./orm/Debug.ts"
+import {LibSql} from "./orm/LibSql.ts"
 
 export const Orm = z
   .object({
+    /**
+     * Whether to enable debug.
+     *
+     * Note: This parameter takes process.env.NODE_ENV as input.
+     */
     debug: Debug,
-    host: DatabaseHost,
-    port: DatabasePort,
-    dbName: DatabaseName,
-    user: DatabaseUserName,
-    password: DatabaseUserPassword
+
+    /**
+     * Database connection parameters (e. g. host, port etc)
+     */
+    connection: LibSql
   })
   .transform(value => Object.freeze(value))
 
