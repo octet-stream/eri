@@ -20,7 +20,7 @@ const LibSqlDbPath = z
 
 const LibSqlDbName = z
   .union([LibSqlUrl, LibSqlFileUrl, LibSqlDbPath])
-  .default(".databases/eri.db")
+  .default(".databases/local/eri.db")
 
 const LibSqlPassword = z.string().trim().min(8)
 

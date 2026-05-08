@@ -23,6 +23,7 @@ export const createLibsqlConfig = <
   params: CreateLibsqlConfigParams<TMigration> = {}
 ) =>
   defineConfig({
+    debug: config.orm.debug,
     dbName: connection.dbName,
     password: connection.password,
     extensions: [Migrator],
