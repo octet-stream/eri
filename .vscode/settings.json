@@ -14,8 +14,11 @@
   // Nix formatter
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
+
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": ["devenv", "lsp", "-v"],
 
   // Tailwindcss settings
   "tailwindCSS.experimental.classRegex": [
@@ -50,14 +53,5 @@
     ".devcontainer.json": true,
     ".devenv.flake.nix": true,
     "tsconfig.tsbuildinfo": true
-  },
-  "sqltools.connections": [
-    {
-      "previewLimit": 50,
-      "driver": "SQLite",
-      "database": ".databases/eri.db",
-      "name": "eri-local"
-    }
-  ],
-  "sqltools.useNodeRuntime": true
+  }
 }
