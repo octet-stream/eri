@@ -4,12 +4,10 @@ import {expect, suite} from "vitest"
 
 import {action} from "../../../app/routes/admin.settings/route.tsx"
 import {Account} from "../../../app/server/db/entities.ts"
-import {auth} from "../../../app/server/lib/auth/auth.ts"
-import {test} from "../../fixtures/admin.ts"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.ts"
+import {test} from "../../fixtures/adminRouter.ts"
 
 suite("action", () => {
-  test("updates email", async ({admin, orm}) => {
+  test("updates email", async ({admin, orm, routerStubs}) => {
     const expectedEmail = "me+test@example.com"
     const form = new FormData()
 
@@ -21,7 +19,7 @@ suite("action", () => {
       body: form
     })
 
-    const response = await action(createStubActionArgs({request}))
+    const response = await action(routerStubs.createActionArgs({request}))
 
     const actual = await orm.em.refreshOrFail(admin.viewer)
 
@@ -31,7 +29,7 @@ suite("action", () => {
     expect(new Headers(response.init?.headers).has("set-cookie")).toBe(true)
   })
 
-  test("updates password", async ({admin, orm}) => {
+  test("updates password", async ({admin, orm, auth, routerStubs}) => {
     const expectedPassword = "wow-so-secure-much-password"
 
     const form = new FormData()
@@ -46,7 +44,7 @@ suite("action", () => {
       body: form
     })
 
-    await action(createStubActionArgs({request}))
+    await action(routerStubs.createActionArgs({request}))
 
     const {password: actualPassword} = await orm.em.findOneOrFail(Account, {
       user: admin.viewer,
@@ -67,7 +65,8 @@ suite("action", () => {
 
   suite("errors", () => {
     test("when updated and confirmation password aren't the same", async ({
-      admin
+      admin,
+      routerStubs
     }) => {
       expect.hasAssertions()
 
@@ -84,7 +83,7 @@ suite("action", () => {
       })
 
       try {
-        await action(createStubActionArgs({request}))
+        await action(routerStubs.createActionArgs({request}))
       } catch (error) {
         const response = error as DataWithResponseInit<SubmissionResult>
 

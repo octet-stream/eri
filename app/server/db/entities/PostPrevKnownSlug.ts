@@ -7,7 +7,7 @@ export const PostPrevKnownSlugSchema = defineEntity({
   name: "PostPrevKnownSlug",
   extends: RecordSoft,
   properties: {
-    slug: p.string().length(512),
+    slug: p.string().columnType("text collate nocase"),
     post: () => p.manyToOne(Post)
   },
   uniques: [

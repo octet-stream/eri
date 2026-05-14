@@ -1,17 +1,17 @@
 import type {SetCookie} from "cookie-es"
 import {expect, suite} from "vitest"
-import {action} from "../../../app/routes/admin.logout.ts"
-import {auth} from "../../../app/server/lib/auth/auth.ts"
-import {test} from "../../fixtures/admin.ts"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.ts"
+
+import {action} from "#app/routes/admin.logout.ts"
+
+import {test} from "../../fixtures/adminRouter.ts"
 import {getCookies} from "../../utils/getCookies.ts"
 
 suite("action", () => {
-  test("throws redirect response", async ({admin}) => {
+  test("throws redirect response", async ({admin, routerStubs}) => {
     expect.hasAssertions()
 
     try {
-      await action(createStubActionArgs({request: admin.request}))
+      await action(routerStubs.createActionArgs({request: admin.request}))
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response
@@ -21,11 +21,11 @@ suite("action", () => {
     }
   })
 
-  test("resets session cookie", async ({admin}) => {
+  test("resets session cookie", async ({auth, admin, routerStubs}) => {
     expect.hasAssertions()
 
     try {
-      await action(createStubActionArgs({request: admin.request}))
+      await action(routerStubs.createActionArgs({request: admin.request}))
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response

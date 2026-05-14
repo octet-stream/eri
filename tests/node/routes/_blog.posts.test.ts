@@ -1,16 +1,49 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
-import {beforeEach, expect, suite} from "vitest"
+import {expect, suite} from "vitest"
 import {loader} from "../../../app/routes/_blog._index/route.tsx"
 import {Post, User} from "../../../app/server/db/entities.ts"
 import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
-import {type OrmTestContext, test} from "../../fixtures/orm.ts"
-import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.ts"
+import {routerTest} from "../../fixtures/router.ts"
+
+const test = routerTest
+  .extend("user", async ({orm}) => {
+    console.log(orm.config.getAll())
+    const user = orm.em.create(User, {
+      email: faker.internet.exampleEmail()
+    })
+
+    await orm.em.persist(user).flush()
+
+    return user
+  })
+  .extend("posts", {auto: true}, async ({user, orm}) => {
+    const input = AdminPostInput.parse({
+      fallback: "true",
+      markdown: dedent`
+        # ${faker.lorem.sentence({min: 3, max: 4})}
+
+        ${faker.lorem.paragraph()}
+      `
+    })
+
+    const posts = Array.from({length: 200}, () =>
+      orm.em.create(Post, {
+        author: user,
+        title: input.title.textContent,
+        content: input.content.toJSON()
+      })
+    )
+
+    await orm.em.persist(posts).flush()
+
+    return posts
+  })
 
 suite("loader", () => {
   suite("no data", async () => {
-    test("returns empty page", async () => {
-      const page = await loader(createStubLoaderArgs())
+    routerTest("returns empty page", async ({routerStubs}) => {
+      const page = await loader(routerStubs.createLoaderArgs({}))
 
       expect(page).toMatchObject({
         items: [],
@@ -27,67 +60,42 @@ suite("loader", () => {
   })
 
   suite("with data", () => {
-    beforeEach<OrmTestContext>(async ({orm}) => {
-      const user = orm.em.create(User, {
-        email: faker.internet.exampleEmail()
-      })
-
-      const input = AdminPostInput.parse({
-        fallback: "true",
-        markdown: dedent`
-          # ${faker.lorem.sentence({min: 3, max: 4})}
-  
-          ${faker.lorem.paragraph()}
-        `
-      })
-
-      const posts = Array.from({length: 200}, () =>
-        orm.em.create(Post, {
-          author: user,
-          title: input.title.textContent,
-          content: input.content.toJSON()
-        })
-      )
-
-      await orm.em.persist(posts).flush()
-    })
-
-    test("returns first page by default", async () => {
-      const page = await loader(createStubLoaderArgs())
+    test("returns first page by default", async ({routerStubs}) => {
+      const page = await loader(routerStubs.createLoaderArgs({}))
 
       expect(page.current).toBe(1)
     })
 
-    test("returns first page by default", async () => {
-      const page = await loader(createStubLoaderArgs())
+    test("returns first page by default", async ({routerStubs}) => {
+      const page = await loader(routerStubs.createLoaderArgs({}))
 
       expect(page.current).toBe(1)
     })
 
-    test("previous page is null by default", async () => {
-      const page = await loader(createStubLoaderArgs())
+    test("previous page is null by default", async ({routerStubs}) => {
+      const page = await loader(routerStubs.createLoaderArgs({}))
 
       expect(page.prev).toBe(null)
     })
 
-    test("returns first 100 posts by default", async () => {
-      const page = await loader(createStubLoaderArgs())
+    test("returns first 100 posts by default", async ({routerStubs}) => {
+      const page = await loader(routerStubs.createLoaderArgs({}))
 
       expect(page.itemsCount).toBe(100)
     })
 
-    test("has next page", async () => {
-      const page = await loader(createStubLoaderArgs())
+    test("has next page", async ({routerStubs}) => {
+      const page = await loader(routerStubs.createLoaderArgs({}))
 
       expect(page.next).toBe(2)
     })
 
-    test("accepts page query parameter", async () => {
+    test("accepts page query parameter", async ({routerStubs}) => {
       const url = new URL("http://localhost")
       url.searchParams.set("page", "2")
 
       const page = await loader(
-        createStubLoaderArgs({
+        routerStubs.createLoaderArgs({
           request: new Request(url)
         })
       )
@@ -95,12 +103,12 @@ suite("loader", () => {
       expect(page.current).toBe(2)
     })
 
-    test("previous page is current - 1", async () => {
+    test("previous page is current - 1", async ({routerStubs}) => {
       const url = new URL("http://localhost")
       url.searchParams.set("page", "2")
 
       const page = await loader(
-        createStubLoaderArgs({
+        routerStubs.createLoaderArgs({
           request: new Request(url)
         })
       )
@@ -109,14 +117,18 @@ suite("loader", () => {
     })
 
     suite("errors", () => {
-      test("throws 404 Response when page is out of range", async () => {
+      test("throws 404 Response when page is out of range", async ({
+        routerStubs
+      }) => {
         expect.hasAssertions()
 
         const url = new URL("http://localhost")
         url.searchParams.set("page", "3")
 
         try {
-          await loader(createStubLoaderArgs({request: new Request(url)}))
+          await loader(
+            routerStubs.createLoaderArgs({request: new Request(url)})
+          )
         } catch (error) {
           if (!(error instanceof Response)) {
             throw error
@@ -129,14 +141,14 @@ suite("loader", () => {
   })
 
   suite("common errors", () => {
-    test("throws 404 Response when page param is 0", async () => {
+    test("throws 404 Response when page param is 0", async ({routerStubs}) => {
       expect.hasAssertions()
 
       const url = new URL("http://localhost")
       url.searchParams.set("page", "0")
 
       try {
-        await loader(createStubLoaderArgs({request: new Request(url)}))
+        await loader(routerStubs.createLoaderArgs({request: new Request(url)}))
       } catch (error) {
         if (!(error instanceof Response)) {
           throw error
@@ -146,14 +158,16 @@ suite("loader", () => {
       }
     })
 
-    test("throws 404 Response when page param less than 0", async () => {
+    test("throws 404 Response when page param less than 0", async ({
+      routerStubs
+    }) => {
       expect.hasAssertions()
 
       const url = new URL("http://localhost")
       url.searchParams.set("page", "-124")
 
       try {
-        await loader(createStubLoaderArgs({request: new Request(url)}))
+        await loader(routerStubs.createLoaderArgs({request: new Request(url)}))
       } catch (error) {
         if (!(error instanceof Response)) {
           throw error

@@ -1,44 +1,61 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import type {FC} from "react"
-import {RouterContextProvider} from "react-router"
 import {expect, suite, vi} from "vitest"
-import {matchesContext} from "../../../../../app/server/contexts/matches.ts"
-import {Post} from "../../../../../app/server/db/entities.ts"
-import {
-  getRouteMatches,
-  type ServerRouteManifest
-} from "../../../../../app/server/lib/utils/routes.js"
-import {withCheckPostPks} from "../../../../../app/server/middlewares/router/withCheckPostPks.ts"
+import {matchesContext} from "#app/server/contexts/matches.ts"
+import {Post} from "#app/server/db/entities.ts"
+import {getRouteMatches} from "#app/server/lib/utils/routes.js"
+import {withCheckPostPks} from "#app/server/middlewares/router/withCheckPostPks.ts"
 import {
   AdminPostInput,
   type IAdminPostInput
-} from "../../../../../app/server/zod/admin/AdminPostInput.js"
-import {adminTest} from "../../../../fixtures/admin.ts"
-import {createStubMiddlewareArgs} from "../../../../utils/createStubRouteArgs.ts"
+} from "#app/server/zod/admin/AdminPostInput.js"
+
+import {adminRouterTest} from "../../../../fixtures/adminRouter.ts"
 import {asyncNoopFunction} from "../../../../utils/noopFunction.ts"
 
 const NoopComponent: FC = () => null
 
-interface PostEditTestContext {
-  /**
-   * Provides a fresh Post entity created for each test
-   */
-  post: Post
+const test = adminRouterTest
+  .extend("context", ({routerContext}) => {
+    routerContext.set(matchesContext, [])
 
-  /**
-   * Provides context with empty route matches.
-   */
-  context: RouterContextProvider
-
-  /**
-   * Provides set of default routes
-   */
-  routes: ServerRouteManifest
-}
-
-const test = adminTest.extend<PostEditTestContext>({
-  async post({orm, admin}, use) {
+    return routerContext
+  })
+  .extend("routes", {
+    root: {
+      id: "root",
+      parentId: undefined,
+      module: {
+        default: NoopComponent
+      }
+    },
+    "routes/some.other.path": {
+      id: "routes/some.other.path",
+      parentId: "root",
+      path: "some/other/path",
+      module: {
+        default: NoopComponent
+      }
+    },
+    "routes/posts": {
+      id: "routes/_blog.posts",
+      parentId: "root",
+      path: "posts",
+      module: {
+        default: NoopComponent
+      }
+    },
+    "routes/_blog.posts.$date.$name": {
+      id: "routes/_blog.posts.$date.$name",
+      parentId: "routes/_blog.posts",
+      path: ":date/:name",
+      module: {
+        default: NoopComponent
+      }
+    }
+  })
+  .extend("post", async ({orm, admin}) => {
     const input = AdminPostInput.parse({
       fallback: "true",
       markdown: dedent`
@@ -55,100 +72,65 @@ const test = adminTest.extend<PostEditTestContext>({
     })
 
     await orm.em.persist(post).flush()
-    await use(post)
-  },
 
-  async routes({task: _}, use) {
-    await use({
-      root: {
-        id: "root",
-        parentId: undefined,
-        module: {
-          default: NoopComponent
-        }
-      },
-      "routes/some.other.path": {
-        id: "routes/some.other.path",
-        parentId: "root",
-        path: "some/other/path",
-        module: {
-          default: NoopComponent
-        }
-      },
-      "routes/posts": {
-        id: "routes/_blog.posts",
-        parentId: "root",
-        path: "posts",
-        module: {
-          default: NoopComponent
-        }
-      },
-      "routes/_blog.posts.$date.$name": {
-        id: "routes/_blog.posts.$date.$name",
-        parentId: "routes/_blog.posts",
-        path: ":date/:name",
-        module: {
-          default: NoopComponent
-        }
-      }
-    })
-  },
-
-  async context({task: _}, use) {
-    const context = new RouterContextProvider()
-
-    context.set(matchesContext, [])
-
-    await use(context)
-  }
-})
+    return post
+  })
 
 const middleware = withCheckPostPks()
 
 suite("calls 'next' function in a sequence", () => {
-  test("no matched routes found", async ({context}) => {
+  test("no matched routes found", async ({context, routerStubs}) => {
     const next = vi.fn()
 
-    await middleware(createStubMiddlewareArgs({context}), next)
+    await middleware(routerStubs.createMiddlewareArgs({context}), next)
 
-    expect(next).toBeCalled()
+    expect(next).toHaveBeenCalled()
   })
 
-  test("current route is not in allowed list", async ({context, routes}) => {
+  test("current route is not in allowed list", async ({
+    context,
+    routes,
+    routerStubs
+  }) => {
     const next = vi.fn()
     const request = new Request("http://localhost/some/other/path")
 
     context.set(matchesContext, getRouteMatches(routes, request.url) ?? [])
 
-    await middleware(createStubMiddlewareArgs({request, context}), next)
+    await middleware(routerStubs.createMiddlewareArgs({request, context}), next)
 
-    expect(next).toBeCalled()
+    expect(next).toHaveBeenCalled()
   })
 
-  test("invalid 'date' or 'name' parameter", async ({context, routes}) => {
+  test("invalid 'date' or 'name' parameter", async ({
+    context,
+    routes,
+    routerStubs
+  }) => {
     const next = vi.fn()
     const request = new Request("http://localhost/posts/foo/bar~123ab") // date parameter is invalid on purpose
 
     context.set(matchesContext, getRouteMatches(routes, request.url) ?? [])
 
-    await middleware(createStubMiddlewareArgs({request, context}), next)
+    await middleware(routerStubs.createMiddlewareArgs({request, context}), next)
 
-    expect(next).toBeCalled()
+    expect(next).toHaveBeenCalled()
   })
 
   test("the 'url' matches current post location", async ({
     context,
     routes,
-    post
+    post,
+    routerStubs
   }) => {
     const next = vi.fn()
     const request = new Request(`http://localhost/posts/${post.slug}`)
 
     context.set(matchesContext, getRouteMatches(routes, request.url) ?? [])
 
-    await middleware(createStubMiddlewareArgs({request, context}), next)
+    await middleware(routerStubs.createMiddlewareArgs({request, context}), next)
 
-    expect(next).toBeCalled()
+    expect(next).toHaveBeenCalled()
   })
 })
 
@@ -157,7 +139,8 @@ suite("redirects", () => {
     context,
     routes,
     post,
-    orm
+    orm,
+    routerStubs
   }) => {
     expect.hasAssertions()
 
@@ -171,7 +154,7 @@ suite("redirects", () => {
 
     try {
       await middleware(
-        createStubMiddlewareArgs({request, context}),
+        routerStubs.createMiddlewareArgs({request, context}),
 
         asyncNoopFunction
       )
@@ -188,7 +171,8 @@ suite("redirects", () => {
     context,
     routes,
     post,
-    orm
+    orm,
+    routerStubs
   }) => {
     expect.hasAssertions()
 
@@ -202,7 +186,7 @@ suite("redirects", () => {
 
     try {
       await middleware(
-        createStubMiddlewareArgs({request, context}),
+        routerStubs.createMiddlewareArgs({request, context}),
 
         asyncNoopFunction
       )

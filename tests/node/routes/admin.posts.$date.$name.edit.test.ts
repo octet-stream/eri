@@ -11,42 +11,36 @@ import {
 import {Post} from "../../../app/server/db/entities.ts"
 import {formatSlugName} from "../../../app/server/lib/utils/slug.ts"
 import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
-import {adminTest} from "../../fixtures/admin.ts"
+import {adminRouterTest} from "../../fixtures/adminRouter.ts"
 import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.ts"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.ts"
-
-interface PostEditTestContext {
-  post: Post
-}
 
 const schema = getSchema(extensions)
 
-const test = adminTest.extend<PostEditTestContext>({
-  async post({orm, admin}, use) {
-    const input = AdminPostInput.parse({
-      fallback: "true",
-      markdown: dedent`
+const test = adminRouterTest.extend("post", async ({orm, admin}) => {
+  const input = AdminPostInput.parse({
+    fallback: "true",
+    markdown: dedent`
         # ${faker.lorem.sentence({min: 3, max: 4})}
 
         ${faker.lorem.paragraph()}
       `
-    })
+  })
 
-    const post = orm.em.create(Post, {
-      author: admin.viewer,
-      title: input.title.textContent,
-      content: input.content.toJSON()
-    })
+  const post = orm.em.create(Post, {
+    author: admin.viewer,
+    title: input.title.textContent,
+    content: input.content.toJSON()
+  })
 
-    await orm.em.persist(post).flush()
-    await use(post)
-  }
+  await orm.em.persist(post).flush()
+
+  return post
 })
 
 createAdminAuthLoaderSuite(loader)
 
 suite("action", () => {
-  test("redirects back to post", async ({post, admin}) => {
+  test("redirects back to post", async ({post, admin, routerStubs}) => {
     expect.hasAssertions()
 
     const form = new FormData()
@@ -61,7 +55,9 @@ suite("action", () => {
     const [date, name] = post.slug.split("/")
 
     try {
-      await action(createStubActionArgs({request, params: {date, name}}))
+      await action(
+        routerStubs.createActionArgs({request, params: {date, name}})
+      )
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response
@@ -72,7 +68,7 @@ suite("action", () => {
     }
   })
 
-  test("updates post title", async ({post, admin, orm}) => {
+  test("updates post title", async ({post, admin, orm, routerStubs}) => {
     expect.hasAssertions()
 
     const title = schema.text("Testing, testing, 1, 2, 3")
@@ -105,7 +101,9 @@ suite("action", () => {
     const [date, name] = post.slug.split("/")
 
     try {
-      await action(createStubActionArgs({request, params: {date, name}}))
+      await action(
+        routerStubs.createActionArgs({request, params: {date, name}})
+      )
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response

@@ -1,9 +1,5 @@
-import type {
-  EntityName,
-  EventSubscriber,
-  FlushEventArgs
-} from "@mikro-orm/mariadb"
-import {assign, ChangeSetType} from "@mikro-orm/mariadb"
+import type {EntityName, EventSubscriber, FlushEventArgs} from "@mikro-orm/core"
+import {assign, ChangeSetType} from "@mikro-orm/core"
 import {match, P} from "ts-pattern"
 
 import {formatSlug} from "../../lib/utils/slug.ts"

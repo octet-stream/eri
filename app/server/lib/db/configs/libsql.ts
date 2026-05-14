@@ -7,30 +7,30 @@ import {type Migration, Migrator} from "@mikro-orm/migrations"
 import * as entities from "#app/server/db/entities.ts"
 import * as subscribers from "#app/server/db/subscribers.ts"
 
-import config from "#app/server/lib/config.ts"
-
-const {connection} = config.orm
+import type {OOrm} from "#app/server/lib/zod/config/Orm.ts"
 
 export interface CreateLibsqlConfigParams<
   TMigration extends MigrationObject | Constructor<Migration>
-> {
+> extends OOrm {
   migrations?: TMigration[]
 }
 
 export const createLibsqlConfig = <
   const TMigration extends MigrationObject | Constructor<Migration>
 >(
-  params: CreateLibsqlConfigParams<TMigration> = {}
+  baseConfig: CreateLibsqlConfigParams<TMigration>
 ) =>
   defineConfig({
-    debug: config.orm.debug,
-    dbName: connection.dbName,
-    password: connection.password,
+    debug: baseConfig.debug,
+    dbName: baseConfig.connection.dbName,
+    password: baseConfig.connection.password,
     extensions: [Migrator],
     entities: Object.values(entities),
     subscribers: Object.values(subscribers).map(Subscriber => new Subscriber()),
     migrations: {
       path: resolve("app", "server", "db", "migrations"),
-      migrationsList: params.migrations
+      migrationsList: baseConfig.migrations
     }
   })
+
+export type MikroOrmConfig = ReturnType<typeof createLibsqlConfig>

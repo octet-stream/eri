@@ -18,12 +18,12 @@ export const PostSchema = defineEntity({
     /**
      * Post title
      */
-    title: p.string(),
+    title: p.string().columnType("text collate nocase"),
 
     /**
      * Human-readable, unique, URL-friendly identifier of the post
      */
-    slug: p.string().length(512),
+    slug: p.string().length(512).columnType("text collate nocase"),
 
     /**
      * Post content in JSON format (tiptap)

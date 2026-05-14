@@ -1,9 +1,9 @@
 import {Migration} from "@mikro-orm/migrations"
 
-export class Migration20260508140455 extends Migration {
+export class Migration20260512231142 extends Migration {
   override up(): void | Promise<void> {
     this.addSql(
-      "create table `user` (`id` text not null primary key, `created_at` datetime not null, `updated_at` datetime not null, `removed_at` datetime null, `email` text not null, `email_verified` integer not null default false);"
+      "create table `user` (`id` text not null primary key, `created_at` datetime not null, `updated_at` datetime not null, `removed_at` datetime null, `email` text collate nocase not null, `email_verified` integer not null default false);"
     )
     this.addSql(
       "create index `user_created_at_index` on `user` (`created_at`);"
@@ -33,7 +33,7 @@ export class Migration20260508140455 extends Migration {
     )
 
     this.addSql(
-      "create table `post` (`id` text not null primary key, `created_at` datetime not null, `updated_at` datetime not null, `removed_at` datetime null, `title` text not null, `slug` text not null, `content` json not null, `author_id` text not null, constraint `post_author_id_foreign` foreign key (`author_id`) references `user` (`id`));"
+      "create table `post` (`id` text not null primary key, `created_at` datetime not null, `updated_at` datetime not null, `removed_at` datetime null, `title` text collate nocase not null, `slug` text collate nocase not null, `content` json not null, `author_id` text not null, constraint `post_author_id_foreign` foreign key (`author_id`) references `user` (`id`));"
     )
     this.addSql(
       "create index `post_created_at_index` on `post` (`created_at`);"
@@ -48,7 +48,7 @@ export class Migration20260508140455 extends Migration {
     this.addSql("create index `post_author_id_index` on `post` (`author_id`);")
 
     this.addSql(
-      "create table `post_prev_known_slug` (`id` text not null primary key, `created_at` datetime not null, `updated_at` datetime not null, `removed_at` datetime null, `slug` text not null, `post_id` text not null, constraint `post_prev_known_slug_post_id_foreign` foreign key (`post_id`) references `post` (`id`));"
+      "create table `post_prev_known_slug` (`id` text not null primary key, `created_at` datetime not null, `updated_at` datetime not null, `removed_at` datetime null, `slug` text collate nocase not null, `post_id` text not null, constraint `post_prev_known_slug_post_id_foreign` foreign key (`post_id`) references `post` (`id`));"
     )
     this.addSql(
       "create index `post_prev_known_slug_created_at_index` on `post_prev_known_slug` (`created_at`);"

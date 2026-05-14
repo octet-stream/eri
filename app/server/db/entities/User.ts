@@ -15,7 +15,7 @@ export const UserSchema = defineEntity({
     /**
      * User's email address for communication and login
      */
-    email: p.string(),
+    email: p.string().columnType("text collate nocase"),
 
     /**
      * Whether the user's email is verified

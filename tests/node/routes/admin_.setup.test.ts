@@ -2,11 +2,10 @@ import {faker} from "@faker-js/faker"
 import {expect, suite} from "vitest"
 import {action} from "../../../app/routes/admin_.setup/route.tsx"
 import {User} from "../../../app/server/db/entities.ts"
-import {test} from "../../fixtures/orm.ts"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.ts"
+import {test} from "../../fixtures/adminRouter.ts"
 
 suite("action", () => {
-  test("redirects to /admin upon success", async () => {
+  test("redirects to /admin upon success", async ({routerStubs}) => {
     expect.hasAssertions()
 
     const form = new FormData()
@@ -20,7 +19,7 @@ suite("action", () => {
     })
 
     try {
-      await action(createStubActionArgs({request}))
+      await action(routerStubs.createActionArgs({request}))
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response
@@ -31,7 +30,7 @@ suite("action", () => {
     }
   })
 
-  test("creates a user", async ({orm}) => {
+  test("creates a user", async ({orm, routerStubs}) => {
     expect.hasAssertions()
 
     const form = new FormData()
@@ -46,7 +45,7 @@ suite("action", () => {
     })
 
     try {
-      await action(createStubActionArgs({request}))
+      await action(routerStubs.createActionArgs({request}))
     } catch (error) {
       if (!(error instanceof Response)) {
         throw error
@@ -56,7 +55,7 @@ suite("action", () => {
     }
   })
 
-  test("returns error for incorrect email", async () => {
+  test("returns error for incorrect email", async ({routerStubs}) => {
     const form = new FormData()
 
     form.set("email", "malformed email")
@@ -67,13 +66,13 @@ suite("action", () => {
       body: form
     })
 
-    const response = await action(createStubActionArgs({request}))
+    const response = await action(routerStubs.createActionArgs({request}))
 
     expect(response.init?.status).toBe(422)
     expect(Object.keys(response.data.error ?? {})).toEqual(["email"])
   })
 
-  test("returns error for incorrect pasword", async () => {
+  test("returns error for incorrect pasword", async ({routerStubs}) => {
     const form = new FormData()
 
     form.set("email", faker.internet.exampleEmail())
@@ -84,7 +83,7 @@ suite("action", () => {
       body: form
     })
 
-    const response = await action(createStubActionArgs({request}))
+    const response = await action(routerStubs.createActionArgs({request}))
 
     expect(response.init?.status).toBe(422)
     expect(Object.keys(response.data.error ?? {})).toEqual(["password"])
