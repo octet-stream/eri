@@ -36,7 +36,12 @@ export const adminTest = authTest.extend(
       }
     })
 
-    const headers = new Headers(responseHeaders)
+    const cookie = responseHeaders.get("set-cookie")
+    if (!cookie) {
+      throw new Error("Can't set cookies: No set-cookie header returned")
+    }
+
+    const headers = new Headers({cookie})
     const session = await orm.em.findOneOrFail(Session, {token: response.token})
 
     return {

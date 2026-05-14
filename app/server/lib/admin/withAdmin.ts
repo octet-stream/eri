@@ -1,7 +1,3 @@
-import type {
-  Session as DatabaseSession,
-  User as DatabaseUser
-} from "better-auth"
 import {adminContext} from "../../contexts/admin.ts"
 import {authContext} from "../../contexts/auth.ts"
 import {ormContext} from "../../contexts/orm.ts"
@@ -51,38 +47,31 @@ export const withAdmin =
       createAdminLoaderError(AdminLoaderErrorCode.SETUP)
     }
 
-    const response = await auth.api.getSession({
-      asResponse: true,
+    const {headers, response} = await auth.api.getSession({
+      returnHeaders: true,
       headers: args.request.headers
     })
 
     // Note: in the actual result all Dates are serialized into string, so make sure to de-serialize them back
-    const result = (await response.json()) as {
-      user: DatabaseUser
-      session: DatabaseSession
-    }
-
-    if (!result?.session) {
+    if (!response?.session) {
       createAdminLoaderError(AdminLoaderErrorCode.LOGIN)
     }
 
     const session = await orm.em
-      .getReference(Session, result.session.id, {
-        wrapped: true
-      })
+      .getReference(Session, response.session.id, {wrapped: true})
       .loadOrFail()
 
     args.context.set(adminContext, {
       session,
       user: session.user,
-      rawUser: result.user,
-      rawSession: result.session
+      rawUser: response.user,
+      rawSession: response.session
     })
 
     try {
       return await fn(args)
     } finally {
-      const cookie = response.headers.get("set-cookie")
+      const cookie = headers.get("set-cookie")
 
       if (cookie) {
         resHeaders.set("set-cookie", cookie)

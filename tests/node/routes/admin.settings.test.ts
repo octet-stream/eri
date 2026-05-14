@@ -19,6 +19,7 @@ suite("action", () => {
       body: form
     })
 
+    // @ts-expect-error Fix types later
     const response = await action(routerStubs.createActionArgs({request}))
 
     const actual = await orm.em.refreshOrFail(admin.viewer)
@@ -44,6 +45,7 @@ suite("action", () => {
       body: form
     })
 
+    // @ts-expect-error Fix types later
     await action(routerStubs.createActionArgs({request}))
 
     const {password: actualPassword} = await orm.em.findOneOrFail(Account, {
@@ -83,6 +85,7 @@ suite("action", () => {
       })
 
       try {
+        // @ts-expect-error Fix types later
         await action(routerStubs.createActionArgs({request}))
       } catch (error) {
         const response = error as DataWithResponseInit<SubmissionResult>
