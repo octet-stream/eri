@@ -98,7 +98,8 @@ export const action = withAdmin(
 
     const submission = await parseWithZod(await request.formData(), {
       schema: AdminPostInput,
-      async: true
+      async: true,
+      disableAutoCoercion: true
     })
 
     if (submission.status !== "success") {
