@@ -8,7 +8,6 @@ import {routerTest} from "../../fixtures/router.ts"
 
 const test = routerTest
   .extend("user", async ({orm}) => {
-    console.log(orm.config.getAll())
     const user = orm.em.create(User, {
       email: faker.internet.exampleEmail()
     })
