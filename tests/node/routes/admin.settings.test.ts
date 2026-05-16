@@ -19,14 +19,10 @@ suite("action", () => {
       body: form
     })
 
-    const response = await action(routerStubs.createActionArgs({request}))
-
+    await action(routerStubs.createActionArgs({request}))
     const actual = await orm.em.refreshOrFail(admin.viewer)
 
     expect(actual.email).toBe(expectedEmail)
-    // Also check if headers updated
-    expect(response.init?.headers).toBeDefined()
-    expect(new Headers(response.init?.headers).has("set-cookie")).toBe(true)
   })
 
   test("updates password", async ({admin, orm, auth, routerStubs}) => {

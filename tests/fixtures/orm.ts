@@ -1,5 +1,6 @@
 import {tmpdir} from "node:os"
 import {join} from "node:path"
+import {nanoid} from "nanoid"
 import {v7} from "uuid"
 import {createLibsqlConfig} from "#app/server/lib/db/configs/libsql.ts"
 import {createOrm, type MikroOrmInstance} from "../../app/server/lib/db/orm.ts"
@@ -11,7 +12,11 @@ export interface OrmTestContext {
 
 export const ormTest = baseTest
   .extend("ormConfig", {scope: "file"}, ({config}) => {
-    const dbName = join(tmpdir(), "eri-test-databases", `${v7()}.db`)
+    const dbName = join(
+      tmpdir(),
+      "eri-test-databases",
+      `${v7()}~${nanoid()}.db`
+    )
 
     const ormConfig = createLibsqlConfig({
       ...config.orm,

@@ -23,8 +23,7 @@ suite("markdown input", () => {
       `
     } satisfies IAdminPostInput)
 
-    expect(result.title).toBeInstanceOf(Node)
-    expect(result.content).toBeInstanceOf(Node)
+    expect(result).toBeInstanceOf(Node)
   })
 })
 
@@ -62,7 +61,6 @@ suite("json input", () => {
       } satisfies JSONContent)
     } satisfies IAdminPostInput)
 
-    expect(result.title).toBeInstanceOf(Node)
-    expect(result.content).toBeInstanceOf(Node)
+    expect(result).toBeInstanceOf(Node)
   })
 })

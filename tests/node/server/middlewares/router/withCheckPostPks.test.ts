@@ -4,13 +4,13 @@ import type {FC} from "react"
 import {expect, suite, vi} from "vitest"
 import {matchesContext} from "#app/server/contexts/matches.ts"
 import {Post} from "#app/server/db/entities.ts"
+import {getPostTitle} from "#app/server/lib/editor/utils.ts"
 import {getRouteMatches} from "#app/server/lib/utils/routes.js"
 import {withCheckPostPks} from "#app/server/middlewares/router/withCheckPostPks.ts"
 import {
   AdminPostInput,
   type IAdminPostInput
 } from "#app/server/zod/admin/AdminPostInput.js"
-
 import {adminRouterTest} from "../../../../fixtures/adminRouter.ts"
 import {asyncNoopFunction} from "../../../../utils/noopFunction.ts"
 
@@ -67,8 +67,8 @@ const test = adminRouterTest
 
     const post = orm.em.create(Post, {
       author: admin.viewer,
-      title: input.title.textContent,
-      content: input.content.toJSON()
+      title: getPostTitle(input).textContent,
+      content: input.toJSON()
     })
 
     await orm.em.persist(post).flush()

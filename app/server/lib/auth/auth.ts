@@ -3,9 +3,13 @@ import type {MikroORM} from "@mikro-orm/libsql"
 import {betterAuth} from "better-auth"
 import {mikroOrmAdapter} from "better-auth-mikro-orm"
 
-import config from "../config.ts"
+import config from "#app/server/lib/config.ts"
+
 import {hash, verify} from "./password.ts"
 
+/**
+ * Creates Better Auth instance with given Mikro ORM instance
+ */
 export const createAuth = (orm: MikroORM) =>
   betterAuth({
     database: mikroOrmAdapter(orm),
@@ -17,10 +21,7 @@ export const createAuth = (orm: MikroORM) =>
         verify: ({hash, password}) => verify(hash, password)
       }
     },
-    plugins: [
-      // TODO: Add configuration
-      passkey()
-    ],
+    plugins: [passkey()],
     advanced: {
       cookiePrefix: config.auth.cookiePrefix,
       database: {
