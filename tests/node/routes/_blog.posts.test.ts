@@ -1,6 +1,8 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
+
+import {getPostTitle} from "#app/server/lib/editor/utils.ts"
 import {loader} from "../../../app/routes/_blog._index/route.tsx"
 import {Post, User} from "../../../app/server/db/entities.ts"
 import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
@@ -17,7 +19,7 @@ const test = routerTest
     return user
   })
   .extend("posts", {auto: true}, async ({user, orm}) => {
-    const input = AdminPostInput.parse({
+    const document = AdminPostInput.parse({
       fallback: "true",
       markdown: dedent`
         # ${faker.lorem.sentence({min: 3, max: 4})}
@@ -29,8 +31,8 @@ const test = routerTest
     const posts = Array.from({length: 200}, () =>
       orm.em.create(Post, {
         author: user,
-        title: input.title.textContent,
-        content: input.content.toJSON()
+        title: getPostTitle(document).textContent,
+        content: document.toJSON()
       })
     )
 

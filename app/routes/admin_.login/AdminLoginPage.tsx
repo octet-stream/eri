@@ -48,7 +48,7 @@ export const AdminLoginPage: FC<Route.ComponentProps> = ({actionData}) => {
   })
 
   return (
-    <div className="w-full px-5 py-20 mobile:w-[390px] m-auto">
+    <div className="w-full px-5 py-20 mobile:w-97.5 m-auto">
       <Form
         {...getFormProps(form)}
         method="post"

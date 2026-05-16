@@ -1,9 +1,9 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
+import {getPostTitle} from "#app/server/lib/editor/utils.ts"
 import {action, loader} from "../../../app/routes/admin.posts.new.tsx"
 import {Post} from "../../../app/server/db/entities.ts"
-
 import {
   AdminPostInput,
   type IAdminPostInput
@@ -107,7 +107,7 @@ suite("action", () => {
   }) => {
     const form = new FormData()
 
-    const input = AdminPostInput.parse({
+    const document = AdminPostInput.parse({
       fallback: "true",
       markdown: dedent`
         # ${faker.lorem.sentence({min: 3, max: 4})}
@@ -116,9 +116,9 @@ suite("action", () => {
       `
     } satisfies IAdminPostInput)
 
-    const title = input.title.textContent
+    const title = getPostTitle(document).textContent
 
-    form.set("content", JSON.stringify(input.content))
+    form.set("content", JSON.stringify(document))
 
     const request = new Request(admin.request, {
       method: "POST",
@@ -140,7 +140,7 @@ suite("action", () => {
       const slug = location?.replace(/^\/admin\/posts\//, "")
       const post = await orm.em.findOne(Post, {slug}, {populate: ["content"]})
 
-      expect(post).toMatchObject({title, content: input.content.toJSON()})
+      expect(post).toMatchObject({title, content: document.toJSON()})
     }
   })
 })

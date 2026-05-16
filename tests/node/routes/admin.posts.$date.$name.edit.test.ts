@@ -3,6 +3,8 @@ import {getSchema} from "@tiptap/core"
 import {Node} from "@tiptap/pm/model"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
+
+import {getPostTitle} from "#app/server/lib/editor/utils.ts"
 import {extensions} from "../../../app/components/post-editor/extensions.ts"
 import {
   action,
@@ -28,8 +30,8 @@ const test = adminRouterTest.extend("post", async ({orm, admin}) => {
 
   const post = orm.em.create(Post, {
     author: admin.viewer,
-    title: input.title.textContent,
-    content: input.content.toJSON()
+    title: getPostTitle(input).textContent,
+    content: input.toJSON()
   })
 
   await orm.em.persist(post).flush()

@@ -1,15 +1,34 @@
+import type {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  Params,
+  RouterContextProvider
+} from "react-router"
+
 import {adminContext} from "../../contexts/admin.ts"
 import {authContext} from "../../contexts/auth.ts"
 import {ormContext} from "../../contexts/orm.ts"
 import {resHeadersContext} from "../../contexts/resHeaders.ts"
 import {Session, User} from "../../db/entities.ts"
-import type {Action, ActionArgs} from "../types/Action.ts"
-import type {Loader, LoaderArgs} from "../types/Loader.ts"
-
+import type {Replace} from "../types/Replace.ts"
 import {
   AdminLoaderErrorCode,
   createAdminLoaderError
 } from "./adminLoaderError.js"
+
+export type AdminLoader<
+  TResult,
+  TContext extends
+    Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+  TParams extends Params = Params
+> = (event: Replace<LoaderFunctionArgs<TContext>, {params: TParams}>) => TResult
+
+export type AdminAction<
+  TResult,
+  TContext extends
+    Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+  TParams extends Params = Params
+> = (event: Replace<ActionFunctionArgs<TContext>, {params: TParams}>) => TResult
 
 /**
  * Defines protected admin loader/action for given function.
@@ -21,10 +40,18 @@ import {
  * @param loader - a function to wrap into admin priviligies checks
  */
 export const withAdmin =
-  <TResult, TArgs extends LoaderArgs | ActionArgs>(
-    fn: Loader<TResult, TArgs> | Action<TResult, TArgs>
+  <
+    TResult,
+    TContext extends
+      Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+    TParams extends Params = Params
+  >(
+    fn:
+      | AdminLoader<TResult, TContext, TParams>
+      | AdminAction<TResult, TContext, TParams>
   ) =>
-  async (args: TArgs): Promise<TResult> => {
+  async (args: Parameters<typeof fn>[0]): Promise<TResult> => {
+    args.context
     const orm = args.context.get(ormContext)
     const auth = args.context.get(authContext)
     const resHeaders = args.context.get(resHeadersContext)
@@ -78,3 +105,21 @@ export const withAdmin =
       }
     }
   }
+
+export const withAdminLoader = <
+  TResult,
+  TContext extends
+    Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+  TParams extends Params = Params
+>(
+  fn: AdminLoader<TResult, TContext, TParams>
+) => withAdmin(fn) as AdminLoader<TResult, TContext, TParams>
+
+export const withAdminAction = <
+  TResult,
+  TContext extends
+    Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+  TParams extends Params = Params
+>(
+  fn: AdminAction<TResult, TContext, TParams>
+) => withAdmin(fn) as AdminAction<TResult, TContext, TParams>

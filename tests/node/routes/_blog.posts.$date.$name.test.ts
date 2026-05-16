@@ -5,6 +5,7 @@ import {expect, suite} from "vitest"
 
 import {loader} from "#app/routes/_blog.posts.$date.$name.tsx"
 import {Post, User} from "#app/server/db/entities.ts"
+import {getPostTitle} from "#app/server/lib/editor/utils.ts"
 import {AdminPostInput} from "#app/server/zod/admin/AdminPostInput.ts"
 
 import {test} from "../../fixtures/router.ts"
@@ -36,7 +37,7 @@ suite("loader", () => {
       email: faker.internet.email()
     })
 
-    const input = AdminPostInput.parse({
+    const document = AdminPostInput.parse({
       fallback: "true",
       markdown: dedent`
         # ${faker.lorem.sentence({min: 3, max: 4})}
@@ -47,8 +48,8 @@ suite("loader", () => {
 
     const post = orm.em.create(Post, {
       author: user,
-      title: input.title.textContent,
-      content: input.content.toJSON()
+      title: getPostTitle(document).textContent,
+      content: document.toJSON()
     })
 
     await orm.em.persist(post).flush()

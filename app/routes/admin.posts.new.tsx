@@ -7,7 +7,6 @@ import {
 import {parseWithZod} from "@conform-to/zod/v4"
 import type {FC} from "react"
 import {data, href, replace} from "react-router"
-
 import {
   Breadcrumb,
   type BreadcrumbHandle
@@ -20,7 +19,8 @@ import {adminContext} from "../server/contexts/admin.ts"
 import {ormContext} from "../server/contexts/orm.ts"
 import {Post} from "../server/db/entities.ts"
 import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.ts"
-import {withAdmin} from "../server/lib/admin/withAdmin.ts"
+import {withAdminAction} from "../server/lib/admin/withAdmin.ts"
+import {getPostTitle} from "../server/lib/editor/utils.ts"
 import {slugToParams} from "../server/lib/utils/slug.ts"
 import {
   AdminPostInput,
@@ -30,7 +30,7 @@ import type {Route} from "./+types/admin.posts.new.ts"
 
 export const loader = noopAdminLoader
 
-export const action = withAdmin(
+export const action = withAdminAction(
   async ({request, context}: Route.ActionArgs) => {
     const admin = context.get(adminContext)
     const orm = context.get(ormContext)
@@ -45,12 +45,11 @@ export const action = withAdmin(
       return data(submission.reply(), 422)
     }
 
-    const {title, content} = submission.value
-
+    const title = getPostTitle(submission.value)
     const post = orm.em.create(Post, {
       author: admin.user,
       title: title.textContent,
-      content: content.toJSON()
+      content: submission.value.toJSON()
     })
 
     await orm.em.persist(post).flush()
