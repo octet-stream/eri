@@ -18,17 +18,17 @@ importers:
         specifier: 1.19.2
         version: 1.19.2(zod@4.4.2)
       '@mikro-orm/cli':
-        specifier: 7.0.16
-        version: 7.0.16
+        specifier: 7.1.0
+        version: 7.1.0
       '@mikro-orm/core':
-        specifier: 7.0.16
-        version: 7.0.16
+        specifier: 7.1.0
+        version: 7.1.0
       '@mikro-orm/libsql':
-        specifier: 7.0.16
-        version: 7.0.16(@mikro-orm/core@7.0.16)
+        specifier: 7.1.0
+        version: 7.1.0(@mikro-orm/core@7.1.0)
       '@mikro-orm/migrations':
-        specifier: 7.0.16
-        version: 7.0.16(@mikro-orm/core@7.0.16)
+        specifier: 7.1.0
+        version: 7.1.0(@mikro-orm/core@7.1.0)
       '@node-rs/argon2':
         specifier: 2.0.2
         version: 2.0.2
@@ -142,7 +142,7 @@ importers:
         version: 1.6.11(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(solid-js@1.9.10)(vitest@4.1.6)
       better-auth-mikro-orm:
         specifier: 1.0.0-next.2
-        version: 1.0.0-next.2(@mikro-orm/core@7.0.16)(better-auth@1.6.11(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(solid-js@1.9.10)(vitest@4.1.6))
+        version: 1.0.0-next.2(@mikro-orm/core@7.1.0)(better-auth@1.6.11(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(solid-js@1.9.10)(vitest@4.1.6))
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -1182,13 +1182,13 @@ packages:
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
 
-  '@mikro-orm/cli@7.0.16':
-    resolution: {integrity: sha512-fI+42/suKxLve32H5kgWWktqZP7g711YDXDJppRf+3RcxFHkx8KPGbSnCPij5+LN/KVnAdM3q2PgvjtV6Yjv2A==}
+  '@mikro-orm/cli@7.1.0':
+    resolution: {integrity: sha512-rU7iWj1qF9kWWp+osZZ9BtGAGr+hMwgEhGMNtvQ8K/7PMYyTa4Tedcvm+YqUcsYwG56O3pWs0Gic5hw9nsxuHg==}
     engines: {node: '>= 22.17.0'}
     hasBin: true
 
-  '@mikro-orm/core@7.0.16':
-    resolution: {integrity: sha512-XBa1FRqPKxwk+KHCBLuaEp7Yp1b1rrjdkn6UoedakSLZogty9oE5KAaL2i0kPxs3skKyNHwqFZzHmpn4ULDckw==}
+  '@mikro-orm/core@7.1.0':
+    resolution: {integrity: sha512-qzZwEbA70kKSEKI0xnXn2CCyzDp1cC5zA5WR6P11eKi4FqvreBLh3Orb8rPGRqBkXhm5OUgKLdkgoPkePQ6Yfg==}
     engines: {node: '>= 22.17.0'}
     peerDependencies:
       dataloader: 2.2.3
@@ -1196,23 +1196,23 @@ packages:
       dataloader:
         optional: true
 
-  '@mikro-orm/libsql@7.0.16':
-    resolution: {integrity: sha512-4L8nEJ6eA60V/1vg7hM/SALQXZAnm1ZIsR8UqZRL151Q/nMwdYOB4jt4qDkb6f9dn2i5sUVfNn7ECzUjX7uTgQ==}
+  '@mikro-orm/libsql@7.1.0':
+    resolution: {integrity: sha512-3ZXF4+DkmUJLx8glh7PhULZTYuJMolBHu0FO4TG8aoUk1QzACS52MWWe4VBTNzPt+jy4Tb3Mns3H2KtliZwv0w==}
     engines: {node: '>= 22.17.0'}
     peerDependencies:
-      '@mikro-orm/core': 7.0.16
+      '@mikro-orm/core': 7.1.0
 
-  '@mikro-orm/migrations@7.0.16':
-    resolution: {integrity: sha512-ecgIhmbjIluF880dQ/pdlJhtQlRXVKoACuEjuVxY3udZ0jC3MRvJZeATen1JjdS7a28kU7LYXnO3fjUMAKoabQ==}
+  '@mikro-orm/migrations@7.1.0':
+    resolution: {integrity: sha512-AsD1uvThixoz88ZGO+mtQh44cJsrYacAYcmR0SChjtYkSr/FiCoBy92iy0Z77pqmzIqFPhkD71HesNrQDx9Eog==}
     engines: {node: '>= 22.17.0'}
     peerDependencies:
-      '@mikro-orm/core': 7.0.16
+      '@mikro-orm/core': 7.1.0
 
-  '@mikro-orm/sql@7.0.16':
-    resolution: {integrity: sha512-gSk4sqP/0iWkbGafAVOfgA0CVFu6YXkXDPi55MOGw3klpBd0/MxDBQiGvz5yCMZkktB4PWhsQTuzJcO0LLQtQw==}
+  '@mikro-orm/sql@7.1.0':
+    resolution: {integrity: sha512-fDzM75/Auu6tLFsWvR7SNb+vMbZrrYjg43RKplKVe/2jdJLv+2IgXI9T1ebhKNDSLmolTTjPy/IrSv41QIb9lQ==}
     engines: {node: '>= 22.17.0'}
     peerDependencies:
-      '@mikro-orm/core': 7.0.16
+      '@mikro-orm/core': 7.1.0
 
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
@@ -3379,8 +3379,8 @@ packages:
     resolution: {integrity: sha512-nbD8lB9EB3wNdMhOCdx5Li8DxnLbvKByylRLcJ1h+4SkrowVeECAyZlyiKMThF7xFdRz0jSQ2MoJr+wXux2y0Q==}
     engines: {node: '>=20.0.0'}
 
-  kysely@0.29.0:
-    resolution: {integrity: sha512-LrQfPUeTW7MXbMvT62moEMnpMTuj9TO3lqjCeLKjM975PJ4Alrl/43f2tlDX7xOsNptKgH4LSNGwIbXwEkLg4g==}
+  kysely@0.29.2:
+    resolution: {integrity: sha512-s6WVJyEZrbm6jhBpiKHsGHyePMrVQKJ85wZCFCr9W4QHv6WTjWIrdvTmO9hDEA3bNK0xkrE2DqrHsXMLWuZpQg==}
     engines: {node: '>=22.0.0'}
 
   launch-editor@2.13.2:
@@ -3561,8 +3561,8 @@ packages:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
-  mikro-orm@7.0.16:
-    resolution: {integrity: sha512-ooP53USDixLvc+UB+sC6dv38MgIxyB/K0VtEz53zVPo/2STlACVz1qYYPItTHhTQ9hga6b7Y43o0q5C537PaBw==}
+  mikro-orm@7.1.0:
+    resolution: {integrity: sha512-YlrXwSo5BRzbxYRhRihl99ALkkegvlOHUDq0C99I240yuKBUTeXUPJIhnh2/HsKvZb1E23AqTjlDtvmLVTzHzA==}
     engines: {node: '>= 22.17.0'}
 
   minimatch@10.0.3:
@@ -5470,32 +5470,32 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@mikro-orm/cli@7.0.16':
+  '@mikro-orm/cli@7.1.0':
     dependencies:
-      '@mikro-orm/core': 7.0.16
-      mikro-orm: 7.0.16
+      '@mikro-orm/core': 7.1.0
+      mikro-orm: 7.1.0
       yargs: 17.7.2
     transitivePeerDependencies:
       - dataloader
 
-  '@mikro-orm/core@7.0.16': {}
+  '@mikro-orm/core@7.1.0': {}
 
-  '@mikro-orm/libsql@7.0.16(@mikro-orm/core@7.0.16)':
+  '@mikro-orm/libsql@7.1.0(@mikro-orm/core@7.1.0)':
     dependencies:
-      '@mikro-orm/core': 7.0.16
-      '@mikro-orm/sql': 7.0.16(@mikro-orm/core@7.0.16)
-      kysely: 0.29.0
+      '@mikro-orm/core': 7.1.0
+      '@mikro-orm/sql': 7.1.0(@mikro-orm/core@7.1.0)
+      kysely: 0.29.2
       libsql: 0.5.29
 
-  '@mikro-orm/migrations@7.0.16(@mikro-orm/core@7.0.16)':
+  '@mikro-orm/migrations@7.1.0(@mikro-orm/core@7.1.0)':
     dependencies:
-      '@mikro-orm/core': 7.0.16
-      '@mikro-orm/sql': 7.0.16(@mikro-orm/core@7.0.16)
+      '@mikro-orm/core': 7.1.0
+      '@mikro-orm/sql': 7.1.0(@mikro-orm/core@7.1.0)
 
-  '@mikro-orm/sql@7.0.16(@mikro-orm/core@7.0.16)':
+  '@mikro-orm/sql@7.1.0(@mikro-orm/core@7.1.0)':
     dependencies:
-      '@mikro-orm/core': 7.0.16
-      kysely: 0.29.0
+      '@mikro-orm/core': 7.1.0
+      kysely: 0.29.2
 
   '@mjackson/node-fetch-server@0.2.0': {}
 
@@ -6945,9 +6945,9 @@ snapshots:
 
   baseline-browser-mapping@2.9.14: {}
 
-  better-auth-mikro-orm@1.0.0-next.2(@mikro-orm/core@7.0.16)(better-auth@1.6.11(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(solid-js@1.9.10)(vitest@4.1.6)):
+  better-auth-mikro-orm@1.0.0-next.2(@mikro-orm/core@7.1.0)(better-auth@1.6.11(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(solid-js@1.9.10)(vitest@4.1.6)):
     dependencies:
-      '@mikro-orm/core': 7.0.16
+      '@mikro-orm/core': 7.1.0
       better-auth: 1.6.11(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(solid-js@1.9.10)(vitest@4.1.6)
       dset: 3.1.4
 
@@ -7571,7 +7571,7 @@ snapshots:
 
   kysely@0.28.17: {}
 
-  kysely@0.29.0: {}
+  kysely@0.29.2: {}
 
   launch-editor@2.13.2:
     dependencies:
@@ -7722,7 +7722,7 @@ snapshots:
       braces: 3.0.3
       picomatch: 2.3.2
 
-  mikro-orm@7.0.16: {}
+  mikro-orm@7.1.0: {}
 
   minimatch@10.0.3:
     dependencies:
