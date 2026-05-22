@@ -1,50 +1,57 @@
 import {faker} from "@faker-js/faker"
 
 import {Session, type User} from "../../app/server/db/entities.ts"
-import {auth} from "../../app/server/lib/auth/auth.ts"
 
-import {ormTest} from "./orm.ts"
+import {authTest} from "./auth.ts"
 
 interface AdminParams {
   session: Session
   viewer: User
   request: Request
   password: string
+  email: string
 }
 
 export interface AdminTestContext {
   admin: AdminParams
 }
 
-export const adminTest = ormTest.extend<AdminTestContext>({
-  async admin({orm}, use) {
+export const adminTest = authTest.extend(
+  "admin",
+
+  {
+    auto: true
+  },
+
+  async ({auth, orm}) => {
     const password = faker.internet.password({length: 12})
-    const response = await auth.api.signUpEmail({
-      asResponse: true,
+    const email = faker.internet.exampleEmail()
+
+    const {headers: responseHeaders, response} = await auth.api.signUpEmail({
+      returnHeaders: true,
       body: {
-        email: faker.internet.exampleEmail(),
+        email,
         password,
-        name: ""
+        name: "" // <- Not used, but required by this method
       }
     })
 
-    const headers = new Headers()
-
-    headers.set("cookie", response.headers.get("set-cookie") as string)
-
-    const {token} = (await response.json()) as {
-      token: string
+    const cookie = responseHeaders.get("set-cookie")
+    if (!cookie) {
+      throw new Error("Can't set cookies: No set-cookie header returned")
     }
 
-    const session = await orm.em.findOneOrFail(Session, {token: token})
+    const headers = new Headers({cookie})
+    const session = await orm.em.findOneOrFail(Session, {token: response.token})
 
-    await use({
-      session,
+    return {
+      email,
       password,
+      session,
       viewer: session.user,
       request: new Request("http://localhost", {headers})
-    })
+    } satisfies AdminParams
   }
-})
+)
 
 export const test = adminTest

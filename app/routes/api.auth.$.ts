@@ -1,7 +1,16 @@
-import {auth} from "../server/lib/auth/auth.ts"
+import {authContext} from "#app/server/contexts/auth.ts"
 
 import type {Route} from "./+types/api.auth.$.ts"
 
-export const loader = ({request}: Route.LoaderArgs) => auth.handler(request)
+function getAuthHandler({
+  request,
+  context
+}: Route.LoaderArgs | Route.ActionArgs) {
+  const auth = context.get(authContext)
 
-export const action = ({request}: Route.ActionArgs) => auth.handler(request)
+  return auth.handler(request)
+}
+
+export const loader = (event: Route.LoaderArgs) => getAuthHandler(event)
+
+export const action = (event: Route.ActionArgs) => getAuthHandler(event)

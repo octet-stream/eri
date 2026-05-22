@@ -1,4 +1,4 @@
-import {defineEntity, p} from "@mikro-orm/mariadb"
+import {defineEntity, p} from "@mikro-orm/core"
 import type {User as BAUser} from "better-auth"
 import type {EntityShape} from "../../lib/db/orm.ts"
 import {Passkey} from "./Passkey.ts"
@@ -15,7 +15,7 @@ export const UserSchema = defineEntity({
     /**
      * User's email address for communication and login
      */
-    email: p.string(),
+    email: p.string().columnType("text collate nocase"),
 
     /**
      * Whether the user's email is verified

@@ -7,15 +7,18 @@
     "editor.defaultFormatter": "biomejs.biome",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "quickfix.biome": "explicit"
+      "source.fixAll.biome": "explicit"
     }
   },
 
   // Nix formatter
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
+
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": ["devenv", "lsp", "-v"],
 
   // Tailwindcss settings
   "tailwindCSS.experimental.classRegex": [

@@ -14,9 +14,7 @@ export default defineConfig({
         plugins: [react()],
         test: {
           name: "Node.js",
-          include: ["tests/node/**/*.test.ts?(x)"],
-          globalSetup: ["tests/setup/docker.ts"],
-          setupFiles: ["tests/setup/dbName.ts"]
+          include: ["tests/node/**/*.test.ts?(x)"]
         }
       },
       {

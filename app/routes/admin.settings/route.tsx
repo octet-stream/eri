@@ -11,7 +11,10 @@ import {
 import {adminContext} from "../../server/contexts/admin.ts"
 import {authContext} from "../../server/contexts/auth.ts"
 import {ormContext} from "../../server/contexts/orm.ts"
-import {withAdmin} from "../../server/lib/admin/withAdmin.ts"
+import {
+  withAdminAction,
+  withAdminLoader
+} from "../../server/lib/admin/withAdmin.ts"
 import {AdminUpdateInput} from "../../server/zod/admin/AdminUpdateInput.ts"
 import {SessionUserOutput} from "../../server/zod/admin/SessionUserOutput.ts"
 import {parseOutput} from "../../server/zod/utils/parseOutput.ts"
@@ -20,7 +23,7 @@ import {MainInfoSection} from "./sections/MainInfoSection.tsx"
 import {PasskeySection} from "./sections/PasskeySection.tsx"
 import {PasswordSection} from "./sections/PasswordSection.tsx"
 
-export const loader = withAdmin(async ({context}: Route.LoaderArgs) => {
+export const loader = withAdminLoader(async ({context}: Route.LoaderArgs) => {
   const {user} = context.get(adminContext)
 
   await user.passkeys.load()
@@ -31,7 +34,7 @@ export const loader = withAdmin(async ({context}: Route.LoaderArgs) => {
   })
 })
 
-export const action = withAdmin(
+export const action = withAdminAction(
   async ({request, context}: Route.ActionArgs) => {
     const admin = context.get(adminContext)
     const orm = context.get(ormContext)

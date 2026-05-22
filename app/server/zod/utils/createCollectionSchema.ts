@@ -1,4 +1,4 @@
-import {Collection} from "@mikro-orm/mariadb"
+import {Collection} from "@mikro-orm/core"
 import {z} from "zod"
 
 /**

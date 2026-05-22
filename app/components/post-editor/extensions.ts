@@ -8,6 +8,7 @@ import {Subscript} from "@tiptap/extension-subscript"
 import {Superscript} from "@tiptap/extension-superscript"
 import {Text} from "@tiptap/extension-text"
 import {UndoRedo} from "@tiptap/extensions"
+
 import {Blockquote} from "./extensions/Blockquote.jsx"
 import {Heading} from "./extensions/Heading.jsx"
 import {InlineCode} from "./extensions/InlineCode.jsx"

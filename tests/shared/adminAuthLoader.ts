@@ -5,9 +5,8 @@ import {
   type AdminLoaderErrorData
 } from "../../app/server/lib/admin/adminLoaderError.js"
 import type {Loader} from "../../app/server/lib/types/Loader.ts"
-import {adminTest} from "../fixtures/admin.ts"
-import {ormTest} from "../fixtures/orm.ts"
-import {createStubLoaderArgs} from "../utils/createStubRouteArgs.ts"
+import {adminRouterTest} from "../fixtures/adminRouter.ts"
+import {routerTest} from "../fixtures/router.ts"
 
 /**
  * Creates a test suite for loaders that require admin authorization.
@@ -17,11 +16,11 @@ import {createStubLoaderArgs} from "../utils/createStubRouteArgs.ts"
  */
 export const createAdminAuthLoaderSuite = (loader: Loader<any, any>) =>
   suite("admin auth loader", () => {
-    ormTest("throws 401 with setup code", async () => {
+    routerTest("throws 401 with setup code", async ({routerStubs}) => {
       expect.hasAssertions()
 
       try {
-        await loader(createStubLoaderArgs())
+        await loader(routerStubs.createLoaderArgs({}))
       } catch (error) {
         const response = error as DataWithResponseInit<AdminLoaderErrorData>
 
@@ -33,14 +32,14 @@ export const createAdminAuthLoaderSuite = (loader: Loader<any, any>) =>
       }
     })
 
-    adminTest(
+    adminRouterTest(
       "throws 401 with login code when admin account exist",
 
-      async ({admin: _}) => {
+      async ({routerStubs}) => {
         expect.hasAssertions()
 
         try {
-          await loader(createStubLoaderArgs() as any)
+          await loader(routerStubs.createLoaderArgs({}) as any)
         } catch (error) {
           const response = error as DataWithResponseInit<AdminLoaderErrorData>
 

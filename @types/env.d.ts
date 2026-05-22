@@ -10,12 +10,10 @@ namespace NodeJS {
     readonly AUTH_SECRET: string
     readonly AUTH_COOKIE_PREFIX?: string
 
-    // Database
-    readonly DB_NAME: string
-    readonly DB_HOST?: string
-    readonly DB_PORT?: string
-    readonly DB_USER: string
-    readonly DB_PASSWORD: string
+    // libSQL
+    readonly LIBSQL_DB_URL?: string
+    readonly LIBSQL_DB_NAME?: string
+    readonly LIBSQL_DB_PASSWORD?: string
 
     // Server
     readonly PORT?: string

@@ -2,19 +2,21 @@ import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
 import {expect, suite} from "vitest"
-import {loader} from "../../../app/routes/_blog.posts.$date.$name.tsx"
-import {Post, User} from "../../../app/server/db/entities.ts"
-import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
-import {test} from "../../fixtures/orm.ts"
-import {createStubLoaderArgs} from "../../utils/createStubRouteArgs.ts"
+
+import {loader} from "#app/routes/_blog.posts.$date.$name.tsx"
+import {Post, User} from "#app/server/db/entities.ts"
+import {getPostTitle} from "#app/server/lib/editor/utils.ts"
+import {AdminPostInput} from "#app/server/zod/admin/AdminPostInput.ts"
+
+import {test} from "../../fixtures/router.ts"
 
 suite("loader", () => {
-  test("throws when post cannot be found", async () => {
+  test("throws when post cannot be found", async ({routerStubs}) => {
     expect.hasAssertions()
 
     try {
       await loader(
-        createStubLoaderArgs({
+        routerStubs.createLoaderArgs({
           params: {
             date: "1970-01-01",
             name: "this-post-will-not-be-found"
@@ -30,12 +32,12 @@ suite("loader", () => {
     }
   })
 
-  test("fetches a post by its slug", async ({orm}) => {
+  test("fetches a post by its slug", async ({orm, routerStubs}) => {
     const user = orm.em.create(User, {
       email: faker.internet.email()
     })
 
-    const input = AdminPostInput.parse({
+    const document = AdminPostInput.parse({
       fallback: "true",
       markdown: dedent`
         # ${faker.lorem.sentence({min: 3, max: 4})}
@@ -46,8 +48,8 @@ suite("loader", () => {
 
     const post = orm.em.create(Post, {
       author: user,
-      title: input.title.textContent,
-      content: input.content.toJSON()
+      title: getPostTitle(document).textContent,
+      content: document.toJSON()
     })
 
     await orm.em.persist(post).flush()
@@ -55,7 +57,7 @@ suite("loader", () => {
     const [date, name] = post.slug.split("/")
 
     const actual = await loader(
-      createStubLoaderArgs({
+      routerStubs.createLoaderArgs({
         params: {date, name}
       })
     )

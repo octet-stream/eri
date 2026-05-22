@@ -15,11 +15,10 @@ const config = Config.parse({
   },
   orm: {
     debug: process.env.NODE_ENV,
-    dbName: process.env.DB_NAME,
-    host: process.env.DB_HOST || undefined,
-    port: process.env.DB_PORT || undefined,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
+    connection: {
+      dbName: process.env.LIBSQL_DB_NAME || process.env.LIBSQL_DB_URL,
+      password: process.env.LIBSQL_DB_PASSWORD
+    }
   }
 } satisfies IConfig)
 

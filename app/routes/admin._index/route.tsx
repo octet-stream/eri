@@ -2,13 +2,13 @@ import type {FC} from "react"
 
 import {ormContext} from "../../server/contexts/orm.ts"
 import {Post} from "../../server/db/entities.ts"
-import {withAdmin} from "../../server/lib/admin/withAdmin.ts"
+import {withAdminLoader} from "../../server/lib/admin/withAdmin.ts"
 import {PostPage} from "../../server/zod/post/PostPage.ts"
 import type {Route} from "./+types/route.ts"
 import {NoPosts} from "./components/NoPosts.tsx"
 import {PostsList} from "./components/PostsList.tsx"
 
-export const loader = withAdmin(
+export const loader = withAdminLoader(
   async ({request, context}: Route.LoaderArgs) => {
     const orm = context.get(ormContext)
 

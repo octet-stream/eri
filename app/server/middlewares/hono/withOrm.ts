@@ -1,9 +1,8 @@
-import {RequestContext} from "@mikro-orm/mariadb"
+import {RequestContext} from "@mikro-orm/core"
+import type {MikroORM} from "@mikro-orm/libsql"
 import {createMiddleware} from "hono/factory"
 
-import {orm} from "../../lib/db/orm.ts"
-
-export const withOrm = () =>
+export const withOrm = (orm: MikroORM) =>
   createMiddleware(async (ctx, next) => {
     ctx.set("orm", orm)
 

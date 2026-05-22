@@ -7,6 +7,24 @@
   lib,
   ...
 }:
+let
+  isStringHasValue = value: builtins.isString value && value != "";
+
+  isRemoteLibsqlConnection =
+    value: if isStringHasValue value then lib.hasPrefix "libsql://" value else false;
+
+  getLibsqlPort =
+    value:
+    let
+      parts =
+        if isRemoteLibsqlConnection value then builtins.match ".*://[^/:]+(:([0-9]+))?.*" value else null;
+
+      portString = if parts == null then null else builtins.elemAt parts 1;
+
+      port = if isStringHasValue portString then lib.toInt portString else 8080;
+    in
+    port;
+in
 {
   cachix.enable = false;
 
@@ -16,9 +34,6 @@
     nixfmt-rfc-style
     curl
   ];
-
-  # This probably breaks database configuration lol
-  # env.BETTER_AUTH_URL = "https://eri.localhost";
 
   devcontainer = {
     enable = true;
@@ -58,36 +73,46 @@
   };
 
   services = {
-    mysql = {
-      enable = true;
-      settings.mysqld = {
-        port = lib.toInt config.env.DB_PORT;
-        bind_address = "127.0.0.1";
-      };
-
-      initialDatabases = [ { name = config.env.DB_NAME; } ];
-
-      ensureUsers = [
-        {
-          name = config.env.DB_USER;
-          password = config.env.DB_PASSWORD;
-          ensurePermissions = {
-            "${config.env.DB_NAME}.*" = "ALL PRIVILEGES";
-          };
-        }
-      ];
-    };
-
     caddy = {
       enable = true;
       email = config.env.DEVENV_CADDY_EMAIL;
-      virtualHosts."eri.localhost" = {
-        serverAliases = [ "www.eri.localhost" ];
-        extraConfig = ''
-          reverse_proxy localhost:3000
-        '';
+      virtualHosts = {
+        "eri.localhost" = {
+          serverAliases = [ "www.eri.localhost" ];
+          extraConfig = ''
+            reverse_proxy localhost:3000
+          '';
+        };
+
+        "sqld.eri.localhost" = {
+          serverAliases = [ "www.sqld.eri.localhost" ];
+          extraConfig =
+            let
+              inherit (config.services.sqld) port;
+            in
+            ''
+              reverse_proxy localhost:${toString port}
+            '';
+        };
       };
     };
+
+    sqld =
+      let
+        inherit (config.env) LIBSQL_DB_URL LIBSQL_DB_NAME;
+
+        connectionString = if isStringHasValue LIBSQL_DB_URL then LIBSQL_DB_URL else LIBSQL_DB_NAME;
+
+        enable = isRemoteLibsqlConnection connectionString;
+        port = getLibsqlPort connectionString;
+        extraArgs = [
+          "-d"
+          ".databases/sqld/eri"
+        ];
+      in
+      lib.mkIf enable {
+        inherit enable port extraArgs;
+      };
   };
 
   process.manager.implementation = "process-compose";
@@ -96,7 +121,7 @@
     server = {
       exec = "${pkgs.corepack_24}/bin/pnpm dev";
       process-compose = {
-        depends_on.mysql.condition = "process_healthy";
+        depends_on.sqld.condition = "process_healthy";
         readiness_probe = {
           exec.command = "${pkgs.curl}/bin/curl -sf http://localhost:3000/health";
           initial_delay_seconds = 2;
@@ -106,20 +131,6 @@
         };
       };
     };
-
-    # ! Not sure is overriding this option will fix weird port allocation behaviour in devenv.
-    # ! If not I should debug the problem and open issue
-    mysql.ports.main.allocate = lib.toInt config.env.DB_PORT;
-
-    mysql.process-compose.readiness_probe = {
-      exec.command = "${config.services.mysql.package}/bin/mysqladmin ping -u root";
-      initial_delay_seconds = 2;
-      period_seconds = 10;
-      success_threshold = 1;
-      failure_threshold = 5;
-    };
-
-    caddy.process-compose.depends_on.server.condition = "process_healthy";
   };
 
   tasks = {

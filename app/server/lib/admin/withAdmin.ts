@@ -1,19 +1,34 @@
 import type {
-  Session as DatabaseSession,
-  User as DatabaseUser
-} from "better-auth"
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  Params,
+  RouterContextProvider
+} from "react-router"
+
 import {adminContext} from "../../contexts/admin.ts"
 import {authContext} from "../../contexts/auth.ts"
 import {ormContext} from "../../contexts/orm.ts"
 import {resHeadersContext} from "../../contexts/resHeaders.ts"
 import {Session, User} from "../../db/entities.ts"
-import type {Action, ActionArgs} from "../types/Action.ts"
-import type {Loader, LoaderArgs} from "../types/Loader.ts"
-
+import type {Replace} from "../types/Replace.ts"
 import {
   AdminLoaderErrorCode,
   createAdminLoaderError
 } from "./adminLoaderError.js"
+
+export type AdminLoader<
+  TResult,
+  TContext extends
+    Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+  TParams extends Params = Params
+> = (event: Replace<LoaderFunctionArgs<TContext>, {params: TParams}>) => TResult
+
+export type AdminAction<
+  TResult,
+  TContext extends
+    Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+  TParams extends Params = Params
+> = (event: Replace<ActionFunctionArgs<TContext>, {params: TParams}>) => TResult
 
 /**
  * Defines protected admin loader/action for given function.
@@ -25,10 +40,18 @@ import {
  * @param loader - a function to wrap into admin priviligies checks
  */
 export const withAdmin =
-  <TResult, TArgs extends LoaderArgs | ActionArgs>(
-    fn: Loader<TResult, TArgs> | Action<TResult, TArgs>
+  <
+    TResult,
+    TContext extends
+      Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+    TParams extends Params = Params
+  >(
+    fn:
+      | AdminLoader<TResult, TContext, TParams>
+      | AdminAction<TResult, TContext, TParams>
   ) =>
-  async (args: TArgs): Promise<TResult> => {
+  async (args: Parameters<typeof fn>[0]): Promise<TResult> => {
+    args.context
     const orm = args.context.get(ormContext)
     const auth = args.context.get(authContext)
     const resHeaders = args.context.get(resHeadersContext)
@@ -51,41 +74,52 @@ export const withAdmin =
       createAdminLoaderError(AdminLoaderErrorCode.SETUP)
     }
 
-    const response = await auth.api.getSession({
-      asResponse: true,
+    const {headers, response} = await auth.api.getSession({
+      returnHeaders: true,
       headers: args.request.headers
     })
 
     // Note: in the actual result all Dates are serialized into string, so make sure to de-serialize them back
-    const result = (await response.json()) as {
-      user: DatabaseUser
-      session: DatabaseSession
-    }
-
-    if (!result?.session) {
+    if (!response?.session) {
       createAdminLoaderError(AdminLoaderErrorCode.LOGIN)
     }
 
     const session = await orm.em
-      .getReference(Session, result.session.id, {
-        wrapped: true
-      })
+      .getReference(Session, response.session.id, {wrapped: true})
       .loadOrFail()
 
     args.context.set(adminContext, {
       session,
       user: session.user,
-      rawUser: result.user,
-      rawSession: result.session
+      rawUser: response.user,
+      rawSession: response.session
     })
 
     try {
       return await fn(args)
     } finally {
-      const cookie = response.headers.get("set-cookie")
+      const cookie = headers.get("set-cookie")
 
       if (cookie) {
         resHeaders.set("set-cookie", cookie)
       }
     }
   }
+
+export const withAdminLoader = <
+  TResult,
+  TContext extends
+    Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+  TParams extends Params = Params
+>(
+  fn: AdminLoader<TResult, TContext, TParams>
+) => withAdmin(fn) as AdminLoader<TResult, TContext, TParams>
+
+export const withAdminAction = <
+  TResult,
+  TContext extends
+    Readonly<RouterContextProvider> = Readonly<RouterContextProvider>,
+  TParams extends Params = Params
+>(
+  fn: AdminAction<TResult, TContext, TParams>
+) => withAdmin(fn) as AdminAction<TResult, TContext, TParams>

@@ -6,19 +6,19 @@
       "columns": {
         "access_token": {
           "name": "access_token",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "access_token_expires_at": {
           "name": "access_token_expires_at",
@@ -38,19 +38,19 @@
         },
         "account_id": {
           "name": "account_id",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "created_at": {
           "name": "created_at",
@@ -70,83 +70,83 @@
         },
         "id": {
           "name": "id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": true,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "id_token": {
           "name": "id_token",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "password": {
           "name": "password",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "provider_id": {
           "name": "provider_id",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "refresh_token": {
           "name": "refresh_token",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "refresh_token_expires_at": {
           "name": "refresh_token_expires_at",
@@ -166,19 +166,19 @@
         },
         "scope": {
           "name": "scope",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "updated_at": {
           "name": "updated_at",
@@ -198,32 +198,22 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         }
       },
       "indexes": [
-        {
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "constraint": true,
-          "keyName": "PRIMARY",
-          "primary": true,
-          "unique": true
-        },
         {
           "columnNames": [
             "created_at"
@@ -253,6 +243,16 @@
           "keyName": "account_user_id_index",
           "primary": false,
           "unique": false
+        },
+        {
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "keyName": "primary",
+          "primary": true,
+          "unique": true
         }
       ],
       "checks": [],
@@ -266,52 +266,50 @@
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "user",
-          "updateRule": "restrict",
-          "deleteRule": "restrict"
+          "referencedTableName": "user"
         }
       },
-      "comment": ""
+      "comment": null
     },
     {
       "name": "passkey",
       "columns": {
         "aaguid": {
           "name": "aaguid",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "backed_up": {
           "name": "backed_up",
-          "type": "tinyint(1)",
+          "type": "integer",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
           "length": null,
-          "precision": 3,
-          "scale": 0,
+          "precision": null,
+          "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "boolean"
+          "mappedType": "integer"
         },
         "counter": {
           "name": "counter",
-          "type": "int",
-          "unsigned": true,
+          "type": "integer",
+          "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
@@ -342,99 +340,99 @@
         },
         "credential_id": {
           "name": "credential_id",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "device_type": {
           "name": "device_type",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "id": {
           "name": "id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": true,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "name": {
           "name": "name",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "public_key": {
           "name": "public_key",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "transports": {
           "name": "transports",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "updated_at": {
           "name": "updated_at",
@@ -454,32 +452,22 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         }
       },
       "indexes": [
-        {
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "constraint": true,
-          "keyName": "PRIMARY",
-          "primary": true,
-          "unique": true
-        },
         {
           "columnNames": [
             "created_at"
@@ -509,6 +497,16 @@
           "keyName": "passkey_user_id_index",
           "primary": false,
           "unique": false
+        },
+        {
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "keyName": "primary",
+          "primary": true,
+          "unique": true
         }
       ],
       "checks": [],
@@ -522,31 +520,29 @@
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "user",
-          "updateRule": "restrict",
-          "deleteRule": "restrict"
+          "referencedTableName": "user"
         }
       },
-      "comment": ""
+      "comment": null
     },
     {
       "name": "post",
       "columns": {
         "author_id": {
           "name": "author_id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "content": {
           "name": "content",
@@ -582,19 +578,19 @@
         },
         "id": {
           "name": "id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": true,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "removed_at": {
           "name": "removed_at",
@@ -614,35 +610,35 @@
         },
         "slug": {
           "name": "slug",
-          "type": "varchar(512)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": true,
-          "length": 512,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "title": {
           "name": "title",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "updated_at": {
           "name": "updated_at",
@@ -662,16 +658,6 @@
         }
       },
       "indexes": [
-        {
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "constraint": true,
-          "keyName": "PRIMARY",
-          "primary": true,
-          "unique": true
-        },
         {
           "columnNames": [
             "author_id"
@@ -721,6 +707,16 @@
           "keyName": "post_updated_at_index",
           "primary": false,
           "unique": false
+        },
+        {
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "keyName": "primary",
+          "primary": true,
+          "unique": true
         }
       ],
       "checks": [],
@@ -734,12 +730,10 @@
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "user",
-          "updateRule": "restrict",
-          "deleteRule": "restrict"
+          "referencedTableName": "user"
         }
       },
-      "comment": ""
+      "comment": null
     },
     {
       "name": "post_prev_known_slug",
@@ -762,35 +756,35 @@
         },
         "id": {
           "name": "id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": true,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "post_id": {
           "name": "post_id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "removed_at": {
           "name": "removed_at",
@@ -810,19 +804,19 @@
         },
         "slug": {
           "name": "slug",
-          "type": "varchar(512)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": true,
-          "length": 512,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "updated_at": {
           "name": "updated_at",
@@ -842,16 +836,6 @@
         }
       },
       "indexes": [
-        {
-          "columnNames": [
-            "id"
-          ],
-          "composite": false,
-          "constraint": true,
-          "keyName": "PRIMARY",
-          "primary": true,
-          "unique": true
-        },
         {
           "columnNames": [
             "created_at"
@@ -901,6 +885,16 @@
           "keyName": "post_prev_known_slug_updated_at_index",
           "primary": false,
           "unique": false
+        },
+        {
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "keyName": "primary",
+          "primary": true,
+          "unique": true
         }
       ],
       "checks": [],
@@ -914,12 +908,10 @@
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "post",
-          "updateRule": "restrict",
-          "deleteRule": "restrict"
+          "referencedTableName": "post"
         }
       },
-      "comment": ""
+      "comment": null
     },
     {
       "name": "session",
@@ -958,51 +950,51 @@
         },
         "id": {
           "name": "id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": true,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "ip_address": {
           "name": "ip_address",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "token": {
           "name": "token",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": true,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "updated_at": {
           "name": "updated_at",
@@ -1022,35 +1014,35 @@
         },
         "user_agent": {
           "name": "user_agent",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": true,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "user_id": {
           "name": "user_id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         }
       },
       "indexes": [
@@ -1060,7 +1052,7 @@
           ],
           "composite": false,
           "constraint": true,
-          "keyName": "PRIMARY",
+          "keyName": "primary",
           "primary": true,
           "unique": true
         },
@@ -1116,12 +1108,10 @@
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "user",
-          "updateRule": "restrict",
-          "deleteRule": "restrict"
+          "referencedTableName": "user"
         }
       },
-      "comment": ""
+      "comment": null
     },
     {
       "name": "user",
@@ -1144,51 +1134,51 @@
         },
         "email": {
           "name": "email",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": true,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "email_verified": {
           "name": "email_verified",
-          "type": "tinyint(1)",
+          "type": "integer",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
           "length": null,
-          "precision": 3,
-          "scale": 0,
+          "precision": null,
+          "scale": null,
           "default": "false",
           "comment": null,
           "enumItems": [],
-          "mappedType": "boolean"
+          "mappedType": "integer"
         },
         "id": {
           "name": "id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": true,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "removed_at": {
           "name": "removed_at",
@@ -1230,7 +1220,7 @@
           ],
           "composite": false,
           "constraint": true,
-          "keyName": "PRIMARY",
+          "keyName": "primary",
           "primary": true,
           "unique": true
         },
@@ -1277,7 +1267,7 @@
       ],
       "checks": [],
       "foreignKeys": {},
-      "comment": ""
+      "comment": null
     },
     {
       "name": "verification",
@@ -1316,35 +1306,35 @@
         },
         "id": {
           "name": "id",
-          "type": "varchar(36)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": true,
           "nullable": false,
           "unique": false,
-          "length": 36,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "identifier": {
           "name": "identifier",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         },
         "updated_at": {
           "name": "updated_at",
@@ -1364,19 +1354,19 @@
         },
         "value": {
           "name": "value",
-          "type": "varchar(255)",
+          "type": "text",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "unique": false,
-          "length": 255,
+          "length": null,
           "precision": null,
           "scale": null,
           "default": null,
           "comment": null,
           "enumItems": [],
-          "mappedType": "string"
+          "mappedType": "text"
         }
       },
       "indexes": [
@@ -1386,7 +1376,7 @@
           ],
           "composite": false,
           "constraint": true,
-          "keyName": "PRIMARY",
+          "keyName": "primary",
           "primary": true,
           "unique": true
         },
@@ -1413,7 +1403,7 @@
       ],
       "checks": [],
       "foreignKeys": {},
-      "comment": ""
+      "comment": null
     }
   ],
   "views": [],

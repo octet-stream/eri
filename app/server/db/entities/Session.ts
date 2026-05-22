@@ -1,4 +1,4 @@
-import {defineEntity, p} from "@mikro-orm/mariadb"
+import {defineEntity, p} from "@mikro-orm/core"
 import type {Session as BASession} from "better-auth"
 
 import type {EntityShape} from "../../lib/db/orm.ts"

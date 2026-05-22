@@ -1,4 +1,4 @@
-import {defineEntity, OptionalProps, p} from "@mikro-orm/mariadb"
+import {defineEntity, OptionalProps, p} from "@mikro-orm/core"
 
 import {Post} from "./Post.ts"
 import {RecordSoft} from "./RecordSoft.ts"
@@ -7,7 +7,7 @@ export const PostPrevKnownSlugSchema = defineEntity({
   name: "PostPrevKnownSlug",
   extends: RecordSoft,
   properties: {
-    slug: p.string().length(512),
+    slug: p.string().length(512).columnType("text collate nocase"),
     post: () => p.manyToOne(Post)
   },
   uniques: [

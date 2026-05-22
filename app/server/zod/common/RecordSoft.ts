@@ -4,7 +4,7 @@ import {DateTime} from "./DateTime.ts"
 import {Record} from "./Record.ts"
 
 export const RecordSoft = Record.extend({
-  removedAt: DateTime.nullable()
+  removedAt: DateTime.nullish()
 })
 
 export type IRecordSoft = z.input<typeof RecordSoft>
