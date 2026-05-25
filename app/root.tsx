@@ -10,8 +10,8 @@ import {
 
 import type {Route} from "./+types/root.ts"
 import {Toaster} from "./components/ui/Toaster.tsx"
-import config from "./server/lib/config.ts"
 import {withCheckPostPks} from "./server/middlewares/router/withCheckPostPks.ts"
+
 // For some reason the page flickers in dev mode if tailwind.css imported directly, so I'll just add it as a link
 import tailwindcss from "./tailwind.css?url"
 
@@ -23,18 +23,15 @@ export const middleware = [
   withCheckPostPks()
 ] satisfies MiddlewareFunction<any>[]
 
-export const loader = () => ({title: config.app.name}) // Expose the app's name to root layout
+// ! Having loader exported from this module breaks auth middleware,
+// ! because RR looks for neares module with loader **TOP-DOWN**
+// ! That means this module or any module that wraps admin.tsx SHOULD NOT HAVE A LOADER!!!
+// ! export const loader = () => null
 
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: tailwindcss
-  }
-]
-
-export const meta: Route.MetaFunction = ({loaderData}) => [
-  {
-    title: loaderData?.title // Set default title to the app's name
   }
 ]
 

@@ -2,7 +2,6 @@ import {data} from "react-router"
 
 import {ormContext} from "../server/contexts/orm.ts"
 import {Post} from "../server/db/entities.ts"
-import {withAdminLoader} from "../server/lib/admin/withAdmin.ts"
 import {PostSlug} from "../server/zod/post/PostSlug.ts"
 import {PostViewOutput} from "../server/zod/post/PostViewOutput.ts"
 import {parseInput} from "../server/zod/utils/parseInput.ts"
@@ -10,33 +9,31 @@ import {parseOutput} from "../server/zod/utils/parseOutput.ts"
 
 import type {Route} from "./+types/admin.posts.$date.$name._index.ts"
 
-export const loader = withAdminLoader(
-  async ({params, context}: Route.LoaderArgs) => {
-    const orm = context.get(ormContext)
+export const loader = async ({params, context}: Route.LoaderArgs) => {
+  const orm = context.get(ormContext)
 
-    const slug = await parseInput(PostSlug, params, {async: true})
-    const post = await orm.em.findOneOrFail(
-      Post,
+  const slug = await parseInput(PostSlug, params, {async: true})
+  const post = await orm.em.findOneOrFail(
+    Post,
 
-      {
-        slug
-      },
+    {
+      slug
+    },
 
-      {
-        filters: false, // Admin can see all posts
-        populate: ["content"],
-        failHandler(): never {
-          throw data(null, {
-            status: 404,
-            statusText: "Unable to find post"
-          })
-        }
+    {
+      filters: false, // Admin can see all posts
+      populate: ["content"],
+      failHandler(): never {
+        throw data(null, {
+          status: 404,
+          statusText: "Unable to find post"
+        })
       }
-    )
+    }
+  )
 
-    return parseOutput(PostViewOutput, post, {async: true})
-  }
-)
+  return parseOutput(PostViewOutput, post, {async: true})
+}
 
 export const meta: Route.MetaFunction = ({loaderData}) => [
   {

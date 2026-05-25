@@ -17,10 +17,6 @@ import {EditorForm} from "../components/post-editor/EditorForm.tsx"
 import {Button} from "../components/ui/Button.tsx"
 import {ormContext} from "../server/contexts/orm.ts"
 import {Post} from "../server/db/entities.ts"
-import {
-  withAdminAction,
-  withAdminLoader
-} from "../server/lib/admin/withAdmin.ts"
 import {getPostTitle} from "../server/lib/editor/utils.ts"
 import {slugToParams} from "../server/lib/utils/slug.ts"
 import {
@@ -33,7 +29,7 @@ import {parseInput} from "../server/zod/utils/parseInput.ts"
 import {parseOutput} from "../server/zod/utils/parseOutput.ts"
 import type {Route} from "./+types/admin.posts.$date.$name.edit.ts"
 
-export const loader = withAdminLoader(async (event: Route.LoaderArgs) => {
+export const loader = async (event: Route.LoaderArgs) => {
   const {params, context} = event
 
   const orm = context.get(ormContext)
@@ -59,70 +55,68 @@ export const loader = withAdminLoader(async (event: Route.LoaderArgs) => {
   )
 
   return parseOutput(AdminPostUpdateOutput, post, {async: true})
-})
+}
 
-export const action = withAdminAction(
-  async ({request, params, context}: Route.ActionArgs) => {
-    const orm = context.get(ormContext)
+export const action = async ({request, params, context}: Route.ActionArgs) => {
+  const orm = context.get(ormContext)
 
-    const slug = await parseInput(PostSlug, params, {
-      async: true,
-      onError(reason) {
-        // The slug is malformed, so return 404
+  const slug = await parseInput(PostSlug, params, {
+    async: true,
+    onError(reason) {
+      // The slug is malformed, so return 404
+      throw data(
+        formatConformError<unknown, string>(z.flattenError(reason.error)),
+
+        404
+      )
+    }
+  })
+
+  const post = await orm.em.findOneOrFail(
+    Post,
+
+    {
+      slug
+    },
+
+    {
+      filters: false, // Admin can see all posts
+      populate: ["content"],
+      failHandler() {
         throw data(
-          formatConformError<unknown, string>(z.flattenError(reason.error)),
+          formatConformError({
+            formErrors: ["Unable to find post"]
+          }),
 
-          404
+          {
+            status: 404,
+            statusText: "Unable to find post"
+          }
         )
       }
-    })
-
-    const post = await orm.em.findOneOrFail(
-      Post,
-
-      {
-        slug
-      },
-
-      {
-        filters: false, // Admin can see all posts
-        populate: ["content"],
-        failHandler() {
-          throw data(
-            formatConformError({
-              formErrors: ["Unable to find post"]
-            }),
-
-            {
-              status: 404,
-              statusText: "Unable to find post"
-            }
-          )
-        }
-      }
-    )
-
-    const submission = await parseWithZod(await request.formData(), {
-      schema: AdminPostInput,
-      async: true,
-      disableAutoCoercion: true
-    })
-
-    if (submission.status !== "success") {
-      return data(submission.reply(), 422)
     }
+  )
 
-    const title = getPostTitle(submission.value)
-    orm.em.assign(post, {
-      title: title.textContent,
-      content: submission.value.toJSON()
-    })
+  const submission = await parseWithZod(await request.formData(), {
+    schema: AdminPostInput,
+    async: true,
+    disableAutoCoercion: true
+  })
 
-    await orm.em.flush()
-
-    throw redirect(href("/admin/posts/:date/:name", slugToParams(post.slug)))
+  if (submission.status !== "success") {
+    return data(submission.reply(), 422)
   }
-)
+
+  const title = getPostTitle(submission.value)
+  orm.em.assign(post, {
+    title: title.textContent,
+    content: submission.value.toJSON()
+  })
+
+  await orm.em.flush()
+
+  throw redirect(href("/admin/posts/:date/:name", slugToParams(post.slug)))
+}
 
 export const meta: Route.MetaFunction = ({loaderData}) => [
   {
