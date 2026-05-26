@@ -35,6 +35,12 @@ export const links: Route.LinksFunction = () => [
   }
 ]
 
+export const meta: Route.MetaFunction = () => [
+  {
+    title: import.meta.env.BLOG_NAME || "Eri's Blog"
+  }
+]
+
 export const Layout: FC<Props> = ({children}) => (
   <html lang="en">
     <head>
