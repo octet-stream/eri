@@ -1,8 +1,10 @@
 import {faker} from "@faker-js/faker"
 import {expect, suite} from "vitest"
-import {action} from "../../../app/routes/admin_.setup/route.tsx"
-import {User} from "../../../app/server/db/entities.ts"
-import {test} from "../../fixtures/router.ts"
+
+import {action} from "#app/routes/admin_.setup/route.tsx"
+import {User} from "#app/server/db/entities.ts"
+
+import {test} from "#tests/fixtures/router.ts"
 
 suite("action", () => {
   test("redirects to /admin upon success", async ({routerStubs}) => {

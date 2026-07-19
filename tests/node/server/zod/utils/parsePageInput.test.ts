@@ -1,8 +1,8 @@
 import {expect, test} from "vitest"
 
-import {DefaultPageInput} from "../../../../../app/server/zod/utils/pagination/createPageInput.ts"
-import {PageArgs} from "../../../../../app/server/zod/utils/pagination/PageArgs.ts"
-import {parsePageInput} from "../../../../../app/server/zod/utils/pagination/parsePageInput.ts"
+import {DefaultPageInput} from "#app/server/zod/utils/pagination/createPageInput.ts"
+import {PageArgs} from "#app/server/zod/utils/pagination/PageArgs.ts"
+import {parsePageInput} from "#app/server/zod/utils/pagination/parsePageInput.ts"
 
 test("Returns default page input", () => {
   const actual = parsePageInput(DefaultPageInput, {})

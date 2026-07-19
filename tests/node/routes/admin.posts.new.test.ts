@@ -1,17 +1,16 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
+
+import {action} from "#app/routes/admin.posts.new.tsx"
+import {Post} from "#app/server/db/entities.ts"
 import {getPostTitle} from "#app/server/lib/editor/utils.ts"
-import {action, loader} from "../../../app/routes/admin.posts.new.tsx"
-import {Post} from "../../../app/server/db/entities.ts"
 import {
   AdminPostInput,
   type IAdminPostInput
-} from "../../../app/server/zod/admin/AdminPostInput.js"
-import {test} from "../../fixtures/adminRouter.ts"
-import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.ts"
+} from "#app/server/zod/admin/AdminPostInput.js"
 
-createAdminAuthLoaderSuite(loader)
+import {test} from "#tests/fixtures/adminRouter.ts"
 
 suite("action", () => {
   test("returns error when called with empty form", async ({

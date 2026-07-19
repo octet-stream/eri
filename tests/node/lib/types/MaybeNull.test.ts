@@ -1,7 +1,7 @@
 import {expectTypeOf, test} from "vitest"
 
-import type {MaybeNull} from "../../../../app/lib/types/MaybeNull.ts"
+import type {MaybeNull} from "#app/lib/types/MaybeNull.ts"
 
-test("creates nullable for given type parameter", () => {
+test("returns `T | null` union for given type parameter", () => {
   expectTypeOf<MaybeNull<number>>().toEqualTypeOf<number | null>()
 })

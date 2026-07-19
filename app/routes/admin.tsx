@@ -6,7 +6,8 @@ import {
   SquarePen
 } from "lucide-react"
 import type {FC} from "react"
-import {Link, Outlet} from "react-router"
+import {Link, type MiddlewareFunction, Outlet} from "react-router"
+import {withAuthCheck} from "#app/server/middlewares/router/withAuthCheck.ts"
 
 import {
   Breadcrumb,
@@ -23,13 +24,15 @@ import {
   AdminLoaderErrorCode,
   isAdminLoaderError
 } from "../server/lib/admin/adminLoaderError.js"
-
 import type {Route} from "./+types/admin.ts"
-
 import {AdminLoginPage} from "./admin_.login/AdminLoginPage.tsx"
 import {ADMIN_LOGIN_PAGE_TITLE} from "./admin_.login/title.ts"
 import {AdminSetupPage} from "./admin_.setup/AdminSetupPage.tsx"
 import {ADMIN_SETUP_PAGE_TITLE} from "./admin_.setup/title.ts"
+
+export const loader = () => null
+
+export const middleware: MiddlewareFunction[] = [withAuthCheck()]
 
 export const ErrorBoundary: FC<Route.ErrorBoundaryProps> = ({
   error,

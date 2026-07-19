@@ -5,7 +5,7 @@ import {
   formatSlugDate,
   formatSlugName,
   SLUG_DATE_FORMAT
-} from "../../../../../app/server/lib/utils/slug.js"
+} from "#app/server/lib/utils/slug.js"
 
 suite(formatSlugDate.name, () => {
   test("formats date", () => {

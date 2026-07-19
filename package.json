@@ -3,7 +3,7 @@
   "type": "module",
   "name": "eri",
   "version": "0.11.0",
-  "packageManager": "pnpm@11.1.2+sha512.415a1cc25974731e75455c1468371be74c5aa5fb7621b50d4056d222451609f11412f23fd602e6169f1e060466641f798597e1be961a10688836a67b16569499",
+  "packageManager": "pnpm@11.15.0+sha512.266f8957a30d2be6e9468e5e66bcdedd35a794175f71b067ba8504d686cce1d0c0f429b33c323c3c569ad4891e667574a49ff71d1b89a22cc66f13c65818c578",
   "engines": {
     "node": ">= 22"
   },
@@ -28,6 +28,9 @@
   "imports": {
     "#app/*": [
       "./app/*"
+    ],
+    "#tests/*": [
+      "./tests/*"
     ]
   },
   "mikro-orm": {
@@ -36,30 +39,6 @@
       "./build/db/mikro-orm.config.js"
     ],
     "tsLoader": "tsimp"
-  },
-  "pnpm": {
-    "supportedArchitectures": {
-      "os": [
-        "darwin",
-        "linux"
-      ],
-      "cpu": [
-        "x64",
-        "arm64"
-      ]
-    },
-    "overrides": {
-      "react-router-hono-server@2>hono": "$hono"
-    },
-    "onlyBuiltDependencies": [
-      "@biomejs/biome",
-      "@tailwindcss/oxide",
-      "esbuild",
-      "msw"
-    ],
-    "patchedDependencies": {
-      "@tiptap/extension-floating-menu": "patches/@tiptap__extension-floating-menu.patch"
-    }
   },
   "dependencies": {
     "@better-auth/passkey": "1.6.11",
@@ -111,7 +90,7 @@
     "cmdk": "1.1.1",
     "date-fns": "4.1.0",
     "dotenv": "17.2.3",
-    "hono": "4.12.18",
+    "hono": "catalog:",
     "is-absolute-url": "5.0.0",
     "is-hotkey": "0.2.0",
     "isbot": "5.1.32",

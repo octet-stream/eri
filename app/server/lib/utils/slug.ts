@@ -10,7 +10,8 @@ export const SLUG_DATE_FORMAT = "yyyy-MM-dd"
 
 export const SLUG_NAME_VALID_REGEXPR = /^[a-z0-9-]+~[a-zA-Z0-9]{5}$/
 
-export interface SlugParams {
+// I'm using type because TypeScript is weird sometimes
+export type SlugParams = {
   name: string
   date: string
 }

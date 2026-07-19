@@ -20,7 +20,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from "../../../components/ui/DropdownMenu.jsx"
+} from "../../../components/ui/DropdownMenu.tsx"
 import {
   Table,
   TableBody,
@@ -28,7 +28,7 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from "../../../components/ui/Table.jsx"
+} from "../../../components/ui/Table.tsx"
 
 import {formatPostDate} from "../../../lib/utils/formatPostDate.ts"
 import {slugToParams} from "../../../server/lib/utils/slug.ts"

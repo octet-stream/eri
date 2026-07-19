@@ -2,8 +2,8 @@ import {expect, suite} from "vitest"
 
 import {action} from "#app/routes/admin_.login/route.tsx"
 
-import {test} from "../../fixtures/adminRouter.ts"
-import {getCookies} from "../../utils/getCookies.ts"
+import {test} from "#tests/fixtures/adminRouter.ts"
+import {getCookies} from "#tests/utils/getCookies.ts"
 
 suite("action", () => {
   test("redirects to /admin on success", async ({admin, routerStubs}) => {

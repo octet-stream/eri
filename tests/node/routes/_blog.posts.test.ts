@@ -2,11 +2,11 @@ import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
 
+import {loader} from "#app/routes/_blog._index/route.tsx"
+import {Post, User} from "#app/server/db/entities.ts"
 import {getPostTitle} from "#app/server/lib/editor/utils.ts"
-import {loader} from "../../../app/routes/_blog._index/route.tsx"
-import {Post, User} from "../../../app/server/db/entities.ts"
-import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
-import {routerTest} from "../../fixtures/router.ts"
+import {AdminPostInput} from "#app/server/zod/admin/AdminPostInput.ts"
+import {routerTest} from "#tests/fixtures/router.ts"
 
 const test = routerTest
   .extend("user", async ({orm}) => {

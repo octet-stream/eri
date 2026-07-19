@@ -4,6 +4,15 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    hono:
+      specifier: 4.12.18
+      version: 4.12.18
+
+overrides:
+  react-router-hono-server@2>hono: 4.12.18
+
 importers:
 
   .:
@@ -156,7 +165,7 @@ importers:
         specifier: 17.2.3
         version: 17.2.3
       hono:
-        specifier: 4.12.18
+        specifier: 'catalog:'
         version: 4.12.18
       is-absolute-url:
         specifier: 5.0.0
@@ -3176,7 +3185,7 @@ packages:
   git-raw-commits@4.0.0:
     resolution: {integrity: sha512-ICsMM1Wk8xSGMowkOmPrzo2Fgmfo4bMHLNX6ytHjajRJUqvHOw/TFapQ+QG75c3X/tTDDhOSRPGC52dDbNM8FQ==}
     engines: {node: '>=16'}
-    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   glob-parent@5.1.2:
@@ -3949,7 +3958,7 @@ packages:
       '@hono/node-server': ^1.19.14
       '@react-router/dev': ^7.9.0
       '@types/react': ^19.0.0
-      hono: ^4.12.8
+      hono: 4.12.18
       miniflare: ^3.20241205.0
       react-router: ^7.13.1
       vite: '>=7.3.1'
