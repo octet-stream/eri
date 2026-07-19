@@ -28,6 +28,9 @@
   "imports": {
     "#app/*": [
       "./app/*"
+    ],
+    "#tests/*": [
+      "./tests/*"
     ]
   },
   "mikro-orm": {

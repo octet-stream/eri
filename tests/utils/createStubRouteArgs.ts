@@ -4,7 +4,7 @@ import type {
   RouterContextProvider
 } from "react-router"
 
-import type {Replace} from "../../app/lib/types/Replace.ts"
+import type {Replace} from "#app/lib/types/Replace.ts"
 
 export interface CreateRouterArgsStubsInput<
   TParams extends {[x: PropertyKey]: any} = {[x: PropertyKey]: any}

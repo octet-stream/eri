@@ -4,17 +4,14 @@ import {Node} from "@tiptap/pm/model"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
 
+import {extensions} from "#app/components/post-editor/extensions.ts"
+import {action} from "#app/routes/admin.posts.$date.$name.edit.jsx"
+import {Post} from "#app/server/db/entities.ts"
 import {getPostTitle} from "#app/server/lib/editor/utils.ts"
-import {extensions} from "../../../app/components/post-editor/extensions.ts"
-import {
-  action,
-  loader
-} from "../../../app/routes/admin.posts.$date.$name.edit.jsx"
-import {Post} from "../../../app/server/db/entities.ts"
-import {formatSlugName} from "../../../app/server/lib/utils/slug.ts"
-import {AdminPostInput} from "../../../app/server/zod/admin/AdminPostInput.ts"
-import {adminRouterTest} from "../../fixtures/adminRouter.ts"
-import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.ts"
+import {formatSlugName} from "#app/server/lib/utils/slug.ts"
+import {AdminPostInput} from "#app/server/zod/admin/AdminPostInput.ts"
+
+import {adminRouterTest} from "#tests/fixtures/adminRouter.ts"
 
 const schema = getSchema(extensions)
 
@@ -38,8 +35,6 @@ const test = adminRouterTest.extend("post", async ({orm, admin}) => {
 
   return post
 })
-
-createAdminAuthLoaderSuite(loader)
 
 suite("action", () => {
   test("redirects back to post", async ({post, admin, routerStubs}) => {

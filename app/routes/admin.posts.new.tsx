@@ -26,6 +26,8 @@ import {
 } from "../server/zod/admin/AdminPostInput.js"
 import type {Route} from "./+types/admin.posts.new.ts"
 
+export const loader = async () => null
+
 export const action = async ({request, context}: Route.ActionArgs) => {
   const admin = context.get(adminContext)
   const orm = context.get(ormContext)

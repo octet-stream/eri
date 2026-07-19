@@ -11,8 +11,9 @@ import {
   AdminPostInput,
   type IAdminPostInput
 } from "#app/server/zod/admin/AdminPostInput.js"
-import {adminRouterTest} from "../../../../fixtures/adminRouter.ts"
-import {asyncNoopFunction} from "../../../../utils/noopFunction.ts"
+
+import {adminRouterTest} from "#tests/fixtures/adminRouter.ts"
+import {asyncNoopFunction} from "#tests/utils/noopFunction.ts"
 
 const NoopComponent: FC = () => null
 

@@ -8,7 +8,7 @@ import {Post, User} from "#app/server/db/entities.ts"
 import {getPostTitle} from "#app/server/lib/editor/utils.ts"
 import {AdminPostInput} from "#app/server/zod/admin/AdminPostInput.ts"
 
-import {test} from "../../fixtures/router.ts"
+import {test} from "#tests/fixtures/router.ts"
 
 suite("loader", () => {
   test("throws when post cannot be found", async ({routerStubs}) => {

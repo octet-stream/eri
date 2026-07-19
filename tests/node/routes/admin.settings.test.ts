@@ -2,9 +2,10 @@ import type {SubmissionResult} from "@conform-to/react"
 import type {UNSAFE_DataWithResponseInit as DataWithResponseInit} from "react-router"
 import {expect, suite} from "vitest"
 
-import {action} from "../../../app/routes/admin.settings/route.tsx"
-import {Account} from "../../../app/server/db/entities.ts"
-import {test} from "../../fixtures/adminRouter.ts"
+import {action} from "#app/routes/admin.settings/route.tsx"
+import {Account} from "#app/server/db/entities.ts"
+
+import {test} from "#tests/fixtures/adminRouter.ts"
 
 suite("action", () => {
   test("updates email", async ({admin, orm, routerStubs}) => {
