@@ -4,11 +4,9 @@ catalog:
 overrides:
   "react-router-hono-server@2>hono": "catalog:"
 
-onlyBuiltDependencies:
-  - "@biomejs/biome"
-  - "@tailwindcss/oxide"
-  - "esbuild"
-  - "msw"
-
 allowBuilds:
   esbuild: true
+  '@biomejs/biome': true
+  '@tailwindcss/oxide': true
+  msw: true
+strictPeerDependencies: false
