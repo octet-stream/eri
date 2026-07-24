@@ -1,43 +1,52 @@
-import {Entity, ManyToOne, Property, Unique} from "@mikro-orm/mariadb"
-import type {Session as SessionSchema} from "better-auth"
+import {defineEntity, p} from "@mikro-orm/core"
+import type {Session as BASession} from "better-auth"
 
-import type {Maybe} from "../../../lib/types/Maybe.ts"
+import type {EntityShape} from "../../lib/db/orm.ts"
 
 import {Record} from "./Record.ts"
 import {User} from "./User.ts"
 
-export interface DatabaseSession extends Omit<SessionSchema, "userId"> {}
+export interface DatabaseSession extends Omit<BASession, "userId"> {}
+
+export const SessionSchema = defineEntity({
+  name: "Session",
+  extends: Record,
+  properties: {
+    /**
+     * Session token
+     */
+    token: p.string(),
+
+    /**
+     * Date a time of session expiration
+     */
+    expiresAt: p.datetime(),
+
+    /**
+     * The IP address of the device
+     */
+    ipAddress: p.string().nullable(),
+
+    /**
+     * The user agent information of the device
+     */
+    userAgent: p.string().nullable(),
+
+    /**
+     * User associated with the sesssion
+     */
+    user: () => p.manyToOne(User).eager(true)
+  } satisfies EntityShape<DatabaseSession, keyof Record>,
+  uniques: [
+    {
+      properties: "token"
+    }
+  ]
+})
 
 /**
  * Represents a session stored in a database
  */
-@Entity()
-export class Session extends Record implements DatabaseSession {
-  @Property<Session>({type: "string"})
-  @Unique()
-  token!: string
+export class Session extends SessionSchema.class implements DatabaseSession {}
 
-  /**
-   * Date a time of session expiration
-   */
-  @Property<Session>({type: "datetime"})
-  expiresAt!: Date
-
-  /**
-   * The IP address of the device
-   */
-  @Property<Session>({type: "string", nullable: true, default: null})
-  ipAddress?: Maybe<string> = null
-
-  /**
-   * The user agent information of the device
-   */
-  @Property<Session>({type: "string", nullable: true, default: null})
-  userAgent?: Maybe<string> = null
-
-  /**
-   * User associated with the sesssion
-   */
-  @ManyToOne(() => User, {eager: true})
-  user!: User
-}
+SessionSchema.setClass(Session)

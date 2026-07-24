@@ -1,39 +1,56 @@
-import type {MikroORM} from "@mikro-orm/mariadb"
-import {afterAll, beforeAll, beforeEach, test} from "vitest"
-
-import {orm} from "../../app/server/lib/db/orm.ts"
+import {tmpdir} from "node:os"
+import {join} from "node:path"
+import {nanoid} from "nanoid"
+import {v7} from "uuid"
+import {createLibsqlConfig} from "#app/server/lib/db/configs/libsql.ts"
+import {createOrm, type MikroOrmInstance} from "../../app/server/lib/db/orm.ts"
+import {baseTest} from "./base.ts"
 
 export interface OrmTestContext {
-  orm: MikroORM
+  orm: MikroOrmInstance
 }
 
-beforeAll(async () => {
-  orm.config.set("allowGlobalContext", true)
-  await orm.getSchemaGenerator().ensureDatabase()
-  await orm.connect()
-})
+export const ormTest = baseTest
+  .extend("ormConfig", {scope: "file"}, ({config}) => {
+    const dbName = join(
+      tmpdir(),
+      "eri-test-databases",
+      `${v7()}~${nanoid()}.db`
+    )
 
-afterAll(async () => {
-  await orm.getSchemaGenerator().dropDatabase()
-  await orm.close()
-})
+    const ormConfig = createLibsqlConfig({
+      ...config.orm,
 
-beforeEach(async () => {
-  const generator = orm.getSchemaGenerator()
-  await generator.dropSchema({dropForeignKeys: true, dropMigrationsTable: true})
-  await generator.createSchema()
-})
+      connection: {
+        ...config.orm.connection,
 
-export const ormTest = test.extend<OrmTestContext>({
-  orm: [
-    async ({task: _}, use) => {
-      await use(orm)
-    },
+        dbName
+      }
+    })
 
-    {
-      auto: true
+    return {...ormConfig, allowGlobalContext: true}
+  })
+  .extend(
+    "orm",
+
+    async ({ormConfig}, {onCleanup}) => {
+      const orm = await createOrm(ormConfig)
+
+      await orm.schema.create()
+      await orm.connect()
+
+      // Wipe out database after each test
+      onCleanup(async () => {
+        await orm.schema.drop({
+          dropForeignKeys: true,
+          dropMigrationsTable: true
+        })
+
+        await orm.close()
+      })
+
+      return orm
     }
-  ]
-})
+  )
 
 export {ormTest as test}

@@ -34,7 +34,7 @@ export const MainInfoSection: FC = () => {
   })
 
   return (
-    <Form {...getFormProps(form)} method="patch" className="w-full">
+    <Form {...getFormProps(form)} method="post" className="w-full">
       <Card>
         <CardHeader>
           <CardTitle>Account information</CardTitle>

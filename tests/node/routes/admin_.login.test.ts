@@ -1,12 +1,12 @@
 import {expect, suite} from "vitest"
-import {action} from "../../../app/routes/admin_.login/route.tsx"
-import {auth} from "../../../app/server/lib/auth/auth.ts"
-import {test} from "../../fixtures/admin.ts"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.ts"
-import {getCookies} from "../../utils/getCookies.ts"
+
+import {action} from "#app/routes/admin_.login/route.tsx"
+
+import {test} from "#tests/fixtures/adminRouter.ts"
+import {getCookies} from "#tests/utils/getCookies.ts"
 
 suite("action", () => {
-  test("redirects to /admin on success", async ({admin}) => {
+  test("redirects to /admin on success", async ({admin, routerStubs}) => {
     expect.hasAssertions()
 
     const form = new FormData()
@@ -20,7 +20,7 @@ suite("action", () => {
     })
 
     try {
-      await action(createStubActionArgs({request}))
+      await action(routerStubs.createActionArgs({request}))
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response
@@ -31,7 +31,7 @@ suite("action", () => {
     }
   })
 
-  test("returns session cookie", async ({admin}) => {
+  test("returns session cookie", async ({admin, auth, routerStubs}) => {
     expect.hasAssertions()
 
     const ctx = await auth.$context
@@ -49,7 +49,7 @@ suite("action", () => {
     })
 
     try {
-      await action(createStubActionArgs({request}))
+      await action(routerStubs.createActionArgs({request}))
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response
@@ -63,7 +63,7 @@ suite("action", () => {
     }
   })
 
-  test("returns error for incorrect email", async ({admin}) => {
+  test("returns error for incorrect email", async ({admin, routerStubs}) => {
     const form = new FormData()
 
     form.set("email", "malformed email")
@@ -74,13 +74,13 @@ suite("action", () => {
       body: form
     })
 
-    const response = await action(createStubActionArgs({request}))
+    const response = await action(routerStubs.createActionArgs({request}))
 
     expect(response.init?.status).toBe(422)
     expect(Object.keys(response.data.error ?? {})).toEqual(["email"])
   })
 
-  test("returns error for incorrect password", async ({admin}) => {
+  test("returns error for incorrect password", async ({admin, routerStubs}) => {
     const form = new FormData()
 
     form.set("email", admin.viewer.email)
@@ -91,7 +91,7 @@ suite("action", () => {
       body: form
     })
 
-    const response = await action(createStubActionArgs({request}))
+    const response = await action(routerStubs.createActionArgs({request}))
 
     expect(response.init?.status).toBe(422)
     expect(Object.keys(response.data.error ?? {})).toEqual(["password"])
@@ -100,7 +100,10 @@ suite("action", () => {
     ])
   })
 
-  test("returns form error when user is not found", async ({admin}) => {
+  test("returns form error when user is not found", async ({
+    admin,
+    routerStubs
+  }) => {
     const form = new FormData()
 
     form.set("email", "test@example.com")
@@ -111,14 +114,14 @@ suite("action", () => {
       body: form
     })
 
-    const response = await action(createStubActionArgs({request}))
+    const response = await action(routerStubs.createActionArgs({request}))
 
     expect(response.init?.status).toBe(401)
     expect(Object.keys(response.data.error ?? {})).toEqual([""])
     expect(response.data.error?.[""]).toEqual(["Invalid email or password"])
   })
 
-  test("throws form error for wrong password", async ({admin}) => {
+  test("throws form error for wrong password", async ({admin, routerStubs}) => {
     const form = new FormData()
 
     form.set("email", admin.viewer.email)
@@ -129,7 +132,7 @@ suite("action", () => {
       body: form
     })
 
-    const response = await action(createStubActionArgs({request}))
+    const response = await action(routerStubs.createActionArgs({request}))
 
     expect(response.init?.status).toBe(401)
     expect(Object.keys(response.data.error ?? {})).toEqual([""])

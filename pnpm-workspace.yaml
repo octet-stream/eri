@@ -1,0 +1,12 @@
+catalog:
+  hono: 4.12.18
+
+overrides:
+  "react-router-hono-server@2>hono": "catalog:"
+
+allowBuilds:
+  esbuild: true
+  '@biomejs/biome': true
+  '@tailwindcss/oxide': true
+  msw: true
+strictPeerDependencies: false

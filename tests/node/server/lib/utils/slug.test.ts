@@ -5,7 +5,7 @@ import {
   formatSlugDate,
   formatSlugName,
   SLUG_DATE_FORMAT
-} from "../../../../../app/server/lib/utils/slug.js"
+} from "#app/server/lib/utils/slug.js"
 
 suite(formatSlugDate.name, () => {
   test("formats date", () => {
@@ -46,6 +46,6 @@ suite(formatSlugName.name, () => {
   test("replaces period symbold", () => {
     const actual = formatSlugName("Hello.world")
 
-    expect(actual).toBe("hello-period-world")
+    expect(actual).toBe("hello-dot-world")
   })
 })

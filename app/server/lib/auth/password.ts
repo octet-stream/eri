@@ -1,4 +1,8 @@
-import {hash as _hash, verify as _verify, type Options} from "@node-rs/argon2"
+import {
+  hash as argonHash,
+  verify as argonVerify,
+  type Options
+} from "@node-rs/argon2"
 
 const normalize = (input: string) => input.normalize("NFKC")
 
@@ -11,7 +15,7 @@ const defaults: Options = {
 }
 
 export const hash = (password: string, options?: Options) =>
-  _hash(normalize(password), {...defaults, ...options})
+  argonHash(normalize(password), {...defaults, ...options})
 
 export const verify = (hash: string, password: string, options?: Options) =>
-  _verify(hash, normalize(password), {...defaults, ...options})
+  argonVerify(hash, normalize(password), {...defaults, ...options})

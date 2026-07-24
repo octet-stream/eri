@@ -1,6 +1,7 @@
 import type {SubmissionResult} from "@conform-to/react"
-import {createRoutesStub} from "react-router"
+import {createRoutesStub, Outlet} from "react-router"
 import {expect, test} from "vitest"
+import {userEvent} from "vitest/browser"
 import {render} from "vitest-browser-react"
 
 import {AdminLoginPage} from "../../../../app/routes/admin_.login/AdminLoginPage.tsx"
@@ -8,12 +9,16 @@ import {AdminLoginPage} from "../../../../app/routes/admin_.login/AdminLoginPage
 test("displays login form", async () => {
   const Stub = createRoutesStub([
     {
-      path: "/",
+      path: "/admin",
+      Component: () => <Outlet />
+    },
+    {
+      path: "/admin/login",
       Component: AdminLoginPage as any
     }
   ])
 
-  const screen = render(<Stub initialEntries={["/"]} />)
+  const screen = await render(<Stub initialEntries={["/admin/login"]} />)
 
   await expect.element(screen.getByText("Login")).toBeVisible()
 })
@@ -21,12 +26,16 @@ test("displays login form", async () => {
 test("has active Log in button", async () => {
   const Stub = createRoutesStub([
     {
-      path: "/",
-      Component: AdminLoginPage as any
+      path: "/admin",
+      Component: () => <Outlet />
+    },
+    {
+      path: "/admin/login",
+      Component: AdminLoginPage
     }
   ])
 
-  const screen = render(<Stub initialEntries={["/"]} />)
+  const screen = await render(<Stub initialEntries={["/admin/login"]} />)
 
   await expect
     .element(screen.getByRole("button", {name: "Log in"}))
@@ -36,28 +45,35 @@ test("has active Log in button", async () => {
 test("has active Passkey button", async () => {
   const Stub = createRoutesStub([
     {
-      path: "/",
-      Component: AdminLoginPage as any
+      path: "/admin",
+      Component: () => <Outlet />
+    },
+    {
+      path: "/admin/login",
+      Component: AdminLoginPage
     }
   ])
 
-  const screen = render(<Stub initialEntries={["/"]} />)
+  const screen = await render(<Stub initialEntries={["/admin/login"]} />)
 
   await expect
     .element(screen.getByRole("button", {name: "Use Passkey"}))
     .toBeEnabled()
 })
 
-// FIXME: I have no idea why it renders 404 for this test
 test.skip("hightlight input errors", async () => {
   const emailError = "Email required"
   const passwordError = "Password required"
 
   const Stub = createRoutesStub([
     {
-      path: "/",
-      Component: AdminLoginPage as any,
-      async action(): Promise<SubmissionResult> {
+      path: "/admin",
+      Component: () => <Outlet />
+    },
+    {
+      path: "/admin/login",
+      Component: AdminLoginPage,
+      action(): SubmissionResult {
         return {
           error: {
             email: [emailError],
@@ -68,9 +84,15 @@ test.skip("hightlight input errors", async () => {
     }
   ])
 
-  const screen = render(<Stub initialEntries={["/"]} />)
+  const screen = await render(<Stub initialEntries={["/admin/login"]} />)
 
-  await screen.getByRole("button", {name: "Log in"}).click()
+  const element = screen.getByRole("button", {name: "Log in"})
+
+  // The element is here
+  await expect.element(element).toBeInTheDocument()
+
+  // ...but I can't click on the button, wtf
+  await userEvent.click(element)
 
   await expect
     .element(screen.getByPlaceholder("me@example.com"))

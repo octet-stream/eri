@@ -4,6 +4,9 @@ import {ServerPort} from "./server/ServerPort.ts"
 
 export const Server = z
   .object({
+    /**
+     * Port number to attach the production server to
+     */
     port: ServerPort
   })
   .transform(value => Object.freeze(value))

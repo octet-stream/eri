@@ -1,6 +1,6 @@
 import {describe, expect, test} from "vitest"
 
-import {PageArgs} from "../../../../../app/server/zod/utils/pagination/PageArgs.ts"
+import {PageArgs} from "#app/server/zod/utils/pagination/PageArgs.ts"
 
 describe("constructor", () => {
   test("returns args with default values", () => {

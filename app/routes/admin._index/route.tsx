@@ -2,39 +2,36 @@ import type {FC} from "react"
 
 import {ormContext} from "../../server/contexts/orm.ts"
 import {Post} from "../../server/db/entities.ts"
-import {withAdmin} from "../../server/lib/admin/withAdmin.ts"
 import {PostPage} from "../../server/zod/post/PostPage.ts"
 import type {Route} from "./+types/route.ts"
 import {NoPosts} from "./components/NoPosts.tsx"
 import {PostsList} from "./components/PostsList.tsx"
 
-export const loader = withAdmin(
-  async ({request, context}: Route.LoaderArgs) => {
-    const orm = context.get(ormContext)
+export const loader = async ({request, context}: Route.LoaderArgs) => {
+  const orm = context.get(ormContext)
 
-    const search = new URL(request.url).searchParams
-    const page = await PostPage.parseAsync({
-      page: search.get("page")
-    })
+  const search = new URL(request.url).searchParams
+  const page = await PostPage.parseAsync({
+    page: search.get("page")
+  })
 
-    const {args} = page.params
-    const [items, count] = await orm.em.findAndCount(
-      Post,
+  const {args} = page.params
+  const [items, count] = await orm.em.findAndCount(
+    Post,
 
-      {},
+    {},
 
-      {
-        offset: args.offset,
-        limit: args.limit,
-        orderBy: {
-          createdAt: "desc"
-        }
+    {
+      offset: args.offset,
+      limit: args.limit,
+      orderBy: {
+        createdAt: "desc"
       }
-    )
+    }
+  )
 
-    return page.reply({items, count})
-  }
-)
+  return page.reply({items, count})
+}
 
 const AdminDashboardPage: FC<Route.ComponentProps> = ({loaderData}) => {
   const {rowsCount} = loaderData

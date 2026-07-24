@@ -1,16 +1,5 @@
-import type {Hidden, Opt} from "@mikro-orm/mariadb"
-import {
-  Collection,
-  Entity,
-  JsonType,
-  ManyToOne,
-  OneToMany,
-  Property,
-  Unique
-} from "@mikro-orm/mariadb"
+import {defineEntity, OptionalProps, p} from "@mikro-orm/core"
 import type {JSONContent} from "@tiptap/core"
-
-import {formatSlug} from "../../lib/utils/slug.ts"
 
 import {PostPrevKnownSlug} from "./PostPrevKnownSlug.ts"
 import {RecordSoft} from "./RecordSoft.ts"
@@ -22,45 +11,48 @@ export interface PostInput {
   author: User
 }
 
+export const PostSchema = defineEntity({
+  name: "Post",
+  extends: RecordSoft,
+  properties: {
+    /**
+     * Post title
+     */
+    title: p.string().columnType("text collate nocase"),
+
+    /**
+     * Human-readable, unique, URL-friendly identifier of the post
+     */
+    slug: p.string().length(512).columnType("text collate nocase"),
+
+    /**
+     * Post content in JSON format (tiptap)
+     */
+    content: p.json<JSONContent>().lazy(),
+
+    /**
+     * List of previously known post `slug`
+     */
+    pks: () => p.oneToMany(PostPrevKnownSlug).mappedBy("post").hidden(),
+
+    /**
+     * The author of the post
+     */
+    author: () => p.manyToOne(User).eager(true)
+  },
+
+  uniques: [
+    {
+      properties: "slug"
+    }
+  ]
+})
+
 /**
  * Represents a post stored in database
  */
-@Entity()
-export class Post extends RecordSoft {
-  /**
-   * Post title
-   */
-  @Property<Post>({type: "string"})
-  title: string
-
-  @Property<Post>({type: JsonType, lazy: true})
-  content: JSONContent
-
-  /**
-   * Human-readable, unique, URL-friendly identifier of the post
-   */
-  @Property<Post>({type: "string", length: 512})
-  @Unique()
-  readonly slug!: Opt<string>
-
-  /**
-   * List of previously known post `slug`
-   */
-  @OneToMany(() => PostPrevKnownSlug, "post", {hidden: true})
-  readonly pks = new Collection<Hidden<PostPrevKnownSlug>, this>(this)
-
-  /**
-   * The author of the post
-   */
-  @ManyToOne(() => User, {eager: true})
-  author!: User
-
-  constructor(input: PostInput) {
-    super()
-
-    this.title = input.title
-    this.author = input.author
-    this.content = input.content
-    this.slug = formatSlug(this.title, this.createdAt)
-  }
+export class Post extends PostSchema.class {
+  [OptionalProps]?: "slug"
 }
+
+PostSchema.setClass(Post)

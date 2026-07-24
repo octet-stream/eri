@@ -1,24 +1,31 @@
-import {Entity, ManyToOne, type Opt, Property, Unique} from "@mikro-orm/mariadb"
+import {defineEntity, OptionalProps, p} from "@mikro-orm/core"
 
 import {Post} from "./Post.ts"
 import {RecordSoft} from "./RecordSoft.ts"
 
-@Entity()
-export class PostPrevKnownSlug extends RecordSoft {
-  @Property({type: "varchar", length: 512})
-  @Unique()
-  slug!: Opt<string>
+export const PostPrevKnownSlugSchema = defineEntity({
+  name: "PostPrevKnownSlug",
+  extends: RecordSoft,
+  properties: {
+    slug: p.string().length(512).columnType("text collate nocase"),
+    post: () => p.manyToOne(Post)
+  },
+  uniques: [
+    {
+      properties: "slug"
+    }
+  ]
+})
 
-  /**
-   * The post associated with the pks
-   */
-  @ManyToOne(() => Post)
-  post: Post
-
+export class PostPrevKnownSlug extends PostPrevKnownSlugSchema.class {
   constructor(post: Post) {
     super()
 
     this.slug = post.slug
     this.post = post
   }
+
+  [OptionalProps]?: "slug"
 }
+
+PostPrevKnownSlugSchema.setClass(PostPrevKnownSlug)

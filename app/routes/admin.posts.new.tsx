@@ -7,7 +7,6 @@ import {
 import {parseWithZod} from "@conform-to/zod/v4"
 import type {FC} from "react"
 import {data, href, replace} from "react-router"
-
 import {
   Breadcrumb,
   type BreadcrumbHandle
@@ -19,8 +18,7 @@ import {Button} from "../components/ui/Button.tsx"
 import {adminContext} from "../server/contexts/admin.ts"
 import {ormContext} from "../server/contexts/orm.ts"
 import {Post} from "../server/db/entities.ts"
-import {noopAdminLoader} from "../server/lib/admin/noopAdminLoader.server.ts"
-import {withAdmin} from "../server/lib/admin/withAdmin.ts"
+import {getPostTitle} from "../server/lib/editor/utils.ts"
 import {slugToParams} from "../server/lib/utils/slug.ts"
 import {
   AdminPostInput,
@@ -28,33 +26,33 @@ import {
 } from "../server/zod/admin/AdminPostInput.js"
 import type {Route} from "./+types/admin.posts.new.ts"
 
-export const loader = noopAdminLoader
+export const loader = async () => null
 
-export const action = withAdmin(
-  async ({request, context}: Route.ActionArgs) => {
-    const admin = context.get(adminContext)
-    const orm = context.get(ormContext)
-    const submission = parseWithZod(await request.formData(), {
-      schema: AdminPostInput
-    })
+export const action = async ({request, context}: Route.ActionArgs) => {
+  const admin = context.get(adminContext)
+  const orm = context.get(ormContext)
+  const form = await request.formData()
 
-    if (submission.status !== "success") {
-      return data(submission.reply(), 422)
-    }
+  const submission = parseWithZod(form, {
+    schema: AdminPostInput,
+    disableAutoCoercion: true // Having this option disabled seem to break the input
+  })
 
-    const {title, content} = submission.value
-
-    const post = orm.em.create(Post, {
-      author: admin.user,
-      title: title.textContent,
-      content: content.toJSON()
-    })
-
-    await orm.em.persistAndFlush(post)
-
-    throw replace(href("/admin/posts/:date/:name", slugToParams(post.slug)))
+  if (submission.status !== "success") {
+    return data(submission.reply(), 422)
   }
-)
+
+  const title = getPostTitle(submission.value)
+  const post = orm.em.create(Post, {
+    author: admin.user,
+    title: title.textContent,
+    content: submission.value.toJSON()
+  })
+
+  await orm.em.persist(post).flush()
+
+  throw replace(href("/admin/posts/:date/:name", slugToParams(post.slug)))
+}
 
 export const meta: Route.MetaFunction = () => [
   {

@@ -1,21 +1,22 @@
 import {faker} from "@faker-js/faker"
 import dedent from "dedent"
 import {expect, suite} from "vitest"
-import {action, loader} from "../../../app/routes/admin.posts.new.tsx"
-import {Post} from "../../../app/server/db/entities.ts"
 
+import {action} from "#app/routes/admin.posts.new.tsx"
+import {Post} from "#app/server/db/entities.ts"
+import {getPostTitle} from "#app/server/lib/editor/utils.ts"
 import {
   AdminPostInput,
   type IAdminPostInput
-} from "../../../app/server/zod/admin/AdminPostInput.js"
-import {test} from "../../fixtures/admin.ts"
-import {createAdminAuthLoaderSuite} from "../../shared/adminAuthLoader.ts"
-import {createStubActionArgs} from "../../utils/createStubRouteArgs.ts"
+} from "#app/server/zod/admin/AdminPostInput.js"
 
-createAdminAuthLoaderSuite(loader)
+import {test} from "#tests/fixtures/adminRouter.ts"
 
 suite("action", () => {
-  test("returns error when called with empty form", async ({admin}) => {
+  test("returns error when called with empty form", async ({
+    admin,
+    routerStubs
+  }) => {
     const form = new FormData()
 
     const request = new Request(admin.request, {
@@ -23,13 +24,13 @@ suite("action", () => {
       body: form
     })
 
-    const payload = await action(createStubActionArgs({request}))
+    const payload = await action(routerStubs.createActionArgs({request}))
 
     expect(payload.init?.status).toBe(422)
     expect(Object.keys(payload.data.error ?? {})).toEqual([""]) // The formError returned as "" by conform
   })
 
-  test("redirects when post is created", async ({admin}) => {
+  test("redirects when post is created", async ({admin, routerStubs}) => {
     const form = new FormData()
 
     form.set("fallback", "true")
@@ -48,7 +49,7 @@ suite("action", () => {
     })
 
     try {
-      await action(createStubActionArgs({request}))
+      await action(routerStubs.createActionArgs({request}))
     } catch (error) {
       const response = error as Response
 
@@ -57,7 +58,11 @@ suite("action", () => {
     }
   })
 
-  test("location matches created post slug", async ({admin, orm}) => {
+  test("location matches created post slug", async ({
+    admin,
+    orm,
+    routerStubs
+  }) => {
     const form = new FormData()
 
     form.set("fallback", "true")
@@ -76,7 +81,7 @@ suite("action", () => {
     })
 
     try {
-      await action(createStubActionArgs({request}))
+      await action(routerStubs.createActionArgs({request}))
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response
@@ -94,10 +99,14 @@ suite("action", () => {
     }
   })
 
-  test("created post has correct title and content", async ({admin, orm}) => {
+  test("created post has correct title and content", async ({
+    admin,
+    orm,
+    routerStubs
+  }) => {
     const form = new FormData()
 
-    const input = AdminPostInput.parse({
+    const document = AdminPostInput.parse({
       fallback: "true",
       markdown: dedent`
         # ${faker.lorem.sentence({min: 3, max: 4})}
@@ -106,9 +115,9 @@ suite("action", () => {
       `
     } satisfies IAdminPostInput)
 
-    const title = input.title.textContent
+    const title = getPostTitle(document).textContent
 
-    form.set("content", JSON.stringify(input.content))
+    form.set("content", JSON.stringify(document))
 
     const request = new Request(admin.request, {
       method: "POST",
@@ -116,7 +125,7 @@ suite("action", () => {
     })
 
     try {
-      await action(createStubActionArgs({request}))
+      await action(routerStubs.createActionArgs({request}))
     } catch (response) {
       if (!(response instanceof Response)) {
         throw response
@@ -130,7 +139,7 @@ suite("action", () => {
       const slug = location?.replace(/^\/admin\/posts\//, "")
       const post = await orm.em.findOne(Post, {slug}, {populate: ["content"]})
 
-      expect(post).toMatchObject({title, content: input.content.toJSON()})
+      expect(post).toMatchObject({title, content: document.toJSON()})
     }
   })
 })

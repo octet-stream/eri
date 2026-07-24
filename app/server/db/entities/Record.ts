@@ -1,22 +1,38 @@
-import {Index, type Opt, Property} from "@mikro-orm/mariadb"
+import {defineEntity, p} from "@mikro-orm/core"
 
 import {Node} from "./Node.ts"
+
+export const RecordSchema = defineEntity({
+  name: "Record",
+  abstract: true,
+  extends: Node,
+  properties: {
+    /**
+     * The date and time the entity is created
+     */
+    createdAt: p.datetime().onCreate(() => new Date()),
+
+    /**
+     * The date and time the entity was last updated
+     */
+    updatedAt: p
+      .datetime()
+      .onCreate(() => new Date())
+      .onUpdate(() => new Date())
+  },
+  indexes: [
+    {
+      properties: "createdAt"
+    },
+    {
+      properties: "updatedAt"
+    }
+  ]
+})
 
 /**
  * Represents abstract base database entity with comman dates
  */
-export abstract class Record extends Node {
-  /**
-   * The date and time the entity is created
-   */
-  @Property<Record>({type: "datetime"})
-  @Index()
-  readonly createdAt: Opt<Date> = new Date()
+export abstract class Record extends RecordSchema.class {}
 
-  /**
-   * The date and time the entity was last updated
-   */
-  @Property<Record>({type: "datetime", onUpdate: () => new Date()})
-  @Index()
-  readonly updatedAt: Opt<Date> = new Date()
-}
+RecordSchema.setClass(Record)

@@ -5,13 +5,21 @@ import {customAlphabet, urlAlphabet} from "nanoid"
 import validator from "validator"
 
 import type {RawDate} from "../../../lib/types/RawDate.ts"
-import type {IPostSlug, OPostSlug} from "../../zod/post/PostSlug.ts"
 
 export const SLUG_DATE_FORMAT = "yyyy-MM-dd"
 
 export const SLUG_NAME_VALID_REGEXPR = /^[a-z0-9-]+~[a-zA-Z0-9]{5}$/
 
-export function slugToParams(value: OPostSlug): IPostSlug {
+// I'm using type because TypeScript is weird sometimes
+export type SlugParams = {
+  name: string
+  date: string
+}
+
+/**
+ * Takes `slug` string and splits it into object params
+ */
+export function slugToParams(value: string): SlugParams {
   const [date, name] = value.split("/")
 
   return {date, name}
@@ -52,7 +60,7 @@ export const isSlugDateValid = (date: string): boolean =>
  * @example
  *
  * ```ts
- * import {isSlugNameValid} from "server/lib/util/slug"
+ * import {isSlugNameValid} from "#app/server/lib/util/slug.ts"
  *
  * isSLugNameValid("hello-word~3u0tf")
  * // -> true
@@ -75,7 +83,7 @@ export const isSlugNameValid = (name: string): boolean =>
  * @example
  *
  * ```ts
- * import {isSlugValid} from "server/lib/util/slug"
+ * import {isSlugValid} from "#app/server/lib/util/slug"
  *
  * isSlugValid("2023-03-28/hello-horld~3u0tf")
  * // -> true
@@ -112,7 +120,7 @@ export const formatSlugDate = (date: RawDate) => format(date, SLUG_DATE_FORMAT)
 const customReplacements: readonly [key: string, replacement: string][] = [
   [":", "colon"],
   [",", "comma"],
-  [".", "period"],
+  [".", "dot"],
   ["@", "at"]
 ].map(([key, replacement]) => [key, ` ${replacement} `])
 
@@ -141,11 +149,11 @@ const withSuffix = (base: string) => `${base}~${formatSlugSuffix()}`
  * Formats slug from given `name` and `date`.
  *
  * ```ts
- * import {formatSlug} from "server/lib/util/slug"
+ * import {formatSlug} from "#app/server/lib/util/slug"
  *
- * formatSlug("hello-world", "2023-03-28T14:56:53.702Z")
- * // -> 2023-03-28/hello-world~3u0tf
+ * formatSlug("Hello World", "1970-01-01T00:00:00.000Z")
+ * // -> 1970-01-01/hello-world~3u0tf
  * ```
  */
 export const formatSlug = (name: string, date: RawDate) =>
-  withSuffix(withName(name, format(toDate(date), SLUG_DATE_FORMAT)))
+  withSuffix(withName(name, formatSlugDate(toDate(date))))

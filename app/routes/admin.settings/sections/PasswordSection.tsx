@@ -29,7 +29,7 @@ export const PasswordSection: FC = () => {
   })
 
   return (
-    <Form {...getFormProps(form)} method="patch" className="w-full">
+    <Form {...getFormProps(form)} method="post" className="w-full">
       <Card>
         <CardHeader>
           <CardTitle>Update password</CardTitle>

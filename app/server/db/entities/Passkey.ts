@@ -1,61 +1,69 @@
-import {Entity, ManyToOne, Property} from "@mikro-orm/mariadb"
-
+import type {Passkey as BAPasskey} from "@better-auth/passkey"
+import {defineEntity, p} from "@mikro-orm/core"
+import type {Simplify} from "../../../lib/types/Simplify.ts"
+import type {EntityShape} from "../../lib/db/orm.ts"
 import {Record} from "./Record.ts"
 import {User} from "./User.ts"
 
-@Entity()
-export class Passkey extends Record {
-  /**
-   * The name of the passkey
-   */
-  @Property({type: "string", nullable: true, default: null})
-  name?: string
+export type DeviceType = BAPasskey["deviceType"]
 
-  /**
-   * The public key of the passkey
-   */
-  @Property({type: "string"})
-  publicKey!: string
+type DatabasePasskey = Simplify<
+  Omit<BAPasskey, "userId" | "name"> & {
+    name: string | null | undefined
+  }
+>
 
-  /**
-   * The unique identifier of the registered credential
-   */
-  @Property({type: "string"})
-  credentialID!: string
+export const PasskeySchema = defineEntity({
+  name: "Passkey",
+  extends: Record,
+  properties: {
+    /**
+     * The name of the passkey
+     */
+    name: p.string().nullable(),
 
-  /**
-   * The counter of the passkey
-   */
-  @Property({type: "integer", unsigned: true, default: 0})
-  counter!: number
+    /**
+     * The public key of the passkey
+     */
+    publicKey: p.string(),
 
-  /**
-   * The type of device used to register the passkey
-   */
-  @Property({type: "string"})
-  deviceType!: string
+    /**
+     * The unique identifier of the registered credential
+     */
+    credentialID: p.string(),
 
-  /**
-   * Whether the passkey is backed up
-   */
-  @Property({type: "boolean"})
-  backedUp!: boolean
+    /**
+     * The counter of the passkey
+     */
+    counter: p.integer().unsigned(),
 
-  /**
-   * The transports used to register the passkey
-   */
-  @Property({type: "string"})
-  transports!: string
+    /**
+     * The type of device used to register the passkey
+     */
+    deviceType: p.string().$type<DeviceType>(),
 
-  /**
-   * Authenticator's Attestation GUID indicating the type of the authenticator
-   */
-  @Property({type: "string", nullable: true})
-  aaguid?: string
+    /**
+     * Whether the passkey is backed up
+     */
+    backedUp: p.boolean(),
 
-  /**
-   * The user associated with the passkey
-   */
-  @ManyToOne(() => User, {eager: true})
-  user!: string
-}
+    /**
+     * The transports used to register the passkey
+     */
+    transports: p.string(),
+
+    /**
+     * Authenticator's Attestation GUID indicating the type of the authenticator
+     */
+    aaguid: p.string().nullable(),
+
+    /**
+     * The user associated with the passkey
+     */
+    user: () => p.manyToOne(User).eager(true)
+  } satisfies EntityShape<DatabasePasskey, keyof Record>
+})
+
+export class Passkey extends PasskeySchema.class {}
+
+PasskeySchema.setClass(Passkey)

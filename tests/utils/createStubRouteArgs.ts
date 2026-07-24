@@ -1,57 +1,45 @@
-import {RouterContextProvider} from "react-router"
+import type {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  RouterContextProvider
+} from "react-router"
 
-import type {Replace} from "../../app/lib/types/Replace.ts"
-import {authContext} from "../../app/server/contexts/auth.ts"
-import {ormContext} from "../../app/server/contexts/orm.ts"
-import {resHeadersContext} from "../../app/server/contexts/resHeaders.ts"
-import {auth} from "../../app/server/lib/auth/auth.ts"
-import {orm} from "../../app/server/lib/db/orm.ts"
-import type {ActionArgs} from "../../app/server/lib/types/Action.ts"
-import type {LoaderArgs} from "../../app/server/lib/types/Loader.ts"
+import type {Replace} from "#app/lib/types/Replace.ts"
 
-interface CreateStubRouteArgsInput<
-  TParams extends Record<string, unknown> = Record<string, unknown>
+export interface CreateRouterArgsStubsInput<
+  TParams extends {[x: PropertyKey]: any} = {[x: PropertyKey]: any}
 > {
   params?: TParams
   request?: Request
   context?: RouterContextProvider
 }
 
-const createStubRouteArgs =
-  <T extends LoaderArgs | ActionArgs>() =>
-  <TParams extends Record<string, unknown> = Record<string, unknown>>({
-    params,
-    request,
-    context = new RouterContextProvider()
-  }: CreateStubRouteArgsInput<TParams> = {}): Replace<
-    T,
-    {
-      params: TParams
-    }
-  > => {
-    const headers = new Headers()
+export type CreateRouterArgsStubOutput<
+  TBaseArgs extends LoaderFunctionArgs | ActionFunctionArgs,
+  TParams extends {[x: PropertyKey]: any}
+> = Replace<TBaseArgs, {params: TParams}>
 
-    context.set(ormContext, orm)
-    context.set(authContext, auth)
-    context.set(resHeadersContext, headers)
+export const createRouterArgsStubsFactory = (
+  baseContext: RouterContextProvider
+) => {
+  const createRouterArgsStubs =
+    <T extends LoaderFunctionArgs | ActionFunctionArgs>() =>
+    <TParams extends {[x: PropertyKey]: any} = {[x: PropertyKey]: any}>({
+      params,
+      request,
+      context = baseContext
+    }: CreateRouterArgsStubsInput<TParams>) =>
+      ({
+        context,
+        request: request ?? new Request("http://localhost"),
+        params: params ?? ({} as TParams)
+      }) as any as CreateRouterArgsStubOutput<T, TParams>
 
-    return {
-      request: request ?? new Request("http://localhost"),
-      context,
-      params: params ?? ({} as TParams)
-    } as any // TypeScript complains about the type, but everything is ok in practice. We can ignore this warning
-  }
+  const createLoaderArgs = createRouterArgsStubs<LoaderFunctionArgs>()
 
-/**
- * Creates stub arguments for `loader`
- */
-export const createStubLoaderArgs = createStubRouteArgs<LoaderArgs>()
+  const createActionArgs = createRouterArgsStubs<ActionFunctionArgs>()
 
-/**
- * Creates stub arguments for `action`
- */
-export const createStubActionArgs = createStubRouteArgs<ActionArgs>()
+  const createMiddlewareArgs = createRouterArgsStubs()
 
-export const createStubMiddlewareArgs = createStubRouteArgs<
-  LoaderArgs | ActionArgs
->()
+  return {createLoaderArgs, createActionArgs, createMiddlewareArgs} as const
+}

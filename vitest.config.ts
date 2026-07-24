@@ -1,4 +1,6 @@
 import react from "@vitejs/plugin-react"
+
+import {playwright} from "@vitest/browser-playwright"
 import {defineConfig} from "vitest/config"
 
 export default defineConfig({
@@ -12,9 +14,7 @@ export default defineConfig({
         plugins: [react()],
         test: {
           name: "Node.js",
-          include: ["tests/node/**/*.test.ts?(x)"],
-          globalSetup: ["tests/setup/docker.ts"],
-          setupFiles: ["tests/setup/dbName.ts"]
+          include: ["tests/node/**/*.test.ts?(x)"]
         }
       },
       {
@@ -30,7 +30,7 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
-            provider: "playwright",
+            provider: playwright(),
             instances: [
               {
                 browser: "chromium"

@@ -1,7 +1,7 @@
 import {describe, expect, test} from "vitest"
 
-import {Page} from "../../../../../app/server/zod/utils/pagination/Page.ts"
-import {PageArgs} from "../../../../../app/server/zod/utils/pagination/PageArgs.ts"
+import {Page} from "#app/server/zod/utils/pagination/Page.ts"
+import {PageArgs} from "#app/server/zod/utils/pagination/PageArgs.ts"
 
 interface Note {
   id: string
