@@ -25,6 +25,7 @@ yarn-error.log*
 # tsimp cache
 /*.tsimp
 
+/.vitest-attachments
 /.databases
 
 # Build target
@@ -48,5 +49,3 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
-
-.vitest-attachments
