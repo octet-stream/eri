@@ -42,7 +42,7 @@ suite("action", () => {
     admin,
     routerStubs
   }) => {
-    const [date, name] = post.slug.split("/")
+    const {date, name} = slugToParams(post.slug)
 
     const request = new Request(admin.request, {
       method: "POST", // undici warns this method being in lowercase
