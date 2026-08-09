@@ -31,7 +31,7 @@ in
   packages = with pkgs; [
     docker
     nixd
-    nixfmt-rfc-style
+    nixfmt
     curl
   ];
 
