@@ -24,7 +24,7 @@ export const loader = async ({params, context}: Route.LoaderArgs) => {
       filters: false, // Admin can see all posts
       populate: ["content"],
       failHandler(): never {
-        throw data(null, {
+        throw data("Unable to find post", {
           status: 404,
           statusText: "Unable to find post"
         })

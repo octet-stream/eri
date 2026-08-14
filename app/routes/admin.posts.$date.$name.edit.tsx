@@ -35,7 +35,7 @@ export const loader = async (event: Route.LoaderArgs) => {
   const orm = context.get(ormContext)
 
   const slug = await parseInput(PostSlug, params, {async: true})
-  const post = await orm.em.findOneOrFail(
+  const post = await orm.em.findOne(
     Post,
 
     {
@@ -44,15 +44,16 @@ export const loader = async (event: Route.LoaderArgs) => {
 
     {
       filters: false, // Admin can see and edit all posts
-      populate: ["content"],
-      failHandler(): never {
-        throw data(null, {
-          status: 404,
-          statusText: "Unble to find post"
-        })
-      }
+      populate: ["content"]
     }
   )
+
+  if (!post) {
+    throw data("Unable to find post", {
+      status: 404,
+      statusText: "Unable to find post"
+    })
+  }
 
   return parseOutput(AdminPostUpdateOutput, post, {async: true})
 }
@@ -67,12 +68,12 @@ export const action = async ({request, params, context}: Route.ActionArgs) => {
       throw data(
         formatConformError<unknown, string>(z.flattenError(reason.error)),
 
-        404
+        422
       )
     }
   })
 
-  const post = await orm.em.findOneOrFail(
+  const post = await orm.em.findOne(
     Post,
 
     {
@@ -81,21 +82,22 @@ export const action = async ({request, params, context}: Route.ActionArgs) => {
 
     {
       filters: false, // Admin can see all posts
-      populate: ["content"],
-      failHandler() {
-        throw data(
-          formatConformError({
-            formErrors: ["Unable to find post"]
-          }),
-
-          {
-            status: 404,
-            statusText: "Unable to find post"
-          }
-        )
-      }
+      populate: ["content"]
     }
   )
+
+  if (!post) {
+    throw data(
+      formatConformError({
+        formErrors: ["Unable to find post"]
+      }),
+
+      {
+        status: 422,
+        statusText: "Unable to find post"
+      }
+    )
+  }
 
   const submission = await parseWithZod(await request.formData(), {
     schema: AdminPostInput,

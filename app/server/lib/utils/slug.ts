@@ -17,7 +17,9 @@ export type SlugParams = {
 }
 
 /**
- * Takes `slug` string and splits it into object params
+ * Takes `slug` string and splits it into object params.
+ *
+ * The suffix is returned as part of the `name` param
  */
 export function slugToParams(value: string): SlugParams {
   const [date, name] = value.split("/")

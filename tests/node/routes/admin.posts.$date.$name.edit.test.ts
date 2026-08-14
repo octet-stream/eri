@@ -8,7 +8,7 @@ import {extensions} from "#app/components/post-editor/extensions.ts"
 import {action} from "#app/routes/admin.posts.$date.$name.edit.jsx"
 import {Post} from "#app/server/db/entities.ts"
 import {getPostTitle} from "#app/server/lib/editor/utils.ts"
-import {formatSlugName} from "#app/server/lib/utils/slug.ts"
+import {formatSlugName, slugToParams} from "#app/server/lib/utils/slug.ts"
 import {AdminPostInput} from "#app/server/zod/admin/AdminPostInput.ts"
 
 import {adminRouterTest} from "#tests/fixtures/adminRouter.ts"
@@ -49,7 +49,7 @@ suite("action", () => {
       body: form
     })
 
-    const [date, name] = post.slug.split("/")
+    const {date, name} = slugToParams(post.slug)
 
     try {
       await action(
@@ -95,7 +95,7 @@ suite("action", () => {
       body: form
     })
 
-    const [date, name] = post.slug.split("/")
+    const {date, name} = slugToParams(post.slug)
 
     try {
       await action(
