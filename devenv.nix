@@ -33,6 +33,7 @@ in
     nixd
     nixfmt
     curl
+    corepack
   ];
 
   devcontainer = {
@@ -68,8 +69,7 @@ in
 
   languages.javascript = {
     enable = true;
-    package = pkgs.nodejs-slim_24;
-    corepack.enable = true;
+    package = pkgs.nodejs-slim_26;
   };
 
   services = {
@@ -119,7 +119,7 @@ in
 
   processes = {
     server = {
-      exec = "${pkgs.corepack_24}/bin/pnpm dev";
+      exec = "${pkgs.corepack}/bin/pnpm dev";
       process-compose = {
         depends_on.sqld.condition = "process_healthy";
         readiness_probe = {
@@ -135,12 +135,12 @@ in
 
   tasks = {
     "pnpm:install" = {
-      exec = "${pkgs.corepack_24}/bin/pnpm install --frozen-lockfile";
+      exec = "${pkgs.corepack}/bin/pnpm install --frozen-lockfile";
       before = [ "devenv:enterShell" ];
     };
 
     "db:migrations:up" = {
-      exec = "${pkgs.corepack_24}/bin/pnpm mikro-orm migration:up";
+      exec = "${pkgs.corepack}/bin/pnpm mikro-orm migration:up";
       before = [ "devenv:processes:server" ];
     };
   };
